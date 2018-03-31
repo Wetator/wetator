@@ -273,27 +273,17 @@ public final class ContentUtil {
     NormalizedString tmpResult = new NormalizedString();
 
     // TODO support old word format
-    try {
-      final XWPFDocument tmpDocument = new XWPFDocument(anInputStream);
-      try {
-        final XWPFWordExtractor tmpExtractor = new XWPFWordExtractor(tmpDocument);
-        try {
-          tmpResult.append(tmpExtractor.getText());
+    try (final XWPFDocument tmpDocument = new XWPFDocument(anInputStream);
+        final XWPFWordExtractor tmpExtractor = new XWPFWordExtractor(tmpDocument)) {
+      tmpResult.append(tmpExtractor.getText());
 
-          if (tmpResult.length() <= aMaxLength) {
-            return tmpResult.toString();
-          }
-
-          tmpResult = new NormalizedString(tmpResult.substring(0, aMaxLength));
-          tmpResult.append(MORE);
-          return tmpResult.toString();
-
-        } finally {
-          tmpExtractor.close();
-        }
-      } finally {
-        tmpDocument.close();
+      if (tmpResult.length() <= aMaxLength) {
+        return tmpResult.toString();
       }
+
+      tmpResult = new NormalizedString(tmpResult.substring(0, aMaxLength));
+      tmpResult.append(MORE);
+      return tmpResult.toString();
     } catch (final POIXMLException | UnsupportedFileFormatException e) {
       if (e.getCause() instanceof InvalidFormatException) {
         throw (InvalidFormatException) e.getCause();

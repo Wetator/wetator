@@ -231,8 +231,7 @@ public class WetatorEngine {
             .forName("org.wetator.progresslistener.Log4jProgressListener");
         final Constructor<? extends IProgressListener> tmpConstructor = tmpClass
             .getConstructor(new Class[] { int.class });
-        final IProgressListener tmpProgressListener = tmpConstructor
-            .newInstance(new Object[] { configuration.getRetrospect() });
+        final IProgressListener tmpProgressListener = tmpConstructor.newInstance(configuration.getRetrospect());
 
         tmpProgressListener.init(this);
         addProgressListener(tmpProgressListener);

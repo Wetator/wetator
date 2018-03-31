@@ -172,7 +172,7 @@ public final class DialogUtil {
         if (null == tmpSelectedFile) {
           return null;
         }
-        storeFiles(tmpPreferences, new File[] { tmpSelectedFile });
+        storeFiles(tmpPreferences, tmpSelectedFile);
         return new File[] { tmpSelectedFile };
       case JFileChooser.CANCEL_OPTION:
         return null;

@@ -134,7 +134,7 @@ public class HtmlPageIndex {
    */
   @SuppressWarnings("unchecked")
   public <E extends HtmlElement> E getHtmlElementById(final String aId) throws ElementNotFoundException {
-    return (E) htmlPage.getHtmlElementById(aId);
+    return htmlPage.getHtmlElementById(aId);
   }
 
   /**
@@ -714,7 +714,7 @@ public class HtmlPageIndex {
     textWithoutFormControls.append(" ");
 
     // process childs only if the control is not supported
-    final HTMLObjectElement tmpJsObject = (HTMLObjectElement) anHtmlObject.getScriptableObject();
+    final HTMLObjectElement tmpJsObject = anHtmlObject.getScriptableObject();
     if (null == tmpJsObject || null == tmpJsObject.unwrap()) {
       parseChildren(anHtmlObject);
     }

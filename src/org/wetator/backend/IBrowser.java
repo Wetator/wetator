@@ -71,7 +71,7 @@ public interface IBrowser {
     ZIP,
     /** the rest. */
     OTHER
-  };
+  }
 
   /**
    * Enum for the supported browser types.
@@ -133,7 +133,7 @@ public interface IBrowser {
       }
       return tmpFound;
     }
-  };
+  }
 
   /**
    * Returns the {@link IControlFinder} for this browser.

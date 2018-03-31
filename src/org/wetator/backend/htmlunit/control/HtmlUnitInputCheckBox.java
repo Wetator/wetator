@@ -152,7 +152,7 @@ public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput
           htmlLabel.click();
         }
       } else {
-        aWetatorContext.informListenersWarn("elementAlreadyDeselected", new String[] { getDescribingText() });
+        aWetatorContext.informListenersWarn("elementAlreadyDeselected", getDescribingText());
       }
 
       // wait for silence
