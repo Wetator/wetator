@@ -244,11 +244,7 @@ public class XMLScripter implements IScripter {
       commands = parseScript(tmpReader);
     } catch (final IOException e) {
       throw new ResourceException("Could not read content.", e);
-    } catch (final XMLStreamException e) {
-      throw new InvalidInputException("Error parsing content (" + e.getMessage() + ").", e);
-    } catch (final SAXException e) {
-      throw new InvalidInputException("Error parsing content (" + e.getMessage() + ").", e);
-    } catch (final ParseException e) {
+    } catch (final XMLStreamException | SAXException | ParseException e) {
       throw new InvalidInputException("Error parsing content (" + e.getMessage() + ").", e);
     }
   }

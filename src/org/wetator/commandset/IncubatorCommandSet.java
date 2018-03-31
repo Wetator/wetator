@@ -168,11 +168,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
       try {
         final BigDecimal tmpValue = new BigDecimal(tmpWaitTimeString.getValue());
         tmpWaitTime = tmpValue.longValueExact();
-      } catch (final NumberFormatException e) {
-        final String tmpMessage = Messages.getMessage("integerParameterExpected", "wait", tmpWaitTimeString.toString(),
-            "1");
-        throw new InvalidInputException(tmpMessage);
-      } catch (final ArithmeticException e) {
+      } catch (final NumberFormatException | ArithmeticException e) {
         final String tmpMessage = Messages.getMessage("integerParameterExpected", "wait", tmpWaitTimeString.toString(),
             "1");
         throw new InvalidInputException(tmpMessage);

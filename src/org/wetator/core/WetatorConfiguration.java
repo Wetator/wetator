@@ -790,13 +790,7 @@ public class WetatorConfiguration {
           } else {
             LOG.error("Configuration: Can't load command set '" + tmpCommandSetClassName + "' (" + e.toString() + ").");
           }
-        } catch (final InstantiationException e) {
-          if (LOG.isDebugEnabled()) {
-            LOG.error("Configuration: Can't load command set '" + tmpCommandSetClassName + "'.", e);
-          } else {
-            LOG.error("Configuration: Can't load command set '" + tmpCommandSetClassName + "' (" + e.toString() + ").");
-          }
-        } catch (final IllegalAccessException e) {
+        } catch (final InstantiationException | IllegalAccessException e) {
           if (LOG.isDebugEnabled()) {
             LOG.error("Configuration: Can't load command set '" + tmpCommandSetClassName + "'.", e);
           } else {
