@@ -9,8 +9,8 @@
 
   <application>
     <name>WetatorAntTask</name>
-    <version>1_9_0_beta1</version>
-    <pubversion>1.9.0-SNAPSHOT</pubversion>
+    <version>1_9_0</version>
+    <pubversion>1.9.0</pubversion>
     <jar-basename>wetator-ant</jar-basename>
     <vendor>wetator.org</vendor>
   </application>
