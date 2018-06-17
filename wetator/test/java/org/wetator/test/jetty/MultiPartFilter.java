@@ -60,10 +60,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 import javax.servlet.http.Part;
 
+import org.eclipse.jetty.http.MultiPartFormInputStream;
 import org.eclipse.jetty.util.IO;
 import org.eclipse.jetty.util.LazyList;
 import org.eclipse.jetty.util.MultiMap;
-import org.eclipse.jetty.util.MultiPartInputStreamParser;
 import org.eclipse.jetty.util.StringUtil;
 
 /* ------------------------------------------------------------ */
@@ -156,7 +156,7 @@ public class MultiPartFilter implements Filter {
 
     final MultipartConfigElement tmpConfig = new MultipartConfigElement(tempDir.getCanonicalPath(), maxFileSize,
         maxRequestSize, fileOutputBuffer);
-    final MultiPartInputStreamParser tmpMultiPartInputStream = new MultiPartInputStreamParser(tmpInputStream,
+    final MultiPartFormInputStream tmpMultiPartInputStream = new MultiPartFormInputStream(tmpInputStream,
         tmpContentType, tmpConfig, tempDir);
     tmpMultiPartInputStream.setDeleteOnExit(deleteFiles);
     aRequest.setAttribute(MULTIPART, tmpMultiPartInputStream);
@@ -167,7 +167,7 @@ public class MultiPartFilter implements Filter {
         final Iterator<Part> tmpIterator = tmpParts.iterator();
         while (tmpIterator.hasNext() && tmpParameters.size() < maxFormKeys) {
           final Part tmpPart = tmpIterator.next();
-          final MultiPartInputStreamParser.MultiPart tmpMultiPart = (MultiPartInputStreamParser.MultiPart) tmpPart;
+          final MultiPartFormInputStream.MultiPart tmpMultiPart = (MultiPartFormInputStream.MultiPart) tmpPart;
           if (tmpMultiPart.getFile() != null) {
             aRequest.setAttribute(tmpMultiPart.getName(), tmpMultiPart.getFile());
             if (tmpMultiPart.getContentDispositionFilename() != null) {
@@ -203,7 +203,7 @@ public class MultiPartFilter implements Filter {
       return;
     }
 
-    final MultiPartInputStreamParser tmpMultiPartInputStream = (MultiPartInputStreamParser) aRequest
+    final MultiPartFormInputStream tmpMultiPartInputStream = (MultiPartFormInputStream) aRequest
         .getAttribute(MULTIPART);
     if (tmpMultiPartInputStream != null) {
       try {
