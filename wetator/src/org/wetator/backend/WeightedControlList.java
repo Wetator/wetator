@@ -127,58 +127,61 @@ public final class WeightedControlList {
      * to the user -&gt; larger value
      */
     public static final FoundType BY_TITLE_TEXT = new FoundType("BY_TITLE_TEXT", 9900);
-  
+
     /** Found by text match. */
     public static final FoundType BY_TEXT = new FoundType("BY_TEXT", 9000);
-  
+
     /** Found by table coordinates match. */
     public static final FoundType BY_TABLE_COORDINATE = new FoundType("BY_TABLE_COORDINATE", 6000);
-  
+
     /** Found by aria-label attribute match. */
     public static final FoundType BY_ARIA_LABEL_ATTRIBUTE = new FoundType("BY_ARIA_LABEL_ATTRIBUTE", 5500);
-  
+
     /** Found by image source attribute match. */
     public static final FoundType BY_IMG_SRC_ATTRIBUTE = new FoundType("BY_IMG_SRC_ATTRIBUTE", 5000);
-  
+
     /** Found by image alt attribute match. */
     public static final FoundType BY_IMG_ALT_ATTRIBUTE = new FoundType("BY_IMG_ALT_ATTRIBUTE", 5000);
-  
+
     /** Found by image title attribute match. */
     public static final FoundType BY_IMG_TITLE_ATTRIBUTE = new FoundType("BY_IMG_TITLE_ATTRIBUTE", 5000);
-  
+
     /** Found by inner image source attribute match. */
     public static final FoundType BY_INNER_IMG_SRC_ATTRIBUTE = new FoundType("BY_INNER_IMG_SRC_ATTRIBUTE", 4000);
-  
+
     /** Found by inner image alt attribute match. */
     public static final FoundType BY_INNER_IMG_ALT_ATTRIBUTE = new FoundType("BY_INNER_IMG_ALT_ATTRIBUTE", 4000);
-  
+
     /** Found by inner image title attribute match. */
     public static final FoundType BY_INNER_IMG_TITLE_ATTRIBUTE = new FoundType("BY_INNER_IMG_TITLE_ATTRIBUTE", 4000);
-  
+
     /** Found by title attribute match. */
     public static final FoundType BY_TITLE_ATTRIBUTE = new FoundType("BY_TITLE_ATTRIBUTE", 3500);
-  
+
     /** Found by labeling text match. */
     public static final FoundType BY_LABELING_TEXT = new FoundType("BY_LABELING_TEXT", 3000);
-  
+
     /** Found by placeholder text match. */
     public static final FoundType BY_PLACEHOLDER = new FoundType("BY_PLACEHOLDER", 2500);
-  
+
     /** Found by label HTML element match. */
+    public static final FoundType BY_LABEL_ELEMENT = new FoundType("BY_LABEL_ELEMENT", 2000);
+
+    /** Found by label (the text on a control) match. */
     public static final FoundType BY_LABEL = new FoundType("BY_LABEL", 2000);
-  
+
     /** Found by name match. */
     public static final FoundType BY_NAME = new FoundType("BY_NAME", 1000);
-  
+
     /** Found by inner name match. */
     public static final FoundType BY_INNER_NAME = new FoundType("BY_INNER_NAME", 900);
-  
+
     /** Found by id match. */
     public static final FoundType BY_ID = new FoundType("BY_ID", 400);
-  
+
     private final String name;
     private final int value;
-  
+
     /**
      * @param aName the name
      * @param aBaseType the type to be used as base for the new value calculation
@@ -188,7 +191,7 @@ public final class WeightedControlList {
       name = aName;
       value = aBaseType.value + anOffset;
     }
-  
+
     /**
      * @param aName the name
      * @param aValue the weight
@@ -197,14 +200,14 @@ public final class WeightedControlList {
       name = aName;
       value = aValue;
     }
-  
+
     /**
      * @return the current entry value
      */
     public int getValue() {
       return value;
     }
-  
+
     @Override
     public String toString() {
       // return name + "(" + value + ")";
@@ -222,14 +225,14 @@ public final class WeightedControlList {
     private int distance;
     private int start;
     private int index;
-  
+
     /**
      * @return the encapsulated control
      */
     public IControl getControl() {
       return control;
     }
-  
+
     @Override
     public String toString() {
       // @formatter:off
@@ -253,35 +256,35 @@ public final class WeightedControlList {
    * The comparator used to sort {@link WeightedControlList} entries.
    */
   private static final class EntryComperator implements Comparator<Entry>, Serializable {
-  
+
     private static final long serialVersionUID = 8655421244982375767L;
-  
+
     @Override
     public int compare(final Entry anEntry1, final Entry anEntry2) {
       final int tmpWeightComp = anEntry1.foundType.getValue() - anEntry2.foundType.getValue();
-  
+
       if (0 == tmpWeightComp) {
         final int tmpDeviationComp = anEntry1.deviation - anEntry2.deviation;
-  
+
         if (0 == tmpDeviationComp) {
           final int tmpDistanceComp = anEntry1.distance - anEntry2.distance;
-  
+
           if (0 == tmpDistanceComp) {
             final int tmpStartComp = anEntry1.start - anEntry2.start;
-  
+
             if (0 == tmpStartComp) {
               return anEntry1.index - anEntry2.index;
             }
-  
+
             return tmpStartComp;
           }
-  
+
           return tmpDistanceComp;
         }
-  
+
         return tmpDeviationComp;
       }
-  
+
       return tmpWeightComp;
     }
   }

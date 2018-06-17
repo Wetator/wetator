@@ -42,7 +42,7 @@ public class ByValueAttributeMatcher extends AbstractByAttributeMatcher {
    */
   public ByValueAttributeMatcher(final HtmlPageIndex aHtmlPageIndex, final SearchPattern aPathSearchPattern,
       final FindSpot aPathSpot, final SearchPattern aSearchPattern) {
-    super(aHtmlPageIndex, aPathSearchPattern, aPathSpot, aSearchPattern, FoundType.BY_LABELING_TEXT);
+    super(aHtmlPageIndex, aPathSearchPattern, aPathSpot, aSearchPattern, FoundType.BY_LABEL);
   }
 
   @Override

@@ -83,7 +83,7 @@ public class HtmlUnitOptionGroupIdentifierTest extends AbstractHtmlUnitControlId
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlOptionGroup 'colors' (id='optgroup_colors') part of [HtmlSelect (id='MyFirstSelectId')]] found by: BY_LABELING_TEXT deviation: 0 distance: 0 start: 0 index: 6",
+        "[HtmlOptionGroup 'colors' (id='optgroup_colors') part of [HtmlSelect (id='MyFirstSelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 0 index: 6",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 }

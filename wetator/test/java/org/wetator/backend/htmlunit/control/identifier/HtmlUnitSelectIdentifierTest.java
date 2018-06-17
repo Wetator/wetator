@@ -153,7 +153,7 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlSelect (id='MySecondSelectId')] found by: BY_LABEL deviation: 0 distance: 44 start: 66 index: 16",
+        "[HtmlSelect (id='MySecondSelectId')] found by: BY_LABEL_ELEMENT deviation: 0 distance: 44 start: 66 index: 16",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -216,7 +216,7 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlSelect (id='MySecondSelectId')] found by: BY_LABEL deviation: 0 distance: 44 start: 66 index: 16",
+        "[HtmlSelect (id='MySecondSelectId')] found by: BY_LABEL_ELEMENT deviation: 0 distance: 44 start: 66 index: 16",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
