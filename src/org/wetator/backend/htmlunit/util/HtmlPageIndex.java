@@ -132,7 +132,6 @@ public class HtmlPageIndex {
    * @throws ElementNotFoundException if no element was found for the given id
    * @see com.gargoylesoftware.htmlunit.html.HtmlPage#getHtmlElementById(java.lang.String)
    */
-  @SuppressWarnings("unchecked")
   public <E extends HtmlElement> E getHtmlElementById(final String aId) throws ElementNotFoundException {
     return htmlPage.getHtmlElementById(aId);
   }
