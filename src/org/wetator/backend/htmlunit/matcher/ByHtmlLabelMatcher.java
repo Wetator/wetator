@@ -118,7 +118,7 @@ public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
               } else {
                 tmpDistance = tmpTextBefore.length();
               }
-              tmpMatches.add(new ByHtmlLabelMatchResult(tmpElementForLabel, tmpLabel, FoundType.BY_LABEL, tmpDeviation,
+              tmpMatches.add(new ByHtmlLabelMatchResult(tmpElementForLabel, tmpLabel, FoundType.BY_LABEL_ELEMENT, tmpDeviation,
                   tmpDistance, tmpNodeSpot.getStartPos()));
             }
           } catch (final ElementNotFoundException e) { // NOPMD
@@ -139,7 +139,7 @@ public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
             } else {
               tmpDistance = tmpTextBefore.length();
             }
-            tmpMatches.add(new ByHtmlLabelMatchResult(tmpChildElement, tmpLabel, FoundType.BY_LABEL, tmpDeviation,
+            tmpMatches.add(new ByHtmlLabelMatchResult(tmpChildElement, tmpLabel, FoundType.BY_LABEL_ELEMENT, tmpDeviation,
                 tmpDistance, tmpNodeSpot.getStartPos()));
           }
         }

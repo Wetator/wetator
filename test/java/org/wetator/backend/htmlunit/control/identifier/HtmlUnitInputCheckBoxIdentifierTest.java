@@ -143,7 +143,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
 
     assertEquals(1, tmpFound.getEntriesSorted().size());
     assertEquals(
-        "[HtmlCheckBoxInput (id='MyCheckboxId2') (name='MyCheckboxIdName')] found by: BY_LABEL deviation: 0 distance: 24 start: 40 index: 11",
+        "[HtmlCheckBoxInput (id='MyCheckboxId2') (name='MyCheckboxIdName')] found by: BY_LABEL_ELEMENT deviation: 0 distance: 24 start: 40 index: 11",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -167,7 +167,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
 
     assertEquals(1, tmpFound.getEntriesSorted().size());
     assertEquals(
-        "[HtmlCheckBoxInput (id='MyCheckboxId2') (name='MyCheckboxIdName')] by [HtmlLabel 'SecondLabelText' (id='MyLabelId2') for='MyCheckboxId2'] found by: BY_LABEL deviation: 0 distance: 24 start: 40 index: 11",
+        "[HtmlCheckBoxInput (id='MyCheckboxId2') (name='MyCheckboxIdName')] by [HtmlLabel 'SecondLabelText' (id='MyLabelId2') for='MyCheckboxId2'] found by: BY_LABEL_ELEMENT deviation: 0 distance: 24 start: 40 index: 11",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -193,7 +193,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
 
     assertEquals(1, tmpFound.getEntriesSorted().size());
     assertEquals(
-        "[HtmlCheckBoxInput (id='MyCheckboxId2') (name='MyCheckboxIdName')] found by: BY_LABEL deviation: 10 distance: 24 start: 40 index: 11",
+        "[HtmlCheckBoxInput (id='MyCheckboxId2') (name='MyCheckboxIdName')] found by: BY_LABEL_ELEMENT deviation: 10 distance: 24 start: 40 index: 11",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -219,7 +219,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
 
     assertEquals(1, tmpFound.getEntriesSorted().size());
     assertEquals(
-        "[HtmlCheckBoxInput (id='MyCheckboxId2') (name='MyCheckboxIdName')] by [HtmlLabel 'SecondLabelTextuncheckedCheckBox2' (id='MyLabelId2')] found by: BY_LABEL deviation: 9 distance: 24 start: 40 index: 11",
+        "[HtmlCheckBoxInput (id='MyCheckboxId2') (name='MyCheckboxIdName')] by [HtmlLabel 'SecondLabelTextuncheckedCheckBox2' (id='MyLabelId2')] found by: BY_LABEL_ELEMENT deviation: 9 distance: 24 start: 40 index: 11",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 

@@ -248,7 +248,7 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
               .isHtmlElementInTableCoordinates(aSelect, aTableCoordinates, htmlPageIndex, null);
 
           if (tmpIsInTable) {
-            aWeightedControlList.add(new HtmlUnitOption(tmpOption), WeightedControlList.FoundType.BY_LABELING_TEXT,
+            aWeightedControlList.add(new HtmlUnitOption(tmpOption), WeightedControlList.FoundType.BY_LABEL,
                 tmpDeviation, aDistance, tmpStart, htmlPageIndex.getIndex(tmpOption));
             tmpFound = true;
           }
@@ -269,7 +269,7 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
               .isHtmlElementInTableCoordinates(aSelect, aTableCoordinates, htmlPageIndex, null);
 
           if (tmpIsInTable) {
-            aWeightedControlList.add(new HtmlUnitOption(tmpOption), WeightedControlList.FoundType.BY_LABELING_TEXT,
+            aWeightedControlList.add(new HtmlUnitOption(tmpOption), WeightedControlList.FoundType.BY_LABEL,
                 tmpDeviation, aDistance, tmpStart, htmlPageIndex.getIndex(tmpOption));
             tmpFound = true;
           }
