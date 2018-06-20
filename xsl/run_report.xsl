@@ -306,7 +306,7 @@
                         </xsl:if>
                     </tr>
                 </table>
-                <div style="margin-top: -20px; margin-left: 90.4%;">
+                <div style="margin-top: -18px; margin-left: 90.4%;">
                     <img id="overviewswitcher" src="resources/expand-square.png" alt="show/hide TestCases &amp; -Steps"
                         onclick="showOrHide(this, 'casesandsteps'); switchOverviewTables(this);" class="expandCollapse"/>
                 </div>
