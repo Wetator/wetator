@@ -36,9 +36,10 @@ import org.apache.tools.ant.taskdefs.Property;
 import org.apache.tools.ant.types.Environment;
 import org.apache.tools.ant.types.FileSet;
 import org.apache.tools.ant.types.Path;
+import org.apache.tools.ant.types.PropertySet;
 
 /**
- * The AntTask to execute test within an ant script.
+ * The Ant {@link Task} to execute Wetator tests within an Ant script.
  *
  * @author rbri
  * @author frank.danek
@@ -46,9 +47,10 @@ import org.apache.tools.ant.types.Path;
 public class Wetator extends Task {
   private String config;
   private Path classpath;
-  private FileSet fileset;
-  private List<Property> properties = new ArrayList<Property>();
-  private List<Environment.Variable> sysproperties = new ArrayList<Environment.Variable>();
+  private FileSet fileSet;
+  private List<Property> properties = new ArrayList<>();
+  private List<Environment.Variable> sysProperties = new ArrayList<>();
+  private List<PropertySet> sysPropertySets = new ArrayList<>();
   private boolean haltOnFailure;
   private String failureProperty;
 
@@ -62,12 +64,12 @@ public class Wetator extends Task {
 
       // config is required
       if (null == getConfig()) {
-        throw new BuildException(Version.getProductName() + " Ant: Config-File is required (set property config).");
+        throw new BuildException(Version.getProductName() + " Ant: Config is required (set property config).");
       }
 
       if (null == getFileset()) {
         throw new BuildException(
-            Version.getProductName() + " Ant: Fileset is required (define a fileset for all your test files).");
+            Version.getProductName() + " Ant: Fileset is required (define a fileset containing all your test files).");
       }
 
       if (classpath == null) {
@@ -83,19 +85,23 @@ public class Wetator extends Task {
       }
 
       // AntClassLoader
-      // We are using the system classloader, because the loader is only needed
-      // for the 'Exec Java' command.<br>
-      // And the 'Exec Java' command needs nothing from ant; normally the ant stuff only disturbs.
+      // We are using the system classloader, because the loader is only needed for the 'Exec Java' command.
+      // And the 'Exec Java' command needs nothing from Ant; normally the Ant stuff only disturbs.
       final AntClassLoader tmpAntClassLoader = new AntClassLoader(ClassLoader.getSystemClassLoader(), getProject(),
           classpath, false);
       try {
         tmpAntClassLoader.setThreadContextLoader();
 
-        // process sysproperties
-        for (final Environment.Variable tmpVar : sysproperties) {
-          final String tmpKey = tmpVar.getKey();
+        // process the system property sets
+        for (final PropertySet tmpSysPropertySet : sysPropertySets) {
+          System.getProperties().putAll(tmpSysPropertySet.getProperties());
+        }
+
+        // process the system properties
+        for (final Environment.Variable tmpSysProperty : sysProperties) {
+          final String tmpKey = tmpSysProperty.getKey();
           if (tmpKey != null && !tmpKey.isEmpty()) {
-            System.setProperty(tmpKey, tmpVar.getValue());
+            System.setProperty(tmpKey, tmpSysProperty.getValue());
           }
         }
 
@@ -164,7 +170,7 @@ public class Wetator extends Task {
    * @return current fileset
    */
   protected FileSet getFileset() {
-    return fileset;
+    return fileSet;
   }
 
   /**
@@ -173,8 +179,8 @@ public class Wetator extends Task {
    * @return the new file set
    */
   public FileSet createFileSet() {
-    fileset = new FileSet();
-    return fileset;
+    fileSet = new FileSet();
+    return fileSet;
   }
 
   /**
@@ -199,20 +205,20 @@ public class Wetator extends Task {
   }
 
   /**
-   * Reads and returns the properties form ant project and from wetator task.
+   * Reads and returns the properties from Ant project and from Wetator task.
    *
    * @return a map with properties
    */
   protected Map<String, String> getPropertiesFromAnt() {
     final Map<String, String> tmpOurProperties = new HashMap<String, String>();
 
-    // read the properties from project
+    // read the properties from the Ant project
     final Map<String, Object> tmpProjectProperties = getProject().getProperties();
     for (final Entry<String, Object> tmpEntry : tmpProjectProperties.entrySet()) {
       tmpOurProperties.put(tmpEntry.getKey(), tmpEntry.getValue() == null ? null : String.valueOf(tmpEntry.getValue()));
     }
 
-    // read the properties from property sets
+    // read the properties from the Wetator task
     for (final Property tmpProperty : properties) {
       tmpOurProperties.put(tmpProperty.getName(), tmpProperty.getValue());
     }
@@ -223,10 +229,19 @@ public class Wetator extends Task {
   /**
    * Adds a system property.
    *
-   * @param anEnvironmentVariable the new property
+   * @param aSystemProperty the new property
    */
-  public void addSysproperty(final Environment.Variable anEnvironmentVariable) {
-    sysproperties.add(anEnvironmentVariable);
+  public void addSysproperty(final Environment.Variable aSystemProperty) {
+    sysProperties.add(aSystemProperty);
+  }
+
+  /**
+   * Adds a system property set.
+   *
+   * @param aSystemPropertySet the new property
+   */
+  public void addSyspropertyset(final PropertySet aSystemPropertySet) {
+    sysPropertySets.add(aSystemPropertySet);
   }
 
   /**

@@ -3,9 +3,11 @@
 <project name="Wetator Ant Task test" basedir="." default="run_wetator_with_properties">
 
     <property name="wetator.baseUrl" value="http://www.wetator.org"/>
+	<property name="wetator.set.test1" value="something1"/>
+	<property name="wetator.set.test2" value="something2"/>
 
     <propertyset id="wetator-properties">
-        <propertyref prefix="wetator"/>
+        <propertyref prefix="wetator.set"/>
     </propertyset>
 
 
@@ -55,8 +57,13 @@
             <!-- to define a secret property you need $$$ -->
             <property name="$$$password" value="secret"/>
 
+        	<!-- support for syspropertysets -->
+        	<syspropertyset refid="wetator-properties" />
+        	
             <!-- support for sysproperties -->
             <sysproperty key="sysuser" value="bolly"/>
+        	<!-- sysproperty overrides syspropertyset -->
+        	<sysproperty key="wetator.set.test2" value="something else"/>
         </wetator>
     </target>
 
