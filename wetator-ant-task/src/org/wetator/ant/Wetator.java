@@ -99,34 +99,8 @@ public class Wetator extends Task {
       try {
         tmpAntClassLoader.setThreadContextLoader();
 
-        // process the system properties...
-        final Properties tmpSystemProperties = new Properties();
-
-        // ... from the original first
-        tmpSystemProperties.putAll(tmpOriginalSystemProperties);
-
-        // ... from the system properties line
-        final String[] tmpLineParts = Commandline.translateCommandline(sysPropertiesLine);
-        for (final String tmpLinePart : tmpLineParts) {
-          final String[] tmpProperty = tmpLinePart.split("=");
-          if (tmpProperty.length == 2) {
-            tmpSystemProperties.put(tmpProperty[0], tmpProperty[1]);
-          }
-        }
-
-        // ... from the system property sets
-        for (final PropertySet tmpSysPropertySet : sysPropertySets) {
-          tmpSystemProperties.putAll(tmpSysPropertySet.getProperties());
-        }
-
-        // ... from the system properties
-        for (final Environment.Variable tmpSysProperty : sysProperties) {
-          final String tmpKey = tmpSysProperty.getKey();
-          if (tmpKey != null && !tmpKey.isEmpty()) {
-            tmpSystemProperties.put(tmpKey, tmpSysProperty.getValue());
-          }
-        }
-        System.setProperties(tmpSystemProperties);
+        // set the system properties
+        System.setProperties(mergeSystemProperties());
 
         // add all files
         final DirectoryScanner tmpDirScanner = getFileset().getDirectoryScanner(getProject());
@@ -275,6 +249,50 @@ public class Wetator extends Task {
    */
   public void addSyspropertyset(final PropertySet aSystemPropertySet) {
     sysPropertySets.add(aSystemPropertySet);
+  }
+
+  /**
+   * Merges the system properties from
+   * <ul>
+   * <li>the original system properties</li>
+   * <li>the system properties line</li>
+   * <li>the system property sets</li>
+   * <li>the system properties</li>
+   * </ul>
+   * but does not set them.
+   *
+   * @return the merged system properties
+   */
+  protected Properties mergeSystemProperties() {
+    // merge the system properties from...
+    final Properties tmpSystemProperties = new Properties();
+
+    // ... the original system properties
+    tmpSystemProperties.putAll(System.getProperties());
+
+    // ... the system properties line
+    final String[] tmpLineParts = Commandline.translateCommandline(sysPropertiesLine);
+    for (final String tmpLinePart : tmpLineParts) {
+      final String[] tmpProperty = tmpLinePart.split("=");
+      if (tmpProperty.length == 2) {
+        tmpSystemProperties.put(tmpProperty[0], tmpProperty[1]);
+      }
+    }
+
+    // ... the system property sets
+    for (final PropertySet tmpSysPropertySet : sysPropertySets) {
+      tmpSystemProperties.putAll(tmpSysPropertySet.getProperties());
+    }
+
+    // ... the system properties
+    for (final Environment.Variable tmpSysProperty : sysProperties) {
+      final String tmpKey = tmpSysProperty.getKey();
+      if (tmpKey != null && !tmpKey.isEmpty()) {
+        tmpSystemProperties.put(tmpKey, tmpSysProperty.getValue());
+      }
+    }
+
+    return tmpSystemProperties;
   }
 
   /**
