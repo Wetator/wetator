@@ -46,7 +46,8 @@
 
 
     <target name="run_wetator_with_properties">
-        <wetator config="wetator.config">
+        <wetator config="wetator.config"
+        	sysproperties="foo='bar 3' wetator.set.test1=nothing">
             <classpath refid="wetator.classpath" />
             <fileset dir=".">
                 <include name="sample.xls"/>

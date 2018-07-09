@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Properties;
 
 import org.apache.tools.ant.AntClassLoader;
 import org.apache.tools.ant.BuildException;
@@ -33,6 +34,7 @@ import org.apache.tools.ant.DirectoryScanner;
 import org.apache.tools.ant.Project;
 import org.apache.tools.ant.Task;
 import org.apache.tools.ant.taskdefs.Property;
+import org.apache.tools.ant.types.Commandline;
 import org.apache.tools.ant.types.Environment;
 import org.apache.tools.ant.types.FileSet;
 import org.apache.tools.ant.types.Path;
@@ -49,6 +51,7 @@ public class Wetator extends Task {
   private Path classpath;
   private FileSet fileSet;
   private List<Property> properties = new ArrayList<>();
+  private String sysPropertiesLine;
   private List<Environment.Variable> sysProperties = new ArrayList<>();
   private List<PropertySet> sysPropertySets = new ArrayList<>();
   private boolean haltOnFailure;
@@ -89,21 +92,41 @@ public class Wetator extends Task {
       // And the 'Exec Java' command needs nothing from Ant; normally the Ant stuff only disturbs.
       final AntClassLoader tmpAntClassLoader = new AntClassLoader(ClassLoader.getSystemClassLoader(), getProject(),
           classpath, false);
+
+      // we remember the original system properties to be able to restore them once we are done
+      final Properties tmpOriginalSystemProperties = System.getProperties();
+
       try {
         tmpAntClassLoader.setThreadContextLoader();
 
-        // process the system property sets
-        for (final PropertySet tmpSysPropertySet : sysPropertySets) {
-          System.getProperties().putAll(tmpSysPropertySet.getProperties());
+        // process the system properties...
+        final Properties tmpSystemProperties = new Properties();
+
+        // ... from the original first
+        tmpSystemProperties.putAll(tmpOriginalSystemProperties);
+
+        // ... from the system properties line
+        final String[] tmpLineParts = Commandline.translateCommandline(sysPropertiesLine);
+        for (final String tmpLinePart : tmpLineParts) {
+          final String[] tmpProperty = tmpLinePart.split("=");
+          if (tmpProperty.length == 2) {
+            tmpSystemProperties.put(tmpProperty[0], tmpProperty[1]);
+          }
         }
 
-        // process the system properties
+        // ... from the system property sets
+        for (final PropertySet tmpSysPropertySet : sysPropertySets) {
+          tmpSystemProperties.putAll(tmpSysPropertySet.getProperties());
+        }
+
+        // ... from the system properties
         for (final Environment.Variable tmpSysProperty : sysProperties) {
           final String tmpKey = tmpSysProperty.getKey();
           if (tmpKey != null && !tmpKey.isEmpty()) {
-            System.setProperty(tmpKey, tmpSysProperty.getValue());
+            tmpSystemProperties.put(tmpKey, tmpSysProperty.getValue());
           }
         }
+        System.setProperties(tmpSystemProperties);
 
         // add all files
         final DirectoryScanner tmpDirScanner = getFileset().getDirectoryScanner(getProject());
@@ -138,6 +161,9 @@ public class Wetator extends Task {
       } finally {
         tmpAntClassLoader.resetThreadContextLoader();
         tmpAntClassLoader.cleanup();
+
+        // restore original system properties
+        System.setProperties(tmpOriginalSystemProperties);
       }
     } catch (final InvocationTargetException e) {
       // use e.toString() instead of e.getMessage() because e.g. the message for
@@ -224,6 +250,13 @@ public class Wetator extends Task {
     }
 
     return tmpOurProperties;
+  }
+
+  /**
+   * @param aSystemPropertiesLine system properties as one line
+   */
+  public void setSysproperties(final String aSystemPropertiesLine) {
+    sysPropertiesLine = aSystemPropertiesLine;
   }
 
   /**
