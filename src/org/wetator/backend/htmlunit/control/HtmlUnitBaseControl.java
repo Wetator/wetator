@@ -37,7 +37,6 @@ import org.wetator.exception.UnsupportedOperationException;
 import org.wetator.i18n.Messages;
 import org.wetator.util.CssUtil;
 
-import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.ScriptException;
 import com.gargoylesoftware.htmlunit.SgmlPage;
@@ -129,9 +128,6 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
       final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
-    } catch (final FailingHttpStatusCodeException e) {
-      final String tmpMessage = Messages.getMessage("serverError", e.getMessage(), getDescribingText());
-      throw new ActionException(tmpMessage, e);
     } catch (final BackendException e) {
       final String tmpMessage = Messages.getMessage("backendError", e.getMessage(), getDescribingText());
       throw new ActionException(tmpMessage, e);
