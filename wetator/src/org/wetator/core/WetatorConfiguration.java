@@ -778,13 +778,7 @@ public class WetatorConfiguration {
           final ICommandSet tmpCommandSet = tmpCommandSetClass.newInstance();
           commandSets.add(tmpCommandSet);
           LOG.info("Configuration: Command set '" + tmpCommandSetClassName + "' registered.");
-        } catch (final ClassNotFoundException e) {
-          if (LOG.isDebugEnabled()) {
-            LOG.error("Configuration: Can't load command set '" + tmpCommandSetClassName + "'.", e);
-          } else {
-            LOG.error("Configuration: Can't load command set '" + tmpCommandSetClassName + "' (" + e.toString() + ").");
-          }
-        } catch (final InstantiationException | IllegalAccessException e) {
+        } catch (final ClassNotFoundException | InstantiationException | IllegalAccessException e) {
           if (LOG.isDebugEnabled()) {
             LOG.error("Configuration: Can't load command set '" + tmpCommandSetClassName + "'.", e);
           } else {

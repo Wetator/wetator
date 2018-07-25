@@ -71,9 +71,7 @@
     <module name="EmptyBlock">
       <property name="option" value="text"/>
     </module>
-    <module name="LeftCurly">
-      <property name="maxLineLength" value="120"/>
-    </module>
+    <module name="LeftCurly"/>
     <module name="NeedBraces"/>
     <module name="RightCurly"/>
     <module name="HideUtilityClassConstructor"/>

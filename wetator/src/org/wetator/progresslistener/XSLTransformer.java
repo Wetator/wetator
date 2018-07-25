@@ -117,10 +117,6 @@ public final class XSLTransformer {
         LOG.error(
             "Problem loading XSL-Template '" + FilenameUtils.normalize(tmpXslFile.getAbsolutePath()) + "'. Aborting.",
             e);
-      } catch (final TransformerException e) {
-        LOG.error(
-            "Problem applying XSL-Template '" + FilenameUtils.normalize(tmpXslFile.getAbsolutePath()) + "'. Aborting.",
-            e);
       } catch (final IOException e) {
         LOG.error(
             "Problem writing Report '" + FilenameUtils.normalize(tmpResultFile.getAbsolutePath()) + "'. Aborting.", e);
