@@ -11,7 +11,6 @@ Rules which enforce a specific coding style.
 This is a subset of PMD's 'Code Style' ruleset.
     </description>
 
-    <!-- <rule ref="category/java/codestyle.xml/AbstractNaming" /> -->
     <!-- <rule ref="category/java/codestyle.xml/AtLeastOneConstructor" /> -->
     <rule ref="category/java/codestyle.xml/AvoidDollarSigns" />
     <!-- <rule ref="category/java/codestyle.xml/AvoidFinalLocalVariable" /> -->
@@ -21,9 +20,16 @@ This is a subset of PMD's 'Code Style' ruleset.
     <rule ref="category/java/codestyle.xml/AvoidUsingNativeCode" />
     <rule ref="category/java/codestyle.xml/BooleanGetMethodName" />
     <!-- <rule ref="category/java/codestyle.xml/CallSuperInConstructor" /> -->
-    <rule ref="category/java/codestyle.xml/ClassNamingConventions" />
+    <rule ref="category/java/codestyle.xml/ClassNamingConventions">
+        <properties>
+            <property name="utilityClassPattern">
+                <value>[A-Z][a-zA-Z0-9]+</value>
+            </property>
+        </properties>
+    </rule>
     <!-- <rule ref="category/java/codestyle.xml/CommentDefaultAccessModifier" /> -->
     <!-- <rule ref="category/java/codestyle.xml/ConfusingTernary" /> -->
+    <rule ref="category/java/codestyle.xml/ControlStatementBraces" />
     <!-- <rule ref="category/java/codestyle.xml/DefaultPackage" /> -->
     <rule ref="category/java/codestyle.xml/DontImportJavaLang" />
     <rule ref="category/java/codestyle.xml/DuplicateImports" />
@@ -31,10 +37,8 @@ This is a subset of PMD's 'Code Style' ruleset.
     <rule ref="category/java/codestyle.xml/ExtendsObject" />
     <rule ref="category/java/codestyle.xml/FieldDeclarationsShouldBeAtStartOfClass" />
     <rule ref="category/java/codestyle.xml/ForLoopShouldBeWhileLoop" />
-    <rule ref="category/java/codestyle.xml/ForLoopsMustUseBraces" />
     <rule ref="category/java/codestyle.xml/GenericsNaming" />
-    <rule ref="category/java/codestyle.xml/IfElseStmtsMustUseBraces" />
-    <rule ref="category/java/codestyle.xml/IfStmtsMustUseBraces" />
+    <rule ref="category/java/codestyle.xml/IdenticalCatchBranches" />
     <!-- <rule ref="category/java/codestyle.xml/LocalHomeNamingConvention" /> -->
     <!-- <rule ref="category/java/codestyle.xml/LocalInterfaceSessionNamingConvention" /> -->
     <rule ref="category/java/codestyle.xml/LocalVariableCouldBeFinal" />
@@ -54,6 +58,7 @@ This is a subset of PMD's 'Code Style' ruleset.
     <!-- <rule ref="category/java/codestyle.xml/ShortVariable" /> -->
     <rule ref="category/java/codestyle.xml/SuspiciousConstantFieldName" />
     <!-- <rule ref="category/java/codestyle.xml/TooManyStaticImports" /> -->
+    <rule ref="category/java/codestyle.xml/UnnecessaryAnnotationValueElement" />
     <rule ref="category/java/codestyle.xml/UnnecessaryConstructor" />
     <rule ref="category/java/codestyle.xml/UnnecessaryFullyQualifiedName" />
     <rule ref="category/java/codestyle.xml/UnnecessaryLocalBeforeReturn" />
@@ -62,6 +67,5 @@ This is a subset of PMD's 'Code Style' ruleset.
     <rule ref="category/java/codestyle.xml/UselessParentheses" />
     <rule ref="category/java/codestyle.xml/UselessQualifiedThis" />
     <!-- <rule ref="category/java/codestyle.xml/VariableNamingConventions" /> -->
-    <rule ref="category/java/codestyle.xml/WhileLoopsMustUseBraces" />
 
 </ruleset>
