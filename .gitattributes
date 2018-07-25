@@ -140,15 +140,11 @@ wetator-jenkins-plugin/src/test/java/org/wetator/jenkins/xstream/XStreamDeserial
 wetator-jenkins-plugin/src/test/java/org/wetator/jenkins/xstream/XStreamLegacyDeserializationTest.java -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/java/org/wetator/jenkins/xstream/XStreamSerializationTest.java -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/pmd/wet-bestpractices.xml -text svneol=unset#text/plain
-wetator-jenkins-plugin/src/test/pmd/wet-clone.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/pmd/wet-codestyle.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/pmd/wet-design.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/pmd/wet-errorprone.xml -text svneol=unset#text/plain
-wetator-jenkins-plugin/src/test/pmd/wet-logging-jakarta-commons.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/pmd/wet-multithreading.xml -text svneol=unset#text/plain
-wetator-jenkins-plugin/src/test/pmd/wet-optimizations.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/pmd/wet-performance.xml -text svneol=unset#text/plain
-wetator-jenkins-plugin/src/test/pmd/wet-strings.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/resources/oldwetresult.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/resources/oldwetresult2.xml -text svneol=unset#text/plain
 wetator-jenkins-plugin/src/test/resources/org/wetator/jenkins/wet/error.wet -text

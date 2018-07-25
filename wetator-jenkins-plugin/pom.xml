@@ -143,12 +143,12 @@
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
-                <version>3.1.1</version><!--$NO-MVN-MAN-VER$-->
+                <version>3.1.6</version><!--$NO-MVN-MAN-VER$-->
                 <dependencies>
                     <dependency>
                         <groupId>com.github.spotbugs</groupId>
                         <artifactId>spotbugs</artifactId>
-                        <version>3.1.1</version>
+                        <version>3.1.6</version>
                     </dependency>
                 </dependencies>
                 <executions>
@@ -170,15 +170,14 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
-                <version>3.8</version><!--$NO-MVN-MAN-VER$-->
-                <!-- PMD 6 is not yet supported by the maven plugin -->
-                <!-- PMD6 <dependencies>
+                <version>3.10.0</version><!--$NO-MVN-MAN-VER$-->
+                <dependencies>
                     <dependency>
                         <groupId>net.sourceforge.pmd</groupId>
                         <artifactId>pmd-java</artifactId>
-                        <version>6.0.0</version>
+                        <version>6.5.0</version>
                     </dependency>
-                </dependencies> -->
+                </dependencies>
                 <executions>
                     <execution>
                         <id>pmd-report</id>
@@ -195,25 +194,13 @@
                     <analysisCacheLocation>${project.build.directory}/pmd/pmd-cachefile</analysisCacheLocation>
                     <targetDirectory>${project.build.directory}/pmd</targetDirectory>
                     <linkXRef>false</linkXRef>
-                    <!-- PMD6 <rulesets>
+                    <rulesets>
                         <ruleset>src/test/pmd/wet-bestpractices.xml</ruleset>
                         <ruleset>src/test/pmd/wet-codestyle.xml</ruleset>
                         <ruleset>src/test/pmd/wet-design.xml</ruleset>
                         <ruleset>src/test/pmd/wet-errorprone.xml</ruleset>
                         <ruleset>src/test/pmd/wet-multithreading.xml</ruleset>
                         <ruleset>src/test/pmd/wet-performance.xml</ruleset>
-                    </rulesets> -->
-                    <rulesets>
-                        <ruleset>/rulesets/java/basic.xml</ruleset>
-                        <ruleset>/rulesets/java/empty.xml</ruleset>
-                        <ruleset>/rulesets/java/unnecessary.xml</ruleset>
-                        <ruleset>/rulesets/java/braces.xml</ruleset>
-                        <ruleset>/rulesets/java/unusedcode.xml</ruleset>
-                        <ruleset>/rulesets/java/finalizers.xml</ruleset>
-                        <ruleset>src/test/pmd/wet-clone.xml</ruleset>
-                        <ruleset>src/test/pmd/wet-strings.xml</ruleset>
-                        <ruleset>src/test/pmd/wet-optimizations.xml</ruleset>
-                        <ruleset>src/test/pmd/wet-logging-jakarta-commons.xml</ruleset>
                     </rulesets>
                 </configuration>
             </plugin>
