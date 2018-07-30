@@ -16,8 +16,11 @@
 
 package org.wetator.backend.htmlunit.matcher;
 
+import java.awt.Point;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 
 import org.wetator.backend.WPath.TableCoordinate;
@@ -129,16 +132,16 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
       boolean tmpFoundX = false;
       boolean tmpFoundY = false;
       while (tmpCell != null) {
-        final HtmlTableRow tmpRow = tmpCell.getEnclosingRow();
-        final HtmlTable tmpTable = tmpRow.getEnclosingTable();
+        HtmlTableRow tmpRow = tmpCell.getEnclosingRow();
+        final TableMatrix tmpTableMatrix = new TableMatrix(tmpRow.getEnclosingTable(), tmpCell);
 
         // check the x coordinate in the row
         if (!tmpFoundX && tmpSearchPatternCoordX != null) {
-          final int tmpXStart = findCellInRow(tmpRow, tmpCell);
+          final int tmpXStart = tmpTableMatrix.getAnchorColumn();
           final int tmpXEnd = tmpXStart + tmpCell.getColumnSpan();
-          for (int i = tmpXStart; i < tmpXEnd; i++) {
-            for (int j = 0; j < tmpTable.getRowCount(); j++) {
-              final HtmlTableCell tmpOuterCellX = tmpTable.getCellAt(j, i);
+          for (int col = tmpXStart; col < tmpXEnd; col++) {
+            for (int row = 0; row < tmpTableMatrix.getRowCount(); row++) {
+              final HtmlTableCell tmpOuterCellX = tmpTableMatrix.getCellAt(col, row);
               if (null != tmpOuterCellX) {
                 final FindSpot tmpOuterCellXSpot = aHtmlPageIndex.getPosition(tmpOuterCellX);
                 if ((aPathSpot == null || aPathSpot.getEndPos() < tmpOuterCellXSpot.getStartPos())
@@ -156,12 +159,12 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
 
         // check the y coordinate in the column
         if (!tmpFoundY && tmpSearchPatternCoordY != null) {
-          final int tmpYStart = findRowInTable(tmpTable, tmpRow);
+          final int tmpYStart = tmpTableMatrix.getAnchorRow();
           int tmpYEnd = tmpYStart + tmpCell.getRowSpan();
-          tmpYEnd = Math.min(tmpYEnd, tmpTable.getRowCount());
-          for (int i = tmpYStart; i < tmpYEnd; i++) {
-            for (int j = 0; j < tmpTable.getRow(i).getCells().size(); j++) {
-              final HtmlTableCell tmpOuterCellY = tmpTable.getCellAt(i, j);
+          tmpYEnd = Math.min(tmpYEnd, tmpTableMatrix.getRowCount());
+          for (int row = tmpYStart; row < tmpYEnd; row++) {
+            for (int col = 0; col < tmpTableMatrix.getColCount(row); col++) {
+              final HtmlTableCell tmpOuterCellY = tmpTableMatrix.getCellAt(col, row);
               final FindSpot tmpOuterCellYSpot = aHtmlPageIndex.getPosition(tmpOuterCellY);
               if ((aPathSpot == null || aPathSpot.getEndPos() < tmpOuterCellYSpot.getStartPos())
                   && tmpSearchPatternCoordY.matches(aHtmlPageIndex.getAsText(tmpOuterCellY))) {
@@ -200,25 +203,111 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
     return (HtmlTableCell) tmpParent;
   }
 
-  private static int findCellInRow(final HtmlTableRow aRow, final HtmlTableCell aCell) {
-    int i = 0;
-    for (final HtmlTableCell tmpCell : aRow.getCells()) {
-      if (tmpCell == aCell) {
-        return i;
-      }
-      i++;
-    }
-    return -1;
-  }
+  /**
+   * Helper class that stores the table more like a matrix to pre process
+   * all the nasty span stuff.
+   */
+  private static final class TableMatrix {
+    private List<List<HtmlTableCell>> rows = new ArrayList<>();
+    private int anchorColumn;
+    private int anchorRow;
 
-  private static int findRowInTable(final HtmlTable aTable, final HtmlTableRow aRow) {
-    int i = 0;
-    for (final HtmlTableRow tmpRow : aTable.getRows()) {
-      if (tmpRow == aRow) {
-        return i;
+    private TableMatrix(final HtmlTable aTable, final HtmlTableCell anchorCell) {
+      final HashMap<Point, HtmlTableCell> occupied = new HashMap<>();
+      int row = 0;
+      int maxRow = 0;
+      int maxCol = 0;
+
+      for (final HtmlTableRow htmlTableRow : aTable.getRows()) {
+        List<HtmlTableCell> tmpRowCells = new ArrayList<>();
+        rows.add(tmpRowCells);
+
+        final HtmlTableRow.CellIterator tmpCellIterator = htmlTableRow.getCellIterator();
+        int col = 0;
+        for (final HtmlTableCell cell : tmpCellIterator) {
+          HtmlTableCell tmpOccupyingCell = occupied.get(new Point(col, row));
+          while (tmpOccupyingCell != null) {
+            tmpRowCells.add(tmpOccupyingCell);
+            col++;
+            tmpOccupyingCell = occupied.get(new Point(col, row));
+          }
+
+          tmpRowCells.add(cell);
+          if (cell == anchorCell) {
+            setAnchorColumn(col);
+            setAnchorRow(row);
+          }
+
+          if (cell.getRowSpan() > 1 || cell.getColumnSpan() > 1) {
+            maxRow = Math.max(maxRow, row + cell.getRowSpan());
+            maxCol = Math.max(maxCol, col + cell.getColumnSpan());
+            for (int i = 0; i < cell.getRowSpan(); i++) {
+              for (int j = 0; j < cell.getColumnSpan(); j++) {
+                occupied.put(new Point(col + j, row + i), cell);
+              }
+            }
+          }
+          col++;
+          maxCol = Math.max(maxCol, col);
+        }
+
+        for (; col < maxCol; col++) {
+          tmpRowCells.add(occupied.get(new Point(col, row)));
+        }
+
+        row++;
+        maxRow = Math.max(maxRow, row);
       }
-      i++;
+
+      // maybe we have some overlap
+      for (int i = 0; i < maxRow; i++) {
+        List<HtmlTableCell> tmpRowCells = new ArrayList<>();
+        rows.add(tmpRowCells);
+        for (int j = 0; j < maxCol; j++) {
+          tmpRowCells.add(occupied.get(new Point(j, i)));
+        }
+      }
     }
-    return -1;
+
+    private HtmlTableCell getCellAt(final int col, final int row) {
+      if (row >= rows.size()) {
+        return null;
+      }
+
+      List<HtmlTableCell> tmpRow = rows.get(row);
+      if (col >= tmpRow.size()) {
+        return null;
+      }
+
+      return tmpRow.get(col);
+    }
+
+    private int getRowCount() {
+      return rows.size();
+    }
+
+    private int getColCount(final int row) {
+      if (row >= rows.size()) {
+        return 0;
+      }
+
+      return rows.get(row).size();
+    }
+
+    private int getAnchorColumn() {
+      return anchorColumn;
+    }
+
+    private void setAnchorColumn(final int col) {
+      anchorColumn = col;
+    }
+
+    private int getAnchorRow() {
+      return anchorRow;
+    }
+
+    private void setAnchorRow(final int row) {
+      anchorRow = row;
+    }
   }
 }
