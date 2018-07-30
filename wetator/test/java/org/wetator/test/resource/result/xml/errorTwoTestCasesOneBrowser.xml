@@ -15,8 +15,8 @@
       <library id="##ID##">Apache Commons Codec </library>
       <library id="##ID##">Apache Commons IO </library>
       <library id="##ID##">HttpComponents Apache HttpCore </library>
-      <library id="##ID##">HttpComponents Apache HttpClient </library>
-      <library id="##ID##">HttpComponents Apache HttpClient Mime </library>
+      <library id="##ID##">Apache HttpClient </library>
+      <library id="##ID##">Apache HttpClient Mime </library>
       <library id="##ID##">Apache Log4j API</library>
       <library id="##ID##">Apache Log4j Core</library>
       <library id="##ID##">automaton-</library>
