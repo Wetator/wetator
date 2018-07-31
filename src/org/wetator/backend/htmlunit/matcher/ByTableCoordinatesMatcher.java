@@ -16,7 +16,6 @@
 
 package org.wetator.backend.htmlunit.matcher;
 
-import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -208,12 +207,13 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
    * all the nasty span stuff.
    */
   private static final class TableMatrix {
+
     private List<List<HtmlTableCell>> rows = new ArrayList<>();
     private int anchorColumn;
     private int anchorRow;
 
     private TableMatrix(final HtmlTable aTable, final HtmlTableCell anchorCell) {
-      final HashMap<Point, HtmlTableCell> occupied = new HashMap<>();
+      final HashMap<Long, HtmlTableCell> occupied = new HashMap<>();
       int row = 0;
       int maxRow = 0;
       int maxCol = 0;
@@ -225,11 +225,11 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
         final HtmlTableRow.CellIterator tmpCellIterator = htmlTableRow.getCellIterator();
         int col = 0;
         for (final HtmlTableCell cell : tmpCellIterator) {
-          HtmlTableCell tmpOccupyingCell = occupied.get(new Point(col, row));
+          HtmlTableCell tmpOccupyingCell = occupied.get(calculateMatrixPos(col, row));
           while (tmpOccupyingCell != null) {
             tmpRowCells.add(tmpOccupyingCell);
             col++;
-            tmpOccupyingCell = occupied.get(new Point(col, row));
+            tmpOccupyingCell = occupied.get(calculateMatrixPos(col, row));
           }
 
           tmpRowCells.add(cell);
@@ -243,7 +243,7 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
             maxCol = Math.max(maxCol, col + cell.getColumnSpan());
             for (int i = 0; i < cell.getRowSpan(); i++) {
               for (int j = 0; j < cell.getColumnSpan(); j++) {
-                occupied.put(new Point(col + j, row + i), cell);
+                occupied.put(calculateMatrixPos(col + j, row + i), cell);
               }
             }
           }
@@ -252,7 +252,7 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
         }
 
         for (; col < maxCol; col++) {
-          tmpRowCells.add(occupied.get(new Point(col, row)));
+          tmpRowCells.add(occupied.get(calculateMatrixPos(col, row)));
         }
 
         row++;
@@ -264,9 +264,13 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
         List<HtmlTableCell> tmpRowCells = new ArrayList<>();
         rows.add(tmpRowCells);
         for (int j = 0; j < maxCol; j++) {
-          tmpRowCells.add(occupied.get(new Point(j, i)));
+          tmpRowCells.add(occupied.get(calculateMatrixPos(j, i)));
         }
       }
+    }
+
+    private long calculateMatrixPos(final int aColumn, final int aRow) {
+      return (long) aColumn << 32 | aRow & 0xFFFFFFFFL;
     }
 
     private HtmlTableCell getCellAt(final int col, final int row) {
