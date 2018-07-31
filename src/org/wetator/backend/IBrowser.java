@@ -79,6 +79,8 @@ public interface IBrowser {
   enum BrowserType {
     /** firefox 52 ESR. */
     FIREFOX_52("Firefox52", "Firefox_52"),
+    /** firefox 60 ESR. */
+    FIREFOX_60("Firefox60", "Firefox_60"),
     /** internet explorer 11. */
     INTERNET_EXPLORER("IE11", "IE_11"),
     /** chrome. */

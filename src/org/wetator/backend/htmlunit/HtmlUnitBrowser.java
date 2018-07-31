@@ -954,6 +954,9 @@ public final class HtmlUnitBrowser implements IBrowser {
   }
 
   private BrowserVersion determineBrowserVersionFor(final IBrowser.BrowserType aBrowserType) {
+    if (IBrowser.BrowserType.FIREFOX_60 == aBrowserType) {
+      return BrowserVersion.FIREFOX_60;
+    }
     if (IBrowser.BrowserType.FIREFOX_52 == aBrowserType) {
       return BrowserVersion.FIREFOX_52;
     }
@@ -963,7 +966,7 @@ public final class HtmlUnitBrowser implements IBrowser {
     if (IBrowser.BrowserType.CHROME == aBrowserType) {
       return BrowserVersion.CHROME;
     }
-    return BrowserVersion.FIREFOX_52;
+    return BrowserVersion.FIREFOX_60;
   }
 
   /**
