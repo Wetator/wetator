@@ -35,7 +35,7 @@ import org.wetator.backend.IBrowser.BrowserType;
  */
 public class WetatorContextGetVariablesTest {
 
-  private BrowserType browserType = BrowserType.FIREFOX_52;
+  private BrowserType browserType = BrowserType.FIREFOX_60;
 
   private File file1;
   private File file2;

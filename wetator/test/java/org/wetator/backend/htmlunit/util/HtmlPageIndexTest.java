@@ -84,7 +84,7 @@ public class HtmlPageIndexTest {
     assertEquals("getText[IE]", anExpectedIE, tmpResult.getText());
     assertEquals("getTextWithoutFormControls[IE]", anExpectedWithoutFC, tmpResult.getTextWithoutFormControls());
 
-    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.FIREFOX_52, anHtmlCode);
+    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.FIREFOX_60, anHtmlCode);
     tmpResult = new HtmlPageIndex(tmpHtmlPage);
     assertEquals("getText[FF]", anExpectedFF, tmpResult.getText());
     assertEquals("getTextWithoutFormControls[FF]", anExpectedWithoutFC, tmpResult.getTextWithoutFormControls());
@@ -559,7 +559,7 @@ public class HtmlPageIndexTest {
     // FF
     final StringWebResponse tmpResponse = new StringWebResponse(tmpHtmlCode,
         new URL("http://www.wetator.org/test.html"));
-    WebClient tmpWebClient = new WebClient(BrowserVersion.FIREFOX_52);
+    WebClient tmpWebClient = new WebClient(BrowserVersion.FIREFOX_60);
     try {
       final HtmlPage tmpHtmlPage = HTMLParser.parseHtml(tmpResponse, tmpWebClient.getCurrentWindow());
       final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
@@ -1586,7 +1586,7 @@ public class HtmlPageIndexTest {
     // FF
     final StringWebResponse tmpResponse = new StringWebResponse(tmpHtmlCode,
         new URL("http://www.wetator.org/test.html"));
-    WebClient tmpWebClient = new WebClient(BrowserVersion.FIREFOX_52);
+    WebClient tmpWebClient = new WebClient(BrowserVersion.FIREFOX_60);
     try {
       final HtmlPage tmpHtmlPage = HTMLParser.parseHtml(tmpResponse, tmpWebClient.getCurrentWindow());
       final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
