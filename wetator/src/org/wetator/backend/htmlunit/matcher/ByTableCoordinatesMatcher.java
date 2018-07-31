@@ -21,6 +21,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.wetator.backend.WPath.TableCoordinate;
 import org.wetator.backend.WeightedControlList.FoundType;
@@ -131,16 +132,16 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
       boolean tmpFoundX = false;
       boolean tmpFoundY = false;
       while (tmpCell != null) {
-        final HtmlTableRow tmpRow = tmpCell.getEnclosingRow();
-        final TableMatrix tmpTableMatrix = new TableMatrix(tmpRow.getEnclosingTable(), tmpCell);
+        final HtmlTableRow tmpHtmlTableRow = tmpCell.getEnclosingRow();
+        final TableMatrix tmpTableMatrix = new TableMatrix(tmpHtmlTableRow.getEnclosingTable(), tmpCell);
 
         // check the x coordinate in the row
         if (!tmpFoundX && tmpSearchPatternCoordX != null) {
           final int tmpXStart = tmpTableMatrix.getAnchorColumn();
           final int tmpXEnd = tmpXStart + tmpCell.getColumnSpan();
           for (int tmpCol = tmpXStart; tmpCol < tmpXEnd; tmpCol++) {
-            for (int row = 0; row < tmpTableMatrix.getRowCount(); row++) {
-              final HtmlTableCell tmpOuterCellX = tmpTableMatrix.getCellAt(tmpCol, row);
+            for (int tmpRow = 0; tmpRow < tmpTableMatrix.getRowCount(); tmpRow++) {
+              final HtmlTableCell tmpOuterCellX = tmpTableMatrix.getCellAt(tmpCol, tmpRow);
               if (null != tmpOuterCellX) {
                 final FindSpot tmpOuterCellXSpot = aHtmlPageIndex.getPosition(tmpOuterCellX);
                 if ((aPathSpot == null || aPathSpot.getEndPos() < tmpOuterCellXSpot.getStartPos())
@@ -161,9 +162,9 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
           final int tmpYStart = tmpTableMatrix.getAnchorRow();
           int tmpYEnd = tmpYStart + tmpCell.getRowSpan();
           tmpYEnd = Math.min(tmpYEnd, tmpTableMatrix.getRowCount());
-          for (int row = tmpYStart; row < tmpYEnd; row++) {
-            for (int col = 0; col < tmpTableMatrix.getColCount(row); col++) {
-              final HtmlTableCell tmpOuterCellY = tmpTableMatrix.getCellAt(col, row);
+          for (int tmpRow = tmpYStart; tmpRow < tmpYEnd; tmpRow++) {
+            for (int tmpCol = 0; tmpCol < tmpTableMatrix.getColCount(tmpRow); tmpCol++) {
+              final HtmlTableCell tmpOuterCellY = tmpTableMatrix.getCellAt(tmpCol, tmpRow);
               final FindSpot tmpOuterCellYSpot = aHtmlPageIndex.getPosition(tmpOuterCellY);
               if ((aPathSpot == null || aPathSpot.getEndPos() < tmpOuterCellYSpot.getStartPos())
                   && tmpSearchPatternCoordY.matches(aHtmlPageIndex.getAsText(tmpOuterCellY))) {
@@ -184,7 +185,7 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
           break;
         }
 
-        tmpCell = findEnclosingCell(tmpRow);
+        tmpCell = findEnclosingCell(tmpHtmlTableRow);
       }
     }
 
@@ -212,17 +213,17 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
     private int anchorColumn;
     private int anchorRow;
 
-    private TableMatrix(final HtmlTable aTable, final HtmlTableCell anchorCell) {
-      final HashMap<Long, HtmlTableCell> tmpOccupied = new HashMap<>();
+    private TableMatrix(final HtmlTable aTable, final HtmlTableCell anAnchorCell) {
+      final Map<Long, HtmlTableCell> tmpOccupied = new HashMap<>();
       int tmpRow = 0;
       int tmpMaxRow = 0;
       int tmpMaxCol = 0;
 
-      for (final HtmlTableRow htmlTableRow : aTable.getRows()) {
-        List<HtmlTableCell> tmpRowCells = new ArrayList<>();
+      for (final HtmlTableRow tmpHtmlTableRow : aTable.getRows()) {
+        final List<HtmlTableCell> tmpRowCells = new ArrayList<>();
         rows.add(tmpRowCells);
 
-        final HtmlTableRow.CellIterator tmpCellIterator = htmlTableRow.getCellIterator();
+        final HtmlTableRow.CellIterator tmpCellIterator = tmpHtmlTableRow.getCellIterator();
         int tmpCol = 0;
         for (final HtmlTableCell tmpCell : tmpCellIterator) {
           HtmlTableCell tmpOccupyingCell = tmpOccupied.get(calculateMatrixPos(tmpCol, tmpRow));
@@ -233,7 +234,7 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
           }
 
           tmpRowCells.add(tmpCell);
-          if (tmpCell == anchorCell) {
+          if (tmpCell == anAnchorCell) {
             setAnchorColumn(tmpCol);
             setAnchorRow(tmpRow);
           }
@@ -261,7 +262,7 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
 
       // maybe we have some overlap
       for (int i = 0; i < tmpMaxRow; i++) {
-        List<HtmlTableCell> tmpRowCells = new ArrayList<>();
+        final List<HtmlTableCell> tmpRowCells = new ArrayList<>();
         rows.add(tmpRowCells);
         for (int j = 0; j < tmpMaxCol; j++) {
           tmpRowCells.add(tmpOccupied.get(calculateMatrixPos(j, i)));
@@ -278,7 +279,7 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
         return null;
       }
 
-      List<HtmlTableCell> tmpRow = rows.get(aRow);
+      final List<HtmlTableCell> tmpRow = rows.get(aRow);
       if (aCol >= tmpRow.size()) {
         return null;
       }
@@ -290,28 +291,28 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
       return rows.size();
     }
 
-    private int getColCount(final int row) {
-      if (row >= rows.size()) {
+    private int getColCount(final int aRow) {
+      if (aRow >= rows.size()) {
         return 0;
       }
 
-      return rows.get(row).size();
+      return rows.get(aRow).size();
     }
 
     private int getAnchorColumn() {
       return anchorColumn;
     }
 
-    private void setAnchorColumn(final int col) {
-      anchorColumn = col;
+    private void setAnchorColumn(final int aCol) {
+      anchorColumn = aCol;
     }
 
     private int getAnchorRow() {
       return anchorRow;
     }
 
-    private void setAnchorRow(final int row) {
-      anchorRow = row;
+    private void setAnchorRow(final int aRow) {
+      anchorRow = aRow;
     }
   }
 }
