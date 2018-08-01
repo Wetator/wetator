@@ -248,6 +248,7 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
               }
             }
           }
+
           tmpCol++;
           tmpMaxCol = Math.max(tmpMaxCol, tmpCol);
         }
