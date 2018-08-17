@@ -133,7 +133,16 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
       boolean tmpFoundY = false;
       while (tmpCell != null) {
         final HtmlTableRow tmpHtmlTableRow = tmpCell.getEnclosingRow();
-        final TableMatrix tmpTableMatrix = new TableMatrix(tmpHtmlTableRow.getEnclosingTable(), tmpCell);
+        if (tmpHtmlTableRow == null) {
+          break;
+        }
+
+        final HtmlTable tmpHtmlTable = tmpHtmlTableRow.getEnclosingTable();
+        if (tmpHtmlTable == null) {
+          break;
+        }
+
+        final TableMatrix tmpTableMatrix = new TableMatrix(tmpHtmlTable, tmpCell);
 
         // check the x coordinate in the row
         if (!tmpFoundX && tmpSearchPatternCoordX != null) {
