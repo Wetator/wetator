@@ -244,7 +244,7 @@ public class HtmlPageIndex {
     if (null == tmpFindSpot) {
       return null;
     }
-    return text.substring(0, tmpFindSpot.getStartPos());
+    return textSubstring(0, tmpFindSpot.getStartPos());
   }
 
   /**
@@ -258,7 +258,7 @@ public class HtmlPageIndex {
     if (null == tmpFindSpot) {
       return null;
     }
-    return text.substring(0, tmpFindSpot.getEndPos());
+    return textSubstring(0, tmpFindSpot.getEndPos());
   }
 
   /**
@@ -292,7 +292,7 @@ public class HtmlPageIndex {
 
         // the searched control is chained directly after a leading control or placed inside a button tag
         if (tmpStartPos <= tmpFindSpot.getStartPos()) {
-          final String tmpText = text.substring(Math.max(tmpStartPos, aStartPos), tmpFindSpot.getStartPos());
+          final String tmpText = textSubstring(Math.max(tmpStartPos, aStartPos), tmpFindSpot.getStartPos());
           if (StringUtils.isNotEmpty(tmpText)) {
             return tmpText;
           }
@@ -310,7 +310,7 @@ public class HtmlPageIndex {
       }
     }
 
-    return text.substring(Math.max(tmpStartPos, aStartPos), tmpFindSpot.getStartPos());
+    return textSubstring(Math.max(tmpStartPos, aStartPos), tmpFindSpot.getStartPos());
   }
 
   /**
@@ -351,7 +351,7 @@ public class HtmlPageIndex {
       }
     }
 
-    return text.substring(tmpFindSpot.getEndPos(), tmpEndPos);
+    return textSubstring(tmpFindSpot.getEndPos(), tmpEndPos);
   }
 
   /**
@@ -365,7 +365,7 @@ public class HtmlPageIndex {
     if (null == tmpFindSpot) {
       return null;
     }
-    return text.substring(tmpFindSpot.getStartPos(), tmpFindSpot.getEndPos());
+    return textSubstring(tmpFindSpot.getStartPos(), tmpFindSpot.getEndPos());
   }
 
   /**
@@ -728,6 +728,24 @@ public class HtmlPageIndex {
     parseChildren(anHtmlInlineQuotation);
     text.append("\" ");
     textWithoutFormControls.append("\" ");
+  }
+
+  /**
+   * Helper to generate log output in case our index seems to be wrong.
+   * The usual java {@link IndexOutOfBoundsException} text has no param info.
+   *
+   * @param aStartPos The beginning index, inclusive.
+   * @param anEndPos The ending index, exclusive.
+   * @return The new sub string.
+   */
+  private String textSubstring(final int aStartPos, final int anEndPos) {
+    try {
+      return text.substring(aStartPos, anEndPos);
+    } catch (final IndexOutOfBoundsException e) {
+      LOG.error("Invalid position(s) provided for text.substring(); startPos: " + aStartPos + " endPos: " + anEndPos);
+      dumpToLog();
+      throw e;
+    }
   }
 
   /**
