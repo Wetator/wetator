@@ -322,23 +322,11 @@
 
 
     <!-- ===========================================
-         private target start-xvfb
-           starts the virtual display
-         =========================================== -->
-    <target name="-start-xvfb" if="is-ci">
-        <exec dir="/usr/bin" executable="Xvfb" failonerror="false" spawn="true">
-            <arg line=":${display} -ac -screen 0 1024x768x16" />
-        </exec>
-        <echo level="info">Started Xvfb display ${display}</echo>
-    </target>
-
-
-    <!-- ===========================================
          private target run-tests
            runs all tests
          =========================================== -->
     <target name="-run-tests" description="runs all tests"
-        depends="-compile, -compile-tests, -start-xvfb" unless="skip.tests">
+        depends="-compile, -compile-tests" unless="skip.tests">
         <delete dir="${dir.deploy}/junit" includeEmptyDirs="true"/>
         <mkdir dir="${dir.deploy}/junit"/>
 
@@ -358,7 +346,6 @@
             fork="yes" forkmode="once" dir="${basedir}">
             <classpath refid="classpath-junit" />
             <jvmarg value="-Duser.language=en" />
-            <env key="DISPLAY" value=":${display}" />
 
             <batchtest todir="${dir.deploy}/junit">
                 <formatter type="xml" />
