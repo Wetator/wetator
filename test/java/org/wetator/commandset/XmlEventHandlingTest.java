@@ -38,8 +38,8 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ BrowserType.FIREFOX_60 })
-  public void eventClickOnFF45() throws InvalidInputException {
-    executeTestFile("ff45/event_clickOn.wet");
+  public void eventClickOnFF60() throws InvalidInputException {
+    executeTestFile("ff60/event_clickOn.wet");
 
     Assert.assertEquals(63, getSteps());
     Assert.assertEquals(0, getFailures());
@@ -58,8 +58,8 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ BrowserType.FIREFOX_60 })
-  public void eventDeselectFF45() throws InvalidInputException {
-    executeTestFile("ff45/event_deselect.wet");
+  public void eventDeselectFF60() throws InvalidInputException {
+    executeTestFile("ff60/event_deselect.wet");
 
     Assert.assertEquals(18, getSteps());
     Assert.assertEquals(0, getFailures());
@@ -78,8 +78,8 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ BrowserType.FIREFOX_60 })
-  public void eventMouseOverFF45() throws InvalidInputException {
-    executeTestFile("ff45/event_mouseOver.wet");
+  public void eventMouseOverFF60() throws InvalidInputException {
+    executeTestFile("ff60/event_mouseOver.wet");
 
     Assert.assertEquals(74, getSteps());
     Assert.assertEquals(0, getFailures());
@@ -98,8 +98,8 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ BrowserType.FIREFOX_60 })
-  public void eventSelectFF45() throws InvalidInputException {
-    executeTestFile("ff45/event_select.wet");
+  public void eventSelectFF60() throws InvalidInputException {
+    executeTestFile("ff60/event_select.wet");
 
     Assert.assertEquals(18, getSteps());
     Assert.assertEquals(0, getFailures());
@@ -118,8 +118,8 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ BrowserType.FIREFOX_60 })
-  public void eventSetFF45() throws InvalidInputException {
-    executeTestFile("ff45/event_set.wet");
+  public void eventSetFF60() throws InvalidInputException {
+    executeTestFile("ff60/event_set.wet");
 
     Assert.assertEquals(27, getSteps());
     Assert.assertEquals(0, getFailures());
