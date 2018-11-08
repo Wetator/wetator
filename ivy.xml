@@ -37,7 +37,7 @@
         <dependency org="commons-io" name="commons-io" rev="2.6" />
         <dependency org="org.apache.commons" name="commons-lang3" rev="3.7" />
         <dependency org="org.apache.commons" name="commons-text" rev="1.4" />
-        <dependency org="net.sourceforge.htmlunit" name="htmlunit" rev="2.32" changing="true" />
+        <dependency org="net.sourceforge.htmlunit" name="htmlunit" rev="2.33" changing="true" />
         <!-- <dependency org="net.sourceforge.htmlunit" name="htmlunit-core-js" rev="2.17" changing="true" /> -->
         <!-- <dependency org="net.sourceforge.cssparser" name="cssparser" rev="0.9.18-SNAPSHOT" changing="true" /> -->
         <dependency org="org.apache.logging.log4j" name="log4j-api" rev="2.11.0" />
@@ -51,14 +51,14 @@
 
         <dependency org="junit" name="junit" rev="4.12" transitive="true" conf="test,sources" />
         <dependency org="org.mockito" name="mockito-core" rev="2.19.0" conf="test,sources" />
-        <dependency org="org.eclipse.jetty" name="jetty-server" rev="9.4.11.v20180605" conf="test" />
-        <dependency org="org.eclipse.jetty" name="jetty-servlet" rev="9.4.11.v20180605" conf="test" />
-        <dependency org="org.eclipse.jetty" name="jetty-servlets" rev="9.4.11.v20180605" conf="test" />
+        <dependency org="org.eclipse.jetty" name="jetty-server" rev="9.4.12.v20180830" conf="test" />
+        <dependency org="org.eclipse.jetty" name="jetty-servlet" rev="9.4.12.v20180830" conf="test" />
+        <dependency org="org.eclipse.jetty" name="jetty-servlets" rev="9.4.12.v20180830" conf="test" />
         <dependency org="org.apache.logging.log4j" name="log4j-slf4j-impl" rev="2.11.0" conf="test,sources" />
         <dependency org="org.hsqldb" name="hsqldb" rev="2.4.1" conf="test" />
 
         <!-- fix version of jetty as htmlunit may use a different version -->
-        <override org="org.eclipse.jetty" module="*" rev="9.4.11.v20180605" />
+        <override org="org.eclipse.jetty" module="*" rev="9.4.12.v20180830" />
 
         <override org="org.slf4j" module="*" rev="1.7.25" />
     </dependencies>
