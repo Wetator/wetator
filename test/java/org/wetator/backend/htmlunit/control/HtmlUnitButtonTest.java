@@ -28,7 +28,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 /**
  * @author rbri
  */
-public class HtmlUnitButtonTextTest {
+public class HtmlUnitButtonTest {
   @Test
   public void isDisabled() throws IOException {
     // @formatter:off
