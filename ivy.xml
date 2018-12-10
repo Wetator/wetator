@@ -43,22 +43,22 @@
         <dependency org="org.apache.logging.log4j" name="log4j-api" rev="2.11.0" />
         <dependency org="org.apache.logging.log4j" name="log4j-core" rev="2.11.0" />
         <dependency org="org.apache.logging.log4j" name="log4j-jcl" rev="2.11.0" />
-        <dependency org="org.apache.pdfbox" name="pdfbox" rev="2.0.12" />
+        <dependency org="org.apache.pdfbox" name="pdfbox" rev="2.0.13" />
         <dependency org="org.bouncycastle" name="bcprov-jdk15on" rev="1.60" />
         <dependency org="org.bouncycastle" name="bcmail-jdk15on" rev="1.60" />
-        <dependency org="org.apache.poi" name="poi-ooxml" rev="3.17" />
+        <dependency org="org.apache.poi" name="poi-ooxml" rev="4.0.1" />
         <dependency org="com.sun.xsom" name="xsom" rev="20140925" />
 
         <dependency org="junit" name="junit" rev="4.12" transitive="true" conf="test,sources" />
         <dependency org="org.mockito" name="mockito-core" rev="2.19.0" conf="test,sources" />
-        <dependency org="org.eclipse.jetty" name="jetty-server" rev="9.4.12.v20180830" conf="test" />
-        <dependency org="org.eclipse.jetty" name="jetty-servlet" rev="9.4.12.v20180830" conf="test" />
-        <dependency org="org.eclipse.jetty" name="jetty-servlets" rev="9.4.12.v20180830" conf="test" />
+        <dependency org="org.eclipse.jetty" name="jetty-server" rev="9.4.14.v20181114" conf="test" />
+        <dependency org="org.eclipse.jetty" name="jetty-servlet" rev="9.4.14.v20181114" conf="test" />
+        <dependency org="org.eclipse.jetty" name="jetty-servlets" rev="9.4.14.v20181114" conf="test" />
         <dependency org="org.apache.logging.log4j" name="log4j-slf4j-impl" rev="2.11.0" conf="test,sources" />
         <dependency org="org.hsqldb" name="hsqldb" rev="2.4.1" conf="test" />
 
         <!-- fix version of jetty as htmlunit may use a different version -->
-        <override org="org.eclipse.jetty" module="*" rev="9.4.12.v20180830" />
+        <override org="org.eclipse.jetty" module="*" rev="9.4.14.v20181114" />
 
         <override org="org.slf4j" module="*" rev="1.7.25" />
     </dependencies>
