@@ -123,7 +123,7 @@
     <comment></comment>
     <command><d:open-url><d:url>assert_content.html</d:url></d:open-url></command>
     <command><d:click-on><d:wpath>wet_test_xls_error.zip</d:wpath></d:click-on></command>
-    <command><tst:assert-fail><tst:command-and-message>Assert Content, Can't convert the response zip into text (Can't convert the zipped xls 'wet_test.xls' into text (reason: org.apache.poi.openxml4j.exceptions.InvalidFormatException: Your InputStream was neither an OLE2 stream\, nor an OOXML stream).).</tst:command-and-message><tst:parameter1>text</tst:parameter1></tst:assert-fail></command>
+    <command><tst:assert-fail><tst:command-and-message>Assert Content, Can't convert the response zip into text (Can't convert the zipped xls 'wet_test.xls' into text (reason: java.io.IOException: Your InputStream was neither an OLE2 stream\, nor an OOXML stream).).</tst:command-and-message><tst:parameter1>text</tst:parameter1></tst:assert-fail></command>
     <comment></comment>
     <comment>content type xlsx</comment>
     <command><d:open-url><d:url>assert_content.html</d:url></d:open-url></command>
@@ -140,7 +140,7 @@
     <comment></comment>
     <command><d:open-url><d:url>assert_content.html</d:url></d:open-url></command>
     <command><d:click-on><d:wpath>wet_test_xlsx_error.zip</d:wpath></d:click-on></command>
-    <command><tst:assert-fail><tst:command-and-message>Assert Content, Can't convert the response zip into text (Can't convert the zipped xls 'wet_test.xlsx' into text (reason: org.apache.poi.openxml4j.exceptions.InvalidFormatException: Your InputStream was neither an OLE2 stream\, nor an OOXML stream).).</tst:command-and-message><tst:parameter1>text</tst:parameter1></tst:assert-fail></command>
+    <command><tst:assert-fail><tst:command-and-message>Assert Content, Can't convert the response zip into text (Can't convert the zipped xls 'wet_test.xlsx' into text (reason: java.io.IOException: Your InputStream was neither an OLE2 stream\, nor an OOXML stream).).</tst:command-and-message><tst:parameter1>text</tst:parameter1></tst:assert-fail></command>
     <comment></comment>
     <comment>content type csv</comment>
     <command><d:open-url><d:url>assert_content.html</d:url></d:open-url></command>
