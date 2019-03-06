@@ -98,6 +98,7 @@ import com.gargoylesoftware.htmlunit.javascript.HtmlUnitContextFactory;
 import com.gargoylesoftware.htmlunit.javascript.JavaScriptEngine;
 import com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJob;
 import com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJobManager;
+import com.gargoylesoftware.htmlunit.javascript.host.Window;
 import com.gargoylesoftware.htmlunit.util.WebClientUtils;
 import com.gargoylesoftware.htmlunit.xml.XmlPage;
 
@@ -1021,9 +1022,9 @@ public final class HtmlUnitBrowser implements IBrowser {
     boolean tmpPendingJobs = false;
 
     Page tmpPage = getCurrentPage();
+    long tmpEndTime = System.currentTimeMillis() + aTimeoutInMillis;
     if (tmpPage.isHtmlPage()) {
       // try with wait
-      long tmpEndTime = System.currentTimeMillis() + aTimeoutInMillis;
       long tmpNow;
       while ((tmpNow = System.currentTimeMillis()) < tmpEndTime) {
         final HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
@@ -1045,6 +1046,22 @@ public final class HtmlUnitBrowser implements IBrowser {
         }
         tmpEndTime = System.currentTimeMillis() + aTimeoutInMillis;
       }
+    }
+
+    // handle animationFrames
+    final Window tmpWin = tmpPage.getEnclosingWindow().getTopWindow().getScriptableObject();
+
+    // TODO replace the hard coded second
+    final long tmpTimeout = Math.max(1000, tmpEndTime - System.currentTimeMillis());
+    tmpEndTime = System.currentTimeMillis() + tmpTimeout;
+    int tmpPendingAnimationFrames = tmpWin.animateAnimationsFrames();
+    while (tmpPendingAnimationFrames > 0 && System.currentTimeMillis() < tmpEndTime) {
+      tmpPendingAnimationFrames = tmpWin.animateAnimationsFrames();
+    }
+
+    if (tmpPendingAnimationFrames > 0) {
+      wetatorEngine.informListenersWarn("stillAnimataionFramesPending",
+          new Object[] { tmpTimeout / 1000d, tmpPendingAnimationFrames }, (String) null);
     }
 
     if (tmpPendingJobs && tmpPage.isHtmlPage()) {
