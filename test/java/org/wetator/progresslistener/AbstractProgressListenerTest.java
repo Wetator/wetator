@@ -685,7 +685,7 @@ public abstract class AbstractProgressListenerTest {
     // unify path delimiter
     tmpResult = tmpResult.replace('\\', '/');
     // unify htmlunit version
-    tmpResult = tmpResult.replaceAll("HtmlUnit version 2.\\d+(-SNAPSHOT)?", "HtmlUnit");
+    tmpResult = tmpResult.replaceAll("HtmlUnit version 2.\\d+(.\\d+)?(-SNAPSHOT)?", "HtmlUnit");
     // comments
     tmpResult = tmpResult.replaceAll("(?s)<!--.*?-->", "<!-- ... -->");
     // paths
