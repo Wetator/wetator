@@ -262,7 +262,7 @@ public final class ResponseStore {
         String tmpQuery = aFullContentUrl.getQuery();
         if (null != tmpQuery) {
           tmpQuery = URLDecoder.decode(tmpQuery, "UTF-8");
-          tmpFileName = tmpFileName + "?" + tmpQuery;
+          tmpFileName = new StringBuilder().append(tmpFileName).append('?').append(tmpQuery).toString();
         }
 
         // fix special characters
@@ -279,25 +279,27 @@ public final class ResponseStore {
         if (null == aSuffix) {
           final String tmpFileSuffix = ContentTypeUtil.getFileSuffix(tmpWebResponse);
           if (!tmpFileName.endsWith(tmpFileSuffix)) {
-            tmpFileName = tmpFileName + "." + tmpFileSuffix;
+            tmpFileName = new StringBuilder().append(tmpFileName).append('.').append(tmpFileSuffix).toString();
           }
         } else {
           if (!tmpFileName.endsWith(aSuffix)) {
-            tmpFileName = tmpFileName + aSuffix;
+            tmpFileName = new StringBuilder().append(tmpFileName).append(aSuffix).toString();
           }
         }
 
         File tmpResourceFile = new File(storeDir, tmpFileName);
 
         if (tmpResourceFile.getAbsolutePath().length() > MAX_FILE_NAME_LENGTH) {
+          final StringBuilder tmpShortFileName = new StringBuilder();
           // files with really long names
-          tmpFileName = "resource/" + "resource_" + getUniqueId();
+          tmpShortFileName.append("resource/resource_").append(Long.toString(getUniqueId()));
           if (null != aSuffix) {
-            tmpFileName = tmpFileName + aSuffix;
+            tmpShortFileName.append(aSuffix);
           } else {
-            tmpFileName = tmpFileName + "." + ContentTypeUtil.getFileSuffix(tmpWebResponse);
+            tmpShortFileName.append('.').append(ContentTypeUtil.getFileSuffix(tmpWebResponse));
           }
-          tmpResourceFile = new File(storeDir, tmpFileName);
+
+          tmpResourceFile = new File(storeDir, tmpShortFileName.toString());
         }
 
         // store the value already to prevent endless looping

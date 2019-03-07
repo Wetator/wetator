@@ -791,7 +791,7 @@ public final class HtmlUnitBrowser implements IBrowser {
           }
 
           if (tmpParam.length() > 0) {
-            tmpPageFile = tmpPageFile + "?" + tmpParam.toString();
+            tmpPageFile = new StringBuilder().append(tmpPageFile).append('?').append(tmpParam).toString();
           }
           wetatorEngine.informListenersResponseStored(tmpPageFile);
         }
@@ -829,7 +829,7 @@ public final class HtmlUnitBrowser implements IBrowser {
             }
 
             if (tmpParam.length() > 0) {
-              tmpPageFile = tmpPageFile + "?" + tmpParam.toString();
+              tmpPageFile = new StringBuilder().append(tmpPageFile).append('?').append(tmpParam).toString();
             }
             wetatorEngine.informListenersHighlightedResponse(tmpPageFile);
           }
