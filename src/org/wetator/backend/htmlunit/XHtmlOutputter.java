@@ -497,7 +497,8 @@ public final class XHtmlOutputter {
                 final Element tmpElemScript = aDomNode.getScriptableObject();
                 final CSSStyleDeclaration tmpStyle = tmpElemScript.getWindow().getComputedStyle(tmpElemScript, null);
                 // for the moment i have no better idea than always hard wire the display info
-                tmpAttributeValue = tmpAttributeValue + "; display: " + tmpStyle.getDisplay();
+                tmpAttributeValue = new StringBuilder().append(tmpAttributeValue).append("; display: ")
+                    .append(tmpStyle.getDisplay()).toString();
               }
             }
           }
