@@ -17,7 +17,6 @@
 package org.wetator.backend.htmlunit;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.net.UnknownHostException;
@@ -633,50 +632,6 @@ public final class HtmlUnitBrowser implements IBrowser {
   public void chooseCancelOnNextConfirmFor(final ContentPattern aMessagePattern) {
     final ConfirmHandler tmpHandler = (ConfirmHandler) webClient.getConfirmHandler();
     tmpHandler.chooseCancelOnNextConfirmFor(aMessagePattern);
-  }
-
-  /**
-   * Our own listener. We like to inform about javascript errors without
-   * stopping the processing.
-   */
-  public static final class JavaScriptErrorListener
-      implements com.gargoylesoftware.htmlunit.javascript.JavaScriptErrorListener {
-    private HtmlUnitBrowser htmlUnitBrowser;
-
-    /**
-     * Constructor.
-     *
-     * @param aHtmlUnitBrowser the browser this listener informs
-     */
-    public JavaScriptErrorListener(final HtmlUnitBrowser aHtmlUnitBrowser) {
-      htmlUnitBrowser = aHtmlUnitBrowser;
-    }
-
-    @Override
-    public void loadScriptError(final HtmlPage aHtmlPage, final URL aScriptUrl, final Exception anException) {
-      htmlUnitBrowser.addFailure("javascriptLoadError",
-          new String[] { aScriptUrl.toExternalForm(), aHtmlPage.getUrl().toExternalForm(), anException.getMessage() },
-          anException);
-    }
-
-    @Override
-    public void malformedScriptURL(final HtmlPage aHtmlPage, final String aUrl,
-        final MalformedURLException aMalformedURLException) {
-      htmlUnitBrowser.addFailure("javascriptLoadError",
-          new String[] { aUrl, aHtmlPage.getUrl().toExternalForm(), aMalformedURLException.getMessage() },
-          aMalformedURLException);
-    }
-
-    @Override
-    public void scriptException(final HtmlPage aHtmlPage, final ScriptException aScriptException) {
-      htmlUnitBrowser.addFailure("javascriptError", new String[] { aScriptException.getMessage() }, aScriptException);
-    }
-
-    @Override
-    public void timeoutError(final HtmlPage aHtmlPage, final long aAllowedTime, final long aExecutionTime) {
-      htmlUnitBrowser.addFailure("javascriptTimeoutError",
-          new Object[] { aAllowedTime, aExecutionTime, aHtmlPage.getUrl().toExternalForm() }, null);
-    }
   }
 
   @Override
