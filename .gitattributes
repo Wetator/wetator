@@ -124,6 +124,7 @@ src/org/wetator/backend/control/KeySequence.java -text
 src/org/wetator/backend/htmlunit/HtmlUnitBrowser.java -text
 src/org/wetator/backend/htmlunit/HtmlUnitControlRepository.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/HtmlUnitFinderDelegator.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/JavaScriptErrorListener.java -text
 src/org/wetator/backend/htmlunit/ResponseStore.java -text
 src/org/wetator/backend/htmlunit/XHtmlOutputter.java -text
 src/org/wetator/backend/htmlunit/control/HtmlUnitAnchor.java -text svneol=unset#text/plain
