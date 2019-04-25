@@ -7,6 +7,6 @@
     version='1.0.0'>
     <comment>redirect via http header</comment>
     <command><d:open-url><d:url>snoopy.php</d:url></d:open-url></command>
-    <command><d:assert-content><d:content>Headers, Accept-Language en-US</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>Headers, Accept-Language de-de,de;q=0.8,en-us;q=0.5,en;q=0.3</d:content></d:assert-content></command>
     <command><d:assert-content><d:content>User-Agent, Mozilla</d:content></d:assert-content></command>
 </test-case>
