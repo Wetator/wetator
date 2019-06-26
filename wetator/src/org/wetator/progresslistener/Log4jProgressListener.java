@@ -35,6 +35,7 @@ import org.apache.logging.log4j.core.LogEvent;
 import org.apache.logging.log4j.core.LoggerContext;
 import org.apache.logging.log4j.core.appender.AbstractAppender;
 import org.apache.logging.log4j.core.config.LoggerConfig;
+import org.apache.logging.log4j.core.config.Property;
 import org.apache.logging.log4j.core.layout.PatternLayout;
 import org.wetator.core.Command;
 import org.wetator.core.IProgressListener;
@@ -81,7 +82,8 @@ public class Log4jProgressListener extends AbstractAppender implements IProgress
    */
   public Log4jProgressListener(final int aCommandCount) {
     super("WetatorLog4jProgressListener", null,
-        PatternLayout.newBuilder().withPattern("%5p [%5.5t] (%25.25F:%5.5L) - %m%n").build());
+        PatternLayout.newBuilder().withPattern("%5p [%5.5t] (%25.25F:%5.5L) - %m%n").build(), true,
+        Property.EMPTY_ARRAY);
 
     commandCount = aCommandCount;
 

@@ -51,8 +51,8 @@ public final class Log4jUtil {
     final PatternLayout tmpLayout = PatternLayout.newBuilder().withConfiguration(tmpConfig)
         .withPattern("%5p [%5.5t] (%25.25F:%5.5L) - %m%n").build();
 
-    final FileAppender tmpFileAppender = FileAppender.newBuilder().withName("WetatorDebugAppender")
-        .withFileName(aLogFile.getAbsolutePath()).withLayout(tmpLayout).withAppend(false).build();
+    final FileAppender tmpFileAppender = FileAppender.newBuilder().setName("WetatorDebugAppender")
+        .withFileName(aLogFile.getAbsolutePath()).setLayout(tmpLayout).withAppend(false).build();
     tmpFileAppender.start();
     tmpConfig.addAppender(tmpFileAppender);
 
