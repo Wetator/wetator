@@ -1,5 +1,6 @@
 /build
 /deploy
+wetator-ant-task/bin
 wetator-ant-task/build
 wetator-ant-task/deploy
 wetator-ant-task/lib/*.jar
