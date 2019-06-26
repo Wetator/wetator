@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,35 +36,34 @@ public final class StringUtil {
   /**
    * Extract all fields in a String given a list of delimiter characters and
    * an optional escape character usable to escape field delimits.
-   * <P>
+   * <BR>
    * Example:
    *
    * <PRE>
-   *    extractStrings("1\\n\\n2\\n3\\\\n4", "\\n", '\\') ->
-   *    returns 4 strings: "1", "", "2" and "3\\n4"
+   *    extractStrings("1\\n\\n2\\n3\\\\n4", "\\n", '\\')
+   *    returns four strings: "1", "", "2" and "3\\n4"
    * </PRE>
    *
    * Example (escape with no delimiter):
    *
    * <PRE>
-   *    extractStrings("123\\c4", "\\n", '\\') ->
-   *    returns 1 string: "123\\c4"
+   *    extractStrings("123\\c4", "\\n", '\\')
+   *    returns one string: "123\\c4"
    * </PRE>
    *
    * Example (escape with escape):
    *
    * <PRE>
-   *    extractStrings("123\\\\4", "\\n", '\\') ->
-   *    returns 1 string: "123\\4"
+   *    extractStrings("123\\\\4", "\\n", '\\')
+   *    returns one string: "123\\4"
    * </PRE>
-   * </p>
    *
    * @param aReceiver is the string to be split into tokens
    * @param aDelimiter is a String
    * @param anEscapeChar an optional character, that can be used as an escape
    *        character inside receiver to make delimiter characters ignored.
    *        Specify -1 here to not use escape characters.
-   * @return a list, if there are no parts alway an empty list is returned
+   * @return a list, if there are no parts always an empty list is returned
    */
   public static List<String> extractStrings(final String aReceiver, final String aDelimiter, final int anEscapeChar) {
     final List<String> tmpResult = new LinkedList<String>();

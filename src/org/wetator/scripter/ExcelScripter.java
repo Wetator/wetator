@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,10 +17,10 @@
 package org.wetator.scripter;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -29,8 +29,8 @@ import java.util.Properties;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.LocaleUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -51,7 +51,7 @@ import org.wetator.util.NormalizedString;
  */
 public final class ExcelScripter implements IScripter {
 
-  private static final Log LOG = LogFactory.getLog(ExcelScripter.class);
+  private static final Logger LOG = LogManager.getLogger(ExcelScripter.class);
 
   private static final String PROPERTY_PREFIX = WetatorConfiguration.PROPERTY_PREFIX + "scripter.excel.";
   private static final String PROPERTY_LOCALE = PROPERTY_PREFIX + "locale";
@@ -115,10 +115,7 @@ public final class ExcelScripter implements IScripter {
   private List<Command> readCommands() throws InvalidInputException {
     final List<Command> tmpResult = new LinkedList<Command>();
 
-    InputStream tmpInputStream = null;
-    try {
-      tmpInputStream = new FileInputStream(file.getAbsoluteFile());
-
+    try (InputStream tmpInputStream = Files.newInputStream(file.toPath())) {
       final HSSFWorkbook tmpWorkbook = new HSSFWorkbook(tmpInputStream);
       try {
         int tmpSheetNo = -1;
@@ -199,14 +196,6 @@ public final class ExcelScripter implements IScripter {
     } catch (final IOException e) {
       throw new InvalidInputException(
           "Error parsing file '" + FilenameUtils.normalize(file.getAbsolutePath()) + "' (" + e.getMessage() + ").", e);
-    } finally {
-      if (tmpInputStream != null) {
-        try {
-          tmpInputStream.close();
-        } catch (final IOException e) {
-          // bad luck
-        }
-      }
     }
   }
 

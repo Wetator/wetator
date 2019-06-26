@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ import org.apache.commons.io.FilenameUtils;
  * FileUtil contains some useful extensions to work with files.
  *
  * @author rbri
+ * @author frank.danek
  */
 public final class FileUtil {
 
@@ -37,7 +38,7 @@ public final class FileUtil {
   public static void createOutputDir(final File anOutputDir) throws IOException {
     if (null == anOutputDir) {
       // I18n
-      throw new NullPointerException("No output directory specified.");
+      throw new IllegalArgumentException("No output directory specified.");
     }
 
     if (anOutputDir.exists()) {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -83,6 +83,7 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
     tmpResourceHandler.setDirectoriesListed(true);
     tmpResourceHandler.setWelcomeFiles(new String[] { "index.html" });
     tmpResourceHandler.setResourceBase(DEFAULT_DOCUMENT_ROOT);
+    tmpResourceHandler.setRedirectWelcome(true); // see https://github.com/eclipse/jetty.project/issues/1856
 
     // final MimeTypes tmpMimeTypes = new MimeTypes();
     // tmpMimeTypes.addMimeMapping("json", "application/json");

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,21 +18,25 @@ package org.wetator.progresslistener;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.commons.io.output.FileWriterWithEncoding;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.log4j.AppenderSkeleton;
-import org.apache.log4j.Category;
-import org.apache.log4j.Layout;
-import org.apache.log4j.Level;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.PatternLayout;
-import org.apache.log4j.spi.LoggingEvent;
+import org.apache.logging.log4j.Level;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.core.Appender;
+import org.apache.logging.log4j.core.Layout;
+import org.apache.logging.log4j.core.LogEvent;
+import org.apache.logging.log4j.core.LoggerContext;
+import org.apache.logging.log4j.core.appender.AbstractAppender;
+import org.apache.logging.log4j.core.config.LoggerConfig;
+import org.apache.logging.log4j.core.config.Property;
+import org.apache.logging.log4j.core.layout.PatternLayout;
 import org.wetator.core.Command;
 import org.wetator.core.IProgressListener;
 import org.wetator.core.Parameter;
@@ -44,72 +48,92 @@ import org.wetator.exception.AssertionException;
 import org.wetator.util.Output;
 
 /**
- * Log4jAppender, that also works as progress listener.
- * The appender saves the log of some steps for dumping
- * in case of failure.
+ * This {@link IProgressListener} implements the Wetator's retrospect feature.<br>
+ * It
+ * <ul>
+ * <li>catches and stores both Wetator {@link Command}s (by implementing the {@link IProgressListener} interface) and
+ * logging
+ * output (by implementing Log4j's {@link Appender} interface) of a configured number of {@link Command}s in the correct
+ * order</li>
+ * <li>dumps the stored info in case of a failure or an error</li>
+ * </ul>
+ * <strong>ATTENTION!</strong> Sets the log level of some loggers to <code>trace</code> (see
+ * {@link #addAsTraceAppender()}).
  *
  * @author rbri
+ * @author frank.danek
  */
-public class Log4jProgressListener extends AppenderSkeleton implements IProgressListener {
+public class Log4jProgressListener extends AbstractAppender implements IProgressListener {
 
-  private static final Log LOG = LogFactory.getLog(Log4jProgressListener.class);
+  private static final Logger LOG = LogManager.getLogger(Log4jProgressListener.class);
+
+  private int commandCount;
+  private List<CommandEvents> commandEvents = new LinkedList<CommandEvents>();
+  private CommandEvents currentEvents;
 
   private File outputDir;
   private String testCase;
   private String browser;
 
-  private int commandCount;
-  private List<CommandEvents> commandEvents;
-  private CommandEvents currentEvents;
-
   /**
    * The constructor.
    *
-   * @param aCommandCount the number of commands to hold
+   * @param aCommandCount the number of {@link Command}s to store
    */
   public Log4jProgressListener(final int aCommandCount) {
+    super("WetatorLog4jProgressListener", null,
+        PatternLayout.newBuilder().withPattern("%5p [%5.5t] (%25.25F:%5.5L) - %m%n").build(), true,
+        Property.EMPTY_ARRAY);
+
     commandCount = aCommandCount;
-    commandEvents = new LinkedList<CommandEvents>();
 
     final Command tmpCommand = new Command("--startup--", false);
     currentEvents = new CommandEvents(tmpCommand);
 
-    setLayout(new PatternLayout("%5p [%5.5t] (%25.25F:%5.5L) - %m%n"));
+    start();
+
+    addAsTraceAppender();
+  }
+
+  /**
+   * Adds this instance as {@link Appender} for
+   * <ul>
+   * <li><code>org.apache.http.wire</code></li>
+   * <li><code>org.wetator</code></li>
+   * </ul>
+   * and sets the log level of these loggers to <code>trace</code>.
+   */
+  protected void addAsTraceAppender() {
+    final LoggerContext tmpContext = (LoggerContext) LogManager.getContext(false);
+
+    addAsTraceAppender(tmpContext, "org.apache.http.wire");
+    addAsTraceAppender(tmpContext, "org.wetator");
+  }
+
+  /**
+   * Adds this instance as {@link Appender} to the given logger and sets it's level to <code>trace</code>.
+   *
+   * @param aContext the {@link LoggerContext}
+   * @param aLoggerName the logger name
+   */
+  protected void addAsTraceAppender(final LoggerContext aContext, final String aLoggerName) {
+    final LoggerConfig tmpLogger = aContext.getConfiguration().getLoggerConfig(aLoggerName);
+    tmpLogger.setLevel(Level.TRACE);
+    tmpLogger.addAppender(this, null, null);
   }
 
   @Override
-  public void close() {
-    commandEvents = new LinkedList<CommandEvents>();
-  }
-
-  @Override
-  public boolean requiresLayout() {
-    return false;
-  }
-
-  @Override
-  protected void append(final LoggingEvent aLoggingEvent) {
-    // aLoggingEvent.getLocationInformation();
-    currentEvents.getEvents().add(aLoggingEvent);
+  public void append(final LogEvent aLogEvent) {
+    // we need to initialize the source here (during the original log call)
+    // later (in dump()) the context is not available anymore
+    aLogEvent.getSource();
+    currentEvents.getEvents().add(aLogEvent);
   }
 
   @Override
   public void init(final WetatorEngine aWetatorEngine) {
     final WetatorConfiguration tmpConfiguration = aWetatorEngine.getConfiguration();
     outputDir = tmpConfiguration.getOutputDir();
-  }
-
-  /**
-   * Set this as appender for '"org.apache.http.wire"' (level: trace).
-   */
-  public void appendAsWireListener() {
-    Category tmpCategory = LogManager.getLogger("org.apache.http.wire");
-    tmpCategory.setLevel(Level.TRACE);
-    tmpCategory.addAppender(this);
-
-    tmpCategory = LogManager.getLogger("org.wetator");
-    tmpCategory.setLevel(Level.TRACE);
-    tmpCategory.addAppender(this);
   }
 
   @Override
@@ -124,7 +148,7 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
   @Override
   public void testRunStart(final String aBrowserName) {
     browser = aBrowserName;
-    commandEvents = new LinkedList<CommandEvents>();
+    commandEvents.clear();
   }
 
   @Override
@@ -201,15 +225,15 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
 
   @Override
   public void error(final Throwable aThrowable) {
-    aThrowable.printStackTrace();
+    aThrowable.printStackTrace(); // NOPMD
   }
 
   @Override
-  public void warn(final String aMessageKey, final Object[] aParameterArray, final String aDetails) {
+  public void warn(final String aMessageKey, final Object[] aParameters, final String aDetails) {
   }
 
   @Override
-  public void info(final String aMessageKey, final Object[] aParameterArray) {
+  public void info(final String aMessageKey, final Object... aParameters) {
   }
 
   /**
@@ -226,67 +250,60 @@ public class Log4jProgressListener extends AppenderSkeleton implements IProgress
       tmpSuffix = "_" + tmpCount++;
     } while (tmpResultFile.exists());
 
-    try {
-      final Writer tmpWriter = new FileWriterWithEncoding(tmpResultFile, "UTF-8");
-      try {
-        final Output tmpOutput = new Output(tmpWriter, "    ");
-        final Layout tmpLayout = getLayout();
-        for (final CommandEvents tmpEvents : commandEvents) {
-          tmpOutput.println("******************************************");
-          tmpOutput.print("* ");
-          tmpOutput.println(tmpEvents.getCommand().getName());
-          Parameter tmpParam = tmpEvents.getCommand().getFirstParameter();
-          if (null != tmpParam) {
-            tmpOutput.print("*   ");
-            tmpOutput.println(tmpParam.getValue());
-          }
-          tmpParam = tmpEvents.getCommand().getSecondParameter();
-          if (null != tmpParam) {
-            tmpOutput.print("*   ");
-            tmpOutput.println(tmpParam.getValue());
-          }
-          tmpOutput.println("******************************************");
-          tmpOutput.indent();
-
-          for (final LoggingEvent tmpEvent : tmpEvents.getEvents()) {
-            if (tmpLayout == null) {
-              tmpOutput.println(tmpEvent.getMessage().toString());
-            } else {
-              tmpOutput.printStringWithNewLine(tmpLayout.format(tmpEvent));
-            }
-          }
-
-          tmpOutput.unindent();
+    try (Writer tmpWriter = new FileWriterWithEncoding(tmpResultFile, StandardCharsets.UTF_8)) {
+      final Output tmpOutput = new Output(tmpWriter, "    ");
+      final Layout<? extends Serializable> tmpLayout = getLayout();
+      for (final CommandEvents tmpEvents : commandEvents) {
+        tmpOutput.println("******************************************");
+        tmpOutput.print("* ");
+        tmpOutput.println(tmpEvents.getCommand().getName());
+        Parameter tmpParam = tmpEvents.getCommand().getFirstParameter();
+        if (null != tmpParam) {
+          tmpOutput.print("*   ");
+          tmpOutput.println(tmpParam.getValue());
         }
-        tmpOutput.flush();
-      } finally {
-        commandEvents.clear();
+        tmpParam = tmpEvents.getCommand().getSecondParameter();
+        if (null != tmpParam) {
+          tmpOutput.print("*   ");
+          tmpOutput.println(tmpParam.getValue());
+        }
+        tmpOutput.println("******************************************");
+        tmpOutput.indent();
 
-        tmpWriter.close();
+        for (final LogEvent tmpEvent : tmpEvents.getEvents()) {
+          if (tmpLayout == null) {
+            tmpOutput.println(tmpEvent.getMessage().toString());
+          } else {
+            tmpOutput.printStringWithNewLine(tmpLayout.toSerializable(tmpEvent).toString());
+          }
+        }
+
+        tmpOutput.unindent();
       }
+      tmpOutput.flush();
     } catch (final IOException e) {
       LOG.error(e.getMessage(), e);
+    } finally {
+      commandEvents.clear();
     }
   }
 
   /**
-   * Helper.
+   * Container to store all {@link LogEvent}s that were logged while executing the given {@link Command}.
    */
   private static final class CommandEvents {
     private Command command;
-    private List<LoggingEvent> events;
+    private List<LogEvent> events = new LinkedList<LogEvent>();
 
     private CommandEvents(final Command aCommand) {
-      super();
       command = aCommand;
-      events = new LinkedList<LoggingEvent>();
     }
 
     private Command getCommand() {
       return command;
     }
 
-    private List<LoggingEvent> getEvents() {
+    private List<LogEvent> getEvents() {
       return events;
     }
   }

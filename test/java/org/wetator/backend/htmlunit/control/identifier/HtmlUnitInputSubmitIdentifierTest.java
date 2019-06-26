@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -96,7 +96,7 @@ public class HtmlUnitInputSubmitIdentifierTest extends AbstractHtmlUnitControlId
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
-        "[HtmlSubmitInput 'ClickMe' (id='myId')] found by: BY_LABELING_TEXT deviation: 0 distance: 0 start: 0 index: 5",
+        "[HtmlSubmitInput 'ClickMe' (id='myId')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -158,6 +158,46 @@ public class HtmlUnitInputSubmitIdentifierTest extends AbstractHtmlUnitControlId
 
     Assert.assertEquals(
         "[HtmlSubmitInput 'ClickMe' (id='myId_2_3')] found by: BY_TABLE_COORDINATE deviation: 0 distance: 62 start: 62 index: 45",
+        tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void inTable() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "      <thead>"
+        + "        <tr>"
+        + "          <th id='header_1'>header_1</th>"
+        + "          <th id='header_2'>header_2</th>"
+        + "          <th id='header_3'>header_3</th>"
+        + "        </tr>"
+        + "      </thead>"
+        + "      <tbody>"
+        + "        <tr>"
+        + "          <td id='cell_1_1'>row_1</td>"
+        + "          <td id='cell_1_2'><input type='submit' id='InputSubmit_1_2' value='Click'/></td>"
+        + "          <td id='cell_1_3'><input type='submit' id='InputSubmit_1_3' value='Click'/></td>"
+        + "        </tr>"
+        + "        <tr>"
+        + "          <td id='cell_2_1'>row_2</td>"
+        + "          <td id='cell_2_2'><input type='submit' id='InputSubmit_2_2' value='Click'/></td>"
+        + "          <td id='cell_2_3'><input type='submit' id='InputSubmit_2_3' value='Click'/></td>"
+        + "        </tr>"
+        + "      </tbody>"
+        + "    </table>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("[header_3; row_2] > Click");
+
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "InputSubmit_1_2",
+        "InputSubmit_1_3", "InputSubmit_2_2", "InputSubmit_2_3");
+
+    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+
+    Assert.assertEquals(
+        "[HtmlSubmitInput 'Click' (id='InputSubmit_2_3')] found by: BY_LABEL deviation: 0 distance: 56 start: 56 index: 45",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 }

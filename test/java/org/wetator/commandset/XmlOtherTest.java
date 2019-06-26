@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
   private static final String BASE_FOLDER = "test/xml/";
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_52, BrowserType.INTERNET_EXPLORER })
+  @Browsers({ BrowserType.FIREFOX_60, BrowserType.INTERNET_EXPLORER })
   public void ajaxJquery() throws InvalidInputException {
     executeTestFile("ajax_jquery.wet");
 
@@ -46,7 +46,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_52, BrowserType.INTERNET_EXPLORER })
+  @Browsers({ BrowserType.FIREFOX_60, BrowserType.INTERNET_EXPLORER })
   public void ajaxPrototype() throws InvalidInputException {
     executeTestFile("ajax_prototype.wet");
 
@@ -56,7 +56,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_52, BrowserType.INTERNET_EXPLORER })
+  @Browsers({ BrowserType.FIREFOX_60, BrowserType.INTERNET_EXPLORER })
   public void jsAnchorInsidePage() throws InvalidInputException {
     executeTestFile("js_anchor_inside_page.wet");
 
@@ -66,7 +66,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_52, BrowserType.INTERNET_EXPLORER })
+  @Browsers({ BrowserType.FIREFOX_60, BrowserType.INTERNET_EXPLORER })
   public void flowSimpleLogin() throws InvalidInputException {
     executeTestFile("flow_simple_login.wet");
 
@@ -76,7 +76,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_52, BrowserType.INTERNET_EXPLORER })
+  @Browsers({ BrowserType.FIREFOX_60, BrowserType.INTERNET_EXPLORER })
   public void flowSimpleSearch() throws InvalidInputException {
     executeTestFile("flow_simple_search.wet");
 
@@ -86,7 +86,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_52, BrowserType.INTERNET_EXPLORER })
+  @Browsers({ BrowserType.FIREFOX_60, BrowserType.INTERNET_EXPLORER })
   public void htmlunitJavascript() throws InvalidInputException {
     executeTestFile("htmlunit_javascript.wet");
 
@@ -96,7 +96,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_52, BrowserType.INTERNET_EXPLORER })
+  @Browsers({ BrowserType.FIREFOX_60, BrowserType.INTERNET_EXPLORER })
   public void iframe() throws InvalidInputException {
     executeTestFile("iframe.wet");
 
@@ -106,7 +106,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_52, BrowserType.INTERNET_EXPLORER })
+  @Browsers({ BrowserType.FIREFOX_60, BrowserType.INTERNET_EXPLORER })
   public void jquery() throws InvalidInputException {
     executeTestFile("jquery.wet");
 
@@ -116,7 +116,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_52, BrowserType.INTERNET_EXPLORER })
+  @Browsers({ BrowserType.FIREFOX_60, BrowserType.INTERNET_EXPLORER })
   public void richfaces() throws InvalidInputException {
     executeTestFile("richfaces.wet");
 
@@ -126,7 +126,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_52, BrowserType.INTERNET_EXPLORER })
+  @Browsers({ BrowserType.FIREFOX_60, BrowserType.INTERNET_EXPLORER })
   public void jsError() throws InvalidInputException {
     executeTestFile("js_error.wet");
 
@@ -136,7 +136,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_52, BrowserType.INTERNET_EXPLORER })
+  @Browsers({ BrowserType.FIREFOX_60, BrowserType.INTERNET_EXPLORER })
   public void jsLibs() throws InvalidInputException {
     executeTestFile("js_libs.wet");
 
@@ -146,7 +146,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_52, BrowserType.INTERNET_EXPLORER })
+  @Browsers({ BrowserType.FIREFOX_60, BrowserType.INTERNET_EXPLORER })
   public void normalizeCommand() throws InvalidInputException {
     executeTestFile("normalize_command.wet");
 
@@ -156,7 +156,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_52, BrowserType.INTERNET_EXPLORER })
+  @Browsers({ BrowserType.FIREFOX_60, BrowserType.INTERNET_EXPLORER })
   public void onfocusOnblur() throws InvalidInputException {
     executeTestFile("onfocus_onblur.wet");
 
@@ -166,7 +166,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_52, BrowserType.INTERNET_EXPLORER })
+  @Browsers({ BrowserType.FIREFOX_60, BrowserType.INTERNET_EXPLORER })
   public void onfocusChangeFocus() throws InvalidInputException {
     executeTestFile("onfocus_changefocus.wet");
 
@@ -176,7 +176,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_52, BrowserType.INTERNET_EXPLORER })
+  @Browsers({ BrowserType.FIREFOX_60, BrowserType.INTERNET_EXPLORER })
   public void onfocusDropFocusText() throws InvalidInputException {
     executeTestFile("onfocus_dropfocus_text.wet");
 
@@ -186,7 +186,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_52, BrowserType.INTERNET_EXPLORER })
+  @Browsers({ BrowserType.FIREFOX_60, BrowserType.INTERNET_EXPLORER })
   public void onfocusDropFocusPassword() throws InvalidInputException {
     executeTestFile("onfocus_dropfocus_password.wet");
 
@@ -196,7 +196,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_52, BrowserType.INTERNET_EXPLORER })
+  @Browsers({ BrowserType.FIREFOX_60, BrowserType.INTERNET_EXPLORER })
   public void onfocusDropFocusTextArea() throws InvalidInputException {
     executeTestFile("onfocus_dropfocus_textarea.wet");
 
@@ -206,7 +206,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_52, BrowserType.INTERNET_EXPLORER })
+  @Browsers({ BrowserType.FIREFOX_60, BrowserType.INTERNET_EXPLORER })
   public void onfocusDropFocusFileUpload() throws InvalidInputException {
     executeTestFile("onfocus_dropfocus_fileupload.wet");
 
@@ -216,7 +216,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_52, BrowserType.INTERNET_EXPLORER })
+  @Browsers({ BrowserType.FIREFOX_60, BrowserType.INTERNET_EXPLORER })
   public void onkey() throws InvalidInputException {
     executeTestFile("onkey.wet");
 
@@ -226,7 +226,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_52, BrowserType.INTERNET_EXPLORER })
+  @Browsers({ BrowserType.FIREFOX_60, BrowserType.INTERNET_EXPLORER })
   public void wait1() throws InvalidInputException {
     executeTestFile("wait.wet");
 
@@ -236,7 +236,7 @@ public class XmlOtherTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_52, BrowserType.INTERNET_EXPLORER })
+  @Browsers({ BrowserType.FIREFOX_60, BrowserType.INTERNET_EXPLORER })
   public void responseStore() throws InvalidInputException {
     executeTestFile("response_store.wet");
 

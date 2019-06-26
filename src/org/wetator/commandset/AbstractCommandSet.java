@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,8 +22,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.ClassUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.IControlFinder;
 import org.wetator.backend.WPath;
@@ -45,7 +45,7 @@ import org.wetator.i18n.Messages;
  */
 public abstract class AbstractCommandSet implements ICommandSet {
 
-  private static final Log LOG = LogFactory.getLog(AbstractCommandSet.class);
+  private static final Logger LOG = LogManager.getLogger(AbstractCommandSet.class);
 
   private List<String> initializationMessages;
   private Map<String, ICommandImplementation> commandImplementations;
@@ -115,8 +115,7 @@ public abstract class AbstractCommandSet implements ICommandSet {
    * @return the {@link IBrowser}
    */
   protected IBrowser getBrowser(final WetatorContext aContext) {
-    final IBrowser tmpBrowser = aContext.getBrowser();
-    return tmpBrowser;
+    return aContext.getBrowser();
   }
 
   /**
@@ -129,7 +128,7 @@ public abstract class AbstractCommandSet implements ICommandSet {
     try {
       tmpControlFinder = aBrowser.getControlFinder();
     } catch (final BackendException e) {
-      final String tmpMessage = Messages.getMessage("commandBackendError", new String[] { e.getMessage() });
+      final String tmpMessage = Messages.getMessage("commandBackendError", e.getMessage());
       throw new ActionException(tmpMessage, e);
     }
     return tmpControlFinder;
@@ -151,7 +150,7 @@ public abstract class AbstractCommandSet implements ICommandSet {
       throws ActionException {
     final IControl tmpControl = getFirstHtmlElementFrom(aContext, aWeightedControlList, aWPath);
     if (null == tmpControl) {
-      final String tmpMessage = Messages.getMessage(aNothingFoundMsgKey, new String[] { aWPath.toString() });
+      final String tmpMessage = Messages.getMessage(aNothingFoundMsgKey, aWPath.toString());
       throw new ActionException(tmpMessage);
     }
     return tmpControl;
@@ -176,12 +175,11 @@ public abstract class AbstractCommandSet implements ICommandSet {
     final WeightedControlList.Entry tmpEntry = tmpEntries.get(0);
 
     if (tmpEntries.size() > 1) {
-      aContext.informListenersInfo("manyElementsFound",
-          new String[] { aWPath.toString(), tmpEntry.getControl().getDescribingText() });
+      aContext.informListenersInfo("manyElementsFound", aWPath.toString(), tmpEntry.getControl().getDescribingText());
     }
 
     for (final WeightedControlList.Entry tmpEachEntry : tmpEntries) {
-      aContext.informListenersInfo("elementFound", new String[] { tmpEachEntry.toString() });
+      aContext.informListenersInfo("elementFound", tmpEachEntry.toString());
     }
 
     return tmpEntry.getControl();

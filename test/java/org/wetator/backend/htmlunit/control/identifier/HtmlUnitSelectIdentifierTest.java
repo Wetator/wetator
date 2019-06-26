@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -153,8 +153,37 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlSelect (id='MySecondSelectId')] found by: BY_LABEL deviation: 0 distance: 44 start: 66 index: 16",
+        "[HtmlSelect (id='MySecondSelectId')] found by: BY_LABEL_ELEMENT deviation: 0 distance: 44 start: 66 index: 16",
         tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void byHtmlLabel_Text_Invisible() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<label id='MyFirstLabelId' for='MyFirstSelectId'>FirstSelectLabelText</label>"
+        + "<select id='MyFirstSelectId' size='2'>"
+        + "<option id='1_1' value='o_value1'>option1</option>"
+        + "<option id='1_2' value='o_value2'>option2</option>"
+        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "</select>"
+        + "<label id='MySecondLabelId' for='MySecondSelectId'>SecondSelectLabelText</label>"
+        + "<select id='MySecondSelectId' size='2' style='display: none;'>"
+        + "<option id='2_1' value='o_value1'>option1</option>"
+        + "<option id='2_2' value='o_value2'>option2</option>"
+        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "</select>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("SecondSelectLabelText");
+
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstLabelId",
+        "MySecondLabelId");
+
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -187,8 +216,39 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlSelect (id='MySecondSelectId')] found by: BY_LABEL deviation: 0 distance: 44 start: 66 index: 16",
+        "[HtmlSelect (id='MySecondSelectId')] found by: BY_LABEL_ELEMENT deviation: 0 distance: 44 start: 66 index: 16",
         tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void byHtmlLabelChild_Text_Invisible() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<label id='MyFirstLabelId'>FirstSelectLabelText"
+        + "<select id='MyFirstSelectId' size='2'>"
+        + "<option id='1_1' value='o_value1'>option1</option>"
+        + "<option id='1_2' value='o_value2'>option2</option>"
+        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "</select>"
+        + "</label>"
+        + "<label id='MySecondLabelId'>SecondSelectLabelText"
+        + "<select id='MySecondSelectId' size='2' style='display: none;'>"
+        + "<option id='2_1' value='o_value1'>option1</option>"
+        + "<option id='2_2' value='o_value2'>option2</option>"
+        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "</select>"
+        + "</label>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("SecondSelectLabelText");
+
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyFirstLabelId",
+        "MySecondLabelId");
+
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 package org.wetator.backend.htmlunit.util;
 
+import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -35,7 +36,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
  */
 public final class ContentTypeUtil {
   private static final Map<String, ContentType> CONTENT_TYPES = new HashMap<String, ContentType>();
-  private static final Map<ContentType, String> FILE_EXTENSIONS = new HashMap<ContentType, String>();
+  private static final EnumMap<ContentType, String> FILE_EXTENSIONS = new EnumMap<>(ContentType.class);
 
   static {
     define(ContentType.HTML, "html", "text/html");

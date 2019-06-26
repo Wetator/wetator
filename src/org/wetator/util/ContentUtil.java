@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,13 +32,14 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 import javax.swing.text.rtf.RTFEditorKit;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentInformation;
 import org.apache.pdfbox.pdmodel.encryption.AccessPermission;
 import org.apache.pdfbox.text.PDFTextStripper;
-import org.apache.poi.POIXMLException;
+import org.apache.poi.UnsupportedFileFormatException;
+import org.apache.poi.ooxml.POIXMLException;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.formula.eval.NotImplementedException;
 import org.apache.poi.ss.usermodel.Cell;
@@ -57,9 +58,10 @@ import org.wetator.backend.htmlunit.util.ContentTypeUtil;
  * ContentUtil contains some useful helpers for content conversion handling.
  *
  * @author rbri
+ * @author frank.danek
  */
 public final class ContentUtil {
-  private static final Log LOG = LogFactory.getLog(ContentUtil.class);
+  private static final Logger LOG = LogManager.getLogger(ContentUtil.class);
 
   private static final String MORE = " ...";
 
@@ -212,30 +214,21 @@ public final class ContentUtil {
       } else if (ContentType.XLS == tmpType || ContentType.XLSX == tmpType) {
         try {
           tmpResult.append(getExcelContentAsString(new CloseIgnoringInputStream(tmpZipInput), aXlsLocale, aMaxLength));
-        } catch (final IOException e) {
-          throw new IOException(
-              "Can't convert the zipped xls '" + tmpZipEntry.getName() + "' into text (reason: " + e.toString() + ").");
-        } catch (final InvalidFormatException e) {
+        } catch (final IOException | InvalidFormatException e) {
           throw new IOException(
               "Can't convert the zipped xls '" + tmpZipEntry.getName() + "' into text (reason: " + e.toString() + ").");
         }
       } else if (ContentType.DOCX == tmpType) {
         try {
           tmpResult.append(getWordContentAsString(new CloseIgnoringInputStream(tmpZipInput), aMaxLength));
-        } catch (final IOException e) {
-          throw new IOException(
-              "Can't convert the zipped doc '" + tmpZipEntry.getName() + "' into text (reason: " + e.toString() + ").");
-        } catch (final InvalidFormatException e) {
+        } catch (final IOException | InvalidFormatException e) {
           throw new IOException(
               "Can't convert the zipped doc '" + tmpZipEntry.getName() + "' into text (reason: " + e.toString() + ").");
         }
       } else if (ContentType.RTF == tmpType) {
         try {
           tmpResult.append(getRtfContentAsString(new CloseIgnoringInputStream(tmpZipInput), aMaxLength));
-        } catch (final IOException e) {
-          throw new IOException(
-              "Can't convert the zipped rtf '" + tmpZipEntry.getName() + "' into text (reason: " + e.toString() + ").");
-        } catch (final BadLocationException e) {
+        } catch (final IOException | BadLocationException e) {
           throw new IOException(
               "Can't convert the zipped rtf '" + tmpZipEntry.getName() + "' into text (reason: " + e.toString() + ").");
         }
@@ -271,28 +264,18 @@ public final class ContentUtil {
     NormalizedString tmpResult = new NormalizedString();
 
     // TODO support old word format
-    try {
-      final XWPFDocument tmpDocument = new XWPFDocument(anInputStream);
-      try {
-        final XWPFWordExtractor tmpExtractor = new XWPFWordExtractor(tmpDocument);
-        try {
-          tmpResult.append(tmpExtractor.getText());
+    try (XWPFDocument tmpDocument = new XWPFDocument(anInputStream);
+        XWPFWordExtractor tmpExtractor = new XWPFWordExtractor(tmpDocument)) {
+      tmpResult.append(tmpExtractor.getText());
 
-          if (tmpResult.length() <= aMaxLength) {
-            return tmpResult.toString();
-          }
-
-          tmpResult = new NormalizedString(tmpResult.substring(0, aMaxLength));
-          tmpResult.append(MORE);
-          return tmpResult.toString();
-
-        } finally {
-          tmpExtractor.close();
-        }
-      } finally {
-        tmpDocument.close();
+      if (tmpResult.length() <= aMaxLength) {
+        return tmpResult.toString();
       }
-    } catch (final POIXMLException e) {
+
+      tmpResult = new NormalizedString(tmpResult.substring(0, aMaxLength));
+      tmpResult.append(MORE);
+      return tmpResult.toString();
+    } catch (final POIXMLException | UnsupportedFileFormatException e) {
       if (e.getCause() instanceof InvalidFormatException) {
         throw (InvalidFormatException) e.getCause();
       }
@@ -376,8 +359,7 @@ public final class ContentUtil {
 
     final DataFormatter tmpDataFormatter = new DataFormatter(aLocale);
     try {
-      final String tmpResult = tmpDataFormatter.formatCellValue(tmpCell, aFormulaEvaluator);
-      return tmpResult;
+      return tmpDataFormatter.formatCellValue(tmpCell, aFormulaEvaluator);
     } catch (final NotImplementedException e) {
       final StringBuilder tmpMsg = new StringBuilder(e.getMessage());
       if (null != e.getCause()) {
@@ -386,8 +368,7 @@ public final class ContentUtil {
         tmpMsg.append(')');
       }
       LOG.error(tmpMsg.toString());
-      final String tmpResult = tmpDataFormatter.formatCellValue(tmpCell, null);
-      return tmpResult;
+      return tmpDataFormatter.formatCellValue(tmpCell, null);
     }
   }
 
@@ -423,29 +404,29 @@ public final class ContentUtil {
     final Iterator<String> tmpLanguages = StringUtil.extractStrings(anAcceptLanguageHeader, ",", -1).iterator();
     while (tmpLanguages.hasNext()) {
       final List<String> tmpLanguageDescriptor = StringUtil.extractStrings(tmpLanguages.next(), ";", -1);
-      if (tmpLanguageDescriptor.size() < 1) {
+      if (tmpLanguageDescriptor.isEmpty()) {
         return null;
       }
 
       final String tmpLocaleString = tmpLanguageDescriptor.get(0);
 
       final List<String> tmpLocaleDescriptor = StringUtil.extractStrings(tmpLocaleString, "-", -1);
-      if (tmpLocaleDescriptor.size() < 1) {
+      if (tmpLocaleDescriptor.isEmpty()) {
         break;
       }
 
       final String[] tmpISO639 = Locale.getISOLanguages();
       final String tmpLanguage = tmpLocaleDescriptor.get(0).toLowerCase(Locale.ENGLISH);
-      for (int i = 0; i < tmpISO639.length; i++) {
-        if (tmpISO639[i].equals(tmpLanguage)) {
+      for (final String tmpISO639Language : tmpISO639) {
+        if (tmpISO639Language.equals(tmpLanguage)) {
           // found a valid language
           // check the country
           String tmpCountry3166 = "";
           if (tmpLocaleDescriptor.size() > 1) {
             final String tmpCountry = tmpLocaleDescriptor.get(1).toUpperCase(Locale.ENGLISH);
             final String[] tmpISO3166 = Locale.getISOCountries();
-            for (int j = 0; j < tmpISO3166.length; j++) {
-              if (tmpISO3166[j].equals(tmpCountry)) {
+            for (final String tmpISO3166Country : tmpISO3166) {
+              if (tmpISO3166Country.equals(tmpCountry)) {
                 tmpCountry3166 = tmpCountry;
               }
             }

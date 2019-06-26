@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -48,7 +48,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
   public void inTablePlain() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "    <table>"
         + "      <thead>"
         + "        <tr>"
         + "          <th id='header_1'>header_1</th>"
@@ -86,7 +86,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
   public void inTableNestedX() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "    <table>"
         + "      <thead>"
         + "        <tr>"
         + "          <th id='header_1'>header_1</th>"
@@ -124,7 +124,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
   public void inTableNestedY() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "    <table>"
         + "      <thead>"
         + "        <tr>"
         + "          <th id='header_1'>header_1</th>"
@@ -162,7 +162,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
   public void inTableNestedCell() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "    <table>"
         + "      <thead>"
         + "        <tr>"
         + "          <th id='header_1'>header_1</th>"
@@ -200,7 +200,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
   public void inTableNestedCellMultiple() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "    <table>"
         + "      <thead>"
         + "        <tr>"
         + "          <th id='header_1'>header_1</th>"
@@ -239,11 +239,11 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
   public void inTableNestedTable() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "    <table>"
         + "      <tbody>"
         + "        <tr>"
         + "          <td>"
-        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "    <table>"
         + "      <thead>"
         + "        <tr>"
         + "          <th id='header_1'>header_1</th>"
@@ -285,7 +285,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
   public void inTableDifferentTableX() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "    <table>"
         + "      <tbody>"
         + "        <tr>"
         + "          <td id='cell_o_1_1'>cell_o_1_1</td>"
@@ -294,7 +294,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
         + "        <tr>"
         + "          <td id='cell_o_2_1'>cell_o_2_1</td>"
         + "          <td>"
-        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "    <table>"
         + "      <thead>"
         + "        <tr>"
         + "          <th id='header_1'>header_1</th>"
@@ -337,7 +337,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
   public void inTableDifferentTableY() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "    <table>"
         + "      <tbody>"
         + "        <tr>"
         + "          <td id='cell_o_1_1'>cell_o_1_1</td>"
@@ -346,7 +346,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
         + "        <tr>"
         + "          <td id='cell_o_2_1'>cell_o_2_1</td>"
         + "          <td>"
-        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "    <table>"
         + "      <thead>"
         + "        <tr>"
         + "          <th id='header_1'>header_1</th>"
@@ -389,7 +389,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
   public void inTableOnlyX() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "    <table>"
         + "      <thead>"
         + "        <tr>"
         + "          <th id='header_1'>header_1</th>"
@@ -428,7 +428,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
   public void inTableOnlyPartlyX() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "    <table>"
         + "      <thead>"
         + "        <tr>"
         + "          <th id='header_1'>header_1</th>"
@@ -464,7 +464,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
   public void inTableOnlyXWithPathBehind() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "    <table>"
         + "      <thead>"
         + "        <tr>"
         + "          <th id='header_1'>header_1</th>"
@@ -500,7 +500,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
   public void inTableOnlyY() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "    <table>"
         + "      <thead>"
         + "        <tr>"
         + "          <th id='header_1'>header_1</th>"
@@ -539,7 +539,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
   public void inTableOnlyPartlyY() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "    <table>"
         + "      <thead>"
         + "        <tr>"
         + "          <th id='header_1'>header_1</th>"
@@ -575,7 +575,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
   public void inMultipleTable() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "    <table>"
         + "      <tbody>"
         + "        <tr>"
         + "          <td id='cell_o_1_1'>cell_o_1_1</td>"
@@ -584,7 +584,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
         + "        <tr>"
         + "          <td id='cell_o_2_1'>cell_o_2_1</td>"
         + "          <td>"
-        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "    <table>"
         + "      <thead>"
         + "        <tr>"
         + "          <th id='header_1'>header_1</th>"
@@ -626,14 +626,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
   public void rowSpan() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "    <table border='0' cellspacing='20' cellpadding='30'>"
-        + "      <thead>"
-        + "        <tr>"
-        + "          <th id='header_1'>header_1</th>"
-        + "          <th id='header_2'>header_2</th>"
-        + "          <th id='header_3'>header_3</th>"
-        + "        </tr>"
-        + "      </thead>"
+        + "    <table>"
         + "      <tbody>"
         + "        <tr>"
         + "          <td id='cell_1_1'>row_1</td>"
@@ -652,19 +645,105 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
     SecretString tmpSearch = new SecretString("[; row_1]");
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2");
     Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("InputText_1_2", FoundType.BY_TABLE_COORDINATE, 0, 32, 32, tmpMatches.get(0));
+    assertMatchEquals("InputText_1_2", FoundType.BY_TABLE_COORDINATE, 0, 5, 5, tmpMatches.get(0));
+
+    tmpSearch = new SecretString("[; row_1]");
+    tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_3");
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("InputText_1_3", FoundType.BY_TABLE_COORDINATE, 0, 5, 5, tmpMatches.get(0));
+
+    tmpSearch = new SecretString("[; row_1]");
+    tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_2_3");
+    Assert.assertEquals(0, tmpMatches.size());
+  }
+
+  @Test
+  public void rowSpanHitBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "    <table>"
+        + "      <tbody>"
+        + "        <tr>"
+        + "          <td id='cell_1_1' rowspan='2'>row_1</td>"
+        + "          <td id='cell_1_2'><input type='text' id='InputText_1_2'/></td>"
+        + "          <td id='cell_1_3'><input type='text' id='InputText_1_3'/></td>"
+        + "        </tr>"
+        + "        <tr>"
+        + "          <td id='cell_2_2'><input type='text' id='InputText_2_2'/></td>"
+        + "          <td id='cell_2_3'><input type='text' id='InputText_2_3'/></td>"
+        + "        </tr>"
+        + "      </tbody>"
+        + "    </table>"
+        + "</body></html>";
+    // @formatter:on
+
+    SecretString tmpSearch = new SecretString("[; row_1]");
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2");
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("InputText_1_2", FoundType.BY_TABLE_COORDINATE, 0, 5, 5, tmpMatches.get(0));
+
+    tmpSearch = new SecretString("[; row_1]");
+    tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_3");
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("InputText_1_3", FoundType.BY_TABLE_COORDINATE, 0, 5, 5, tmpMatches.get(0));
+
+    tmpSearch = new SecretString("[; row_1]");
+    tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_2_2");
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("InputText_2_2", FoundType.BY_TABLE_COORDINATE, 0, 5, 5, tmpMatches.get(0));
+
+    tmpSearch = new SecretString("[; row_1]");
+    tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_2_3");
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("InputText_2_3", FoundType.BY_TABLE_COORDINATE, 0, 5, 5, tmpMatches.get(0));
+  }
+
+  @Test
+  public void rowSpanHitAfter() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "    <table>"
+        + "      <tbody>"
+        + "        <tr>"
+        + "          <td id='cell_1_1'><input type='text' id='InputText_1_1'/></td>"
+        + "          <td id='cell_1_2'><input type='text' id='InputText_1_2'/></td>"
+        + "          <td id='cell_1_3' rowspan='2'>row_1</td>"
+        + "        </tr>"
+        + "        <tr>"
+        + "          <td id='cell_2_1'><input type='text' id='InputText_2_1'/></td>"
+        + "          <td id='cell_2_2'><input type='text' id='InputText_2_2'/></td>"
+        + "        </tr>"
+        + "      </tbody>"
+        + "    </table>"
+        + "</body></html>";
+    // @formatter:on
+
+    SecretString tmpSearch = new SecretString("[; row_1]");
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_1");
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("InputText_1_1", FoundType.BY_TABLE_COORDINATE, 0, 0, 0, tmpMatches.get(0));
 
     tmpSearch = new SecretString("[; row_1]");
     tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2");
     Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("InputText_1_2", FoundType.BY_TABLE_COORDINATE, 0, 32, 32, tmpMatches.get(0));
+    assertMatchEquals("InputText_1_2", FoundType.BY_TABLE_COORDINATE, 0, 0, 0, tmpMatches.get(0));
+
+    tmpSearch = new SecretString("[; row_1]");
+    tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_2_1");
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("InputText_2_1", FoundType.BY_TABLE_COORDINATE, 0, 5, 5, tmpMatches.get(0));
+
+    tmpSearch = new SecretString("[; row_1]");
+    tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_2_2");
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("InputText_2_2", FoundType.BY_TABLE_COORDINATE, 0, 5, 5, tmpMatches.get(0));
   }
 
   @Test
   public void brokenRowSpan() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "    <table>"
         + "      <tbody>"
         + "        <tr>"
         + "          <td id='cell_1_1' rowspan='2'><input type='text' id='InputText_1_1'/></td>"
@@ -686,7 +765,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
   public void colSpan() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "    <table>"
         + "      <thead>"
         + "        <tr>"
         + "          <th id='header_1'>header_1</th>"
@@ -716,10 +795,89 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
+  public void colSpanHitBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "    <table>"
+        + "      <thead>"
+        + "        <tr>"
+        + "          <th id='header_1' colspan='2'>header_1</th>"
+        + "          <th id='header_3'>header_3</th>"
+        + "        </tr>"
+        + "      </thead>"
+        + "      <tbody>"
+        + "        <tr>"
+        + "          <td id='cell_1_1'><input type='text' id='InputText_1_1'/></td>"
+        + "          <td id='cell_1_2'><input type='text' id='InputText_1_2'/></td>"
+        + "          <td id='cell_1_3'><input type='text' id='InputText_1_3'/></td>"
+        + "        </tr>"
+        + "      </tbody>"
+        + "    </table>"
+        + "</body></html>";
+    // @formatter:on
+
+    SecretString tmpSearch = new SecretString("[header_1 ;]");
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_1");
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("InputText_1_1", FoundType.BY_TABLE_COORDINATE, 0, 17, 17, tmpMatches.get(0));
+
+    tmpSearch = new SecretString("[header_1 ;]");
+    tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2");
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("InputText_1_2", FoundType.BY_TABLE_COORDINATE, 0, 17, 17, tmpMatches.get(0));
+
+    tmpSearch = new SecretString("[header_1 ;]");
+    tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_3");
+    Assert.assertEquals(0, tmpMatches.size());
+  }
+
+  @Test
+  public void colSpanHitAfter() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "    <table>"
+        + "      <thead>"
+        + "        <tr>"
+        + "          <th id='header_1'>header_1</th>"
+        + "          <th id='header_2'>header_1</th>"
+        + "          <th id='header_3'>header_3</th>"
+        + "        </tr>"
+        + "      </thead>"
+        + "      <tbody>"
+        + "        <tr>"
+        + "          <td id='cell_1_1'><input type='text' id='InputText_1_1'/></td>"
+        + "          <td id='cell_1_2'><input type='text' id='InputText_1_2'/></td>"
+        + "          <td id='cell_1_3'><input type='text' id='InputText_1_3'/></td>"
+        + "        </tr>"
+        + "        <tr>"
+        + "          <td id='cell_2_1'>col_1</td>"
+        + "          <td id='cell_2_2' colspan='2'>col_2</td>"
+        + "        </tr>"
+        + "      </tbody>"
+        + "    </table>"
+        + "</body></html>";
+    // @formatter:on
+
+    SecretString tmpSearch = new SecretString("[col_2 ;]");
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2");
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("InputText_1_2", FoundType.BY_TABLE_COORDINATE, 0, 26, 26, tmpMatches.get(0));
+
+    tmpSearch = new SecretString("[col_2 ;]");
+    tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_3");
+    Assert.assertEquals(1, tmpMatches.size());
+    assertMatchEquals("InputText_1_3", FoundType.BY_TABLE_COORDINATE, 0, 26, 26, tmpMatches.get(0));
+
+    tmpSearch = new SecretString("[col_2 ;]");
+    tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_1");
+    Assert.assertEquals(0, tmpMatches.size());
+  }
+
+  @Test
   public void brokenColSpan() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "    <table>"
         + "      <tbody>"
         + "        <tr>"
         + "          <td id='cell_1_1' colspan='2'><input type='text' id='InputText_1_1'/></td>"
@@ -741,7 +899,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
   public void brokenColSpan2() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "    <table>"
         + "      <tbody>"
         + "        <tr>"
         + "          <td id='cell_1_1'>line one</td>"
@@ -767,7 +925,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
   public void brokenColSpan3() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "    <table>"
         + "      <tbody>"
         + "        <tr>"
         + "          <td id='cell_1_1'>line one</td>"

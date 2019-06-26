@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -63,8 +63,7 @@ public abstract class SearchPattern {
       tmpPattern.append(tmpExpectedString);
     }
 
-    final SearchPattern tmpSearchPattern = SearchPattern.compile(tmpPattern.toString());
-    return tmpSearchPattern;
+    return SearchPattern.compile(tmpPattern.toString());
   }
 
   /**
@@ -360,7 +359,7 @@ public abstract class SearchPattern {
      */
     public synchronized String getStatistics() {
       // @formatter:off
-      final StringBuilder tmpResult = new StringBuilder(80)
+      final StringBuilder tmpResult = new StringBuilder(80) // NOPMD
         .append("SearchPatternCache statistics:\n")
         .append("      Entries: ").append(cache.size()).append('\n')
         .append("      Hits:    ").append(hitsCount);

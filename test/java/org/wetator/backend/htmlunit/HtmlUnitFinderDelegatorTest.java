@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,8 +29,8 @@ public class HtmlUnitFinderDelegatorTest {
   public void pageNull() {
     try {
       new HtmlUnitFinderDelegator(null);
-      Assert.fail("NullPointerException expected.");
-    } catch (final NullPointerException e) {
+      Assert.fail("IllegalArgumentException expected.");
+    } catch (final IllegalArgumentException e) {
       Assert.assertEquals("HtmlPage can't be null", e.getMessage());
     }
   }

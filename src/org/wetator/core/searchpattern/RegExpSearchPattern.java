@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,24 +45,6 @@ final class RegExpSearchPattern extends SearchPattern {
 
   private static long firstOccurenceIn;
   private static long lastOccurenceIn;
-
-  /**
-   * Helper to print the number of calls for the methods to stdout.
-   */
-  public static void dumpStatistics() {
-    System.out.println("constructor: " + constructor);
-    System.out.println("matches: " + matches);
-    System.out.println("matchesAtEnd: " + matchesAtEnd);
-    System.out.println();
-    System.out.println("firstOccurenceIn: " + firstOccurenceIn);
-    System.out.println("lastOccurenceIn: " + lastOccurenceIn);
-    System.out.println();
-    System.out.println("noOfCharsBeforeLastOccurenceIn: " + noOfCharsBeforeLastOccurenceIn);
-    System.out.println("noOfCharsBeforeLastShortestOccurenceIn: " + noOfCharsBeforeLastShortestOccurenceIn);
-    System.out.println("noOfCharsAfterLastOccurenceIn: " + noOfCharsAfterLastOccurenceIn);
-    System.out.println("noOfCharsAfterLastShortestOccurenceIn: " + noOfCharsAfterLastShortestOccurenceIn);
-    System.out.println("noOfSurroundingCharsIn: " + noOfSurroundingCharsIn);
-  }
 
   private String patternString;
   private RunAutomaton runAutomaton;
@@ -293,6 +275,24 @@ final class RegExpSearchPattern extends SearchPattern {
     }
 
     return tmpResult;
+  }
+
+  /**
+   * Helper to print the number of calls for the methods to stdout.
+   */
+  public static void dumpStatistics() {
+    System.out.println("constructor: " + constructor); // NOPMD
+    System.out.println("matches: " + matches); // NOPMD
+    System.out.println("matchesAtEnd: " + matchesAtEnd); // NOPMD
+    System.out.println(); // NOPMD
+    System.out.println("firstOccurenceIn: " + firstOccurenceIn); // NOPMD
+    System.out.println("lastOccurenceIn: " + lastOccurenceIn); // NOPMD
+    System.out.println(); // NOPMD
+    System.out.println("noOfCharsBeforeLastOccurenceIn: " + noOfCharsBeforeLastOccurenceIn); // NOPMD
+    System.out.println("noOfCharsBeforeLastShortestOccurenceIn: " + noOfCharsBeforeLastShortestOccurenceIn); // NOPMD
+    System.out.println("noOfCharsAfterLastOccurenceIn: " + noOfCharsAfterLastOccurenceIn); // NOPMD
+    System.out.println("noOfCharsAfterLastShortestOccurenceIn: " + noOfCharsAfterLastShortestOccurenceIn); // NOPMD
+    System.out.println("noOfSurroundingCharsIn: " + noOfSurroundingCharsIn); // NOPMD
   }
 
   @Override

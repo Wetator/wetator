@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,15 +20,9 @@ package org.wetator.util;
  * XmlUtil contains some useful helpers for XML-File handling.
  *
  * @author rbri
+ * @author frank.danek
  */
 public class XMLUtil {
-
-  /**
-   * The constructor.
-   */
-  public XMLUtil() {
-    super();
-  }
 
   /**
    * Escape the the given string. For use as body text.<br>

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,8 +35,8 @@ import javax.swing.LookAndFeel;
 import javax.swing.UIManager;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.wetator.Wetator;
 import org.wetator.i18n.Messages;
 import org.wetator.util.StringUtil;
@@ -45,9 +45,10 @@ import org.wetator.util.StringUtil;
  * Utility class to display a file selector dialog.
  *
  * @author rbri
+ * @author frank.danek
  */
 public final class DialogUtil {
-  private static final Log LOG = LogFactory.getLog(DialogUtil.class);
+  private static final Logger LOG = LogManager.getLogger(DialogUtil.class);
 
   private static final char FILE_SEPARATOR = ';';
   private static final String LAST_DIR = "lastDir";
@@ -100,7 +101,7 @@ public final class DialogUtil {
    * @param aMultiSelectionFlag if true multiple files can be selected.
    * @return the selected files.
    */
-  protected static File[] chooseFilesSwing(final JWindow aWindow, final String aPropertyKey,
+  private static File[] chooseFilesSwing(final JWindow aWindow, final String aPropertyKey,
       final boolean aMultiSelectionFlag) {
     final Preferences tmpPreferences = Preferences.userNodeForPackage(Wetator.class);
 
@@ -126,14 +127,14 @@ public final class DialogUtil {
     final LookAndFeel tmpCurrentLook = UIManager.getLookAndFeel();
     try {
       UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-    } catch (final Exception e) {
+    } catch (final Exception e) { // NOPMD
       // ignore, fall back to the default
     }
 
     final JFileChooser tmpFileChooser = new PlaceableFileChooser(tmpPreferences);
     tmpFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
     tmpFileChooser.setMultiSelectionEnabled(aMultiSelectionFlag);
-    tmpFileChooser.setDialogTitle(Messages.getMessage("fileChooserTitle", null));
+    tmpFileChooser.setDialogTitle(Messages.getMessage("fileChooserTitle"));
     tmpFileChooser.setCurrentDirectory(tmpLastDir);
 
     final File[] tmpOldFiles = restoreFiles(tmpPreferences, tmpLastDir);
@@ -147,7 +148,7 @@ public final class DialogUtil {
     try {
       // reset
       UIManager.setLookAndFeel(tmpCurrentLook);
-    } catch (final Exception e) {
+    } catch (final Exception e) { // NOPMD
       // ignore
     }
 
@@ -171,7 +172,7 @@ public final class DialogUtil {
         if (null == tmpSelectedFile) {
           return null;
         }
-        storeFiles(tmpPreferences, new File[] { tmpSelectedFile });
+        storeFiles(tmpPreferences, tmpSelectedFile);
         return new File[] { tmpSelectedFile };
       case JFileChooser.CANCEL_OPTION:
         return null;
@@ -274,14 +275,14 @@ public final class DialogUtil {
    * @param aPreferences the preferences to write to
    * @param aFiles the files to store
    */
-  public static void storeFiles(final Preferences aPreferences, final File[] aFiles) {
+  public static void storeFiles(final Preferences aPreferences, final File... aFiles) {
     if (null == aFiles) {
       return;
     }
 
     final StringBuilder tmpFiles = new StringBuilder();
-    for (int i = 0; i < aFiles.length; i++) {
-      tmpFiles.append(aFiles[i].getAbsolutePath());
+    for (final File tmpFile : aFiles) {
+      tmpFiles.append(tmpFile.getAbsolutePath());
       tmpFiles.append(FILE_SEPARATOR);
     }
 
@@ -308,7 +309,7 @@ public final class DialogUtil {
     int tmpPartsCount = 1;
     try {
       tmpPartsCount = Integer.parseInt(aPreferences.get(LAST_FILES, "1"));
-    } catch (final NumberFormatException e) {
+    } catch (final NumberFormatException e) { // NOPMD
       // ignore
     }
 

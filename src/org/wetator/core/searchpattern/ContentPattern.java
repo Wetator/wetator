@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,6 +31,7 @@ import org.wetator.util.SecretString;
  * A content pattern contains the terms of match operations (AssertContent).
  *
  * @author rbri
+ * @author frank.danek
  */
 public class ContentPattern {
 
@@ -54,8 +55,8 @@ public class ContentPattern {
 
     // not empty
     if (anExpectedNodes == null || anExpectedNodes.isEmpty()) {
-      final String tmpMessage = Messages.getMessage("invalidContentPattern",
-          new String[] { "", Messages.getMessage("emptyContentPattern", null) });
+      final String tmpMessage = Messages.getMessage("invalidContentPattern", "",
+          Messages.getMessage("emptyContentPattern"));
       throw new InvalidInputException(tmpMessage);
     }
     parseNodes();
@@ -67,8 +68,8 @@ public class ContentPattern {
     // validation
     // at least one positive node is required
     if (checks.get(0).isEmpty()) {
-      final String tmpMessage = Messages.getMessage("invalidContentPattern",
-          new String[] { toString(), Messages.getMessage("onlyNegatedContentPattern", new String[] { toString() }) });
+      final String tmpMessage = Messages.getMessage("invalidContentPattern", toString(),
+          Messages.getMessage("onlyNegatedContentPattern", toString()));
       throw new InvalidInputException(tmpMessage);
     }
   }
@@ -173,7 +174,7 @@ public class ContentPattern {
     if (tmpFailed) {
       // limit the length of the content for the error message
       tmpContent = StringUtils.abbreviate(aContent, aMaxLength);
-      Assert.fail("contentsFailed", new String[] { "{", "}", "[", "]", tmpResultMessage.toString(), tmpContent });
+      Assert.fail("contentsFailed", "{", "}", "[", "]", tmpResultMessage.toString(), tmpContent);
     }
   }
 
@@ -225,7 +226,7 @@ public class ContentPattern {
 
     // limit the length of the content for the error message
     tmpContent = StringUtils.abbreviate(aContent, aMaxLength);
-    Assert.fail("contentsFoundButNegated", new String[] { "{", "}", tmpResultMessage.toString(), tmpContent });
+    Assert.fail("contentsFoundButNegated", "{", "}", tmpResultMessage.toString(), tmpContent);
   }
 
   @Override

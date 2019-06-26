@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,6 +32,88 @@ import org.wetator.backend.control.IControl;
  * @author frank.danek
  */
 public final class WeightedControlList {
+
+  /** An empty {@link WeightedControlList}. */
+  public static final WeightedControlList EMPTY_LIST = new WeightedControlList();
+
+  private final List<Entry> entries;
+
+  /**
+   * The constructor.
+   */
+  public WeightedControlList() {
+    entries = Collections.synchronizedList(new LinkedList<Entry>());
+  }
+
+  /**
+   * Creates a new entry and adds the entry to the list.
+   *
+   * @param aControl the control
+   * @param aFoundType the found type
+   * @param aDeviation the deviation
+   * @param aDistance the distance
+   * @param aStart the start
+   * @param anIndex the index
+   */
+  public void add(final IControl aControl, final FoundType aFoundType, final int aDeviation, final int aDistance,
+      final int aStart, final int anIndex) {
+    final Entry tmpEntry = new Entry();
+    tmpEntry.control = aControl;
+    tmpEntry.foundType = aFoundType;
+    tmpEntry.deviation = aDeviation;
+    tmpEntry.distance = aDistance;
+    tmpEntry.start = aStart;
+    tmpEntry.index = anIndex;
+
+    entries.add(tmpEntry);
+  }
+
+  /**
+   * @return a new list of Entries sorted by weight
+   */
+  public List<Entry> getEntriesSorted() {
+    Collections.sort(entries, new EntryComperator());
+
+    final List<Entry> tmpResult = new LinkedList<Entry>();
+    for (final Entry tmpEntry : entries) {
+      final IControl tmpControl = tmpEntry.getControl();
+
+      boolean tmpNotPresent = true;
+      for (final Entry tmpResultEntry : tmpResult) {
+        final IControl tmpResultControl = tmpResultEntry.getControl();
+        if (tmpResultControl.hasSameBackendControl(tmpControl)) {
+          tmpNotPresent = false;
+          break;
+        }
+      }
+      if (tmpNotPresent) {
+        tmpResult.add(tmpEntry);
+      }
+    }
+
+    return tmpResult;
+  }
+
+  /**
+   * Adds all entries from the given {@link WeightedControlList} to this list.
+   *
+   * @param anOtherWeightedControlList the list of entries to add
+   */
+  public void addAll(final WeightedControlList anOtherWeightedControlList) {
+    entries.addAll(anOtherWeightedControlList.entries);
+  }
+
+  /**
+   * @return <code>true</code>, if the list is empty
+   */
+  public boolean isEmpty() {
+    return entries.isEmpty();
+  }
+
+  @Override
+  public String toString() {
+    return "WeightedControlList " + entries;
+  }
 
   /**
    * Class for the different found by types.<br>
@@ -83,6 +165,9 @@ public final class WeightedControlList {
     public static final FoundType BY_PLACEHOLDER = new FoundType("BY_PLACEHOLDER", 2500);
 
     /** Found by label HTML element match. */
+    public static final FoundType BY_LABEL_ELEMENT = new FoundType("BY_LABEL_ELEMENT", 2000);
+
+    /** Found by label (the text on a control) match. */
     public static final FoundType BY_LABEL = new FoundType("BY_LABEL", 2000);
 
     /** Found by name match. */
@@ -202,87 +287,5 @@ public final class WeightedControlList {
 
       return tmpWeightComp;
     }
-  }
-
-  /** An empty {@link WeightedControlList}. */
-  public static final WeightedControlList EMPTY_LIST = new WeightedControlList();
-
-  private final List<Entry> entries;
-
-  /**
-   * The constructor.
-   */
-  public WeightedControlList() {
-    entries = Collections.synchronizedList(new LinkedList<Entry>());
-  }
-
-  /**
-   * Creates a new entry and adds the entry to the list.
-   *
-   * @param aControl the control
-   * @param aFoundType the found type
-   * @param aDeviation the deviation
-   * @param aDistance the distance
-   * @param aStart the start
-   * @param anIndex the index
-   */
-  public void add(final IControl aControl, final FoundType aFoundType, final int aDeviation, final int aDistance,
-      final int aStart, final int anIndex) {
-    final Entry tmpEntry = new Entry();
-    tmpEntry.control = aControl;
-    tmpEntry.foundType = aFoundType;
-    tmpEntry.deviation = aDeviation;
-    tmpEntry.distance = aDistance;
-    tmpEntry.start = aStart;
-    tmpEntry.index = anIndex;
-
-    entries.add(tmpEntry);
-  }
-
-  /**
-   * @return a new list of Entries sorted by weight
-   */
-  public List<Entry> getEntriesSorted() {
-    Collections.sort(entries, new EntryComperator());
-
-    final List<Entry> tmpResult = new LinkedList<Entry>();
-    for (final Entry tmpEntry : entries) {
-      final IControl tmpControl = tmpEntry.getControl();
-
-      boolean tmpNotPresent = true;
-      for (final Entry tmpResultEntry : tmpResult) {
-        final IControl tmpResultControl = tmpResultEntry.getControl();
-        if (tmpResultControl.hasSameBackendControl(tmpControl)) {
-          tmpNotPresent = false;
-          break;
-        }
-      }
-      if (tmpNotPresent) {
-        tmpResult.add(tmpEntry);
-      }
-    }
-
-    return tmpResult;
-  }
-
-  /**
-   * Adds all entries from the given {@link WeightedControlList} to this list.
-   *
-   * @param anOtherWeightedControlList the list of entries to add
-   */
-  public void addAll(final WeightedControlList anOtherWeightedControlList) {
-    entries.addAll(anOtherWeightedControlList.entries);
-  }
-
-  /**
-   * @return <code>true</code>, if the list is empty
-   */
-  public boolean isEmpty() {
-    return entries.isEmpty();
-  }
-
-  @Override
-  public String toString() {
-    return "WeightedControlList " + entries;
   }
 }

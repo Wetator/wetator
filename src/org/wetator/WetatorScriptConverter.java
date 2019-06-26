@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,17 +23,19 @@ import java.util.Locale;
 
 import javax.swing.JWindow;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.wetator.core.Command;
 import org.wetator.core.IScripter;
 import org.wetator.exception.InvalidInputException;
 import org.wetator.gui.DialogUtil;
 import org.wetator.scriptcreator.IScriptCreator;
 import org.wetator.scriptcreator.LegacyXMLScriptCreator;
+import org.wetator.scriptcreator.WikiTextScriptCreator;
 import org.wetator.scriptcreator.XMLScriptCreator;
 import org.wetator.scripter.ExcelScripter;
 import org.wetator.scripter.LegacyXMLScripter;
+import org.wetator.scripter.WikiTextScripter;
 import org.wetator.scripter.XMLScripter;
 
 /**
@@ -45,7 +47,7 @@ import org.wetator.scripter.XMLScripter;
  */
 public final class WetatorScriptConverter {
 
-  private static final Log LOG = LogFactory.getLog(WetatorScriptConverter.class);
+  private static final Logger LOG = LogManager.getLogger(WetatorScriptConverter.class);
 
   private IScripter scripter;
   private IScriptCreator creator;
@@ -59,22 +61,22 @@ public final class WetatorScriptConverter {
    *        the command line arguments
    */
   public static void main(final String[] anArgsArray) {
-    System.out.println(Version.getFullProductName());
-    System.out.println("    " + com.gargoylesoftware.htmlunit.Version.getProductName() + " "
+    System.out.println(Version.getFullProductName()); // NOPMD
+    System.out.println("    " + com.gargoylesoftware.htmlunit.Version.getProductName() + " " // NOPMD
         + com.gargoylesoftware.htmlunit.Version.getProductVersion());
 
     if (null == anArgsArray || anArgsArray.length < 3) {
-      System.err.println("Parameters: <scripter> <script creator> <outputDir> (<dtd type> <dtd>)");
-      System.err.println("example1: xls xml /Users/me/tests");
-      System.err.println("example2: xls xml /Users/me/tests SYSTEM testcase.dtd");
-      System.err.println("example1: xls legacy_xml /Users/me/tests");
+      System.err.println("Parameters: <scripter> <script creator> <outputDir> (<dtd type> <dtd>)"); // NOPMD
+      System.err.println("example1: xls xml /Users/me/tests"); // NOPMD
+      System.err.println("example2: xls xml /Users/me/tests SYSTEM testcase.dtd"); // NOPMD
+      System.err.println("example1: xls legacy_xml /Users/me/tests"); // NOPMD
       System.exit(1);
       return;
     }
     final String tmpScripterType = anArgsArray[0];
     final String tmpScriptCreatorType = anArgsArray[1];
     final String tmpOutputDir = anArgsArray[2];
-    System.out.println("Starting converter using scripter '" + tmpScripterType + "', script creator '"
+    System.out.println("Starting converter using scripter '" + tmpScripterType + "', script creator '" // NOPMD
         + tmpScriptCreatorType + "' and output directory '" + tmpOutputDir + "'.");
 
     final WetatorScriptConverter tmpConverter = new WetatorScriptConverter();
@@ -97,15 +99,15 @@ public final class WetatorScriptConverter {
         System.exit(0);
       }
 
-      for (int i = 0; i < tmpFiles.length; i++) {
-        tmpConverter.addTestFile(tmpFiles[i]);
+      for (final File tmpFile : tmpFiles) {
+        tmpConverter.addTestFile(tmpFile);
       }
 
-      System.out.println("Begin converting...");
+      System.out.println("Begin converting..."); // NOPMD
       tmpConverter.convert();
-      System.out.println("Converting successfully completed.");
+      System.out.println("Converting successfully completed."); // NOPMD
     } catch (final Exception e) {
-      e.printStackTrace();
+      e.printStackTrace(); // NOPMD
       System.exit(1);
     } finally {
       tmpWindow.dispose();
@@ -125,7 +127,7 @@ public final class WetatorScriptConverter {
    */
   public void convert() throws InvalidInputException {
     for (final File tmpInputFile : inputFiles) {
-      System.out.print("    Converting '" + tmpInputFile.getAbsolutePath() + "'...");
+      System.out.print("    Converting '" + tmpInputFile.getAbsolutePath() + "'..."); // NOPMD
       scripter.script(tmpInputFile);
       final List<Command> tmpCommands = scripter.getCommands();
 
@@ -133,7 +135,7 @@ public final class WetatorScriptConverter {
       creator.setFileName(tmpFileName);
       creator.setCommands(tmpCommands);
       creator.createScript();
-      System.out.println(" done");
+      System.out.println(" done"); // NOPMD
     }
   }
 
@@ -197,7 +199,11 @@ public final class WetatorScriptConverter {
     /**
      * Excel.
      */
-    XLS(new ExcelScripter());
+    XLS(new ExcelScripter()),
+    /**
+     * Excel.
+     */
+    WETT(new WikiTextScripter());
 
     private IScripter scripter;
 
@@ -229,7 +235,11 @@ public final class WetatorScriptConverter {
     /**
      * XML.
      */
-    XML(new XMLScriptCreator());
+    XML(new XMLScriptCreator()),
+    /**
+     * XML.
+     */
+    WETT(new WikiTextScriptCreator());
 
     private IScriptCreator scriptCreator;
 

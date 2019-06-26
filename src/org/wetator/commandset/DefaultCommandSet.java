@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -126,7 +126,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         final String tmpUrlToLower = tmpUrlParam.toLowerCase(Locale.ENGLISH);
         if (tmpUrlToLower.startsWith("http://") || tmpUrlToLower.startsWith("https://")
             || tmpUrlToLower.startsWith("file://")) {
-          aContext.informListenersWarn("absoluteUrl", new String[] { tmpUrlParam.toString() });
+          aContext.informListenersWarn("absoluteUrl", tmpUrlParam.toString());
         } else {
           final String tmpBaseUrl = aContext.getConfiguration().getBaseUrl();
           // a bit url cleanup - remove or add the slash before combining with the config
@@ -141,13 +141,12 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         final URL tmpUrl = new URL(tmpUrlParam.getValue());
         // TODO maybe there is an error
         // think about url's containing secrets
-        aContext.informListenersInfo("openUrl", new String[] { tmpUrl.toString() });
+        aContext.informListenersInfo("openUrl", tmpUrl.toString());
 
         final IBrowser tmpBrowser = getBrowser(aContext);
         tmpBrowser.openUrl(tmpUrl);
       } catch (final MalformedURLException e) {
-        final String tmpMessage = Messages.getMessage("invalidUrl",
-            new String[] { tmpUrlParam.toString(), e.getMessage() });
+        final String tmpMessage = Messages.getMessage("invalidUrl", tmpUrlParam.toString(), e.getMessage());
         throw new InvalidInputException(tmpMessage);
       }
       getBrowser(aContext).saveCurrentWindowToLog();
@@ -171,13 +170,13 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       if (!tmpFile.isAbsolute()) {
         tmpFile = new File(aContext.getFile().getParent(), tmpModule);
-        aContext.informListenersInfo("useModule", new String[] { tmpFile.getAbsolutePath() });
+        aContext.informListenersInfo("useModule", tmpFile.getAbsolutePath());
       }
 
       // check file
       if (!tmpFile.exists() || !tmpFile.isFile()) {
         final String tmpMessage = Messages.getMessage("moduleFileNotFound",
-            new String[] { FilenameUtils.normalize(tmpFile.getAbsolutePath()) });
+            FilenameUtils.normalize(tmpFile.getAbsolutePath()));
         throw new InvalidInputException(tmpMessage);
       }
 
@@ -222,10 +221,10 @@ public final class DefaultCommandSet extends AbstractCommandSet {
             tmpControl = (ISettable) tmpFocusedControl;
           }
           if (tmpControl != null) {
-            aContext.informListenersWarn("focusedElementUsed", new String[] { tmpControl.getDescribingText() });
+            aContext.informListenersWarn("focusedElementUsed", tmpControl.getDescribingText());
           }
         } catch (final BackendException e) {
-          final String tmpMessage = Messages.getMessage("commandBackendError", new String[] { e.getMessage() });
+          final String tmpMessage = Messages.getMessage("commandBackendError", e.getMessage());
           throw new ActionException(tmpMessage, e);
         }
       }
@@ -246,11 +245,10 @@ public final class DefaultCommandSet extends AbstractCommandSet {
           }
 
           if (null == tmpControl) {
-            final String tmpMessage = Messages.getMessage("noSettableHtmlElmentFound",
-                new String[] { tmpWPath.toString() });
+            final String tmpMessage = Messages.getMessage("noSettableHtmlElmentFound", tmpWPath.toString());
             throw new ActionException(tmpMessage);
           }
-          aContext.informListenersWarn("firstElementUsed", new String[] { tmpControl.getDescribingText() });
+          aContext.informListenersWarn("firstElementUsed", tmpControl.getDescribingText());
         } else {
           tmpControl = (ISettable) getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
               "noSettableHtmlElmentFound");
@@ -475,8 +473,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         try {
           tmpSteps = Integer.parseInt(tmpStepsParam.getValue());
         } catch (final NumberFormatException e) {
-          final String tmpMessage = Messages.getMessage("stepsNotANumber",
-              new String[] { tmpStepsParam.toString(), Integer.toString(tmpSteps) });
+          final String tmpMessage = Messages.getMessage("stepsNotANumber", tmpStepsParam.toString(),
+              Integer.toString(tmpSteps));
           throw new InvalidInputException(tmpMessage);
         }
       }
@@ -582,7 +580,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       tmpBrowser.markControls(tmpControl);
       final boolean tmpIsDisabled = tmpControl.isDisabled(aContext);
-      Assert.assertFalse(tmpIsDisabled, "elementNotEnabled", new String[] { tmpControl.getDescribingText() });
+      Assert.assertFalse(tmpIsDisabled, "elementNotEnabled", tmpControl.getDescribingText());
     }
   }
 
@@ -618,7 +616,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       tmpBrowser.markControls(tmpControl);
       final boolean tmpIsDisabled = tmpControl.isDisabled(aContext);
-      Assert.assertTrue(tmpIsDisabled, "elementNotDisabled", new String[] { tmpControl.getDescribingText() });
+      Assert.assertTrue(tmpIsDisabled, "elementNotDisabled", tmpControl.getDescribingText());
     }
   }
 
@@ -674,7 +672,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       tmpBrowser.markControls(tmpControl);
       final boolean tmpIsSelected = tmpControl.isSelected(aContext);
-      Assert.assertTrue(tmpIsSelected, "elementNotSelected", new String[] { tmpControl.getDescribingText() });
+      Assert.assertTrue(tmpIsSelected, "elementNotSelected", tmpControl.getDescribingText());
     }
   }
 
@@ -701,7 +699,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       tmpBrowser.markControls(tmpControl);
       final boolean tmpIsSelected = tmpControl.isSelected(aContext);
-      Assert.assertFalse(tmpIsSelected, "elementNotDeselected", new String[] { tmpControl.getDescribingText() });
+      Assert.assertFalse(tmpIsSelected, "elementNotDeselected", tmpControl.getDescribingText());
     }
   }
 
@@ -720,13 +718,13 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final String tmpCallString = tmpCall.toString();
       final int tmpLastDotPos = tmpCallString.lastIndexOf('.');
       if (tmpLastDotPos < 0) {
-        final String tmpMessage = Messages.getMessage("javaExecSyntax", new String[] { tmpCallString });
+        final String tmpMessage = Messages.getMessage("javaExecSyntax", tmpCallString);
         throw new InvalidInputException(tmpMessage);
       }
 
       String tmpClassName = tmpCallString.substring(0, tmpLastDotPos);
       if (StringUtils.isEmpty(tmpClassName)) {
-        final String tmpMessage = Messages.getMessage("javaExecSyntax", new String[] { tmpCallString });
+        final String tmpMessage = Messages.getMessage("javaExecSyntax", tmpCallString);
         throw new InvalidInputException(tmpMessage);
       }
       if (tmpClassName.endsWith("()")) {
@@ -735,7 +733,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       String tmpMethodName = tmpCallString.substring(tmpLastDotPos + 1);
       if (StringUtils.isEmpty(tmpMethodName)) {
-        final String tmpMessage = Messages.getMessage("javaExecSyntax", new String[] { tmpCallString });
+        final String tmpMessage = Messages.getMessage("javaExecSyntax", tmpCallString);
         throw new InvalidInputException(tmpMessage);
       }
       if (tmpMethodName.endsWith("()")) {
@@ -758,7 +756,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         final Class<?> tmpClass = Class.forName(tmpClassName);
         Method tmpMethod = MethodUtils.getMatchingAccessibleMethod(tmpClass, tmpMethodName, tmpParamTypes);
         if (null == tmpMethod) {
-          tmpMethod = MethodUtils.getMatchingAccessibleMethod(tmpClass, tmpMethodName, new Class[] { String[].class });
+          tmpMethod = MethodUtils.getMatchingAccessibleMethod(tmpClass, tmpMethodName, String[].class);
           tmpParams = new Object[] { tmpParams };
         }
 
@@ -773,8 +771,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         tmpMethodLabel.append(')');
 
         if (null == tmpMethod) {
-          final String tmpMessage = Messages.getMessage("javaExecMethodNotFound",
-              new String[] { tmpClassName, tmpMethodLabel.toString() });
+          final String tmpMessage = Messages.getMessage("javaExecMethodNotFound", tmpClassName,
+              tmpMethodLabel.toString());
           throw new InvalidInputException(tmpMessage);
         }
 
@@ -791,55 +789,48 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         // final Object tmpResult = tmpMethod.invoke(tmpReceiver, tmpParams);
         if (Void.TYPE != tmpMethod.getReturnType()) {
           if (null == tmpResult) {
-            aContext.informListenersInfo("javaExecResult", new String[] { "null" });
+            aContext.informListenersInfo("javaExecResult", "null");
           } else {
-            aContext.informListenersInfo("javaExecResult", new String[] { tmpResult.toString() });
+            aContext.informListenersInfo("javaExecResult", tmpResult.toString());
           }
         }
-      } catch (final NoClassDefFoundError e) {
-        aContext.informListenersWarn("stacktrace", new String[] { ExceptionUtils.getStackTrace(e) });
-        aContext.informListenersInfo("javaExecClasspath", new String[] { System.getProperty("java.class.path") });
-        final String tmpMessage = Messages.getMessage("javaExecClassNotFound",
-            new String[] { tmpClassName, e.toString() });
-        throw new CommandException(tmpMessage);
-      } catch (final ClassNotFoundException e) {
-        aContext.informListenersWarn("stacktrace", new String[] { ExceptionUtils.getStackTrace(e) });
-        aContext.informListenersInfo("javaExecClasspath", new String[] { System.getProperty("java.class.path") });
-        final String tmpMessage = Messages.getMessage("javaExecClassNotFound",
-            new String[] { tmpClassName, e.toString() });
+      } catch (final NoClassDefFoundError | ClassNotFoundException e) {
+        aContext.informListenersWarn("stacktrace", ExceptionUtils.getStackTrace(e));
+        aContext.informListenersInfo("javaExecClasspath", System.getProperty("java.class.path"));
+        final String tmpMessage = Messages.getMessage("javaExecClassNotFound", tmpClassName, e.toString());
         throw new CommandException(tmpMessage);
       } catch (final IllegalArgumentException e) {
-        final String tmpMessage = Messages.getMessage("javaExecIllegalArgument",
-            new String[] { tmpClassName, tmpMethodLabel.toString(), tmpMethodParameters.toString(), e.getMessage() });
+        final String tmpMessage = Messages.getMessage("javaExecIllegalArgument", tmpClassName,
+            tmpMethodLabel.toString(), tmpMethodParameters.toString(), e.getMessage());
         throw new CommandException(tmpMessage);
       } catch (final IllegalAccessException e) {
-        aContext.informListenersWarn("stacktrace", new String[] { ExceptionUtils.getStackTrace(e) });
-        final String tmpMessage = Messages.getMessage("javaExecIllegalAccess",
-            new String[] { tmpClassName, tmpMethodLabel.toString(), tmpMethodParameters.toString(), e.getMessage() });
+        aContext.informListenersWarn("stacktrace", ExceptionUtils.getStackTrace(e));
+        final String tmpMessage = Messages.getMessage("javaExecIllegalAccess", tmpClassName, tmpMethodLabel.toString(),
+            tmpMethodParameters.toString(), e.getMessage());
         throw new CommandException(tmpMessage);
       } catch (final InvocationTargetException e) {
-        aContext.informListenersWarn("stacktrace", new String[] { ExceptionUtils.getStackTrace(e) });
+        aContext.informListenersWarn("stacktrace", ExceptionUtils.getStackTrace(e));
         if (null == e.getCause()) {
-          final String tmpMessage = Messages.getMessage("javaExecInvocationTarget",
-              new String[] { tmpClassName, tmpMethodLabel.toString(), tmpMethodParameters.toString(), e.toString() });
+          final String tmpMessage = Messages.getMessage("javaExecInvocationTarget", tmpClassName,
+              tmpMethodLabel.toString(), tmpMethodParameters.toString(), e.toString());
           throw new CommandException(tmpMessage);
         }
-        final String tmpMessage = Messages.getMessage("javaExecInvocationTarget", new String[] { tmpClassName,
-            tmpMethodLabel.toString(), tmpMethodParameters.toString(), e.getCause().toString() });
+        final String tmpMessage = Messages.getMessage("javaExecInvocationTarget", tmpClassName,
+            tmpMethodLabel.toString(), tmpMethodParameters.toString(), e.getCause().toString());
         throw new CommandException(tmpMessage);
       } catch (final InstantiationException e) {
-        aContext.informListenersWarn("stacktrace", new String[] { ExceptionUtils.getStackTrace(e) });
+        aContext.informListenersWarn("stacktrace", ExceptionUtils.getStackTrace(e));
         if (null == e.getCause()) {
-          final String tmpMessage = Messages.getMessage("javaExecInstantiation",
-              new String[] { tmpClassName, tmpMethodLabel.toString(), tmpMethodParameters.toString(), e.toString() });
+          final String tmpMessage = Messages.getMessage("javaExecInstantiation", tmpClassName,
+              tmpMethodLabel.toString(), tmpMethodParameters.toString(), e.toString());
           throw new CommandException(tmpMessage);
         }
-        final String tmpMessage = Messages.getMessage("javaExecInstantiation", new String[] { tmpClassName,
-            tmpMethodLabel.toString(), tmpMethodParameters.toString(), e.getCause().toString() });
+        final String tmpMessage = Messages.getMessage("javaExecInstantiation", tmpClassName, tmpMethodLabel.toString(),
+            tmpMethodParameters.toString(), e.getCause().toString());
         throw new CommandException(tmpMessage);
       } catch (final NoSuchMethodException e) {
-        final String tmpMessage = Messages.getMessage("javaExecMethodNotFound",
-            new String[] { tmpClassName, tmpMethodLabel.toString() });
+        final String tmpMessage = Messages.getMessage("javaExecMethodNotFound", tmpClassName,
+            tmpMethodLabel.toString());
         throw new InvalidInputException(tmpMessage);
       }
     }

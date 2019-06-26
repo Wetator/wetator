@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,8 +25,8 @@ import javax.swing.JWindow;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.wetator.core.IProgressListener;
 import org.wetator.core.WetatorEngine;
 import org.wetator.gui.DialogUtil;
@@ -42,7 +42,7 @@ import org.wetator.util.Log4jUtil;
  */
 public final class Wetator {
 
-  private static final Log LOG = LogFactory.getLog(Wetator.class);
+  private static final Logger LOG = LogManager.getLogger(Wetator.class);
 
   /**
    * The start point for the command line call.
@@ -50,16 +50,15 @@ public final class Wetator {
    * @param anArgsArray the command line arguments
    */
   public static void main(final String[] anArgsArray) {
-
     String tmpConfigFileName = null;
-    File tmpLogFile = null;
+    File tmpDebugLogFile = null;
     final List<String> tmpFileNames = new LinkedList<String>();
     // parse the command line
     for (int i = 0; i < anArgsArray.length; i++) {
       final String tmpArg = anArgsArray[i].trim();
       if ("-log".equals(tmpArg)) {
-        tmpLogFile = new File("wetator.log");
-        Log4jUtil.configureLog(tmpLogFile);
+        tmpDebugLogFile = new File("wetator.log");
+        Log4jUtil.configureDebugLogging(tmpDebugLogFile);
       } else if ("-p".equals(tmpArg) && i < (anArgsArray.length - 1)) {
         tmpConfigFileName = anArgsArray[i + 1];
         i++;
@@ -71,8 +70,8 @@ public final class Wetator {
     LOG.info(Version.getFullProductName());
     LOG.info("    " + com.gargoylesoftware.htmlunit.Version.getProductName() + " "
         + com.gargoylesoftware.htmlunit.Version.getProductVersion());
-    if (null != tmpLogFile) {
-      LOG.info("    Log file: " + FilenameUtils.normalize(tmpLogFile.getAbsolutePath()));
+    if (null != tmpDebugLogFile) {
+      LOG.info("    Debug log file: " + FilenameUtils.normalize(tmpDebugLogFile.getAbsolutePath()));
     }
 
     final IProgressListener tmpProgressListener = new StdOutProgressListener();
@@ -86,8 +85,8 @@ public final class Wetator {
           tmpWetatorEngine.setConfigFileName(tmpConfigFileName);
         }
         tmpWetatorEngine.init();
-        if (null != tmpLogFile) {
-          tmpWetatorEngine.getConfiguration().enableLog();
+        if (null != tmpDebugLogFile) {
+          tmpWetatorEngine.getConfiguration().enableDebugLogging();
         }
 
         if (tmpFileNames.isEmpty()) {
@@ -103,8 +102,7 @@ public final class Wetator {
             if (null == tmpFiles || tmpFiles.length < 1) {
               System.exit(0);
             }
-            for (int i = 0; i < tmpFiles.length; i++) {
-              final File tmpFile = tmpFiles[i];
+            for (final File tmpFile : tmpFiles) {
               tmpWetatorEngine.addTestCase(tmpFile.getName(), tmpFile);
             }
           } finally {
@@ -126,8 +124,8 @@ public final class Wetator {
                   final FileFilter tmpFilter = new WildcardFileFilter(tmpSearchFile.getName());
                   final File[] tmpFiles = tmpDir.listFiles(tmpFilter);
                   if (tmpFiles != null) {
-                    for (int i = 0; i < tmpFiles.length; i++) {
-                      tmpWetatorEngine.addTestCase(tmpFiles[i].getName(), tmpFiles[i]);
+                    for (final File tmpFile : tmpFiles) {
+                      tmpWetatorEngine.addTestCase(tmpFile.getName(), tmpFile);
                     }
                   }
                 }
@@ -142,7 +140,7 @@ public final class Wetator {
       }
       // SearchPattern.dumpStatistics();
     } catch (final Throwable e) {
-      System.out.println("Wetator execution failed: " + e.getMessage());
+      System.out.println("Wetator execution failed: " + e.getMessage()); // NOPMD
       LOG.fatal("Wetator execution failed:", e);
 
       // System.exit is needed because we have started swing

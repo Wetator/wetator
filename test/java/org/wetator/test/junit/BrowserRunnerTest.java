@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,7 +41,7 @@ public class BrowserRunnerTest implements IBrowserTest {
   @Test
   @Browsers
   public void testDefault() {
-    Assert.assertEquals(BrowserType.FIREFOX_52, browserType);
+    Assert.assertEquals(BrowserType.FIREFOX_60, browserType);
   }
 
   @Test
@@ -51,10 +51,10 @@ public class BrowserRunnerTest implements IBrowserTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_52, BrowserType.INTERNET_EXPLORER })
+  @Browsers({ BrowserType.FIREFOX_60, BrowserType.INTERNET_EXPLORER })
   public void testMultiple() {
     if (!firstFound) {
-      Assert.assertEquals(BrowserType.FIREFOX_52, browserType);
+      Assert.assertEquals(BrowserType.FIREFOX_60, browserType);
       firstFound = true;
     } else {
       Assert.assertEquals(BrowserType.INTERNET_EXPLORER, browserType);

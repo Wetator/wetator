@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,16 +17,18 @@
 package org.wetator.backend.htmlunit.util;
 
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.apache.commons.text.WordUtils;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.FindSpot;
 import org.wetator.util.NormalizedString;
@@ -88,7 +90,7 @@ import net.sourceforge.htmlunit.corejs.javascript.ScriptableObject;
  * @author frank.danek
  */
 public class HtmlPageIndex {
-  private static final Log LOG = LogFactory.getLog(HtmlPageIndex.class);
+  private static final Logger LOG = LogManager.getLogger(HtmlPageIndex.class);
 
   private static final String EVENT_NAME_CLICK = "on" + MouseEvent.TYPE_CLICK;
 
@@ -100,8 +102,8 @@ public class HtmlPageIndex {
   private Map<DomNode, FindSpot> positionsWithoutFormControls;
 
   private List<DomNode> nodes;
-  private List<HtmlElement> visibleHtmlElementsBottomUp;
-  private List<HtmlElement> visibleHtmlElements;
+  private Set<HtmlElement> visibleHtmlElementsBottomUp;
+  private Set<HtmlElement> visibleHtmlElements;
 
   private List<HtmlElement> htmlElementsWithClickListener;
 
@@ -110,19 +112,20 @@ public class HtmlPageIndex {
   /**
    * The constructor.
    *
-   * @param aHtmlPage the HtmlPage to index
+   * @param aHtmlPage the {@link HtmlPage} to index
    */
   public HtmlPageIndex(final HtmlPage aHtmlPage) {
     htmlPage = aHtmlPage;
 
     text = new NormalizedString();
-    positions = new HashMap<DomNode, FindSpot>(256);
-    positionsWithoutFormControls = new HashMap<DomNode, FindSpot>(256);
+    positions = new HashMap<>(256);
+    positionsWithoutFormControls = new HashMap<>(256);
     textWithoutFormControls = new NormalizedString();
 
     nodes = new LinkedList<DomNode>();
-    visibleHtmlElementsBottomUp = new LinkedList<HtmlElement>();
-    visibleHtmlElements = new LinkedList<HtmlElement>();
+    // LinkedHashSets to preserve the order and have a fast contains
+    visibleHtmlElementsBottomUp = new LinkedHashSet<>();
+    visibleHtmlElements = new LinkedHashSet<>();
 
     htmlElementsWithClickListener = new LinkedList<HtmlElement>();
 
@@ -136,9 +139,8 @@ public class HtmlPageIndex {
    * @throws ElementNotFoundException if no element was found for the given id
    * @see com.gargoylesoftware.htmlunit.html.HtmlPage#getHtmlElementById(java.lang.String)
    */
-  @SuppressWarnings("unchecked")
   public <E extends HtmlElement> E getHtmlElementById(final String aId) throws ElementNotFoundException {
-    return (E) htmlPage.getHtmlElementById(aId);
+    return htmlPage.getHtmlElementById(aId);
   }
 
   /**
@@ -160,21 +162,31 @@ public class HtmlPageIndex {
   }
 
   /**
-   * Returns a list of all visible HtmlElements.
+   * Returns an ordered set of all visible {@link HtmlElement}s starting from the root.
    *
-   * @return the list of all visible HtmlElements
+   * @return an ordered set of all visible {@link HtmlElement}s
    */
-  public List<HtmlElement> getAllVisibleHtmlElements() {
+  public Set<HtmlElement> getAllVisibleHtmlElements() {
     return visibleHtmlElements;
   }
 
   /**
-   * Returns the list of all visible html elements always starting with the leaves.
+   * Returns an ordered set of all visible {@link HtmlElement}s starting with the last leaf.
    *
-   * @return the list of all html elements
+   * @return an ordered set of all visible {@link HtmlElement}s
    */
-  public List<HtmlElement> getAllVisibleHtmlElementsBottomUp() {
+  public Set<HtmlElement> getAllVisibleHtmlElementsBottomUp() {
     return visibleHtmlElementsBottomUp;
+  }
+
+  /**
+   * Returns the visibility of the given {@link HtmlElement}.
+   *
+   * @param anHtmlElement the {@link HtmlElement} to check
+   * @return <code>true</code> if the given {@link HtmlElement} is visible, <code>false</code> otherwise
+   */
+  public boolean isVisible(final HtmlElement anHtmlElement) {
+    return visibleHtmlElements.contains(anHtmlElement);
   }
 
   /**
@@ -186,7 +198,7 @@ public class HtmlPageIndex {
   public int getIndex(final HtmlElement anHtmlElement) {
     final int tmpResult = nodes.indexOf(anHtmlElement);
     if (tmpResult < 0) {
-      LOG.error("No index found for DomNode: " + anHtmlElement.toString());
+      LOG.error("No index found for HtmlElement: " + anHtmlElement.toString());
       dumpToLog();
     }
     return tmpResult;
@@ -201,7 +213,7 @@ public class HtmlPageIndex {
   public FindSpot getPosition(final HtmlElement anHtmlElement) {
     final FindSpot tmpResult = positions.get(anHtmlElement);
     if (null == tmpResult) {
-      LOG.error("No FindSpot found for HtmlElement: " + anHtmlElement.toString());
+      LOG.error("No position found for HtmlElement: " + anHtmlElement.toString());
       dumpToLog();
     }
     return tmpResult;
@@ -239,7 +251,7 @@ public class HtmlPageIndex {
     if (null == tmpFindSpot) {
       return null;
     }
-    return text.substring(0, tmpFindSpot.getStartPos());
+    return textSubstring(0, tmpFindSpot.getStartPos());
   }
 
   /**
@@ -253,7 +265,7 @@ public class HtmlPageIndex {
     if (null == tmpFindSpot) {
       return null;
     }
-    return text.substring(0, tmpFindSpot.getEndPos());
+    return textSubstring(0, tmpFindSpot.getEndPos());
   }
 
   /**
@@ -287,7 +299,7 @@ public class HtmlPageIndex {
 
         // the searched control is chained directly after a leading control or placed inside a button tag
         if (tmpStartPos <= tmpFindSpot.getStartPos()) {
-          final String tmpText = text.substring(Math.max(tmpStartPos, aStartPos), tmpFindSpot.getStartPos());
+          final String tmpText = textSubstring(Math.max(tmpStartPos, aStartPos), tmpFindSpot.getStartPos());
           if (StringUtils.isNotEmpty(tmpText)) {
             return tmpText;
           }
@@ -305,7 +317,7 @@ public class HtmlPageIndex {
       }
     }
 
-    return text.substring(Math.max(tmpStartPos, aStartPos), tmpFindSpot.getStartPos());
+    return textSubstring(Math.max(tmpStartPos, aStartPos), tmpFindSpot.getStartPos());
   }
 
   /**
@@ -346,7 +358,7 @@ public class HtmlPageIndex {
       }
     }
 
-    return text.substring(tmpFindSpot.getEndPos(), tmpEndPos);
+    return textSubstring(tmpFindSpot.getEndPos(), tmpEndPos);
   }
 
   /**
@@ -360,7 +372,7 @@ public class HtmlPageIndex {
     if (null == tmpFindSpot) {
       return null;
     }
-    return text.substring(tmpFindSpot.getStartPos(), tmpFindSpot.getEndPos());
+    return textSubstring(tmpFindSpot.getStartPos(), tmpFindSpot.getEndPos());
   }
 
   /**
@@ -429,7 +441,7 @@ public class HtmlPageIndex {
 
       if (aDomNode instanceof HtmlHiddenInput || aDomNode instanceof HtmlApplet || aDomNode instanceof HtmlScript
           || aDomNode instanceof HtmlStyle || aDomNode instanceof HtmlFileInput || aDomNode instanceof DomComment
-          || aDomNode instanceof HtmlHead || aDomNode instanceof HtmlTitle) {
+          || aDomNode instanceof HtmlHead || aDomNode instanceof HtmlTitle) { // NOPMD
         // nothing
       } else if (aDomNode instanceof DomText) {
         appendDomText((DomText) aDomNode);
@@ -702,11 +714,11 @@ public class HtmlPageIndex {
       if (tmpItem instanceof HtmlListItem) {
         // hack for fixing the start pos
         final int tmpStartPos = text.length();
-        text.append(String.valueOf(i++));
+        text.append(String.valueOf(i));
         text.append(". ");
 
         final int tmpStartPosWFC = textWithoutFormControls.length();
-        textWithoutFormControls.append(String.valueOf(i));
+        textWithoutFormControls.append(String.valueOf(i++));
         textWithoutFormControls.append(". ");
 
         parseDomNode(tmpItem);
@@ -728,7 +740,7 @@ public class HtmlPageIndex {
     textWithoutFormControls.append(" ");
 
     // process childs only if the control is not supported
-    final HTMLObjectElement tmpJsObject = (HTMLObjectElement) anHtmlObject.getScriptableObject();
+    final HTMLObjectElement tmpJsObject = anHtmlObject.getScriptableObject();
     if (null == tmpJsObject || null == tmpJsObject.unwrap()) {
       parseChildren(anHtmlObject);
     }
@@ -743,6 +755,24 @@ public class HtmlPageIndex {
     parseChildren(anHtmlInlineQuotation);
     text.append("\" ");
     textWithoutFormControls.append("\" ");
+  }
+
+  /**
+   * Helper to generate log output in case our index seems to be wrong.
+   * The usual java {@link IndexOutOfBoundsException} text has no param info.
+   *
+   * @param aStartPos The beginning index, inclusive.
+   * @param anEndPos The ending index, exclusive.
+   * @return The new sub string.
+   */
+  private String textSubstring(final int aStartPos, final int anEndPos) {
+    try {
+      return text.substring(aStartPos, anEndPos);
+    } catch (final IndexOutOfBoundsException e) {
+      LOG.error("Invalid position(s) provided for text.substring(); startPos: " + aStartPos + " endPos: " + anEndPos);
+      dumpToLog();
+      throw e;
+    }
   }
 
   /**

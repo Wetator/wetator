@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,8 +22,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.control.IControl;
 import org.wetator.backend.control.KeySequence;
@@ -37,7 +37,6 @@ import org.wetator.exception.UnsupportedOperationException;
 import org.wetator.i18n.Messages;
 import org.wetator.util.CssUtil;
 
-import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
 import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.ScriptException;
 import com.gargoylesoftware.htmlunit.SgmlPage;
@@ -59,7 +58,7 @@ import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
  */
 public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
 
-  private static final Log LOG = LogFactory.getLog(HtmlUnitBaseControl.class);
+  private static final Logger LOG = LogManager.getLogger(HtmlUnitBaseControl.class);
 
   private T htmlElement;
 
@@ -129,17 +128,11 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
       final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
-    } catch (final FailingHttpStatusCodeException e) {
-      final String tmpMessage = Messages.getMessage("serverError",
-          new String[] { e.getMessage(), getDescribingText() });
-      throw new ActionException(tmpMessage, e);
     } catch (final BackendException e) {
-      final String tmpMessage = Messages.getMessage("backendError",
-          new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("backendError", e.getMessage(), getDescribingText());
       throw new ActionException(tmpMessage, e);
     } catch (final Throwable e) {
-      final String tmpMessage = Messages.getMessage("serverError",
-          new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("serverError", e.getMessage(), getDescribingText());
       throw new ActionException(tmpMessage, e);
     }
   }
@@ -185,12 +178,10 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
     } catch (final BackendException e) {
-      final String tmpMessage = Messages.getMessage("backendError",
-          new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("backendError", e.getMessage(), getDescribingText());
       throw new ActionException(tmpMessage, e);
     } catch (final Throwable e) {
-      final String tmpMessage = Messages.getMessage("serverError",
-          new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("serverError", e.getMessage(), getDescribingText());
       throw new ActionException(tmpMessage, e);
     }
   }
@@ -236,12 +227,10 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
     } catch (final BackendException e) {
-      final String tmpMessage = Messages.getMessage("backendError",
-          new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("backendError", e.getMessage(), getDescribingText());
       throw new ActionException(tmpMessage, e);
     } catch (final Throwable e) {
-      final String tmpMessage = Messages.getMessage("serverError",
-          new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("serverError", e.getMessage(), getDescribingText());
       throw new ActionException(tmpMessage, e);
     }
   }
@@ -257,7 +246,7 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
         if (Key.KEY_RETURN == tmpKey) {
           tmpKeyboard.press(KeyboardEvent.DOM_VK_RETURN);
         } else {
-          tmpKeyboard.press(tmpKey.getChar());
+          tmpKeyboard.type(tmpKey.getChar());
         }
       }
 
@@ -270,17 +259,11 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
       final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
-    } catch (final BackendException e) {
-      final String tmpMessage = Messages.getMessage("backendError",
-          new String[] { e.getMessage(), getDescribingText() });
-      throw new ActionException(tmpMessage, e);
-    } catch (final IOException e) {
-      final String tmpMessage = Messages.getMessage("backendError",
-          new String[] { e.getMessage(), getDescribingText() });
+    } catch (final BackendException | IOException e) {
+      final String tmpMessage = Messages.getMessage("backendError", e.getMessage(), getDescribingText());
       throw new ActionException(tmpMessage, e);
     } catch (final Throwable e) {
-      final String tmpMessage = Messages.getMessage("serverError",
-          new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("serverError", e.getMessage(), getDescribingText());
       throw new ActionException(tmpMessage, e);
     }
   }
@@ -325,19 +308,17 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
       aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
           tmpScriptException);
     } catch (final BackendException e) {
-      final String tmpMessage = Messages.getMessage("backendError",
-          new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("backendError", e.getMessage(), getDescribingText());
       throw new ActionException(tmpMessage, e);
     } catch (final Throwable e) {
-      final String tmpMessage = Messages.getMessage("serverError",
-          new String[] { e.getMessage(), getDescribingText() });
+      final String tmpMessage = Messages.getMessage("serverError", e.getMessage(), getDescribingText());
       throw new ActionException(tmpMessage, e);
     }
   }
 
   @Override
   public boolean isDisabled(final WetatorContext aWetatorContext) {
-    final String tmpMessage = Messages.getMessage("disabledCheckNotSupported", new String[] { getDescribingText() });
+    final String tmpMessage = Messages.getMessage("disabledCheckNotSupported", getDescribingText());
     throw new UnsupportedOperationException(tmpMessage);
   }
 
@@ -351,11 +332,7 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
     final HtmlElement tmpHtmlElement = getHtmlElement();
 
     final HtmlPage tmpHtmlPage = (HtmlPage) tmpHtmlElement.getPage();
-    if (tmpHtmlElement.equals(tmpHtmlPage.getFocusedElement())) {
-      return true;
-    }
-
-    return false;
+    return tmpHtmlElement.equals(tmpHtmlPage.getFocusedElement());
   }
 
   /**
@@ -483,7 +460,7 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
    */
   @Target(ElementType.TYPE)
   @Retention(RetentionPolicy.RUNTIME)
-  public static @interface ForHtmlElement {
+  public @interface ForHtmlElement {
 
     /**
      * @return the {@link HtmlElement}
@@ -493,7 +470,9 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
     /**
      * @return the name of the discriminating attribute
      */
-    String attributeName() default "";
+    String attributeName()
+
+    default "";
 
     /**
      * @return the possible values of the discriminating attribute
@@ -508,7 +487,7 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
    */
   @Target(ElementType.TYPE)
   @Retention(RetentionPolicy.RUNTIME)
-  public static @interface IdentifiedBy {
+  public @interface IdentifiedBy {
 
     /**
      * @return the identifiers

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,18 +25,19 @@ import java.util.ResourceBundle;
  * This class provides all messages that are used by the wetator.
  *
  * @author rbri
+ * @author frank.danek
  */
 public final class Messages {
 
   /**
    * Returns the message for the given message key from the resource bundle 'org.wetator.Messages'. Additionally the
-   * values from the given parameter array are applied to the found message (see {@link MessageFormat}).
+   * values from the given parameters are applied to the found message (see {@link MessageFormat}).
    *
-   * @param aMessageKey The message key.
-   * @param aParameterArray An array containing the message parameters.
-   * @return The message.
+   * @param aMessageKey the message key
+   * @param aParameters the message parameters
+   * @return the message
    */
-  public static String getMessage(final String aMessageKey, final Object[] aParameterArray) {
+  public static String getMessage(final String aMessageKey, final Object... aParameters) {
     // TODO move the messages file to the root level
     final ResourceBundle tmpMessages = ResourceBundle.getBundle("org.wetator.Messages", Locale.ROOT);
 
@@ -46,9 +47,9 @@ public final class Messages {
     } catch (final MissingResourceException e) {
       tmpMessageResource = new StringBuilder("Unknown message key ''");
       tmpMessageResource.append(aMessageKey).append("''");
-      if (null != aParameterArray && aParameterArray.length > 0) {
+      if (null != aParameters && aParameters.length > 0) {
         tmpMessageResource.append(" (param(s): ");
-        for (int i = 0; i < aParameterArray.length; i++) {
+        for (int i = 0; i < aParameters.length; i++) {
           tmpMessageResource.append(" ''{");
           tmpMessageResource.append(Integer.toString(i));
           tmpMessageResource.append("}''");
@@ -58,9 +59,7 @@ public final class Messages {
       tmpMessageResource.append('.');
     }
     final MessageFormat tmpMessageFormat = new MessageFormat(tmpMessageResource.toString(), Locale.ENGLISH);
-    final String tmpResult = tmpMessageFormat.format(aParameterArray);
-
-    return tmpResult;
+    return tmpMessageFormat.format(aParameters);
   }
 
   /**

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,7 +35,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 /**
  * The base class for all identifiers using {@link AbstractHtmlUnitElementMatcher} to identify a {@link IControl}.<br>
  * Implement {@link #addMatchers(WPath, HtmlElement, List)} to add the matcher to use and
- * {@link #createControl(HtmlElement)} to create a {@link IControl} for an {@link HtmlElement}.
+ * {@link #createControl(MatchResult)} to create a {@link IControl} for an {@link HtmlElement}.
  *
  * @author frank.danek
  */
@@ -82,7 +82,7 @@ public abstract class AbstractMatcherBasedIdentifier extends AbstractHtmlUnitCon
       // the page index does a more sophisticated visibility check
       // because of this the control might be missing from the index
       if (tmpPosition != null) {
-        final IControl tmpControl = createControl(tmpHtmlElement);
+        final IControl tmpControl = createControl(tmpMatch);
         final FoundType tmpFoundType = tmpMatch.getFoundType();
         final int tmpDeviation = tmpMatch.getDeviation();
         final int tmpDistance = tmpMatch.getDistance();
@@ -104,8 +104,8 @@ public abstract class AbstractMatcherBasedIdentifier extends AbstractHtmlUnitCon
       List<AbstractHtmlUnitElementMatcher> aMatchers);
 
   /**
-   * @param aHtmlElement the {@link HtmlElement} to create the control for
+   * @param aMatch the {@link MatchResult} to create the control for
    * @return the created control
    */
-  protected abstract IControl createControl(HtmlElement aHtmlElement);
+  protected abstract IControl createControl(MatchResult aMatch);
 }

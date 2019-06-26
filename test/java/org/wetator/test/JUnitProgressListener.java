@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -132,12 +132,12 @@ public class JUnitProgressListener implements IProgressListener {
   }
 
   @Override
-  public void warn(final String aMessageKey, final Object[] aParameterArray, final String aDetails) {
+  public void warn(final String aMessageKey, final Object[] aParameters, final String aDetails) {
     // nothing
   }
 
   @Override
-  public void info(final String aMessageKey, final Object[] aParameterArray) {
+  public void info(final String aMessageKey, final Object... aParameters) {
     // nothing
   }
 

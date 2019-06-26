@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,7 +41,7 @@ public class XHtmlOutputterXHtmlPageTest {
 
   private static final String EXPECTED_LEADING = "<?xml version=\"1.0\" encoding=\"UTF-8\"?> "
       + "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"> "
-      + "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\"> ";
+      + "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\"> <!-- Browser URL: http://www.wetator.org/test.xhtml --> ";
   private static final String EXPECTED_TRAILING = " </html>";
 
   private void testXHtmlOutput(final String anExpected, final String anXHtmlCode) throws IOException {
@@ -51,7 +51,7 @@ public class XHtmlOutputterXHtmlPageTest {
     tmpXHtmlOutputter.writeTo(tmpWriter);
     Assert.assertEquals(anExpected, new NormalizedString(tmpWriter.toString()).toString());
 
-    tmpXHtmlPage = PageUtil.constructXHtmlPage(BrowserVersion.FIREFOX_45, anXHtmlCode);
+    tmpXHtmlPage = PageUtil.constructXHtmlPage(BrowserVersion.FIREFOX_60, anXHtmlCode);
     tmpXHtmlOutputter = new XHtmlOutputter(tmpXHtmlPage, null);
     tmpWriter = new StringWriter();
     tmpXHtmlOutputter.writeTo(tmpWriter);

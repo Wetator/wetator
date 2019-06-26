@@ -32,31 +32,34 @@
     </publications>
 
     <dependencies defaultconfmapping="sources->sources;test->default,provided;%->default" defaultconf="compile,sources">
-        <dependency org="dk.brics.automaton" name="automaton" rev="1.11-8" />
+        <dependency org="dk.brics" name="automaton" rev="1.12-1" />
         <dependency org="com.github.rjeschke" name="txtmark" rev="0.13" />
-        <dependency org="commons-io" name="commons-io" rev="2.5" />
-        <dependency org="org.apache.commons" name="commons-lang3" rev="3.6" />
-        <dependency org="org.apache.commons" name="commons-text" rev="1.1" />
-        <dependency org="net.sourceforge.htmlunit" name="htmlunit" rev="2.28-SNAPSHOT" changing="true" />
+        <dependency org="commons-io" name="commons-io" rev="2.6" />
+        <dependency org="org.apache.commons" name="commons-lang3" rev="3.9" />
+        <dependency org="org.apache.commons" name="commons-text" rev="1.6" />
+        <dependency org="net.sourceforge.htmlunit" name="htmlunit" rev="2.36.0-SNAPSHOT" changing="true" />
         <!-- <dependency org="net.sourceforge.htmlunit" name="htmlunit-core-js" rev="2.17" changing="true" /> -->
         <!-- <dependency org="net.sourceforge.cssparser" name="cssparser" rev="0.9.18-SNAPSHOT" changing="true" /> -->
-        <dependency org="log4j" name="log4j" rev="1.2.17" transitive="false" />
-        <dependency org="org.apache.pdfbox" name="pdfbox" rev="2.0.7" />
-        <dependency org="org.bouncycastle" name="bcprov-jdk15on" rev="1.57" />
-        <dependency org="org.bouncycastle" name="bcmail-jdk15on" rev="1.57" />
-        <dependency org="org.apache.poi" name="poi-ooxml" rev="3.13" />
+        <dependency org="org.apache.logging.log4j" name="log4j-api" rev="2.11.2" />
+        <dependency org="org.apache.logging.log4j" name="log4j-core" rev="2.11.2" />
+        <dependency org="org.apache.logging.log4j" name="log4j-jcl" rev="2.11.2" />
+        <dependency org="org.apache.pdfbox" name="pdfbox" rev="2.0.15" />
+        <dependency org="org.bouncycastle" name="bcprov-jdk15on" rev="1.62" />
+        <dependency org="org.bouncycastle" name="bcmail-jdk15on" rev="1.62" />
+        <dependency org="org.apache.poi" name="poi-ooxml" rev="4.1.0" />
         <dependency org="com.sun.xsom" name="xsom" rev="20140925" />
 
         <dependency org="junit" name="junit" rev="4.12" transitive="true" conf="test,sources" />
-        <dependency org="org.mockito" name="mockito-core" rev="2.8.47" conf="test,sources" />
-        <dependency org="org.eclipse.jetty" name="jetty-server" rev="9.4.6.v20170531" conf="test" />
-        <dependency org="org.eclipse.jetty" name="jetty-servlet" rev="9.4.6.v20170531" conf="test" />
-        <dependency org="org.eclipse.jetty" name="jetty-servlets" rev="9.4.6.v20170531" conf="test" />
-        <dependency org="org.slf4j" name="slf4j-api" rev="1.7.25" transitive="false" conf="test,sources" />
-        <dependency org="org.slf4j" name="slf4j-log4j12" rev="1.7.25" transitive="false" conf="test" />
-        <dependency org="org.hsqldb" name="hsqldb" rev="2.4.0" conf="test" />
+        <dependency org="org.mockito" name="mockito-core" rev="2.28.2" conf="test,sources" />
+        <dependency org="org.eclipse.jetty" name="jetty-server" rev="9.4.19.v20190610" conf="test" />
+        <dependency org="org.eclipse.jetty" name="jetty-servlet" rev="9.4.19.v20190610" conf="test" />
+        <dependency org="org.eclipse.jetty" name="jetty-servlets" rev="9.4.19.v20190610" conf="test" />
+        <dependency org="org.apache.logging.log4j" name="log4j-slf4j-impl" rev="2.11.2" conf="test,sources" />
+        <dependency org="org.hsqldb" name="hsqldb" rev="2.5.0" conf="test" />
 
         <!-- fix version of jetty as htmlunit may use a different version -->
-        <override org="org.eclipse.jetty" module="*" rev="9.4.6.v20170531" />
+        <override org="org.eclipse.jetty" module="*" rev="9.4.19.v20190610" />
+
+        <override org="org.slf4j" module="*" rev="1.7.26" />
     </dependencies>
 </ivy-module>

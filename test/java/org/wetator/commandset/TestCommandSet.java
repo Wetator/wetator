@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -77,9 +77,9 @@ public final class TestCommandSet extends AbstractCommandSet {
       if (tmpException != null) {
         final NormalizedString tmpResult = new NormalizedString(tmpException.getMessage());
         Assert.assertMatch(new NormalizedString(tmpExpected.toString()).toString(), tmpResult.toString(),
-            "wrongErrorMessage", null);
+            "wrongErrorMessage");
       } else {
-        Assert.fail("expectedErrorNotThrown", null);
+        Assert.fail("expectedErrorNotThrown");
       }
     }
   }

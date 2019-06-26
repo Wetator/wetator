@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -183,14 +183,12 @@ public class ContentUtilTest {
   }
 
   @Test
-  public void getWordContentAsStringError() {
+  public void getWordContentAsStringError() throws IOException {
     try {
       ContentUtil.getWordContentAsString(new FileInputStream("test/webpage/download/wet_test.xls"), 4000);
       org.junit.Assert.fail("InvalidFormatException expected");
-    } catch (final InvalidFormatException | IOException e) {
-      org.junit.Assert.assertEquals(
-          "org.apache.poi.openxml4j.exceptions.InvalidFormatException: Package should contain a content type part [M1.13]",
-          e.toString());
+    } catch (final InvalidFormatException e) {
+      // expected
     }
   }
 
@@ -276,8 +274,7 @@ public class ContentUtilTest {
       org.junit.Assert.fail("InvalidFormatException expected");
     } catch (final InvalidFormatException | IOException e) {
       org.junit.Assert.assertEquals(
-          "org.apache.poi.openxml4j.exceptions.InvalidFormatException: Your InputStream was neither an OLE2 stream, nor an OOXML stream",
-          e.toString());
+          "java.io.IOException: Your InputStream was neither an OLE2 stream, nor an OOXML stream", e.toString());
     }
   }
 
@@ -290,7 +287,7 @@ public class ContentUtilTest {
     } catch (final IOException e) {
       org.junit.Assert.assertEquals(
           "java.io.IOException: Can't convert the zipped xls 'wet_test.xls' into text "
-              + "(reason: org.apache.poi.openxml4j.exceptions.InvalidFormatException: Your InputStream was neither an OLE2 stream, nor an OOXML stream).",
+              + "(reason: java.io.IOException: Your InputStream was neither an OLE2 stream, nor an OOXML stream).",
           e.toString());
     }
   }
@@ -377,8 +374,7 @@ public class ContentUtilTest {
       org.junit.Assert.fail("InvalidFormatException expected");
     } catch (final InvalidFormatException | IOException e) {
       org.junit.Assert.assertEquals(
-          "org.apache.poi.openxml4j.exceptions.InvalidFormatException: Your InputStream was neither an OLE2 stream, nor an OOXML stream",
-          e.toString());
+          "java.io.IOException: Your InputStream was neither an OLE2 stream, nor an OOXML stream", e.toString());
     }
   }
 
@@ -391,7 +387,7 @@ public class ContentUtilTest {
     } catch (final IOException e) {
       org.junit.Assert.assertEquals(
           "java.io.IOException: Can't convert the zipped xls 'wet_test.xlsx' into text "
-              + "(reason: org.apache.poi.openxml4j.exceptions.InvalidFormatException: Your InputStream was neither an OLE2 stream, nor an OOXML stream).",
+              + "(reason: java.io.IOException: Your InputStream was neither an OLE2 stream, nor an OOXML stream).",
           e.toString());
     }
   }

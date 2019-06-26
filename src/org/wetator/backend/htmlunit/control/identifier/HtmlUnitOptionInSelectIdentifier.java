@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -175,7 +175,7 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
           if (StringUtils.isNotEmpty(tmpForAttribute)) {
             try {
               final HtmlElement tmpElementForLabel = htmlPageIndex.getHtmlElementById(tmpForAttribute);
-              if (tmpElementForLabel instanceof HtmlSelect && tmpElementForLabel.isDisplayed()) {
+              if (tmpElementForLabel instanceof HtmlSelect && htmlPageIndex.isVisible(tmpElementForLabel)) {
                 final String tmpTextBefore = htmlPageIndex.getTextBefore(tmpElementForLabel);
                 final int tmpDistance;
                 if (aWPath.getPathNodes().isEmpty()) {
@@ -188,15 +188,15 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
                 getOption((HtmlSelect) tmpElementForLabel, tmpSearchPattern, aWPath.getTableCoordinates(), tmpDistance,
                     tmpResult);
               }
-            } catch (final ElementNotFoundException e) {
+            } catch (final ElementNotFoundException e) { // NOPMD
               // not found
             }
           }
 
           // element must be a nested element of label
-          final Iterable<HtmlElement> tmpChilds = tmpLabel.getHtmlElementDescendants();
-          for (final HtmlElement tmpChildElement : tmpChilds) {
-            if (tmpChildElement instanceof HtmlSelect && tmpChildElement.isDisplayed()) {
+          final Iterable<HtmlElement> tmpChildren = tmpLabel.getHtmlElementDescendants();
+          for (final HtmlElement tmpChildElement : tmpChildren) {
+            if (tmpChildElement instanceof HtmlSelect && htmlPageIndex.isVisible(tmpChildElement)) {
               final String tmpTextBefore = htmlPageIndex.getTextBefore(tmpChildElement);
               final int tmpDistance;
               if (aWPath.getPathNodes().isEmpty()) {
@@ -248,7 +248,7 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
               .isHtmlElementInTableCoordinates(aSelect, aTableCoordinates, htmlPageIndex, null);
 
           if (tmpIsInTable) {
-            aWeightedControlList.add(new HtmlUnitOption(tmpOption), WeightedControlList.FoundType.BY_LABELING_TEXT,
+            aWeightedControlList.add(new HtmlUnitOption(tmpOption), WeightedControlList.FoundType.BY_LABEL,
                 tmpDeviation, aDistance, tmpStart, htmlPageIndex.getIndex(tmpOption));
             tmpFound = true;
           }
@@ -269,7 +269,7 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
               .isHtmlElementInTableCoordinates(aSelect, aTableCoordinates, htmlPageIndex, null);
 
           if (tmpIsInTable) {
-            aWeightedControlList.add(new HtmlUnitOption(tmpOption), WeightedControlList.FoundType.BY_LABELING_TEXT,
+            aWeightedControlList.add(new HtmlUnitOption(tmpOption), WeightedControlList.FoundType.BY_LABEL,
                 tmpDeviation, aDistance, tmpStart, htmlPageIndex.getIndex(tmpOption));
             tmpFound = true;
           }

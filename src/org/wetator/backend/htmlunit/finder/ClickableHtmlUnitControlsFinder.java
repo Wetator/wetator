@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,6 +27,7 @@ import org.wetator.backend.htmlunit.control.HtmlUnitUnspecificControl;
 import org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher;
+import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
 import org.wetator.backend.htmlunit.matcher.ByAriaLabelAttributeMatcher;
 import org.wetator.backend.htmlunit.matcher.ByIdMatcher;
 import org.wetator.backend.htmlunit.matcher.ByTableCoordinatesMatcher;
@@ -128,8 +129,8 @@ public class ClickableHtmlUnitControlsFinder extends IdentifierBasedHtmlUnitCont
     }
 
     @Override
-    protected IControl createControl(final HtmlElement aHtmlElement) {
-      return new HtmlUnitUnspecificControl<HtmlElement>(aHtmlElement);
+    protected IControl createControl(final MatchResult aMatch) {
+      return new HtmlUnitUnspecificControl<HtmlElement>(aMatch.getHtmlElement());
     }
   }
 }

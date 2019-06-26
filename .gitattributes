@@ -106,7 +106,7 @@ samples/wetator_testform/wetator_testform.wet -text
 samples/wetator_testform/wetator_testform.wett -text
 samples/wetator_testform/wetator_testform.xls -text
 src/js_filter.cfg -text
-src/log4j.properties -text
+src/log4j2.xml -text svneol=unset#text/plain
 src/org/wetator/Messages.properties -text
 src/org/wetator/Version.java -text
 src/org/wetator/Wetator.java -text
@@ -124,6 +124,7 @@ src/org/wetator/backend/control/KeySequence.java -text
 src/org/wetator/backend/htmlunit/HtmlUnitBrowser.java -text
 src/org/wetator/backend/htmlunit/HtmlUnitControlRepository.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/HtmlUnitFinderDelegator.java -text svneol=unset#text/plain
+src/org/wetator/backend/htmlunit/JavaScriptErrorListener.java -text
 src/org/wetator/backend/htmlunit/ResponseStore.java -text
 src/org/wetator/backend/htmlunit/XHtmlOutputter.java -text
 src/org/wetator/backend/htmlunit/control/HtmlUnitAnchor.java -text svneol=unset#text/plain
@@ -140,7 +141,6 @@ src/org/wetator/backend/htmlunit/control/HtmlUnitInputRadioButton.java -text svn
 src/org/wetator/backend/htmlunit/control/HtmlUnitInputReset.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/control/HtmlUnitInputSubmit.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/control/HtmlUnitInputText.java -text svneol=unset#text/plain
-src/org/wetator/backend/htmlunit/control/HtmlUnitLabel.java -text
 src/org/wetator/backend/htmlunit/control/HtmlUnitOption.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/control/HtmlUnitOptionGroup.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/control/HtmlUnitSelect.java -text svneol=unset#text/plain
@@ -236,6 +236,7 @@ src/org/wetator/progresslistener/XMLResultWriter.java -text
 src/org/wetator/progresslistener/XSLTransformer.java -text
 src/org/wetator/scriptcreator/IScriptCreator.java -text svneol=unset#text/plain
 src/org/wetator/scriptcreator/LegacyXMLScriptCreator.java -text svneol=unset#text/plain
+src/org/wetator/scriptcreator/WikiTextScriptCreator.java -text
 src/org/wetator/scriptcreator/XMLScriptCreator.java -text svneol=unset#text/plain
 src/org/wetator/scripter/ExcelScripter.java -text
 src/org/wetator/scripter/LegacyXMLScripter.java -text svneol=unset#text/plain
@@ -274,8 +275,6 @@ test/checkstyle/test-checkstyle.xml -text svneol=unset#text/plain
 test/excel/default_command_set.xls -text
 test/excel/modules/module.xls -text
 test/excel/sql_command_set.xls -text
-test/findbugs/excludeFilter.xml -text svneol=unset#text/plain
-test/findbugs/findbugsfilter.xsd -text svneol=unset#text/plain
 test/java/org/wetator/VersionTest.java -text
 test/java/org/wetator/automatonTest.jpage -text
 test/java/org/wetator/backend/WPathTest.java -text svneol=unset#text/plain
@@ -287,7 +286,7 @@ test/java/org/wetator/backend/htmlunit/XHtmlOutputterHtmlPageTest.java -text
 test/java/org/wetator/backend/htmlunit/XHtmlOutputterXHtmlPageTest.java -text
 test/java/org/wetator/backend/htmlunit/control/HtmlUnitAnchorTest.java -text
 test/java/org/wetator/backend/htmlunit/control/HtmlUnitBaseControlTest.java -text
-test/java/org/wetator/backend/htmlunit/control/HtmlUnitButtonTextTest.java -text
+test/java/org/wetator/backend/htmlunit/control/HtmlUnitButtonTest.java -text
 test/java/org/wetator/backend/htmlunit/control/HtmlUnitImageTest.java -text
 test/java/org/wetator/backend/htmlunit/control/HtmlUnitInputResetTest.java -text
 test/java/org/wetator/backend/htmlunit/control/HtmlUnitInputSubmitTest.java -text
@@ -482,10 +481,12 @@ test/java/org/wetator/util/XMLUtilTest.java -text
 test/legacy_xml/default_command_set.xml -text
 test/legacy_xml/modules/module.xml -text
 test/legacy_xml/sql_command_set.xml -text
-test/pmd/wet-clone.xml -text svneol=unset#text/plain
-test/pmd/wet-logging-jakarta-commons.xml -text svneol=unset#text/plain
-test/pmd/wet-optimizations.xml -text svneol=unset#text/plain
-test/pmd/wet-strings.xml -text svneol=unset#text/plain
+test/pmd/wet-bestpractices.xml -text svneol=unset#text/plain
+test/pmd/wet-codestyle.xml -text svneol=unset#text/plain
+test/pmd/wet-design.xml -text svneol=unset#text/plain
+test/pmd/wet-errorprone.xml -text svneol=unset#text/plain
+test/pmd/wet-multithreading.xml -text svneol=unset#text/plain
+test/pmd/wet-performance.xml -text svneol=unset#text/plain
 test/real-world/jira/atlassian-jira.wett -text
 test/real-world/primefaces/inplace.wett -text
 test/real-world/primefaces/listbox.wett -text
@@ -497,6 +498,7 @@ test/real-world/vaadin/proxy.wett -text
 test/real-world/vaadin/vaadin-sample.wett -text
 test/real-world/vaadin/vaadin-simple.wett -text
 test/real-world/vaadin/vaadin.wett -text
+test/spotbugs/exclude-filter.xml -text svneol=unset#text/plain
 test/webpage/ajax/jquery/ajax_javascript_test.js -text
 test/webpage/ajax/jquery/ajax_options_birds.htms -text
 test/webpage/ajax/jquery/ajax_options_fish.htms -text
@@ -573,6 +575,7 @@ test/webpage/incubator/GSort.class -text
 test/webpage/incubator/Panorado.jar -text
 test/webpage/incubator/applet.html -text
 test/webpage/incubator/confirm.html -text
+test/webpage/incubator/type.html -text svneol=unset#text/plain
 test/webpage/index.html -text svneol=unset#text/plain
 test/webpage/javascript_boxover.html -text
 test/webpage/javascript_error.html -text
@@ -991,12 +994,12 @@ test/xml/deselect_checkbox.wet -text svneol=unset#text/plain
 test/xml/deselect_multipleSelect.wet -text svneol=unset#text/plain
 test/xml/deselect_radio.wet -text
 test/xml/exec_java.wet -text svneol=unset#text/plain
-test/xml/ff45/event_clickOn.wet -text
-test/xml/ff45/event_deselect.wet -text
-test/xml/ff45/event_handler.wet -text
-test/xml/ff45/event_mouseOver.wet -text
-test/xml/ff45/event_select.wet -text
-test/xml/ff45/event_set.wet -text
+test/xml/ff60/event_clickOn.wet -text
+test/xml/ff60/event_deselect.wet -text
+test/xml/ff60/event_handler.wet -text
+test/xml/ff60/event_mouseOver.wet -text
+test/xml/ff60/event_select.wet -text
+test/xml/ff60/event_set.wet -text
 test/xml/flow_simple_login.wet -text svneol=unset#text/plain
 test/xml/flow_simple_search.wet -text svneol=unset#text/plain
 test/xml/go_back.wet -text svneol=unset#text/plain
@@ -1012,6 +1015,7 @@ test/xml/incubator/assert_focus.xml -text
 test/xml/incubator/bookmark.xml -text
 test/xml/incubator/confirm.xml -text
 test/xml/incubator/exec_js.xml -text
+test/xml/incubator/type.wet -text
 test/xml/jquery.wet -text svneol=unset#text/plain
 test/xml/jquery/modal_confirmation.wet -text svneol=unset#text/plain
 test/xml/js_anchor_inside_page.wet -text svneol=unset#text/plain

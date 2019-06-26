@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,6 @@
 package org.wetator.backend.htmlunit;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -26,6 +25,7 @@ import java.net.URL;
 import java.net.URLDecoder;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -38,8 +38,8 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.wetator.backend.htmlunit.util.ContentTypeUtil;
 import org.wetator.exception.ResourceException;
 
@@ -60,7 +60,7 @@ import com.gargoylesoftware.htmlunit.util.UrlUtils;
  * @author frank.danek
  */
 public final class ResponseStore {
-  private static final Log LOG = LogFactory.getLog(ResponseStore.class);
+  private static final Logger LOG = LogManager.getLogger(ResponseStore.class);
   private static final Pattern CSS_URL_PATTERN = Pattern.compile("url\\(\\s*([\"']?)(.*?)([\"']?)\\s*\\)");
   private static final Pattern CSS_IMPORT_URL_PATTERN = Pattern.compile("@import\\s+([\"'])(.*?)([\"'])");
   private static final int MAX_FILE_NAME_LENGTH = 200;
@@ -100,7 +100,7 @@ public final class ResponseStore {
    *
    * @param aBrowserSubdir the subdir for the specific browser this store is for
    */
-  protected void initOutputDir(final String aBrowserSubdir) {
+  private void initOutputDir(final String aBrowserSubdir) {
     final String tmpDirectoryName;
     if (overwrite) {
       tmpDirectoryName = "responses_current";
@@ -163,10 +163,9 @@ public final class ResponseStore {
   public String storePage(final Page aPage) {
     File tmpFile = null;
     try {
-      final StringBuilder tmpFileName = new StringBuilder("response_").append(getUniqueId());
       final String tmpSuffix = ContentTypeUtil.getFileSuffix(aPage);
-
-      tmpFileName.append('.').append(tmpSuffix);
+      final StringBuilder tmpFileName = new StringBuilder("response_").append(getUniqueId()).append('.')
+          .append(tmpSuffix);
       tmpFile = new File(storeDir, tmpFileName.toString());
 
       if (aPage instanceof HtmlPage) {
@@ -176,7 +175,7 @@ public final class ResponseStore {
         final WebResponse tmpWebResponse = aPage.getWebResponse();
 
         try (InputStream tmpIn = tmpWebResponse.getContentAsStream();
-            OutputStream tmpOutputStream = new FileOutputStream(tmpFile)) {
+            OutputStream tmpOutputStream = Files.newOutputStream(tmpFile.toPath())) {
           final byte[] tmpBuffer = new byte[1024];
           int tmpBytes;
           while ((tmpBytes = tmpIn.read(tmpBuffer)) > 0) {
@@ -263,7 +262,7 @@ public final class ResponseStore {
         String tmpQuery = aFullContentUrl.getQuery();
         if (null != tmpQuery) {
           tmpQuery = URLDecoder.decode(tmpQuery, "UTF-8");
-          tmpFileName = tmpFileName + "?" + tmpQuery;
+          tmpFileName = new StringBuilder().append(tmpFileName).append('?').append(tmpQuery).toString();
         }
 
         // fix special characters
@@ -280,25 +279,27 @@ public final class ResponseStore {
         if (null == aSuffix) {
           final String tmpFileSuffix = ContentTypeUtil.getFileSuffix(tmpWebResponse);
           if (!tmpFileName.endsWith(tmpFileSuffix)) {
-            tmpFileName = tmpFileName + "." + tmpFileSuffix;
+            tmpFileName = new StringBuilder().append(tmpFileName).append('.').append(tmpFileSuffix).toString();
           }
         } else {
           if (!tmpFileName.endsWith(aSuffix)) {
-            tmpFileName = tmpFileName + aSuffix;
+            tmpFileName = new StringBuilder().append(tmpFileName).append(aSuffix).toString();
           }
         }
 
         File tmpResourceFile = new File(storeDir, tmpFileName);
 
         if (tmpResourceFile.getAbsolutePath().length() > MAX_FILE_NAME_LENGTH) {
+          final StringBuilder tmpShortFileName = new StringBuilder();
           // files with really long names
-          tmpFileName = "resource/" + "resource_" + getUniqueId();
+          tmpShortFileName.append("resource/resource_").append(Long.toString(getUniqueId()));
           if (null != aSuffix) {
-            tmpFileName = tmpFileName + aSuffix;
+            tmpShortFileName.append(aSuffix);
           } else {
-            tmpFileName = tmpFileName + "." + ContentTypeUtil.getFileSuffix(tmpWebResponse);
+            tmpShortFileName.append('.').append(ContentTypeUtil.getFileSuffix(tmpWebResponse));
           }
-          tmpResourceFile = new File(storeDir, tmpFileName);
+
+          tmpResourceFile = new File(storeDir, tmpShortFileName.toString());
         }
 
         // store the value already to prevent endless looping
@@ -327,7 +328,7 @@ public final class ResponseStore {
           if (tmpProcessed == null) {
             FileUtils.forceMkdir(tmpResourceFile.getParentFile());
             try (InputStream tmpInStream = tmpWebResponse.getContentAsStream();
-                FileOutputStream tmpOutStream = new FileOutputStream(tmpResourceFile)) {
+                OutputStream tmpOutStream = Files.newOutputStream(tmpResourceFile.toPath())) {
               IOUtils.copy(tmpInStream, tmpOutStream);
             }
           }
@@ -409,9 +410,7 @@ public final class ResponseStore {
    */
   private static String getContentAsStringWithoutBOM(final WebResponse aWebResponse) {
     final Charset tmpCharset = aWebResponse.getContentCharset();
-    InputStream tmpIn = null;
-    try {
-      tmpIn = aWebResponse.getContentAsStream();
+    try (InputStream tmpIn = aWebResponse.getContentAsStream()) {
       if (null == tmpIn) {
         return null;
       }
@@ -421,10 +420,6 @@ public final class ResponseStore {
     } catch (final IOException e) {
       LOG.warn("", e);
       return null;
-    } finally {
-      if (tmpIn != null) {
-        IOUtils.closeQuietly(tmpIn);
-      }
     }
   }
 }

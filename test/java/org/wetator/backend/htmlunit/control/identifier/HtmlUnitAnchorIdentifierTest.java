@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -96,7 +96,7 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
-        "[HtmlAnchor 'TestAnchor' (id='myId') (name='MyName')] found by: BY_LABELING_TEXT deviation: 0 distance: 0 start: 0 index: 5",
+        "[HtmlAnchor 'TestAnchor' (id='myId') (name='MyName')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -226,7 +226,7 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
-        "[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] found by: BY_LABELING_TEXT deviation: 0 distance: 0 start: 0 index: 5",
+        "[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 

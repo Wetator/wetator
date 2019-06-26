@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -149,7 +149,7 @@ public class IdentifierBasedHtmlUnitControlsFinderTest {
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlCheckBoxInput (id='myCheckbox') (name='check')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 index: 4",
+        "[HtmlCheckBoxInput (id='myCheckbox') (name='check')] found by: BY_LABEL_ELEMENT deviation: 0 distance: 0 start: 0 index: 4",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 }

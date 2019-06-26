@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,9 +17,10 @@
 package org.wetator.core;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -36,10 +37,9 @@ import java.util.Set;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.backend.control.IControl;
@@ -63,7 +63,7 @@ import org.wetator.util.StringUtil;
 // TODO we have to split this into one common part and one part for configuring the backend
 public class WetatorConfiguration {
 
-  private static final Log LOG = LogFactory.getLog(WetatorConfiguration.class);
+  private static final Logger LOG = LogManager.getLogger(WetatorConfiguration.class);
 
   /**
    * The prefix for all wetator properties.
@@ -145,7 +145,7 @@ public class WetatorConfiguration {
    * The property name to set the supported {@link BrowserType}s (by their {@link BrowserType#getSymbol()}).
    */
   public static final String PROPERTY_BROWSER_TYPE = PROPERTY_PREFIX + "browser";
-  private static final BrowserType DEFAULT_BROWSER_TYPE = BrowserType.FIREFOX_52;
+  private static final BrowserType DEFAULT_BROWSER_TYPE = BrowserType.FIREFOX_60;
   /**
    * The property name to define the supported ActiveX mocker.
    */
@@ -250,7 +250,7 @@ public class WetatorConfiguration {
   private Map<String, String> mimeTypes;
   private List<Variable> variables; // store them in defined order
 
-  private boolean log;
+  private boolean debugLogging;
   private int retrospect;
 
   /**
@@ -284,18 +284,13 @@ public class WetatorConfiguration {
     final Properties tmpProperties;
     File tmpBaseDirectory;
     // ok, we can start to read the file
-    try {
-      final FileInputStream tmpFileInputStream = new FileInputStream(aConfigurationPropertyFile);
-      try {
-        tmpProperties = new Properties();
-        tmpProperties.load(tmpFileInputStream);
+    try (InputStream tmpFileInputStream = Files.newInputStream(aConfigurationPropertyFile.toPath())) {
+      tmpProperties = new Properties();
+      tmpProperties.load(tmpFileInputStream);
 
-        tmpBaseDirectory = aConfigurationPropertyFile.getParentFile();
-        if (null == tmpBaseDirectory) {
-          tmpBaseDirectory = new File(System.getProperty("user.dir"));
-        }
-      } finally {
-        IOUtils.closeQuietly(tmpFileInputStream);
+      tmpBaseDirectory = aConfigurationPropertyFile.getParentFile();
+      if (null == tmpBaseDirectory) {
+        tmpBaseDirectory = new File(System.getProperty("user.dir"));
       }
     } catch (final IOException e) {
       throw new ConfigurationException("An error occured during read of the configuration file '"
@@ -648,7 +643,7 @@ public class WetatorConfiguration {
         final List<String> tmpLines = FileUtils.readLines(tmpFilterFile, StandardCharsets.UTF_8);
 
         for (final String tmpLine : tmpLines) {
-          if (!tmpLine.startsWith("#") && StringUtils.isNotBlank(tmpLine)) {
+          if (StringUtils.isNotBlank(tmpLine) && tmpLine.charAt(0) != '#') {
             jsJobFilterPatterns.add(SearchPattern.compile(tmpLine));
           }
         }
@@ -735,19 +730,7 @@ public class WetatorConfiguration {
           final IScripter tmpIScripter = tmpScripterClass.newInstance();
           scripters.add(tmpIScripter);
           LOG.info("Configuration: Scripter '" + tmpScripterClassName + "' registered.");
-        } catch (final ClassNotFoundException e) {
-          if (LOG.isDebugEnabled()) {
-            LOG.error("Configuration: Can't load scripter '" + tmpScripterClassName + "'.", e);
-          } else {
-            LOG.error("Configuration: Can't load scripter '" + tmpScripterClassName + "' (" + e.toString() + ").");
-          }
-        } catch (final InstantiationException e) {
-          if (LOG.isDebugEnabled()) {
-            LOG.error("Configuration: Can't load scripter '" + tmpScripterClassName + "'.", e);
-          } else {
-            LOG.error("Configuration: Can't load scripter '" + tmpScripterClassName + "' (" + e.toString() + ").");
-          }
-        } catch (final IllegalAccessException e) {
+        } catch (final ClassNotFoundException | InstantiationException | IllegalAccessException e) {
           if (LOG.isDebugEnabled()) {
             LOG.error("Configuration: Can't load scripter '" + tmpScripterClassName + "'.", e);
           } else {
@@ -795,19 +778,7 @@ public class WetatorConfiguration {
           final ICommandSet tmpCommandSet = tmpCommandSetClass.newInstance();
           commandSets.add(tmpCommandSet);
           LOG.info("Configuration: Command set '" + tmpCommandSetClassName + "' registered.");
-        } catch (final ClassNotFoundException e) {
-          if (LOG.isDebugEnabled()) {
-            LOG.error("Configuration: Can't load command set '" + tmpCommandSetClassName + "'.", e);
-          } else {
-            LOG.error("Configuration: Can't load command set '" + tmpCommandSetClassName + "' (" + e.toString() + ").");
-          }
-        } catch (final InstantiationException e) {
-          if (LOG.isDebugEnabled()) {
-            LOG.error("Configuration: Can't load command set '" + tmpCommandSetClassName + "'.", e);
-          } else {
-            LOG.error("Configuration: Can't load command set '" + tmpCommandSetClassName + "' (" + e.toString() + ").");
-          }
-        } catch (final IllegalAccessException e) {
+        } catch (final ClassNotFoundException | InstantiationException | IllegalAccessException e) {
           if (LOG.isDebugEnabled()) {
             LOG.error("Configuration: Can't load command set '" + tmpCommandSetClassName + "'.", e);
           } else {
@@ -1084,23 +1055,23 @@ public class WetatorConfiguration {
   }
 
   /**
-   * @return the configured proxy port
+   * @return the configured number of steps for retrospection
    */
   public int getRetrospect() {
     return retrospect;
   }
 
   /**
-   * @return true if the (javascript) log is switched on
+   * @return <code>true</code> if the (javascript) debug logging is switched on
    */
-  public boolean isLogEnabled() {
-    return log;
+  public boolean isDebugLoggingEnabled() {
+    return debugLogging;
   }
 
   /**
-   * Switches the (javascript) log on.
+   * Switches the (javascript) debug logging on.
    */
-  public void enableLog() {
-    log = true;
+  public void enableDebugLogging() {
+    debugLogging = true;
   }
 }

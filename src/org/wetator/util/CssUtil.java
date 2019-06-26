@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ package org.wetator.util;
  * CssUtil contains some useful helpers for CSS.
  *
  * @author rbri
+ * @author frank.danek
  */
 public final class CssUtil {
 
@@ -53,7 +54,7 @@ public final class CssUtil {
     while (i < tmpLength) {
       tmpChar = aString.charAt(i);
 
-      if (tmpChar == 0) {
+      if (tmpChar == 0) { // NOPMD
         // If the character is NULL (U+0000), then throw an InvalidCharacterError exception and terminate these steps
         // TODO ignore for the moment
       } else if (tmpChar < 0x001F || tmpChar == 0x007F) {
@@ -73,7 +74,7 @@ public final class CssUtil {
         i++;
         break;
       } else if (tmpChar >= 0x0080 || tmpChar == 0x002D || tmpChar == 0x005F || tmpChar >= 0x0030 && tmpChar <= 0x0039
-          || tmpChar >= 0x0041 && tmpChar <= 0x005A || tmpChar >= 0x0061 && tmpChar <= 0x007a) {
+          || tmpChar >= 0x0041 && tmpChar <= 0x005A || tmpChar >= 0x0061 && tmpChar <= 0x007a) { // NOPMD
         // If the character is not handled by one of the above rules and is greater than or equal to U+0080,
         // is "-" (U+002D) or "_" (U+005F), or is in one of the ranges [0-9] (U+0030 to U+0039),
         // [A-Z] (U+0041 to U+005A), or \[a-z] (U+0061 to U+007A), then the character itself.
@@ -92,7 +93,7 @@ public final class CssUtil {
     while (i < tmpLength) {
       tmpChar = aString.charAt(i);
 
-      if (tmpChar == 0) {
+      if (tmpChar == 0) { // NOPMD
         // If the character is NULL (U+0000), then throw an InvalidCharacterError exception and terminate these steps
         // TODO ignore for the moment
       } else if (tmpChar < 0x001F || tmpChar == 0x007F) {

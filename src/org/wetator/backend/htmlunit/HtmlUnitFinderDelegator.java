@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -115,7 +115,7 @@ public class HtmlUnitFinderDelegator implements IControlFinder {
    */
   public HtmlUnitFinderDelegator(final HtmlPage anHtmlPage, final HtmlUnitControlRepository aControlRepository) {
     if (null == anHtmlPage) {
-      throw new NullPointerException("HtmlPage can't be null");
+      throw new IllegalArgumentException("HtmlPage can't be null");
     }
     htmlPageIndex = new HtmlPageIndex(anHtmlPage);
 

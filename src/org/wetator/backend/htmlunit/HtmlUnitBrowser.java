@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,7 +17,6 @@
 package org.wetator.backend.htmlunit;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.net.UnknownHostException;
@@ -34,8 +33,8 @@ import java.util.WeakHashMap;
 import javax.swing.text.BadLocationException;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.IControlFinder;
@@ -86,7 +85,6 @@ import com.gargoylesoftware.htmlunit.TextPage;
 import com.gargoylesoftware.htmlunit.TopLevelWindow;
 import com.gargoylesoftware.htmlunit.WaitingRefreshHandler;
 import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.WebConsole.Logger;
 import com.gargoylesoftware.htmlunit.WebResponse;
 import com.gargoylesoftware.htmlunit.WebWindow;
 import com.gargoylesoftware.htmlunit.WebWindowEvent;
@@ -99,6 +97,7 @@ import com.gargoylesoftware.htmlunit.javascript.HtmlUnitContextFactory;
 import com.gargoylesoftware.htmlunit.javascript.JavaScriptEngine;
 import com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJob;
 import com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJobManager;
+import com.gargoylesoftware.htmlunit.javascript.host.Window;
 import com.gargoylesoftware.htmlunit.util.WebClientUtils;
 import com.gargoylesoftware.htmlunit.xml.XmlPage;
 
@@ -111,34 +110,31 @@ import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
  * @author frank.danek
  */
 public final class HtmlUnitBrowser implements IBrowser {
-  private static final Log LOG = LogFactory.getLog(HtmlUnitBrowser.class);
+  private static final Logger LOG = LogManager.getLogger(HtmlUnitBrowser.class);
 
   private static final int MAX_LENGTH = 4000;
 
-  /** The maximum history size. */
-  protected static final int MAX_HISTORY_SIZE = 15;
-
   /** Htmlunit WebClient. */
-  protected WebClient webClient;
+  private WebClient webClient;
   /** Sometimes we like to ignore some jobs. */
-  protected JavaScriptJobFilter jobFilter;
+  private JavaScriptJobFilter jobFilter;
   /** ResponseStore. */
-  protected Map<BrowserVersion, ResponseStore> responseStores;
+  private Map<BrowserVersion, ResponseStore> responseStores;
   /** WetatorEngine. */
-  protected WetatorEngine wetatorEngine;
+  private WetatorEngine wetatorEngine;
   /** The list of failures ({@link AssertionException}s). */
-  protected List<AssertionException> failures;
-  /** jsTimeout. */
-  protected long jsTimeoutInMillis;
+  private List<AssertionException> failures;
+  /** The JavaScript timeout. */
+  private long jsTimeoutInMillis;
   /** The map containing the bookmarks. */
-  protected Map<String, URL> bookmarks;
+  private Map<String, URL> bookmarks;
   /** Cache of saved pages. */
-  protected WeakHashMap<Page, String> savedPages;
+  private WeakHashMap<Page, String> savedPages;
 
   /**
    * This repository contains all additional controls supported by the backend (e.g. added by a command set).
    */
-  protected HtmlUnitControlRepository controlRepository = new HtmlUnitControlRepository();
+  private HtmlUnitControlRepository controlRepository = new HtmlUnitControlRepository();
 
   /**
    * Constructor.
@@ -330,7 +326,7 @@ public final class HtmlUnitBrowser implements IBrowser {
     webClient.getOptions().setTimeout(tmpConfiguration.getHttpTimeoutInSeconds() * 1000);
 
     // debug stuff
-    if (tmpConfiguration.isLogEnabled()) {
+    if (tmpConfiguration.isDebugLoggingEnabled()) {
       final HtmlUnitContextFactory tmpContextFactory = ((JavaScriptEngine) webClient.getJavaScriptEngine())
           .getContextFactory();
       tmpContextFactory.setDebugger(new DebuggerImpl());
@@ -366,17 +362,17 @@ public final class HtmlUnitBrowser implements IBrowser {
       final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
       addFailure("javascriptError", new String[] { tmpScriptException.getMessage() }, tmpScriptException);
     } catch (final FailingHttpStatusCodeException e) {
-      final String tmpMessage = Messages.getMessage("openServerError", new Object[] { aUrl, e.getMessage() });
+      final String tmpMessage = Messages.getMessage("openServerError", aUrl, e.getMessage());
       throw new ActionException(tmpMessage, e);
     } catch (final UnknownHostException e) {
-      final String tmpMessage = Messages.getMessage("unknownHostError", new Object[] { aUrl, e.getMessage() });
+      final String tmpMessage = Messages.getMessage("unknownHostError", aUrl, e.getMessage());
       throw new ActionException(tmpMessage, e);
     } catch (final BackendException e) {
-      final String tmpMessage = Messages.getMessage("openBackendError", new String[] { e.getMessage() });
+      final String tmpMessage = Messages.getMessage("openBackendError", e.getMessage());
       throw new ActionException(tmpMessage, e);
     } catch (final Throwable e) {
       LOG.error("OpenUrl '" + aUrl.toExternalForm() + "' fails. " + e.getMessage());
-      final String tmpMessage = Messages.getMessage("openServerError", new Object[] { aUrl, e.getMessage() });
+      final String tmpMessage = Messages.getMessage("openServerError", aUrl, e.getMessage());
       throw new ActionException(tmpMessage, e);
     }
   }
@@ -409,10 +405,10 @@ public final class HtmlUnitBrowser implements IBrowser {
       String tmpUrl = "";
       try {
         tmpUrl = aPage.getWebResponse().getWebRequest().getUrl().toExternalForm();
-      } catch (final NullPointerException e) {
+      } catch (final NullPointerException e) { // NOPMD
         // ignore
       }
-      wetatorEngine.informListenersInfo("javascriptAlert", new String[] { tmpMessage, tmpUrl });
+      wetatorEngine.informListenersInfo("javascriptAlert", tmpMessage, tmpUrl);
     }
   }
 
@@ -460,10 +456,10 @@ public final class HtmlUnitBrowser implements IBrowser {
       String tmpUrl = "";
       try {
         tmpUrl = aPage.getWebResponse().getWebRequest().getUrl().toExternalForm();
-      } catch (final NullPointerException e) {
+      } catch (final NullPointerException e) { // NOPMD
         // ignore
       }
-      wetatorEngine.informListenersInfo("javascriptConfirm", new String[] { tmpConfirmationMessage, tmpUrl });
+      wetatorEngine.informListenersInfo("javascriptConfirm", tmpConfirmationMessage, tmpUrl);
 
       try {
         if (null != message) {
@@ -471,17 +467,16 @@ public final class HtmlUnitBrowser implements IBrowser {
         }
 
         if (result) {
-          wetatorEngine.informListenersInfo("javascriptConfirmOk", new String[] { tmpConfirmationMessage });
+          wetatorEngine.informListenersInfo("javascriptConfirmOk", tmpConfirmationMessage);
         } else {
-          wetatorEngine.informListenersInfo("javascriptConfirmCancel", new String[] { tmpConfirmationMessage });
+          wetatorEngine.informListenersInfo("javascriptConfirmCancel", tmpConfirmationMessage);
         }
         return result;
       } catch (final AssertionException e) {
-        final String tmpMessage = Messages.getMessage("confirmationMessageDoesNotMatch",
-            new String[] { e.getMessage() });
+        final String tmpMessage = Messages.getMessage("confirmationMessageDoesNotMatch", e.getMessage());
         wetatorEngine.getBrowser().addFailure(new AssertionException(tmpMessage, e));
 
-        wetatorEngine.informListenersInfo("javascriptConfirmOk", new String[] { tmpConfirmationMessage });
+        wetatorEngine.informListenersInfo("javascriptConfirmOk", tmpConfirmationMessage);
         return false;
       } finally {
         // reset for the next call
@@ -494,7 +489,7 @@ public final class HtmlUnitBrowser implements IBrowser {
      *
      * @param aMessagePattern the expected text
      */
-    protected void chooseOkOnNextConfirmFor(final ContentPattern aMessagePattern) {
+    void chooseOkOnNextConfirmFor(final ContentPattern aMessagePattern) {
       message = aMessagePattern;
       result = true;
     }
@@ -504,7 +499,7 @@ public final class HtmlUnitBrowser implements IBrowser {
      *
      * @param aMessagePattern the expected text
      */
-    protected void chooseCancelOnNextConfirmFor(final ContentPattern aMessagePattern) {
+    void chooseCancelOnNextConfirmFor(final ContentPattern aMessagePattern) {
       message = aMessagePattern;
       result = false;
     }
@@ -513,7 +508,7 @@ public final class HtmlUnitBrowser implements IBrowser {
   /**
    * Our own WebConsole logger.
    */
-  public static class WebConsoleLogger implements Logger {
+  public static class WebConsoleLogger implements com.gargoylesoftware.htmlunit.WebConsole.Logger {
     private WetatorEngine wetatorEngine;
 
     /**
@@ -531,7 +526,7 @@ public final class HtmlUnitBrowser implements IBrowser {
         LOG.debug("Console [trace]: " + aMessage);
       }
 
-      wetatorEngine.informListenersInfo("ConsoleTrace", new Object[] { aMessage });
+      wetatorEngine.informListenersInfo("ConsoleTrace", aMessage);
     }
 
     @Override
@@ -540,7 +535,7 @@ public final class HtmlUnitBrowser implements IBrowser {
         LOG.debug("Console [debug]: " + aMessage);
       }
 
-      wetatorEngine.informListenersInfo("ConsoleDebug", new Object[] { aMessage });
+      wetatorEngine.informListenersInfo("ConsoleDebug", aMessage);
     }
 
     @Override
@@ -549,7 +544,7 @@ public final class HtmlUnitBrowser implements IBrowser {
         LOG.debug("Console [info]: " + aMessage);
       }
 
-      wetatorEngine.informListenersInfo("ConsoleInfo", new Object[] { aMessage });
+      wetatorEngine.informListenersInfo("ConsoleInfo", aMessage);
     }
 
     @Override
@@ -558,7 +553,7 @@ public final class HtmlUnitBrowser implements IBrowser {
         LOG.debug("Console [warn]: " + aMessage);
       }
 
-      wetatorEngine.informListenersInfo("ConsoleWarn", new Object[] { aMessage });
+      wetatorEngine.informListenersInfo("ConsoleWarn", aMessage);
     }
 
     @Override
@@ -567,7 +562,7 @@ public final class HtmlUnitBrowser implements IBrowser {
         LOG.debug("Console [error]: " + aMessage);
       }
 
-      wetatorEngine.informListenersInfo("ConsoleError", new Object[] { aMessage });
+      wetatorEngine.informListenersInfo("ConsoleError", aMessage);
     }
 
     @Override
@@ -639,55 +634,11 @@ public final class HtmlUnitBrowser implements IBrowser {
     tmpHandler.chooseCancelOnNextConfirmFor(aMessagePattern);
   }
 
-  /**
-   * Our own listener. We like to inform about javascript errors without
-   * stopping the processing.
-   */
-  public static final class JavaScriptErrorListener
-      implements com.gargoylesoftware.htmlunit.javascript.JavaScriptErrorListener {
-    private HtmlUnitBrowser htmlUnitBrowser;
-
-    /**
-     * Constructor.
-     *
-     * @param aHtmlUnitBrowser the browser this listener informs
-     */
-    public JavaScriptErrorListener(final HtmlUnitBrowser aHtmlUnitBrowser) {
-      htmlUnitBrowser = aHtmlUnitBrowser;
-    }
-
-    @Override
-    public void loadScriptError(final HtmlPage aHtmlPage, final URL aScriptUrl, final Exception anException) {
-      htmlUnitBrowser.addFailure("javascriptLoadError",
-          new String[] { aScriptUrl.toExternalForm(), aHtmlPage.getUrl().toExternalForm(), anException.getMessage() },
-          anException);
-    }
-
-    @Override
-    public void malformedScriptURL(final HtmlPage aHtmlPage, final String aUrl,
-        final MalformedURLException aMalformedURLException) {
-      htmlUnitBrowser.addFailure("javascriptLoadError",
-          new String[] { aUrl, aHtmlPage.getUrl().toExternalForm(), aMalformedURLException.getMessage() },
-          aMalformedURLException);
-    }
-
-    @Override
-    public void scriptException(final HtmlPage aHtmlPage, final ScriptException aScriptException) {
-      htmlUnitBrowser.addFailure("javascriptError", new String[] { aScriptException.getMessage() }, aScriptException);
-    }
-
-    @Override
-    public void timeoutError(final HtmlPage aHtmlPage, final long aAllowedTime, final long aExecutionTime) {
-      htmlUnitBrowser.addFailure("javascriptTimeoutError",
-          new Object[] { aAllowedTime, aExecutionTime, aHtmlPage.getUrl().toExternalForm() }, null);
-    }
-  }
-
   @Override
   public void closeWindow(final SecretString aWindowName) throws ActionException {
     final List<WebWindow> tmpWebWindows = webClient.getWebWindows();
     if (tmpWebWindows.isEmpty()) {
-      final String tmpMessage = Messages.getMessage("noWindowToClose", null);
+      final String tmpMessage = Messages.getMessage("noWindowToClose");
       throw new ActionException(tmpMessage);
     }
 
@@ -696,17 +647,17 @@ public final class HtmlUnitBrowser implements IBrowser {
         final WebWindow tmpWebWindow = tmpWebWindows.get(i);
 
         if (tmpWebWindow instanceof TopLevelWindow) {
-          wetatorEngine.informListenersInfo("closeWindow", new String[] { tmpWebWindow.getName() });
+          wetatorEngine.informListenersInfo("closeWindow", tmpWebWindow.getName());
           ((TopLevelWindow) tmpWebWindow).close();
           return;
         }
         if (tmpWebWindow instanceof DialogWindow) {
-          wetatorEngine.informListenersInfo("closeDialogWindow", new String[] { tmpWebWindow.getName() });
+          wetatorEngine.informListenersInfo("closeDialogWindow", tmpWebWindow.getName());
           ((DialogWindow) tmpWebWindow).close();
           return;
         }
       }
-      final String tmpMessage = Messages.getMessage("noWindowToClose", null);
+      final String tmpMessage = Messages.getMessage("noWindowToClose");
       throw new ActionException(tmpMessage);
     }
 
@@ -717,18 +668,18 @@ public final class HtmlUnitBrowser implements IBrowser {
       final String tmpWindowName = tmpWebWindow.getName();
       if (tmpWindowNamePattern.matches(tmpWindowName)) {
         if (tmpWebWindow instanceof TopLevelWindow) {
-          wetatorEngine.informListenersInfo("closeWindow", new String[] { tmpWindowName });
+          wetatorEngine.informListenersInfo("closeWindow", tmpWindowName);
           ((TopLevelWindow) tmpWebWindow).close();
           return;
         }
         if (tmpWebWindow instanceof DialogWindow) {
-          wetatorEngine.informListenersInfo("closeDialogWindow", new String[] { tmpWindowName });
+          wetatorEngine.informListenersInfo("closeDialogWindow", tmpWindowName);
           ((DialogWindow) tmpWebWindow).close();
           return;
         }
       }
     }
-    final String tmpMessage = Messages.getMessage("noWindowByNameToClose", new Object[] { aWindowName });
+    final String tmpMessage = Messages.getMessage("noWindowByNameToClose", aWindowName);
     throw new ActionException(tmpMessage);
   }
 
@@ -737,7 +688,7 @@ public final class HtmlUnitBrowser implements IBrowser {
     WebWindow tmpCurrentWindow = webClient.getCurrentWindow();
 
     if (null == tmpCurrentWindow) {
-      final String tmpMessage = Messages.getMessage("noWebWindow", null);
+      final String tmpMessage = Messages.getMessage("noWebWindow");
       throw new ActionException(tmpMessage);
     }
 
@@ -748,15 +699,14 @@ public final class HtmlUnitBrowser implements IBrowser {
 
     final int tmpIndexPos = tmpHistory.getIndex() - aSteps;
     if (tmpIndexPos >= tmpHistory.getLength() || tmpIndexPos < 0) {
-      final String tmpMessage = Messages.getMessage("outsideHistory",
-          new Object[] { aSteps, tmpIndexPos, tmpHistory.getLength() });
+      final String tmpMessage = Messages.getMessage("outsideHistory", aSteps, tmpIndexPos, tmpHistory.getLength());
       throw new ActionException(tmpMessage);
     }
 
     try {
       tmpHistory.go(-1 * aSteps);
     } catch (final IOException e) {
-      final String tmpMessage = Messages.getMessage("historyFailed", new String[] { e.getMessage() });
+      final String tmpMessage = Messages.getMessage("historyFailed", e.getMessage());
       throw new ActionException(tmpMessage);
     }
   }
@@ -796,7 +746,7 @@ public final class HtmlUnitBrowser implements IBrowser {
           }
 
           if (tmpParam.length() > 0) {
-            tmpPageFile = tmpPageFile + "?" + tmpParam.toString();
+            tmpPageFile = new StringBuilder().append(tmpPageFile).append('?').append(tmpParam).toString();
           }
           wetatorEngine.informListenersResponseStored(tmpPageFile);
         }
@@ -834,7 +784,7 @@ public final class HtmlUnitBrowser implements IBrowser {
             }
 
             if (tmpParam.length() > 0) {
-              tmpPageFile = tmpPageFile + "?" + tmpParam.toString();
+              tmpPageFile = new StringBuilder().append(tmpPageFile).append('?').append(tmpParam).toString();
             }
             wetatorEngine.informListenersHighlightedResponse(tmpPageFile);
           }
@@ -902,7 +852,7 @@ public final class HtmlUnitBrowser implements IBrowser {
       implements com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJobManager.JavaScriptJobFilter {
 
     @SuppressWarnings("hiding")
-    private static final Log LOG = LogFactory.getLog(JavaScriptJobFilter.class);
+    private static final Logger LOG = LogManager.getLogger(JavaScriptJobFilter.class);
 
     private List<SearchPattern> patterns;
     private boolean isDebugEnabled;
@@ -931,7 +881,7 @@ public final class HtmlUnitBrowser implements IBrowser {
       for (final SearchPattern tmpPattern : patterns) {
         if (tmpPattern.matches(tmpJob)) {
           if (isDebugEnabled && LOG.isDebugEnabled()) {
-            LOG.debug("JsJob filtered out: '" + tmpJob + "'");
+            LOG.debug("JsJob filtered out: '" + tmpJob + "'"); // NOPMD
           }
           return false;
         }
@@ -943,7 +893,7 @@ public final class HtmlUnitBrowser implements IBrowser {
   private Page getCurrentPage() throws BackendException {
     WebWindow tmpWebWindow = webClient.getCurrentWindow();
     if (null == tmpWebWindow) {
-      final String tmpMessage = Messages.getMessage("noWebWindow", null);
+      final String tmpMessage = Messages.getMessage("noWebWindow");
       throw new BackendException(tmpMessage);
     }
 
@@ -952,7 +902,7 @@ public final class HtmlUnitBrowser implements IBrowser {
     tmpWebWindow = tmpWebWindow.getTopWindow();
     final Page tmpPage = tmpWebWindow.getEnclosedPage();
     if (null == tmpPage) {
-      final String tmpMessage = Messages.getMessage("noPageInWebWindow", null);
+      final String tmpMessage = Messages.getMessage("noPageInWebWindow");
       throw new BackendException(tmpMessage);
     }
 
@@ -960,8 +910,8 @@ public final class HtmlUnitBrowser implements IBrowser {
   }
 
   private BrowserVersion determineBrowserVersionFor(final IBrowser.BrowserType aBrowserType) {
-    if (IBrowser.BrowserType.FIREFOX_45 == aBrowserType) {
-      return BrowserVersion.FIREFOX_45;
+    if (IBrowser.BrowserType.FIREFOX_60 == aBrowserType) {
+      return BrowserVersion.FIREFOX_60;
     }
     if (IBrowser.BrowserType.FIREFOX_52 == aBrowserType) {
       return BrowserVersion.FIREFOX_52;
@@ -972,7 +922,7 @@ public final class HtmlUnitBrowser implements IBrowser {
     if (IBrowser.BrowserType.CHROME == aBrowserType) {
       return BrowserVersion.CHROME;
     }
-    return BrowserVersion.FIREFOX_52;
+    return BrowserVersion.FIREFOX_60;
   }
 
   /**
@@ -987,7 +937,7 @@ public final class HtmlUnitBrowser implements IBrowser {
       return (HtmlPage) tmpPage;
     }
 
-    final String tmpMessage = Messages.getMessage("noHtmlPage", new Object[] { tmpPage.getClass() });
+    final String tmpMessage = Messages.getMessage("noHtmlPage", tmpPage.getClass());
     throw new BackendException(tmpMessage);
   }
 
@@ -1027,9 +977,9 @@ public final class HtmlUnitBrowser implements IBrowser {
     boolean tmpPendingJobs = false;
 
     Page tmpPage = getCurrentPage();
+    long tmpEndTime = System.currentTimeMillis() + aTimeoutInMillis;
     if (tmpPage.isHtmlPage()) {
       // try with wait
-      long tmpEndTime = System.currentTimeMillis() + aTimeoutInMillis;
       long tmpNow;
       while ((tmpNow = System.currentTimeMillis()) < tmpEndTime) {
         final HtmlPage tmpHtmlPage = (HtmlPage) tmpPage;
@@ -1051,6 +1001,22 @@ public final class HtmlUnitBrowser implements IBrowser {
         }
         tmpEndTime = System.currentTimeMillis() + aTimeoutInMillis;
       }
+    }
+
+    // handle animationFrames
+    final Window tmpWin = tmpPage.getEnclosingWindow().getTopWindow().getScriptableObject();
+
+    // TODO replace the hard coded second
+    final long tmpTimeout = Math.max(1000, tmpEndTime - System.currentTimeMillis());
+    tmpEndTime = System.currentTimeMillis() + tmpTimeout;
+    int tmpPendingAnimationFrames = tmpWin.animateAnimationsFrames();
+    while (tmpPendingAnimationFrames > 0 && System.currentTimeMillis() < tmpEndTime) {
+      tmpPendingAnimationFrames = tmpWin.animateAnimationsFrames();
+    }
+
+    if (tmpPendingAnimationFrames > 0) {
+      wetatorEngine.informListenersWarn("stillAnimataionFramesPending",
+          new Object[] { tmpTimeout / 1000d, tmpPendingAnimationFrames }, (String) null);
     }
 
     if (tmpPendingJobs && tmpPage.isHtmlPage()) {
@@ -1131,7 +1097,7 @@ public final class HtmlUnitBrowser implements IBrowser {
                 ((HtmlPage) tmpPage).getEnclosingWindow().getJobManager().jobStatusDump(jobFilter));
           }
           return tmpPageChanged;
-        } catch (final AssertionException e) {
+        } catch (final AssertionException e) { // NOPMD
           // ok, not found, maybe we have to be more patient
         }
 
@@ -1180,16 +1146,16 @@ public final class HtmlUnitBrowser implements IBrowser {
           aTitleToWaitFor.matches(tmpNormalizedTitle, MAX_LENGTH);
           return tmpPageChanged;
         } catch (final IOException e) {
-          Assert.fail("pdfConversionToTextFailed", new String[] { e.getMessage() });
+          Assert.fail("pdfConversionToTextFailed", e.getMessage());
           return tmpPageChanged;
         }
       }
 
       // content type without title
-      Assert.fail("assertTitleUnsupportedContent", new Object[] { tmpContentType });
+      Assert.fail("assertTitleUnsupportedContent", tmpContentType);
 
     } catch (final BackendException e) {
-      final String tmpMessage = Messages.getMessage("browserBackendError", new Object[] { e.getMessage() });
+      final String tmpMessage = Messages.getMessage("browserBackendError", e.getMessage());
       throw new AssertionException(tmpMessage, e);
     }
 
@@ -1231,7 +1197,7 @@ public final class HtmlUnitBrowser implements IBrowser {
                   ((HtmlPage) tmpPage).getEnclosingWindow().getJobManager().jobStatusDump(jobFilter));
             }
             return tmpPageChanged;
-          } catch (final AssertionException e) {
+          } catch (final AssertionException e) { // NOPMD
             // ok, not found, maybe we have to be more patient
           }
         } catch (final IllegalStateException e) {
@@ -1309,7 +1275,7 @@ public final class HtmlUnitBrowser implements IBrowser {
           matchesWithLog(aContentToWaitFor, tmpNormalizedContent);
           return tmpPageChanged;
         } catch (final IOException e) {
-          Assert.fail("pdfConversionToTextFailed", new String[] { e.getMessage() });
+          Assert.fail("pdfConversionToTextFailed", e.getMessage());
           return tmpPageChanged;
         }
       }
@@ -1335,9 +1301,9 @@ public final class HtmlUnitBrowser implements IBrowser {
               return tmpPageChanged;
             }
           } catch (final IOException eAsString) {
-            Assert.fail("xlsConversionToTextFailed", new String[] { eAsString.getMessage() });
+            Assert.fail("xlsConversionToTextFailed", eAsString.getMessage());
           }
-          Assert.fail("xlsConversionToTextFailed", new String[] { e.getMessage() });
+          Assert.fail("xlsConversionToTextFailed", e.getMessage());
         }
         matchesWithLog(aContentToWaitFor, tmpNormalizedContent);
         return tmpPageChanged;
@@ -1350,7 +1316,7 @@ public final class HtmlUnitBrowser implements IBrowser {
           matchesWithLog(aContentToWaitFor, tmpNormalizedContent);
           return tmpPageChanged;
         } catch (final IOException | InvalidFormatException e) {
-          Assert.fail("docConversionToTextFailed", new String[] { e.getMessage() });
+          Assert.fail("docConversionToTextFailed", e.getMessage());
           return tmpPageChanged;
         }
       }
@@ -1361,11 +1327,8 @@ public final class HtmlUnitBrowser implements IBrowser {
               MAX_LENGTH);
           matchesWithLog(aContentToWaitFor, tmpNormalizedContent);
           return tmpPageChanged;
-        } catch (final IOException e) {
-          Assert.fail("rtfConversionToTextFailed", new String[] { e.getMessage() });
-          return tmpPageChanged;
-        } catch (final BadLocationException e) {
-          Assert.fail("rtfConversionToTextFailed", new String[] { e.getMessage() });
+        } catch (final IOException | BadLocationException e) {
+          Assert.fail("rtfConversionToTextFailed", e.getMessage());
           return tmpPageChanged;
         }
       }
@@ -1377,7 +1340,7 @@ public final class HtmlUnitBrowser implements IBrowser {
           matchesWithLog(aContentToWaitFor, tmpNormalizedContent);
           return tmpPageChanged;
         } catch (final IOException e) {
-          Assert.fail("txtConversionToTextFailed", new String[] { e.getMessage() });
+          Assert.fail("txtConversionToTextFailed", e.getMessage());
           return tmpPageChanged;
         }
       }
@@ -1392,7 +1355,7 @@ public final class HtmlUnitBrowser implements IBrowser {
           matchesWithLog(aContentToWaitFor, tmpNormalizedContent);
           return tmpPageChanged;
         } catch (final IOException e) {
-          Assert.fail("zipConversionToTextFailed", new String[] { e.getMessage() });
+          Assert.fail("zipConversionToTextFailed", e.getMessage());
           return tmpPageChanged;
         }
       }
@@ -1400,19 +1363,19 @@ public final class HtmlUnitBrowser implements IBrowser {
       // unsupported content type
       // warn and process the content as plain ascii
       final Charset tmpCharset = tmpResponse.getContentCharset();
-      wetatorEngine.informListenersInfo("unsupportedPageType",
-          new String[] { tmpPage.getWebResponse().getContentType(), tmpCharset.name() });
+      wetatorEngine.informListenersInfo("unsupportedPageType", tmpPage.getWebResponse().getContentType(),
+          tmpCharset.name());
       try {
         final String tmpNormalizedContent = ContentUtil.getTxtContentAsString(tmpResponse.getContentAsStream(),
             tmpCharset, MAX_LENGTH);
         matchesWithLog(aContentToWaitFor, tmpNormalizedContent);
         return tmpPageChanged;
       } catch (final IOException e) {
-        Assert.fail("txtConversionToTextFailed", new String[] { e.getMessage() });
+        Assert.fail("txtConversionToTextFailed", e.getMessage());
         return tmpPageChanged;
       }
     } catch (final BackendException e) {
-      final String tmpMessage = Messages.getMessage("browserBackendError", new String[] { e.getMessage() });
+      final String tmpMessage = Messages.getMessage("browserBackendError", e.getMessage());
       throw new AssertionException(tmpMessage, e);
     }
   }
@@ -1430,8 +1393,8 @@ public final class HtmlUnitBrowser implements IBrowser {
   }
 
   @Override
-  public void addFailure(final String aMessageKey, final Object[] aParameterArray, final Throwable aCause) {
-    final String tmpMessage = Messages.getMessage(aMessageKey, aParameterArray);
+  public void addFailure(final String aMessageKey, final Object[] aParameters, final Throwable aCause) {
+    final String tmpMessage = Messages.getMessage(aMessageKey, aParameters);
     final AssertionException tmpFailure = new AssertionException(tmpMessage, aCause);
     addFailure(tmpFailure);
   }
@@ -1476,7 +1439,7 @@ public final class HtmlUnitBrowser implements IBrowser {
       final URL tmpUrl = getCurrentPage().getWebResponse().getWebRequest().getUrl();
       saveBookmark(aBookmarkName, tmpUrl);
     } catch (final BackendException e) {
-      final String tmpMessage = Messages.getMessage("browserBackendError", new String[] { e.getMessage() });
+      final String tmpMessage = Messages.getMessage("browserBackendError", e.getMessage());
       throw new ActionException(tmpMessage, e);
     }
   }

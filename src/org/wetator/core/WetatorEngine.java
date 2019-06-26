@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,15 +18,14 @@ package org.wetator.core;
 
 import java.io.File;
 import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.backend.htmlunit.HtmlUnitBrowser;
@@ -45,7 +44,7 @@ import org.wetator.progresslistener.XMLResultWriter;
  */
 public class WetatorEngine {
 
-  private static final Log LOG = LogFactory.getLog(WetatorEngine.class);
+  private static final Logger LOG = LogManager.getLogger(WetatorEngine.class);
 
   private static final String PROPERTY_TEST_CONFIG = "wetator.config";
   private static final String CONFIG_FILE_DEFAULT_NAME = "wetator.config";
@@ -203,36 +202,38 @@ public class WetatorEngine {
    * Shuts the Wetator engine down and releases all resources.
    */
   public void shutdown() {
-    getBrowser().close();
+    final IBrowser tmpBrowser = getBrowser();
+    if (tmpBrowser != null) {
+      tmpBrowser.close();
+    }
   }
 
   /**
-   * Adds the default {@link IProgressListener}.
+   * Adds the default {@link IProgressListener}s.
    * <ul>
    * <li>{@link XMLResultWriter}</li>
+   * <li><code>Log4jProgressListener</code> if retrospect is enabled</li>
    * </ul>
    */
   protected void addDefaultProgressListeners() {
-    // create new result writer and call the init() method.
     final XMLResultWriter tmpResultWriter = new XMLResultWriter();
     tmpResultWriter.init(this);
     addProgressListener(tmpResultWriter);
 
+    // enable retrospect if configured
     if (configuration.getRetrospect() > 0) {
-      // there is no direct dependency to log4j so far;
+      // we do not want to have a direct dependency to the log4j implementation
       // and this setup is only used for special debug configurations
+      // => we use reflection here to stay decoupled
       try {
-        final Class<?> tmpClass = Class.forName("org.wetator.progresslistener.Log4jProgressListener");
-        final Constructor<?> tmpConstructor = tmpClass.getConstructor(new Class[] { int.class });
-        final Object tmpLogListener = tmpConstructor.newInstance(new Object[] { configuration.getRetrospect() });
+        @SuppressWarnings("unchecked")
+        final Class<? extends IProgressListener> tmpClass = (Class<? extends IProgressListener>) Class
+            .forName("org.wetator.progresslistener.Log4jProgressListener");
+        final Constructor<? extends IProgressListener> tmpConstructor = tmpClass.getConstructor(int.class);
+        final IProgressListener tmpProgressListener = tmpConstructor.newInstance(configuration.getRetrospect());
 
-        final Method tmpInitMethod = tmpClass.getMethod("init", WetatorEngine.class);
-        tmpInitMethod.invoke(tmpLogListener, this);
-
-        final Method tmpAppendMethod = tmpClass.getMethod("appendAsWireListener");
-        tmpAppendMethod.invoke(tmpLogListener);
-
-        addProgressListener((IProgressListener) tmpLogListener);
+        tmpProgressListener.init(this);
+        addProgressListener(tmpProgressListener);
         LOG.info("Retrospect enabled; steps: " + configuration.getRetrospect() + ".");
       } catch (final Throwable e) {
         LOG.error("Could not instanciate Log4jProgressListener. Retrospect is disabled.", e);
@@ -262,9 +263,7 @@ public class WetatorEngine {
     final IScripter tmpScripter = createScripter(aFile);
 
     tmpScripter.script(aFile);
-    final List<Command> tmpResult = tmpScripter.getCommands();
-
-    return tmpResult;
+    return tmpScripter.getCommands();
   }
 
   private IScripter createScripter(final File aFile) throws InvalidInputException {
@@ -604,19 +603,18 @@ public class WetatorEngine {
   /**
    * Informs all listeners about 'warn'.
    *
-   * @param aMessageKey the message key of the warning.
-   * @param aParameterArray the message parameters.
+   * @param aMessageKey the message key of the warning
+   * @param aParameters the message parameters
    * @param aThrowable the optional reason (with stacktrace) of the warning
    */
-  public void informListenersWarn(final String aMessageKey, final Object[] aParameterArray,
-      final Throwable aThrowable) {
+  public void informListenersWarn(final String aMessageKey, final Object[] aParameters, final Throwable aThrowable) {
     String tmpStackTrace = null;
     if (null != aThrowable) {
       tmpStackTrace = ExceptionUtils.getStackTrace(aThrowable);
     }
     synchronized (progressListener) {
       for (final IProgressListener tmpListener : progressListener) {
-        tmpListener.warn(aMessageKey, aParameterArray, tmpStackTrace);
+        tmpListener.warn(aMessageKey, aParameters, tmpStackTrace);
       }
     }
   }
@@ -624,14 +622,14 @@ public class WetatorEngine {
   /**
    * Informs all listeners about 'warn'.
    *
-   * @param aMessageKey the message key of the warning.
-   * @param aParameterArray the message parameters.
+   * @param aMessageKey the message key of the warning
+   * @param aParameters the message parameters
    * @param aDetails the optional reason (with stacktrace) of the warning
    */
-  public void informListenersWarn(final String aMessageKey, final Object[] aParameterArray, final String aDetails) {
+  public void informListenersWarn(final String aMessageKey, final Object[] aParameters, final String aDetails) {
     synchronized (progressListener) {
       for (final IProgressListener tmpListener : progressListener) {
-        tmpListener.warn(aMessageKey, aParameterArray, aDetails);
+        tmpListener.warn(aMessageKey, aParameters, aDetails);
       }
     }
   }
@@ -639,13 +637,13 @@ public class WetatorEngine {
   /**
    * Informs all listeners about 'info'.
    *
-   * @param aMessageKey the message key of the warning.
-   * @param aParameterArray the message parameters.
+   * @param aMessageKey the message key of the warning
+   * @param aParameters the message parameters
    */
-  public void informListenersInfo(final String aMessageKey, final Object[] aParameterArray) {
+  public void informListenersInfo(final String aMessageKey, final Object... aParameters) {
     synchronized (progressListener) {
       for (final IProgressListener tmpListener : progressListener) {
-        tmpListener.info(aMessageKey, aParameterArray);
+        tmpListener.info(aMessageKey, aParameters);
       }
     }
   }
@@ -653,7 +651,7 @@ public class WetatorEngine {
   /**
    * Informs all listeners about htmlDescribe.
    *
-   * @param aHtmlDescription the html source.
+   * @param aHtmlDescription the html source
    */
   public void informListenersHtmlDescribe(final String aHtmlDescription) {
     synchronized (progressListener) {
@@ -666,7 +664,7 @@ public class WetatorEngine {
   /**
    * Informs all listeners about 'engineResponseStored'.
    *
-   * @param aResponseFileName the file name of the stored response.
+   * @param aResponseFileName the file name of the stored response
    */
   public void informListenersResponseStored(final String aResponseFileName) {
     synchronized (progressListener) {
@@ -679,7 +677,7 @@ public class WetatorEngine {
   /**
    * Informs all listeners about 'highlightedResponse'.
    *
-   * @param aResponseFileName the file name of the stored response.
+   * @param aResponseFileName the file name of the stored response
    */
   public void informListenersHighlightedResponse(final String aResponseFileName) {
     synchronized (progressListener) {

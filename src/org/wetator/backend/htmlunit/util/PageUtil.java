@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,6 +30,7 @@ import com.gargoylesoftware.htmlunit.html.XHtmlPage;
  * Util class for page handling.
  *
  * @author rbri
+ * @author frank.danek
  */
 public final class PageUtil {
 
@@ -41,7 +42,8 @@ public final class PageUtil {
    * @throws IOException in case of problems
    */
   public static HtmlPage constructHtmlPage(final String anHtmlCode) throws IOException {
-    return constructHtmlPage(BrowserVersion.getDefault(), anHtmlCode);
+    // Take care: this has to be in sync with our default browser
+    return constructHtmlPage(BrowserVersion.FIREFOX_60, anHtmlCode);
   }
 
   /**
@@ -58,8 +60,7 @@ public final class PageUtil {
         new URL("http://www.wetator.org/test.html"));
     final WebClient tmpWebClient = new WebClient(aBrowserVersion);
     try {
-      final HtmlPage tmpPage = HTMLParser.parseHtml(tmpResponse, tmpWebClient.getCurrentWindow());
-      return tmpPage;
+      return HTMLParser.parseHtml(tmpResponse, tmpWebClient.getCurrentWindow());
     } finally {
       tmpWebClient.close();
     }
@@ -90,8 +91,7 @@ public final class PageUtil {
         new URL("http://www.wetator.org/test.xhtml"));
     final WebClient tmpWebClient = new WebClient(aBrowserVersion);
     try {
-      final XHtmlPage tmpPage = HTMLParser.parseXHtml(tmpResponse, tmpWebClient.getCurrentWindow());
-      return tmpPage;
+      return HTMLParser.parseXHtml(tmpResponse, tmpWebClient.getCurrentWindow());
     } finally {
       tmpWebClient.close();
     }

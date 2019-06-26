@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -36,7 +36,7 @@ public class XmlIncubatorCommandSetTest extends AbstractWebServerTest {
   private static final String BASE_FOLDER = "test/xml/incubator/";
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_52, BrowserType.INTERNET_EXPLORER })
+  @Browsers({ BrowserType.FIREFOX_60, BrowserType.INTERNET_EXPLORER })
   public void bookmark() throws InvalidInputException {
     executeTestFile("bookmark.xml");
 
@@ -46,7 +46,7 @@ public class XmlIncubatorCommandSetTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_52, BrowserType.INTERNET_EXPLORER })
+  @Browsers({ BrowserType.FIREFOX_60, BrowserType.INTERNET_EXPLORER })
   public void assertFocus() throws InvalidInputException {
     executeTestFile("assert_focus.xml");
 
@@ -56,7 +56,7 @@ public class XmlIncubatorCommandSetTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_52, BrowserType.INTERNET_EXPLORER })
+  @Browsers({ BrowserType.FIREFOX_60, BrowserType.INTERNET_EXPLORER })
   public void execJs() throws InvalidInputException {
     executeTestFile("exec_js.xml");
 
@@ -76,11 +76,21 @@ public class XmlIncubatorCommandSetTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_52 })
+  @Browsers({ BrowserType.FIREFOX_60 })
   public void confirm() throws InvalidInputException {
     executeTestFile("confirm.xml");
 
     Assert.assertEquals(20, getSteps());
+    Assert.assertEquals(0, getFailures());
+    Assert.assertEquals(0, getErrors());
+  }
+
+  @Test
+  @Browsers({ BrowserType.FIREFOX_60 })
+  public void type() throws InvalidInputException {
+    executeTestFile("type.wet");
+
+    Assert.assertEquals(28, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }

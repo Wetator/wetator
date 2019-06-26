@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,9 +37,9 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   private static final String BASE_FOLDER = "test/xml/";
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_52 })
-  public void eventClickOnFF45() throws InvalidInputException {
-    executeTestFile("ff45/event_clickOn.wet");
+  @Browsers({ BrowserType.FIREFOX_60 })
+  public void eventClickOnFF60() throws InvalidInputException {
+    executeTestFile("ff60/event_clickOn.wet");
 
     Assert.assertEquals(63, getSteps());
     Assert.assertEquals(0, getFailures());
@@ -57,9 +57,9 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_52 })
-  public void eventDeselectFF45() throws InvalidInputException {
-    executeTestFile("ff45/event_deselect.wet");
+  @Browsers({ BrowserType.FIREFOX_60 })
+  public void eventDeselectFF60() throws InvalidInputException {
+    executeTestFile("ff60/event_deselect.wet");
 
     Assert.assertEquals(18, getSteps());
     Assert.assertEquals(0, getFailures());
@@ -77,9 +77,9 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_52 })
-  public void eventMouseOverFF45() throws InvalidInputException {
-    executeTestFile("ff45/event_mouseOver.wet");
+  @Browsers({ BrowserType.FIREFOX_60 })
+  public void eventMouseOverFF60() throws InvalidInputException {
+    executeTestFile("ff60/event_mouseOver.wet");
 
     Assert.assertEquals(74, getSteps());
     Assert.assertEquals(0, getFailures());
@@ -97,9 +97,9 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_52 })
-  public void eventSelectFF45() throws InvalidInputException {
-    executeTestFile("ff45/event_select.wet");
+  @Browsers({ BrowserType.FIREFOX_60 })
+  public void eventSelectFF60() throws InvalidInputException {
+    executeTestFile("ff60/event_select.wet");
 
     Assert.assertEquals(18, getSteps());
     Assert.assertEquals(0, getFailures());
@@ -117,9 +117,9 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_52 })
-  public void eventSetFF45() throws InvalidInputException {
-    executeTestFile("ff45/event_set.wet");
+  @Browsers({ BrowserType.FIREFOX_60 })
+  public void eventSetFF60() throws InvalidInputException {
+    executeTestFile("ff60/event_set.wet");
 
     Assert.assertEquals(27, getSteps());
     Assert.assertEquals(0, getFailures());

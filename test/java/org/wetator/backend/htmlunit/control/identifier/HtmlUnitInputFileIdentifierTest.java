@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -116,8 +116,26 @@ public class HtmlUnitInputFileIdentifierTest extends AbstractHtmlUnitControlIden
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlFileInput (id='myId') (name='myName')] found by: BY_LABEL deviation: 0 distance: 0 start: 5 index: 7",
+        "[HtmlFileInput (id='myId') (name='myName')] found by: BY_LABEL_ELEMENT deviation: 0 distance: 0 start: 5 index: 7",
         tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void byHtmlLabel_Text_Invisible() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<label id='labelId' for='myId'>Label</label>"
+        + "<input id='myId' name='myName' type='file' style='display: none;'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("Label");
+
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "labelId");
+
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -138,8 +156,27 @@ public class HtmlUnitInputFileIdentifierTest extends AbstractHtmlUnitControlIden
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlFileInput (id='myId') (name='myName')] found by: BY_LABEL deviation: 0 distance: 0 start: 5 index: 7",
+        "[HtmlFileInput (id='myId') (name='myName')] found by: BY_LABEL_ELEMENT deviation: 0 distance: 0 start: 5 index: 7",
         tmpFound.getEntriesSorted().get(0).toString());
+  }
+
+  @Test
+  public void byHtmlLabelChild_Text_Invisible() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<label id='labelId'>Label"
+        + "<input id='myId' name='myName' type='file' style='display: none;'>"
+        + "</label>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("Label");
+
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "labelId");
+
+    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test

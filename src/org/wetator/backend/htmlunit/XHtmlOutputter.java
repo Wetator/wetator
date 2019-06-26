@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,8 +29,8 @@ import java.util.Set;
 
 import org.apache.commons.io.output.FileWriterWithEncoding;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
 import org.wetator.util.Output;
 import org.wetator.util.XMLUtil;
@@ -127,9 +127,10 @@ import com.gargoylesoftware.htmlunit.svg.SvgRect;
  * Helper methods to write the HtmlUnit page as XHtml to a file.
  *
  * @author rbri
+ * @author frank.danek
  */
 public final class XHtmlOutputter {
-  private static final Log LOG = LogFactory.getLog(XHtmlOutputter.class);
+  private static final Logger LOG = LogManager.getLogger(XHtmlOutputter.class);
 
   private static final Set<String> EMPTY_TAGS;
   private static final Set<String> SINGLE_LINE_TAGS;
@@ -288,7 +289,7 @@ public final class XHtmlOutputter {
    * @param aDomNode the parent node
    * @throws IOException in case of error
    */
-  protected void writeSubNodes(final DomNode aDomNode) throws IOException {
+  private void writeSubNodes(final DomNode aDomNode) throws IOException {
     DomNode tmpChild = aDomNode.getFirstChild();
 
     while (null != tmpChild) {
@@ -318,9 +319,10 @@ public final class XHtmlOutputter {
    * @param aDomNode the node to work on
    * @throws IOException in case of error
    */
-  protected void writeStartTag(final DomNode aDomNode) throws IOException {
+  private void writeStartTag(final DomNode aDomNode) throws IOException {
     if (aDomNode instanceof HtmlHtml) {
       output.println("<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">");
+      output.print("<!-- Browser URL: ").print(htmlPage.getUrl().toExternalForm()).println(" -->");
     } else if (aDomNode instanceof HtmlUnknownElement) {
       output.print('<');
       output.print(((HtmlUnknownElement) aDomNode).getQualifiedName());
@@ -389,7 +391,7 @@ public final class XHtmlOutputter {
    * @param aDomNode the node to work on
    * @throws IOException in case of error
    */
-  protected void writeEndTag(final DomNode aDomNode) throws IOException {
+  private void writeEndTag(final DomNode aDomNode) throws IOException {
     if (aDomNode instanceof HtmlHtml) {
       output.println("</html>");
     } else if (aDomNode instanceof HtmlUnknownElement) {
@@ -428,7 +430,7 @@ public final class XHtmlOutputter {
    * @param aDomNode the node to work on
    * @throws IOException in case of error
    */
-  protected void writeAttributes(final DomNode aDomNode) throws IOException {
+  private void writeAttributes(final DomNode aDomNode) throws IOException {
     if (aDomNode instanceof DomElement) {
       final DomElement tmpDomElement = (DomElement) aDomNode;
 
@@ -495,7 +497,8 @@ public final class XHtmlOutputter {
                 final Element tmpElemScript = aDomNode.getScriptableObject();
                 final CSSStyleDeclaration tmpStyle = tmpElemScript.getWindow().getComputedStyle(tmpElemScript, null);
                 // for the moment i have no better idea than always hard wire the display info
-                tmpAttributeValue = tmpAttributeValue + "; display: " + tmpStyle.getDisplay();
+                tmpAttributeValue = new StringBuilder().append(tmpAttributeValue).append("; display: ")
+                    .append(tmpStyle.getDisplay()).toString();
               }
             }
           }
@@ -596,7 +599,7 @@ public final class XHtmlOutputter {
         final HtmlElement tmpElem = (HtmlElement) aDomNode;
         // hopefully no one will ever made tags like head visible
         if (!DisplayStyle.NONE.value().equals(tmpElem.getDefaultStyleDisplay().value())) {
-          final Element tmpElemScript = (Element) aDomNode.getScriptableObject();
+          final Element tmpElemScript = aDomNode.getScriptableObject();
           final CSSStyleDeclaration tmpStyle = tmpElemScript.getWindow().getComputedStyle(tmpElemScript, null);
           // for the moment i have no better idea than always hard wire the display info
           output.print(" style=\"display: ");
@@ -622,7 +625,7 @@ public final class XHtmlOutputter {
         tmpTag = (String) tmpField.get(null);
         TAG_NAMES.put(tmpNodeClass, tmpTag);
         return tmpTag;
-      } catch (final NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
+      } catch (final NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) { // NOPMD
         // ignore
       }
       tmpNodeClass = tmpNodeClass.getSuperclass();
@@ -641,7 +644,7 @@ public final class XHtmlOutputter {
     writeEndTag(aCanvas);
     output.println("-->");
 
-    final HTMLCanvasElement tmpCanvas = (HTMLCanvasElement) aCanvas.getScriptableObject();
+    final HTMLCanvasElement tmpCanvas = aCanvas.getScriptableObject();
     output.print("<img src='");
     output.print(tmpCanvas.toDataURL("png"));
     output.print("' height='" + tmpCanvas.getHeight());

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,7 +51,7 @@ public class WPath {
    */
   public WPath(final SecretString aPathNodes, final WetatorConfiguration aConfiguration) throws InvalidInputException {
     if (aPathNodes == null) {
-      final String tmpMessage = Messages.getMessage("invalidNullWPath", null);
+      final String tmpMessage = Messages.getMessage("invalidNullWPath");
       throw new InvalidInputException(tmpMessage);
     }
     rawPath = aPathNodes;
@@ -110,7 +110,7 @@ public class WPath {
         if (tmpNode.startsWith(TABLE_COORDINATES_START) && tmpNode.endsWith(TABLE_COORDINATES_END)
             && !tmpNode.endsWith(TABLE_COORDINATES_END_ESCAPED)) {
           if (tmpTableCoordinatesFinished) {
-            final String tmpMessage = Messages.getMessage("invalidWPath", new Object[] { rawPath });
+            final String tmpMessage = Messages.getMessage("invalidWPath", rawPath);
             throw new InvalidInputException(tmpMessage);
           }
           tableCoordinates.add(new TableCoordinate(tmpNode));

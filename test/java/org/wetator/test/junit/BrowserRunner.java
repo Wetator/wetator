@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -40,9 +40,9 @@ import org.wetator.backend.IBrowser.BrowserType;
  * public class SomeTest implements BrowserTest {
  *
  *   &#064;Test
- *   &#064;Browsers({ Browser.FIREFOX_52 })
+ *   &#064;Browsers({ Browser.FIREFOX_60 })
  *   public void test() {
- *     // your test method that is run with Firefox 38
+ *     // your test method that is run with Firefox 60
  *   }
  * }
  * </pre>

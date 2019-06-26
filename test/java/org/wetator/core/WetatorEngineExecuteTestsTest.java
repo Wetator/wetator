@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -55,7 +55,7 @@ public class WetatorEngineExecuteTestsTest {
    * The setting.
    * <ul>
    * <li>2 TestCases</li>
-   * <li>2 Browsers (IE11, FF45)</li>
+   * <li>2 Browsers (IE11, FF60)</li>
    * </ul>
    */
   @Before
@@ -66,7 +66,7 @@ public class WetatorEngineExecuteTestsTest {
     configuration = mock(WetatorConfiguration.class);
 
     browserType1 = BrowserType.INTERNET_EXPLORER;
-    browserType2 = BrowserType.FIREFOX_52;
+    browserType2 = BrowserType.FIREFOX_60;
 
     browser = mock(IBrowser.class);
 

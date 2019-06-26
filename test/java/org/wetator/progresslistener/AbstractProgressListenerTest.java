@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -685,7 +685,7 @@ public abstract class AbstractProgressListenerTest {
     // unify path delimiter
     tmpResult = tmpResult.replace('\\', '/');
     // unify htmlunit version
-    tmpResult = tmpResult.replaceAll("HtmlUnit version 2.\\d+(-SNAPSHOT)?", "HtmlUnit");
+    tmpResult = tmpResult.replaceAll("HtmlUnit version 2.\\d+(.\\d+)?(-SNAPSHOT)?", "HtmlUnit");
     // comments
     tmpResult = tmpResult.replaceAll("(?s)<!--.*?-->", "<!-- ... -->");
     // paths

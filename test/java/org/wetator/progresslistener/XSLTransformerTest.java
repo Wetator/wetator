@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -78,8 +78,8 @@ public class XSLTransformerTest extends AbstractProgressListenerTest {
     // replace durations
     tmpResult = tmpResult.replaceAll("><span title=\"\\d\\d:\\d\\d:\\d\\d:\\d\">[\\d]+(\\.[\\d])?s</span><",
         ">##DURATION##<");
-    tmpResult = tmpResult.replaceAll("><td style=\"padding-left: 5px;\">[\\d]+(\\.[\\d])?s</td>",
-        "><td style=\"padding-left: 5px;\">##DURATION##</td>");
+    tmpResult = tmpResult.replaceAll("><td style=\"padding-left: 3px;\">[\\d]+(\\.[\\d])?s</td>",
+        "><td style=\"padding-left: 3px;\">##DURATION##</td>");
     // replace stacktraces
     tmpResult = replaceLines(tmpResult, "<pre class=\"details\">[^\\n]*", "</pre>", null, "##DETAILS##");
     return tmpResult;

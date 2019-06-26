@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,8 +17,8 @@
 package org.wetator.backend.htmlunit.control;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
 import org.wetator.core.WetatorContext;
 import org.wetator.exception.UnsupportedOperationException;
@@ -39,7 +39,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlTableDataCell;
  */
 public class HtmlUnitUnspecificControl<T extends HtmlElement> extends HtmlUnitBaseControl<HtmlElement> {
 
-  private static final Log LOG = LogFactory.getLog(HtmlUnitUnspecificControl.class);
+  private static final Logger LOG = LogManager.getLogger(HtmlUnitUnspecificControl.class);
 
   /**
    * The constructor.
@@ -115,7 +115,7 @@ public class HtmlUnitUnspecificControl<T extends HtmlElement> extends HtmlUnitBa
     }
 
     if (!tmpSupported) {
-      final String tmpMessage = Messages.getMessage("disabledCheckNotSupported", new String[] { getDescribingText() });
+      final String tmpMessage = Messages.getMessage("disabledCheckNotSupported", getDescribingText());
       throw new UnsupportedOperationException(tmpMessage);
     }
 

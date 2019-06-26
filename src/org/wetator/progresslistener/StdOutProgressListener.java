@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -61,10 +61,10 @@ public class StdOutProgressListener implements IProgressListener {
   private int testCountIgnored;
 
   // count the overall test steps
-  private long stepsCountTotal;
-  private long stepsCountError;
-  private long stepsCountFailure;
-  private long stepsCountIgnore;
+  private long stepCountTotal;
+  private long stepCountError;
+  private long stepCountFailure;
+  private long stepCountIgnore;
 
   // helper remembering the result per test (run)
   private TestResult testResult;
@@ -99,10 +99,10 @@ public class StdOutProgressListener implements IProgressListener {
     testCountFailure = 0;
     testCountIgnored = 0;
 
-    stepsCountTotal = 0;
-    stepsCountError = 0;
-    stepsCountFailure = 0;
-    stepsCountIgnore = 0;
+    stepCountTotal = 0;
+    stepCountError = 0;
+    stepCountFailure = 0;
+    stepCountIgnore = 0;
 
     final WetatorConfiguration tmpConfiguration = aWetatorEngine.getConfiguration();
     if (tmpConfiguration != null) {
@@ -165,9 +165,6 @@ public class StdOutProgressListener implements IProgressListener {
         print(FilenameUtils.normalize(tmpTestCase.getFile().getAbsolutePath()));
         println(")");
       }
-      if (!tmpFirst) {
-        output.unindent().unindent().unindent().unindent().unindent().unindent();
-      }
     }
   }
 
@@ -197,21 +194,21 @@ public class StdOutProgressListener implements IProgressListener {
 
   @Override
   public void executeCommandSuccess() {
-    stepsCountTotal++;
+    stepCountTotal++;
     printProgressSign(".");
   }
 
   @Override
   public void executeCommandIgnored() {
-    stepsCountTotal++;
-    stepsCountIgnore++;
+    stepCountTotal++;
+    stepCountIgnore++;
     printProgressSign("i");
   }
 
   @Override
   public void executeCommandFailure(final AssertionException anAssertionException) {
-    stepsCountTotal++;
-    stepsCountFailure++;
+    stepCountTotal++;
+    stepCountFailure++;
     if (TestResult.ERROR != testResult) {
       testResult = TestResult.FAILURE;
     }
@@ -220,8 +217,8 @@ public class StdOutProgressListener implements IProgressListener {
 
   @Override
   public void executeCommandError(final Throwable aThrowable) {
-    stepsCountTotal++;
-    stepsCountError++;
+    stepCountTotal++;
+    stepCountError++;
     testResult = TestResult.ERROR;
     printProgressSign("E");
   }
@@ -274,8 +271,8 @@ public class StdOutProgressListener implements IProgressListener {
     }
     println("  Tests: " + testCountProcessed + ",  Errors: " + testCountError + ",  Failures: " + testCountFailure
         + ",  Ignored: " + testCountIgnored);
-    println("  Steps: " + stepsCountTotal + ",  Errors: " + stepsCountError + ",  Failures: " + stepsCountFailure
-        + ",  Ignored: " + stepsCountIgnore);
+    println("  Steps: " + stepCountTotal + ",  Errors: " + stepCountError + ",  Failures: " + stepCountFailure
+        + ",  Ignored: " + stepCountIgnore);
   }
 
   @Override
@@ -289,19 +286,47 @@ public class StdOutProgressListener implements IProgressListener {
   @Override
   public void error(final Throwable aThrowable) {
     testResult = TestResult.ERROR;
-    aThrowable.printStackTrace();
+    aThrowable.printStackTrace(); // NOPMD
   }
 
   @Override
-  public void warn(final String aMessageKey, final Object[] aParameterArray, final String aDetails) {
+  public void warn(final String aMessageKey, final Object[] aParameters, final String aDetails) {
   }
 
   @Override
-  public void info(final String aMessageKey, final Object[] aParameterArray) {
+  public void info(final String aMessageKey, final Object... aParameters) {
   }
 
   @Override
   public void htmlDescribe(final String aHtmlDescription) {
+  }
+
+  /**
+   * @return the number of tests
+   */
+  public long getTestCountProcessed() {
+    return testCountProcessed;
+  }
+
+  /**
+   * @return the number of erroneous tests
+   */
+  public long getTestCountError() {
+    return testCountError;
+  }
+
+  /**
+   * @return the number of failing tests
+   */
+  public long getTestCountFailure() {
+    return testCountFailure;
+  }
+
+  /**
+   * @return the number of ignored tests
+   */
+  public long getTestCountIgnored() {
+    return testCountIgnored;
   }
 
   /**
@@ -314,7 +339,7 @@ public class StdOutProgressListener implements IProgressListener {
       output.println(aString);
       output.flush();
     } catch (final IOException e) {
-      e.printStackTrace();
+      e.printStackTrace(); // NOPMD
     }
   }
 
@@ -328,7 +353,7 @@ public class StdOutProgressListener implements IProgressListener {
       output.print(aString);
       output.flush();
     } catch (final IOException e) {
-      e.printStackTrace();
+      e.printStackTrace(); // NOPMD
     }
   }
 
@@ -349,8 +374,6 @@ public class StdOutProgressListener implements IProgressListener {
 
   /**
    * Summarized result of a test (run).
-   *
-   * @author tobwoerk
    */
   private enum TestResult {
     SUCCESS,

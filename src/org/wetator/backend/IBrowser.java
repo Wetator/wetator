@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -71,16 +71,16 @@ public interface IBrowser {
     ZIP,
     /** the rest. */
     OTHER
-  };
+  }
 
   /**
    * Enum for the supported browser types.
    */
   enum BrowserType {
-    /** firefox 45 ESR. */
-    FIREFOX_45("Firefox45", "Firefox_45"),
     /** firefox 52 ESR. */
     FIREFOX_52("Firefox52", "Firefox_52"),
+    /** firefox 60 ESR. */
+    FIREFOX_60("Firefox60", "Firefox_60"),
     /** internet explorer 11. */
     INTERNET_EXPLORER("IE11", "IE_11"),
     /** chrome. */
@@ -133,7 +133,7 @@ public interface IBrowser {
       }
       return tmpFound;
     }
-  };
+  }
 
   /**
    * Returns the {@link IControlFinder} for this browser.

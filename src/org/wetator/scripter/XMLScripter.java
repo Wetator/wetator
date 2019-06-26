@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2017 wetator.org
+ * Copyright (c) 2008-2018 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,13 +18,12 @@ package org.wetator.scripter;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringReader;
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedHashSet;
@@ -41,7 +40,6 @@ import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 
 import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.wetator.core.Command;
 import org.wetator.core.IScripter;
@@ -151,8 +149,7 @@ public class XMLScripter implements IScripter {
 
   private boolean isSupported(final Reader aContent) throws IOException {
     // now check root element, schema and version
-    final BufferedReader tmpReader = new BufferedReader(aContent);
-    try {
+    try (BufferedReader tmpReader = new BufferedReader(aContent)) {
       String tmpLine;
       boolean tmpTestCase = false;
       boolean tmpBaseSchema = false;
@@ -177,8 +174,6 @@ public class XMLScripter implements IScripter {
           return true;
         }
       }
-    } finally {
-      IOUtils.closeQuietly(tmpReader);
     }
 
     return false;
@@ -186,41 +181,33 @@ public class XMLScripter implements IScripter {
 
   @Override
   public void script(final File aFile) throws InvalidInputException {
-    Reader tmpReader = null;
     try {
-      tmpReader = createUTF8Reader(aFile);
-      final List<XMLSchema> tmpSchemas = new SchemaFinder(tmpReader).getSchemas();
-      IOUtils.closeQuietly(tmpReader);
+      try (Reader tmpReader = createUTF8Reader(aFile)) {
+        final List<XMLSchema> tmpSchemas = new SchemaFinder(tmpReader).getSchemas();
 
-      if (null == tmpSchemas || tmpSchemas.isEmpty()) {
-        throw new InvalidInputException(
-            "No schemas found in file '" + FilenameUtils.normalize(aFile.getAbsolutePath()) + "'.");
+        if (null == tmpSchemas || tmpSchemas.isEmpty()) {
+          throw new InvalidInputException(
+              "No schemas found in file '" + FilenameUtils.normalize(aFile.getAbsolutePath()) + "'.");
+        }
+
+        addDefaultSchemas(tmpSchemas);
+        removeDuplicateSchemas(tmpSchemas);
+        schemas = tmpSchemas;
+
+        model = new ModelBuilder(tmpSchemas, aFile.getParentFile());
       }
 
-      addDefaultSchemas(tmpSchemas);
-      removeDuplicateSchemas(tmpSchemas);
-      schemas = tmpSchemas;
-
-      model = new ModelBuilder(tmpSchemas, aFile.getParentFile());
-
-      tmpReader = createUTF8Reader(aFile);
-      commands = parseScript(tmpReader);
+      try (Reader tmpReader = createUTF8Reader(aFile)) {
+        commands = parseScript(tmpReader);
+      }
     } catch (final FileNotFoundException e) {
       throw new InvalidInputException("Could not find file '" + FilenameUtils.normalize(aFile.getAbsolutePath()) + "'.",
           e);
     } catch (final IOException e) {
       throw new ResourceException("Could not read file '" + FilenameUtils.normalize(aFile.getAbsolutePath()) + "'.", e);
-    } catch (final XMLStreamException e) {
+    } catch (final XMLStreamException | SAXException | ParseException e) {
       throw new InvalidInputException(
           "Error parsing file '" + FilenameUtils.normalize(aFile.getAbsolutePath()) + "' (" + e.getMessage() + ").", e);
-    } catch (final SAXException e) {
-      throw new InvalidInputException(
-          "Error parsing file '" + FilenameUtils.normalize(aFile.getAbsolutePath()) + "' (" + e.getMessage() + ").", e);
-    } catch (final ParseException e) {
-      throw new InvalidInputException(
-          "Error parsing file '" + FilenameUtils.normalize(aFile.getAbsolutePath()) + "' (" + e.getMessage() + ").", e);
-    } finally {
-      IOUtils.closeQuietly(tmpReader);
     }
   }
 
@@ -234,9 +221,7 @@ public class XMLScripter implements IScripter {
    * @throws ResourceException in case of problems reading the file
    */
   public void script(final String aContent, final File aDirectory) throws InvalidInputException {
-    Reader tmpReader = null;
-    try {
-      tmpReader = new StringReader(aContent);
+    try (Reader tmpReader = new StringReader(aContent)) {
       final List<XMLSchema> tmpSchemas = new SchemaFinder(tmpReader).getSchemas();
 
       if (null == tmpSchemas || tmpSchemas.isEmpty()) {
@@ -253,14 +238,8 @@ public class XMLScripter implements IScripter {
       commands = parseScript(tmpReader);
     } catch (final IOException e) {
       throw new ResourceException("Could not read content.", e);
-    } catch (final XMLStreamException e) {
+    } catch (final XMLStreamException | SAXException | ParseException e) {
       throw new InvalidInputException("Error parsing content (" + e.getMessage() + ").", e);
-    } catch (final SAXException e) {
-      throw new InvalidInputException("Error parsing content (" + e.getMessage() + ").", e);
-    } catch (final ParseException e) {
-      throw new InvalidInputException("Error parsing content (" + e.getMessage() + ").", e);
-    } finally {
-      IOUtils.closeQuietly(tmpReader);
     }
   }
 
@@ -392,22 +371,24 @@ public class XMLScripter implements IScripter {
         }
       }
     } finally {
-      if (tmpReader != null) {
-        try {
-          tmpReader.close();
-        } catch (final Exception e) {
-          // bad luck
-        }
+      try {
+        tmpReader.close();
+      } catch (final Exception e) { // NOPMD
+        // bad luck
       }
       if (aContent != null) {
-        IOUtils.closeQuietly(aContent);
+        try {
+          aContent.close();
+        } catch (final Exception e) { // NOPMD
+          // bad luck
+        }
       }
     }
     return tmpResult;
   }
 
-  private Reader createUTF8Reader(final File aFile) throws UnsupportedEncodingException, FileNotFoundException {
-    return new InputStreamReader(new FileInputStream(aFile), "UTF-8");
+  private Reader createUTF8Reader(final File aFile) throws IOException {
+    return Files.newBufferedReader(aFile.toPath(), StandardCharsets.UTF_8);
   }
 
   @Override
