@@ -299,7 +299,8 @@ public final class ResponseStore {
             tmpShortFileName.append('.').append(ContentTypeUtil.getFileSuffix(tmpWebResponse));
           }
 
-          tmpResourceFile = new File(storeDir, tmpShortFileName.toString());
+          tmpFileName = tmpShortFileName.toString();
+          tmpResourceFile = new File(storeDir, tmpFileName);
         }
 
         // store the value already to prevent endless looping
