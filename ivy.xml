@@ -43,7 +43,7 @@
         <dependency org="org.apache.logging.log4j" name="log4j-api" rev="2.11.2" />
         <dependency org="org.apache.logging.log4j" name="log4j-core" rev="2.11.2" />
         <dependency org="org.apache.logging.log4j" name="log4j-jcl" rev="2.11.2" />
-        <dependency org="org.apache.pdfbox" name="pdfbox" rev="2.0.15" />
+        <dependency org="org.apache.pdfbox" name="pdfbox" rev="2.0.16" />
         <dependency org="org.bouncycastle" name="bcprov-jdk15on" rev="1.62" />
         <dependency org="org.bouncycastle" name="bcmail-jdk15on" rev="1.62" />
         <dependency org="org.apache.poi" name="poi-ooxml" rev="4.1.0" />
