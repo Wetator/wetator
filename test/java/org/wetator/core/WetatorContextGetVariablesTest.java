@@ -40,6 +40,8 @@ public class WetatorContextGetVariablesTest {
   private File file1;
   private File file2;
 
+  private String baseUrl;
+
   private WetatorConfiguration configuration;
   private WetatorEngine engine;
 
@@ -48,7 +50,10 @@ public class WetatorContextGetVariablesTest {
     file1 = new File("file1");
     file2 = new File("file2.xml");
 
+    baseUrl = "http://baseurl";
+
     configuration = mock(WetatorConfiguration.class);
+    when(configuration.getBaseUrl()).thenReturn(baseUrl);
 
     engine = mock(WetatorEngine.class);
     when(engine.getConfiguration()).thenReturn(configuration);
@@ -63,10 +68,11 @@ public class WetatorContextGetVariablesTest {
     final List<Variable> tmpVariables = tmpContext.getVariables();
 
     // assert
-    assertEquals("number of variables", 3, tmpVariables.size());
+    assertEquals("number of variables", 4, tmpVariables.size());
     assertVariable(WetatorContext.VARIABLE_TESTCASE, file1.getName(), tmpVariables.get(0));
     assertVariable(WetatorContext.VARIABLE_BROWSER, browserType.getLabel(), tmpVariables.get(1));
     assertVariable(WetatorContext.VARIABLE_TESTFILE, file1.getName(), tmpVariables.get(2));
+    assertVariable(WetatorContext.VARIABLE_BASEURL, baseUrl, tmpVariables.get(3));
   }
 
   @Test
@@ -79,11 +85,12 @@ public class WetatorContextGetVariablesTest {
     final List<Variable> tmpVariables = tmpContext.getVariables();
 
     // assert
-    assertEquals("number of variables", 4, tmpVariables.size());
+    assertEquals("number of variables", 5, tmpVariables.size());
     assertVariable(WetatorContext.VARIABLE_TESTCASE, file1.getName(), tmpVariables.get(0));
     assertVariable(WetatorContext.VARIABLE_BROWSER, browserType.getLabel(), tmpVariables.get(1));
     assertVariable(WetatorContext.VARIABLE_TESTFILE, file1.getName(), tmpVariables.get(2));
-    assertVariable("ctx", "ctx value", tmpVariables.get(3));
+    assertVariable(WetatorContext.VARIABLE_BASEURL, baseUrl, tmpVariables.get(3));
+    assertVariable("ctx", "ctx value", tmpVariables.get(4));
   }
 
   @Test
@@ -97,11 +104,12 @@ public class WetatorContextGetVariablesTest {
     final List<Variable> tmpVariables = tmpContext.getVariables();
 
     // assert
-    assertEquals("number of variables", 4, tmpVariables.size());
+    assertEquals("number of variables", 5, tmpVariables.size());
     assertVariable(WetatorContext.VARIABLE_TESTCASE, file1.getName(), tmpVariables.get(0));
     assertVariable(WetatorContext.VARIABLE_BROWSER, browserType.getLabel(), tmpVariables.get(1));
     assertVariable(WetatorContext.VARIABLE_TESTFILE, file1.getName(), tmpVariables.get(2));
-    assertVariable("conf", "conf value", tmpVariables.get(3));
+    assertVariable(WetatorContext.VARIABLE_BASEURL, baseUrl, tmpVariables.get(3));
+    assertVariable("conf", "conf value", tmpVariables.get(4));
   }
 
   @Test
@@ -116,12 +124,13 @@ public class WetatorContextGetVariablesTest {
     final List<Variable> tmpVariables = tmpContext.getVariables();
 
     // assert
-    assertEquals("number of variables", 5, tmpVariables.size());
+    assertEquals("number of variables", 6, tmpVariables.size());
     assertVariable(WetatorContext.VARIABLE_TESTCASE, file1.getName(), tmpVariables.get(0));
     assertVariable(WetatorContext.VARIABLE_BROWSER, browserType.getLabel(), tmpVariables.get(1));
     assertVariable(WetatorContext.VARIABLE_TESTFILE, file1.getName(), tmpVariables.get(2));
-    assertVariable("ctx", "ctx value", tmpVariables.get(3));
-    assertVariable("conf", "conf value", tmpVariables.get(4));
+    assertVariable(WetatorContext.VARIABLE_BASEURL, baseUrl, tmpVariables.get(3));
+    assertVariable("ctx", "ctx value", tmpVariables.get(4));
+    assertVariable("conf", "conf value", tmpVariables.get(5));
   }
 
   @Test
@@ -137,12 +146,13 @@ public class WetatorContextGetVariablesTest {
     final List<Variable> tmpVariables = tmpContext.getVariables();
 
     // assert
-    assertEquals("number of variables", 5, tmpVariables.size());
+    assertEquals("number of variables", 6, tmpVariables.size());
     assertVariable(WetatorContext.VARIABLE_TESTCASE, file1.getName(), tmpVariables.get(0));
     assertVariable(WetatorContext.VARIABLE_BROWSER, browserType.getLabel(), tmpVariables.get(1));
     assertVariable(WetatorContext.VARIABLE_TESTFILE, file1.getName(), tmpVariables.get(2));
-    assertVariable(WetatorContext.VARIABLE_TESTFILE, "ctx value", tmpVariables.get(3));
-    assertVariable(WetatorContext.VARIABLE_TESTFILE, "conf value", tmpVariables.get(4));
+    assertVariable(WetatorContext.VARIABLE_BASEURL, baseUrl, tmpVariables.get(3));
+    assertVariable(WetatorContext.VARIABLE_TESTFILE, "ctx value", tmpVariables.get(4));
+    assertVariable(WetatorContext.VARIABLE_TESTFILE, "conf value", tmpVariables.get(5));
   }
 
   @Test
@@ -155,13 +165,15 @@ public class WetatorContextGetVariablesTest {
     final List<Variable> tmpVariables = tmpSubContext.getVariables();
 
     // assert
-    assertEquals("number of variables", 6, tmpVariables.size());
+    assertEquals("number of variables", 8, tmpVariables.size());
     assertVariable(WetatorContext.VARIABLE_TESTCASE, file1.getName(), tmpVariables.get(0));
     assertVariable(WetatorContext.VARIABLE_BROWSER, browserType.getLabel(), tmpVariables.get(1));
     assertVariable(WetatorContext.VARIABLE_TESTFILE, file2.getName(), tmpVariables.get(2));
-    assertVariable(WetatorContext.VARIABLE_TESTCASE, file1.getName(), tmpVariables.get(3));
-    assertVariable(WetatorContext.VARIABLE_BROWSER, browserType.getLabel(), tmpVariables.get(4));
-    assertVariable(WetatorContext.VARIABLE_TESTFILE, file1.getName(), tmpVariables.get(5));
+    assertVariable(WetatorContext.VARIABLE_BASEURL, baseUrl, tmpVariables.get(3));
+    assertVariable(WetatorContext.VARIABLE_TESTCASE, file1.getName(), tmpVariables.get(4));
+    assertVariable(WetatorContext.VARIABLE_BROWSER, browserType.getLabel(), tmpVariables.get(5));
+    assertVariable(WetatorContext.VARIABLE_TESTFILE, file1.getName(), tmpVariables.get(6));
+    assertVariable(WetatorContext.VARIABLE_BASEURL, baseUrl, tmpVariables.get(7));
   }
 
   @Test
@@ -175,14 +187,16 @@ public class WetatorContextGetVariablesTest {
     final List<Variable> tmpVariables = tmpSubContext.getVariables();
 
     // assert
-    assertEquals("number of variables", 7, tmpVariables.size());
+    assertEquals("number of variables", 9, tmpVariables.size());
     assertVariable(WetatorContext.VARIABLE_TESTCASE, file1.getName(), tmpVariables.get(0));
     assertVariable(WetatorContext.VARIABLE_BROWSER, browserType.getLabel(), tmpVariables.get(1));
     assertVariable(WetatorContext.VARIABLE_TESTFILE, file2.getName(), tmpVariables.get(2));
-    assertVariable("subctx", "subctx value", tmpVariables.get(3));
-    assertVariable(WetatorContext.VARIABLE_TESTCASE, file1.getName(), tmpVariables.get(4));
-    assertVariable(WetatorContext.VARIABLE_BROWSER, browserType.getLabel(), tmpVariables.get(5));
-    assertVariable(WetatorContext.VARIABLE_TESTFILE, file1.getName(), tmpVariables.get(6));
+    assertVariable(WetatorContext.VARIABLE_BASEURL, baseUrl, tmpVariables.get(3));
+    assertVariable("subctx", "subctx value", tmpVariables.get(4));
+    assertVariable(WetatorContext.VARIABLE_TESTCASE, file1.getName(), tmpVariables.get(5));
+    assertVariable(WetatorContext.VARIABLE_BROWSER, browserType.getLabel(), tmpVariables.get(6));
+    assertVariable(WetatorContext.VARIABLE_TESTFILE, file1.getName(), tmpVariables.get(7));
+    assertVariable(WetatorContext.VARIABLE_BASEURL, baseUrl, tmpVariables.get(8));
   }
 
   @Test
@@ -196,14 +210,16 @@ public class WetatorContextGetVariablesTest {
     final List<Variable> tmpVariables = tmpSubContext.getVariables();
 
     // assert
-    assertEquals("number of variables", 7, tmpVariables.size());
+    assertEquals("number of variables", 9, tmpVariables.size());
     assertVariable(WetatorContext.VARIABLE_TESTCASE, file1.getName(), tmpVariables.get(0));
     assertVariable(WetatorContext.VARIABLE_BROWSER, browserType.getLabel(), tmpVariables.get(1));
     assertVariable(WetatorContext.VARIABLE_TESTFILE, file2.getName(), tmpVariables.get(2));
-    assertVariable(WetatorContext.VARIABLE_TESTCASE, file1.getName(), tmpVariables.get(3));
-    assertVariable(WetatorContext.VARIABLE_BROWSER, browserType.getLabel(), tmpVariables.get(4));
-    assertVariable(WetatorContext.VARIABLE_TESTFILE, file1.getName(), tmpVariables.get(5));
-    assertVariable("ctx", "ctx value", tmpVariables.get(6));
+    assertVariable(WetatorContext.VARIABLE_BASEURL, baseUrl, tmpVariables.get(3));
+    assertVariable(WetatorContext.VARIABLE_TESTCASE, file1.getName(), tmpVariables.get(4));
+    assertVariable(WetatorContext.VARIABLE_BROWSER, browserType.getLabel(), tmpVariables.get(5));
+    assertVariable(WetatorContext.VARIABLE_TESTFILE, file1.getName(), tmpVariables.get(6));
+    assertVariable(WetatorContext.VARIABLE_BASEURL, baseUrl, tmpVariables.get(7));
+    assertVariable("ctx", "ctx value", tmpVariables.get(8));
   }
 
   @Test
@@ -218,14 +234,16 @@ public class WetatorContextGetVariablesTest {
     final List<Variable> tmpVariables = tmpSubContext.getVariables();
 
     // assert
-    assertEquals("number of variables", 7, tmpVariables.size());
+    assertEquals("number of variables", 9, tmpVariables.size());
     assertVariable(WetatorContext.VARIABLE_TESTCASE, file1.getName(), tmpVariables.get(0));
     assertVariable(WetatorContext.VARIABLE_BROWSER, browserType.getLabel(), tmpVariables.get(1));
     assertVariable(WetatorContext.VARIABLE_TESTFILE, file2.getName(), tmpVariables.get(2));
-    assertVariable(WetatorContext.VARIABLE_TESTCASE, file1.getName(), tmpVariables.get(3));
-    assertVariable(WetatorContext.VARIABLE_BROWSER, browserType.getLabel(), tmpVariables.get(4));
-    assertVariable(WetatorContext.VARIABLE_TESTFILE, file1.getName(), tmpVariables.get(5));
-    assertVariable("conf", "conf value", tmpVariables.get(6));
+    assertVariable(WetatorContext.VARIABLE_BASEURL, baseUrl, tmpVariables.get(3));
+    assertVariable(WetatorContext.VARIABLE_TESTCASE, file1.getName(), tmpVariables.get(4));
+    assertVariable(WetatorContext.VARIABLE_BROWSER, browserType.getLabel(), tmpVariables.get(5));
+    assertVariable(WetatorContext.VARIABLE_TESTFILE, file1.getName(), tmpVariables.get(6));
+    assertVariable(WetatorContext.VARIABLE_BASEURL, baseUrl, tmpVariables.get(7));
+    assertVariable("conf", "conf value", tmpVariables.get(8));
   }
 
   @Test
@@ -242,16 +260,18 @@ public class WetatorContextGetVariablesTest {
     final List<Variable> tmpVariables = tmpSubContext.getVariables();
 
     // assert
-    assertEquals("number of variables", 9, tmpVariables.size());
+    assertEquals("number of variables", 11, tmpVariables.size());
     assertVariable(WetatorContext.VARIABLE_TESTCASE, file1.getName(), tmpVariables.get(0));
     assertVariable(WetatorContext.VARIABLE_BROWSER, browserType.getLabel(), tmpVariables.get(1));
     assertVariable(WetatorContext.VARIABLE_TESTFILE, file2.getName(), tmpVariables.get(2));
-    assertVariable("subctx", "subctx value", tmpVariables.get(3));
-    assertVariable(WetatorContext.VARIABLE_TESTCASE, file1.getName(), tmpVariables.get(4));
-    assertVariable(WetatorContext.VARIABLE_BROWSER, browserType.getLabel(), tmpVariables.get(5));
-    assertVariable(WetatorContext.VARIABLE_TESTFILE, file1.getName(), tmpVariables.get(6));
-    assertVariable("ctx", "ctx value", tmpVariables.get(7));
-    assertVariable("conf", "conf value", tmpVariables.get(8));
+    assertVariable(WetatorContext.VARIABLE_BASEURL, baseUrl, tmpVariables.get(3));
+    assertVariable("subctx", "subctx value", tmpVariables.get(4));
+    assertVariable(WetatorContext.VARIABLE_TESTCASE, file1.getName(), tmpVariables.get(5));
+    assertVariable(WetatorContext.VARIABLE_BROWSER, browserType.getLabel(), tmpVariables.get(6));
+    assertVariable(WetatorContext.VARIABLE_TESTFILE, file1.getName(), tmpVariables.get(7));
+    assertVariable(WetatorContext.VARIABLE_BASEURL, baseUrl, tmpVariables.get(8));
+    assertVariable("ctx", "ctx value", tmpVariables.get(9));
+    assertVariable("conf", "conf value", tmpVariables.get(10));
   }
 
   @Test
@@ -269,16 +289,18 @@ public class WetatorContextGetVariablesTest {
     final List<Variable> tmpVariables = tmpSubContext.getVariables();
 
     // assert
-    assertEquals("number of variables", 9, tmpVariables.size());
+    assertEquals("number of variables", 11, tmpVariables.size());
     assertVariable(WetatorContext.VARIABLE_TESTCASE, file1.getName(), tmpVariables.get(0));
     assertVariable(WetatorContext.VARIABLE_BROWSER, browserType.getLabel(), tmpVariables.get(1));
     assertVariable(WetatorContext.VARIABLE_TESTFILE, file2.getName(), tmpVariables.get(2));
-    assertVariable(WetatorContext.VARIABLE_TESTFILE, "subctx value", tmpVariables.get(3));
-    assertVariable(WetatorContext.VARIABLE_TESTCASE, file1.getName(), tmpVariables.get(4));
-    assertVariable(WetatorContext.VARIABLE_BROWSER, browserType.getLabel(), tmpVariables.get(5));
-    assertVariable(WetatorContext.VARIABLE_TESTFILE, file1.getName(), tmpVariables.get(6));
-    assertVariable(WetatorContext.VARIABLE_TESTFILE, "ctx value", tmpVariables.get(7));
-    assertVariable(WetatorContext.VARIABLE_TESTFILE, "conf value", tmpVariables.get(8));
+    assertVariable(WetatorContext.VARIABLE_BASEURL, baseUrl, tmpVariables.get(3));
+    assertVariable(WetatorContext.VARIABLE_TESTFILE, "subctx value", tmpVariables.get(4));
+    assertVariable(WetatorContext.VARIABLE_TESTCASE, file1.getName(), tmpVariables.get(5));
+    assertVariable(WetatorContext.VARIABLE_BROWSER, browserType.getLabel(), tmpVariables.get(6));
+    assertVariable(WetatorContext.VARIABLE_TESTFILE, file1.getName(), tmpVariables.get(7));
+    assertVariable(WetatorContext.VARIABLE_BASEURL, baseUrl, tmpVariables.get(8));
+    assertVariable(WetatorContext.VARIABLE_TESTFILE, "ctx value", tmpVariables.get(9));
+    assertVariable(WetatorContext.VARIABLE_TESTFILE, "conf value", tmpVariables.get(10));
   }
 
   @Test
@@ -293,11 +315,12 @@ public class WetatorContextGetVariablesTest {
     final List<Variable> tmpVariables = tmpContext.getVariables();
 
     // assert
-    assertEquals("number of variables", 4, tmpVariables.size());
+    assertEquals("number of variables", 5, tmpVariables.size());
     assertVariable(WetatorContext.VARIABLE_TESTCASE, file1.getName(), tmpVariables.get(0));
     assertVariable(WetatorContext.VARIABLE_BROWSER, browserType.getLabel(), tmpVariables.get(1));
     assertVariable(WetatorContext.VARIABLE_TESTFILE, file1.getName(), tmpVariables.get(2));
-    assertVariable("ctx", "ctx value", tmpVariables.get(3));
+    assertVariable(WetatorContext.VARIABLE_BASEURL, baseUrl, tmpVariables.get(3));
+    assertVariable("ctx", "ctx value", tmpVariables.get(4));
   }
 
   private static void assertVariable(final String anExpectedName, final String anExpectedValue,
