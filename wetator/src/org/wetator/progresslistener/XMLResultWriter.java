@@ -131,7 +131,7 @@ public class XMLResultWriter implements IProgressListener {
       xslTemplates = tmpConfiguration.getXslTemplates();
       resultFile = new File(outputDir, "wetresult.xml");
 
-      final Writer tmpWriter = new FileWriterWithEncoding(resultFile, "UTF-8");
+      final Writer tmpWriter = new FileWriterWithEncoding(resultFile, "UTF-8"); // NOPMD
       output = new Output(tmpWriter, "  ");
       xmlUtil = new XMLUtil();
 
@@ -230,9 +230,7 @@ public class XMLResultWriter implements IProgressListener {
       printlnEndTag(TAG_JAVA);
 
       printlnEndTag(TAG_ABOUT);
-    } catch (
-
-    final IOException e) {
+    } catch (final IOException e) {
       LOG.error(e.getMessage(), e);
     }
   }
