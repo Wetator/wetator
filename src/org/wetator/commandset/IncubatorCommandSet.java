@@ -312,8 +312,9 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
       if (null != tmpJarUrls) {
         for (final URL tmpJarUrl : tmpJarUrls) {
           try {
-            final InputStream tmpIs = tmpJarUrl.openStream();
-            tmpIs.close();
+            try (InputStream tmpIs = tmpJarUrl.openStream()) {
+              // just opening the stream is enough
+            }
           } catch (final Exception eUrl) {
             aContext.informListenersWarn("assertAppletUnreachableJar", tmpJarUrl.toString(), eUrl.toString());
           }
