@@ -49,6 +49,8 @@ public class WetatorContext {
   public static final String VARIABLE_BROWSER = "wetator.browser";
   /** The name of the {@link Variable} containing the name of the current test file. */
   public static final String VARIABLE_TESTFILE = "wetator.testfile";
+  /** The name of the {@link Variable} containing the configured base URL. */
+  public static final String VARIABLE_BASEURL = "wetator.baseurl";
 
   private WetatorEngine engine;
   private String testCaseName;
@@ -83,6 +85,7 @@ public class WetatorContext {
     addVariable(new Variable(VARIABLE_TESTCASE, new SecretString(aTestCaseName)));
     addVariable(new Variable(VARIABLE_BROWSER, new SecretString(aBrowserType.getLabel())));
     addVariable(new Variable(VARIABLE_TESTFILE, new SecretString(aFile.getName())));
+    addVariable(new Variable(VARIABLE_BASEURL, new SecretString(getConfiguration().getBaseUrl())));
   }
 
   /**
