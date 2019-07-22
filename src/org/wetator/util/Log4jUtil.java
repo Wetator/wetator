@@ -62,6 +62,7 @@ public final class Log4jUtil {
         "com.gargoylesoftware.htmlunit.javascript.JavaScriptEngine", "org.apache.http.wire" }) {
       tmpConfig.getLoggerConfig(tmpLog).setLevel(Level.TRACE);
     }
+    tmpContext.updateLoggers();
   }
 
   private Log4jUtil() {
