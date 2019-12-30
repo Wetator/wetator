@@ -90,7 +90,7 @@ public class Wetator extends Task {
       // AntClassLoader
       // We are using the system classloader, because the loader is only needed for the 'Exec Java' command.
       // And the 'Exec Java' command needs nothing from Ant; normally the Ant stuff only disturbs.
-      final AntClassLoader tmpAntClassLoader = new AntClassLoader(ClassLoader.getSystemClassLoader(), getProject(),
+      final AntClassLoader tmpAntClassLoader = new AntClassLoader(ClassLoader.getSystemClassLoader(), getProject(), // NOPMD
           classpath, false);
 
       // we remember the original system properties to be able to restore them once we are done
@@ -210,7 +210,7 @@ public class Wetator extends Task {
    * @return a map with properties
    */
   protected Map<String, String> getPropertiesFromAnt() {
-    final Map<String, String> tmpOurProperties = new HashMap<String, String>();
+    final Map<String, String> tmpOurProperties = new HashMap<>();
 
     // read the properties from the Ant project
     final Map<String, Object> tmpProjectProperties = getProject().getProperties();

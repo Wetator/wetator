@@ -108,7 +108,7 @@ public class WetatorExecutor {
    * @return a map with properties
    */
   protected Map<String, String> getPropertiesFromAnt() {
-    final Map<String, String> tmpOurProperties = new HashMap<String, String>();
+    final Map<String, String> tmpOurProperties = new HashMap<>();
 
     for (final Entry<String, String> tmpEntry : properties.entrySet()) {
       final String tmpName = tmpEntry.getKey();
