@@ -50,7 +50,7 @@ public class XMLResultWriterTest extends AbstractProgressListenerTest {
     final TestCase tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
     writeGreenTestRun(tmpTestCase, IE11);
-    writeGreenTestRun(tmpTestCase, FF52);
+    writeGreenTestRun(tmpTestCase, FF68);
     progressListener.testCaseEnd();
 
     progressListener.end(engine);

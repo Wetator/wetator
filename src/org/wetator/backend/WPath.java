@@ -37,8 +37,8 @@ public class WPath {
   private static final String TABLE_COORDINATES_END_ESCAPED = "\\]";
 
   private SecretString rawPath;
-  private List<SecretString> pathNodes = new ArrayList<SecretString>();
-  private List<TableCoordinate> tableCoordinates = new ArrayList<TableCoordinate>();
+  private List<SecretString> pathNodes = new ArrayList<>();
+  private List<TableCoordinate> tableCoordinates = new ArrayList<>();
   private List<TableCoordinate> tableCoordinatesReversed;
   private SecretString lastNode;
 
@@ -128,7 +128,7 @@ public class WPath {
         lastNode = null;
       }
     }
-    tableCoordinatesReversed = new ArrayList<TableCoordinate>(tableCoordinates);
+    tableCoordinatesReversed = new ArrayList<>(tableCoordinates);
     Collections.reverse(tableCoordinatesReversed);
   }
 

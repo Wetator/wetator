@@ -30,7 +30,7 @@ public class ManualXMLScriptCreatorTest {
 
   @Test
   public void manual() {
-    final List<Command> tmpCommands = new ArrayList<Command>();
+    final List<Command> tmpCommands = new ArrayList<>();
     Command tmpCommand;
     tmpCommand = new Command("assert-content", false);
     tmpCommand.setLineNo(1);

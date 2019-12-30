@@ -45,7 +45,7 @@ public final class Log4jUtil {
    * @param aLogFile the target log file
    */
   public static void configureDebugLogging(final File aLogFile) {
-    final LoggerContext tmpContext = (LoggerContext) LogManager.getContext(false);
+    final LoggerContext tmpContext = (LoggerContext) LogManager.getContext(false); // NOPMD
     final Configuration tmpConfig = tmpContext.getConfiguration();
 
     final PatternLayout tmpLayout = PatternLayout.newBuilder().withConfiguration(tmpConfig)

@@ -11,33 +11,38 @@ Rules that help you discover design issues.
 This is a subset of PMD's 'Design' ruleset.
     </description>
 
-    <!-- <rule ref="category/java/design.xml/AbstractClassWithoutAnyMethod" /> -->
-    <!-- <rule ref="category/java/design.xml/AvoidCatchingGenericException" /> -->
-    <!-- <rule ref="category/java/design.xml/AvoidDeeplyNestedIfStmts" /> -->
-    <!-- <rule ref="category/java/design.xml/AvoidRethrowingException" /> -->
+    <!-- not wanted <rule ref="category/java/design.xml/AbstractClassWithoutAnyMethod" /> -->
+    <!-- not wanted <rule ref="category/java/design.xml/AvoidCatchingGenericException" /> -->
+    <!-- not wanted <rule ref="category/java/design.xml/AvoidDeeplyNestedIfStmts" /> -->
+    <!-- not wanted <rule ref="category/java/design.xml/AvoidRethrowingException" /> -->
     <rule ref="category/java/design.xml/AvoidThrowingNewInstanceOfSameException" />
     <rule ref="category/java/design.xml/AvoidThrowingNullPointerException" />
-    <!-- <rule ref="category/java/design.xml/AvoidThrowingRawExceptionTypes" /> -->
+    <!-- not wanted <rule ref="category/java/design.xml/AvoidThrowingRawExceptionTypes" /> -->
+    <rule ref="category/java/design.xml/AvoidUncheckedExceptionsInSignatures" />
     <rule ref="category/java/design.xml/ClassWithOnlyPrivateConstructorsShouldBeFinal" />
     <rule ref="category/java/design.xml/CollapsibleIfStatements" />
-    <!-- <rule ref="category/java/design.xml/CouplingBetweenObjects" /> -->
-    <!-- <rule ref="category/java/design.xml/CyclomaticComplexity" /> -->
-    <!-- <rule ref="category/java/design.xml/DataClass" /> -->
+    <!-- not wanted <rule ref="category/java/design.xml/CouplingBetweenObjects" /> -->
+    <!-- not wanted <rule ref="category/java/design.xml/CyclomaticComplexity" /> -->
+    <!-- not wanted <rule ref="category/java/design.xml/DataClass" /> -->
     <rule ref="category/java/design.xml/DoNotExtendJavaLangError" />
-    <!-- <rule ref="category/java/design.xml/ExceptionAsFlowControl" /> -->
-    <!-- <rule ref="category/java/design.xml/ExcessiveClassLength" /> -->
-    <!-- <rule ref="category/java/design.xml/ExcessiveImports" /> -->
-    <!-- <rule ref="category/java/design.xml/ExcessiveMethodLength" /> -->
-    <!-- <rule ref="category/java/design.xml/ExcessiveParameterList" /> -->
-    <!-- <rule ref="category/java/design.xml/ExcessivePublicCount" /> -->
-    <!-- <rule ref="category/java/design.xml/FinalFieldCouldBeStatic" /> -->
-    <!-- <rule ref="category/java/design.xml/GodClass" /> -->
-    <!-- <rule ref="category/java/design.xml/ImmutableField" /> -->
-    <!-- <rule ref="category/java/design.xml/LawOfDemeter" /> -->
+    <!-- not wanted <rule ref="category/java/design.xml/ExceptionAsFlowControl" /> -->
+    <!-- not wanted <rule ref="category/java/design.xml/ExcessiveClassLength" /> -->
+    <!-- not wanted <rule ref="category/java/design.xml/ExcessiveImports" /> -->
+    <!-- not wanted <rule ref="category/java/design.xml/ExcessiveMethodLength" /> -->
+    <!-- not wanted <rule ref="category/java/design.xml/ExcessiveParameterList" /> -->
+    <!-- not wanted <rule ref="category/java/design.xml/ExcessivePublicCount" /> -->
+    <!-- not wanted <rule ref="category/java/design.xml/FinalFieldCouldBeStatic" /> -->
+    <!-- not wanted <rule ref="category/java/design.xml/GodClass" /> -->
+    <!-- not wanted <rule ref="category/java/design.xml/ImmutableField" /> -->
+    <!-- not wanted <rule ref="category/java/design.xml/LawOfDemeter" /> -->
     <rule ref="category/java/design.xml/LogicInversion" />
-    <!-- <rule ref="category/java/design.xml/LoosePackageCoupling" /> -->
-    <!-- <rule ref="category/java/design.xml/NcssCount" /> -->
-    <!-- <rule ref="category/java/design.xml/NPathComplexity" /> -->
+    <!-- not wanted <rule ref="category/java/design.xml/LoosePackageCoupling" /> -->
+    <!-- not wanted <rule ref="category/java/design.xml/ModifiedCyclomaticComplexity" /> -->
+    <!-- not wanted <rule ref="category/java/design.xml/NcssConstructorCount" /> -->
+    <!-- not wanted <rule ref="category/java/design.xml/NcssCount" /> -->
+    <!-- not wanted <rule ref="category/java/design.xml/NcssMethodCount" /> -->
+    <!-- not wanted <rule ref="category/java/design.xml/NcssTypeCount" /> -->
+    <!-- not wanted <rule ref="category/java/design.xml/NPathComplexity" /> -->
     <rule ref="category/java/design.xml/SignatureDeclareThrowsException" />
     <rule ref="category/java/design.xml/SimplifiedTernary" />
     <rule ref="category/java/design.xml/SimplifyBooleanAssertion" />
@@ -45,11 +50,12 @@ This is a subset of PMD's 'Design' ruleset.
     <rule ref="category/java/design.xml/SimplifyBooleanReturns" />
     <rule ref="category/java/design.xml/SimplifyConditional" />
     <rule ref="category/java/design.xml/SingularField" />
-    <!-- <rule ref="category/java/design.xml/SwitchDensity" /> -->
-    <!-- <rule ref="category/java/design.xml/TooManyFields" /> -->
-    <!-- <rule ref="category/java/design.xml/TooManyMethods" /> -->
+    <!-- not wanted <rule ref="category/java/design.xml/StdCyclomaticComplexity" /> -->
+    <!-- not wanted <rule ref="category/java/design.xml/SwitchDensity" /> -->
+    <!-- not wanted <rule ref="category/java/design.xml/TooManyFields" /> -->
+    <!-- not wanted <rule ref="category/java/design.xml/TooManyMethods" /> -->
     <rule ref="category/java/design.xml/UselessOverridingMethod" />
-    <!-- <rule ref="category/java/design.xml/UseObjectForClearerAPI" /> -->
+    <!-- not wanted <rule ref="category/java/design.xml/UseObjectForClearerAPI" /> -->
     <rule ref="category/java/design.xml/UseUtilityClass" />
 
 </ruleset>

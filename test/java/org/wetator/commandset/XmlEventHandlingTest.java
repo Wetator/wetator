@@ -37,8 +37,8 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   private static final String BASE_FOLDER = "test/xml/";
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_60 })
-  public void eventClickOnFF60() throws InvalidInputException {
+  @Browsers({ BrowserType.FIREFOX_68 })
+  public void eventClickOnFF68() throws InvalidInputException {
     executeTestFile("ff60/event_clickOn.wet");
 
     Assert.assertEquals(63, getSteps());
@@ -57,8 +57,8 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_60 })
-  public void eventDeselectFF60() throws InvalidInputException {
+  @Browsers({ BrowserType.FIREFOX_68 })
+  public void eventDeselectFF68() throws InvalidInputException {
     executeTestFile("ff60/event_deselect.wet");
 
     Assert.assertEquals(18, getSteps());
@@ -77,8 +77,8 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_60 })
-  public void eventMouseOverFF60() throws InvalidInputException {
+  @Browsers({ BrowserType.FIREFOX_68 })
+  public void eventMouseOverFF68() throws InvalidInputException {
     executeTestFile("ff60/event_mouseOver.wet");
 
     Assert.assertEquals(74, getSteps());
@@ -97,8 +97,8 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_60 })
-  public void eventSelectFF60() throws InvalidInputException {
+  @Browsers({ BrowserType.FIREFOX_68 })
+  public void eventSelectFF68() throws InvalidInputException {
     executeTestFile("ff60/event_select.wet");
 
     Assert.assertEquals(18, getSteps());
@@ -117,8 +117,8 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_60 })
-  public void eventSetFF60() throws InvalidInputException {
+  @Browsers({ BrowserType.FIREFOX_68 })
+  public void eventSetFF68() throws InvalidInputException {
     executeTestFile("ff60/event_set.wet");
 
     Assert.assertEquals(27, getSteps());

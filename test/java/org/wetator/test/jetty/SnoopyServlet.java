@@ -248,7 +248,7 @@ public class SnoopyServlet extends HttpServlet {
   private Set<String> determineGetParameterNames(final HttpServletRequest aRequest) {
     final String tmpQueryString = aRequest.getQueryString();
 
-    final Set<String> tmpParamNames = new HashSet<String>();
+    final Set<String> tmpParamNames = new HashSet<>();
     if (tmpQueryString == null) {
       return tmpParamNames;
     }
@@ -268,7 +268,7 @@ public class SnoopyServlet extends HttpServlet {
   }
 
   private Set<String> determineFileParameterNames(final HttpServletRequest aRequest) {
-    final Set<String> tmpFileParameterNames = new HashSet<String>();
+    final Set<String> tmpFileParameterNames = new HashSet<>();
 
     final List<String> tmpParameterNames = Collections.list(aRequest.getParameterNames());
     for (String tmpName : tmpParameterNames) {

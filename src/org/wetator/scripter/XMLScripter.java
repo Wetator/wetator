@@ -249,7 +249,7 @@ public class XMLScripter implements IScripter {
   }
 
   private void removeDuplicateSchemas(final List<XMLSchema> aSchemaList) {
-    final Set<XMLSchema> tmpSchemaSet = new LinkedHashSet<XMLSchema>(aSchemaList);
+    final Set<XMLSchema> tmpSchemaSet = new LinkedHashSet<>(aSchemaList);
     aSchemaList.clear();
     aSchemaList.addAll(tmpSchemaSet);
   }
@@ -258,8 +258,8 @@ public class XMLScripter implements IScripter {
     final XMLInputFactory tmpFactory = XMLInputFactory.newInstance();
     final XMLStreamReader tmpReader = tmpFactory.createXMLStreamReader(aContent);
 
-    final List<Command> tmpResult = new ArrayList<Command>();
-    try {
+    final List<Command> tmpResult = new ArrayList<>();
+    try { // NOPMD
       // move reader position to test-case...
       while (tmpReader.hasNext()) {
         if (tmpReader.next() == XMLStreamConstants.START_ELEMENT
@@ -407,6 +407,6 @@ public class XMLScripter implements IScripter {
    * @return the schemas
    */
   public List<XMLSchema> getSchemas() {
-    return new ArrayList<XMLSchema>(schemas);
+    return new ArrayList<>(schemas);
   }
 }

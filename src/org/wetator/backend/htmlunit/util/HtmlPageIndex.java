@@ -117,7 +117,7 @@ public class HtmlPageIndex {
     positionsWithoutFormControls = new HashMap<>(256);
     textWithoutFormControls = new NormalizedString();
 
-    nodes = new LinkedList<DomNode>();
+    nodes = new LinkedList<>();
     // LinkedHashSets to preserve the order and have a fast contains
     visibleHtmlElementsBottomUp = new LinkedHashSet<>();
     visibleHtmlElements = new LinkedHashSet<>();

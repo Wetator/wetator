@@ -91,7 +91,7 @@ public final class Parameter {
       return;
     }
 
-    parts = new LinkedList<Part>();
+    parts = new LinkedList<>();
     if (StringUtils.isEmpty(value)) {
       return;
     }

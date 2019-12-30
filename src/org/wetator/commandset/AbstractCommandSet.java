@@ -56,13 +56,13 @@ public abstract class AbstractCommandSet implements ICommandSet {
    */
   protected AbstractCommandSet() {
     super();
-    initializationMessages = new LinkedList<String>();
+    initializationMessages = new LinkedList<>();
     noOfCommands = 0;
 
     if (LOG.isDebugEnabled()) {
       LOG.debug(ClassUtils.getShortClassName(this.getClass()) + " registration started");
     }
-    commandImplementations = new HashMap<String, ICommandImplementation>();
+    commandImplementations = new HashMap<>();
 
     // initialize the list of supported commands
     registerCommands();

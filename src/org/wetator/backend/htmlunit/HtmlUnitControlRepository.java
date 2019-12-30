@@ -43,14 +43,14 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
  */
 public class HtmlUnitControlRepository {
 
-  private Map<String, Class<HtmlUnitBaseControl<?>>> forElementMap = new HashMap<String, Class<HtmlUnitBaseControl<?>>>();
-  private Map<String, Map<String, Class<HtmlUnitBaseControl<?>>>> forElementAndAttributeMap = new HashMap<String, Map<String, Class<HtmlUnitBaseControl<?>>>>();
+  private Map<String, Class<HtmlUnitBaseControl<?>>> forElementMap = new HashMap<>();
+  private Map<String, Map<String, Class<HtmlUnitBaseControl<?>>>> forElementAndAttributeMap = new HashMap<>();
 
-  private List<Class<? extends AbstractHtmlUnitControlIdentifier>> settableIdentifiers = new LinkedList<Class<? extends AbstractHtmlUnitControlIdentifier>>();
-  private List<Class<? extends AbstractHtmlUnitControlIdentifier>> clickableIdentifiers = new LinkedList<Class<? extends AbstractHtmlUnitControlIdentifier>>();
-  private List<Class<? extends AbstractHtmlUnitControlIdentifier>> selectableIdentifiers = new LinkedList<Class<? extends AbstractHtmlUnitControlIdentifier>>();
-  private List<Class<? extends AbstractHtmlUnitControlIdentifier>> deselectableIdentifiers = new LinkedList<Class<? extends AbstractHtmlUnitControlIdentifier>>();
-  private List<Class<? extends AbstractHtmlUnitControlIdentifier>> otherIdentifiers = new LinkedList<Class<? extends AbstractHtmlUnitControlIdentifier>>();
+  private List<Class<? extends AbstractHtmlUnitControlIdentifier>> settableIdentifiers = new LinkedList<>();
+  private List<Class<? extends AbstractHtmlUnitControlIdentifier>> clickableIdentifiers = new LinkedList<>();
+  private List<Class<? extends AbstractHtmlUnitControlIdentifier>> selectableIdentifiers = new LinkedList<>();
+  private List<Class<? extends AbstractHtmlUnitControlIdentifier>> deselectableIdentifiers = new LinkedList<>();
+  private List<Class<? extends AbstractHtmlUnitControlIdentifier>> otherIdentifiers = new LinkedList<>();
 
   /**
    * @param aControlClassList the classes of the controls to add
@@ -84,7 +84,7 @@ public class HtmlUnitControlRepository {
           Map<String, Class<HtmlUnitBaseControl<?>>> tmpAttributeMap = forElementAndAttributeMap
               .get(tmpHtmlElementClass.getName());
           if (tmpAttributeMap == null) {
-            tmpAttributeMap = new HashMap<String, Class<HtmlUnitBaseControl<?>>>();
+            tmpAttributeMap = new HashMap<>();
             forElementAndAttributeMap.put(tmpHtmlElementClass.getName(), tmpAttributeMap);
           }
           for (final String tmpValue : tmpAttributeValues) {

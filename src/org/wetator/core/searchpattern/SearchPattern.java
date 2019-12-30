@@ -328,7 +328,7 @@ public abstract class SearchPattern {
     private int hitsCount;
 
     SearchPatternCache(final int anInitialSize) {
-      cache = new HashMap<String, SearchPattern>(anInitialSize);
+      cache = new HashMap<>(anInitialSize);
 
     }
 

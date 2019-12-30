@@ -101,7 +101,7 @@ public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
       final String tmpText = htmlPageIndex.getAsTextWithoutFormControls(tmpLabel);
       final int tmpDeviation = searchPattern.noOfSurroundingCharsIn(tmpText);
       if (tmpDeviation > -1) {
-        final List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
+        final List<MatchResult> tmpMatches = new LinkedList<>();
 
         final String tmpForAttribute = tmpLabel.getForAttribute();
         // label contains a for-attribute => find corresponding element
@@ -118,8 +118,8 @@ public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
               } else {
                 tmpDistance = tmpTextBefore.length();
               }
-              tmpMatches.add(new ByHtmlLabelMatchResult(tmpElementForLabel, tmpLabel, FoundType.BY_LABEL_ELEMENT, tmpDeviation,
-                  tmpDistance, tmpNodeSpot.getStartPos()));
+              tmpMatches.add(new ByHtmlLabelMatchResult(tmpElementForLabel, tmpLabel, FoundType.BY_LABEL_ELEMENT,
+                  tmpDeviation, tmpDistance, tmpNodeSpot.getStartPos()));
             }
           } catch (final ElementNotFoundException e) { // NOPMD
             // not found
@@ -139,8 +139,8 @@ public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
             } else {
               tmpDistance = tmpTextBefore.length();
             }
-            tmpMatches.add(new ByHtmlLabelMatchResult(tmpChildElement, tmpLabel, FoundType.BY_LABEL_ELEMENT, tmpDeviation,
-                tmpDistance, tmpNodeSpot.getStartPos()));
+            tmpMatches.add(new ByHtmlLabelMatchResult(tmpChildElement, tmpLabel, FoundType.BY_LABEL_ELEMENT,
+                tmpDeviation, tmpDistance, tmpNodeSpot.getStartPos()));
           }
         }
         return tmpMatches;

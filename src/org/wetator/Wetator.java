@@ -52,7 +52,7 @@ public final class Wetator {
   public static void main(final String[] anArgsArray) {
     String tmpConfigFileName = null;
     File tmpDebugLogFile = null;
-    final List<String> tmpFileNames = new LinkedList<String>();
+    final List<String> tmpFileNames = new LinkedList<>();
     // parse the command line
     for (int i = 0; i < anArgsArray.length; i++) {
       final String tmpArg = anArgsArray[i].trim();

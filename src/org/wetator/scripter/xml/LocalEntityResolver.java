@@ -49,7 +49,7 @@ public class LocalEntityResolver implements EntityResolver {
   private File schemaDirectory;
 
   private static Map<String, List<XMLSchema>> getKnownSchemas() {
-    final Map<String, List<XMLSchema>> tmpKnownSchemas = new HashMap<String, List<XMLSchema>>();
+    final Map<String, List<XMLSchema>> tmpKnownSchemas = new HashMap<>();
     tmpKnownSchemas.put(XMLScripter.BASE_SCHEMA.getNamespace(),
         Arrays.asList(new XMLSchema(XMLScripter.BASE_SCHEMA.getNamespace(), "test-case-1.0.0.xsd")));
     tmpKnownSchemas.put(XMLScripter.DEFAULT_COMMAND_SET_SCHEMA.getNamespace(), Arrays.asList(

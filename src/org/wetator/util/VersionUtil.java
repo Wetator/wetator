@@ -70,16 +70,13 @@ public final class VersionUtil {
     final String tmpPath = aClass.getProtectionDomain().getCodeSource().getLocation().getPath();
     String tmpClassFile = aClass.getName();
     tmpClassFile = tmpClassFile.replace('.', '/');
-    tmpClassFile = tmpClassFile + ".class";
+    tmpClassFile = tmpClassFile + ".class"; // NOPMD
     try {
-      final JarFile tmpJar = new JarFile(tmpPath);
-      try {
+      try (JarFile tmpJar = new JarFile(tmpPath)) {
         final JarEntry tmpJarEntry = tmpJar.getJarEntry(tmpClassFile);
         final Date tmpDate = new Date(tmpJarEntry.getTime());
 
         return new SimpleDateFormat("yyyy-MM-dd", Locale.ROOT).format(tmpDate);
-      } finally {
-        tmpJar.close();
       }
     } catch (final Throwable e) { // NOPMD
       // ignore
@@ -154,8 +151,7 @@ public final class VersionUtil {
 
         final Matcher tmpMatcher = tmpPattern.matcher(tmpLcUrl);
         if (tmpMatcher.find()) {
-          final InputStream tmpStream = tmpUrl.openStream();
-          try {
+          try (InputStream tmpStream = tmpUrl.openStream()) {
             final Manifest tmpManifest = new Manifest(tmpStream);
 
             final Attributes tmpAttributes;
@@ -171,8 +167,6 @@ public final class VersionUtil {
                 return tmpAttribute;
               }
             }
-          } finally {
-            tmpStream.close();
           }
         }
       }

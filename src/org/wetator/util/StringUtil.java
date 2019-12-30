@@ -66,7 +66,7 @@ public final class StringUtil {
    * @return a list, if there are no parts always an empty list is returned
    */
   public static List<String> extractStrings(final String aReceiver, final String aDelimiter, final int anEscapeChar) {
-    final List<String> tmpResult = new LinkedList<String>();
+    final List<String> tmpResult = new LinkedList<>();
 
     if (null == aReceiver) {
       return tmpResult;
@@ -143,7 +143,7 @@ public final class StringUtil {
     }
 
     final int tmpLength = aText.length();
-    final List<String> tmpResult = new ArrayList<String>((tmpLength + aSize - 1) / aSize);
+    final List<String> tmpResult = new ArrayList<>((tmpLength + aSize - 1) / aSize);
 
     for (int i = 0; i < tmpLength; i += aSize) {
       tmpResult.add(aText.substring(i, Math.min(tmpLength, i + aSize)));

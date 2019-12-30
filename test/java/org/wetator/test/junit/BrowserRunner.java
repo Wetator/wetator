@@ -40,7 +40,7 @@ import org.wetator.backend.IBrowser.BrowserType;
  * public class SomeTest implements BrowserTest {
  *
  *   &#064;Test
- *   &#064;Browsers({ Browser.FIREFOX_60 })
+ *   &#064;Browsers({ Browser.FIREFOX_68 })
  *   public void test() {
  *     // your test method that is run with Firefox 60
  *   }
@@ -71,7 +71,7 @@ public class BrowserRunner extends BlockJUnit4ClassRunner {
 
     // the test class implements BrowserTest -> we have to check the test methods for Browsers
     // annotations
-    final List<FrameworkMethod> tmpBrowserMethods = new ArrayList<FrameworkMethod>(tmpMethods.size());
+    final List<FrameworkMethod> tmpBrowserMethods = new ArrayList<>(tmpMethods.size());
 
     for (FrameworkMethod tmpMethod : tmpMethods) {
       final Browsers tmpBrowsers = tmpMethod.getAnnotation(Browsers.class);

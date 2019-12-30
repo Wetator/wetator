@@ -82,7 +82,7 @@ public class HtmlUnitInputCheckBoxIdentifier extends AbstractMatcherBasedIdentif
       final SearchPattern tmpSearchPattern = aWPath.getLastNode().getSearchPattern();
       if (aHtmlElement instanceof HtmlCheckBoxInput) {
         // whole text before
-        final List<SecretString> tmpWholePath = new ArrayList<SecretString>(aWPath.getPathNodes());
+        final List<SecretString> tmpWholePath = new ArrayList<>(aWPath.getPathNodes());
         tmpWholePath.add(aWPath.getLastNode());
         final SearchPattern tmpWholePathSearchPattern = SearchPattern.createFromList(tmpWholePath);
         aMatchers.add(

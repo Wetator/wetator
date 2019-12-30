@@ -64,8 +64,8 @@ public class WetatorEngine {
    * The constructor.
    */
   public WetatorEngine() {
-    testCases = new LinkedList<TestCase>();
-    progressListener = new LinkedList<IProgressListener>();
+    testCases = new LinkedList<>();
+    progressListener = new LinkedList<>();
   }
 
   /**
@@ -267,7 +267,7 @@ public class WetatorEngine {
   }
 
   private IScripter createScripter(final File aFile) throws InvalidInputException {
-    final List<IScripter.IsSupportedResult> tmpResults = new LinkedList<IScripter.IsSupportedResult>();
+    final List<IScripter.IsSupportedResult> tmpResults = new LinkedList<>();
     for (final IScripter tmpScripter : scripter) {
       final IScripter.IsSupportedResult tmpResult = tmpScripter.isSupported(aFile);
       if (IScripter.IS_SUPPORTED == tmpResult) {

@@ -68,7 +68,7 @@ public class Log4jProgressListener extends AbstractAppender implements IProgress
   private static final Logger LOG = LogManager.getLogger(Log4jProgressListener.class);
 
   private int commandCount;
-  private List<CommandEvents> commandEvents = new LinkedList<CommandEvents>();
+  private List<CommandEvents> commandEvents = new LinkedList<>();
   private CommandEvents currentEvents;
 
   private File outputDir;
@@ -104,7 +104,7 @@ public class Log4jProgressListener extends AbstractAppender implements IProgress
    * and sets the log level of these loggers to <code>trace</code>.
    */
   protected void addAsTraceAppender() {
-    final LoggerContext tmpContext = (LoggerContext) LogManager.getContext(false);
+    final LoggerContext tmpContext = (LoggerContext) LogManager.getContext(false); // NOPMD
 
     addAsTraceAppender(tmpContext, "org.apache.http.wire");
     addAsTraceAppender(tmpContext, "org.wetator");
@@ -241,7 +241,7 @@ public class Log4jProgressListener extends AbstractAppender implements IProgress
    */
   protected void dump() {
     String tmpFileName = StringUtils.replace(testCase, File.separator, "__");
-    tmpFileName = "wire_" + tmpFileName + "_" + browser;
+    tmpFileName = "wire_" + tmpFileName + "_" + browser; // NOPMD
     String tmpSuffix = "";
     int tmpCount = 0;
     File tmpResultFile;
@@ -293,7 +293,7 @@ public class Log4jProgressListener extends AbstractAppender implements IProgress
    */
   private static final class CommandEvents {
     private Command command;
-    private List<LogEvent> events = new LinkedList<LogEvent>();
+    private List<LogEvent> events = new LinkedList<>();
 
     private CommandEvents(final Command aCommand) {
       command = aCommand;
