@@ -81,7 +81,7 @@ public class HtmlUnitImageIdentifier extends AbstractMatcherBasedIdentifier {
       final SearchPattern tmpSearchPattern = aWPath.getLastNode().getSearchPattern();
 
       // whole text before
-      final List<SecretString> tmpWholePath = new ArrayList<SecretString>(aWPath.getPathNodes());
+      final List<SecretString> tmpWholePath = new ArrayList<>(aWPath.getPathNodes());
       tmpWholePath.add(aWPath.getLastNode());
       final SearchPattern tmpWholePathSearchPattern = SearchPattern.createFromList(tmpWholePath);
       aMatchers.add(

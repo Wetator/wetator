@@ -42,8 +42,7 @@ public class HtmlUnitBaseControlTest {
     // @formatter:on
     final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    final HtmlUnitBaseControl<?> tmpControl = new HtmlUnitUnspecificControl<HtmlElement>(
-        tmpHtmlPage.getHtmlElementById("myId"));
+    final HtmlUnitBaseControl<?> tmpControl = new HtmlUnitUnspecificControl<>(tmpHtmlPage.getHtmlElementById("myId"));
 
     Assert.assertEquals("#myId", tmpControl.getUniqueSelector());
   }
@@ -59,8 +58,7 @@ public class HtmlUnitBaseControlTest {
     // @formatter:on
     final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    final HtmlUnitBaseControl<?> tmpControl = new HtmlUnitUnspecificControl<HtmlElement>(
-        tmpHtmlPage.getHtmlElementById("f:myId"));
+    final HtmlUnitBaseControl<?> tmpControl = new HtmlUnitUnspecificControl<>(tmpHtmlPage.getHtmlElementById("f:myId"));
 
     Assert.assertEquals("#f\\3amyId", tmpControl.getUniqueSelector());
   }

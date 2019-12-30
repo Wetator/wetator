@@ -78,7 +78,7 @@ public class HtmlUnitTextAreaIdentifier extends AbstractMatcherBasedIdentifier {
       final SearchPattern tmpSearchPattern = aWPath.getLastNode().getSearchPattern();
       if (aHtmlElement instanceof HtmlTextArea) {
         // whole text before
-        final List<SecretString> tmpWholePath = new ArrayList<SecretString>(aWPath.getPathNodes());
+        final List<SecretString> tmpWholePath = new ArrayList<>(aWPath.getPathNodes());
         tmpWholePath.add(aWPath.getLastNode());
         final SearchPattern tmpWholePathSearchPattern = SearchPattern.createFromList(tmpWholePath);
         aMatchers.add(

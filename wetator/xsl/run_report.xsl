@@ -88,7 +88,7 @@
                     a, a:link, a:visited, a:active, a:hover { color: #666666; text-decoration: none; }
                     a.link:hover { text-decoration: underline; }
                     a.linkToCommand { font-size: smaller; display: block; }
-                    
+
                     img { border: 0; }
                     img.resultIcon { height: 12px; width: 12px; padding: 3px; vertical-align: bottom; }
                     #testSummary img.resultIcon { padding: 2px; }
@@ -97,7 +97,7 @@
                     #testCasesOverview img.browser { vertical-align: bottom; margin-left: 20px; }
                     img.testStepScreenshot { vertical-align: top; }
                     img.testStepInfo { cursor: pointer; vertical-align: bottom; }
-                    
+
                     div.header { color: #768bc2; margin-left: 10px; }
                     div.header img { margin-left: -10px; border: 0; }
                     div.colorBar { height: 1em; border: 0; margin-left: 2px; margin-right: 1px; }
@@ -106,7 +106,7 @@
                     table#testSummary td { padding: 5px; }
                     p.backToTop img { padding-right: 3px; }
                     .bars { color: #ffffff; }
-                    <xsl:if test="$testCaseOkCount > 0 and $testCaseNotOkCount > 0">.hidden { display: none; }</xsl:if>
+<xsl:if test="$testCaseOkCount > 0 and $testCaseNotOkCount > 0">                    .hidden { display: none; }</xsl:if>
                     #debuginfo { display: none; }
                     #debugtestbrowseroverviewinfo { display: none; }
 
@@ -560,8 +560,8 @@
                                         <xsl:attribute name="onclick">
                                             <xsl:text>showOrHideAll(this</xsl:text>
                                             <xsl:if test="/wet/testcase/testrun/@browser='IE11'">, 'ie11','ie11overview'</xsl:if>
-                                            <xsl:if test="/wet/testcase/testrun/@browser='Firefox52'">, 'ff52','ff52overview'</xsl:if>
                                             <xsl:if test="/wet/testcase/testrun/@browser='Firefox60'">, 'ff60','ff60overview'</xsl:if>
+                                            <xsl:if test="/wet/testcase/testrun/@browser='Firefox68'">, 'ff68','ff68overview'</xsl:if>
                                             <xsl:if test="/wet/testcase/testrun/@browser='Chrome'">, 'chrome','chromeoverview'</xsl:if>
                                             <xsl:text>)</xsl:text>
                                         </xsl:attribute>
@@ -574,18 +574,18 @@
                                     <img id="ie11" src="resources/expand-square.png" onclick="showOrHide(this, 'ie11overview')" alt="show/hide IE11 overview" class="expandCollapse"/>
                                 </td>
                             </xsl:if>
-                            <xsl:if test="/wet/testcase/testrun/@browser='Firefox52'">
-                                <td>
-                                    <span class="bold">FF52</span>
-                                    <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
-                                    <img id="ff52" src="resources/expand-square.png" onclick="showOrHide(this, 'ff52overview')" alt="show/hide FF52 overview" class="expandCollapse"/>
-                                </td>
-                            </xsl:if>
                             <xsl:if test="/wet/testcase/testrun/@browser='Firefox60'">
                                 <td>
                                     <span class="bold">FF60</span>
                                     <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
                                     <img id="ff60" src="resources/expand-square.png" onclick="showOrHide(this, 'ff60overview')" alt="show/hide FF60 overview" class="expandCollapse"/>
+                                </td>
+                            </xsl:if>
+                            <xsl:if test="/wet/testcase/testrun/@browser='Firefox68'">
+                                <td>
+                                    <span class="bold">FF68</span>
+                                    <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
+                                    <img id="ff68" src="resources/expand-square.png" onclick="showOrHide(this, 'ff68overview')" alt="show/hide FF68 overview" class="expandCollapse"/>
                                 </td>
                             </xsl:if>
                             <xsl:if test="/wet/testcase/testrun/@browser='Chrome'">
@@ -620,28 +620,6 @@
                             </xsl:call-template>
                         </table>
                     </xsl:if>
-                    <xsl:if test="/wet/testcase/testrun/@browser='Firefox52'">
-                        <table id="ff52overview" class="overview" align="center" style="display: none; text-align: center;">
-                            <xsl:variable name="failedFirefox52" select="count(/wet/testcase/testrun[@browser='Firefox52'][boolean(descendant::failure and not(error) and not(error) and not(descendant::command/error) and not(descendant::testfile/error))])"/>
-                            <xsl:variable name="errorsFirefox52" select="count(/wet/testcase/testrun[@browser='Firefox52'][boolean(error or descendant-or-self::command/error or descendant::testfile/error)])"/>
-                            <xsl:variable name="ignoredFirefox52" select="count(/wet/testcase/testrun[@browser='Firefox52']/ignored)"/>
-                            <xsl:variable name="stepsOkFirefox52" select="count(/wet/testcase/testrun[@browser='Firefox52']/testfile/command[not(@isComment) and not(descendant-or-self::failure) and not(descendant-or-self::error) and not(descendant-or-self::ignored)])"/>
-                            <xsl:variable name="stepsFailureFirefox52" select="count(/wet/testcase/testrun[@browser='Firefox52']/testfile/command[(descendant-or-self::failure) and not(descendant::command/error)])"/>
-                            <xsl:variable name="stepsErrorFirefox52" select="count(/wet/testcase/testrun[@browser='Firefox52']/testfile[boolean(descendant-or-self::command/error or descendant::testfile/error)])"/>
-                            <xsl:variable name="stepsIgnoredFirefox52" select="count(/wet/testcase/testrun[@browser='Firefox52']/testfile/command[(descendant-or-self::ignored) and not(descendant::failure) and not(descendant::command/error)])"/>
-                            <xsl:call-template name="testBrowserOverview">
-                                <xsl:with-param name="browserPicture" select="$browserPicture.Firefox"/>
-                                <xsl:with-param name="browserName">FF52</xsl:with-param>
-                                <xsl:with-param name="browserTestFailureCount" select="$failedFirefox52"/>
-                                <xsl:with-param name="browserTestErrorCount" select="$errorsFirefox52"/>
-                                <xsl:with-param name="browserTestIgnoredCount" select="$ignoredFirefox52"/>
-                                <xsl:with-param name="browserStepsOkCount" select="$stepsOkFirefox52"/>
-                                <xsl:with-param name="browserStepsFailureCount" select="$stepsFailureFirefox52"/>
-                                <xsl:with-param name="browserStepsErrorCount" select="$stepsErrorFirefox52"/>
-                                <xsl:with-param name="browserStepsIgnoredCount" select="$stepsIgnoredFirefox52"/>
-                            </xsl:call-template>
-                        </table>
-                    </xsl:if>
                     <xsl:if test="/wet/testcase/testrun/@browser='Firefox60'">
                         <table id="ff60overview" class="overview" align="center" style="display: none; text-align: center;">
                             <xsl:variable name="failedFirefox60" select="count(/wet/testcase/testrun[@browser='Firefox60'][boolean(descendant::failure and not(error) and not(error) and not(descendant::command/error) and not(descendant::testfile/error))])"/>
@@ -661,6 +639,28 @@
                                 <xsl:with-param name="browserStepsFailureCount" select="$stepsFailureFirefox60"/>
                                 <xsl:with-param name="browserStepsErrorCount" select="$stepsErrorFirefox60"/>
                                 <xsl:with-param name="browserStepsIgnoredCount" select="$stepsIgnoredFirefox60"/>
+                            </xsl:call-template>
+                        </table>
+                    </xsl:if>
+                    <xsl:if test="/wet/testcase/testrun/@browser='Firefox68'">
+                        <table id="ff68overview" class="overview" align="center" style="display: none; text-align: center;">
+                            <xsl:variable name="failedFirefox68" select="count(/wet/testcase/testrun[@browser='Firefox68'][boolean(descendant::failure and not(error) and not(error) and not(descendant::command/error) and not(descendant::testfile/error))])"/>
+                            <xsl:variable name="errorsFirefox68" select="count(/wet/testcase/testrun[@browser='Firefox68'][boolean(error or descendant-or-self::command/error or descendant::testfile/error)])"/>
+                            <xsl:variable name="ignoredFirefox68" select="count(/wet/testcase/testrun[@browser='Firefox68']/ignored)"/>
+                            <xsl:variable name="stepsOkFirefox68" select="count(/wet/testcase/testrun[@browser='Firefox68']/testfile/command[not(@isComment) and not(descendant-or-self::failure) and not(descendant-or-self::error) and not(descendant-or-self::ignored)])"/>
+                            <xsl:variable name="stepsFailureFirefox68" select="count(/wet/testcase/testrun[@browser='Firefox68']/testfile/command[(descendant-or-self::failure) and not(descendant::command/error)])"/>
+                            <xsl:variable name="stepsErrorFirefox68" select="count(/wet/testcase/testrun[@browser='Firefox68']/testfile[boolean(descendant-or-self::command/error or descendant::testfile/error)])"/>
+                            <xsl:variable name="stepsIgnoredFirefox68" select="count(/wet/testcase/testrun[@browser='Firefox68']/testfile/command[(descendant-or-self::ignored) and not(descendant::failure) and not(descendant::command/error)])"/>
+                            <xsl:call-template name="testBrowserOverview">
+                                <xsl:with-param name="browserPicture" select="$browserPicture.Firefox"/>
+                                <xsl:with-param name="browserName">FF68</xsl:with-param>
+                                <xsl:with-param name="browserTestFailureCount" select="$failedFirefox68"/>
+                                <xsl:with-param name="browserTestErrorCount" select="$errorsFirefox68"/>
+                                <xsl:with-param name="browserTestIgnoredCount" select="$ignoredFirefox68"/>
+                                <xsl:with-param name="browserStepsOkCount" select="$stepsOkFirefox68"/>
+                                <xsl:with-param name="browserStepsFailureCount" select="$stepsFailureFirefox68"/>
+                                <xsl:with-param name="browserStepsErrorCount" select="$stepsErrorFirefox68"/>
+                                <xsl:with-param name="browserStepsIgnoredCount" select="$stepsIgnoredFirefox68"/>
                             </xsl:call-template>
                         </table>
                     </xsl:if>
@@ -1093,7 +1093,7 @@
 
     <xsl:template name="testCaseOverview">
         <xsl:variable name="hideSuccessful" select="$testCaseOkCount > 0 and $testCaseNotOkCount > 0 and not(count(error) or count(descendant::command/error) or count(descendant::testfile/error) or count(descendant-or-self::failure) &gt; 0)"/>
-    
+
         <tr>
             <xsl:if test="$hideSuccessful">
                 <xsl:attribute name="class">successful hidden</xsl:attribute>
@@ -1128,10 +1128,10 @@
                                     <xsl:if test="@browser='IE11'">
                                         <xsl:value-of select="$browserPicture.IE"/>
                                     </xsl:if>
-                                    <xsl:if test="@browser='Firefox52'">
+                                    <xsl:if test="@browser='Firefox60'">
                                         <xsl:value-of select="$browserPicture.Firefox"/>
                                     </xsl:if>
-                                    <xsl:if test="@browser='Firefox60'">
+                                    <xsl:if test="@browser='Firefox68'">
                                         <xsl:value-of select="$browserPicture.Firefox"/>
                                     </xsl:if>
                                     <xsl:if test="@browser='Chrome'">
@@ -1174,10 +1174,10 @@
                                         <xsl:if test="../@browser='IE11'">
                                             <xsl:value-of select="$browserPicture.IE"/>
                                         </xsl:if>
-                                        <xsl:if test="../@browser='Firefox52'">
+                                        <xsl:if test="../@browser='Firefox60'">
                                             <xsl:value-of select="$browserPicture.Firefox"/>
                                         </xsl:if>
-                                        <xsl:if test="../@browser='Firefox60'">
+                                        <xsl:if test="../@browser='Firefox68'">
                                             <xsl:value-of select="$browserPicture.Firefox"/>
                                         </xsl:if>
                                         <xsl:if test="../@browser='Chrome'">
@@ -1311,11 +1311,11 @@
     <xsl:template name="testresult">
         <xsl:for-each select="testrun/testfile">
             <xsl:variable name="hideSuccessful" select="$testCaseOkCount > 0 and $testCaseNotOkCount > 0 and not(count(error) or count(descendant::command/error) or count(descendant::testfile/error) or count(descendant-or-self::failure) &gt; 0)"/>
-            
+
             <div>
                 <xsl:if test="$hideSuccessful">
                     <xsl:attribute name="class">successful hidden</xsl:attribute>
-                </xsl:if>            
+                </xsl:if>
                 <h2>
                     <xsl:call-template name="successIndicator"/>
                     <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
@@ -1331,7 +1331,7 @@
                     <xsl:text>)</xsl:text>
                 </h2>
                 <xsl:call-template name="testCaseTable" />
-    
+
                 <p class="backToTop">
                     <a class="link" href="#top">
                         <img src="resources/arrow-up.png" width="11" height="10" alt="top"/>Back to top
@@ -1531,7 +1531,7 @@
                         </xsl:otherwise>
                         </xsl:choose>
                     <xsl:text disable-output-escaping="yes">&lt;/td&gt;</xsl:text>
-        
+
                     <!-- param1 -->
                     <xsl:text disable-output-escaping="yes">&lt;td class="</xsl:text>
                     <xsl:value-of select="$lineStyle" />

@@ -30,7 +30,6 @@ import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import com.gargoylesoftware.htmlunit.StringWebResponse;
 import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HTMLParser;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
@@ -84,7 +83,7 @@ public class HtmlPageIndexTest {
     assertEquals("getText[IE]", anExpectedIE, tmpResult.getText());
     assertEquals("getTextWithoutFormControls[IE]", anExpectedWithoutFC, tmpResult.getTextWithoutFormControls());
 
-    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.FIREFOX_60, anHtmlCode);
+    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.FIREFOX_68, anHtmlCode);
     tmpResult = new HtmlPageIndex(tmpHtmlPage);
     assertEquals("getText[FF]", anExpectedFF, tmpResult.getText());
     assertEquals("getTextWithoutFormControls[FF]", anExpectedWithoutFC, tmpResult.getTextWithoutFormControls());
@@ -559,9 +558,10 @@ public class HtmlPageIndexTest {
     // FF
     final StringWebResponse tmpResponse = new StringWebResponse(tmpHtmlCode,
         new URL("http://www.wetator.org/test.html"));
-    WebClient tmpWebClient = new WebClient(BrowserVersion.FIREFOX_60);
+    WebClient tmpWebClient = new WebClient(BrowserVersion.FIREFOX_68);
     try {
-      final HtmlPage tmpHtmlPage = HTMLParser.parseHtml(tmpResponse, tmpWebClient.getCurrentWindow());
+      final HtmlPage tmpHtmlPage = tmpWebClient.getPageCreator().getHtmlParser().parseHtml(tmpResponse,
+          tmpWebClient.getCurrentWindow());
       final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
       assertEquals("before Object tag not supported after", tmpResult.getText());
@@ -573,7 +573,8 @@ public class HtmlPageIndexTest {
     // IE without support
     tmpWebClient = new WebClient(BrowserVersion.INTERNET_EXPLORER);
     try {
-      final HtmlPage tmpHtmlPage = HTMLParser.parseHtml(tmpResponse, tmpWebClient.getCurrentWindow());
+      final HtmlPage tmpHtmlPage = tmpWebClient.getPageCreator().getHtmlParser().parseHtml(tmpResponse,
+          tmpWebClient.getCurrentWindow());
       final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
       assertEquals("before Object tag not supported after", tmpResult.getText());
@@ -589,7 +590,8 @@ public class HtmlPageIndexTest {
     tmpWebClient.setActiveXObjectMap(tmpActiveXObjectMap);
 
     try {
-      final HtmlPage tmpHtmlPage = HTMLParser.parseHtml(tmpResponse, tmpWebClient.getCurrentWindow());
+      final HtmlPage tmpHtmlPage = tmpWebClient.getPageCreator().getHtmlParser().parseHtml(tmpResponse,
+          tmpWebClient.getCurrentWindow());
       final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
       assertEquals("before after", tmpResult.getText());
@@ -1586,9 +1588,10 @@ public class HtmlPageIndexTest {
     // FF
     final StringWebResponse tmpResponse = new StringWebResponse(tmpHtmlCode,
         new URL("http://www.wetator.org/test.html"));
-    WebClient tmpWebClient = new WebClient(BrowserVersion.FIREFOX_60);
+    WebClient tmpWebClient = new WebClient(BrowserVersion.FIREFOX_68);
     try {
-      final HtmlPage tmpHtmlPage = HTMLParser.parseHtml(tmpResponse, tmpWebClient.getCurrentWindow());
+      final HtmlPage tmpHtmlPage = tmpWebClient.getPageCreator().getHtmlParser().parseHtml(tmpResponse,
+          tmpWebClient.getCurrentWindow());
       final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
       assertEquals("Object tag not supported", tmpResult.getAsText(tmpHtmlPage.getHtmlElementById("idObj")));
@@ -1600,7 +1603,8 @@ public class HtmlPageIndexTest {
     // IE without support
     tmpWebClient = new WebClient(BrowserVersion.INTERNET_EXPLORER);
     try {
-      final HtmlPage tmpHtmlPage = HTMLParser.parseHtml(tmpResponse, tmpWebClient.getCurrentWindow());
+      final HtmlPage tmpHtmlPage = tmpWebClient.getPageCreator().getHtmlParser().parseHtml(tmpResponse,
+          tmpWebClient.getCurrentWindow());
       final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
       assertEquals("Object tag not supported", tmpResult.getAsText(tmpHtmlPage.getHtmlElementById("idObj")));
@@ -1616,7 +1620,8 @@ public class HtmlPageIndexTest {
     tmpWebClient.setActiveXObjectMap(tmpActiveXObjectMap);
 
     try {
-      final HtmlPage tmpHtmlPage = HTMLParser.parseHtml(tmpResponse, tmpWebClient.getCurrentWindow());
+      final HtmlPage tmpHtmlPage = tmpWebClient.getPageCreator().getHtmlParser().parseHtml(tmpResponse,
+          tmpWebClient.getCurrentWindow());
       final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
       assertEquals("", tmpResult.getAsText(tmpHtmlPage.getHtmlElementById("idObj")));

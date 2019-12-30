@@ -45,7 +45,7 @@ public class MessagesTest {
     tmpMessage = Messages.getMessage("unknown", "param1", "param2");
     Assert.assertEquals("Unknown message key 'unknown' (param(s):  'param1' 'param2').", tmpMessage);
 
-    tmpMessage = Messages.getMessage("unknown", new Object[] { });
+    tmpMessage = Messages.getMessage("unknown");
     Assert.assertEquals("Unknown message key 'unknown'.", tmpMessage);
 
     tmpMessage = Messages.getMessage("unknown");

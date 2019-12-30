@@ -92,7 +92,7 @@ public final class ResponseStore {
     overwrite = anOverwriteFlag;
 
     initOutputDir(aBrowserSubdir);
-    fileNames = new HashMap<String, String>();
+    fileNames = new HashMap<>();
   }
 
   /**

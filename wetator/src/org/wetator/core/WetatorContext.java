@@ -78,7 +78,7 @@ public class WetatorContext {
     testCaseName = aTestCaseName;
     file = aFile;
     browserType = aBrowserType;
-    variables = new LinkedList<Variable>();
+    variables = new LinkedList<>();
 
     // we add our implicit variables first so they always 'win' against variables with the same name defined
     // programmatically or by configuration
@@ -151,7 +151,7 @@ public class WetatorContext {
    * @return the list of known {@link Variable}s
    */
   public List<Variable> getVariables() {
-    final List<Variable> tmpResult = new LinkedList<Variable>();
+    final List<Variable> tmpResult = new LinkedList<>();
 
     // we just add all variables to one combined list; as the replace algorithm always takes the first occurrence of a
     // variable we do not need to implement a shadowing or filter mechanism but 'just' ensure the correct order

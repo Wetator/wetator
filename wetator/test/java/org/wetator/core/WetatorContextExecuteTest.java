@@ -42,7 +42,7 @@ import org.wetator.exception.ResourceException;
  */
 public class WetatorContextExecuteTest {
 
-  private BrowserType browserType = BrowserType.FIREFOX_60;
+  private BrowserType browserType = BrowserType.FIREFOX_68;
 
   private File file1;
   private File file2;

@@ -62,7 +62,7 @@ public class ByInnerImageMatcher extends AbstractHtmlUnitElementMatcher {
     // has the node the text before
     final FindSpot tmpNodeSpot = htmlPageIndex.getPosition(aHtmlElement);
     if (pathSpot == null || pathSpot.getEndPos() <= tmpNodeSpot.getStartPos()) {
-      final List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
+      final List<MatchResult> tmpMatches = new LinkedList<>();
 
       // now check for the including image
       final Iterable<HtmlElement> tmpAllchildElements = aHtmlElement.getHtmlElementDescendants();

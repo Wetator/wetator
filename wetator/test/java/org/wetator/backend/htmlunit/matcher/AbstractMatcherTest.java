@@ -51,7 +51,7 @@ public abstract class AbstractMatcherTest {
     final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(aHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    final List<MatchResult> tmpMatches = new ArrayList<MatchResult>();
+    final List<MatchResult> tmpMatches = new ArrayList<>();
     for (String tmpHtmlElementId : anHtmlElementIds) {
       final HtmlElement tmpHtmlElement = tmpHtmlPage.getHtmlElementById(tmpHtmlElementId);
 

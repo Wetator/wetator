@@ -119,7 +119,7 @@ public final class WetatorScriptConverter {
    * The constructor.
    */
   private WetatorScriptConverter() {
-    inputFiles = new LinkedList<File>();
+    inputFiles = new LinkedList<>();
   }
 
   /**

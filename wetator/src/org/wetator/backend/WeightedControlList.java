@@ -74,7 +74,7 @@ public final class WeightedControlList {
   public List<Entry> getEntriesSorted() {
     Collections.sort(entries, new EntryComperator());
 
-    final List<Entry> tmpResult = new LinkedList<Entry>();
+    final List<Entry> tmpResult = new LinkedList<>();
     for (final Entry tmpEntry : entries) {
       final IControl tmpControl = tmpEntry.getControl();
 

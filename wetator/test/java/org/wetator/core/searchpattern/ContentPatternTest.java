@@ -177,7 +177,7 @@ public class ContentPatternTest {
   public void matchesNegatedAtStart() throws AssertionException, InvalidInputException {
     final SecretString tmpExpected = new SecretString("~a, b");
     final ContentPattern tmpPattern = new ContentPattern(tmpExpected);
-  
+
     tmpPattern.matches("b", 100);
     try {
       tmpPattern.matches("a", 100);
@@ -193,7 +193,7 @@ public class ContentPatternTest {
       Assert.assertEquals("Expected content(s) {not found} or [in wrong order]: '~a, {b}' (content: 'c').",
           e.getMessage());
     }
-  
+
     tmpPattern.matches("c b", 100);
     tmpPattern.matches("b a", 100);
     try {
@@ -202,7 +202,7 @@ public class ContentPatternTest {
     } catch (final AssertionException e) {
       Assert.assertEquals("Expected content(s) {found but should not}: '{~a}, b' (content: 'a b').", e.getMessage());
     }
-  
+
     try {
       tmpPattern.matches("a c b", 100);
       Assert.fail("AssertionException expected");

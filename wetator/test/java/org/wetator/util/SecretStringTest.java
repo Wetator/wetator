@@ -2392,7 +2392,7 @@ public class SecretStringTest {
 
   @Test
   public void replaceVariablesBrokenSyntax() {
-    final List<Variable> tmpVariables = new LinkedList<Variable>();
+    final List<Variable> tmpVariables = new LinkedList<>();
     Variable tmpVariable = new Variable("var0", "${var1}", true);
     tmpVariables.add(tmpVariable);
     tmpVariable = new Variable("var1", "value1", true);

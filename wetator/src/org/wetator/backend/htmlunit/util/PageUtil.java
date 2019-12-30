@@ -22,7 +22,6 @@ import java.net.URL;
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.StringWebResponse;
 import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HTMLParser;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.XHtmlPage;
 
@@ -43,7 +42,7 @@ public final class PageUtil {
    */
   public static HtmlPage constructHtmlPage(final String anHtmlCode) throws IOException {
     // Take care: this has to be in sync with our default browser
-    return constructHtmlPage(BrowserVersion.FIREFOX_60, anHtmlCode);
+    return constructHtmlPage(BrowserVersion.FIREFOX_68, anHtmlCode);
   }
 
   /**
@@ -60,7 +59,7 @@ public final class PageUtil {
         new URL("http://www.wetator.org/test.html"));
     final WebClient tmpWebClient = new WebClient(aBrowserVersion);
     try {
-      return HTMLParser.parseHtml(tmpResponse, tmpWebClient.getCurrentWindow());
+      return tmpWebClient.getPageCreator().getHtmlParser().parseHtml(tmpResponse, tmpWebClient.getCurrentWindow());
     } finally {
       tmpWebClient.close();
     }
@@ -91,7 +90,7 @@ public final class PageUtil {
         new URL("http://www.wetator.org/test.xhtml"));
     final WebClient tmpWebClient = new WebClient(aBrowserVersion);
     try {
-      return HTMLParser.parseXHtml(tmpResponse, tmpWebClient.getCurrentWindow());
+      return tmpWebClient.getPageCreator().getHtmlParser().parseXHtml(tmpResponse, tmpWebClient.getCurrentWindow());
     } finally {
       tmpWebClient.close();
     }

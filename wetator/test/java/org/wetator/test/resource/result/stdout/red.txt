@@ -5,7 +5,7 @@ Wetator local build
   TestCase: 'test1.wet' (1/0)
     IE11
     ..Ei.
-    Firefox52
+    Firefox68
     ..Ei.
 
   Failure

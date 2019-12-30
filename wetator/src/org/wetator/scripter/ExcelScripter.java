@@ -113,7 +113,7 @@ public final class ExcelScripter implements IScripter {
   }
 
   private List<Command> readCommands() throws InvalidInputException {
-    final List<Command> tmpResult = new LinkedList<Command>();
+    final List<Command> tmpResult = new LinkedList<>();
 
     try (InputStream tmpInputStream = Files.newInputStream(file.toPath())) {
       final HSSFWorkbook tmpWorkbook = new HSSFWorkbook(tmpInputStream);

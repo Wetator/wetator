@@ -203,7 +203,7 @@ public final class Command {
   public List<SecretString> getSecondParameterValues(final WetatorContext aContext) {
     final Parameter tmpSecondParameter = getSecondParameter();
 
-    final List<SecretString> tmpResult = new LinkedList<SecretString>();
+    final List<SecretString> tmpResult = new LinkedList<>();
     if (null == tmpSecondParameter) {
       return tmpResult;
     }

@@ -75,7 +75,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
   public SqlCommandSet() {
     super();
 
-    connections = new HashMap<String, Connection>();
+    connections = new HashMap<>();
   }
 
   @Override
