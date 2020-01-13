@@ -53,7 +53,7 @@ public class LegacyXMLScriptCreator implements IScriptCreator {
     final XMLOutputFactory tmpFactory = XMLOutputFactory.newInstance();
     try {
       final File tmpFile = new File(outputDir, fileName + ".xml");
-      try (OutputStream tmpFileOut = Files.newOutputStream(tmpFile.toPath());) {
+      try (OutputStream tmpFileOut = Files.newOutputStream(tmpFile.toPath())) {
         final XMLStreamWriter tmpWriter = tmpFactory.createXMLStreamWriter(tmpFileOut, ENCODING);
         try {
           tmpWriter.writeStartDocument(ENCODING, VERSION);

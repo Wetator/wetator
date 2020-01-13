@@ -378,6 +378,6 @@ public class StdOutProgressListener implements IProgressListener {
   private enum TestResult {
     SUCCESS,
     ERROR,
-    FAILURE;
+    FAILURE
   }
 }

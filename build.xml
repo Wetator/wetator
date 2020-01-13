@@ -431,19 +431,19 @@
 
         <delete dir="${dir.deploy}/spotbugs" includeemptydirs="true" />
         <mkdir dir="${dir.deploy}/spotbugs" />
-        <spotbugs jvmargs="-Xmx512m" output="xml:withMessages"
+<!--        <spotbugs jvmargs="-Xmx512m" output="xml:withMessages"
             outputFile="${dir.deploy}/spotbugs/spotbugs-report.xml" timeout="1800000"
             excludeFilter="${dir.test}/spotbugs/exclude-filter.xml">
             <classpath refid="taskdef-classpath-spotbugs" />
             <auxclasspath refid="spotbugs-aux-classpath" />
             <sourcePath path="${dir.src}" />
             <class location="${dir.build}/classes" />
-        </spotbugs>
+        </spotbugs>-->
 
         <!-- run pmd -->
         <echo level="info">Running PMD (output: ${dir.deploy}/pmd)</echo>
         <mkdir dir="${dir.deploy}/pmd" />
-        <pmd shortFilenames="true" encoding="UTF-8" cacheLocation="${dir.build}/pmd">
+<!--        <pmd shortFilenames="true" encoding="UTF-8" cacheLocation="${dir.build}/pmd">
         	<sourceLanguage name="java" version="${javac.target}"/>
             <ruleset>${dir.test}/pmd/wet-bestpractices.xml,${dir.test}/pmd/wet-codestyle.xml,${dir.test}/pmd/wet-design.xml,${dir.test}/pmd/wet-errorprone.xml,${dir.test}/pmd/wet-multithreading.xml,${dir.test}/pmd/wet-performance.xml</ruleset>
             <formatter type="xml" toFile="${dir.deploy}/pmd/pmd-report.xml">
@@ -457,7 +457,7 @@
             <fileset dir="${dir.src}">
                 <patternset refid="pmdPattern" />
             </fileset>
-        </cpd>
+        </cpd>-->
 
         <!-- run forbiddenapis -->
         <forbiddenapis dir="${dir.build}/classes" targetVersion="${javac.target}">
