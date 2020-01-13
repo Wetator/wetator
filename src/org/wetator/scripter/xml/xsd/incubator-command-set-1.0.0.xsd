@@ -160,6 +160,13 @@
                                 </xs:restriction>
                             </xs:simpleType>
                         </xs:element>
+                        <xs:element name="content" type="tc:parameterType"
+                            minOccurs="1" maxOccurs="1">
+                            <xs:annotation>
+                                <xs:documentation>The expected content.
+                                </xs:documentation>
+                            </xs:annotation>
+                        </xs:element>
                     </xs:sequence>
                 </xs:extension>
             </xs:complexContent>
