@@ -160,6 +160,12 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
         + "org.wetator.commandset.SqlCommandSet, " + "org.wetator.commandset.TestCommandSet");
     tmpProperties.setProperty("wetator.db.connections", "wetdb, secondDb");
 
+    setIfNotNull(tmpProperties, "wetator.proxyHost", System.getProperty("http.proxyHost"));
+    setIfNotNull(tmpProperties, "wetator.proxyPort", System.getProperty("http.proxyPort"));
+    setIfNotNull(tmpProperties, "wetator.proxyUser", System.getProperty("http.proxyUser"));
+    setIfNotNull(tmpProperties, "wetator.proxyPassword", System.getProperty("http.proxyPassword"));
+    setIfNotNull(tmpProperties, "wetator.proxyHostsToBypass", System.getProperty("http.nonProxyHosts"));
+
     tmpProperties.setProperty("wetator.basicAuthUser", "wetator");
     tmpProperties.setProperty("wetator.basicAuthPassword", "secret");
 
@@ -187,6 +193,12 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
     wetatorEngine.addProgressListener(listener);
     wetatorEngine.addProgressListener(new StdOutProgressListener());
     wetatorEngine.init(tmpConfiguration);
+  }
+
+  private static void setIfNotNull(final Properties aProperties, final String aKey, final String aValue) {
+    if (aValue != null) {
+      aProperties.setProperty(aKey, aValue);
+    }
   }
 
   /**
