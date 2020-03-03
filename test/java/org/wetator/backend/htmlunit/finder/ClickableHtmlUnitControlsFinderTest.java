@@ -22,6 +22,7 @@ import java.util.Properties;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
@@ -36,6 +37,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 /**
  * @author frank.danek
  */
+@Ignore
 public class ClickableHtmlUnitControlsFinderTest {
 
   protected WetatorConfiguration config;

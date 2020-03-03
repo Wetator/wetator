@@ -20,6 +20,7 @@ import java.io.IOException;
 
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
@@ -32,6 +33,7 @@ import org.wetator.util.SecretString;
  * @author rbri
  * @author frank.danek
  */
+@Ignore
 public class HtmlUnitClickListeningControlIdentifierTest extends AbstractHtmlUnitControlIdentifierTest {
 
   @Before
