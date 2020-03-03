@@ -20,7 +20,6 @@ import java.io.IOException;
 
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
@@ -33,7 +32,6 @@ import org.wetator.util.SecretString;
  * @author rbri
  * @author frank.danek
  */
-@Ignore
 public class HtmlUnitClickListeningControlIdentifierTest extends AbstractHtmlUnitControlIdentifierTest {
 
   @Before
@@ -78,7 +76,7 @@ public class HtmlUnitClickListeningControlIdentifierTest extends AbstractHtmlUni
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
 
     Assert.assertEquals(
-        "[HtmlSpan 'some text' (id='myId')] found by: BY_LABELING_TEXT deviation: 0 distance: 0 start: 0 index: 5",
+        "[HtmlSpan 'some text' (id='myId')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 

@@ -22,7 +22,6 @@ import java.util.Properties;
 
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
@@ -37,7 +36,6 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 /**
  * @author frank.danek
  */
-@Ignore
 public class ClickableHtmlUnitControlsFinderTest {
 
   protected WetatorConfiguration config;
@@ -114,7 +112,7 @@ public class ClickableHtmlUnitControlsFinderTest {
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlSpan 'some text' (id='myId')] found by: BY_LABELING_TEXT deviation: 0 distance: 0 start: 0 index: 4",
+        "[HtmlSpan 'some text' (id='myId')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 index: 4",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 }
