@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2018 wetator.org
+ * Copyright (c) 2008-2020 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -119,7 +119,7 @@ public class XMLResultWriter implements IProgressListener {
    */
   public XMLResultWriter() {
     tagId = 0;
-    commandExecutionStartTimes = new ArrayDeque<Long>();
+    commandExecutionStartTimes = new ArrayDeque<>();
   }
 
   @Override
@@ -131,7 +131,7 @@ public class XMLResultWriter implements IProgressListener {
       xslTemplates = tmpConfiguration.getXslTemplates();
       resultFile = new File(outputDir, "wetresult.xml");
 
-      final Writer tmpWriter = new FileWriterWithEncoding(resultFile, "UTF-8");
+      final Writer tmpWriter = new FileWriterWithEncoding(resultFile, "UTF-8"); // NOPMD
       output = new Output(tmpWriter, "  ");
       xmlUtil = new XMLUtil();
 
@@ -152,7 +152,7 @@ public class XMLResultWriter implements IProgressListener {
       printlnStartTag(TAG_LIBS);
 
       StringBuilder tmpInfo = new StringBuilder();
-      final String[] tmpClassNames = new String[] { "com.gargoylesoftware.htmlunit.WebClient",
+      final String[] tmpClassNames = { "com.gargoylesoftware.htmlunit.WebClient",
           "net.sourceforge.htmlunit.corejs.javascript.Function", "net.sourceforge.htmlunit.cyberneko.HTMLElements",
           "com.gargoylesoftware.css.parser.CSSOMParser" };
       for (final String tmpClassName : tmpClassNames) {
@@ -171,7 +171,7 @@ public class XMLResultWriter implements IProgressListener {
         printlnNode(TAG_LIB, tmpInfo.toString());
       }
 
-      final String[] tmpJars = new String[] { "commons-lang3-\\S+jar", "commons-text-\\S+jar", "commons-codec-\\S+jar",
+      final String[] tmpJars = { "commons-lang3-\\S+jar", "commons-text-\\S+jar", "commons-codec-\\S+jar",
           "commons-io-\\S+jar", "httpcore-\\S+jar", "httpclient-\\S+jar", "httpmime-\\S+jar", "log4j-api-\\S+jar",
           "log4j-core-\\S+jar" };
       for (final String tmpJar : tmpJars) {
@@ -215,7 +215,7 @@ public class XMLResultWriter implements IProgressListener {
       // java info
       printlnStartTag(TAG_JAVA);
       final Set<Object> tmpKeys = System.getProperties().keySet();
-      final List<String> tmpProperties = new ArrayList<String>(tmpKeys.size());
+      final List<String> tmpProperties = new ArrayList<>(tmpKeys.size());
       for (final Object tmpObject : tmpKeys) {
         tmpProperties.add(tmpObject.toString());
       }
@@ -230,9 +230,7 @@ public class XMLResultWriter implements IProgressListener {
       printlnEndTag(TAG_JAVA);
 
       printlnEndTag(TAG_ABOUT);
-    } catch (
-
-    final IOException e) {
+    } catch (final IOException e) {
       LOG.error(e.getMessage(), e);
     }
   }

@@ -144,7 +144,7 @@
         </error>
       </testfile>
     </testrun>
-    <testrun id="99" browser="Firefox52">
+    <testrun id="99" browser="Firefox68">
       <ignored id="100"/>
     </testrun>
   </testcase>

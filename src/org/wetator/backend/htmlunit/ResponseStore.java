@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2018 wetator.org
+ * Copyright (c) 2008-2020 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -92,7 +92,7 @@ public final class ResponseStore {
     overwrite = anOverwriteFlag;
 
     initOutputDir(aBrowserSubdir);
-    fileNames = new HashMap<String, String>();
+    fileNames = new HashMap<>();
   }
 
   /**
@@ -299,7 +299,8 @@ public final class ResponseStore {
             tmpShortFileName.append('.').append(ContentTypeUtil.getFileSuffix(tmpWebResponse));
           }
 
-          tmpResourceFile = new File(storeDir, tmpShortFileName.toString());
+          tmpFileName = tmpShortFileName.toString();
+          tmpResourceFile = new File(storeDir, tmpFileName);
         }
 
         // store the value already to prevent endless looping

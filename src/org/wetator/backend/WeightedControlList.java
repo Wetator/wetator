@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2018 wetator.org
+ * Copyright (c) 2008-2020 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -74,7 +74,7 @@ public final class WeightedControlList {
   public List<Entry> getEntriesSorted() {
     Collections.sort(entries, new EntryComperator());
 
-    final List<Entry> tmpResult = new LinkedList<Entry>();
+    final List<Entry> tmpResult = new LinkedList<>();
     for (final Entry tmpEntry : entries) {
       final IControl tmpControl = tmpEntry.getControl();
 

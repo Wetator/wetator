@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2018 wetator.org
+ * Copyright (c) 2008-2020 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,7 +45,7 @@ public final class Log4jUtil {
    * @param aLogFile the target log file
    */
   public static void configureDebugLogging(final File aLogFile) {
-    final LoggerContext tmpContext = (LoggerContext) LogManager.getContext(false);
+    final LoggerContext tmpContext = (LoggerContext) LogManager.getContext(false); // NOPMD
     final Configuration tmpConfig = tmpContext.getConfiguration();
 
     final PatternLayout tmpLayout = PatternLayout.newBuilder().withConfiguration(tmpConfig)
@@ -62,6 +62,7 @@ public final class Log4jUtil {
         "com.gargoylesoftware.htmlunit.javascript.JavaScriptEngine", "org.apache.http.wire" }) {
       tmpConfig.getLoggerConfig(tmpLog).setLevel(Level.TRACE);
     }
+    tmpContext.updateLoggers();
   }
 
   private Log4jUtil() {

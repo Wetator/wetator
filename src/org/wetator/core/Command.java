@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2018 wetator.org
+ * Copyright (c) 2008-2020 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -203,7 +203,7 @@ public final class Command {
   public List<SecretString> getSecondParameterValues(final WetatorContext aContext) {
     final Parameter tmpSecondParameter = getSecondParameter();
 
-    final List<SecretString> tmpResult = new LinkedList<SecretString>();
+    final List<SecretString> tmpResult = new LinkedList<>();
     if (null == tmpSecondParameter) {
       return tmpResult;
     }

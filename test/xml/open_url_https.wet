@@ -11,7 +11,7 @@
     <command><d:assert-title><d:title>Twitter</d:title></d:assert-title></command>
     <comment></comment>
     <comment>expired certificate</comment>
-    <command><d:open-url><d:url>https://testssl-expire.disig.sk/index.en.html</d:url></d:open-url></command>
+    <command><d:open-url><d:url>https://testssl-expire-r2i2.disig.sk/index.en.html</d:url></d:open-url></command>
     <command><d:assert-content><d:content>You have joined a web site whose SSL certificate is valid.</d:content></d:assert-content></command>
     <comment></comment>
     <comment>issuer unknown certificate</comment>

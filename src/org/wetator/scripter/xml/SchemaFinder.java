@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2018 wetator.org
+ * Copyright (c) 2008-2020 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,14 +50,14 @@ public class SchemaFinder {
     final XMLInputFactory tmpFactory = XMLInputFactory.newInstance();
     final XMLStreamReader tmpReader = tmpFactory.createXMLStreamReader(anXMLReader);
 
-    schemas = new ArrayList<XMLSchema>();
+    schemas = new ArrayList<>();
     try {
       while (tmpReader.hasNext()) {
         if (tmpReader.next() == XMLStreamConstants.START_ELEMENT) {
           final int tmpSchemaCount = tmpReader.getNamespaceCount();
 
           if (tmpSchemaCount > 0) {
-            final Map<String, String> tmpNamespacePrefixes = new HashMap<String, String>();
+            final Map<String, String> tmpNamespacePrefixes = new HashMap<>();
             for (int i = 0; i < tmpSchemaCount; i++) {
               final String tmpPrefix = tmpReader.getNamespacePrefix(i);
               final String tmpNamespaceURI = tmpReader.getNamespaceURI(i);

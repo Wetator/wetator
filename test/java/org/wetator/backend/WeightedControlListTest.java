@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2018 wetator.org
+ * Copyright (c) 2008-2020 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -143,7 +143,8 @@ public class WeightedControlListTest {
         tmpSorted.get(1).toString());
     Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID deviation: 9 distance: 11 start: 1 index: 0",
         tmpSorted.get(2).toString());
-    Assert.assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_LABEL_ELEMENT deviation: 10 distance: 12 start: 1 index: 0",
+    Assert.assertEquals(
+        "[HtmlAnchor 'AnchorText'] found by: BY_LABEL_ELEMENT deviation: 10 distance: 12 start: 1 index: 0",
         tmpSorted.get(3).toString());
   }
 

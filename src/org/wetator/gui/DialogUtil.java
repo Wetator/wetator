@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2018 wetator.org
+ * Copyright (c) 2008-2020 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,7 +20,6 @@ import java.awt.Component;
 import java.awt.GraphicsConfiguration;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
-import java.awt.HeadlessException;
 import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D;
 import java.io.File;
@@ -207,14 +206,14 @@ public final class DialogUtil {
     }
 
     @Override
-    protected JDialog createDialog(final Component aParent) throws HeadlessException {
+    protected JDialog createDialog(final Component aParent) {
       jDialog = super.createDialog(aParent);
       restoreOptions(preferences, jDialog);
       return jDialog;
     }
 
     @Override
-    public int showOpenDialog(final Component aParent) throws HeadlessException {
+    public int showOpenDialog(final Component aParent) {
       final int tmpResult = super.showOpenDialog(aParent);
       storeOptions(preferences, jDialog);
       return tmpResult;
@@ -318,7 +317,7 @@ public final class DialogUtil {
     }
     final String[] tmpFiles = StringUtils.split(tmpLastFilesBuilder.toString(), FILE_SEPARATOR);
 
-    final List<File> tmpResult = new LinkedList<File>();
+    final List<File> tmpResult = new LinkedList<>();
     final String tmpCurrentDir = aDir.getAbsolutePath();
     for (final String tmpString : tmpFiles) {
       final File tmpFile = new File(tmpString);

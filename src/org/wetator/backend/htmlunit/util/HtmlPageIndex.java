@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2018 wetator.org
+ * Copyright (c) 2008-2020 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -122,7 +122,7 @@ public class HtmlPageIndex {
     positionsWithoutFormControls = new HashMap<>(256);
     textWithoutFormControls = new NormalizedString();
 
-    nodes = new LinkedList<DomNode>();
+    nodes = new LinkedList<>();
     // LinkedHashSets to preserve the order and have a fast contains
     visibleHtmlElementsBottomUp = new LinkedHashSet<>();
     visibleHtmlElements = new LinkedHashSet<>();

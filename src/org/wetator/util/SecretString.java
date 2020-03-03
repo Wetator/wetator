@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2018 wetator.org
+ * Copyright (c) 2008-2020 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,7 +51,7 @@ public final class SecretString {
   public SecretString() {
     super();
     value = "";
-    secrets = new LinkedList<FindSpot>();
+    secrets = new LinkedList<>();
   }
 
   /**
@@ -127,7 +127,7 @@ public final class SecretString {
 
     if (tmpEnd < tmpStart) {
       value = "";
-      secrets = new LinkedList<FindSpot>();
+      secrets = new LinkedList<>();
       return this;
     }
 
@@ -231,7 +231,7 @@ public final class SecretString {
       throw new IllegalArgumentException("Delimiter must be different from escape char.");
     }
 
-    final List<SecretString> tmpResult = new LinkedList<SecretString>();
+    final List<SecretString> tmpResult = new LinkedList<>();
 
     final int tmpSize = length();
     if (tmpSize < tmpDelimiterSize) {
@@ -240,7 +240,7 @@ public final class SecretString {
 
     int tmpStartPos = 0;
     int tmpSplitPos = value.indexOf(aDelimiter);
-    final List<Integer> tmpEscPos = new LinkedList<Integer>();
+    final List<Integer> tmpEscPos = new LinkedList<>();
     while (tmpSplitPos > -1) {
       if (tmpSplitPos > 0) {
         final char tmpEscape = value.charAt(tmpSplitPos - 1);

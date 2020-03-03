@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2018 wetator.org
+ * Copyright (c) 2008-2020 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -78,7 +78,7 @@ public class HtmlUnitInputFileIdentifier extends AbstractMatcherBasedIdentifier 
       final SearchPattern tmpSearchPattern = aWPath.getLastNode().getSearchPattern();
       if (aHtmlElement instanceof HtmlFileInput) {
         // whole text before
-        final List<SecretString> tmpWholePath = new ArrayList<SecretString>(aWPath.getPathNodes());
+        final List<SecretString> tmpWholePath = new ArrayList<>(aWPath.getPathNodes());
         tmpWholePath.add(aWPath.getLastNode());
         final SearchPattern tmpWholePathSearchPattern = SearchPattern.createFromList(tmpWholePath);
         aMatchers.add(

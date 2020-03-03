@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2018 wetator.org
+ * Copyright (c) 2008-2020 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -248,7 +248,7 @@ public class SnoopyServlet extends HttpServlet {
   private Set<String> determineGetParameterNames(final HttpServletRequest aRequest) {
     final String tmpQueryString = aRequest.getQueryString();
 
-    final Set<String> tmpParamNames = new HashSet<String>();
+    final Set<String> tmpParamNames = new HashSet<>();
     if (tmpQueryString == null) {
       return tmpParamNames;
     }
@@ -268,7 +268,7 @@ public class SnoopyServlet extends HttpServlet {
   }
 
   private Set<String> determineFileParameterNames(final HttpServletRequest aRequest) {
-    final Set<String> tmpFileParameterNames = new HashSet<String>();
+    final Set<String> tmpFileParameterNames = new HashSet<>();
 
     final List<String> tmpParameterNames = Collections.list(aRequest.getParameterNames());
     for (String tmpName : tmpParameterNames) {

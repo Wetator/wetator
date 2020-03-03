@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2018 wetator.org
+ * Copyright (c) 2008-2020 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -66,7 +66,7 @@ public class ModelBuilder {
 
   private XSSimpleType baseParameterType;
 
-  private Map<String, CommandType> commandTypes = new LinkedHashMap<String, CommandType>();
+  private Map<String, CommandType> commandTypes = new LinkedHashMap<>();
 
   /**
    * @param aSchemas the list containing the schemas to use
@@ -93,7 +93,7 @@ public class ModelBuilder {
    * @return a list containing all known command types
    */
   public List<CommandType> getCommandTypes() {
-    final List<CommandType> tmpCommandTypes = new ArrayList<CommandType>(commandTypes.values());
+    final List<CommandType> tmpCommandTypes = new ArrayList<>(commandTypes.values());
     Collections.sort(tmpCommandTypes, new Comparator<CommandType>() {
       @Override
       public int compare(final CommandType aType1, final CommandType aType2) {
@@ -172,7 +172,7 @@ public class ModelBuilder {
   }
 
   private List<ParameterType> getParameterTypes(final XSComplexType aType) {
-    final List<ParameterType> tmpParameterTypes = new ArrayList<ParameterType>();
+    final List<ParameterType> tmpParameterTypes = new ArrayList<>();
 
     final XSContentType tmpXsContentType = aType.getContentType();
     final XSParticle tmpXsParticle = tmpXsContentType.asParticle();

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2018 wetator.org
+ * Copyright (c) 2008-2020 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -55,7 +55,7 @@ public abstract class AbstractAutomatonMatcher implements MatchResult {
    * @param aMatchEnd the end of the match to store
    * @throws IllegalArgumentException if aMatchStart is greater than aMatchEnd.
    */
-  protected void setMatch(final int aMatchStart, final int aMatchEnd) throws IllegalArgumentException {
+  protected void setMatch(final int aMatchStart, final int aMatchEnd) {
     if (aMatchStart > aMatchEnd) {
       throw new IllegalArgumentException("Start must be less than or equal to end: " + aMatchStart + ", " + aMatchEnd);
     }
@@ -71,7 +71,7 @@ public abstract class AbstractAutomatonMatcher implements MatchResult {
    *         if the last attempt yielded no results.
    */
   @Override
-  public int end() throws IllegalStateException {
+  public int end() {
     matchGood();
     return matchEnd;
   }
@@ -91,7 +91,7 @@ public abstract class AbstractAutomatonMatcher implements MatchResult {
    *         not exist in the underlying automaton.
    */
   @Override
-  public int end(final int aGroup) throws IndexOutOfBoundsException, IllegalStateException {
+  public int end(final int aGroup) {
     onlyZero(aGroup);
     return end();
   }
@@ -104,7 +104,7 @@ public abstract class AbstractAutomatonMatcher implements MatchResult {
    *         if the last attempt yielded no results.
    */
   @Override
-  public String group() throws IllegalStateException {
+  public String group() {
     matchGood();
     return chars.subSequence(matchStart, matchEnd).toString();
   }
@@ -124,7 +124,7 @@ public abstract class AbstractAutomatonMatcher implements MatchResult {
    *         not exist in the underlying automaton.
    */
   @Override
-  public String group(final int aGroup) throws IndexOutOfBoundsException, IllegalStateException {
+  public String group(final int aGroup) {
     onlyZero(aGroup);
     return group();
   }
@@ -149,7 +149,7 @@ public abstract class AbstractAutomatonMatcher implements MatchResult {
    *         if the last attempt yielded no results.
    */
   @Override
-  public int start() throws IllegalStateException {
+  public int start() {
     matchGood();
     return matchStart;
   }
@@ -169,20 +169,20 @@ public abstract class AbstractAutomatonMatcher implements MatchResult {
    *         not exist in the underlying automaton.
    */
   @Override
-  public int start(final int aGroup) throws IndexOutOfBoundsException, IllegalStateException {
+  public int start(final int aGroup) {
     onlyZero(aGroup);
     return start();
   }
 
   /** Helper method that requires the group argument to be 0. */
-  private static void onlyZero(final int aGroup) throws IndexOutOfBoundsException {
+  private static void onlyZero(final int aGroup) {
     if (aGroup != 0) {
       throw new IndexOutOfBoundsException("The only group supported is 0.");
     }
   }
 
   /** Helper method to check that the last match attempt was valid. */
-  private void matchGood() throws IllegalStateException {
+  private void matchGood() {
     if (matchStart < 0 || matchEnd < 0) {
       throw new IllegalStateException("There was no available match.");
     }

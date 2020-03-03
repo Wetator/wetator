@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2018 wetator.org
+ * Copyright (c) 2008-2020 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -2392,7 +2392,7 @@ public class SecretStringTest {
 
   @Test
   public void replaceVariablesBrokenSyntax() {
-    final List<Variable> tmpVariables = new LinkedList<Variable>();
+    final List<Variable> tmpVariables = new LinkedList<>();
     Variable tmpVariable = new Variable("var0", "${var1}", true);
     tmpVariables.add(tmpVariable);
     tmpVariable = new Variable("var1", "value1", true);

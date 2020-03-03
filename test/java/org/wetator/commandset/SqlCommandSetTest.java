@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2018 wetator.org
+ * Copyright (c) 2008-2020 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -83,9 +83,8 @@ public class SqlCommandSetTest extends AbstractWebServerTest {
       tmpSql.initialize(tmpProperties);
       Assert.fail("ConfigurationException expected");
     } catch (final ConfigurationException e) {
-      Assert.assertEquals(
-          "Connection to database 'jdbc:hsqldb:mem:wetdb' for connection named 'wetdb' failed"
-              + " (reason: java.sql.SQLInvalidAuthorizationSpecException: invalid authorization specification - not found: unknown).",
+      Assert.assertEquals("Connection to database 'jdbc:hsqldb:mem:wetdb' for connection named 'wetdb' failed"
+          + " (reason: java.sql.SQLInvalidAuthorizationSpecException: invalid authorization specification - not found: unknown).",
           e.getMessage());
     }
   }

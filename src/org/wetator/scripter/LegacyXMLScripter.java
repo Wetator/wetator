@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2018 wetator.org
+ * Copyright (c) 2008-2020 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -105,24 +105,19 @@ public final class LegacyXMLScripter implements IScripter {
     }
 
     // third check the content (root element and schema)
-    try {
-      final LineIterator tmpLines = FileUtils.lineIterator(aFile.getAbsoluteFile(), "UTF-8");
-      try {
-        boolean tmpTestCase = false;
-        while (tmpLines.hasNext()) {
-          final String tmpLine = tmpLines.next().trim();
-          if (tmpLine.contains("<" + E_TESTCASE)) {
-            tmpTestCase = true;
-          }
-          if (tmpLine.contains(E_STEP + " ")) {
-            break;
-          }
-          if (tmpTestCase && tmpLine.contains(BASE_SCHEMA)) {
-            return IScripter.IS_SUPPORTED;
-          }
+    try (LineIterator tmpLines = FileUtils.lineIterator(aFile.getAbsoluteFile(), "UTF-8")) {
+      boolean tmpTestCase = false;
+      while (tmpLines.hasNext()) {
+        final String tmpLine = tmpLines.next().trim();
+        if (tmpLine.contains("<" + E_TESTCASE)) {
+          tmpTestCase = true;
         }
-      } finally {
-        tmpLines.close();
+        if (tmpLine.contains(E_STEP + " ")) {
+          break;
+        }
+        if (tmpTestCase && tmpLine.contains(BASE_SCHEMA)) {
+          return IScripter.IS_SUPPORTED;
+        }
       }
     } catch (final FileNotFoundException e) {
       return new IScripter.IsSupportedResult("File '" + aFile.getName()
@@ -153,7 +148,7 @@ public final class LegacyXMLScripter implements IScripter {
     }
 
     XMLStreamReader tmpReader = null;
-    try {
+    try { // NOPMD
       final XMLInputFactory tmpFactory = XMLInputFactory.newInstance();
       try {
         tmpReader = tmpFactory.createXMLStreamReader(tmpInputStream);
@@ -164,7 +159,7 @@ public final class LegacyXMLScripter implements IScripter {
       }
 
       try {
-        final List<Command> tmpResult = new ArrayList<Command>();
+        final List<Command> tmpResult = new ArrayList<>();
 
         Command tmpCommand = null;
         while (tmpReader.hasNext()) {

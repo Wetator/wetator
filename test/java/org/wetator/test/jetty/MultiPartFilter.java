@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2018 wetator.org
+ * Copyright (c) 2008-2020 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -148,7 +148,7 @@ public class MultiPartFilter implements Filter {
     final String tmpContentType = tmpRequest.getContentType();
 
     // Get current parameters so we can merge into them
-    final MultiMap<String> tmpParameters = new MultiMap<String>();
+    final MultiMap<String> tmpParameters = new MultiMap<>();
     for (Map.Entry<String, String[]> tmpEntry : aRequest.getParameterMap().entrySet()) {
       final String[] tmpValue = tmpEntry.getValue();
       tmpParameters.addValues(tmpEntry.getKey(), tmpValue);
@@ -285,7 +285,7 @@ public class MultiPartFilter implements Filter {
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public Map getParameterMap() {
-      final Map<String, String[]> tmpMap = new HashMap<String, String[]>();
+      final Map<String, String[]> tmpMap = new HashMap<>();
 
       for (Object tmpKey : parameters.keySet()) {
         final String[] tmpArray = LazyList.toStringArray(getParameter((String) tmpKey));

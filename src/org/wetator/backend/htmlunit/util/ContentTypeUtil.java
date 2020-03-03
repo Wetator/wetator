@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2018 wetator.org
+ * Copyright (c) 2008-2020 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -35,7 +35,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
  * @author rbri
  */
 public final class ContentTypeUtil {
-  private static final Map<String, ContentType> CONTENT_TYPES = new HashMap<String, ContentType>();
+  private static final Map<String, ContentType> CONTENT_TYPES = new HashMap<>();
   private static final EnumMap<ContentType, String> FILE_EXTENSIONS = new EnumMap<>(ContentType.class);
 
   static {

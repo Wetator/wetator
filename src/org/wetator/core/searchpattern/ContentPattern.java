@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2018 wetator.org
+ * Copyright (c) 2008-2020 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -62,7 +62,7 @@ public class ContentPattern {
     parseNodes();
 
     // create checks
-    checks = new LinkedList<List<PatternNode>>();
+    checks = new LinkedList<>();
     constructChecks(0, new LinkedList<PatternNode>());
 
     // validation
@@ -76,7 +76,7 @@ public class ContentPattern {
 
   private void parseNodes() {
     final List<SecretString> tmpParts = rawNode.split(DELIMITER, '\\');
-    nodes = new LinkedList<PatternNode>();
+    nodes = new LinkedList<>();
     for (final SecretString tmpNode : tmpParts) {
       nodes.add(new PatternNode(tmpNode.trim()));
     }
@@ -90,7 +90,7 @@ public class ContentPattern {
 
     final PatternNode tmpNode = nodes.get(aPos);
     if (tmpNode.isNegated()) {
-      final List<PatternNode> tmpNodes = new LinkedList<PatternNode>();
+      final List<PatternNode> tmpNodes = new LinkedList<>();
       tmpNodes.addAll(aNodes);
       constructChecks(aPos + 1, tmpNodes);
     }

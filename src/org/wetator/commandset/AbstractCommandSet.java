@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2018 wetator.org
+ * Copyright (c) 2008-2020 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -56,13 +56,13 @@ public abstract class AbstractCommandSet implements ICommandSet {
    */
   protected AbstractCommandSet() {
     super();
-    initializationMessages = new LinkedList<String>();
+    initializationMessages = new LinkedList<>();
     noOfCommands = 0;
 
     if (LOG.isDebugEnabled()) {
       LOG.debug(ClassUtils.getShortClassName(this.getClass()) + " registration started");
     }
-    commandImplementations = new HashMap<String, ICommandImplementation>();
+    commandImplementations = new HashMap<>();
 
     // initialize the list of supported commands
     registerCommands();

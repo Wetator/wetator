@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2018 wetator.org
+ * Copyright (c) 2008-2020 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -59,7 +59,7 @@ public class XHtmlOutputterHtmlPageTest {
     Assert.assertEquals(tmpBrowser.getApplicationName(), anExpected,
         new NormalizedString(tmpWriter.toString()).toString());
 
-    tmpBrowser = BrowserVersion.FIREFOX_60;
+    tmpBrowser = BrowserVersion.FIREFOX_68;
     tmpHtmlPage = PageUtil.constructHtmlPage(tmpBrowser, anHtmlCode);
     tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
     tmpWriter = new StringWriter();

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2018 wetator.org
+ * Copyright (c) 2008-2020 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -312,8 +312,9 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
       if (null != tmpJarUrls) {
         for (final URL tmpJarUrl : tmpJarUrls) {
           try {
-            final InputStream tmpIs = tmpJarUrl.openStream();
-            tmpIs.close();
+            try (InputStream tmpIs = tmpJarUrl.openStream()) {
+              // just opening the stream is enough
+            }
           } catch (final Exception eUrl) {
             aContext.informListenersWarn("assertAppletUnreachableJar", tmpJarUrl.toString(), eUrl.toString());
           }

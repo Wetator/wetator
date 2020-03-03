@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2018 wetator.org
+ * Copyright (c) 2008-2020 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -47,9 +47,9 @@ public class IdentifierBasedHtmlUnitControlsFinder extends AbstractHtmlUnitContr
   /** The thread pool to use for worker threads. */
   protected ThreadPoolExecutor threadPool;
   /** The supported identifiers. */
-  protected List<Class<? extends AbstractHtmlUnitControlIdentifier>> identifiers = new ArrayList<Class<? extends AbstractHtmlUnitControlIdentifier>>();
+  protected List<Class<? extends AbstractHtmlUnitControlIdentifier>> identifiers = new ArrayList<>();
 
-  private List<Future<?>> futures = new LinkedList<Future<?>>();
+  private List<Future<?>> futures = new LinkedList<>();
 
   /**
    * The constructor.

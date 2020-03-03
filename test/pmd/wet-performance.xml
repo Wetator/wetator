@@ -15,7 +15,7 @@ This is a subset of PMD's 'Performance' ruleset.
     <rule ref="category/java/performance.xml/AppendCharacterWithChar" />
     <rule ref="category/java/performance.xml/AvoidArrayLoops" />
     <rule ref="category/java/performance.xml/AvoidFileStream" />
-    <!-- <rule ref="category/java/performance.xml/AvoidInstantiatingObjectsInLoops" /> -->
+    <!-- not wanted <rule ref="category/java/performance.xml/AvoidInstantiatingObjectsInLoops" /> -->
     <rule ref="category/java/performance.xml/AvoidUsingShortType" />
     <rule ref="category/java/performance.xml/BigIntegerInstantiation" />
     <rule ref="category/java/performance.xml/BooleanInstantiation" />
@@ -24,7 +24,7 @@ This is a subset of PMD's 'Performance' ruleset.
     <rule ref="category/java/performance.xml/ConsecutiveLiteralAppends" />
     <rule ref="category/java/performance.xml/InefficientEmptyStringCheck" />
     <rule ref="category/java/performance.xml/InefficientStringBuffering" />
-    <!-- <rule ref="category/java/performance.xml/InsufficientStringBufferDeclaration" /> -->
+    <!-- not wanted <rule ref="category/java/performance.xml/InsufficientStringBufferDeclaration" /> -->
     <rule ref="category/java/performance.xml/IntegerInstantiation" />
     <rule ref="category/java/performance.xml/LongInstantiation" />
     <rule ref="category/java/performance.xml/OptimizableToArrayCall" />

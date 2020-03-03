@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2018 wetator.org
+ * Copyright (c) 2008-2020 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -62,7 +62,7 @@ public class ByInnerImageMatcher extends AbstractHtmlUnitElementMatcher {
     // has the node the text before
     final FindSpot tmpNodeSpot = htmlPageIndex.getPosition(aHtmlElement);
     if (pathSpot == null || pathSpot.getEndPos() <= tmpNodeSpot.getStartPos()) {
-      final List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
+      final List<MatchResult> tmpMatches = new LinkedList<>();
 
       // now check for the including image
       final Iterable<HtmlElement> tmpAllchildElements = aHtmlElement.getHtmlElementDescendants();

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2018 wetator.org
+ * Copyright (c) 2008-2020 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -43,18 +43,18 @@ public abstract class AbstractMatcherBasedIdentifier extends AbstractHtmlUnitCon
 
   @Override
   public WeightedControlList identify(final WPath aWPath, final HtmlElement aHtmlElement) {
-    final List<AbstractHtmlUnitElementMatcher> tmpMatchers = new ArrayList<AbstractHtmlUnitElementMatcher>();
+    final List<AbstractHtmlUnitElementMatcher> tmpMatchers = new ArrayList<>();
     addMatchers(aWPath, aHtmlElement, tmpMatchers);
     if (tmpMatchers.isEmpty()) {
       return WeightedControlList.EMPTY_LIST;
     }
 
-    final List<MatchResult> tmpMatches = new LinkedList<MatchResult>();
+    final List<MatchResult> tmpMatches = new LinkedList<>();
     for (final AbstractHtmlUnitElementMatcher tmpMatcher : tmpMatchers) {
       tmpMatches.addAll(tmpMatcher.matches(aHtmlElement));
     }
 
-    final List<MatchResult> tmpProcessedMatches = new ArrayList<MatchResult>();
+    final List<MatchResult> tmpProcessedMatches = new ArrayList<>();
     if (aWPath.getTableCoordinates().isEmpty() || aWPath.getLastNode() == null) {
       // we do not have any table coordinates for post processing or they were used
       // by the matcher so we can just return the result

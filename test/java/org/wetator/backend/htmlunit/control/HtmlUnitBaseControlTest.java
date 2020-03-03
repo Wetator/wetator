@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2018 wetator.org
+ * Copyright (c) 2008-2020 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -42,8 +42,7 @@ public class HtmlUnitBaseControlTest {
     // @formatter:on
     final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    final HtmlUnitBaseControl<?> tmpControl = new HtmlUnitUnspecificControl<HtmlElement>(
-        tmpHtmlPage.getHtmlElementById("myId"));
+    final HtmlUnitBaseControl<?> tmpControl = new HtmlUnitUnspecificControl<>(tmpHtmlPage.getHtmlElementById("myId"));
 
     Assert.assertEquals("#myId", tmpControl.getUniqueSelector());
   }
@@ -59,8 +58,7 @@ public class HtmlUnitBaseControlTest {
     // @formatter:on
     final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    final HtmlUnitBaseControl<?> tmpControl = new HtmlUnitUnspecificControl<HtmlElement>(
-        tmpHtmlPage.getHtmlElementById("f:myId"));
+    final HtmlUnitBaseControl<?> tmpControl = new HtmlUnitUnspecificControl<>(tmpHtmlPage.getHtmlElementById("f:myId"));
 
     Assert.assertEquals("#f\\3amyId", tmpControl.getUniqueSelector());
   }

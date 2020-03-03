@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2018 wetator.org
+ * Copyright (c) 2008-2020 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -135,8 +135,7 @@ public final class XHtmlOutputter {
   private static final Set<String> EMPTY_TAGS;
   private static final Set<String> SINGLE_LINE_TAGS;
   private static final Set<String> IGNORED_ATTRIBUTES;
-  private static final Map<Class<? extends Object>, String> TAG_NAMES = new HashMap<Class<? extends Object>, String>(
-      100);
+  private static final Map<Class<? extends Object>, String> TAG_NAMES = new HashMap<>(100);
 
   private HtmlPage htmlPage;
   private ResponseStore responseStore;
@@ -144,7 +143,7 @@ public final class XHtmlOutputter {
   private XMLUtil xmlUtil;
 
   static {
-    EMPTY_TAGS = new HashSet<String>();
+    EMPTY_TAGS = new HashSet<>();
     EMPTY_TAGS.add(HtmlMeta.class.getName());
     EMPTY_TAGS.add(HtmlLink.class.getName());
     EMPTY_TAGS.add(HtmlFrame.class.getName());
@@ -177,7 +176,7 @@ public final class XHtmlOutputter {
     EMPTY_TAGS.add(SvgPolyline.class.getName());
     EMPTY_TAGS.add(SvgRect.class.getName());
 
-    SINGLE_LINE_TAGS = new HashSet<String>();
+    SINGLE_LINE_TAGS = new HashSet<>();
     SINGLE_LINE_TAGS.add(HtmlTitle.class.getName());
     SINGLE_LINE_TAGS.add(HtmlParagraph.class.getName());
     SINGLE_LINE_TAGS.add(HtmlBreak.class.getName());
@@ -215,7 +214,7 @@ public final class XHtmlOutputter {
     SINGLE_LINE_TAGS.add(HtmlAcronym.class.getName());
     SINGLE_LINE_TAGS.add(HtmlDefinition.class.getName());
 
-    IGNORED_ATTRIBUTES = new HashSet<String>();
+    IGNORED_ATTRIBUTES = new HashSet<>();
     IGNORED_ATTRIBUTES.add("onclick");
     IGNORED_ATTRIBUTES.add("ondblclick");
     IGNORED_ATTRIBUTES.add("onfocus");
@@ -256,7 +255,7 @@ public final class XHtmlOutputter {
    * @throws IOException in case of error
    */
   public void writeTo(final File aFile) throws IOException {
-    final FileWriterWithEncoding tmpFileWriter = new FileWriterWithEncoding(aFile, htmlPage.getCharset());
+    final FileWriterWithEncoding tmpFileWriter = new FileWriterWithEncoding(aFile, htmlPage.getCharset()); // NOPMD
     writeTo(tmpFileWriter);
   }
 
@@ -267,7 +266,7 @@ public final class XHtmlOutputter {
    * @throws IOException in case of error
    */
   public void writeTo(final Writer aWriter) throws IOException {
-    try {
+    try { // NOPMD
       xmlUtil = new XMLUtil();
       output = new Output(aWriter, "  ");
 

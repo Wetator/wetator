@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2018 wetator.org
+ * Copyright (c) 2008-2020 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -145,7 +145,7 @@ public class WetatorConfiguration {
    * The property name to set the supported {@link BrowserType}s (by their {@link BrowserType#getSymbol()}).
    */
   public static final String PROPERTY_BROWSER_TYPE = PROPERTY_PREFIX + "browser";
-  private static final BrowserType DEFAULT_BROWSER_TYPE = BrowserType.FIREFOX_60;
+  private static final BrowserType DEFAULT_BROWSER_TYPE = BrowserType.FIREFOX_68;
   /**
    * The property name to define the supported ActiveX mocker.
    */
@@ -372,21 +372,21 @@ public class WetatorConfiguration {
     }
 
     // scripters
-    scripters = new LinkedList<IScripter>();
+    scripters = new LinkedList<>();
     readScripters(tmpProperties);
     for (final IScripter tmpScripter : scripters) {
       tmpScripter.initialize(tmpProperties);
     }
 
     // command sets
-    commandSets = new LinkedList<ICommandSet>();
+    commandSets = new LinkedList<>();
     readCommandSets(tmpProperties);
     for (final ICommandSet tmpCommandSet : commandSets) {
       tmpCommandSet.initialize(tmpProperties);
     }
 
     // controls
-    controls = new LinkedList<Class<? extends IControl>>();
+    controls = new LinkedList<>();
     readControls(tmpProperties);
 
     String tmpValue;
@@ -461,7 +461,7 @@ public class WetatorConfiguration {
     tmpValue = tmpProperties.getProperty(PROPERTY_BROWSER_TYPE, "");
     tmpProperties.remove(PROPERTY_BROWSER_TYPE);
 
-    browserTypes = new ArrayList<IBrowser.BrowserType>();
+    browserTypes = new ArrayList<>();
 
     List<String> tmpParts = StringUtil.extractStrings(tmpValue, ",", '\\');
     for (final String tmpString : tmpParts) {
@@ -483,7 +483,7 @@ public class WetatorConfiguration {
     tmpValue = tmpProperties.getProperty(PROPERTY_BROWSER_ACTIVEXOBJECTS, "");
     tmpProperties.remove(PROPERTY_BROWSER_ACTIVEXOBJECTS);
 
-    browserActiveXObjects = new HashMap<String, String>();
+    browserActiveXObjects = new HashMap<>();
 
     tmpParts = StringUtil.extractStrings(tmpValue, ",", '\\');
     for (final String tmpString : tmpParts) {
@@ -533,7 +533,7 @@ public class WetatorConfiguration {
         throw new ConfigurationException("The property '" + PROPERTY_PROXY_PORT + "' is no integer.");
       }
 
-      proxyHostsToBypass = new HashSet<String>();
+      proxyHostsToBypass = new HashSet<>();
       tmpValue = tmpProperties.getProperty(PROPERTY_PROXY_HOSTS_TO_BYPASS, "");
       tmpProperties.remove(PROPERTY_PROXY_HOSTS_TO_BYPASS);
       if (StringUtils.isNotBlank(tmpValue)) {
@@ -594,7 +594,7 @@ public class WetatorConfiguration {
     tmpValue = tmpProperties.getProperty(PROPERTY_XSL_TEMPLATES, "");
     tmpProperties.remove(PROPERTY_XSL_TEMPLATES);
 
-    xslTemplates = new LinkedList<String>();
+    xslTemplates = new LinkedList<>();
 
     tmpParts = StringUtil.extractStrings(tmpValue, ",", '\\');
     for (final String tmpString : tmpParts) {
@@ -621,7 +621,7 @@ public class WetatorConfiguration {
     tmpValue = tmpProperties.getProperty(PROPERTY_JS_JOB_FILTER_FILE, "");
     tmpProperties.remove(PROPERTY_JS_JOB_FILTER_FILE);
 
-    jsJobFilterPatterns = new HashSet<SearchPattern>();
+    jsJobFilterPatterns = new HashSet<>();
 
     if (StringUtils.isNotBlank(tmpValue)) {
       File tmpFilterFile = new File(tmpValue);
@@ -668,7 +668,7 @@ public class WetatorConfiguration {
     }
 
     // all properties starting with $ are variables
-    mimeTypes = new HashMap<String, String>();
+    mimeTypes = new HashMap<>();
     Set<Entry<Object, Object>> tmpOtherEntries = tmpProperties.entrySet();
     for (final Entry<Object, Object> tmpEntry : tmpOtherEntries) {
       String tmpKey = (String) tmpEntry.getKey();
@@ -680,7 +680,7 @@ public class WetatorConfiguration {
     }
 
     // all properties starting with $ are variables
-    variables = new LinkedList<Variable>();
+    variables = new LinkedList<>();
     tmpOtherEntries = tmpProperties.entrySet();
     for (final Entry<Object, Object> tmpEntry : tmpOtherEntries) {
       String tmpKey = (String) tmpEntry.getKey();

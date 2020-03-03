@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2018 wetator.org
+ * Copyright (c) 2008-2020 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -45,7 +45,7 @@ public class MessagesTest {
     tmpMessage = Messages.getMessage("unknown", "param1", "param2");
     Assert.assertEquals("Unknown message key 'unknown' (param(s):  'param1' 'param2').", tmpMessage);
 
-    tmpMessage = Messages.getMessage("unknown", new Object[] { });
+    tmpMessage = Messages.getMessage("unknown");
     Assert.assertEquals("Unknown message key 'unknown'.", tmpMessage);
 
     tmpMessage = Messages.getMessage("unknown");

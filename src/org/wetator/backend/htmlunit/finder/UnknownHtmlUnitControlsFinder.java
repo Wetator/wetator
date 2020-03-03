@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2018 wetator.org
+ * Copyright (c) 2008-2020 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -105,8 +105,8 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
             tmpDistance = tmpTextBefore.length();
           }
 
-          tmpFoundControls.add(new HtmlUnitUnspecificControl<HtmlElement>(tmpHtmlElement), FoundType.BY_TEXT,
-              tmpDeviation, tmpDistance, tmpNodeSpot.getStartPos(), htmlPageIndex.getIndex(tmpHtmlElement));
+          tmpFoundControls.add(new HtmlUnitUnspecificControl<>(tmpHtmlElement), FoundType.BY_TEXT, tmpDeviation,
+              tmpDistance, tmpNodeSpot.getStartPos(), htmlPageIndex.getIndex(tmpHtmlElement));
 
           break;
         }
@@ -128,8 +128,8 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
         for (final MatchResult tmpMatch : tmpMatches) {
           if (aWPath.getTableCoordinates().isEmpty() || ByTableCoordinatesMatcher.isHtmlElementInTableCoordinates(
               tmpMatch.getHtmlElement(), aWPath.getTableCoordinatesReversed(), htmlPageIndex, tmpPathSpot)) {
-            tmpFoundControls.add(new HtmlUnitUnspecificControl<HtmlElement>(tmpMatch.getHtmlElement()),
-                tmpMatch.getFoundType(), tmpMatch.getDeviation(), tmpMatch.getDistance(), tmpMatch.getStart(),
+            tmpFoundControls.add(new HtmlUnitUnspecificControl<>(tmpMatch.getHtmlElement()), tmpMatch.getFoundType(),
+                tmpMatch.getDeviation(), tmpMatch.getDistance(), tmpMatch.getStart(),
                 htmlPageIndex.getIndex(tmpMatch.getHtmlElement()));
           }
         }
@@ -139,8 +139,8 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
         for (final MatchResult tmpMatch : tmpMatches) {
           if (aWPath.getTableCoordinates().isEmpty() || ByTableCoordinatesMatcher.isHtmlElementInTableCoordinates(
               tmpMatch.getHtmlElement(), aWPath.getTableCoordinatesReversed(), htmlPageIndex, null)) {
-            tmpFoundControls.add(new HtmlUnitUnspecificControl<HtmlElement>(tmpMatch.getHtmlElement()),
-                FoundType.BY_TITLE_TEXT, tmpMatch.getDeviation(), tmpMatch.getDistance(), tmpMatch.getStart(),
+            tmpFoundControls.add(new HtmlUnitUnspecificControl<>(tmpMatch.getHtmlElement()), FoundType.BY_TITLE_TEXT,
+                tmpMatch.getDeviation(), tmpMatch.getDistance(), tmpMatch.getStart(),
                 htmlPageIndex.getIndex(tmpMatch.getHtmlElement()));
           }
         }
@@ -177,8 +177,8 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
               tmpDistance = tmpTextBefore.length();
             }
 
-            tmpFoundControls.add(new HtmlUnitUnspecificControl<HtmlElement>(tmpHtmlElement), FoundType.BY_TEXT,
-                tmpDeviation, tmpDistance, tmpNodeSpot.getStartPos(), htmlPageIndex.getIndex(tmpHtmlElement));
+            tmpFoundControls.add(new HtmlUnitUnspecificControl<>(tmpHtmlElement), FoundType.BY_TEXT, tmpDeviation,
+                tmpDistance, tmpNodeSpot.getStartPos(), htmlPageIndex.getIndex(tmpHtmlElement));
           }
           break;
         }

@@ -30,7 +30,7 @@
                     a, a:link, a:visited, a:active, a:hover { color: #666666; text-decoration: none; }
                     a.link:hover { text-decoration: underline; }
                     a.linkToCommand { font-size: smaller; display: block; }
-                    
+
                     img { border: 0; }
                     img.resultIcon { height: 12px; width: 12px; padding: 3px; vertical-align: bottom; }
                     #testSummary img.resultIcon { padding: 2px; }
@@ -39,7 +39,7 @@
                     #testCasesOverview img.browser { vertical-align: bottom; margin-left: 20px; }
                     img.testStepScreenshot { vertical-align: top; }
                     img.testStepInfo { cursor: pointer; vertical-align: bottom; }
-                    
+
                     div.header { color: #768bc2; margin-left: 10px; }
                     div.header img { margin-left: -10px; border: 0; }
                     div.colorBar { height: 1em; border: 0; margin-left: 2px; margin-right: 1px; }
@@ -177,7 +177,7 @@
 </table>
 <table style="margin-top: 25px" border="0" cellspacing="0" cellpadding="4" align="center">
 <tr>
-<td></td><td><span class="bold">All</span>&nbsp;<img class="expandCollapse" alt="show/hide all browser overviews" src="resources/expand-square.png" onclick="showOrHideAll(this, 'ie11','ie11overview', 'ff52','ff52overview')"></td><td><span class="bold">IE11</span>&nbsp;<img class="expandCollapse" alt="show/hide IE11 overview" onclick="showOrHide(this, 'ie11overview')" src="resources/expand-square.png" id="ie11"></td><td><span class="bold">FF52</span>&nbsp;<img class="expandCollapse" alt="show/hide FF52 overview" onclick="showOrHide(this, 'ff52overview')" src="resources/expand-square.png" id="ff52"></td>
+<td></td><td><span class="bold">All</span>&nbsp;<img class="expandCollapse" alt="show/hide all browser overviews" src="resources/expand-square.png" onclick="showOrHideAll(this, 'ie11','ie11overview', 'ff68','ff68overview')"></td><td><span class="bold">IE11</span>&nbsp;<img class="expandCollapse" alt="show/hide IE11 overview" onclick="showOrHide(this, 'ie11overview')" src="resources/expand-square.png" id="ie11"></td><td><span class="bold">FF68</span>&nbsp;<img class="expandCollapse" alt="show/hide FF68 overview" onclick="showOrHide(this, 'ff68overview')" src="resources/expand-square.png" id="ff68"></td>
 </tr>
 </table>
 <table style="display: none; text-align: center;" align="center" class="overview" id="ie11overview">
@@ -240,7 +240,7 @@
 <td colspan="2" height="10px"></td>
 </tr>
 </table>
-<table style="display: none; text-align: center;" align="center" class="overview" id="ff52overview">
+<table style="display: none; text-align: center;" align="center" class="overview" id="ff68overview">
 <div id="debugtestbrowseroverviewinfo">
 <br>
             browserTestStepCount 15<br>
@@ -265,32 +265,32 @@
             browserStepsIgnoredPercentage 20<br>
 </div>
 <tr>
-<td width="150px;">Tests in FF52<img style="padding-left: 4px;" src="resources/browser-firefox.png" alt="FF52" title="FF52"></td><td style="padding-right: 0;">
+<td width="150px;">Tests in FF68<img style="padding-left: 4px;" src="resources/browser-firefox.png" alt="FF68" title="FF68"></td><td style="padding-right: 0;">
 <table width="100%" cellspacing="0" cellpadding="0" class="bars">
 <tr>
 <td style="text-align: center;" class="smallBorder" width="60%
-                            " bgcolor="#E75013" title="FF52 tests with error">60%
+                            " bgcolor="#E75013" title="FF68 tests with error">60%
                         </td><td style="text-align: center;" class="smallBorder" width="20%
-                            " bgcolor="#00769C" title="FF52 tests with failure">20%
+                            " bgcolor="#00769C" title="FF68 tests with failure">20%
                         </td><td style="text-align: center;" class="smallBorder" width="20%
-                            " bgcolor="#ACC952" title="successful FF52 tests">20%
+                            " bgcolor="#ACC952" title="successful FF68 tests">20%
                         </td>
 </tr>
 </table>
 </td>
 </tr>
 <tr>
-<td>TestSteps in FF52<img style="padding-left: 4px;" src="resources/browser-firefox.png" alt="FF52" title="FF52"></td><td style="padding-right: 0;">
+<td>TestSteps in FF68<img style="padding-left: 4px;" src="resources/browser-firefox.png" alt="FF68" title="FF68"></td><td style="padding-right: 0;">
 <table width="100%" cellspacing="0" cellpadding="0" class="bars">
 <tr>
 <td style="text-align: center;" class="smallBorder" width="20%
-                            " bgcolor="#E75013" title="FF52 steps with error">20%
+                            " bgcolor="#E75013" title="FF68 steps with error">20%
                             </td><td style="text-align: center;" class="smallBorder" width="13%
-                            " bgcolor="#00769C" title="FF52 steps with failure">13%
+                            " bgcolor="#00769C" title="FF68 steps with failure">13%
                             </td><td style="text-align: center;" class="smallBorder" width="47%
-                            " bgcolor="#ACC952" title="successful FF52 steps">47%
+                            " bgcolor="#ACC952" title="successful FF68 steps">47%
                             </td><td style="text-align: center;" class="smallBorder ignored" width="20%
-                            " bgcolor="#FFFFFF" title="ignored FF52 steps">20%
+                            " bgcolor="#FFFFFF" title="ignored FF68 steps">20%
                             </td>
 </tr>
 </table>
@@ -397,7 +397,7 @@
 <td class="step success"><a class="linkToCommand" href="###ID##">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
 </tr>
 </table>
-</td><td align="right">##DURATION##</td></tr><tr class="successful hidden"><td><img class="browser" src="resources/browser-firefox.png" alt="Firefox52" title="Firefox52"></td><td align="center">1/1</td><td>
+</td><td align="right">##DURATION##</td></tr><tr class="successful hidden"><td><img class="browser" src="resources/browser-firefox.png" alt="Firefox68" title="Firefox68"></td><td align="center">1/1</td><td>
 <table cellspacing="0" cellpadding="0" align="left">
 <tr>
 <td class="step success"><a class="linkToCommand" href="###ID##">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
@@ -414,7 +414,7 @@
 <td class="step success"><a class="linkToCommand" href="###ID##">&nbsp;</a></td><td class="step failure" title="test failure"><a class="linkToCommand" href="###ID##">&nbsp;</a></td><td class="step success"><a class="linkToCommand" href="###ID##">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
 </tr>
 </table>
-</td><td align="right">##DURATION##</td></tr><tr><td><img class="browser" src="resources/browser-firefox.png" alt="Firefox52" title="Firefox52"></td><td align="center">3/3</td><td>
+</td><td align="right">##DURATION##</td></tr><tr><td><img class="browser" src="resources/browser-firefox.png" alt="Firefox68" title="Firefox68"></td><td align="center">3/3</td><td>
 <table cellspacing="0" cellpadding="0" align="left">
 <tr>
 <td class="step success"><a class="linkToCommand" href="###ID##">&nbsp;</a></td><td class="step failure" title="test failure"><a class="linkToCommand" href="###ID##">&nbsp;</a></td><td class="step success"><a class="linkToCommand" href="###ID##">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
@@ -431,7 +431,7 @@
 <td class="step success"><a class="linkToCommand" href="###ID##">&nbsp;</a></td><td class="step error" title="test error"><a class="linkToCommand" href="###ID##">&nbsp;</a></td><td class="step ignored"><a class="linkToCommand" href="###ID##">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
 </tr>
 </table>
-</td><td align="right">##DURATION##</td></tr><tr><td><img class="browser" src="resources/browser-firefox.png" alt="Firefox52" title="Firefox52"></td><td align="center">2/3</td><td>
+</td><td align="right">##DURATION##</td></tr><tr><td><img class="browser" src="resources/browser-firefox.png" alt="Firefox68" title="Firefox68"></td><td align="center">2/3</td><td>
 <table cellspacing="0" cellpadding="0" align="left">
 <tr>
 <td class="step success"><a class="linkToCommand" href="###ID##">&nbsp;</a></td><td class="step error" title="test error"><a class="linkToCommand" href="###ID##">&nbsp;</a></td><td class="step ignored"><a class="linkToCommand" href="###ID##">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
@@ -448,7 +448,7 @@
 <td class="step success"><a class="linkToCommand" href="###ID##">&nbsp;</a></td><td class="step failure" title="test failure"><a class="linkToCommand" href="###ID##">&nbsp;</a></td><td class="step success"><a class="linkToCommand" href="###ID##">&nbsp;</a></td><td class="step error" title="test error"><a class="linkToCommand" href="###ID##">&nbsp;</a></td><td class="step ignored"><a class="linkToCommand" href="###ID##">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
 </tr>
 </table>
-</td><td align="right">##DURATION##</td></tr><tr><td><img class="browser" src="resources/browser-firefox.png" alt="Firefox52" title="Firefox52"></td><td align="center">4/5</td><td>
+</td><td align="right">##DURATION##</td></tr><tr><td><img class="browser" src="resources/browser-firefox.png" alt="Firefox68" title="Firefox68"></td><td align="center">4/5</td><td>
 <table cellspacing="0" cellpadding="0" align="left">
 <tr>
 <td class="step success"><a class="linkToCommand" href="###ID##">&nbsp;</a></td><td class="step failure" title="test failure"><a class="linkToCommand" href="###ID##">&nbsp;</a></td><td class="step success"><a class="linkToCommand" href="###ID##">&nbsp;</a></td><td class="step error" title="test error"><a class="linkToCommand" href="###ID##">&nbsp;</a></td><td class="step ignored"><a class="linkToCommand" href="###ID##">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
@@ -465,7 +465,7 @@
 <td class="step success"><a class="linkToCommand" href="###ID##">&nbsp;</a></td><td class="step failure" title="test failure"><a class="linkToCommand" href="###ID##">&nbsp;</a></td><td class="step success"><a class="linkToCommand" href="###ID##">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
 </tr>
 </table>
-</td><td align="right">##DURATION##</td></tr><tr><td><img class="browser" src="resources/browser-firefox.png" alt="Firefox52" title="Firefox52"></td><td align="center">2/3</td><td>
+</td><td align="right">##DURATION##</td></tr><tr><td><img class="browser" src="resources/browser-firefox.png" alt="Firefox68" title="Firefox68"></td><td align="center">2/3</td><td>
 <table cellspacing="0" cellpadding="0" align="left">
 <tr>
 <td class="step success"><a class="linkToCommand" href="###ID##">&nbsp;</a></td><td class="step error" title="test error"><a class="linkToCommand" href="###ID##">&nbsp;</a></td><td class="step ignored"><a class="linkToCommand" href="###ID##">&nbsp;</a></td><td style="border-left:1px solid #999;">&nbsp;</td>
@@ -497,7 +497,7 @@
 </div>
 <div class="successful hidden">
 <h2>
-<img title="success" alt="success" class="resultIcon" src="resources/ok.png">&nbsp;<a name="testspec_##ID##">/Test/test1.wet</a> (Firefox52)</h2>
+<img title="success" alt="success" class="resultIcon" src="resources/ok.png">&nbsp;<a name="testspec_##ID##">/Test/test1.wet</a> (Firefox68)</h2>
 <table class="smallBorder" width="100%" cellspacing="0" cellpadding="2">
 <tr>
 <th style="width: 30px;">Line</th><th style="width: 15px;">&nbsp;</th><th style="width: 120px;">Command</th><th style="width: 20px;">&nbsp;</th><th style="width: 20px;">&nbsp;</th><th style="width: 50%;">Parameter&nbsp;1</th><th>Parameter&nbsp;2</th><th>&nbsp;</th><th style="text-align: right;">Duration</th>
@@ -538,7 +538,7 @@
 </div>
 <div>
 <h2>
-<img title="failure" alt="failure" class="resultIcon" src="resources/x-failure.png">&nbsp;<a name="testspec_##ID##">/Test/test2.wet</a> (Firefox52)</h2>
+<img title="failure" alt="failure" class="resultIcon" src="resources/x-failure.png">&nbsp;<a name="testspec_##ID##">/Test/test2.wet</a> (Firefox68)</h2>
 <table class="smallBorder" width="100%" cellspacing="0" cellpadding="2">
 <tr>
 <th style="width: 30px;">Line</th><th style="width: 15px;">&nbsp;</th><th style="width: 120px;">Command</th><th style="width: 20px;">&nbsp;</th><th style="width: 20px;">&nbsp;</th><th style="width: 50%;">Parameter&nbsp;1</th><th>Parameter&nbsp;2</th><th>&nbsp;</th><th style="text-align: right;">Duration</th>
@@ -598,7 +598,7 @@
 </div>
 <div>
 <h2>
-<img title="error" alt="error" class="resultIcon" src="resources/x-error.png">&nbsp;<a name="testspec_##ID##">/Test/test3.wet</a> (Firefox52)</h2>
+<img title="error" alt="error" class="resultIcon" src="resources/x-error.png">&nbsp;<a name="testspec_##ID##">/Test/test3.wet</a> (Firefox68)</h2>
 <table class="smallBorder" width="100%" cellspacing="0" cellpadding="2">
 <tr>
 <th style="width: 30px;">Line</th><th style="width: 15px;">&nbsp;</th><th style="width: 120px;">Command</th><th style="width: 20px;">&nbsp;</th><th style="width: 20px;">&nbsp;</th><th style="width: 50%;">Parameter&nbsp;1</th><th>Parameter&nbsp;2</th><th>&nbsp;</th><th style="text-align: right;">Duration</th>
@@ -676,7 +676,7 @@
 </div>
 <div>
 <h2>
-<img title="error" alt="error" class="resultIcon" src="resources/x-error.png">&nbsp;<a name="testspec_##ID##">/Test/test4.wet</a> (Firefox52)</h2>
+<img title="error" alt="error" class="resultIcon" src="resources/x-error.png">&nbsp;<a name="testspec_##ID##">/Test/test4.wet</a> (Firefox68)</h2>
 <table class="smallBorder" width="100%" cellspacing="0" cellpadding="2">
 <tr>
 <th style="width: 30px;">Line</th><th style="width: 15px;">&nbsp;</th><th style="width: 120px;">Command</th><th style="width: 20px;">&nbsp;</th><th style="width: 20px;">&nbsp;</th><th style="width: 50%;">Parameter&nbsp;1</th><th>Parameter&nbsp;2</th><th>&nbsp;</th><th style="text-align: right;">Duration</th>
@@ -740,7 +740,7 @@
 </div>
 <div>
 <h2>
-<img title="error" alt="error" class="resultIcon" src="resources/x-error.png">&nbsp;<a name="testspec_##ID##">/Test/test5.wet</a> (Firefox52)</h2>
+<img title="error" alt="error" class="resultIcon" src="resources/x-error.png">&nbsp;<a name="testspec_##ID##">/Test/test5.wet</a> (Firefox68)</h2>
 <table class="smallBorder" width="100%" cellspacing="0" cellpadding="2">
 <tr>
 <th style="width: 30px;">Line</th><th style="width: 15px;">&nbsp;</th><th style="width: 120px;">Command</th><th style="width: 20px;">&nbsp;</th><th style="width: 20px;">&nbsp;</th><th style="width: 50%;">Parameter&nbsp;1</th><th>Parameter&nbsp;2</th><th>&nbsp;</th><th style="text-align: right;">Duration</th>

@@ -325,19 +325,19 @@
     <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
     <command><tst:assert-fail><tst:command-and-message>Click On, Action for control [HtmlSubmitInput 'Submit HttpError 400'] fails with server error '400 Bad Request for *http_header.php?code=400'.</tst:command-and-message><tst:parameter1>Submit HttpError 400</tst:parameter1></tst:assert-fail></command>
     <command><d:assert-title><d:title>Error 400</d:title></d:assert-title></command>
-    <command><d:assert-content><d:content>HTTP ERROR 400 Problem accessing /http_header.php. Reason: Bad Request Powered by Jetty</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>HTTP ERROR 400 Bad Request URI: /http_header.php STATUS: 400 MESSAGE: Bad Request SERVLET: org.wetator.test.jetty.HttpHeaderServlet-, Powered by Jetty</d:content></d:assert-content></command>
     <comment>404</comment>
     <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
     <command><tst:assert-fail><tst:command-and-message>Click On, Action for control [HtmlSubmitInput 'Submit HttpError 404'] fails with server error '404 Not Found for *http_header.php?code=404'.</tst:command-and-message><tst:parameter1>Submit HttpError 404</tst:parameter1></tst:assert-fail></command>
     <command><d:assert-title><d:title>Error 404</d:title></d:assert-title></command>
-    <command><d:assert-content><d:content>HTTP ERROR 404 Problem accessing /http_header.php. Reason: Not Found Powered by Jetty</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>HTTP ERROR 404 Not Found URI: /http_header.php STATUS: 404 MESSAGE: Not Found SERVLET: org.wetator.test.jetty.HttpHeaderServlet-, Powered by Jetty</d:content></d:assert-content></command>
     <comment>500</comment>
     <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
     <command><tst:assert-fail><tst:command-and-message>Click On, Action for control [HtmlSubmitInput 'Submit HttpError 500'] fails with server error '500 Server Error for *http_header.php?code=500'.</tst:command-and-message><tst:parameter1>Submit HttpError 500</tst:parameter1></tst:assert-fail></command>
     <command><d:assert-title><d:title>Error 500</d:title></d:assert-title></command>
-    <command><d:assert-content><d:content>HTTP ERROR 500 Problem accessing /http_header.php. Reason: Server Error Powered by Jetty</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>HTTP ERROR 500 Server Error URI: /http_header.php STATUS: 500 MESSAGE: Server Error SERVLET: org.wetator.test.jetty.HttpHeaderServlet-, Powered by Jetty</d:content></d:assert-content></command>
     <comment></comment>
     <comment>==== Click Anchor ====</comment>
     <comment>400</comment>
@@ -345,19 +345,19 @@
     <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
     <command><tst:assert-fail><tst:command-and-message>Click On, Action for control [HtmlAnchor 'Anchor HttpError 400' (name='http400')] fails with server error '400 Bad Request for *http_header.php?code=400'.</tst:command-and-message><tst:parameter1>Anchor HttpError 400</tst:parameter1></tst:assert-fail></command>
     <command><d:assert-title><d:title>Error 400</d:title></d:assert-title></command>
-    <command><d:assert-content><d:content>HTTP ERROR 400 Problem accessing /http_header.php. Reason: Bad Request Powered by Jetty</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>HTTP ERROR 400 Bad Request URI: /http_header.php STATUS: 400 MESSAGE: Bad Request SERVLET: org.wetator.test.jetty.HttpHeaderServlet-, Powered by Jetty</d:content></d:assert-content></command>
     <comment>404</comment>
     <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
     <command><tst:assert-fail><tst:command-and-message>Click On, Action for control [HtmlAnchor 'Anchor HttpError 404' (name='http404')] fails with server error '404 Not Found for *http_header.php?code=404'.</tst:command-and-message><tst:parameter1>Anchor HttpError 404</tst:parameter1></tst:assert-fail></command>
     <command><d:assert-title><d:title>Error 404</d:title></d:assert-title></command>
-    <command><d:assert-content><d:content>HTTP ERROR 404 Problem accessing /http_header.php. Reason: Not Found Powered by Jetty</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>HTTP ERROR 404 Not Found URI: /http_header.php STATUS: 404 MESSAGE: Not Found SERVLET: org.wetator.test.jetty.HttpHeaderServlet-, Powered by Jetty</d:content></d:assert-content></command>
     <comment>500</comment>
     <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
     <command><tst:assert-fail><tst:command-and-message>Click On, Action for control [HtmlAnchor 'Anchor HttpError 500' (name='http500')] fails with server error '500 Server Error for *http_header.php?code=500'.</tst:command-and-message><tst:parameter1>Anchor HttpError 500</tst:parameter1></tst:assert-fail></command>
     <command><d:assert-title><d:title>Error 500</d:title></d:assert-title></command>
-    <command><d:assert-content><d:content>HTTP ERROR 500 Problem accessing /http_header.php. Reason: Server Error Powered by Jetty</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>HTTP ERROR 500 Server Error URI: /http_header.php STATUS: 500 MESSAGE: Server Error SERVLET: org.wetator.test.jetty.HttpHeaderServlet-, Powered by Jetty</d:content></d:assert-content></command>
     <comment></comment>
     <comment>==== jsClick ====</comment>
     <comment>400</comment>
@@ -365,17 +365,17 @@
     <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
     <command><tst:assert-fail><tst:command-and-message>Click On, Action for control [HtmlSpan 'jsClick HttpError 400'] fails with server error '400 Bad Request for *http_header.php?code=400'.</tst:command-and-message><tst:parameter1>jsClick HttpError 400</tst:parameter1></tst:assert-fail></command>
     <command><d:assert-title><d:title>Error 400</d:title></d:assert-title></command>
-    <command><d:assert-content><d:content>HTTP ERROR 400 Problem accessing /http_header.php. Reason: Bad Request Powered by Jetty</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>HTTP ERROR 400 Bad Request URI: /http_header.php STATUS: 400 MESSAGE: Bad Request SERVLET: org.wetator.test.jetty.HttpHeaderServlet-, Powered by Jetty</d:content></d:assert-content></command>
     <comment>404</comment>
     <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
     <command><tst:assert-fail><tst:command-and-message>Click On, Action for control [HtmlSpan 'jsClick HttpError 404'] fails with server error '404 Not Found for *http_header.php?code=404'.</tst:command-and-message><tst:parameter1>jsClick HttpError 404</tst:parameter1></tst:assert-fail></command>
     <command><d:assert-title><d:title>Error 404</d:title></d:assert-title></command>
-    <command><d:assert-content><d:content>HTTP ERROR 404 Problem accessing /http_header.php. Reason: Not Found Powered by Jetty</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>HTTP ERROR 404 Not Found URI: /http_header.php STATUS: 404 MESSAGE: Not Found SERVLET: org.wetator.test.jetty.HttpHeaderServlet-, Powered by Jetty</d:content></d:assert-content></command>
     <comment>500</comment>
     <command><d:open-url><d:url>click_on.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Click On</d:title></d:assert-title></command>
     <command><tst:assert-fail><tst:command-and-message>Click On, Action for control [HtmlSpan 'jsClick HttpError 500'] fails with server error '500 Server Error for *http_header.php?code=500'.</tst:command-and-message><tst:parameter1>jsClick HttpError 500</tst:parameter1></tst:assert-fail></command>
     <command><d:assert-title><d:title>Error 500</d:title></d:assert-title></command>
-    <command><d:assert-content><d:content>HTTP ERROR 500 Problem accessing /http_header.php. Reason: Server Error Powered by Jetty</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>HTTP ERROR 500 Server Error URI: /http_header.php STATUS: 500 MESSAGE: Server Error SERVLET: org.wetator.test.jetty.HttpHeaderServlet-, Powered by Jetty</d:content></d:assert-content></command>
 </test-case>

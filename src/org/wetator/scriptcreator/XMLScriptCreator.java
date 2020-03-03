@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2018 wetator.org
+ * Copyright (c) 2008-2020 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -66,7 +66,7 @@ public class XMLScriptCreator implements IScriptCreator {
   public void createScript() {
     final XMLOutputFactory tmpFactory = XMLOutputFactory.newInstance();
     try {
-      final List<XMLSchema> tmpSchemas = new ArrayList<XMLSchema>();
+      final List<XMLSchema> tmpSchemas = new ArrayList<>();
       tmpSchemas.add(new XMLSchema("http://www.wetator.org/xsd/test-case", "test-case-1.0.0.xsd"));
       tmpSchemas
           .add(new XMLSchema("d", "http://www.wetator.org/xsd/default-command-set", "default-command-set-1.0.0.xsd"));
@@ -77,7 +77,7 @@ public class XMLScriptCreator implements IScriptCreator {
       final ModelBuilder tmpModel = new ModelBuilder(tmpSchemas, outputDir);
 
       // get used namespaces
-      final List<NamespaceBean> tmpNamespaces = new ArrayList<NamespaceBean>();
+      final List<NamespaceBean> tmpNamespaces = new ArrayList<>();
       for (final Command tmpCommand : commands) {
         if (!tmpCommand.isComment() && StringUtils.isNotEmpty(tmpCommand.getName())) {
           final CommandType tmpCommandType = tmpModel.getCommandType(tmpCommand.getName());

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2018 wetator.org
+ * Copyright (c) 2008-2020 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,7 +51,7 @@ public abstract class AbstractMatcherTest {
     final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(aHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    final List<MatchResult> tmpMatches = new ArrayList<MatchResult>();
+    final List<MatchResult> tmpMatches = new ArrayList<>();
     for (String tmpHtmlElementId : anHtmlElementIds) {
       final HtmlElement tmpHtmlElement = tmpHtmlPage.getHtmlElementById(tmpHtmlElementId);
 

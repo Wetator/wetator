@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2018 wetator.org
+ * Copyright (c) 2008-2020 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,7 +22,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.wetator.backend.htmlunit.util.PageUtil;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
@@ -44,7 +43,7 @@ public class HtmlUnitUnspecificControlTest {
     // @formatter:on
     final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    final HtmlUnitUnspecificControl<?> tmpControl = new HtmlUnitUnspecificControl<HtmlElement>(
+    final HtmlUnitUnspecificControl<?> tmpControl = new HtmlUnitUnspecificControl<>(
         tmpHtmlPage.getHtmlElementById("myId"));
 
     Assert.assertTrue(tmpControl.isDisabled(null));
@@ -63,7 +62,7 @@ public class HtmlUnitUnspecificControlTest {
     // @formatter:on
     final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    final HtmlUnitUnspecificControl<?> tmpControl = new HtmlUnitUnspecificControl<HtmlElement>(
+    final HtmlUnitUnspecificControl<?> tmpControl = new HtmlUnitUnspecificControl<>(
         tmpHtmlPage.getHtmlElementById("myId"));
 
     Assert.assertFalse(tmpControl.isDisabled(null));
@@ -82,7 +81,7 @@ public class HtmlUnitUnspecificControlTest {
     // @formatter:on
     final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    final HtmlUnitUnspecificControl<?> tmpControl = new HtmlUnitUnspecificControl<HtmlElement>(
+    final HtmlUnitUnspecificControl<?> tmpControl = new HtmlUnitUnspecificControl<>(
         tmpHtmlPage.getHtmlElementById("myId"));
 
     Assert.assertFalse(tmpControl.isDisabled(null));
@@ -99,7 +98,7 @@ public class HtmlUnitUnspecificControlTest {
     // @formatter:on
     final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    final HtmlUnitUnspecificControl<?> tmpControl = new HtmlUnitUnspecificControl<HtmlElement>(
+    final HtmlUnitUnspecificControl<?> tmpControl = new HtmlUnitUnspecificControl<>(
         tmpHtmlPage.getHtmlElementById("myId"));
 
     Assert.assertTrue(tmpControl.isDisabled(null));
@@ -116,7 +115,7 @@ public class HtmlUnitUnspecificControlTest {
     // @formatter:on
     final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    final HtmlUnitUnspecificControl<?> tmpControl = new HtmlUnitUnspecificControl<HtmlElement>(
+    final HtmlUnitUnspecificControl<?> tmpControl = new HtmlUnitUnspecificControl<>(
         tmpHtmlPage.getHtmlElementById("myId"));
 
     // isReadonly is availabe for HtmlInput elements only;

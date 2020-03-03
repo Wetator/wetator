@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2018 wetator.org
+ * Copyright (c) 2008-2020 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,6 +49,8 @@ public class WetatorContext {
   public static final String VARIABLE_BROWSER = "wetator.browser";
   /** The name of the {@link Variable} containing the name of the current test file. */
   public static final String VARIABLE_TESTFILE = "wetator.testfile";
+  /** The name of the {@link Variable} containing the configured base URL. */
+  public static final String VARIABLE_BASEURL = "wetator.baseurl";
 
   private WetatorEngine engine;
   private String testCaseName;
@@ -76,13 +78,14 @@ public class WetatorContext {
     testCaseName = aTestCaseName;
     file = aFile;
     browserType = aBrowserType;
-    variables = new LinkedList<Variable>();
+    variables = new LinkedList<>();
 
     // we add our implicit variables first so they always 'win' against variables with the same name defined
     // programmatically or by configuration
     addVariable(new Variable(VARIABLE_TESTCASE, new SecretString(aTestCaseName)));
     addVariable(new Variable(VARIABLE_BROWSER, new SecretString(aBrowserType.getLabel())));
     addVariable(new Variable(VARIABLE_TESTFILE, new SecretString(aFile.getName())));
+    addVariable(new Variable(VARIABLE_BASEURL, new SecretString(getConfiguration().getBaseUrl())));
   }
 
   /**
@@ -148,7 +151,7 @@ public class WetatorContext {
    * @return the list of known {@link Variable}s
    */
   public List<Variable> getVariables() {
-    final List<Variable> tmpResult = new LinkedList<Variable>();
+    final List<Variable> tmpResult = new LinkedList<>();
 
     // we just add all variables to one combined list; as the replace algorithm always takes the first occurrence of a
     // variable we do not need to implement a shadowing or filter mechanism but 'just' ensure the correct order

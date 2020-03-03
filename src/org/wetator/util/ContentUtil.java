@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2018 wetator.org
+ * Copyright (c) 2008-2020 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -92,7 +92,7 @@ public final class ContentUtil {
   public static String getTxtContentAsString(final InputStream anInputStream, final Charset aCharset,
       final int aMaxLength) throws IOException {
     final NormalizedString tmpResult = new NormalizedString();
-    final Reader tmpReader = new InputStreamReader(anInputStream, aCharset);
+    final Reader tmpReader = new InputStreamReader(anInputStream, aCharset); // NOPMD
     final char[] tmpCharBuffer = new char[1024];
 
     int tmpChars = 0;
@@ -195,7 +195,7 @@ public final class ContentUtil {
   public static String getZipContentAsString(final InputStream anInputStream, final Charset aCharset,
       final Locale aXlsLocale, final int aMaxLength) throws IOException {
     final NormalizedString tmpResult = new NormalizedString();
-    final ZipInputStream tmpZipInput = new ZipInputStream(anInputStream);
+    final ZipInputStream tmpZipInput = new ZipInputStream(anInputStream); // NOPMD
 
     ZipEntry tmpZipEntry = tmpZipInput.getNextEntry();
     while (null != tmpZipEntry) {

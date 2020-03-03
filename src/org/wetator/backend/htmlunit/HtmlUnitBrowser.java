@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2018 wetator.org
+ * Copyright (c) 2008-2020 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -148,15 +148,15 @@ public final class HtmlUnitBrowser implements IBrowser {
     // httpclient should accept all cookies
     System.getProperties().put("apache.commons.httpclient.cookiespec", "COMPATIBILITY");
 
-    savedPages = new WeakHashMap<Page, String>();
+    savedPages = new WeakHashMap<>();
 
-    failures = new LinkedList<AssertionException>();
+    failures = new LinkedList<>();
     wetatorEngine = aWetatorEngine;
 
     // response store
     final WetatorConfiguration tmpConfiguration = wetatorEngine.getConfiguration();
     jsTimeoutInMillis = tmpConfiguration.getJsTimeoutInSeconds() * 1000L;
-    responseStores = new HashMap<BrowserVersion, ResponseStore>();
+    responseStores = new HashMap<>();
     for (final BrowserType tmpBrowserType : tmpConfiguration.getBrowserTypes()) {
       final BrowserVersion tmpBrowserVersion = determineBrowserVersionFor(tmpBrowserType);
       // manipulate the browser version before using it as key for a map
@@ -210,7 +210,7 @@ public final class HtmlUnitBrowser implements IBrowser {
     final WetatorConfiguration tmpConfiguration = wetatorEngine.getConfiguration();
 
     // reset the bookmarks
-    bookmarks = new HashMap<String, URL>();
+    bookmarks = new HashMap<>();
 
     final BrowserVersion tmpBrowserVersion = determineBrowserVersionFor(aBrowserType);
 
@@ -381,6 +381,7 @@ public final class HtmlUnitBrowser implements IBrowser {
    * Our own alert handler.
    */
   public static final class AlertHandler implements com.gargoylesoftware.htmlunit.AlertHandler {
+
     private WetatorEngine wetatorEngine;
 
     /**
@@ -430,6 +431,7 @@ public final class HtmlUnitBrowser implements IBrowser {
    * Our own confirm handler.
    */
   public static final class ConfirmHandler implements com.gargoylesoftware.htmlunit.ConfirmHandler {
+
     private WetatorEngine wetatorEngine;
     private ContentPattern message;
     private boolean result;
@@ -862,7 +864,7 @@ public final class HtmlUnitBrowser implements IBrowser {
      */
     public JavaScriptJobFilter() {
       super();
-      patterns = new ArrayList<SearchPattern>();
+      patterns = new ArrayList<>();
 
     }
 
@@ -913,8 +915,8 @@ public final class HtmlUnitBrowser implements IBrowser {
     if (IBrowser.BrowserType.FIREFOX_60 == aBrowserType) {
       return BrowserVersion.FIREFOX_60;
     }
-    if (IBrowser.BrowserType.FIREFOX_52 == aBrowserType) {
-      return BrowserVersion.FIREFOX_52;
+    if (IBrowser.BrowserType.FIREFOX_68 == aBrowserType) {
+      return BrowserVersion.FIREFOX_68;
     }
     if (IBrowser.BrowserType.INTERNET_EXPLORER == aBrowserType) {
       return BrowserVersion.INTERNET_EXPLORER;
@@ -922,7 +924,7 @@ public final class HtmlUnitBrowser implements IBrowser {
     if (IBrowser.BrowserType.CHROME == aBrowserType) {
       return BrowserVersion.CHROME;
     }
-    return BrowserVersion.FIREFOX_60;
+    return BrowserVersion.FIREFOX_68;
   }
 
   /**

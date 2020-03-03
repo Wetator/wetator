@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2018 wetator.org
+ * Copyright (c) 2008-2020 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -91,7 +91,7 @@ public final class Parameter {
       return;
     }
 
-    parts = new LinkedList<Part>();
+    parts = new LinkedList<>();
     if (StringUtils.isEmpty(value)) {
       return;
     }

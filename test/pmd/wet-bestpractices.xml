@@ -11,18 +11,21 @@ Rules which enforce generally accepted best practices.
 This is a subset of PMD's 'Best Practices' ruleset.
     </description>
 
-    <!-- <rule ref="category/java/bestpractices.xml/AbstractClassWithoutAbstractMethod" /> -->
-    <!-- <rule ref="category/java/bestpractices.xml/AccessorClassGeneration" /> -->
-    <!-- <rule ref="category/java/bestpractices.xml/AccessorMethodGeneration" /> -->
-    <!-- <rule ref="category/java/bestpractices.xml/ArrayIsStoredDirectly" /> -->
+    <!-- not wanted <rule ref="category/java/bestpractices.xml/AbstractClassWithoutAbstractMethod" /> -->
+    <!-- not wanted <rule ref="category/java/bestpractices.xml/AccessorClassGeneration" /> -->
+    <!-- not wanted <rule ref="category/java/bestpractices.xml/AccessorMethodGeneration" /> -->
+    <!-- not wanted <rule ref="category/java/bestpractices.xml/ArrayIsStoredDirectly" /> -->
     <rule ref="category/java/bestpractices.xml/AvoidPrintStackTrace" />
+    <!-- not wanted <rule ref="category/java/bestpractices.xml/AvoidReassigningLoopVariables" /> -->
     <rule ref="category/java/bestpractices.xml/AvoidReassigningParameters" />
-    <!-- <rule ref="category/java/bestpractices.xml/AvoidStringBufferField" /> -->
+    <!-- not wanted <rule ref="category/java/bestpractices.xml/AvoidStringBufferField" /> -->
     <rule ref="category/java/bestpractices.xml/AvoidUsingHardCodedIP" />
     <rule ref="category/java/bestpractices.xml/CheckResultSet" />
-    <!-- <rule ref="category/java/bestpractices.xml/ConstantsInInterface" /> -->
+    <!-- not wanted <rule ref="category/java/bestpractices.xml/ConstantsInInterface" /> -->
     <rule ref="category/java/bestpractices.xml/DefaultLabelNotLastInSwitchStmt" />
+    <rule ref="category/java/bestpractices.xml/DoubleBraceInitialization" />
     <rule ref="category/java/bestpractices.xml/ForLoopCanBeForeach" />
+    <rule ref="category/java/bestpractices.xml/ForLoopVariableCount" />
     <rule ref="category/java/bestpractices.xml/GuardLogStatement">
         <properties>
             <property name="logLevels">
@@ -36,22 +39,22 @@ This is a subset of PMD's 'Best Practices' ruleset.
     <rule ref="category/java/bestpractices.xml/JUnit4SuitesShouldUseSuiteAnnotation" />
     <rule ref="category/java/bestpractices.xml/JUnit4TestShouldUseAfterAnnotation" />
     <rule ref="category/java/bestpractices.xml/JUnit4TestShouldUseBeforeAnnotation" />
-    <!-- <rule ref="category/java/bestpractices.xml/JUnit4TestShouldUseTestAnnotation" /> this produced too many false positives -->
-    <!-- <rule ref="category/java/bestpractices.xml/JUnitAssertionsShouldIncludeMessage" /> -->
-    <!-- <rule ref="category/java/bestpractices.xml/JUnitTestContainsTooManyAsserts" /> -->
-    <!-- <rule ref="category/java/bestpractices.xml/JUnitTestsShouldIncludeAssert" /> -->
+    <!-- not wanted <rule ref="category/java/bestpractices.xml/JUnit4TestShouldUseTestAnnotation" /> this produced too many false positives -->
+    <!-- not wanted <rule ref="category/java/bestpractices.xml/JUnitAssertionsShouldIncludeMessage" /> -->
+    <!-- not wanted <rule ref="category/java/bestpractices.xml/JUnitTestContainsTooManyAsserts" /> -->
+    <!-- not wanted <rule ref="category/java/bestpractices.xml/JUnitTestsShouldIncludeAssert" /> -->
     <rule ref="category/java/bestpractices.xml/JUnitUseExpected" />
     <rule ref="category/java/bestpractices.xml/LooseCoupling" />
-    <!-- <rule ref="category/java/bestpractices.xml/MethodReturnsInternalArray" /> -->
+    <!-- not wanted <rule ref="category/java/bestpractices.xml/MethodReturnsInternalArray" /> -->
     <rule ref="category/java/bestpractices.xml/MissingOverride" />
     <rule ref="category/java/bestpractices.xml/OneDeclarationPerLine" />
     <rule ref="category/java/bestpractices.xml/PositionLiteralsFirstInCaseInsensitiveComparisons" />
     <rule ref="category/java/bestpractices.xml/PositionLiteralsFirstInComparisons" />
-    <!-- <rule ref="category/java/bestpractices.xml/PreserveStackTrace" /> -->
+    <!-- not wanted <rule ref="category/java/bestpractices.xml/PreserveStackTrace" /> -->
     <rule ref="category/java/bestpractices.xml/ReplaceEnumerationWithIterator" />
     <rule ref="category/java/bestpractices.xml/ReplaceHashtableWithMap" />
     <rule ref="category/java/bestpractices.xml/ReplaceVectorWithList" />
-    <!-- <rule ref="category/java/bestpractices.xml/SwitchStmtsShouldHaveDefault" /> -->
+    <!-- not wanted <rule ref="category/java/bestpractices.xml/SwitchStmtsShouldHaveDefault" /> -->
     <rule ref="category/java/bestpractices.xml/SystemPrintln" />
     <rule ref="category/java/bestpractices.xml/UnusedFormalParameter" />
     <rule ref="category/java/bestpractices.xml/UnusedImports" />
@@ -63,6 +66,8 @@ This is a subset of PMD's 'Best Practices' ruleset.
     <rule ref="category/java/bestpractices.xml/UseAssertSameInsteadOfAssertTrue" />
     <rule ref="category/java/bestpractices.xml/UseAssertTrueInsteadOfAssertEquals" />
     <rule ref="category/java/bestpractices.xml/UseCollectionIsEmpty" />
+    <rule ref="category/java/bestpractices.xml/UseTryWithResources" />
     <rule ref="category/java/bestpractices.xml/UseVarargs" />
+    <rule ref="category/java/bestpractices.xml/WhileLoopWithLiteralBoolean" />
 
 </ruleset>

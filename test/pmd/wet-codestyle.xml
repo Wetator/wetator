@@ -11,15 +11,13 @@ Rules which enforce a specific coding style.
 This is a subset of PMD's 'Code Style' ruleset.
     </description>
 
-    <!-- <rule ref="category/java/codestyle.xml/AtLeastOneConstructor" /> -->
+    <!-- not wanted <rule ref="category/java/codestyle.xml/AtLeastOneConstructor" /> -->
     <rule ref="category/java/codestyle.xml/AvoidDollarSigns" />
-    <!-- <rule ref="category/java/codestyle.xml/AvoidFinalLocalVariable" /> -->
-    <!-- <rule ref="category/java/codestyle.xml/AvoidPrefixingMethodParameters" /> -->
     <rule ref="category/java/codestyle.xml/AvoidProtectedFieldInFinalClass" />
     <rule ref="category/java/codestyle.xml/AvoidProtectedMethodInFinalClassNotExtending" />
     <rule ref="category/java/codestyle.xml/AvoidUsingNativeCode" />
     <rule ref="category/java/codestyle.xml/BooleanGetMethodName" />
-    <!-- <rule ref="category/java/codestyle.xml/CallSuperInConstructor" /> -->
+    <!-- not wanted <rule ref="category/java/codestyle.xml/CallSuperInConstructor" /> -->
     <rule ref="category/java/codestyle.xml/ClassNamingConventions">
         <properties>
             <property name="utilityClassPattern">
@@ -27,45 +25,70 @@ This is a subset of PMD's 'Code Style' ruleset.
             </property>
         </properties>
     </rule>
-    <!-- <rule ref="category/java/codestyle.xml/CommentDefaultAccessModifier" /> -->
-    <!-- <rule ref="category/java/codestyle.xml/ConfusingTernary" /> -->
+    <!-- not wanted <rule ref="category/java/codestyle.xml/CommentDefaultAccessModifier" /> -->
+    <!-- not wanted <rule ref="category/java/codestyle.xml/ConfusingTernary" /> -->
     <rule ref="category/java/codestyle.xml/ControlStatementBraces" />
-    <!-- <rule ref="category/java/codestyle.xml/DefaultPackage" /> -->
+    <!-- not wanted <rule ref="category/java/codestyle.xml/DefaultPackage" /> -->
     <rule ref="category/java/codestyle.xml/DontImportJavaLang" />
     <rule ref="category/java/codestyle.xml/DuplicateImports" />
-    <!-- <rule ref="category/java/codestyle.xml/EmptyMethodInAbstractClassShouldBeAbstract" /> -->
+    <!-- not wanted <rule ref="category/java/codestyle.xml/EmptyMethodInAbstractClassShouldBeAbstract" /> -->
     <rule ref="category/java/codestyle.xml/ExtendsObject" />
     <rule ref="category/java/codestyle.xml/FieldDeclarationsShouldBeAtStartOfClass" />
+    <rule ref="category/java/codestyle.xml/FieldNamingConventions" />
     <rule ref="category/java/codestyle.xml/ForLoopShouldBeWhileLoop" />
+    <rule ref="category/java/codestyle.xml/FormalParameterNamingConventions">
+        <properties>
+            <property name="methodParameterPattern">
+                <value>an?[A-Z][a-zA-Z0-9]*</value>
+            </property>
+            <property name="finalMethodParameterPattern">
+                <value>an?[A-Z][a-zA-Z0-9]*</value>
+            </property>
+        </properties>
+    </rule>
     <rule ref="category/java/codestyle.xml/GenericsNaming" />
     <rule ref="category/java/codestyle.xml/IdenticalCatchBranches" />
-    <!-- <rule ref="category/java/codestyle.xml/LocalHomeNamingConvention" /> -->
-    <!-- <rule ref="category/java/codestyle.xml/LocalInterfaceSessionNamingConvention" /> -->
+    <!-- not wanted <rule ref="category/java/codestyle.xml/LinguisticNaming" /> -->
+    <!-- not wanted <rule ref="category/java/codestyle.xml/LocalHomeNamingConvention" /> -->
+    <!-- not wanted <rule ref="category/java/codestyle.xml/LocalInterfaceSessionNamingConvention" /> -->
     <rule ref="category/java/codestyle.xml/LocalVariableCouldBeFinal" />
-    <!-- <rule ref="category/java/codestyle.xml/LongVariable" /> -->
-    <!-- <rule ref="category/java/codestyle.xml/MDBAndSessionBeanNamingConvention" /> -->
+    <rule ref="category/java/codestyle.xml/LocalVariableNamingConventions">
+        <properties>
+            <property name="localVarPattern">
+                <value>tmp[A-Z][a-zA-Z0-9]*|i|j|k</value>
+            </property>
+            <property name="finalVarPattern">
+                <value>tmp[A-Z][a-zA-Z0-9]*|i|j|k</value>
+            </property>
+            <property name="catchParameterPattern">
+                <value>e([A-Z][a-zA-Z0-9]*)?</value>
+            </property>
+        </properties>
+    </rule>
+    <!-- not wanted <rule ref="category/java/codestyle.xml/LongVariable" /> -->
+    <!-- not wanted <rule ref="category/java/codestyle.xml/MDBAndSessionBeanNamingConvention" /> -->
     <rule ref="category/java/codestyle.xml/MethodArgumentCouldBeFinal" />
-    <!-- <rule ref="category/java/codestyle.xml/MethodNamingConventions" /> -->
-    <rule ref="category/java/codestyle.xml/MIsLeadingVariableName" />
+    <!-- not wanted <rule ref="category/java/codestyle.xml/MethodNamingConventions" /> -->
     <rule ref="category/java/codestyle.xml/NoPackage" />
-    <!-- <rule ref="category/java/codestyle.xml/OnlyOneReturn" /> -->
+    <!-- not wanted <rule ref="category/java/codestyle.xml/OnlyOneReturn" /> -->
     <rule ref="category/java/codestyle.xml/PackageCase" />
     <rule ref="category/java/codestyle.xml/PrematureDeclaration" />
-    <!-- <rule ref="category/java/codestyle.xml/RemoteInterfaceNamingConvention" /> -->
-    <!-- <rule ref="category/java/codestyle.xml/RemoteSessionInterfaceNamingConvention" /> -->
-    <!-- <rule ref="category/java/codestyle.xml/ShortClassName" /> -->
-    <!-- <rule ref="category/java/codestyle.xml/ShortMethodName" /> -->
-    <!-- <rule ref="category/java/codestyle.xml/ShortVariable" /> -->
-    <rule ref="category/java/codestyle.xml/SuspiciousConstantFieldName" />
-    <!-- <rule ref="category/java/codestyle.xml/TooManyStaticImports" /> -->
+    <!-- not wanted <rule ref="category/java/codestyle.xml/RemoteInterfaceNamingConvention" /> -->
+    <!-- not wanted <rule ref="category/java/codestyle.xml/RemoteSessionInterfaceNamingConvention" /> -->
+    <!-- not wanted <rule ref="category/java/codestyle.xml/ShortClassName" /> -->
+    <!-- not wanted <rule ref="category/java/codestyle.xml/ShortMethodName" /> -->
+    <!-- not wanted <rule ref="category/java/codestyle.xml/ShortVariable" /> -->
+    <!-- not wanted <rule ref="category/java/codestyle.xml/TooManyStaticImports" /> -->
     <rule ref="category/java/codestyle.xml/UnnecessaryAnnotationValueElement" />
     <rule ref="category/java/codestyle.xml/UnnecessaryConstructor" />
     <rule ref="category/java/codestyle.xml/UnnecessaryFullyQualifiedName" />
     <rule ref="category/java/codestyle.xml/UnnecessaryLocalBeforeReturn" />
     <rule ref="category/java/codestyle.xml/UnnecessaryModifier" />
     <rule ref="category/java/codestyle.xml/UnnecessaryReturn" />
+    <rule ref="category/java/codestyle.xml/UseDiamondOperator" />
     <rule ref="category/java/codestyle.xml/UselessParentheses" />
     <rule ref="category/java/codestyle.xml/UselessQualifiedThis" />
-    <!-- <rule ref="category/java/codestyle.xml/VariableNamingConventions" /> -->
+    <rule ref="category/java/codestyle.xml/UseShortArrayInitializer" />
+    <!-- not wanted <rule ref="category/java/codestyle.xml/UseUnderscoresInNumericLiterals" /> -->
 
 </ruleset>

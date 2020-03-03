@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2018 wetator.org
+ * Copyright (c) 2008-2020 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -52,7 +52,7 @@ public final class Wetator {
   public static void main(final String[] anArgsArray) {
     String tmpConfigFileName = null;
     File tmpDebugLogFile = null;
-    final List<String> tmpFileNames = new LinkedList<String>();
+    final List<String> tmpFileNames = new LinkedList<>();
     // parse the command line
     for (int i = 0; i < anArgsArray.length; i++) {
       final String tmpArg = anArgsArray[i].trim();

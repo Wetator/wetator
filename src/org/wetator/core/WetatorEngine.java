@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2018 wetator.org
+ * Copyright (c) 2008-2020 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -64,8 +64,8 @@ public class WetatorEngine {
    * The constructor.
    */
   public WetatorEngine() {
-    testCases = new LinkedList<TestCase>();
-    progressListener = new LinkedList<IProgressListener>();
+    testCases = new LinkedList<>();
+    progressListener = new LinkedList<>();
   }
 
   /**
@@ -267,7 +267,7 @@ public class WetatorEngine {
   }
 
   private IScripter createScripter(final File aFile) throws InvalidInputException {
-    final List<IScripter.IsSupportedResult> tmpResults = new LinkedList<IScripter.IsSupportedResult>();
+    final List<IScripter.IsSupportedResult> tmpResults = new LinkedList<>();
     for (final IScripter tmpScripter : scripter) {
       final IScripter.IsSupportedResult tmpResult = tmpScripter.isSupported(aFile);
       if (IScripter.IS_SUPPORTED == tmpResult) {
