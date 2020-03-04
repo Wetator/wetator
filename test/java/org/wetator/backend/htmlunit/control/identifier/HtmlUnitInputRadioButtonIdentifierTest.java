@@ -128,7 +128,7 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
 
     Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
     Assert.assertEquals(
-        "[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] by [HtmlLabel 'SecondLabelText' (id='MyLabelId2') for='MyRadioButtonId2'] found by: BY_LABEL_ELEMENT deviation: 0 distance: 27 start: 43 index: 11",
+        "[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] by [HtmlLabel 'SecondLabelText' (id='MyLabelId2') (for='MyRadioButtonId2')] found by: BY_LABEL_ELEMENT deviation: 0 distance: 27 start: 43 index: 11",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
