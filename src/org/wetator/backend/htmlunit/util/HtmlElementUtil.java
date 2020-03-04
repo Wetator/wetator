@@ -32,7 +32,6 @@ import com.gargoylesoftware.htmlunit.html.HtmlCitation;
 import com.gargoylesoftware.htmlunit.html.HtmlCode;
 import com.gargoylesoftware.htmlunit.html.HtmlDefinition;
 import com.gargoylesoftware.htmlunit.html.HtmlDeletedText;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlEmphasis;
 import com.gargoylesoftware.htmlunit.html.HtmlFileInput;
 import com.gargoylesoftware.htmlunit.html.HtmlHiddenInput;
@@ -91,430 +90,311 @@ public final class HtmlElementUtil {
    * @return the describing text
    */
   public static String getDescribingTextForHtmlAnchor(final HtmlAnchor anHtmlAnchor) {
-    final StringBuilder tmpResult = new StringBuilder("[HtmlAnchor");
+    final DescribingTextBuilder tmpBuilder = DescribingTextBuilder.createCustom(anHtmlAnchor);
 
     // TODO this handles only the most common situations
     if (anHtmlAnchor.getFirstChild() instanceof HtmlImage) {
-      tmpResult.append(" 'image: ").append(((HtmlImage) anHtmlAnchor.getFirstChild()).getSrcAttribute()).append('\'');
+      tmpBuilder.addPlain("'image: " + ((HtmlImage) anHtmlAnchor.getFirstChild()).getSrcAttribute() + "'");
     }
 
     final String tmpText = anHtmlAnchor.asText();
     if (StringUtils.isNotEmpty(tmpText)) {
-      tmpResult.append(" '").append(tmpText).append('\'');
+      tmpBuilder.addText(tmpText);
     }
 
-    addId(tmpResult, anHtmlAnchor);
-    addName(tmpResult, anHtmlAnchor);
-
-    tmpResult.append(']');
-    return tmpResult.toString();
+    return tmpBuilder.addId().addName().build();
   }
 
   /**
-   * Generates a describing text for the HtmlButton.
+   * Generates a describing text for the {@link HtmlButton}.
    *
    * @param anHtmlButton the control
    * @return the describing text
    */
   public static String getDescribingTextForHtmlButton(final HtmlButton anHtmlButton) {
-    final StringBuilder tmpResult = new StringBuilder("[HtmlButton");
+    final DescribingTextBuilder tmpBuilder = DescribingTextBuilder.createCustom(anHtmlButton);
 
     // TODO this handles only the most common situations
     if (anHtmlButton.getFirstChild() instanceof HtmlImage) {
-      tmpResult.append(" 'image: ").append(((HtmlImage) anHtmlButton.getFirstChild()).getSrcAttribute()).append('\'');
+      tmpBuilder.addPlain("'image: " + ((HtmlImage) anHtmlButton.getFirstChild()).getSrcAttribute() + "'");
     }
-    if (StringUtils.isNotEmpty(anHtmlButton.asText())) {
-      tmpResult.append(" '").append(anHtmlButton.asText()).append('\'');
+
+    final String tmpText = anHtmlButton.asText();
+    if (StringUtils.isNotEmpty(tmpText)) {
+      tmpBuilder.addText(tmpText);
     } else if (StringUtils.isNotEmpty(anHtmlButton.getValueAttribute())) {
-      tmpResult.append(" '").append(anHtmlButton.getValueAttribute()).append('\'');
+      tmpBuilder.addText(anHtmlButton.getValueAttribute());
     }
 
-    addId(tmpResult, anHtmlButton);
-    addName(tmpResult, anHtmlButton);
-
-    tmpResult.append(']');
-    return tmpResult.toString();
+    return tmpBuilder.addId().addName().build();
   }
 
   /**
-   * Generates a describing text for the HtmlButtonInput.
+   * Generates a describing text for the {@link HtmlButtonInput}.
    *
    * @param anHtmlButtonInput the control
    * @return the describing text
    */
   public static String getDescribingTextForHtmlButtonInput(final HtmlButtonInput anHtmlButtonInput) {
     // @formatter:off
-    final StringBuilder tmpResult = new StringBuilder("[HtmlButtonInput '")
-        .append(anHtmlButtonInput.getValueAttribute())
-        .append('\'');
+    return DescribingTextBuilder.createCustom(anHtmlButtonInput)
+        .addText(anHtmlButtonInput.getValueAttribute())
+        .addId().addName()
+        .build();
     // @formatter:on
-
-    addId(tmpResult, anHtmlButtonInput);
-    addName(tmpResult, anHtmlButtonInput);
-
-    tmpResult.append(']');
-    return tmpResult.toString();
   }
 
   /**
-   * Generates a describing text for the HtmlCheckBoxInput.
+   * Generates a describing text for the {@link HtmlCheckBoxInput}.
    *
    * @param anHtmlCheckBoxInput the control
    * @return the describing text
    */
   public static String getDescribingTextForHtmlCheckBoxInput(final HtmlCheckBoxInput anHtmlCheckBoxInput) {
-    final StringBuilder tmpResult = new StringBuilder("[HtmlCheckBoxInput");
-
-    addId(tmpResult, anHtmlCheckBoxInput);
-    addName(tmpResult, anHtmlCheckBoxInput);
-
-    tmpResult.append(']');
-    return tmpResult.toString();
+    return DescribingTextBuilder.createDefault(anHtmlCheckBoxInput).build();
   }
 
   /**
-   * Generates a describing text for the HtmlFileInput.
+   * Generates a describing text for the {@link HtmlFileInput}.
    *
    * @param anHtmlFileInput the control
    * @return the describing text
    */
   public static String getDescribingTextForHtmlFileInput(final HtmlFileInput anHtmlFileInput) {
-    final StringBuilder tmpResult = new StringBuilder("[HtmlFileInput");
-
-    addId(tmpResult, anHtmlFileInput);
-    addName(tmpResult, anHtmlFileInput);
-
-    tmpResult.append(']');
-    return tmpResult.toString();
+    return DescribingTextBuilder.createDefault(anHtmlFileInput).build();
   }
 
   /**
-   * Generates a describing text for the HtmlHiddenInput.
+   * Generates a describing text for the {@link HtmlHiddenInput}.
    *
    * @param anHtmlHiddenInput the control
    * @return the describing text
    */
   public static String getDescribingTextForHtmlHiddenInput(final HtmlHiddenInput anHtmlHiddenInput) {
-    final StringBuilder tmpResult = new StringBuilder("[HtmlHiddenInput");
-
-    addId(tmpResult, anHtmlHiddenInput);
-    addName(tmpResult, anHtmlHiddenInput);
-
-    tmpResult.append(']');
-    return tmpResult.toString();
+    return DescribingTextBuilder.createDefault(anHtmlHiddenInput).build();
   }
 
   /**
-   * Generates a describing text for the HtmlImage.
+   * Generates a describing text for the {@link HtmlImage}.
    *
    * @param anHtmlImage the control
    * @return the describing text
    */
   public static String getDescribingTextForHtmlImage(final HtmlImage anHtmlImage) {
     // @formatter:off
-    final StringBuilder tmpResult = new StringBuilder("[HtmlImage '")
-        .append(anHtmlImage.getSrcAttribute())
-        .append('\'');
+    return DescribingTextBuilder.createCustom(anHtmlImage)
+        .addText(anHtmlImage.getSrcAttribute())
+        .addId().addName()
+        .build();
     // @formatter:on
-
-    addId(tmpResult, anHtmlImage);
-    addName(tmpResult, anHtmlImage);
-
-    tmpResult.append(']');
-    return tmpResult.toString();
   }
 
   /**
-   * Generates a describing text for the HtmlImageInput.
+   * Generates a describing text for the {@link HtmlImageInput}.
    *
    * @param anHtmlImageInput the control
    * @return the describing text
    */
   public static String getDescribingTextForHtmlImageInput(final HtmlImageInput anHtmlImageInput) {
     // @formatter:off
-    final StringBuilder tmpResult = new StringBuilder("[HtmlImageInput '")
-        .append(anHtmlImageInput.getValueAttribute())
-        .append("\' (src='")
-        .append(anHtmlImageInput.getSrcAttribute())
-        .append("')");
+    return DescribingTextBuilder.createCustom(anHtmlImageInput)
+        .addText(anHtmlImageInput.getValueAttribute())
+        .addAttribute("src", anHtmlImageInput.getSrcAttribute())
+        .addId().addName()
+        .build();
     // @formatter:on
-
-    addId(tmpResult, anHtmlImageInput);
-    addName(tmpResult, anHtmlImageInput);
-
-    tmpResult.append(']');
-    return tmpResult.toString();
   }
 
   /**
-   * Generates a describing text for the HtmlLabel.
+   * Generates a describing text for the {@link HtmlLabel}.
    *
    * @param anHtmlLabel the control
    * @return the describing text
    */
   public static String getDescribingTextForHtmlLabel(final HtmlLabel anHtmlLabel) {
-    final StringBuilder tmpResult = new StringBuilder("[HtmlLabel");
+    final DescribingTextBuilder tmpBuilder = DescribingTextBuilder.createCustom(anHtmlLabel);
 
     final String tmpText = anHtmlLabel.asText();
     if (StringUtils.isNotEmpty(tmpText)) {
-      tmpResult.append(" '").append(tmpText).append('\'');
+      tmpBuilder.addText(tmpText);
     }
 
-    addId(tmpResult, anHtmlLabel);
-    addName(tmpResult, anHtmlLabel);
+    tmpBuilder.addId().addName();
 
     final String tmpFor = anHtmlLabel.getForAttribute();
     if (StringUtils.isNotEmpty(tmpFor)) {
-      tmpResult.append(" for='");
-      tmpResult.append(tmpFor);
-      tmpResult.append('\'');
+      tmpBuilder.addAttribute("for", tmpFor);
     }
 
-    tmpResult.append(']');
-    return tmpResult.toString();
+    return tmpBuilder.build();
   }
 
   /**
-   * Generates a describing text for the HtmlParagraph.
+   * Generates a describing text for the {@link HtmlParagraph}.
    *
    * @param anHtmlParagraph the control
    * @return the describing text
    */
   public static String getDescribingTextForHtmlParagraph(final HtmlParagraph anHtmlParagraph) {
-    final StringBuilder tmpResult = new StringBuilder("[HtmlParagraph");
+    final DescribingTextBuilder tmpBuilder = DescribingTextBuilder.createCustom(anHtmlParagraph);
 
     final String tmpText = anHtmlParagraph.asText();
     if (StringUtils.isNotEmpty(tmpText)) {
-      tmpResult.append(" '").append(tmpText).append('\'');
+      tmpBuilder.addText(tmpText);
     }
 
-    addId(tmpResult, anHtmlParagraph);
-    addName(tmpResult, anHtmlParagraph);
-
-    tmpResult.append(']');
-    return tmpResult.toString();
+    return tmpBuilder.addId().addName().build();
   }
 
   /**
-   * Generates a describing text for the HtmlPasswordInput.
+   * Generates a describing text for the {@link HtmlPasswordInput}.
    *
    * @param anHtmlPasswordInput the control
    * @return the describing text
    */
   public static String getDescribingTextForHtmlPasswordInput(final HtmlPasswordInput anHtmlPasswordInput) {
-    final StringBuilder tmpResult = new StringBuilder("[HtmlPasswordInput");
-
-    addId(tmpResult, anHtmlPasswordInput);
-    addName(tmpResult, anHtmlPasswordInput);
-
-    tmpResult.append(']');
-    return tmpResult.toString();
+    return DescribingTextBuilder.createDefault(anHtmlPasswordInput).build();
   }
 
   /**
-   * Generates a describing text for the HtmlRadioButtonInput.
+   * Generates a describing text for the {@link HtmlRadioButtonInput}.
    *
    * @param anHtmlRadioButtonInput the control
    * @return the describing text
    */
   public static String getDescribingTextForHtmlRadioButtonInput(final HtmlRadioButtonInput anHtmlRadioButtonInput) {
     // @formatter:off
-    final StringBuilder tmpResult = new StringBuilder("[HtmlRadioButtonInput '")
-        .append(anHtmlRadioButtonInput.getValueAttribute())
-        .append('\'');
+    return DescribingTextBuilder.createCustom(anHtmlRadioButtonInput)
+        .addText(anHtmlRadioButtonInput.getValueAttribute())
+        .addId().addName()
+        .build();
     // @formatter:on
-
-    addId(tmpResult, anHtmlRadioButtonInput);
-    addName(tmpResult, anHtmlRadioButtonInput);
-
-    tmpResult.append(']');
-    return tmpResult.toString();
   }
 
   /**
-   * Generates a describing text for the HtmlResetInput.
+   * Generates a describing text for the {@link HtmlResetInput}.
    *
    * @param anHtmlResetInput the control
    * @return the describing text
    */
   public static String getDescribingTextForHtmlResetInput(final HtmlResetInput anHtmlResetInput) {
     // @formatter:off
-    final StringBuilder tmpResult = new StringBuilder("[HtmlResetInput '")
-        .append(anHtmlResetInput.getValueAttribute())
-        .append('\'');
+    return DescribingTextBuilder.createCustom(anHtmlResetInput)
+        .addText(anHtmlResetInput.getValueAttribute())
+        .addId().addName()
+        .build();
     // @formatter:on
-
-    addId(tmpResult, anHtmlResetInput);
-    addName(tmpResult, anHtmlResetInput);
-
-    tmpResult.append(']');
-    return tmpResult.toString();
   }
 
   /**
-   * Generates a describing text for the HtmlSelect.
+   * Generates a describing text for the {@link HtmlSelect}.
    *
    * @param anHtmlSelect the control
    * @return the describing text
    */
   public static String getDescribingTextForHtmlSelect(final HtmlSelect anHtmlSelect) {
-    final StringBuilder tmpResult = new StringBuilder("[HtmlSelect");
-
-    addId(tmpResult, anHtmlSelect);
-    addName(tmpResult, anHtmlSelect);
-
-    tmpResult.append(']');
-    return tmpResult.toString();
+    return DescribingTextBuilder.createDefault(anHtmlSelect).build();
   }
 
   /**
-   * Generates a describing text for the HtmlSpan.
+   * Generates a describing text for the {@link HtmlSpan}.
    *
    * @param anHtmlSpan the control
    * @return the describing text
    */
   public static String getDescribingTextForHtmlSpan(final HtmlSpan anHtmlSpan) {
     // @formatter:off
-    final StringBuilder tmpResult = new StringBuilder("[HtmlSpan '")
-        .append(anHtmlSpan.asText())
-        .append('\'');
+    return DescribingTextBuilder.createCustom(anHtmlSpan)
+        .addText(anHtmlSpan.asText())
+        .addId().addName()
+        .build();
     // @formatter:on
-
-    addId(tmpResult, anHtmlSpan);
-    addName(tmpResult, anHtmlSpan);
-
-    tmpResult.append(']');
-    return tmpResult.toString();
   }
 
   /**
-   * Generates a describing text for the HtmlSubmitInput.
+   * Generates a describing text for the {@link HtmlSubmitInput}.
    *
    * @param anHtmlSubmitInput the control
    * @return the describing text
    */
   public static String getDescribingTextForHtmlSubmitInput(final HtmlSubmitInput anHtmlSubmitInput) {
     // @formatter:off
-    final StringBuilder tmpResult = new StringBuilder("[HtmlSubmitInput '")
-        .append(anHtmlSubmitInput.getValueAttribute())
-        .append('\'');
+    return DescribingTextBuilder.createCustom(anHtmlSubmitInput)
+        .addText(anHtmlSubmitInput.getValueAttribute())
+        .addId().addName()
+        .build();
     // @formatter:on
-
-    addId(tmpResult, anHtmlSubmitInput);
-    addName(tmpResult, anHtmlSubmitInput);
-
-    tmpResult.append(']');
-    return tmpResult.toString();
   }
 
   /**
-   * Generates a describing text for the HtmlTextArea.
+   * Generates a describing text for the {@link HtmlTextArea}.
    *
    * @param anHtmlTextArea the control
    * @return the describing text
    */
   public static String getDescribingTextForHtmlTextArea(final HtmlTextArea anHtmlTextArea) {
-    final StringBuilder tmpResult = new StringBuilder("[HtmlTextArea");
-
-    addId(tmpResult, anHtmlTextArea);
-    addName(tmpResult, anHtmlTextArea);
-
-    tmpResult.append(']');
-    return tmpResult.toString();
+    return DescribingTextBuilder.createDefault(anHtmlTextArea).build();
   }
 
   /**
-   * Generates a describing text for the HtmlTextInput.
+   * Generates a describing text for the {@link HtmlTextInput}.
    *
    * @param anHtmlTextInput the control
    * @return the describing text
    */
   public static String getDescribingTextForHtmlTextInput(final HtmlTextInput anHtmlTextInput) {
-    final StringBuilder tmpResult = new StringBuilder("[HtmlTextInput");
-
-    addId(tmpResult, anHtmlTextInput);
-    addName(tmpResult, anHtmlTextInput);
-
-    tmpResult.append(']');
-    return tmpResult.toString();
+    return DescribingTextBuilder.createDefault(anHtmlTextInput).build();
   }
 
   /**
-   * Generates a describing text for the HtmlOption.
+   * Generates a describing text for the {@link HtmlOption}.
    *
    * @param anHtmlOption the control
    * @return the describing text
    */
   public static String getDescribingTextForHtmlOption(final HtmlOption anHtmlOption) {
     // @formatter:off
-    final StringBuilder tmpResult = new StringBuilder("[HtmlOption '")
-        .append(anHtmlOption.asText())
-        .append('\'');
+    final DescribingTextBuilder tmpBuilder = DescribingTextBuilder.createCustom(anHtmlOption)
+        .addText(anHtmlOption.asText())
+        .addId().addName();
     // @formatter:on
-
-    addId(tmpResult, anHtmlOption);
-    addName(tmpResult, anHtmlOption);
 
     final HtmlSelect tmpSelect = anHtmlOption.getEnclosingSelect();
     if (null != tmpSelect) {
-      tmpResult.append(" part of ").append(getDescribingTextForHtmlSelect(tmpSelect));
+      tmpBuilder.addPlain("part of " + getDescribingTextForHtmlSelect(tmpSelect));
     }
 
-    tmpResult.append(']');
-    return tmpResult.toString();
+    return tmpBuilder.build();
   }
 
   /**
-   * Generates a describing text for the HtmlOptionGroup.
+   * Generates a describing text for the {@link HtmlOptionGroup}.
    *
    * @param anHtmlOptionGroup the control
    * @return the describing text
    */
   public static String getDescribingTextForHtmlOptionGroup(final HtmlOptionGroup anHtmlOptionGroup) {
     // @formatter:off
-    final StringBuilder tmpResult = new StringBuilder("[HtmlOptionGroup '")
-        .append(anHtmlOptionGroup.getLabelAttribute())
-        .append('\'');
+    final DescribingTextBuilder tmpBuilder = DescribingTextBuilder.createCustom(anHtmlOptionGroup)
+        .addText(anHtmlOptionGroup.getLabelAttribute())
+        .addId().addName();
     // @formatter:on
 
-    addId(tmpResult, anHtmlOptionGroup);
-    addName(tmpResult, anHtmlOptionGroup);
-
-    // HtmlSelect tmpSelect = anHtmlOptionGroup.getEnclosingSelect();
-    final HtmlSelect tmpSelect = (HtmlSelect) anHtmlOptionGroup.getEnclosingElement("select");
+    final HtmlSelect tmpSelect = anHtmlOptionGroup.getEnclosingSelect();
     if (null != tmpSelect) {
-      tmpResult.append(" part of ").append(getDescribingTextForHtmlSelect(tmpSelect));
+      tmpBuilder.addPlain("part of " + getDescribingTextForHtmlSelect(tmpSelect));
     }
 
-    tmpResult.append(']');
-    return tmpResult.toString();
-  }
-
-  private static void addId(final StringBuilder aStringBuilder, final HtmlElement anHtmlElement) {
-    final String tmpId = anHtmlElement.getAttribute("id");
-    if (StringUtils.isNotEmpty(tmpId)) {
-      aStringBuilder.append(" (id='");
-      aStringBuilder.append(tmpId);
-      aStringBuilder.append("')");
-    }
-  }
-
-  private static void addName(final StringBuilder aStringBuilder, final HtmlElement anHtmlElement) {
-    final String tmpName = anHtmlElement.getAttribute("name");
-    if (StringUtils.isNotEmpty(tmpName)) {
-      aStringBuilder.append(" (name='");
-      aStringBuilder.append(tmpName);
-      aStringBuilder.append("')");
-    }
+    return tmpBuilder.build();
   }
 
   /**
-   * Returns true, if the provided dom node has display block.
+   * Returns <code>true</code>, if the provided {@link DomNode} has display block.
    * This respects the default for the various tags and additionally
-   * checks for css definitions that might overrule this.
+   * checks for CSS definitions that might overrule this.
    *
    * @param aDomNode the node
-   * @return true or false
+   * @return <code>true</code> if the given {@link DomNode} has display block
    */
   public static boolean isBlock(final DomNode aDomNode) {
     final Page tmpPage = aDomNode.getPage();
@@ -573,10 +453,8 @@ public final class HtmlElementUtil {
   }
 
   /**
-   * Returns true, if the provided dom node is a format Element.
-   *
    * @param aDomNode the node
-   * @return true or false
+   * @return <code>true</code> if the provided {@link DomNode} is a format element
    */
   public static boolean isFormatElement(final DomNode aDomNode) {
     // @formatter:off
