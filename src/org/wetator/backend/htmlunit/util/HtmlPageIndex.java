@@ -423,9 +423,9 @@ public class HtmlPageIndex {
         visibleHtmlElements.add(tmpHtmlElement);
 
         // FIXME do we have to support more mouse events (for other commands)?
-        // click: mousedown, mouseup
-        // mouse-over: mouseenter, mouseover, mousemove
-        // click-double: dblclick, mousedown, mouseup
+        // click: click, mousedown, mouseup
+        // mouse-over: mouseenter, mouseover, mousemove, mouseleave?, mouseout?
+        // click-double: click, dblclick, mousedown, mouseup
         // click-right: contextmenu, mousedown, mouseup
         if (tmpHtmlElement.hasEventHandlers(EVENT_NAME_CLICK)) {
           htmlElementsWithClickListener.add(tmpHtmlElement);
@@ -779,9 +779,8 @@ public class HtmlPageIndex {
    * Helper for debugging.
    */
   public void dumpToLog() {
-    final StringBuilder tmpLog = new StringBuilder(400)
-        .append(
-            "\n ---- HtmlPageIndex dump -------------------------------------------------------\n text                   : ")
+    final StringBuilder tmpLog = new StringBuilder(400).append(
+        "\n ---- HtmlPageIndex dump -------------------------------------------------------\n text                   : ")
         .append(text).append('\n');
 
     // nodes/positions
