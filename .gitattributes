@@ -190,6 +190,7 @@ src/org/wetator/backend/htmlunit/matcher/ByTitleAttributeMatcher.java -text
 src/org/wetator/backend/htmlunit/matcher/ByValueAttributeMatcher.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/matcher/ByWholeTextBeforeMatcher.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/util/ContentTypeUtil.java -text
+src/org/wetator/backend/htmlunit/util/DescribingTextBuilder.java -text
 src/org/wetator/backend/htmlunit/util/ExceptionUtil.java -text
 src/org/wetator/backend/htmlunit/util/HtmlElementUtil.java -text
 src/org/wetator/backend/htmlunit/util/HtmlPageIndex.java -text svneol=unset#text/plain
@@ -334,6 +335,7 @@ test/java/org/wetator/backend/htmlunit/matcher/ByTitleAttributeMatcherTest.java 
 test/java/org/wetator/backend/htmlunit/matcher/ByValueAttributeMatcherTest.java -text svneol=unset#text/plain
 test/java/org/wetator/backend/htmlunit/matcher/ByWholeTextBeforeMatcherTest.java -text svneol=unset#text/plain
 test/java/org/wetator/backend/htmlunit/util/ContentTypeUtilTest.java -text
+test/java/org/wetator/backend/htmlunit/util/DescribingTextBuilderTest.java -text
 test/java/org/wetator/backend/htmlunit/util/HtmlElementUtilTest.java -text
 test/java/org/wetator/backend/htmlunit/util/HtmlPageIndexTest.java -text
 test/java/org/wetator/backend/htmlunit/util/PageUtilTest.java -text
