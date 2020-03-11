@@ -29,6 +29,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.WordUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.wetator.backend.MouseAction;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.FindSpot;
 import org.wetator.util.NormalizedString;
@@ -93,6 +94,9 @@ public class HtmlPageIndex {
   private static final Logger LOG = LogManager.getLogger(HtmlPageIndex.class);
 
   private static final String EVENT_NAME_CLICK = "on" + MouseEvent.TYPE_CLICK;
+  private static final String EVENT_NAME_DBL_CLICK = "on" + MouseEvent.TYPE_DBL_CLICK;
+  private static final String EVENT_NAME_CONTEXT_MENU = "on" + MouseEvent.TYPE_CONTEXT_MENU;
+  private static final String EVENT_NAME_MOUSE_OVER = "on" + MouseEvent.TYPE_MOUSE_OVER;
 
   private HtmlPage htmlPage;
 
@@ -106,6 +110,7 @@ public class HtmlPageIndex {
   private Set<HtmlElement> visibleHtmlElements;
 
   private List<HtmlElement> htmlElementsWithClickListener;
+  private Map<MouseAction, List<HtmlElement>> htmlElementsWithMouseActionListener;
 
   private boolean lastOneWasHtmlElement;
 
@@ -127,7 +132,11 @@ public class HtmlPageIndex {
     visibleHtmlElementsBottomUp = new LinkedHashSet<>();
     visibleHtmlElements = new LinkedHashSet<>();
 
-    htmlElementsWithClickListener = new LinkedList<HtmlElement>();
+    htmlElementsWithClickListener = new LinkedList<>();
+    htmlElementsWithMouseActionListener = new HashMap<>();
+    for (MouseAction tmpMouseAction : MouseAction.values()) {
+      htmlElementsWithMouseActionListener.put(tmpMouseAction, new LinkedList<HtmlElement>());
+    }
 
     parseDomNode(aHtmlPage);
   }
@@ -392,13 +401,24 @@ public class HtmlPageIndex {
   }
 
   /**
-   * Return <code>true</code> if the given element has an event listener for the <code>click</code> event.
+   * Returns <code>true</code> if the given element has an event listener for the <code>click</code> event.
    *
    * @param anHtmlElement the element to check
    * @return <code>true</code> if the given element has an event listener for the <code>click</code> event
    */
   public boolean hasClickListener(final HtmlElement anHtmlElement) {
     return htmlElementsWithClickListener.contains(anHtmlElement);
+  }
+
+  /**
+   * Returns <code>true</code> if the given element has an event listener for the given {@link MouseAction}.
+   *
+   * @param aMouseAction the mouse action to check
+   * @param anHtmlElement the element to check
+   * @return <code>true</code> if the given element has an event listener for the given {@link MouseAction}
+   */
+  public boolean hasMouseActionListener(final MouseAction aMouseAction, final HtmlElement anHtmlElement) {
+    return htmlElementsWithMouseActionListener.get(aMouseAction).contains(anHtmlElement);
   }
 
   private void parseDomNode(final DomNode aDomNode) {
@@ -424,11 +444,26 @@ public class HtmlPageIndex {
 
         // FIXME do we have to support more mouse events (for other commands)?
         // click: click, mousedown, mouseup
-        // mouse-over: mouseenter, mouseover, mousemove, mouseleave?, mouseout?
         // click-double: click, dblclick, mousedown, mouseup
         // click-right: contextmenu, mousedown, mouseup
+        // mouse-over: mouseenter, mouseover, mousemove, mouseleave?, mouseout?
+
+        // FIXME only add the element the handler is attached to or it's children as well?
+        // events bubble in JS so e.g. clicking a nested span triggers the listener on its parent div.
+        // should be click the span or the div in that case (as both contain the same text)?
+        // in reality it does not really make a difference because the inner span does nothing itself.
         if (tmpHtmlElement.hasEventHandlers(EVENT_NAME_CLICK)) {
           htmlElementsWithClickListener.add(tmpHtmlElement);
+          htmlElementsWithMouseActionListener.get(MouseAction.CLICK).add(tmpHtmlElement);
+        }
+        if (tmpHtmlElement.hasEventHandlers(EVENT_NAME_DBL_CLICK)) {
+          htmlElementsWithMouseActionListener.get(MouseAction.CLICK_DOUBLE).add(tmpHtmlElement);
+        }
+        if (tmpHtmlElement.hasEventHandlers(EVENT_NAME_CONTEXT_MENU)) {
+          htmlElementsWithMouseActionListener.get(MouseAction.CLICK_RIGHT).add(tmpHtmlElement);
+        }
+        if (tmpHtmlElement.hasEventHandlers(EVENT_NAME_MOUSE_OVER)) {
+          htmlElementsWithMouseActionListener.get(MouseAction.MOUSE_OVER).add(tmpHtmlElement);
         }
 
         if (HtmlElementUtil.isFormatElement(aDomNode) && lastOneWasHtmlElement) {
