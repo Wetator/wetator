@@ -63,7 +63,6 @@
     <module name="InnerAssignment"/>
     <module name="MissingSwitchDefault"/>
     <module name="MultipleVariableDeclarations"/>
-    <module name="ArrayTrailingComma"/>
     <module name="NoFinalizer"/>
     <module name="OneStatementPerLine"/>
     <module name="PackageDeclaration"/>
