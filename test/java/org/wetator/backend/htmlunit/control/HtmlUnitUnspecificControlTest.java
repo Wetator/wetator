@@ -16,9 +16,11 @@
 
 package org.wetator.backend.htmlunit.control;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.io.IOException;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.wetator.backend.htmlunit.util.PageUtil;
 
@@ -46,7 +48,7 @@ public class HtmlUnitUnspecificControlTest {
     final HtmlUnitUnspecificControl<?> tmpControl = new HtmlUnitUnspecificControl<>(
         tmpHtmlPage.getHtmlElementById("myId"));
 
-    Assert.assertTrue(tmpControl.isDisabled(null));
+    assertTrue(tmpControl.isDisabled(null));
   }
 
   @Test
@@ -65,7 +67,7 @@ public class HtmlUnitUnspecificControlTest {
     final HtmlUnitUnspecificControl<?> tmpControl = new HtmlUnitUnspecificControl<>(
         tmpHtmlPage.getHtmlElementById("myId"));
 
-    Assert.assertFalse(tmpControl.isDisabled(null));
+    assertFalse(tmpControl.isDisabled(null));
   }
 
   @Test
@@ -84,7 +86,7 @@ public class HtmlUnitUnspecificControlTest {
     final HtmlUnitUnspecificControl<?> tmpControl = new HtmlUnitUnspecificControl<>(
         tmpHtmlPage.getHtmlElementById("myId"));
 
-    Assert.assertFalse(tmpControl.isDisabled(null));
+    assertFalse(tmpControl.isDisabled(null));
   }
 
   @Test
@@ -101,7 +103,7 @@ public class HtmlUnitUnspecificControlTest {
     final HtmlUnitUnspecificControl<?> tmpControl = new HtmlUnitUnspecificControl<>(
         tmpHtmlPage.getHtmlElementById("myId"));
 
-    Assert.assertTrue(tmpControl.isDisabled(null));
+    assertTrue(tmpControl.isDisabled(null));
   }
 
   @Test
@@ -121,6 +123,6 @@ public class HtmlUnitUnspecificControlTest {
     // isReadonly is availabe for HtmlInput elements only;
     // because we have separate classes for all input elements,
     // we have no nee to handle this generic
-    Assert.assertFalse(tmpControl.isDisabled(null));
+    assertFalse(tmpControl.isDisabled(null));
   }
 }

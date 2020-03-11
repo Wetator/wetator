@@ -16,9 +16,10 @@
 
 package org.wetator.backend.htmlunit.control.identifier;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.IOException;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.wetator.backend.WPath;
@@ -51,10 +52,10 @@ public class HtmlUnitInputButtonIdentifierTest extends AbstractHtmlUnitControlId
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert.assertEquals(
-        "[HtmlButtonInput 'ClickMe' (id='myId')] found by: BY_ID deviation: 0 distance: 0 start: 0 index: 5",
+    assertEquals(
+        "[HtmlButtonInput 'ClickMe' (id='myId')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -72,10 +73,10 @@ public class HtmlUnitInputButtonIdentifierTest extends AbstractHtmlUnitControlId
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert.assertEquals(
-        "[HtmlButtonInput 'ClickMe' (id='myId') (name='MyName')] found by: BY_NAME deviation: 0 distance: 0 start: 0 index: 5",
+    assertEquals(
+        "[HtmlButtonInput 'ClickMe' (id='myId') (name='MyName')] found by: BY_NAME deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -93,10 +94,10 @@ public class HtmlUnitInputButtonIdentifierTest extends AbstractHtmlUnitControlId
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert.assertEquals(
-        "[HtmlButtonInput 'ClickMe' (id='myId')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 index: 5",
+    assertEquals(
+        "[HtmlButtonInput 'ClickMe' (id='myId')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -114,10 +115,10 @@ public class HtmlUnitInputButtonIdentifierTest extends AbstractHtmlUnitControlId
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyName");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert.assertEquals(
-        "[HtmlButtonInput 'MyName' (id='MyName') (name='MyName')] found by: BY_ID deviation: 0 distance: 0 start: 0 index: 5",
+    assertEquals(
+        "[HtmlButtonInput 'MyName' (id='MyName') (name='MyName')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -154,10 +155,10 @@ public class HtmlUnitInputButtonIdentifierTest extends AbstractHtmlUnitControlId
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "InputButton_1_2",
         "InputButton_1_3", "InputButton_2_2", "InputButton_2_3");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert.assertEquals(
-        "[HtmlButtonInput 'Click' (id='InputButton_2_3')] found by: BY_TABLE_COORDINATE deviation: 0 distance: 56 start: 56 index: 45",
+    assertEquals(
+        "[HtmlButtonInput 'Click' (id='InputButton_2_3')] found by: BY_TABLE_COORDINATE deviation: 0 distance: 56 start: 56 hierarchy: 0>1>3>5>22>36>44>45 index: 45",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -194,10 +195,10 @@ public class HtmlUnitInputButtonIdentifierTest extends AbstractHtmlUnitControlId
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "InputButton_1_2",
         "InputButton_1_3", "InputButton_2_2", "InputButton_2_3");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert.assertEquals(
-        "[HtmlButtonInput 'Click' (id='InputButton_2_3')] found by: BY_LABEL deviation: 0 distance: 56 start: 56 index: 45",
+    assertEquals(
+        "[HtmlButtonInput 'Click' (id='InputButton_2_3')] found by: BY_LABEL deviation: 0 distance: 56 start: 56 hierarchy: 0>1>3>5>22>36>44>45 index: 45",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 }

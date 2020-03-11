@@ -16,10 +16,11 @@
 
 package org.wetator.backend.htmlunit;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.IOException;
 import java.io.StringWriter;
 
-import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.wetator.backend.htmlunit.util.PageUtil;
@@ -56,16 +57,14 @@ public class XHtmlOutputterHtmlPageTest {
     XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
     StringWriter tmpWriter = new StringWriter();
     tmpXHtmlOutputter.writeTo(tmpWriter);
-    Assert.assertEquals(tmpBrowser.getApplicationName(), anExpected,
-        new NormalizedString(tmpWriter.toString()).toString());
+    assertEquals(tmpBrowser.getApplicationName(), anExpected, new NormalizedString(tmpWriter.toString()).toString());
 
     tmpBrowser = BrowserVersion.FIREFOX_68;
     tmpHtmlPage = PageUtil.constructHtmlPage(tmpBrowser, anHtmlCode);
     tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
     tmpWriter = new StringWriter();
     tmpXHtmlOutputter.writeTo(tmpWriter);
-    Assert.assertEquals(tmpBrowser.getApplicationName(), anExpected,
-        new NormalizedString(tmpWriter.toString()).toString());
+    assertEquals(tmpBrowser.getApplicationName(), anExpected, new NormalizedString(tmpWriter.toString()).toString());
   }
 
   @Test
@@ -237,7 +236,7 @@ public class XHtmlOutputterHtmlPageTest {
             + "</select> "
             + EXPECTED_TRAILING;
     // @formatter:on
-    Assert.assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
+    assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
 
     final HtmlOption tmpOption = (HtmlOption) tmpHtmlPage.getElementById("tst");
     tmpOption.setSelected(true);
@@ -255,7 +254,7 @@ public class XHtmlOutputterHtmlPageTest {
             + "</select> "
             + EXPECTED_TRAILING;
     // @formatter:on
-    Assert.assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
+    assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
   }
 
   @Test
@@ -284,7 +283,7 @@ public class XHtmlOutputterHtmlPageTest {
           + "</form> "
         + EXPECTED_TRAILING;
     // @formatter:on
-    Assert.assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
+    assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
 
     final HtmlRadioButtonInput tmpRadio = (HtmlRadioButtonInput) tmpHtmlPage.getElementById("tst");
     tmpRadio.setChecked(true);
@@ -302,7 +301,7 @@ public class XHtmlOutputterHtmlPageTest {
           + "</form> "
         + EXPECTED_TRAILING;
     // @formatter:on
-    Assert.assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
+    assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
   }
 
   @Test
@@ -329,7 +328,7 @@ public class XHtmlOutputterHtmlPageTest {
           + "</form> "
         + EXPECTED_TRAILING;
     // @formatter:on
-    Assert.assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
+    assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
 
     // @formatter:off
     tmpHtmlCode =
@@ -356,7 +355,7 @@ public class XHtmlOutputterHtmlPageTest {
           + "</form> "
         + EXPECTED_TRAILING;
     // @formatter:on
-    Assert.assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
+    assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
   }
 
   @Test
@@ -383,7 +382,7 @@ public class XHtmlOutputterHtmlPageTest {
           + "</form> "
         + EXPECTED_TRAILING;
     // @formatter:on
-    Assert.assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
+    assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
 
     // @formatter:off
     tmpHtmlCode =
@@ -410,6 +409,6 @@ public class XHtmlOutputterHtmlPageTest {
           + "</form> "
         + EXPECTED_TRAILING;
     // @formatter:on
-    Assert.assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
+    assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
   }
 }

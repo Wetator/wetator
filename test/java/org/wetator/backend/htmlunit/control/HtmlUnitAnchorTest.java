@@ -16,9 +16,11 @@
 
 package org.wetator.backend.htmlunit.control;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import java.io.IOException;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.wetator.backend.htmlunit.util.PageUtil;
 
@@ -44,10 +46,9 @@ public class HtmlUnitAnchorTest {
 
     try {
       tmpControl.isDisabled(null);
-      Assert.fail("UnsupportedOperationException expected");
+      fail("UnsupportedOperationException expected");
     } catch (final org.wetator.exception.UnsupportedOperationException e) {
-      Assert.assertEquals(
-          "The HTML element [HtmlAnchor 'test' (id='myId')] does not support the disabled state/property.",
+      assertEquals("The HTML element [HtmlAnchor 'test' (id='myId')] does not support the disabled state/property.",
           e.getMessage());
     }
   }

@@ -16,9 +16,11 @@
 
 package org.wetator.backend.htmlunit;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
+
 import java.io.IOException;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.wetator.backend.htmlunit.control.HtmlUnitAnchor;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl;
@@ -45,7 +47,7 @@ public class HtmlUnitControlRepositoryTest {
 
     final HtmlUnitControlRepository tmpRepository = new HtmlUnitControlRepository();
 
-    Assert.assertNull(tmpRepository.getForHtmlElement(tmpHtmlElement));
+    assertNull(tmpRepository.getForHtmlElement(tmpHtmlElement));
   }
 
   @Test
@@ -60,7 +62,7 @@ public class HtmlUnitControlRepositoryTest {
     final HtmlUnitControlRepository tmpRepository = new HtmlUnitControlRepository();
     tmpRepository.add(HtmlUnitAnchor.class);
 
-    Assert.assertEquals(HtmlUnitAnchor.class, tmpRepository.getForHtmlElement(tmpHtmlElement));
+    assertEquals(HtmlUnitAnchor.class, tmpRepository.getForHtmlElement(tmpHtmlElement));
   }
 
   @Test
@@ -76,7 +78,7 @@ public class HtmlUnitControlRepositoryTest {
     tmpRepository.add(HtmlUnitAnchor.class);
     tmpRepository.add(TestControl.class);
 
-    Assert.assertEquals(TestControl.class, tmpRepository.getForHtmlElement(tmpHtmlElement));
+    assertEquals(TestControl.class, tmpRepository.getForHtmlElement(tmpHtmlElement));
   }
 
   @Test
@@ -92,7 +94,7 @@ public class HtmlUnitControlRepositoryTest {
     tmpRepository.add(HtmlUnitAnchor.class);
     tmpRepository.add(TestControl.class);
 
-    Assert.assertEquals(HtmlUnitAnchor.class, tmpRepository.getForHtmlElement(tmpHtmlElement));
+    assertEquals(HtmlUnitAnchor.class, tmpRepository.getForHtmlElement(tmpHtmlElement));
   }
 
   /**

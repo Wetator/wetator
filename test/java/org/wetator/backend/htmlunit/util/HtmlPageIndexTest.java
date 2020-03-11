@@ -16,7 +16,9 @@
 
 package org.wetator.backend.htmlunit.util;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.net.URL;
@@ -26,6 +28,7 @@ import java.util.Map;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.wetator.backend.MouseAction;
+import org.wetator.util.FindSpot;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.ElementNotFoundException;
@@ -1184,6 +1187,555 @@ public class HtmlPageIndexTest {
     // @formatter:on
 
     getIndex(5, tmpHtmlCode);
+  }
+
+  private void getPosition(final int aStartPos, final int anEndPos, final String anHtmlCode) throws Exception {
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(anHtmlCode);
+    final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+
+    assertFindSpot(aStartPos, anEndPos, tmpResult.getPosition((HtmlElement) tmpHtmlPage.getElementById("myID")));
+  }
+
+  private void assertFindSpot(final int aStartPos, final int anEndPos, final FindSpot aFindSpot) {
+    assertEquals(new FindSpot(aStartPos, anEndPos), aFindSpot);
+  }
+
+  @Test
+  public void getPosition_EmptyPage() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><head></head><body>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+
+    assertFindSpot(0, 0, tmpResult.getPosition((HtmlElement) tmpHtmlPage.getElementsByTagName("html").get(0)));
+    assertFindSpot(0, 0, tmpResult.getPosition((HtmlElement) tmpHtmlPage.getElementsByTagName("head").get(0)));
+    assertFindSpot(0, 0, tmpResult.getPosition((HtmlElement) tmpHtmlPage.getElementsByTagName("body").get(0)));
+  }
+
+  @Test
+  public void getPosition_EmptyPageNoHead() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+
+    assertFindSpot(0, 0, tmpResult.getPosition((HtmlElement) tmpHtmlPage.getElementsByTagName("html").get(0)));
+    assertFindSpot(0, 0, tmpResult.getPosition((HtmlElement) tmpHtmlPage.getElementsByTagName("head").get(0)));
+    assertFindSpot(0, 0, tmpResult.getPosition((HtmlElement) tmpHtmlPage.getElementsByTagName("body").get(0)));
+  }
+
+  @Test
+  public void getPosition_Single() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div id='myID'></div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getPosition(0, 0, tmpHtmlCode);
+  }
+
+  @Test
+  public void getPosition_Single_WithText() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div id='myID'>text</div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getPosition(0, 4, tmpHtmlCode);
+  }
+
+  @Test
+  public void getPosition_AfterText() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "before"
+        + "<div id='myID'></div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getPosition(6, 6, tmpHtmlCode);
+  }
+
+  @Test
+  public void getPosition_AfterElement() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div></div>"
+        + "<div id='myID'></div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getPosition(0, 0, tmpHtmlCode);
+  }
+
+  @Test
+  public void getPosition_AfterElementWithText() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div>text</div>"
+        + "<div id='myID'></div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getPosition(4, 4, tmpHtmlCode);
+  }
+
+  @Test
+  public void getPosition_AfterComment() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<!-- comment -->"
+        + "<div id='myID'></div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getPosition(0, 0, tmpHtmlCode);
+  }
+
+  @Test
+  public void getPosition_InsideElement() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div>"
+        + "<div id='myID'></div>"
+        + "</div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getPosition(0, 0, tmpHtmlCode);
+  }
+
+  @Test
+  public void getPosition_InsideElementAfterText() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div>"
+        + "before"
+        + "<div id='myID'></div>"
+        + "</div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getPosition(6, 6, tmpHtmlCode);
+  }
+
+  @Test
+  public void getPosition_InsideElementAfterElement() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div>"
+        + "<div></div>"
+        + "<div id='myID'></div>"
+        + "</div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getPosition(0, 0, tmpHtmlCode);
+  }
+
+  @Test
+  public void getPosition_InsideElementAfterElementWithText() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div>"
+        + "<div>text</div>"
+        + "<div id='myID'></div>"
+        + "</div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getPosition(4, 4, tmpHtmlCode);
+  }
+
+  @Test
+  public void getPosition_CSSDisplayNone() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div id='myID' style='display: none;'></div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getPosition(0, 0, tmpHtmlCode);
+  }
+
+  @Test
+  public void getPosition_CSSDisplayNone_WithText() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div id='myID' style='display: none;'>text</div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getPosition(0, 0, tmpHtmlCode);
+  }
+
+  @Test
+  public void getPosition_AfterCSSDisplayNone() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div style='display: none;'></div>"
+        + "<div id='myID'></div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getPosition(0, 0, tmpHtmlCode);
+  }
+
+  @Test
+  public void getPosition_AfterCSSDisplayNoneWithText() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div style='display: none;'>text</div>"
+        + "<div id='myID'></div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getPosition(0, 0, tmpHtmlCode);
+  }
+
+  @Test
+  @Ignore("add not-displayed children of not-displayed elements to the index?")
+  // TODO add not-displayed children of not-displayed elements to the index?
+  public void getPosition_InsideCSSDisplayNone() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div style='display: none;'>"
+        + "<div id='myID'></div>"
+        + "</div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getPosition(0, 0, tmpHtmlCode);
+  }
+
+  @Test
+  public void getPosition_CSSVisibilityHidden() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div id='myID' style='visibility: hidden;'></div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getPosition(0, 0, tmpHtmlCode);
+  }
+
+  @Test
+  public void getPosition_CSSVisibilityHidden_WithText() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div id='myID' style='visibility: hidden;'>text</div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getPosition(0, 0, tmpHtmlCode);
+  }
+
+  @Test
+  public void getPosition_AfterCSSVisibilityHidden() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div style='visibility: hidden;'></div>"
+        + "<div id='myID'></div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getPosition(0, 0, tmpHtmlCode);
+  }
+
+  @Test
+  public void getPosition_AfterCSSVisibilityHiddenWithText() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div style='visibility: hidden;'>text</div>"
+        + "<div id='myID'></div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getPosition(0, 0, tmpHtmlCode);
+  }
+
+  @Test
+  @Ignore("add hidden children of hidden elements to the index?")
+  // TODO add hidden children of hidden elements to the index?
+  public void getPosition_InsideCSSVisibilityHidden() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div style='visibility: hidden;'>"
+        + "<div id='myID'></div>"
+        + "</div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getPosition(0, 0, tmpHtmlCode);
+  }
+
+  @Test
+  @Ignore("add hidden children of hidden elements to the index?")
+  // TODO add hidden children of hidden elements to the index?
+  public void getPosition_InsideCSSVisibilityHidden_WithText() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div style='visibility: hidden;'>"
+        + "<div id='myID'>text</div>"
+        + "</div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getPosition(0, 0, tmpHtmlCode);
+  }
+
+  @Test
+  @Ignore("handling of visibility:hidden is currently broken")
+  // TODO handling of visibility:hidden is currently broken
+  public void getPosition_InsideCSSVisibilityHiddenButVisible() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div style='visibility: hidden;'>"
+        + "<div id='myID' style='visibility: visible;'></div>"
+        + "</div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getPosition(0, 0, tmpHtmlCode);
+  }
+
+  @Test
+  @Ignore("handling of visibility:hidden is currently broken")
+  // TODO handling of visibility:hidden is currently broken
+  public void getPosition_InsideCSSVisibilityHiddenButVisible_WithText() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div style='visibility: hidden;'>"
+        + "<div id='myID' style='visibility: visible;'>text</div>"
+        + "</div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getPosition(0, 0, tmpHtmlCode);
+  }
+
+  private void getHierarchy(final String anExpected, final String anHtmlCode) throws Exception {
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(anHtmlCode);
+    final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+
+    assertEquals(anExpected, tmpResult.getHierarchy((HtmlElement) tmpHtmlPage.getElementById("myID")));
+  }
+
+  @Test
+  public void getHierarchy_EmptyPage() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><head></head><body>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+
+    assertEquals("0>1", tmpResult.getHierarchy((HtmlElement) tmpHtmlPage.getElementsByTagName("html").get(0)));
+    assertEquals("0>1>2", tmpResult.getHierarchy((HtmlElement) tmpHtmlPage.getElementsByTagName("head").get(0)));
+    assertEquals("0>1>3", tmpResult.getHierarchy((HtmlElement) tmpHtmlPage.getElementsByTagName("body").get(0)));
+  }
+
+  @Test
+  public void getHierarchy_EmptyPageNoHead() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+
+    assertEquals("0>1", tmpResult.getHierarchy((HtmlElement) tmpHtmlPage.getElementsByTagName("html").get(0)));
+    assertEquals("0>1>2", tmpResult.getHierarchy((HtmlElement) tmpHtmlPage.getElementsByTagName("head").get(0)));
+    assertEquals("0>1>3", tmpResult.getHierarchy((HtmlElement) tmpHtmlPage.getElementsByTagName("body").get(0)));
+  }
+
+  @Test
+  public void getHierarchy_Single() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div id='myID'></div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getHierarchy("0>1>3>4", tmpHtmlCode);
+  }
+
+  @Test
+  public void getHierarchy_AfterText() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "before"
+        + "<div id='myID'></div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getHierarchy("0>1>3>5", tmpHtmlCode);
+  }
+
+  @Test
+  public void getHierarchy_AfterElement() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div></div>"
+        + "<div id='myID'></div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getHierarchy("0>1>3>5", tmpHtmlCode);
+  }
+
+  @Test
+  public void getHierarchy_AfterComment() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<!-- comment -->"
+        + "<div id='myID'></div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getHierarchy("0>1>3>5", tmpHtmlCode);
+  }
+
+  @Test
+  public void getHierarchy_InsideElement() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div>"
+        + "<div id='myID'></div>"
+        + "</div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getHierarchy("0>1>3>4>5", tmpHtmlCode);
+  }
+
+  @Test
+  public void getHierarchy_InsideElementAfterText() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div>"
+        + "before"
+        + "<div id='myID'></div>"
+        + "</div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getHierarchy("0>1>3>4>6", tmpHtmlCode);
+  }
+
+  @Test
+  public void getHierarchy_InsideElementAfterElement() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div>"
+        + "<div></div>"
+        + "<div id='myID'></div>"
+        + "</div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getHierarchy("0>1>3>4>6", tmpHtmlCode);
+  }
+
+  @Test
+  public void getHierarchy_CSSDisplayNone() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div id='myID' style='display: none;'></div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getHierarchy("0>1>3>4", tmpHtmlCode);
+  }
+
+  @Test
+  public void getHierarchy_AfterCSSDisplayNone() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div style='display: none;'></div>"
+        + "<div id='myID'></div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getHierarchy("0>1>3>5", tmpHtmlCode);
+  }
+
+  @Test
+  @Ignore("add not-displayed children of not-displayed elements to the index?")
+  // TODO add not-displayed children of not-displayed elements to the index?
+  public void getHierarchy_InsideCSSDisplayNone() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div style='display: none;'>"
+        + "<div id='myID'></div>"
+        + "</div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getHierarchy("0>1>3>4>5", tmpHtmlCode);
+  }
+
+  @Test
+  public void getHierarchy_CSSVisibilityHidden() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div id='myID' style='visibility: hidden;'></div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getHierarchy("0>1>3>4", tmpHtmlCode);
+  }
+
+  @Test
+  public void getHierarchy_AfterCSSVisibilityHidden() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div style='visibility: hidden;'></div>"
+        + "<div id='myID'></div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getHierarchy("0>1>3>5", tmpHtmlCode);
+  }
+
+  @Test
+  @Ignore("add hidden children of hidden elements to the index?")
+  // TODO add hidden children of hidden elements to the index?
+  public void getHierarchy_InsideCSSVisibilityHidden() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div style='visibility: hidden;'>"
+        + "<div id='myID'></div>"
+        + "</div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getHierarchy("0>1>3>4>5", tmpHtmlCode);
+  }
+
+  @Test
+  @Ignore("handling of visibility:hidden is currently broken")
+  // TODO handling of visibility:hidden is currently broken
+  public void getHierarchy_InsideCSSVisibilityHiddenButVisible() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div style='visibility: hidden;'>"
+        + "<div id='myID' style='visibility: visible;'></div>"
+        + "</div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getHierarchy("0>1>3>4>5", tmpHtmlCode);
   }
 
   @Test

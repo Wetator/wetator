@@ -16,9 +16,10 @@
 
 package org.wetator.backend.htmlunit.control.identifier;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.IOException;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.wetator.backend.WPath;
@@ -53,10 +54,10 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert.assertEquals(
-        "[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] found by: BY_ID deviation: 0 distance: 0 start: 0 index: 5",
+    assertEquals(
+        "[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -76,10 +77,10 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert.assertEquals(
-        "[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] found by: BY_NAME deviation: 0 distance: 0 start: 0 index: 5",
+    assertEquals(
+        "[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] found by: BY_NAME deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -99,10 +100,10 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert.assertEquals(
-        "[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 index: 5",
+    assertEquals(
+        "[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -122,10 +123,10 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert.assertEquals(
-        "[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] found by: BY_ARIA_LABEL_ATTRIBUTE deviation: 0 distance: 0 start: 0 index: 5",
+    assertEquals(
+        "[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] found by: BY_ARIA_LABEL_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -145,10 +146,10 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyName");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert.assertEquals(
-        "[HtmlButton 'MyName' (id='MyName') (name='MyName')] found by: BY_ID deviation: 0 distance: 0 start: 0 index: 5",
+    assertEquals(
+        "[HtmlButton 'MyName' (id='MyName') (name='MyName')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -168,10 +169,10 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert.assertEquals(
-        "[HtmlButton 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_NAME deviation: 0 distance: 0 start: 0 index: 5",
+    assertEquals(
+        "[HtmlButton 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_NAME deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -191,10 +192,10 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert.assertEquals(
-        "[HtmlButton 'image: picture.png' (id='myId') (name='MyName')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 index: 5",
+    assertEquals(
+        "[HtmlButton 'image: picture.png' (id='myId') (name='MyName')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -214,10 +215,10 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert.assertEquals(
-        "[HtmlButton 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_IMG_TITLE_ATTRIBUTE deviation: 0 distance: 0 start: 0 index: 5",
+    assertEquals(
+        "[HtmlButton 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_IMG_TITLE_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -237,10 +238,10 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert.assertEquals(
-        "[HtmlButton 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_IMG_SRC_ATTRIBUTE deviation: 0 distance: 0 start: 0 index: 5",
+    assertEquals(
+        "[HtmlButton 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_IMG_SRC_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -277,10 +278,10 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId_1_2", "myId_1_3",
         "myId_2_2", "myId_2_3");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(1, tmpFound.getEntriesSorted().size());
 
-    Assert.assertEquals(
-        "[HtmlButton 'ClickMe' (id='myId_2_3')] found by: BY_TABLE_COORDINATE deviation: 0 distance: 62 start: 62 index: 48",
+    assertEquals(
+        "[HtmlButton 'ClickMe' (id='myId_2_3')] found by: BY_TABLE_COORDINATE deviation: 0 distance: 62 start: 62 hierarchy: 0>1>3>5>22>38>47>48 index: 48",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 }

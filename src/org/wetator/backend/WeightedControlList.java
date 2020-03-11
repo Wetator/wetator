@@ -53,16 +53,18 @@ public final class WeightedControlList {
    * @param aDeviation the deviation
    * @param aDistance the distance
    * @param aStart the start
+   * @param aHierarchy the hierarchy
    * @param anIndex the index
    */
   public void add(final IControl aControl, final FoundType aFoundType, final int aDeviation, final int aDistance,
-      final int aStart, final int anIndex) {
+      final int aStart, final String aHierarchy, final int anIndex) {
     final Entry tmpEntry = new Entry();
     tmpEntry.control = aControl;
     tmpEntry.foundType = aFoundType;
     tmpEntry.deviation = aDeviation;
     tmpEntry.distance = aDistance;
     tmpEntry.start = aStart;
+    tmpEntry.hierarchy = aHierarchy;
     tmpEntry.index = anIndex;
 
     entries.add(tmpEntry);
@@ -224,6 +226,7 @@ public final class WeightedControlList {
     private int deviation;
     private int distance;
     private int start;
+    private String hierarchy;
     private int index;
 
     /**
@@ -245,6 +248,8 @@ public final class WeightedControlList {
           .append(Integer.toString(distance))
           .append(" start: ")
           .append(Integer.toString(start))
+          .append(" hierarchy: ")
+          .append(hierarchy)
           .append(" index: ")
           .append(Integer.toString(index));
       // @formatter:on
@@ -273,6 +278,13 @@ public final class WeightedControlList {
             final int tmpStartComp = anEntry1.start - anEntry2.start;
 
             if (0 == tmpStartComp) {
+              if (anEntry1.hierarchy.startsWith(anEntry2.hierarchy)) {
+                return -1;
+              }
+              if (anEntry2.hierarchy.startsWith(anEntry1.hierarchy)) {
+                return 1;
+              }
+
               return anEntry1.index - anEntry2.index;
             }
 

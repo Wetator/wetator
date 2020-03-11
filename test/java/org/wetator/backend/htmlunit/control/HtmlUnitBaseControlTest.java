@@ -16,9 +16,10 @@
 
 package org.wetator.backend.htmlunit.control;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.IOException;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.wetator.backend.htmlunit.util.PageUtil;
 
@@ -44,7 +45,7 @@ public class HtmlUnitBaseControlTest {
 
     final HtmlUnitBaseControl<?> tmpControl = new HtmlUnitUnspecificControl<>(tmpHtmlPage.getHtmlElementById("myId"));
 
-    Assert.assertEquals("#myId", tmpControl.getUniqueSelector());
+    assertEquals("#myId", tmpControl.getUniqueSelector());
   }
 
   @Test
@@ -60,7 +61,7 @@ public class HtmlUnitBaseControlTest {
 
     final HtmlUnitBaseControl<?> tmpControl = new HtmlUnitUnspecificControl<>(tmpHtmlPage.getHtmlElementById("f:myId"));
 
-    Assert.assertEquals("#f\\3amyId", tmpControl.getUniqueSelector());
+    assertEquals("#f\\3amyId", tmpControl.getUniqueSelector());
   }
 
   @Test
@@ -77,7 +78,7 @@ public class HtmlUnitBaseControlTest {
     final HtmlUnitBaseControl<?> tmpControl = new HtmlUnitUnspecificControl<HtmlElement>(
         tmpHtmlPage.getAnchorByName("myAnchor"));
 
-    Assert.assertEquals("body>div:nth-of-type(1)>a:nth-of-type(1)", tmpControl.getUniqueSelector());
+    assertEquals("body>div:nth-of-type(1)>a:nth-of-type(1)", tmpControl.getUniqueSelector());
   }
 
   @Test
@@ -94,7 +95,7 @@ public class HtmlUnitBaseControlTest {
     final HtmlUnitBaseControl<?> tmpControl = new HtmlUnitUnspecificControl<HtmlElement>(
         tmpHtmlPage.getAnchorByName("myAnchor"));
 
-    Assert.assertEquals("#parent>a:nth-of-type(1)", tmpControl.getUniqueSelector());
+    assertEquals("#parent>a:nth-of-type(1)", tmpControl.getUniqueSelector());
   }
 
   @Test
@@ -113,6 +114,6 @@ public class HtmlUnitBaseControlTest {
     final HtmlUnitBaseControl<?> tmpControl = new HtmlUnitUnspecificControl<HtmlElement>(
         tmpHtmlPage.getAnchorByName("myAnchor"));
 
-    Assert.assertEquals("#parent>div:nth-of-type(1)>a:nth-of-type(1)", tmpControl.getUniqueSelector());
+    assertEquals("#parent>div:nth-of-type(1)>a:nth-of-type(1)", tmpControl.getUniqueSelector());
   }
 }

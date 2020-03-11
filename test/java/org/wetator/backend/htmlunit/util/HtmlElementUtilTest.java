@@ -16,10 +16,13 @@
 
 package org.wetator.backend.htmlunit.util;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.io.IOException;
 import java.util.Iterator;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.wetator.backend.htmlunit.control.HtmlUnitAnchor;
 import org.wetator.backend.htmlunit.control.HtmlUnitButton;
@@ -87,10 +90,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitAnchor(tmpHtmlAnchor).getDescribingText();
-    Assert.assertEquals("[HtmlAnchor 'AnchorText']", tmpResult);
+    assertEquals("[HtmlAnchor 'AnchorText']", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlAnchor(tmpHtmlAnchor);
-    Assert.assertEquals("[HtmlAnchor 'AnchorText']", tmpResult);
+    assertEquals("[HtmlAnchor 'AnchorText']", tmpResult);
   }
 
   @Test
@@ -112,10 +115,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitAnchor(tmpHtmlAnchor).getDescribingText();
-    Assert.assertEquals("[HtmlAnchor 'AnchorText']", tmpResult);
+    assertEquals("[HtmlAnchor 'AnchorText']", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlAnchor(tmpHtmlAnchor);
-    Assert.assertEquals("[HtmlAnchor 'AnchorText']", tmpResult);
+    assertEquals("[HtmlAnchor 'AnchorText']", tmpResult);
   }
 
   @Test
@@ -137,10 +140,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitAnchor(tmpHtmlAnchor).getDescribingText();
-    Assert.assertEquals("[HtmlAnchor 'AnchorText' (name='AnchorName')]", tmpResult);
+    assertEquals("[HtmlAnchor 'AnchorText' (name='AnchorName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlAnchor(tmpHtmlAnchor);
-    Assert.assertEquals("[HtmlAnchor 'AnchorText' (name='AnchorName')]", tmpResult);
+    assertEquals("[HtmlAnchor 'AnchorText' (name='AnchorName')]", tmpResult);
   }
 
   @Test
@@ -162,10 +165,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitAnchor(tmpHtmlAnchor).getDescribingText();
-    Assert.assertEquals("[HtmlAnchor 'image: wet.src']", tmpResult);
+    assertEquals("[HtmlAnchor 'image: wet.src']", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlAnchor(tmpHtmlAnchor);
-    Assert.assertEquals("[HtmlAnchor 'image: wet.src']", tmpResult);
+    assertEquals("[HtmlAnchor 'image: wet.src']", tmpResult);
   }
 
   @Test
@@ -187,10 +190,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitAnchor(tmpHtmlAnchor).getDescribingText();
-    Assert.assertEquals("[HtmlAnchor 'image: wet.src' 'AnchorText']", tmpResult);
+    assertEquals("[HtmlAnchor 'image: wet.src' 'AnchorText']", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlAnchor(tmpHtmlAnchor);
-    Assert.assertEquals("[HtmlAnchor 'image: wet.src' 'AnchorText']", tmpResult);
+    assertEquals("[HtmlAnchor 'image: wet.src' 'AnchorText']", tmpResult);
   }
 
   @Test
@@ -212,10 +215,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitAnchor(tmpHtmlAnchor).getDescribingText();
-    Assert.assertEquals("[HtmlAnchor 'AnchorText' (id='AnchorId')]", tmpResult);
+    assertEquals("[HtmlAnchor 'AnchorText' (id='AnchorId')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlAnchor(tmpHtmlAnchor);
-    Assert.assertEquals("[HtmlAnchor 'AnchorText' (id='AnchorId')]", tmpResult);
+    assertEquals("[HtmlAnchor 'AnchorText' (id='AnchorId')]", tmpResult);
   }
 
   @Test
@@ -237,10 +240,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitAnchor(tmpHtmlAnchor).getDescribingText();
-    Assert.assertEquals("[HtmlAnchor 'AnchorText' (id='AnchorId') (name='AnchorName')]", tmpResult);
+    assertEquals("[HtmlAnchor 'AnchorText' (id='AnchorId') (name='AnchorName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlAnchor(tmpHtmlAnchor);
-    Assert.assertEquals("[HtmlAnchor 'AnchorText' (id='AnchorId') (name='AnchorName')]", tmpResult);
+    assertEquals("[HtmlAnchor 'AnchorText' (id='AnchorId') (name='AnchorName')]", tmpResult);
   }
 
   @Test
@@ -260,10 +263,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitButton(tmpHtmlButton).getDescribingText();
-    Assert.assertEquals("[HtmlButton 'TestButton']", tmpResult);
+    assertEquals("[HtmlButton 'TestButton']", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlButton(tmpHtmlButton);
-    Assert.assertEquals("[HtmlButton 'TestButton']", tmpResult);
+    assertEquals("[HtmlButton 'TestButton']", tmpResult);
   }
 
   @Test
@@ -283,10 +286,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitButton(tmpHtmlButton).getDescribingText();
-    Assert.assertEquals("[HtmlButton 'TestButton']", tmpResult);
+    assertEquals("[HtmlButton 'TestButton']", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlButton(tmpHtmlButton);
-    Assert.assertEquals("[HtmlButton 'TestButton']", tmpResult);
+    assertEquals("[HtmlButton 'TestButton']", tmpResult);
   }
 
   @Test
@@ -306,10 +309,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitButton(tmpHtmlButton).getDescribingText();
-    Assert.assertEquals("[HtmlButton 'TestButton']", tmpResult);
+    assertEquals("[HtmlButton 'TestButton']", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlButton(tmpHtmlButton);
-    Assert.assertEquals("[HtmlButton 'TestButton']", tmpResult);
+    assertEquals("[HtmlButton 'TestButton']", tmpResult);
   }
 
   @Test
@@ -329,10 +332,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitButton(tmpHtmlButton).getDescribingText();
-    Assert.assertEquals("[HtmlButton 'TestButton']", tmpResult);
+    assertEquals("[HtmlButton 'TestButton']", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlButton(tmpHtmlButton);
-    Assert.assertEquals("[HtmlButton 'TestButton']", tmpResult);
+    assertEquals("[HtmlButton 'TestButton']", tmpResult);
   }
 
   @Test
@@ -352,10 +355,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitButton(tmpHtmlButton).getDescribingText();
-    Assert.assertEquals("[HtmlButton 'image: wet.src']", tmpResult);
+    assertEquals("[HtmlButton 'image: wet.src']", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlButton(tmpHtmlButton);
-    Assert.assertEquals("[HtmlButton 'image: wet.src']", tmpResult);
+    assertEquals("[HtmlButton 'image: wet.src']", tmpResult);
   }
 
   @Test
@@ -375,10 +378,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitButton(tmpHtmlButton).getDescribingText();
-    Assert.assertEquals("[HtmlButton 'image: wet.src' 'Text']", tmpResult);
+    assertEquals("[HtmlButton 'image: wet.src' 'Text']", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlButton(tmpHtmlButton);
-    Assert.assertEquals("[HtmlButton 'image: wet.src' 'Text']", tmpResult);
+    assertEquals("[HtmlButton 'image: wet.src' 'Text']", tmpResult);
   }
 
   @Test
@@ -398,10 +401,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitButton(tmpHtmlButton).getDescribingText();
-    Assert.assertEquals("[HtmlButton 'Text' (name='ButtonName')]", tmpResult);
+    assertEquals("[HtmlButton 'Text' (name='ButtonName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlButton(tmpHtmlButton);
-    Assert.assertEquals("[HtmlButton 'Text' (name='ButtonName')]", tmpResult);
+    assertEquals("[HtmlButton 'Text' (name='ButtonName')]", tmpResult);
   }
 
   @Test
@@ -421,10 +424,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitButton(tmpHtmlButton).getDescribingText();
-    Assert.assertEquals("[HtmlButton 'Text' (id='ButtonId')]", tmpResult);
+    assertEquals("[HtmlButton 'Text' (id='ButtonId')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlButton(tmpHtmlButton);
-    Assert.assertEquals("[HtmlButton 'Text' (id='ButtonId')]", tmpResult);
+    assertEquals("[HtmlButton 'Text' (id='ButtonId')]", tmpResult);
   }
 
   @Test
@@ -444,10 +447,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitButton(tmpHtmlButton).getDescribingText();
-    Assert.assertEquals("[HtmlButton 'Text' (id='ButtonId') (name='ButtonName')]", tmpResult);
+    assertEquals("[HtmlButton 'Text' (id='ButtonId') (name='ButtonName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlButton(tmpHtmlButton);
-    Assert.assertEquals("[HtmlButton 'Text' (id='ButtonId') (name='ButtonName')]", tmpResult);
+    assertEquals("[HtmlButton 'Text' (id='ButtonId') (name='ButtonName')]", tmpResult);
   }
 
   @Test
@@ -467,10 +470,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitInputButton(tmpHtmlButtonInput).getDescribingText();
-    Assert.assertEquals("[HtmlButtonInput 'Button']", tmpResult);
+    assertEquals("[HtmlButtonInput 'Button']", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlButtonInput(tmpHtmlButtonInput);
-    Assert.assertEquals("[HtmlButtonInput 'Button']", tmpResult);
+    assertEquals("[HtmlButtonInput 'Button']", tmpResult);
   }
 
   @Test
@@ -490,10 +493,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitInputButton(tmpHtmlButtonInput).getDescribingText();
-    Assert.assertEquals("[HtmlButtonInput 'Button' (name='ButtonName')]", tmpResult);
+    assertEquals("[HtmlButtonInput 'Button' (name='ButtonName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlButtonInput(tmpHtmlButtonInput);
-    Assert.assertEquals("[HtmlButtonInput 'Button' (name='ButtonName')]", tmpResult);
+    assertEquals("[HtmlButtonInput 'Button' (name='ButtonName')]", tmpResult);
   }
 
   @Test
@@ -513,10 +516,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitInputButton(tmpHtmlButtonInput).getDescribingText();
-    Assert.assertEquals("[HtmlButtonInput 'Button' (id='sb')]", tmpResult);
+    assertEquals("[HtmlButtonInput 'Button' (id='sb')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlButtonInput(tmpHtmlButtonInput);
-    Assert.assertEquals("[HtmlButtonInput 'Button' (id='sb')]", tmpResult);
+    assertEquals("[HtmlButtonInput 'Button' (id='sb')]", tmpResult);
   }
 
   @Test
@@ -536,10 +539,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitInputButton(tmpHtmlButtonInput).getDescribingText();
-    Assert.assertEquals("[HtmlButtonInput 'Button' (id='sb') (name='ButtonName')]", tmpResult);
+    assertEquals("[HtmlButtonInput 'Button' (id='sb') (name='ButtonName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlButtonInput(tmpHtmlButtonInput);
-    Assert.assertEquals("[HtmlButtonInput 'Button' (id='sb') (name='ButtonName')]", tmpResult);
+    assertEquals("[HtmlButtonInput 'Button' (id='sb') (name='ButtonName')]", tmpResult);
   }
 
   @Test
@@ -559,10 +562,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitInputCheckBox(tmpHtmlCheckBoxInput).getDescribingText();
-    Assert.assertEquals("[HtmlCheckBoxInput]", tmpResult);
+    assertEquals("[HtmlCheckBoxInput]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlCheckBoxInput(tmpHtmlCheckBoxInput);
-    Assert.assertEquals("[HtmlCheckBoxInput]", tmpResult);
+    assertEquals("[HtmlCheckBoxInput]", tmpResult);
   }
 
   @Test
@@ -582,10 +585,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitInputCheckBox(tmpHtmlCheckBoxInput).getDescribingText();
-    Assert.assertEquals("[HtmlCheckBoxInput (name='CheckBoxName')]", tmpResult);
+    assertEquals("[HtmlCheckBoxInput (name='CheckBoxName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlCheckBoxInput(tmpHtmlCheckBoxInput);
-    Assert.assertEquals("[HtmlCheckBoxInput (name='CheckBoxName')]", tmpResult);
+    assertEquals("[HtmlCheckBoxInput (name='CheckBoxName')]", tmpResult);
   }
 
   @Test
@@ -605,10 +608,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitInputCheckBox(tmpHtmlCheckBoxInput).getDescribingText();
-    Assert.assertEquals("[HtmlCheckBoxInput (id='CheckBoxId')]", tmpResult);
+    assertEquals("[HtmlCheckBoxInput (id='CheckBoxId')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlCheckBoxInput(tmpHtmlCheckBoxInput);
-    Assert.assertEquals("[HtmlCheckBoxInput (id='CheckBoxId')]", tmpResult);
+    assertEquals("[HtmlCheckBoxInput (id='CheckBoxId')]", tmpResult);
   }
 
   @Test
@@ -628,10 +631,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitInputCheckBox(tmpHtmlCheckBoxInput).getDescribingText();
-    Assert.assertEquals("[HtmlCheckBoxInput (id='CheckBoxId') (name='CheckBoxName')]", tmpResult);
+    assertEquals("[HtmlCheckBoxInput (id='CheckBoxId') (name='CheckBoxName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlCheckBoxInput(tmpHtmlCheckBoxInput);
-    Assert.assertEquals("[HtmlCheckBoxInput (id='CheckBoxId') (name='CheckBoxName')]", tmpResult);
+    assertEquals("[HtmlCheckBoxInput (id='CheckBoxId') (name='CheckBoxName')]", tmpResult);
   }
 
   @Test
@@ -655,7 +658,7 @@ public class HtmlElementUtilTest {
     tmpHtmlUnitInputCheckBox.setHtmlLabel((HtmlLabel) tmpForm.getFirstChild());
 
     final String tmpResult = tmpHtmlUnitInputCheckBox.getDescribingText();
-    Assert.assertEquals("[HtmlCheckBoxInput] by [HtmlLabel 'unchecked' (id='LabelId')]", tmpResult);
+    assertEquals("[HtmlCheckBoxInput] by [HtmlLabel 'unchecked' (id='LabelId')]", tmpResult);
   }
 
   @Test
@@ -675,10 +678,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitInputFile(tmpHtmlFileInput).getDescribingText();
-    Assert.assertEquals("[HtmlFileInput]", tmpResult);
+    assertEquals("[HtmlFileInput]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlFileInput(tmpHtmlFileInput);
-    Assert.assertEquals("[HtmlFileInput]", tmpResult);
+    assertEquals("[HtmlFileInput]", tmpResult);
   }
 
   @Test
@@ -698,10 +701,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitInputFile(tmpHtmlFileInput).getDescribingText();
-    Assert.assertEquals("[HtmlFileInput (name='FileInputName')]", tmpResult);
+    assertEquals("[HtmlFileInput (name='FileInputName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlFileInput(tmpHtmlFileInput);
-    Assert.assertEquals("[HtmlFileInput (name='FileInputName')]", tmpResult);
+    assertEquals("[HtmlFileInput (name='FileInputName')]", tmpResult);
   }
 
   @Test
@@ -721,10 +724,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitInputFile(tmpHtmlFileInput).getDescribingText();
-    Assert.assertEquals("[HtmlFileInput (id='FileInputId')]", tmpResult);
+    assertEquals("[HtmlFileInput (id='FileInputId')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlFileInput(tmpHtmlFileInput);
-    Assert.assertEquals("[HtmlFileInput (id='FileInputId')]", tmpResult);
+    assertEquals("[HtmlFileInput (id='FileInputId')]", tmpResult);
   }
 
   @Test
@@ -744,10 +747,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitInputFile(tmpHtmlFileInput).getDescribingText();
-    Assert.assertEquals("[HtmlFileInput (id='FileInputId') (name='FileInputName')]", tmpResult);
+    assertEquals("[HtmlFileInput (id='FileInputId') (name='FileInputName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlFileInput(tmpHtmlFileInput);
-    Assert.assertEquals("[HtmlFileInput (id='FileInputId') (name='FileInputName')]", tmpResult);
+    assertEquals("[HtmlFileInput (id='FileInputId') (name='FileInputName')]", tmpResult);
   }
 
   @Test
@@ -769,10 +772,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitImage(tmpHtmlImage).getDescribingText();
-    Assert.assertEquals("[HtmlImage 'wet.png']", tmpResult);
+    assertEquals("[HtmlImage 'wet.png']", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlImage(tmpHtmlImage);
-    Assert.assertEquals("[HtmlImage 'wet.png']", tmpResult);
+    assertEquals("[HtmlImage 'wet.png']", tmpResult);
   }
 
   @Test
@@ -794,10 +797,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitImage(tmpHtmlImage).getDescribingText();
-    Assert.assertEquals("[HtmlImage 'wet.png' (name='ImageName')]", tmpResult);
+    assertEquals("[HtmlImage 'wet.png' (name='ImageName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlImage(tmpHtmlImage);
-    Assert.assertEquals("[HtmlImage 'wet.png' (name='ImageName')]", tmpResult);
+    assertEquals("[HtmlImage 'wet.png' (name='ImageName')]", tmpResult);
   }
 
   @Test
@@ -819,10 +822,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitImage(tmpHtmlImage).getDescribingText();
-    Assert.assertEquals("[HtmlImage 'wet.png' (id='ImageId')]", tmpResult);
+    assertEquals("[HtmlImage 'wet.png' (id='ImageId')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlImage(tmpHtmlImage);
-    Assert.assertEquals("[HtmlImage 'wet.png' (id='ImageId')]", tmpResult);
+    assertEquals("[HtmlImage 'wet.png' (id='ImageId')]", tmpResult);
   }
 
   @Test
@@ -844,10 +847,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitImage(tmpHtmlImage).getDescribingText();
-    Assert.assertEquals("[HtmlImage 'wet.png' (id='ImageId') (name='ImageName')]", tmpResult);
+    assertEquals("[HtmlImage 'wet.png' (id='ImageId') (name='ImageName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlImage(tmpHtmlImage);
-    Assert.assertEquals("[HtmlImage 'wet.png' (id='ImageId') (name='ImageName')]", tmpResult);
+    assertEquals("[HtmlImage 'wet.png' (id='ImageId') (name='ImageName')]", tmpResult);
   }
 
   @Test
@@ -867,10 +870,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitInputImage(tmpHtmlImageInput).getDescribingText();
-    Assert.assertEquals("[HtmlImageInput 'ImageInput' (src='sample.src')]", tmpResult);
+    assertEquals("[HtmlImageInput 'ImageInput' (src='sample.src')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlImageInput(tmpHtmlImageInput);
-    Assert.assertEquals("[HtmlImageInput 'ImageInput' (src='sample.src')]", tmpResult);
+    assertEquals("[HtmlImageInput 'ImageInput' (src='sample.src')]", tmpResult);
   }
 
   @Test
@@ -890,10 +893,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitInputImage(tmpHtmlImageInput).getDescribingText();
-    Assert.assertEquals("[HtmlImageInput 'ImageInput' (src='sample.src') (name='ImageInputName')]", tmpResult);
+    assertEquals("[HtmlImageInput 'ImageInput' (src='sample.src') (name='ImageInputName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlImageInput(tmpHtmlImageInput);
-    Assert.assertEquals("[HtmlImageInput 'ImageInput' (src='sample.src') (name='ImageInputName')]", tmpResult);
+    assertEquals("[HtmlImageInput 'ImageInput' (src='sample.src') (name='ImageInputName')]", tmpResult);
   }
 
   @Test
@@ -913,10 +916,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitInputImage(tmpHtmlImageInput).getDescribingText();
-    Assert.assertEquals("[HtmlImageInput 'ImageInput' (src='sample.src') (id='ImageInputId')]", tmpResult);
+    assertEquals("[HtmlImageInput 'ImageInput' (src='sample.src') (id='ImageInputId')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlImageInput(tmpHtmlImageInput);
-    Assert.assertEquals("[HtmlImageInput 'ImageInput' (src='sample.src') (id='ImageInputId')]", tmpResult);
+    assertEquals("[HtmlImageInput 'ImageInput' (src='sample.src') (id='ImageInputId')]", tmpResult);
   }
 
   @Test
@@ -936,11 +939,11 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitInputImage(tmpHtmlImageInput).getDescribingText();
-    Assert.assertEquals("[HtmlImageInput 'ImageInput' (src='sample.src') (id='ImageInputId') (name='ImageInputName')]",
+    assertEquals("[HtmlImageInput 'ImageInput' (src='sample.src') (id='ImageInputId') (name='ImageInputName')]",
         tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlImageInput(tmpHtmlImageInput);
-    Assert.assertEquals("[HtmlImageInput 'ImageInput' (src='sample.src') (id='ImageInputId') (name='ImageInputName')]",
+    assertEquals("[HtmlImageInput 'ImageInput' (src='sample.src') (id='ImageInputId') (name='ImageInputName')]",
         tmpResult);
   }
 
@@ -964,10 +967,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitOption(tmpHtmlOption).getDescribingText();
-    Assert.assertEquals("[HtmlOption 'Option1' part of [HtmlSelect]]", tmpResult);
+    assertEquals("[HtmlOption 'Option1' part of [HtmlSelect]]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlOption(tmpHtmlOption);
-    Assert.assertEquals("[HtmlOption 'Option1' part of [HtmlSelect]]", tmpResult);
+    assertEquals("[HtmlOption 'Option1' part of [HtmlSelect]]", tmpResult);
   }
 
   @Test
@@ -990,10 +993,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitOption(tmpHtmlOption).getDescribingText();
-    Assert.assertEquals("[HtmlOption 'Option1' (name='optionName') part of [HtmlSelect]]", tmpResult);
+    assertEquals("[HtmlOption 'Option1' (name='optionName') part of [HtmlSelect]]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlOption(tmpHtmlOption);
-    Assert.assertEquals("[HtmlOption 'Option1' (name='optionName') part of [HtmlSelect]]", tmpResult);
+    assertEquals("[HtmlOption 'Option1' (name='optionName') part of [HtmlSelect]]", tmpResult);
   }
 
   @Test
@@ -1016,10 +1019,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitOption(tmpHtmlOption).getDescribingText();
-    Assert.assertEquals("[HtmlOption 'Option1' (id='optionId') part of [HtmlSelect]]", tmpResult);
+    assertEquals("[HtmlOption 'Option1' (id='optionId') part of [HtmlSelect]]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlOption(tmpHtmlOption);
-    Assert.assertEquals("[HtmlOption 'Option1' (id='optionId') part of [HtmlSelect]]", tmpResult);
+    assertEquals("[HtmlOption 'Option1' (id='optionId') part of [HtmlSelect]]", tmpResult);
   }
 
   @Test
@@ -1042,10 +1045,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitOption(tmpHtmlOption).getDescribingText();
-    Assert.assertEquals("[HtmlOption 'Option1' (id='optionId') (name='optionName') part of [HtmlSelect]]", tmpResult);
+    assertEquals("[HtmlOption 'Option1' (id='optionId') (name='optionName') part of [HtmlSelect]]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlOption(tmpHtmlOption);
-    Assert.assertEquals("[HtmlOption 'Option1' (id='optionId') (name='optionName') part of [HtmlSelect]]", tmpResult);
+    assertEquals("[HtmlOption 'Option1' (id='optionId') (name='optionName') part of [HtmlSelect]]", tmpResult);
   }
 
   @Test
@@ -1070,10 +1073,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitOptionGroup(tmpHtmlOptionGroup).getDescribingText();
-    Assert.assertEquals("[HtmlOptionGroup 'optGroupLabel' part of [HtmlSelect]]", tmpResult);
+    assertEquals("[HtmlOptionGroup 'optGroupLabel' part of [HtmlSelect]]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlOptionGroup(tmpHtmlOptionGroup);
-    Assert.assertEquals("[HtmlOptionGroup 'optGroupLabel' part of [HtmlSelect]]", tmpResult);
+    assertEquals("[HtmlOptionGroup 'optGroupLabel' part of [HtmlSelect]]", tmpResult);
   }
 
   @Test
@@ -1098,10 +1101,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitOptionGroup(tmpHtmlOptionGroup).getDescribingText();
-    Assert.assertEquals("[HtmlOptionGroup 'optGroupLabel' (name='optionName') part of [HtmlSelect]]", tmpResult);
+    assertEquals("[HtmlOptionGroup 'optGroupLabel' (name='optionName') part of [HtmlSelect]]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlOptionGroup(tmpHtmlOptionGroup);
-    Assert.assertEquals("[HtmlOptionGroup 'optGroupLabel' (name='optionName') part of [HtmlSelect]]", tmpResult);
+    assertEquals("[HtmlOptionGroup 'optGroupLabel' (name='optionName') part of [HtmlSelect]]", tmpResult);
   }
 
   @Test
@@ -1126,10 +1129,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitOptionGroup(tmpHtmlOptionGroup).getDescribingText();
-    Assert.assertEquals("[HtmlOptionGroup 'optGroupLabel' (id='optionId') part of [HtmlSelect]]", tmpResult);
+    assertEquals("[HtmlOptionGroup 'optGroupLabel' (id='optionId') part of [HtmlSelect]]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlOptionGroup(tmpHtmlOptionGroup);
-    Assert.assertEquals("[HtmlOptionGroup 'optGroupLabel' (id='optionId') part of [HtmlSelect]]", tmpResult);
+    assertEquals("[HtmlOptionGroup 'optGroupLabel' (id='optionId') part of [HtmlSelect]]", tmpResult);
   }
 
   @Test
@@ -1154,11 +1157,11 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitOptionGroup(tmpHtmlOptionGroup).getDescribingText();
-    Assert.assertEquals("[HtmlOptionGroup 'optGroupLabel' (id='optionId') (name='optionName') part of [HtmlSelect]]",
+    assertEquals("[HtmlOptionGroup 'optGroupLabel' (id='optionId') (name='optionName') part of [HtmlSelect]]",
         tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlOptionGroup(tmpHtmlOptionGroup);
-    Assert.assertEquals("[HtmlOptionGroup 'optGroupLabel' (id='optionId') (name='optionName') part of [HtmlSelect]]",
+    assertEquals("[HtmlOptionGroup 'optGroupLabel' (id='optionId') (name='optionName') part of [HtmlSelect]]",
         tmpResult);
   }
 
@@ -1181,10 +1184,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitUnspecificControl<HtmlElement>(tmpHtmlParagraph).getDescribingText();
-    Assert.assertEquals("[HtmlParagraph 'paragraph text']", tmpResult);
+    assertEquals("[HtmlParagraph 'paragraph text']", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlParagraph(tmpHtmlParagraph);
-    Assert.assertEquals("[HtmlParagraph 'paragraph text']", tmpResult);
+    assertEquals("[HtmlParagraph 'paragraph text']", tmpResult);
   }
 
   @Test
@@ -1206,10 +1209,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitUnspecificControl<HtmlElement>(tmpHtmlParagraph).getDescribingText();
-    Assert.assertEquals("[HtmlParagraph 'paragraph text' (name='ParagraphName')]", tmpResult);
+    assertEquals("[HtmlParagraph 'paragraph text' (name='ParagraphName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlParagraph(tmpHtmlParagraph);
-    Assert.assertEquals("[HtmlParagraph 'paragraph text' (name='ParagraphName')]", tmpResult);
+    assertEquals("[HtmlParagraph 'paragraph text' (name='ParagraphName')]", tmpResult);
   }
 
   @Test
@@ -1231,10 +1234,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitUnspecificControl<HtmlElement>(tmpHtmlParagraph).getDescribingText();
-    Assert.assertEquals("[HtmlParagraph 'paragraph text' (id='para')]", tmpResult);
+    assertEquals("[HtmlParagraph 'paragraph text' (id='para')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlParagraph(tmpHtmlParagraph);
-    Assert.assertEquals("[HtmlParagraph 'paragraph text' (id='para')]", tmpResult);
+    assertEquals("[HtmlParagraph 'paragraph text' (id='para')]", tmpResult);
   }
 
   @Test
@@ -1256,10 +1259,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitUnspecificControl<HtmlElement>(tmpHtmlParagraph).getDescribingText();
-    Assert.assertEquals("[HtmlParagraph 'paragraph text' (id='para') (name='ParagraphName')]", tmpResult);
+    assertEquals("[HtmlParagraph 'paragraph text' (id='para') (name='ParagraphName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlParagraph(tmpHtmlParagraph);
-    Assert.assertEquals("[HtmlParagraph 'paragraph text' (id='para') (name='ParagraphName')]", tmpResult);
+    assertEquals("[HtmlParagraph 'paragraph text' (id='para') (name='ParagraphName')]", tmpResult);
   }
 
   @Test
@@ -1279,10 +1282,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitInputPassword(tmpHtmlPasswordInput).getDescribingText();
-    Assert.assertEquals("[HtmlPasswordInput]", tmpResult);
+    assertEquals("[HtmlPasswordInput]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlPasswordInput(tmpHtmlPasswordInput);
-    Assert.assertEquals("[HtmlPasswordInput]", tmpResult);
+    assertEquals("[HtmlPasswordInput]", tmpResult);
   }
 
   @Test
@@ -1302,10 +1305,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitInputPassword(tmpHtmlPasswordInput).getDescribingText();
-    Assert.assertEquals("[HtmlPasswordInput (name='PasswordName')]", tmpResult);
+    assertEquals("[HtmlPasswordInput (name='PasswordName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlPasswordInput(tmpHtmlPasswordInput);
-    Assert.assertEquals("[HtmlPasswordInput (name='PasswordName')]", tmpResult);
+    assertEquals("[HtmlPasswordInput (name='PasswordName')]", tmpResult);
   }
 
   @Test
@@ -1325,10 +1328,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitInputPassword(tmpHtmlPasswordInput).getDescribingText();
-    Assert.assertEquals("[HtmlPasswordInput (id='tx')]", tmpResult);
+    assertEquals("[HtmlPasswordInput (id='tx')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlPasswordInput(tmpHtmlPasswordInput);
-    Assert.assertEquals("[HtmlPasswordInput (id='tx')]", tmpResult);
+    assertEquals("[HtmlPasswordInput (id='tx')]", tmpResult);
   }
 
   @Test
@@ -1348,10 +1351,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitInputPassword(tmpHtmlPasswordInput).getDescribingText();
-    Assert.assertEquals("[HtmlPasswordInput (id='tx') (name='PasswordName')]", tmpResult);
+    assertEquals("[HtmlPasswordInput (id='tx') (name='PasswordName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlPasswordInput(tmpHtmlPasswordInput);
-    Assert.assertEquals("[HtmlPasswordInput (id='tx') (name='PasswordName')]", tmpResult);
+    assertEquals("[HtmlPasswordInput (id='tx') (name='PasswordName')]", tmpResult);
   }
 
   @Test
@@ -1371,10 +1374,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitInputRadioButton(tmpHtmlRadioButtonInput).getDescribingText();
-    Assert.assertEquals("[HtmlRadioButtonInput 'RadioButton']", tmpResult);
+    assertEquals("[HtmlRadioButtonInput 'RadioButton']", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlRadioButtonInput(tmpHtmlRadioButtonInput);
-    Assert.assertEquals("[HtmlRadioButtonInput 'RadioButton']", tmpResult);
+    assertEquals("[HtmlRadioButtonInput 'RadioButton']", tmpResult);
   }
 
   @Test
@@ -1394,10 +1397,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitInputRadioButton(tmpHtmlRadioButtonInput).getDescribingText();
-    Assert.assertEquals("[HtmlRadioButtonInput 'RadioButton' (name='RadioButtonName')]", tmpResult);
+    assertEquals("[HtmlRadioButtonInput 'RadioButton' (name='RadioButtonName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlRadioButtonInput(tmpHtmlRadioButtonInput);
-    Assert.assertEquals("[HtmlRadioButtonInput 'RadioButton' (name='RadioButtonName')]", tmpResult);
+    assertEquals("[HtmlRadioButtonInput 'RadioButton' (name='RadioButtonName')]", tmpResult);
   }
 
   @Test
@@ -1417,10 +1420,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitInputRadioButton(tmpHtmlRadioButtonInput).getDescribingText();
-    Assert.assertEquals("[HtmlRadioButtonInput 'RadioButton' (id='RadioButtonId')]", tmpResult);
+    assertEquals("[HtmlRadioButtonInput 'RadioButton' (id='RadioButtonId')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlRadioButtonInput(tmpHtmlRadioButtonInput);
-    Assert.assertEquals("[HtmlRadioButtonInput 'RadioButton' (id='RadioButtonId')]", tmpResult);
+    assertEquals("[HtmlRadioButtonInput 'RadioButton' (id='RadioButtonId')]", tmpResult);
   }
 
   @Test
@@ -1440,12 +1443,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitInputRadioButton(tmpHtmlRadioButtonInput).getDescribingText();
-    Assert.assertEquals("[HtmlRadioButtonInput 'RadioButton' (id='RadioButtonId') (name='RadioButtonName')]",
-        tmpResult);
+    assertEquals("[HtmlRadioButtonInput 'RadioButton' (id='RadioButtonId') (name='RadioButtonName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlRadioButtonInput(tmpHtmlRadioButtonInput);
-    Assert.assertEquals("[HtmlRadioButtonInput 'RadioButton' (id='RadioButtonId') (name='RadioButtonName')]",
-        tmpResult);
+    assertEquals("[HtmlRadioButtonInput 'RadioButton' (id='RadioButtonId') (name='RadioButtonName')]", tmpResult);
   }
 
   @Test
@@ -1469,7 +1470,7 @@ public class HtmlElementUtilTest {
     tmpHtmlUnitInputRadioButton.setHtmlLabel((HtmlLabel) tmpForm.getFirstChild());
 
     final String tmpResult = tmpHtmlUnitInputRadioButton.getDescribingText();
-    Assert.assertEquals("[HtmlRadioButtonInput 'RadioButton'] by [HtmlLabel 'unchecked' (id='LabelId')]", tmpResult);
+    assertEquals("[HtmlRadioButtonInput 'RadioButton'] by [HtmlLabel 'unchecked' (id='LabelId')]", tmpResult);
   }
 
   @Test
@@ -1489,10 +1490,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitInputReset(tmpHtmlResetInput).getDescribingText();
-    Assert.assertEquals("[HtmlResetInput 'ResetButton']", tmpResult);
+    assertEquals("[HtmlResetInput 'ResetButton']", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlResetInput(tmpHtmlResetInput);
-    Assert.assertEquals("[HtmlResetInput 'ResetButton']", tmpResult);
+    assertEquals("[HtmlResetInput 'ResetButton']", tmpResult);
   }
 
   @Test
@@ -1512,10 +1513,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitInputReset(tmpHtmlResetInput).getDescribingText();
-    Assert.assertEquals("[HtmlResetInput 'ResetButton' (name='ResetButtonName')]", tmpResult);
+    assertEquals("[HtmlResetInput 'ResetButton' (name='ResetButtonName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlResetInput(tmpHtmlResetInput);
-    Assert.assertEquals("[HtmlResetInput 'ResetButton' (name='ResetButtonName')]", tmpResult);
+    assertEquals("[HtmlResetInput 'ResetButton' (name='ResetButtonName')]", tmpResult);
   }
 
   @Test
@@ -1535,10 +1536,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitInputReset(tmpHtmlResetInput).getDescribingText();
-    Assert.assertEquals("[HtmlResetInput 'ResetButton' (id='sb')]", tmpResult);
+    assertEquals("[HtmlResetInput 'ResetButton' (id='sb')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlResetInput(tmpHtmlResetInput);
-    Assert.assertEquals("[HtmlResetInput 'ResetButton' (id='sb')]", tmpResult);
+    assertEquals("[HtmlResetInput 'ResetButton' (id='sb')]", tmpResult);
   }
 
   @Test
@@ -1558,10 +1559,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitInputReset(tmpHtmlResetInput).getDescribingText();
-    Assert.assertEquals("[HtmlResetInput 'ResetButton' (id='sb') (name='ResetButtonName')]", tmpResult);
+    assertEquals("[HtmlResetInput 'ResetButton' (id='sb') (name='ResetButtonName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlResetInput(tmpHtmlResetInput);
-    Assert.assertEquals("[HtmlResetInput 'ResetButton' (id='sb') (name='ResetButtonName')]", tmpResult);
+    assertEquals("[HtmlResetInput 'ResetButton' (id='sb') (name='ResetButtonName')]", tmpResult);
   }
 
   @Test
@@ -1583,10 +1584,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitSelect(tmpHtmlSelect).getDescribingText();
-    Assert.assertEquals("[HtmlSelect]", tmpResult);
+    assertEquals("[HtmlSelect]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlSelect(tmpHtmlSelect);
-    Assert.assertEquals("[HtmlSelect]", tmpResult);
+    assertEquals("[HtmlSelect]", tmpResult);
   }
 
   @Test
@@ -1608,10 +1609,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitSelect(tmpHtmlSelect).getDescribingText();
-    Assert.assertEquals("[HtmlSelect (name='SelectName')]", tmpResult);
+    assertEquals("[HtmlSelect (name='SelectName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlSelect(tmpHtmlSelect);
-    Assert.assertEquals("[HtmlSelect (name='SelectName')]", tmpResult);
+    assertEquals("[HtmlSelect (name='SelectName')]", tmpResult);
   }
 
   @Test
@@ -1633,10 +1634,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitSelect(tmpHtmlSelect).getDescribingText();
-    Assert.assertEquals("[HtmlSelect (id='SelectId')]", tmpResult);
+    assertEquals("[HtmlSelect (id='SelectId')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlSelect(tmpHtmlSelect);
-    Assert.assertEquals("[HtmlSelect (id='SelectId')]", tmpResult);
+    assertEquals("[HtmlSelect (id='SelectId')]", tmpResult);
   }
 
   @Test
@@ -1658,10 +1659,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitSelect(tmpHtmlSelect).getDescribingText();
-    Assert.assertEquals("[HtmlSelect (id='SelectId') (name='SelectName')]", tmpResult);
+    assertEquals("[HtmlSelect (id='SelectId') (name='SelectName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlSelect(tmpHtmlSelect);
-    Assert.assertEquals("[HtmlSelect (id='SelectId') (name='SelectName')]", tmpResult);
+    assertEquals("[HtmlSelect (id='SelectId') (name='SelectName')]", tmpResult);
   }
 
   @Test
@@ -1683,10 +1684,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitUnspecificControl<HtmlElement>(tmpHtmlSpan).getDescribingText();
-    Assert.assertEquals("[HtmlSpan 'some text']", tmpResult);
+    assertEquals("[HtmlSpan 'some text']", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlSpan(tmpHtmlSpan);
-    Assert.assertEquals("[HtmlSpan 'some text']", tmpResult);
+    assertEquals("[HtmlSpan 'some text']", tmpResult);
   }
 
   @Test
@@ -1708,10 +1709,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitUnspecificControl<HtmlElement>(tmpHtmlSpan).getDescribingText();
-    Assert.assertEquals("[HtmlSpan '']", tmpResult);
+    assertEquals("[HtmlSpan '']", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlSpan(tmpHtmlSpan);
-    Assert.assertEquals("[HtmlSpan '']", tmpResult);
+    assertEquals("[HtmlSpan '']", tmpResult);
   }
 
   @Test
@@ -1733,10 +1734,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitUnspecificControl<HtmlElement>(tmpHtmlSpan).getDescribingText();
-    Assert.assertEquals("[HtmlSpan 'some text' (name='Spanname')]", tmpResult);
+    assertEquals("[HtmlSpan 'some text' (name='Spanname')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlSpan(tmpHtmlSpan);
-    Assert.assertEquals("[HtmlSpan 'some text' (name='Spanname')]", tmpResult);
+    assertEquals("[HtmlSpan 'some text' (name='Spanname')]", tmpResult);
   }
 
   @Test
@@ -1758,10 +1759,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitUnspecificControl<HtmlElement>(tmpHtmlSpan).getDescribingText();
-    Assert.assertEquals("[HtmlSpan 'some text' (id='SpanId')]", tmpResult);
+    assertEquals("[HtmlSpan 'some text' (id='SpanId')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlSpan(tmpHtmlSpan);
-    Assert.assertEquals("[HtmlSpan 'some text' (id='SpanId')]", tmpResult);
+    assertEquals("[HtmlSpan 'some text' (id='SpanId')]", tmpResult);
   }
 
   @Test
@@ -1783,10 +1784,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitUnspecificControl<HtmlElement>(tmpHtmlSpan).getDescribingText();
-    Assert.assertEquals("[HtmlSpan 'some text' (id='SpanId') (name='Spanname')]", tmpResult);
+    assertEquals("[HtmlSpan 'some text' (id='SpanId') (name='Spanname')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlSpan(tmpHtmlSpan);
-    Assert.assertEquals("[HtmlSpan 'some text' (id='SpanId') (name='Spanname')]", tmpResult);
+    assertEquals("[HtmlSpan 'some text' (id='SpanId') (name='Spanname')]", tmpResult);
   }
 
   @Test
@@ -1806,10 +1807,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitInputSubmit(tmpHtmlSubmitInput).getDescribingText();
-    Assert.assertEquals("[HtmlSubmitInput 'SubmitButton']", tmpResult);
+    assertEquals("[HtmlSubmitInput 'SubmitButton']", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlSubmitInput(tmpHtmlSubmitInput);
-    Assert.assertEquals("[HtmlSubmitInput 'SubmitButton']", tmpResult);
+    assertEquals("[HtmlSubmitInput 'SubmitButton']", tmpResult);
   }
 
   @Test
@@ -1829,10 +1830,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitInputSubmit(tmpHtmlSubmitInput).getDescribingText();
-    Assert.assertEquals("[HtmlSubmitInput 'SubmitButton' (name='SubmitButtonName')]", tmpResult);
+    assertEquals("[HtmlSubmitInput 'SubmitButton' (name='SubmitButtonName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlSubmitInput(tmpHtmlSubmitInput);
-    Assert.assertEquals("[HtmlSubmitInput 'SubmitButton' (name='SubmitButtonName')]", tmpResult);
+    assertEquals("[HtmlSubmitInput 'SubmitButton' (name='SubmitButtonName')]", tmpResult);
   }
 
   @Test
@@ -1852,10 +1853,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitInputSubmit(tmpHtmlSubmitInput).getDescribingText();
-    Assert.assertEquals("[HtmlSubmitInput 'SubmitButton' (id='sb')]", tmpResult);
+    assertEquals("[HtmlSubmitInput 'SubmitButton' (id='sb')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlSubmitInput(tmpHtmlSubmitInput);
-    Assert.assertEquals("[HtmlSubmitInput 'SubmitButton' (id='sb')]", tmpResult);
+    assertEquals("[HtmlSubmitInput 'SubmitButton' (id='sb')]", tmpResult);
   }
 
   @Test
@@ -1875,10 +1876,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitInputSubmit(tmpHtmlSubmitInput).getDescribingText();
-    Assert.assertEquals("[HtmlSubmitInput 'SubmitButton' (id='sb') (name='SubmitButtonName')]", tmpResult);
+    assertEquals("[HtmlSubmitInput 'SubmitButton' (id='sb') (name='SubmitButtonName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlSubmitInput(tmpHtmlSubmitInput);
-    Assert.assertEquals("[HtmlSubmitInput 'SubmitButton' (id='sb') (name='SubmitButtonName')]", tmpResult);
+    assertEquals("[HtmlSubmitInput 'SubmitButton' (id='sb') (name='SubmitButtonName')]", tmpResult);
   }
 
   @Test
@@ -1898,10 +1899,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitInputText(tmpHtmlTextInput).getDescribingText();
-    Assert.assertEquals("[HtmlTextInput]", tmpResult);
+    assertEquals("[HtmlTextInput]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlTextInput(tmpHtmlTextInput);
-    Assert.assertEquals("[HtmlTextInput]", tmpResult);
+    assertEquals("[HtmlTextInput]", tmpResult);
   }
 
   @Test
@@ -1921,10 +1922,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitInputText(tmpHtmlTextInput).getDescribingText();
-    Assert.assertEquals("[HtmlTextInput (name='TextName')]", tmpResult);
+    assertEquals("[HtmlTextInput (name='TextName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlTextInput(tmpHtmlTextInput);
-    Assert.assertEquals("[HtmlTextInput (name='TextName')]", tmpResult);
+    assertEquals("[HtmlTextInput (name='TextName')]", tmpResult);
   }
 
   @Test
@@ -1944,10 +1945,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitInputText(tmpHtmlTextInput).getDescribingText();
-    Assert.assertEquals("[HtmlTextInput (id='tx')]", tmpResult);
+    assertEquals("[HtmlTextInput (id='tx')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlTextInput(tmpHtmlTextInput);
-    Assert.assertEquals("[HtmlTextInput (id='tx')]", tmpResult);
+    assertEquals("[HtmlTextInput (id='tx')]", tmpResult);
   }
 
   @Test
@@ -1967,10 +1968,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitInputText(tmpHtmlTextInput).getDescribingText();
-    Assert.assertEquals("[HtmlTextInput (id='tx') (name='TextName')]", tmpResult);
+    assertEquals("[HtmlTextInput (id='tx') (name='TextName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlTextInput(tmpHtmlTextInput);
-    Assert.assertEquals("[HtmlTextInput (id='tx') (name='TextName')]", tmpResult);
+    assertEquals("[HtmlTextInput (id='tx') (name='TextName')]", tmpResult);
   }
 
   @Test
@@ -1990,10 +1991,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitTextArea(tmpHtmlTextArea).getDescribingText();
-    Assert.assertEquals("[HtmlTextArea]", tmpResult);
+    assertEquals("[HtmlTextArea]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlTextArea(tmpHtmlTextArea);
-    Assert.assertEquals("[HtmlTextArea]", tmpResult);
+    assertEquals("[HtmlTextArea]", tmpResult);
   }
 
   @Test
@@ -2013,10 +2014,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitTextArea(tmpHtmlTextArea).getDescribingText();
-    Assert.assertEquals("[HtmlTextArea (name='TextAreaName')]", tmpResult);
+    assertEquals("[HtmlTextArea (name='TextAreaName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlTextArea(tmpHtmlTextArea);
-    Assert.assertEquals("[HtmlTextArea (name='TextAreaName')]", tmpResult);
+    assertEquals("[HtmlTextArea (name='TextAreaName')]", tmpResult);
   }
 
   @Test
@@ -2036,10 +2037,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitTextArea(tmpHtmlTextArea).getDescribingText();
-    Assert.assertEquals("[HtmlTextArea (id='TextAreaId')]", tmpResult);
+    assertEquals("[HtmlTextArea (id='TextAreaId')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlTextArea(tmpHtmlTextArea);
-    Assert.assertEquals("[HtmlTextArea (id='TextAreaId')]", tmpResult);
+    assertEquals("[HtmlTextArea (id='TextAreaId')]", tmpResult);
   }
 
   @Test
@@ -2059,10 +2060,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitTextArea(tmpHtmlTextArea).getDescribingText();
-    Assert.assertEquals("[HtmlTextArea (id='TextAreaId') (name='TextAreaName')]", tmpResult);
+    assertEquals("[HtmlTextArea (id='TextAreaId') (name='TextAreaName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlTextArea(tmpHtmlTextArea);
-    Assert.assertEquals("[HtmlTextArea (id='TextAreaId') (name='TextAreaName')]", tmpResult);
+    assertEquals("[HtmlTextArea (id='TextAreaId') (name='TextAreaName')]", tmpResult);
   }
 
   @Test
@@ -2092,37 +2093,37 @@ public class HtmlElementUtilTest {
     final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     DomElement tmpElement = tmpHtmlPage.getElementById("div1");
-    Assert.assertTrue(HtmlElementUtil.isBlock(tmpElement));
+    assertTrue(HtmlElementUtil.isBlock(tmpElement));
 
     tmpElement = tmpHtmlPage.getElementById("span1");
-    Assert.assertFalse(HtmlElementUtil.isBlock(tmpElement));
+    assertFalse(HtmlElementUtil.isBlock(tmpElement));
     tmpElement = tmpHtmlPage.getElementById("span2");
-    Assert.assertTrue(HtmlElementUtil.isBlock(tmpElement));
+    assertTrue(HtmlElementUtil.isBlock(tmpElement));
     tmpElement = tmpHtmlPage.getElementById("span3");
-    Assert.assertTrue(HtmlElementUtil.isBlock(tmpElement));
+    assertTrue(HtmlElementUtil.isBlock(tmpElement));
 
     tmpElement = tmpHtmlPage.getElementById("li1");
-    Assert.assertTrue(HtmlElementUtil.isBlock(tmpElement));
+    assertTrue(HtmlElementUtil.isBlock(tmpElement));
     tmpElement = tmpHtmlPage.getElementById("li2");
-    Assert.assertTrue(HtmlElementUtil.isBlock(tmpElement));
+    assertTrue(HtmlElementUtil.isBlock(tmpElement));
     tmpElement = tmpHtmlPage.getElementById("li3");
-    Assert.assertTrue(HtmlElementUtil.isBlock(tmpElement));
+    assertTrue(HtmlElementUtil.isBlock(tmpElement));
     tmpElement = tmpHtmlPage.getElementById("li4");
-    Assert.assertFalse(HtmlElementUtil.isBlock(tmpElement));
+    assertFalse(HtmlElementUtil.isBlock(tmpElement));
 
     // options are always block, see inline comment in
     // org.wetator.backend.htmlunit.util.HtmlElementUtil.isBlock(DomNode)
     tmpElement = tmpHtmlPage.getElementById("option1");
-    Assert.assertTrue(HtmlElementUtil.isBlock(tmpElement));
+    assertTrue(HtmlElementUtil.isBlock(tmpElement));
     tmpElement = tmpHtmlPage.getElementById("option2");
-    Assert.assertTrue(HtmlElementUtil.isBlock(tmpElement));
+    assertTrue(HtmlElementUtil.isBlock(tmpElement));
     tmpElement = tmpHtmlPage.getElementById("option3");
-    Assert.assertTrue(HtmlElementUtil.isBlock(tmpElement));
+    assertTrue(HtmlElementUtil.isBlock(tmpElement));
     tmpElement = tmpHtmlPage.getElementById("option4");
-    Assert.assertTrue(HtmlElementUtil.isBlock(tmpElement));
+    assertTrue(HtmlElementUtil.isBlock(tmpElement));
 
     tmpElement = tmpHtmlPage.getElementById("img1");
-    Assert.assertFalse(HtmlElementUtil.isBlock(tmpElement));
+    assertFalse(HtmlElementUtil.isBlock(tmpElement));
   }
 
   @Test
@@ -2137,6 +2138,6 @@ public class HtmlElementUtilTest {
     final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     final DomElement tmpElement = tmpHtmlPage.getElementById("id1");
-    Assert.assertTrue(HtmlElementUtil.isFormatElement(tmpElement));
+    assertTrue(HtmlElementUtil.isFormatElement(tmpElement));
   }
 }

@@ -16,12 +16,12 @@
 
 package org.wetator.backend.htmlunit.matcher;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.List;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.wetator.backend.WeightedControlList.FoundType;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
@@ -55,7 +55,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myLabelId");
 
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Test
@@ -72,7 +72,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myLabelId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL_ELEMENT, 0, 14, 14, tmpMatches.get(0));
     assertLabelEquals("myLabelId", tmpMatches.get(0));
   }
@@ -91,7 +91,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myLabelId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL_ELEMENT, 0, 14, 14, tmpMatches.get(0));
     assertLabelEquals("myLabelId", tmpMatches.get(0));
   }
@@ -110,7 +110,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myLabelId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL_ELEMENT, 0, 14, 14, tmpMatches.get(0));
     assertLabelEquals("myLabelId", tmpMatches.get(0));
   }
@@ -129,7 +129,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myLabelId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL_ELEMENT, 2, 14, 14, tmpMatches.get(0));
     assertLabelEquals("myLabelId", tmpMatches.get(0));
   }
@@ -150,7 +150,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myLabelId", "otherLabelId");
 
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Test
@@ -169,7 +169,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myLabelId", "otherLabelId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL_ELEMENT, 0, 5, 22, tmpMatches.get(0));
     assertLabelEquals("myLabelId", tmpMatches.get(0));
   }
@@ -190,7 +190,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myLabelId", "otherLabelId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL_ELEMENT, 0, 5, 22, tmpMatches.get(0));
     assertLabelEquals("myLabelId", tmpMatches.get(0));
   }
@@ -211,7 +211,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myLabelId", "otherLabelId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL_ELEMENT, 0, 5, 22, tmpMatches.get(0));
     assertLabelEquals("myLabelId", tmpMatches.get(0));
   }
@@ -232,7 +232,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myLabelId", "otherLabelId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL_ELEMENT, 2, 5, 22, tmpMatches.get(0));
     assertLabelEquals("myLabelId", tmpMatches.get(0));
   }
@@ -253,7 +253,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myLabelId", "otherLabelId");
 
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Test
@@ -269,7 +269,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myLabelId");
 
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Test
@@ -286,7 +286,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myLabelId");
 
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Test
@@ -305,7 +305,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myLabelId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL_ELEMENT, 0, 14, 14, tmpMatches.get(0));
     assertLabelEquals("myLabelId", tmpMatches.get(0));
   }
@@ -324,7 +324,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myLabelId");
 
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Test
@@ -341,7 +341,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myLabelId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL_ELEMENT, 0, 0, 0, tmpMatches.get(0));
     assertLabelEquals("myLabelId", tmpMatches.get(0));
   }
@@ -360,7 +360,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myLabelId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL_ELEMENT, 0, 0, 0, tmpMatches.get(0));
     assertLabelEquals("myLabelId", tmpMatches.get(0));
   }
@@ -379,7 +379,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myLabelId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL_ELEMENT, 0, 0, 0, tmpMatches.get(0));
     assertLabelEquals("myLabelId", tmpMatches.get(0));
   }
@@ -398,7 +398,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myLabelId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL_ELEMENT, 2, 0, 0, tmpMatches.get(0));
     assertLabelEquals("myLabelId", tmpMatches.get(0));
   }
@@ -421,7 +421,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myLabelId", "otherLabelId");
 
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Test
@@ -442,7 +442,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myLabelId", "otherLabelId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL_ELEMENT, 0, 5, 22, tmpMatches.get(0));
     assertLabelEquals("myLabelId", tmpMatches.get(0));
   }
@@ -465,7 +465,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myLabelId", "otherLabelId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL_ELEMENT, 0, 5, 22, tmpMatches.get(0));
     assertLabelEquals("myLabelId", tmpMatches.get(0));
   }
@@ -488,7 +488,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myLabelId", "otherLabelId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL_ELEMENT, 0, 5, 22, tmpMatches.get(0));
     assertLabelEquals("myLabelId", tmpMatches.get(0));
   }
@@ -511,7 +511,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myLabelId", "otherLabelId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL_ELEMENT, 2, 5, 22, tmpMatches.get(0));
     assertLabelEquals("myLabelId", tmpMatches.get(0));
   }
@@ -534,7 +534,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myLabelId", "otherLabelId");
 
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Test
@@ -555,7 +555,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myLabelId", "otherLabelId");
 
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Test
@@ -572,7 +572,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myLabelId");
 
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Test
@@ -591,7 +591,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myLabelId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL_ELEMENT, 0, 0, 0, tmpMatches.get(0));
     assertLabelEquals("myLabelId", tmpMatches.get(0));
   }

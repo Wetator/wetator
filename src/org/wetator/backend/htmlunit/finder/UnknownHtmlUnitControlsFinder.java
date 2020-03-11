@@ -106,7 +106,8 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
           }
 
           tmpFoundControls.add(new HtmlUnitUnspecificControl<>(tmpHtmlElement), FoundType.BY_TEXT, tmpDeviation,
-              tmpDistance, tmpNodeSpot.getStartPos(), htmlPageIndex.getIndex(tmpHtmlElement));
+              tmpDistance, tmpNodeSpot.getStartPos(), htmlPageIndex.getHierarchy(tmpHtmlElement),
+              htmlPageIndex.getIndex(tmpHtmlElement));
 
           break;
         }
@@ -130,6 +131,7 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
               tmpMatch.getHtmlElement(), aWPath.getTableCoordinatesReversed(), htmlPageIndex, tmpPathSpot)) {
             tmpFoundControls.add(new HtmlUnitUnspecificControl<>(tmpMatch.getHtmlElement()), tmpMatch.getFoundType(),
                 tmpMatch.getDeviation(), tmpMatch.getDistance(), tmpMatch.getStart(),
+                htmlPageIndex.getHierarchy(tmpMatch.getHtmlElement()),
                 htmlPageIndex.getIndex(tmpMatch.getHtmlElement()));
           }
         }
@@ -141,6 +143,7 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
               tmpMatch.getHtmlElement(), aWPath.getTableCoordinatesReversed(), htmlPageIndex, null)) {
             tmpFoundControls.add(new HtmlUnitUnspecificControl<>(tmpMatch.getHtmlElement()), FoundType.BY_TITLE_TEXT,
                 tmpMatch.getDeviation(), tmpMatch.getDistance(), tmpMatch.getStart(),
+                htmlPageIndex.getHierarchy(tmpMatch.getHtmlElement()),
                 htmlPageIndex.getIndex(tmpMatch.getHtmlElement()));
           }
         }
@@ -178,7 +181,8 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
             }
 
             tmpFoundControls.add(new HtmlUnitUnspecificControl<>(tmpHtmlElement), FoundType.BY_TEXT, tmpDeviation,
-                tmpDistance, tmpNodeSpot.getStartPos(), htmlPageIndex.getIndex(tmpHtmlElement));
+                tmpDistance, tmpNodeSpot.getStartPos(), htmlPageIndex.getHierarchy(tmpHtmlElement),
+                htmlPageIndex.getIndex(tmpHtmlElement));
           }
           break;
         }

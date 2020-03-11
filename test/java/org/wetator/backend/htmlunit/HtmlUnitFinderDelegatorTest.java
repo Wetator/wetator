@@ -16,7 +16,9 @@
 
 package org.wetator.backend.htmlunit;
 
-import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
+
 import org.junit.Test;
 
 /**
@@ -29,9 +31,9 @@ public class HtmlUnitFinderDelegatorTest {
   public void pageNull() {
     try {
       new HtmlUnitFinderDelegator(null);
-      Assert.fail("IllegalArgumentException expected.");
+      fail("IllegalArgumentException expected.");
     } catch (final IllegalArgumentException e) {
-      Assert.assertEquals("HtmlPage can't be null", e.getMessage());
+      assertEquals("HtmlPage can't be null", e.getMessage());
     }
   }
 }

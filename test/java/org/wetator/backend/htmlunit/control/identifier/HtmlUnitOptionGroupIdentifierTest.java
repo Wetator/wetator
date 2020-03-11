@@ -16,9 +16,10 @@
 
 package org.wetator.backend.htmlunit.control.identifier;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.IOException;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.wetator.backend.WPath;
@@ -56,9 +57,9 @@ public class HtmlUnitOptionGroupIdentifierTest extends AbstractHtmlUnitControlId
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "optgroup_colors");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOptionGroup 'colors' (id='optgroup_colors') part of [HtmlSelect (id='MyFirstSelectId')]] found by: BY_ID deviation: 0 distance: 0 start: 0 index: 6",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOptionGroup 'colors' (id='optgroup_colors') part of [HtmlSelect (id='MyFirstSelectId')]] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5>6 index: 6",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -81,9 +82,9 @@ public class HtmlUnitOptionGroupIdentifierTest extends AbstractHtmlUnitControlId
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "optgroup_colors");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOptionGroup 'colors' (id='optgroup_colors') part of [HtmlSelect (id='MyFirstSelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 0 index: 6",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOptionGroup 'colors' (id='optgroup_colors') part of [HtmlSelect (id='MyFirstSelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5>6 index: 6",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 }

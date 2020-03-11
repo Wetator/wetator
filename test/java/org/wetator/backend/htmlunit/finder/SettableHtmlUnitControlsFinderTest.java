@@ -16,11 +16,12 @@
 
 package org.wetator.backend.htmlunit.finder;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.wetator.backend.WPath;
@@ -60,7 +61,7 @@ public class SettableHtmlUnitControlsFinderTest {
     final SettableHtmlUnitControlsFinder tmpFinder = new SettableHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString(), config));
 
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -73,7 +74,7 @@ public class SettableHtmlUnitControlsFinderTest {
     final SettableHtmlUnitControlsFinder tmpFinder = new SettableHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString(), config));
 
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -86,8 +87,9 @@ public class SettableHtmlUnitControlsFinderTest {
     final SettableHtmlUnitControlsFinder tmpFinder = new SettableHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString(), config));
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals("[HtmlFileInput (id='myId')] found by: BY_ID deviation: 0 distance: 0 start: 0 index: 5",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlFileInput (id='myId')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -101,8 +103,9 @@ public class SettableHtmlUnitControlsFinderTest {
     final SettableHtmlUnitControlsFinder tmpFinder = new SettableHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString(), config));
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals("[HtmlPasswordInput (id='myId')] found by: BY_ID deviation: 0 distance: 0 start: 0 index: 5",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlPasswordInput (id='myId')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -116,8 +119,9 @@ public class SettableHtmlUnitControlsFinderTest {
     final SettableHtmlUnitControlsFinder tmpFinder = new SettableHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString(), config));
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals("[HtmlTextInput (id='myId')] found by: BY_ID deviation: 0 distance: 0 start: 0 index: 5",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlTextInput (id='myId')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -131,8 +135,9 @@ public class SettableHtmlUnitControlsFinderTest {
     final SettableHtmlUnitControlsFinder tmpFinder = new SettableHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString(), config));
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals("[HtmlTextArea (id='myId')] found by: BY_ID deviation: 0 distance: 0 start: 0 index: 5",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlTextArea (id='myId')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 }

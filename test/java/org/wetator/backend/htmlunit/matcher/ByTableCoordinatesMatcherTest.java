@@ -16,13 +16,14 @@
 
 package org.wetator.backend.htmlunit.matcher;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList.FoundType;
@@ -77,7 +78,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3",
         "InputText_2_2", "InputText_2_3");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
 
     assertMatchEquals("InputText_2_3", FoundType.BY_TABLE_COORDINATE, 0, 38, 38, tmpMatches.get(0));
   }
@@ -115,7 +116,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3",
         "InputText_2_2", "InputText_2_3");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
 
     assertMatchEquals("InputText_2_3", FoundType.BY_TABLE_COORDINATE, 0, 38, 38, tmpMatches.get(0));
   }
@@ -153,7 +154,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3",
         "InputText_2_2", "InputText_2_3");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
 
     assertMatchEquals("InputText_2_3", FoundType.BY_TABLE_COORDINATE, 0, 38, 38, tmpMatches.get(0));
   }
@@ -191,7 +192,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3",
         "InputText_2_2", "InputText_2_3");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
 
     assertMatchEquals("InputText_2_3", FoundType.BY_TABLE_COORDINATE, 0, 38, 38, tmpMatches.get(0));
   }
@@ -229,7 +230,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3",
         "InputText_2_2", "InputText_2_3_1", "InputText_2_3_2");
 
-    Assert.assertEquals(2, tmpMatches.size());
+    assertEquals(2, tmpMatches.size());
 
     assertMatchEquals("InputText_2_3_1", FoundType.BY_TABLE_COORDINATE, 0, 38, 38, tmpMatches.get(0));
     assertMatchEquals("InputText_2_3_2", FoundType.BY_TABLE_COORDINATE, 0, 38, 38, tmpMatches.get(1));
@@ -276,7 +277,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3",
         "InputText_2_2", "InputText_2_3");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
 
     assertMatchEquals("InputText_2_3", FoundType.BY_TABLE_COORDINATE, 0, 38, 38, tmpMatches.get(0));
   }
@@ -327,7 +328,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3",
         "InputText_2_2", "InputText_2_3");
 
-    Assert.assertEquals(2, tmpMatches.size());
+    assertEquals(2, tmpMatches.size());
 
     assertMatchEquals("InputText_2_2", FoundType.BY_TABLE_COORDINATE, 0, 71, 71, tmpMatches.get(0));
     assertMatchEquals("InputText_2_3", FoundType.BY_TABLE_COORDINATE, 0, 71, 71, tmpMatches.get(1));
@@ -379,7 +380,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3",
         "InputText_2_2", "InputText_2_3");
 
-    Assert.assertEquals(2, tmpMatches.size());
+    assertEquals(2, tmpMatches.size());
 
     assertMatchEquals("InputText_1_3", FoundType.BY_TABLE_COORDINATE, 0, 65, 65, tmpMatches.get(0));
     assertMatchEquals("InputText_2_3", FoundType.BY_TABLE_COORDINATE, 0, 71, 71, tmpMatches.get(1));
@@ -418,7 +419,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3",
         "InputText_2_2", "InputText_2_3");
 
-    Assert.assertEquals(2, tmpMatches.size());
+    assertEquals(2, tmpMatches.size());
 
     assertMatchEquals("InputText_1_3", FoundType.BY_TABLE_COORDINATE, 0, 32, 32, tmpMatches.get(0));
     assertMatchEquals("InputText_2_3", FoundType.BY_TABLE_COORDINATE, 0, 38, 38, tmpMatches.get(1));
@@ -457,7 +458,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3",
         "InputText_2_2", "InputText_2_3");
 
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Test
@@ -493,7 +494,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3",
         "InputText_2_2", "InputText_2_3");
 
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Test
@@ -529,7 +530,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3",
         "InputText_2_2", "InputText_2_3");
 
-    Assert.assertEquals(2, tmpMatches.size());
+    assertEquals(2, tmpMatches.size());
 
     assertMatchEquals("InputText_2_2", FoundType.BY_TABLE_COORDINATE, 0, 38, 38, tmpMatches.get(0));
     assertMatchEquals("InputText_2_3", FoundType.BY_TABLE_COORDINATE, 0, 38, 38, tmpMatches.get(1));
@@ -568,7 +569,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3",
         "InputText_2_2", "InputText_2_3");
 
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Test
@@ -617,7 +618,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3",
         "InputText_2_2", "InputText_2_3");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
 
     assertMatchEquals("InputText_2_3", FoundType.BY_TABLE_COORDINATE, 0, 71, 71, tmpMatches.get(0));
   }
@@ -644,17 +645,17 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
 
     SecretString tmpSearch = new SecretString("[; row_1]");
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2");
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("InputText_1_2", FoundType.BY_TABLE_COORDINATE, 0, 5, 5, tmpMatches.get(0));
 
     tmpSearch = new SecretString("[; row_1]");
     tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_3");
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("InputText_1_3", FoundType.BY_TABLE_COORDINATE, 0, 5, 5, tmpMatches.get(0));
 
     tmpSearch = new SecretString("[; row_1]");
     tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_2_3");
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Test
@@ -679,22 +680,22 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
 
     SecretString tmpSearch = new SecretString("[; row_1]");
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2");
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("InputText_1_2", FoundType.BY_TABLE_COORDINATE, 0, 5, 5, tmpMatches.get(0));
 
     tmpSearch = new SecretString("[; row_1]");
     tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_3");
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("InputText_1_3", FoundType.BY_TABLE_COORDINATE, 0, 5, 5, tmpMatches.get(0));
 
     tmpSearch = new SecretString("[; row_1]");
     tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_2_2");
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("InputText_2_2", FoundType.BY_TABLE_COORDINATE, 0, 5, 5, tmpMatches.get(0));
 
     tmpSearch = new SecretString("[; row_1]");
     tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_2_3");
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("InputText_2_3", FoundType.BY_TABLE_COORDINATE, 0, 5, 5, tmpMatches.get(0));
   }
 
@@ -720,22 +721,22 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
 
     SecretString tmpSearch = new SecretString("[; row_1]");
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_1");
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("InputText_1_1", FoundType.BY_TABLE_COORDINATE, 0, 0, 0, tmpMatches.get(0));
 
     tmpSearch = new SecretString("[; row_1]");
     tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2");
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("InputText_1_2", FoundType.BY_TABLE_COORDINATE, 0, 0, 0, tmpMatches.get(0));
 
     tmpSearch = new SecretString("[; row_1]");
     tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_2_1");
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("InputText_2_1", FoundType.BY_TABLE_COORDINATE, 0, 5, 5, tmpMatches.get(0));
 
     tmpSearch = new SecretString("[; row_1]");
     tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_2_2");
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("InputText_2_2", FoundType.BY_TABLE_COORDINATE, 0, 5, 5, tmpMatches.get(0));
   }
 
@@ -758,7 +759,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_1");
 
     // no match but we like to be sure that there was no exception
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Test
@@ -785,12 +786,12 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
 
     SecretString tmpSearch = new SecretString("[header_1 ;]");
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_1");
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("InputText_1_1", FoundType.BY_TABLE_COORDINATE, 0, 26, 26, tmpMatches.get(0));
 
     tmpSearch = new SecretString("[header_2 ;]");
     tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_1");
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("InputText_1_1", FoundType.BY_TABLE_COORDINATE, 0, 26, 26, tmpMatches.get(0));
   }
 
@@ -818,17 +819,17 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
 
     SecretString tmpSearch = new SecretString("[header_1 ;]");
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_1");
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("InputText_1_1", FoundType.BY_TABLE_COORDINATE, 0, 17, 17, tmpMatches.get(0));
 
     tmpSearch = new SecretString("[header_1 ;]");
     tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2");
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("InputText_1_2", FoundType.BY_TABLE_COORDINATE, 0, 17, 17, tmpMatches.get(0));
 
     tmpSearch = new SecretString("[header_1 ;]");
     tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_3");
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Test
@@ -860,17 +861,17 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
 
     SecretString tmpSearch = new SecretString("[col_2 ;]");
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2");
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("InputText_1_2", FoundType.BY_TABLE_COORDINATE, 0, 26, 26, tmpMatches.get(0));
 
     tmpSearch = new SecretString("[col_2 ;]");
     tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_3");
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("InputText_1_3", FoundType.BY_TABLE_COORDINATE, 0, 26, 26, tmpMatches.get(0));
 
     tmpSearch = new SecretString("[col_2 ;]");
     tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_1");
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Test
@@ -892,7 +893,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_1");
 
     // no match but we like to be sure that there was no exception
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Test
@@ -918,7 +919,7 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_2_2");
 
     // no match because 'line one' does not span to column 2
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Test
@@ -944,12 +945,12 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
 
     List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_2_1");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("InputText_2_1", FoundType.BY_TABLE_COORDINATE, 0, 8, 8, tmpMatches.get(0));
 
     tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_2_2");
 
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Override

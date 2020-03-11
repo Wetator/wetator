@@ -16,10 +16,11 @@
 
 package org.wetator.backend.htmlunit;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.IOException;
 import java.io.StringWriter;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.wetator.backend.htmlunit.util.PageUtil;
 import org.wetator.util.NormalizedString;
@@ -49,13 +50,13 @@ public class XHtmlOutputterXHtmlPageTest {
     XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpXHtmlPage, null);
     StringWriter tmpWriter = new StringWriter();
     tmpXHtmlOutputter.writeTo(tmpWriter);
-    Assert.assertEquals(anExpected, new NormalizedString(tmpWriter.toString()).toString());
+    assertEquals(anExpected, new NormalizedString(tmpWriter.toString()).toString());
 
     tmpXHtmlPage = PageUtil.constructXHtmlPage(BrowserVersion.FIREFOX_68, anXHtmlCode);
     tmpXHtmlOutputter = new XHtmlOutputter(tmpXHtmlPage, null);
     tmpWriter = new StringWriter();
     tmpXHtmlOutputter.writeTo(tmpWriter);
-    Assert.assertEquals(anExpected, new NormalizedString(tmpWriter.toString()).toString());
+    assertEquals(anExpected, new NormalizedString(tmpWriter.toString()).toString());
   }
 
   @Test
@@ -125,7 +126,7 @@ public class XHtmlOutputterXHtmlPageTest {
             + "</body>"
             + EXPECTED_TRAILING;
     // @formatter:on
-    Assert.assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
+    assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
 
     final HtmlOption tmpOption = (HtmlOption) tmpXHtmlPage.getElementById("tst");
     tmpOption.setSelected(true);
@@ -151,7 +152,7 @@ public class XHtmlOutputterXHtmlPageTest {
             + "</body>"
             + EXPECTED_TRAILING;
     // @formatter:on
-    Assert.assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
+    assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
   }
 
   @Test
@@ -188,7 +189,7 @@ public class XHtmlOutputterXHtmlPageTest {
         + "</body>"
         + EXPECTED_TRAILING;
     // @formatter:on
-    // Assert.assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
+    // assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
 
     final HtmlRadioButtonInput tmpRadio = (HtmlRadioButtonInput) tmpXHtmlPage.getElementById("tst");
     tmpRadio.setChecked(true);
@@ -214,6 +215,6 @@ public class XHtmlOutputterXHtmlPageTest {
         + "</body>"
         + EXPECTED_TRAILING;
     // @formatter:on
-    Assert.assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
+    assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
   }
 }

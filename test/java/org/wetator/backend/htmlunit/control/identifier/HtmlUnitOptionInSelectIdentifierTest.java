@@ -16,9 +16,10 @@
 
 package org.wetator.backend.htmlunit.control.identifier;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.IOException;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.wetator.backend.WPath;
@@ -67,7 +68,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
         "mySelectId");
 
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -96,9 +97,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
         "mySelectId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 index: 19",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 hierarchy: 0>1>3>4>14>19 index: 19",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -128,9 +129,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
         "mySelectId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 index: 19",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 hierarchy: 0>1>3>4>14>19 index: 19",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -160,9 +161,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
         "mySelectId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 index: 19",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 hierarchy: 0>1>3>4>14>19 index: 19",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -192,7 +193,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
         "mySelectId");
 
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -221,9 +222,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
         "mySelectId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 index: 19",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 hierarchy: 0>1>3>4>14>19 index: 19",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -253,9 +254,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
         "mySelectId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 index: 19",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 hierarchy: 0>1>3>4>14>19 index: 19",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -285,9 +286,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
         "mySelectId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 index: 19",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 hierarchy: 0>1>3>4>14>19 index: 19",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -317,7 +318,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
         "mySelectId");
 
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -346,7 +347,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
         "mySelectId");
 
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -367,7 +368,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "mySelectId");
 
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -396,9 +397,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
         "mySelectId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 index: 19",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 hierarchy: 0>1>3>4>14>19 index: 19",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -428,9 +429,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
         "mySelectId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 index: 19",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 hierarchy: 0>1>3>4>14>19 index: 19",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -460,9 +461,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
         "mySelectId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 index: 19",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 hierarchy: 0>1>3>4>14>19 index: 19",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -492,7 +493,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
         "mySelectId");
 
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -521,9 +522,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
         "mySelectId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 index: 19",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 hierarchy: 0>1>3>4>14>19 index: 19",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -553,9 +554,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
         "mySelectId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 index: 19",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 hierarchy: 0>1>3>4>14>19 index: 19",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -585,9 +586,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
         "mySelectId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 index: 19",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 hierarchy: 0>1>3>4>14>19 index: 19",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -617,7 +618,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
         "mySelectId");
 
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -646,7 +647,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
         "mySelectId");
 
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -667,7 +668,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "mySelectId");
 
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -696,9 +697,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
         "mySelectId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 index: 19",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 hierarchy: 0>1>3>4>14>19 index: 19",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -728,9 +729,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
         "mySelectId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 index: 19",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 hierarchy: 0>1>3>4>14>19 index: 19",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -760,9 +761,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
         "mySelectId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 index: 19",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 hierarchy: 0>1>3>4>14>19 index: 19",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -792,9 +793,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
         "mySelectId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 1 start: 84 index: 19",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 1 start: 84 hierarchy: 0>1>3>4>14>19 index: 19",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -824,9 +825,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
         "mySelectId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 index: 19",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 hierarchy: 0>1>3>4>14>19 index: 19",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -856,9 +857,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
         "mySelectId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 index: 19",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 hierarchy: 0>1>3>4>14>19 index: 19",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -888,9 +889,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
         "mySelectId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 index: 19",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 hierarchy: 0>1>3>4>14>19 index: 19",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -920,9 +921,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
         "mySelectId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 1 start: 84 index: 19",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 1 start: 84 hierarchy: 0>1>3>4>14>19 index: 19",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -952,7 +953,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
         "mySelectId");
 
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -974,7 +975,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "mySelectId");
 
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -1003,9 +1004,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
         "mySelectId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 81 index: 20",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 81 hierarchy: 0>1>3>4>15>20 index: 20",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -1035,9 +1036,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
         "mySelectId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 81 index: 20",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 81 hierarchy: 0>1>3>4>15>20 index: 20",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -1067,9 +1068,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
         "mySelectId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 81 index: 20",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 81 hierarchy: 0>1>3>4>15>20 index: 20",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -1099,9 +1100,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
         "mySelectId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 1 start: 81 index: 20",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 1 start: 81 hierarchy: 0>1>3>4>15>20 index: 20",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -1131,9 +1132,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
         "mySelectId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 81 index: 20",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 81 hierarchy: 0>1>3>4>15>20 index: 20",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -1163,9 +1164,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
         "mySelectId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 81 index: 20",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 81 hierarchy: 0>1>3>4>15>20 index: 20",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -1195,9 +1196,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
         "mySelectId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 81 index: 20",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 81 hierarchy: 0>1>3>4>15>20 index: 20",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -1227,9 +1228,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
         "mySelectId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 1 start: 81 index: 20",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 1 start: 81 hierarchy: 0>1>3>4>15>20 index: 20",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -1259,7 +1260,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
         "mySelectId");
 
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -1281,7 +1282,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "labelId", "mySelectId");
 
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -1310,7 +1311,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
         "labelId");
 
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -1340,9 +1341,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
         "mySelectId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 81 index: 20",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 81 hierarchy: 0>1>3>4>13>15>20 index: 20",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -1373,9 +1374,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
         "mySelectId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 81 index: 20",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 81 hierarchy: 0>1>3>4>13>15>20 index: 20",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -1406,9 +1407,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
         "mySelectId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 81 index: 20",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 81 hierarchy: 0>1>3>4>13>15>20 index: 20",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -1439,9 +1440,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
         "mySelectId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 1 start: 81 index: 20",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 1 start: 81 hierarchy: 0>1>3>4>13>15>20 index: 20",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -1472,9 +1473,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
         "mySelectId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 81 index: 20",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 81 hierarchy: 0>1>3>4>13>15>20 index: 20",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -1505,9 +1506,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
         "mySelectId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 81 index: 20",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 81 hierarchy: 0>1>3>4>13>15>20 index: 20",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -1538,9 +1539,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
         "mySelectId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 81 index: 20",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 81 hierarchy: 0>1>3>4>13>15>20 index: 20",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -1571,9 +1572,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
         "mySelectId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 1 start: 81 index: 20",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 1 start: 81 hierarchy: 0>1>3>4>13>15>20 index: 20",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -1604,7 +1605,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
         "mySelectId");
 
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -1627,7 +1628,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "labelId", "mySelectId");
 
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -1657,7 +1658,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
         "labelId");
 
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -1716,9 +1717,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "mySelectId_1_2",
         "mySelectId_1_3", "mySelectId_2_2", "mySelectId_2_3");
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText2' part of [HtmlSelect (id='mySelectId_2_3') (name='mySelectName_2_3')]] found by: BY_LABEL deviation: 0 distance: 0 start: 158 index: 67",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText2' part of [HtmlSelect (id='mySelectId_2_3') (name='mySelectName_2_3')]] found by: BY_LABEL deviation: 0 distance: 0 start: 158 hierarchy: 0>1>3>5>22>48>62>64>67 index: 67",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -1748,7 +1749,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
         "mySelectId");
 
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -1777,9 +1778,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
         "mySelectId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText2' (id='myOptionId2_2') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 0 start: 76 index: 17",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText2' (id='myOptionId2_2') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 0 start: 76 hierarchy: 0>1>3>4>14>17 index: 17",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -1809,9 +1810,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
         "mySelectId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption '2option' (id='myOptionId2_2') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 0 start: 76 index: 17",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption '2option' (id='myOptionId2_2') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 0 start: 76 hierarchy: 0>1>3>4>14>17 index: 17",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -1841,9 +1842,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
         "mySelectId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText2' (id='myOptionId2_2') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 0 start: 76 index: 17",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText2' (id='myOptionId2_2') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 0 start: 76 hierarchy: 0>1>3>4>14>17 index: 17",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -1873,9 +1874,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
         "mySelectId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText2' (id='myOptionId2_2') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 2 distance: 0 start: 76 index: 17",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText2' (id='myOptionId2_2') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 2 distance: 0 start: 76 hierarchy: 0>1>3>4>14>17 index: 17",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -1905,9 +1906,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
         "mySelectId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText2' (id='myOptionId2_2') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 0 start: 76 index: 17",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText2' (id='myOptionId2_2') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 0 start: 76 hierarchy: 0>1>3>4>14>17 index: 17",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -1937,15 +1938,15 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
         "mySelectId");
 
-    Assert.assertEquals(3, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption '' (id='myOptionId2_2') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 0 start: 76 index: 17",
+    assertEquals(3, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption '' (id='myOptionId2_2') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 0 start: 76 hierarchy: 0>1>3>4>14>17 index: 17",
         tmpFound.getEntriesSorted().get(0).toString());
-    Assert.assertEquals(
-        "[HtmlOption 'myText1' (id='myOptionId2_1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 7 distance: 0 start: 68 index: 15",
+    assertEquals(
+        "[HtmlOption 'myText1' (id='myOptionId2_1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 7 distance: 0 start: 68 hierarchy: 0>1>3>4>14>15 index: 15",
         tmpFound.getEntriesSorted().get(1).toString());
-    Assert.assertEquals(
-        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 7 distance: 0 start: 76 index: 18",
+    assertEquals(
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 7 distance: 0 start: 76 hierarchy: 0>1>3>4>14>18 index: 18",
         tmpFound.getEntriesSorted().get(2).toString());
   }
 
@@ -1975,9 +1976,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
         "mySelectId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText2' (id='myOptionId2_2') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 0 start: 76 index: 17",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText2' (id='myOptionId2_2') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 0 start: 76 hierarchy: 0>1>3>4>14>17 index: 17",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -2007,9 +2008,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
         "mySelectId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText2' (id='myOptionId2_2') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 0 start: 76 index: 17",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText2' (id='myOptionId2_2') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 0 start: 76 hierarchy: 0>1>3>4>14>17 index: 17",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -2039,9 +2040,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
         "mySelectId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText2' (id='myOptionId2_2') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 0 start: 76 index: 17",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText2' (id='myOptionId2_2') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 0 start: 76 hierarchy: 0>1>3>4>14>17 index: 17",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -2071,9 +2072,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
         "mySelectId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText2' (id='myOptionId2_2') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 2 distance: 0 start: 76 index: 17",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText2' (id='myOptionId2_2') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 2 distance: 0 start: 76 hierarchy: 0>1>3>4>14>17 index: 17",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -2103,15 +2104,15 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
         "mySelectId");
 
-    Assert.assertEquals(3, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText2' (id='myOptionId2_2') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 0 start: 76 index: 17",
+    assertEquals(3, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText2' (id='myOptionId2_2') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 0 start: 76 hierarchy: 0>1>3>4>14>17 index: 17",
         tmpFound.getEntriesSorted().get(0).toString());
-    Assert.assertEquals(
-        "[HtmlOption 'myText1' (id='myOptionId2_1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 7 distance: 0 start: 68 index: 15",
+    assertEquals(
+        "[HtmlOption 'myText1' (id='myOptionId2_1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 7 distance: 0 start: 68 hierarchy: 0>1>3>4>14>15 index: 15",
         tmpFound.getEntriesSorted().get(1).toString());
-    Assert.assertEquals(
-        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 7 distance: 0 start: 84 index: 19",
+    assertEquals(
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 7 distance: 0 start: 84 hierarchy: 0>1>3>4>14>19 index: 19",
         tmpFound.getEntriesSorted().get(2).toString());
   }
 
@@ -2134,9 +2135,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, "mySelectId", new WPath(tmpSearch, config));
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText1' (id='myOptionId1_1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 14 start: 14 index: 8",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText1' (id='myOptionId1_1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 14 start: 14 hierarchy: 0>1>3>4>7>8 index: 8",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -2159,9 +2160,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, "mySelectId", new WPath(tmpSearch, config));
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption '1option' (id='myOptionId1_1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 14 start: 14 index: 8",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption '1option' (id='myOptionId1_1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 14 start: 14 hierarchy: 0>1>3>4>7>8 index: 8",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -2184,9 +2185,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, "mySelectId", new WPath(tmpSearch, config));
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText1' (id='myOptionId1_1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 14 start: 14 index: 8",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText1' (id='myOptionId1_1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 14 start: 14 hierarchy: 0>1>3>6>7>8 index: 8",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -2209,9 +2210,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, "mySelectId", new WPath(tmpSearch, config));
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText1' (id='myOptionId1_1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 2 distance: 14 start: 14 index: 8",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText1' (id='myOptionId1_1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 2 distance: 14 start: 14 hierarchy: 0>1>3>4>7>8 index: 8",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -2234,9 +2235,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, "mySelectId", new WPath(tmpSearch, config));
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText1' (id='myOptionId1_1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 14 start: 14 index: 8",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText1' (id='myOptionId1_1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 14 start: 14 hierarchy: 0>1>3>4>7>8 index: 8",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -2259,9 +2260,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, "mySelectId", new WPath(tmpSearch, config));
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText1' (id='myOptionId1_1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 14 start: 14 index: 8",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText1' (id='myOptionId1_1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 14 start: 14 hierarchy: 0>1>3>4>7>8 index: 8",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -2284,9 +2285,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, "mySelectId", new WPath(tmpSearch, config));
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText1' (id='myOptionId1_1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 14 start: 14 index: 8",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText1' (id='myOptionId1_1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 14 start: 14 hierarchy: 0>1>3>4>7>8 index: 8",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -2309,9 +2310,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, "mySelectId", new WPath(tmpSearch, config));
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText1' (id='myOptionId1_1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 14 start: 14 index: 8",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText1' (id='myOptionId1_1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 14 start: 14 hierarchy: 0>1>3>4>7>8 index: 8",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -2334,9 +2335,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, "mySelectId", new WPath(tmpSearch, config));
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText1' (id='myOptionId1_1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 4 distance: 14 start: 14 index: 8",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText1' (id='myOptionId1_1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 4 distance: 14 start: 14 hierarchy: 0>1>3>4>7>8 index: 8",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -2392,9 +2393,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "mySelectId_1_2",
         "mySelectId_1_3", "mySelectId_2_2", "mySelectId_2_3");
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlOption 'myText2' part of [HtmlSelect (id='mySelectId_2_3') (name='mySelectName_2_3')]] found by: BY_LABEL deviation: 0 distance: 86 start: 94 index: 67",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlOption 'myText2' part of [HtmlSelect (id='mySelectId_2_3') (name='mySelectName_2_3')]] found by: BY_LABEL deviation: 0 distance: 86 start: 94 hierarchy: 0>1>3>5>22>48>62>64>67 index: 67",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 }

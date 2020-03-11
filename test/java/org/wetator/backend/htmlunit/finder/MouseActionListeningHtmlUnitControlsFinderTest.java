@@ -16,11 +16,12 @@
 
 package org.wetator.backend.htmlunit.finder;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.wetator.backend.MouseAction;
@@ -64,7 +65,7 @@ public class MouseActionListeningHtmlUnitControlsFinderTest {
         tmpHtmlPageIndex, null, MouseAction.CLICK);
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString(), config));
 
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -81,7 +82,7 @@ public class MouseActionListeningHtmlUnitControlsFinderTest {
         tmpHtmlPageIndex, null, MouseAction.CLICK);
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("some text"), config));
 
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -98,7 +99,7 @@ public class MouseActionListeningHtmlUnitControlsFinderTest {
         tmpHtmlPageIndex, null, MouseAction.CLICK);
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("some text"), config));
 
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -115,9 +116,9 @@ public class MouseActionListeningHtmlUnitControlsFinderTest {
         tmpHtmlPageIndex, null, MouseAction.CLICK);
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("some text"), config));
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlSpan 'some text' (id='myId')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 index: 4",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlSpan 'some text' (id='myId')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -135,9 +136,9 @@ public class MouseActionListeningHtmlUnitControlsFinderTest {
         tmpHtmlPageIndex, null, MouseAction.CLICK_DOUBLE);
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("some text"), config));
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlSpan 'some text' (id='myId')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 index: 4",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlSpan 'some text' (id='myId')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -155,9 +156,9 @@ public class MouseActionListeningHtmlUnitControlsFinderTest {
         tmpHtmlPageIndex, null, MouseAction.CLICK_RIGHT);
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("some text"), config));
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlSpan 'some text' (id='myId')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 index: 4",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlSpan 'some text' (id='myId')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -175,9 +176,9 @@ public class MouseActionListeningHtmlUnitControlsFinderTest {
         tmpHtmlPageIndex, null, MouseAction.MOUSE_OVER);
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("some text"), config));
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlSpan 'some text' (id='myId')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 index: 4",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlSpan 'some text' (id='myId')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 }

@@ -16,9 +16,10 @@
 
 package org.wetator.backend.htmlunit.control.identifier;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.IOException;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.wetator.backend.WPath;
@@ -51,9 +52,9 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlPasswordInput (id='myId') (name='myName')] found by: BY_ID deviation: 0 distance: 0 start: 0 index: 5",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlPasswordInput (id='myId') (name='myName')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -71,9 +72,9 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlPasswordInput (id='myId') (name='myName')] found by: BY_NAME deviation: 0 distance: 0 start: 0 index: 5",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlPasswordInput (id='myId') (name='myName')] found by: BY_NAME deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -93,9 +94,9 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherId", "myId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlPasswordInput (id='myId') (name='myName')] found by: BY_LABELING_TEXT deviation: 0 distance: 0 start: 6 index: 8",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlPasswordInput (id='myId') (name='myName')] found by: BY_LABELING_TEXT deviation: 0 distance: 0 start: 6 hierarchy: 0>1>3>4>8 index: 8",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -113,9 +114,9 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlPasswordInput (id='myId') (name='myName')] found by: BY_PLACEHOLDER deviation: 0 distance: 0 start: 0 index: 5",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlPasswordInput (id='myId') (name='myName')] found by: BY_PLACEHOLDER deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -134,9 +135,9 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "labelId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlPasswordInput (id='myId') (name='myName')] found by: BY_LABEL_ELEMENT deviation: 0 distance: 0 start: 5 index: 7",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlPasswordInput (id='myId') (name='myName')] found by: BY_LABEL_ELEMENT deviation: 0 distance: 0 start: 5 hierarchy: 0>1>3>4>7 index: 7",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -155,7 +156,7 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "labelId");
 
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -174,9 +175,9 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "labelId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlPasswordInput (id='myId') (name='myName')] found by: BY_LABEL_ELEMENT deviation: 0 distance: 0 start: 5 index: 7",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlPasswordInput (id='myId') (name='myName')] found by: BY_LABEL_ELEMENT deviation: 0 distance: 0 start: 5 hierarchy: 0>1>3>4>5>7 index: 7",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -196,7 +197,7 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "labelId");
 
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -216,9 +217,9 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlPasswordInput (id='myId') (name='myName')] found by: BY_TEXT deviation: 14 distance: 20 start: 20 index: 10",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlPasswordInput (id='myId') (name='myName')] found by: BY_TEXT deviation: 14 distance: 20 start: 20 hierarchy: 0>1>3>4>10 index: 10",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -239,12 +240,12 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId", "otherId");
 
-    Assert.assertEquals(2, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlPasswordInput (id='myId') (name='myName')] found by: BY_TEXT deviation: 0 distance: 0 start: 6 index: 7",
+    assertEquals(2, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlPasswordInput (id='myId') (name='myName')] found by: BY_TEXT deviation: 0 distance: 0 start: 6 hierarchy: 0>1>3>4>7 index: 7",
         tmpFound.getEntriesSorted().get(0).toString());
-    Assert.assertEquals(
-        "[HtmlPasswordInput (id='otherId') (name='otherName')] found by: BY_TEXT deviation: 0 distance: 14 start: 20 index: 10",
+    assertEquals(
+        "[HtmlPasswordInput (id='otherId') (name='otherName')] found by: BY_TEXT deviation: 0 distance: 14 start: 20 hierarchy: 0>1>3>4>10 index: 10",
         tmpFound.getEntriesSorted().get(1).toString());
   }
 
@@ -281,9 +282,9 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId_1_2", "myId_1_3",
         "myId_2_2", "myId_2_3");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlPasswordInput (id='myId_2_3')] found by: BY_TABLE_COORDINATE deviation: 0 distance: 38 start: 38 index: 45",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlPasswordInput (id='myId_2_3')] found by: BY_TABLE_COORDINATE deviation: 0 distance: 38 start: 38 hierarchy: 0>1>3>5>22>36>44>45 index: 45",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 }

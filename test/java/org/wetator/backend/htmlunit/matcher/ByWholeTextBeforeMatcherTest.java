@@ -16,13 +16,14 @@
 
 package org.wetator.backend.htmlunit.matcher;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList.FoundType;
@@ -57,7 +58,7 @@ public class ByWholeTextBeforeMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Test
@@ -74,7 +75,7 @@ public class ByWholeTextBeforeMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_TEXT, 0, 21, 21, tmpMatches.get(0));
   }
 
@@ -92,7 +93,7 @@ public class ByWholeTextBeforeMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_TEXT, 0, 21, 21, tmpMatches.get(0));
   }
 
@@ -110,7 +111,7 @@ public class ByWholeTextBeforeMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_TEXT, 0, 21, 21, tmpMatches.get(0));
   }
 
@@ -128,7 +129,7 @@ public class ByWholeTextBeforeMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_TEXT, 1, 21, 21, tmpMatches.get(0));
   }
 
@@ -146,7 +147,7 @@ public class ByWholeTextBeforeMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Test
@@ -164,7 +165,7 @@ public class ByWholeTextBeforeMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_TEXT, 0, 8, 15, tmpMatches.get(0));
   }
 
@@ -183,7 +184,7 @@ public class ByWholeTextBeforeMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_TEXT, 0, 8, 15, tmpMatches.get(0));
   }
 
@@ -202,7 +203,7 @@ public class ByWholeTextBeforeMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_TEXT, 0, 8, 15, tmpMatches.get(0));
   }
 
@@ -221,7 +222,7 @@ public class ByWholeTextBeforeMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_TEXT, 1, 8, 15, tmpMatches.get(0));
   }
 
@@ -240,7 +241,7 @@ public class ByWholeTextBeforeMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
-    Assert.assertEquals(2, tmpMatches.size());
+    assertEquals(2, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_TEXT, 0, 0, 7, tmpMatches.get(0));
     assertMatchEquals("otherId", FoundType.BY_TEXT, 0, 8, 15, tmpMatches.get(1));
   }

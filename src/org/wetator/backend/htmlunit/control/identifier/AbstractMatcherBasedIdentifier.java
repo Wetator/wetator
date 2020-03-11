@@ -22,7 +22,6 @@ import java.util.List;
 
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
-import org.wetator.backend.WeightedControlList.FoundType;
 import org.wetator.backend.control.IControl;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
@@ -82,14 +81,9 @@ public abstract class AbstractMatcherBasedIdentifier extends AbstractHtmlUnitCon
       // the page index does a more sophisticated visibility check
       // because of this the control might be missing from the index
       if (tmpPosition != null) {
-        final IControl tmpControl = createControl(tmpMatch);
-        final FoundType tmpFoundType = tmpMatch.getFoundType();
-        final int tmpDeviation = tmpMatch.getDeviation();
-        final int tmpDistance = tmpMatch.getDistance();
-        final int tmpStartPosition = tmpPosition.getStartPos();
-        final int tmpIndex = htmlPageIndex.getIndex(tmpHtmlElement);
-
-        tmpResult.add(tmpControl, tmpFoundType, tmpDeviation, tmpDistance, tmpStartPosition, tmpIndex);
+        tmpResult.add(createControl(tmpMatch), tmpMatch.getFoundType(), tmpMatch.getDeviation(), tmpMatch.getDistance(),
+            tmpPosition.getStartPos(), htmlPageIndex.getHierarchy(tmpHtmlElement),
+            htmlPageIndex.getIndex(tmpHtmlElement));
       }
     }
     return tmpResult;

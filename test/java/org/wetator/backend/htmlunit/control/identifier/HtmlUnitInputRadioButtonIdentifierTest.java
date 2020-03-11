@@ -16,9 +16,10 @@
 
 package org.wetator.backend.htmlunit.control.identifier;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.IOException;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.wetator.backend.WPath;
@@ -53,9 +54,9 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyRadioButtonId1",
         "MyRadioButtonId2");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] found by: BY_ID deviation: 0 distance: 12 start: 12 index: 7",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] found by: BY_ID deviation: 0 distance: 12 start: 12 hierarchy: 0>1>3>4>7 index: 7",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -75,12 +76,12 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyRadioButtonId1",
         "MyRadioButtonId2");
 
-    Assert.assertEquals(2, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlRadioButtonInput 'value1' (id='MyRadioButtonId1') (name='MyRadioButtonName')] found by: BY_LABELING_TEXT deviation: 0 distance: 0 start: 0 index: 5",
+    assertEquals(2, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlRadioButtonInput 'value1' (id='MyRadioButtonId1') (name='MyRadioButtonName')] found by: BY_LABELING_TEXT deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
-    Assert.assertEquals(
-        "[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] found by: BY_TEXT deviation: 0 distance: 12 start: 12 index: 7",
+    assertEquals(
+        "[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] found by: BY_TEXT deviation: 0 distance: 12 start: 12 hierarchy: 0>1>3>4>7 index: 7",
         tmpFound.getEntriesSorted().get(1).toString());
   }
 
@@ -102,9 +103,9 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyLabelId1",
         "MyLabelId2");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] found by: BY_LABEL_ELEMENT deviation: 0 distance: 27 start: 43 index: 11",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] found by: BY_LABEL_ELEMENT deviation: 0 distance: 27 start: 43 hierarchy: 0>1>3>4>11 index: 11",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -126,9 +127,9 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyLabelId1",
         "MyLabelId2");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] by [HtmlLabel 'SecondLabelText' (id='MyLabelId2') (for='MyRadioButtonId2')] found by: BY_LABEL_ELEMENT deviation: 0 distance: 27 start: 43 index: 11",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] by [HtmlLabel 'SecondLabelText' (id='MyLabelId2') (for='MyRadioButtonId2')] found by: BY_LABEL_ELEMENT deviation: 0 distance: 27 start: 43 hierarchy: 0>1>3>4>11 index: 11",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -152,9 +153,9 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyLabelId1",
         "MyLabelId2");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] found by: BY_LABEL_ELEMENT deviation: 13 distance: 27 start: 43 index: 11",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] found by: BY_LABEL_ELEMENT deviation: 13 distance: 27 start: 43 hierarchy: 0>1>3>4>9>11 index: 11",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -178,9 +179,9 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyLabelId1",
         "MyLabelId2");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] by [HtmlLabel 'SecondLabelTextuncheckedRadioButton2' (id='MyLabelId2')] found by: BY_LABEL_ELEMENT deviation: 12 distance: 27 start: 43 index: 11",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlRadioButtonInput 'value2' (id='MyRadioButtonId2') (name='MyRadioButtonName')] by [HtmlLabel 'SecondLabelTextuncheckedRadioButton2' (id='MyLabelId2')] found by: BY_LABEL_ELEMENT deviation: 12 distance: 27 start: 43 hierarchy: 0>1>3>4>9>11 index: 11",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -201,9 +202,9 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlRadioButtonInput 'myValue' (id='myId') (name='myName')] found by: BY_TEXT deviation: 25 distance: 31 start: 31 index: 10",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlRadioButtonInput 'myValue' (id='myId') (name='myName')] found by: BY_TEXT deviation: 25 distance: 31 start: 31 hierarchy: 0>1>3>4>10 index: 10",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -224,12 +225,12 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId", "otherId");
 
-    Assert.assertEquals(2, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlRadioButtonInput 'myValue' (id='myId') (name='myName')] found by: BY_TEXT deviation: 0 distance: 0 start: 6 index: 7",
+    assertEquals(2, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlRadioButtonInput 'myValue' (id='myId') (name='myName')] found by: BY_TEXT deviation: 0 distance: 0 start: 6 hierarchy: 0>1>3>4>7 index: 7",
         tmpFound.getEntriesSorted().get(0).toString());
-    Assert.assertEquals(
-        "[HtmlRadioButtonInput 'otherValue' (id='otherId') (name='otherName')] found by: BY_TEXT deviation: 0 distance: 14 start: 20 index: 10",
+    assertEquals(
+        "[HtmlRadioButtonInput 'otherValue' (id='otherId') (name='otherName')] found by: BY_TEXT deviation: 0 distance: 14 start: 20 hierarchy: 0>1>3>4>10 index: 10",
         tmpFound.getEntriesSorted().get(1).toString());
   }
 
@@ -266,9 +267,9 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyRadioButtonId_1_2",
         "MyRadioButtonId_1_3", "MyRadioButtonId_2_2", "MyRadioButtonId_2_3");
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlRadioButtonInput 'value_2_3' (id='MyRadioButtonId_2_3') (name='MyRadioButtonName_2_3')] found by: BY_TABLE_COORDINATE deviation: 0 distance: 38 start: 38 index: 45",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlRadioButtonInput 'value_2_3' (id='MyRadioButtonId_2_3') (name='MyRadioButtonName_2_3')] found by: BY_TABLE_COORDINATE deviation: 0 distance: 38 start: 38 hierarchy: 0>1>3>5>22>36>44>45 index: 45",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 }

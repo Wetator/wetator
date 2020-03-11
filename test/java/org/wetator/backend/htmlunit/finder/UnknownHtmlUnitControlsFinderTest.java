@@ -16,11 +16,12 @@
 
 package org.wetator.backend.htmlunit.finder;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
 
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.wetator.backend.WPath;
@@ -64,7 +65,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     final UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -82,7 +83,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     final UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -99,7 +100,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     final UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -117,7 +118,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     final UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -135,9 +136,9 @@ public class UnknownHtmlUnitControlsFinderTest {
     final UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlBody'] found by: BY_TEXT deviation: 0 distance: 0 start: 0 index: 3",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlBody'] found by: BY_TEXT deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3 index: 3",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -156,9 +157,9 @@ public class UnknownHtmlUnitControlsFinderTest {
     final UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlBody'] found by: BY_TEXT deviation: 2 distance: 0 start: 0 index: 3",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlBody'] found by: BY_TEXT deviation: 2 distance: 0 start: 0 hierarchy: 0>1>3 index: 3",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -177,9 +178,9 @@ public class UnknownHtmlUnitControlsFinderTest {
     final UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlBody'] found by: BY_TEXT deviation: 0 distance: 2 start: 0 index: 3",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlBody'] found by: BY_TEXT deviation: 0 distance: 2 start: 0 hierarchy: 0>1>3 index: 3",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -198,9 +199,9 @@ public class UnknownHtmlUnitControlsFinderTest {
     final UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlBody'] found by: BY_TEXT deviation: 1 distance: 1 start: 0 index: 3",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlBody'] found by: BY_TEXT deviation: 1 distance: 1 start: 0 hierarchy: 0>1>3 index: 3",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -219,7 +220,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     final UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -237,8 +238,9 @@ public class UnknownHtmlUnitControlsFinderTest {
     final UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals("[HtmlParagraph 'MyText'] found by: BY_TEXT deviation: 0 distance: 0 start: 0 index: 4",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlParagraph 'MyText'] found by: BY_TEXT deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -257,8 +259,9 @@ public class UnknownHtmlUnitControlsFinderTest {
     final UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals("[HtmlParagraph 'MyText'] found by: BY_TEXT deviation: 2 distance: 0 start: 0 index: 4",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlParagraph 'MyText'] found by: BY_TEXT deviation: 2 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -277,8 +280,9 @@ public class UnknownHtmlUnitControlsFinderTest {
     final UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals("[HtmlParagraph 'MyText'] found by: BY_TEXT deviation: 0 distance: 2 start: 0 index: 4",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlParagraph 'MyText'] found by: BY_TEXT deviation: 0 distance: 2 start: 0 hierarchy: 0>1>3>4 index: 4",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -297,8 +301,9 @@ public class UnknownHtmlUnitControlsFinderTest {
     final UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals("[HtmlParagraph 'MyText'] found by: BY_TEXT deviation: 1 distance: 1 start: 0 index: 4",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlParagraph 'MyText'] found by: BY_TEXT deviation: 1 distance: 1 start: 0 hierarchy: 0>1>3>4 index: 4",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -317,8 +322,9 @@ public class UnknownHtmlUnitControlsFinderTest {
     final UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals("[HtmlParagraph 'MyText'] found by: BY_TEXT deviation: 0 distance: 0 start: 0 index: 4",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlParagraph 'MyText'] found by: BY_TEXT deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -337,7 +343,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     final UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -355,9 +361,9 @@ public class UnknownHtmlUnitControlsFinderTest {
     final UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlParagraph 'MyText' (id='myId')] found by: BY_ID deviation: 0 distance: 0 start: 0 index: 4",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlParagraph 'MyText' (id='myId')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -376,9 +382,9 @@ public class UnknownHtmlUnitControlsFinderTest {
     final UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlParagraph 'MyText' (id='myId')] found by: BY_ID deviation: 0 distance: 0 start: 0 index: 4",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlParagraph 'MyText' (id='myId')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -397,9 +403,9 @@ public class UnknownHtmlUnitControlsFinderTest {
     final UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlParagraph 'MyText' (id='myId')] found by: BY_ID deviation: 0 distance: 0 start: 0 index: 4",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlParagraph 'MyText' (id='myId')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -418,7 +424,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     final UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -436,9 +442,9 @@ public class UnknownHtmlUnitControlsFinderTest {
     final UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlParagraph 'MyText' (id='tester')] found by: BY_TITLE_TEXT deviation: 0 distance: 0 start: 0 index: 4",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlParagraph 'MyText' (id='tester')] found by: BY_TITLE_TEXT deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -458,12 +464,12 @@ public class UnknownHtmlUnitControlsFinderTest {
     final UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
-    Assert.assertEquals(2, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlLabel'] found by: BY_TEXT deviation: 0 distance: 0 start: 0 index: 5",
+    assertEquals(2, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlLabel'] found by: BY_TEXT deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>5 index: 5",
         tmpFound.getEntriesSorted().get(0).toString());
-    Assert.assertEquals(
-        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput' (id='myCheckbox') (name='checkbox')] found by: BY_TITLE_TEXT deviation: 0 distance: 0 start: 0 index: 4",
+    assertEquals(
+        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput' (id='myCheckbox') (name='checkbox')] found by: BY_TITLE_TEXT deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
         tmpFound.getEntriesSorted().get(1).toString());
   }
 
@@ -484,8 +490,9 @@ public class UnknownHtmlUnitControlsFinderTest {
     final UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals("[HtmlParagraph 'line3'] found by: BY_TEXT deviation: 0 distance: 8 start: 12 index: 11",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlParagraph 'line3'] found by: BY_TEXT deviation: 0 distance: 8 start: 12 hierarchy: 0>1>3>11 index: 11",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -505,8 +512,9 @@ public class UnknownHtmlUnitControlsFinderTest {
     final UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals("[HtmlParagraph 'line3'] found by: BY_TEXT deviation: 0 distance: 0 start: 5 index: 6",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlParagraph 'line3'] found by: BY_TEXT deviation: 0 distance: 0 start: 5 hierarchy: 0>1>3>6 index: 6",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -528,7 +536,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     final UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, tmpRepository);
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -569,9 +577,9 @@ public class UnknownHtmlUnitControlsFinderTest {
     UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, tmpRepository);
     WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[HtmlSpan 'Text_2_3' (id='id_2_3')] found by: BY_ID deviation: 0 distance: 65 start: 65 index: 48",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlSpan 'Text_2_3' (id='id_2_3')] found by: BY_ID deviation: 0 distance: 65 start: 65 hierarchy: 0>1>3>5>22>38>47>48 index: 48",
         tmpFound.getEntriesSorted().get(0).toString());
 
     // [header_2; row_2] > id_2_3
@@ -580,7 +588,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, tmpRepository);
     tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -621,8 +629,9 @@ public class UnknownHtmlUnitControlsFinderTest {
     UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, tmpRepository);
     WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals("[HtmlSpan 'Text_2_3'] found by: BY_TITLE_TEXT deviation: 0 distance: 65 start: 65 index: 48",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlSpan 'Text_2_3'] found by: BY_TITLE_TEXT deviation: 0 distance: 65 start: 65 hierarchy: 0>1>3>5>22>38>47>48 index: 48",
         tmpFound.getEntriesSorted().get(0).toString());
 
     // [header_2; row_2] > title_2_3
@@ -631,7 +640,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, tmpRepository);
     tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -672,8 +681,9 @@ public class UnknownHtmlUnitControlsFinderTest {
     UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, tmpRepository);
     WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals("[HtmlSpan 'Text_2_3'] found by: BY_TEXT deviation: 0 distance: 66 start: 65 index: 48",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlSpan 'Text_2_3'] found by: BY_TEXT deviation: 0 distance: 66 start: 65 hierarchy: 0>1>3>5>22>38>47>48 index: 48",
         tmpFound.getEntriesSorted().get(0).toString());
 
     // [header_2; row_2] > Text_2_3
@@ -682,7 +692,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, tmpRepository);
     tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -723,8 +733,9 @@ public class UnknownHtmlUnitControlsFinderTest {
     UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, tmpRepository);
     WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals("[HtmlSpan 'Text_2_3'] found by: BY_TEXT deviation: 8 distance: 65 start: 65 index: 48",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlSpan 'Text_2_3'] found by: BY_TEXT deviation: 8 distance: 65 start: 65 hierarchy: 0>1>3>5>22>38>47>48 index: 48",
         tmpFound.getEntriesSorted().get(0).toString());
 
     // [header_2; row_1] > Text_2_3
@@ -733,8 +744,9 @@ public class UnknownHtmlUnitControlsFinderTest {
     tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, tmpRepository);
     tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals("[HtmlSpan 'Text_1_2'] found by: BY_TEXT deviation: 8 distance: 32 start: 32 index: 30",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlSpan 'Text_1_2'] found by: BY_TEXT deviation: 8 distance: 32 start: 32 hierarchy: 0>1>3>5>22>24>29>30 index: 30",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -776,9 +788,9 @@ public class UnknownHtmlUnitControlsFinderTest {
     UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, tmpRepository);
     WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlTableDataCell' (id='cell_2_1')] found by: BY_TEXT deviation: 5 distance: 50 start: 50 index: 41",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlTableDataCell' (id='cell_2_1')] found by: BY_TEXT deviation: 5 distance: 50 start: 50 hierarchy: 0>1>3>5>22>39>41 index: 41",
         tmpFound.getEntriesSorted().get(0).toString());
 
     // [; row_1]
@@ -787,8 +799,9 @@ public class UnknownHtmlUnitControlsFinderTest {
     tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, tmpRepository);
     tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals("[HtmlSpan 'row_1'] found by: BY_TEXT deviation: 5 distance: 26 start: 26 index: 27",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlSpan 'row_1'] found by: BY_TEXT deviation: 5 distance: 26 start: 26 hierarchy: 0>1>3>5>22>24>26>27 index: 27",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -830,8 +843,9 @@ public class UnknownHtmlUnitControlsFinderTest {
     UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, tmpRepository);
     WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals("[HtmlSpan 'Text_2_3'] found by: BY_TEXT deviation: 8 distance: 0 start: 65 index: 49",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlSpan 'Text_2_3'] found by: BY_TEXT deviation: 8 distance: 0 start: 65 hierarchy: 0>1>3>5>22>39>48>49 index: 49",
         tmpFound.getEntriesSorted().get(0).toString());
 
     // [; row_1] > Text_1_3 >
@@ -840,7 +854,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, tmpRepository);
     tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
-    Assert.assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
@@ -881,9 +895,9 @@ public class UnknownHtmlUnitControlsFinderTest {
     UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, tmpRepository);
     WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlTableHeaderCell' (id='header_1')] found by: BY_TEXT deviation: 8 distance: 0 start: 0 index: 11",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlTableHeaderCell' (id='header_1')] found by: BY_TEXT deviation: 8 distance: 0 start: 0 hierarchy: 0>1>3>5>7>9>11 index: 11",
         tmpFound.getEntriesSorted().get(0).toString());
 
     // [header_3;]
@@ -892,9 +906,9 @@ public class UnknownHtmlUnitControlsFinderTest {
     tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, tmpRepository);
     tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals(
-        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlTableHeaderCell' (id='header_3')] found by: BY_TEXT deviation: 8 distance: 17 start: 17 index: 17",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlTableHeaderCell' (id='header_3')] found by: BY_TEXT deviation: 8 distance: 17 start: 17 hierarchy: 0>1>3>5>7>9>17 index: 17",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 
@@ -936,8 +950,9 @@ public class UnknownHtmlUnitControlsFinderTest {
     UnknownHtmlUnitControlsFinder tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, tmpRepository);
     WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals("[HtmlSpan 'Text_2_1'] found by: BY_TEXT deviation: 8 distance: 9 start: 50 index: 42",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlSpan 'Text_2_1'] found by: BY_TEXT deviation: 8 distance: 9 start: 50 hierarchy: 0>1>3>5>22>39>41>42 index: 42",
         tmpFound.getEntriesSorted().get(0).toString());
 
     // [header_2;] > row_1 >
@@ -946,8 +961,9 @@ public class UnknownHtmlUnitControlsFinderTest {
     tmpFinder = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, tmpRepository);
     tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
-    Assert.assertEquals(1, tmpFound.getEntriesSorted().size());
-    Assert.assertEquals("[HtmlSpan 'Text_1_2'] found by: BY_TEXT deviation: 8 distance: 0 start: 32 index: 31",
+    assertEquals(1, tmpFound.getEntriesSorted().size());
+    assertEquals(
+        "[HtmlSpan 'Text_1_2'] found by: BY_TEXT deviation: 8 distance: 0 start: 32 hierarchy: 0>1>3>5>22>24>30>31 index: 31",
         tmpFound.getEntriesSorted().get(0).toString());
   }
 }

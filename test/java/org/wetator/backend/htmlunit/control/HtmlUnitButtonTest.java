@@ -16,9 +16,11 @@
 
 package org.wetator.backend.htmlunit.control;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.io.IOException;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.wetator.backend.htmlunit.util.PageUtil;
 
@@ -43,7 +45,7 @@ public class HtmlUnitButtonTest {
     final HtmlButton tmpText = (HtmlButton) tmpHtmlPage.getHtmlElementById("myId");
     final HtmlUnitButton tmpControl = new HtmlUnitButton(tmpText);
 
-    Assert.assertTrue(tmpControl.isDisabled(null));
+    assertTrue(tmpControl.isDisabled(null));
   }
 
   @Test
@@ -60,7 +62,7 @@ public class HtmlUnitButtonTest {
     final HtmlButton tmpText = (HtmlButton) tmpHtmlPage.getHtmlElementById("myId");
     final HtmlUnitButton tmpControl = new HtmlUnitButton(tmpText);
 
-    Assert.assertFalse(tmpControl.isDisabled(null));
+    assertFalse(tmpControl.isDisabled(null));
   }
 
   @Test
@@ -77,6 +79,6 @@ public class HtmlUnitButtonTest {
     final HtmlButton tmpText = (HtmlButton) tmpHtmlPage.getHtmlElementById("myId");
     final HtmlUnitButton tmpControl = new HtmlUnitButton(tmpText);
 
-    Assert.assertTrue(tmpControl.isDisabled(null));
+    assertTrue(tmpControl.isDisabled(null));
   }
 }
