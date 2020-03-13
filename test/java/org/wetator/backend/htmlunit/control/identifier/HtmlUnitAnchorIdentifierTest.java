@@ -19,11 +19,13 @@ package org.wetator.backend.htmlunit.control.identifier;
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
+import org.wetator.backend.WeightedControlList.Entry;
 import org.wetator.exception.InvalidInputException;
 import org.wetator.util.SecretString;
 
@@ -52,11 +54,12 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
-    assertEquals(1, tmpFound.getEntriesSorted().size());
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
 
     assertEquals(
         "[HtmlAnchor 'TestAnchor' (id='myId')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
-        tmpFound.getEntriesSorted().get(0).toString());
+        tmpEntriesSorted.get(0).toString());
   }
 
   @Test
@@ -73,11 +76,12 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
-    assertEquals(1, tmpFound.getEntriesSorted().size());
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
 
     assertEquals(
         "[HtmlAnchor 'TestAnchor' (id='myId') (name='MyName')] found by: BY_NAME deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
-        tmpFound.getEntriesSorted().get(0).toString());
+        tmpEntriesSorted.get(0).toString());
   }
 
   @Test
@@ -94,11 +98,12 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
-    assertEquals(1, tmpFound.getEntriesSorted().size());
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
 
     assertEquals(
         "[HtmlAnchor 'TestAnchor' (id='myId') (name='MyName')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
-        tmpFound.getEntriesSorted().get(0).toString());
+        tmpEntriesSorted.get(0).toString());
   }
 
   @Test
@@ -115,11 +120,12 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
-    assertEquals(1, tmpFound.getEntriesSorted().size());
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
 
     assertEquals(
         "[HtmlAnchor 'TestAnchor' (id='myId') (name='MyName')] found by: BY_TITLE_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
-        tmpFound.getEntriesSorted().get(0).toString());
+        tmpEntriesSorted.get(0).toString());
   }
 
   @Test
@@ -136,11 +142,12 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myAnchor");
 
-    assertEquals(1, tmpFound.getEntriesSorted().size());
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
 
     assertEquals(
         "[HtmlAnchor 'myAnchor' (id='myAnchor') (name='myAnchor')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
-        tmpFound.getEntriesSorted().get(0).toString());
+        tmpEntriesSorted.get(0).toString());
   }
 
   @Test
@@ -157,11 +164,12 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myAnchor");
 
-    assertEquals(1, tmpFound.getEntriesSorted().size());
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
 
     assertEquals(
         "[HtmlAnchor 'myAnchor' (id='myAnchor') (name='myAnchor')] found by: BY_ARIA_LABEL_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
-        tmpFound.getEntriesSorted().get(0).toString());
+        tmpEntriesSorted.get(0).toString());
   }
 
   @Test
@@ -178,11 +186,12 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myAnchor");
 
-    assertEquals(1, tmpFound.getEntriesSorted().size());
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
 
     assertEquals(
         "[HtmlAnchor 'myAnchor' (id='myAnchor') (name='myAnchor')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
-        tmpFound.getEntriesSorted().get(0).toString());
+        tmpEntriesSorted.get(0).toString());
   }
 
   @Test
@@ -201,11 +210,12 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
-    assertEquals(1, tmpFound.getEntriesSorted().size());
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
 
     assertEquals(
         "[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_NAME deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
-        tmpFound.getEntriesSorted().get(0).toString());
+        tmpEntriesSorted.get(0).toString());
   }
 
   @Test
@@ -224,11 +234,12 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
-    assertEquals(1, tmpFound.getEntriesSorted().size());
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
 
     assertEquals(
         "[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
-        tmpFound.getEntriesSorted().get(0).toString());
+        tmpEntriesSorted.get(0).toString());
   }
 
   @Test
@@ -247,11 +258,12 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
-    assertEquals(1, tmpFound.getEntriesSorted().size());
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
 
     assertEquals(
         "[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_IMG_TITLE_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
-        tmpFound.getEntriesSorted().get(0).toString());
+        tmpEntriesSorted.get(0).toString());
   }
 
   @Test
@@ -270,11 +282,12 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
-    assertEquals(1, tmpFound.getEntriesSorted().size());
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
 
     assertEquals(
         "[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_IMG_SRC_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
-        tmpFound.getEntriesSorted().get(0).toString());
+        tmpEntriesSorted.get(0).toString());
   }
 
   @Test
@@ -310,10 +323,11 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId_1_2", "myId_1_3",
         "myId_2_2", "myId_2_3");
 
-    assertEquals(1, tmpFound.getEntriesSorted().size());
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
 
     assertEquals(
         "[HtmlAnchor 'ClickMe' (id='myId_2_3')] found by: BY_TABLE_COORDINATE deviation: 0 distance: 62 start: 62 hierarchy: 0>1>3>5>22>38>47>48 index: 48",
-        tmpFound.getEntriesSorted().get(0).toString());
+        tmpEntriesSorted.get(0).toString());
   }
 }

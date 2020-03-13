@@ -20,12 +20,14 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Properties;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
+import org.wetator.backend.WeightedControlList.Entry;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputCheckBoxIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputSubmitIdentifier;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
@@ -113,7 +115,8 @@ public class IdentifierBasedHtmlUnitControlsFinderTest {
     tmpFinder.addIdentifier(HtmlUnitInputSubmitIdentifier.class);
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
-    assertEquals(1, tmpFound.getEntriesSorted().size());
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
   }
 
   @Test
@@ -133,24 +136,27 @@ public class IdentifierBasedHtmlUnitControlsFinderTest {
 
     SecretString tmpSearch = new SecretString("check");
     WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
-    assertEquals(1, tmpFound.getEntriesSorted().size());
+    List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlCheckBoxInput (id='myCheckbox') (name='check')] found by: BY_NAME deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
-        tmpFound.getEntriesSorted().get(0).toString());
+        tmpEntriesSorted.get(0).toString());
 
     tmpSearch = new SecretString("checker title");
     tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
-    assertEquals(1, tmpFound.getEntriesSorted().size());
+    tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlCheckBoxInput (id='myCheckbox') (name='check')] found by: BY_TITLE_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
-        tmpFound.getEntriesSorted().get(0).toString());
+        tmpEntriesSorted.get(0).toString());
 
     tmpSearch = new SecretString("checker");
     tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
 
-    assertEquals(1, tmpFound.getEntriesSorted().size());
+    tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlCheckBoxInput (id='myCheckbox') (name='check')] found by: BY_LABEL_ELEMENT deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
-        tmpFound.getEntriesSorted().get(0).toString());
+        tmpEntriesSorted.get(0).toString());
   }
 }

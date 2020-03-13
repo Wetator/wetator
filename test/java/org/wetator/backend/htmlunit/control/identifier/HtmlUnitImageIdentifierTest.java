@@ -19,11 +19,13 @@ package org.wetator.backend.htmlunit.control.identifier;
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
+import org.wetator.backend.WeightedControlList.Entry;
 import org.wetator.exception.InvalidInputException;
 import org.wetator.util.SecretString;
 
@@ -52,11 +54,12 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
-    assertEquals(1, tmpFound.getEntriesSorted().size());
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
 
     assertEquals(
         "[HtmlImage 'picture.png' (id='myId') (name='MyName')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
-        tmpFound.getEntriesSorted().get(0).toString());
+        tmpEntriesSorted.get(0).toString());
   }
 
   @Test
@@ -73,11 +76,12 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
-    assertEquals(1, tmpFound.getEntriesSorted().size());
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
 
     assertEquals(
         "[HtmlImage 'picture.png' (id='myId') (name='MyName')] found by: BY_NAME deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
-        tmpFound.getEntriesSorted().get(0).toString());
+        tmpEntriesSorted.get(0).toString());
   }
 
   @Test
@@ -94,11 +98,12 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
-    assertEquals(1, tmpFound.getEntriesSorted().size());
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
 
     assertEquals(
         "[HtmlImage 'picture.png' (id='myId') (name='MyName')] found by: BY_IMG_ALT_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
-        tmpFound.getEntriesSorted().get(0).toString());
+        tmpEntriesSorted.get(0).toString());
   }
 
   @Test
@@ -115,11 +120,12 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
-    assertEquals(1, tmpFound.getEntriesSorted().size());
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
 
     assertEquals(
         "[HtmlImage 'picture.png' (id='myId') (name='MyName')] found by: BY_IMG_TITLE_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
-        tmpFound.getEntriesSorted().get(0).toString());
+        tmpEntriesSorted.get(0).toString());
   }
 
   @Test
@@ -136,11 +142,12 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
-    assertEquals(1, tmpFound.getEntriesSorted().size());
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
 
     assertEquals(
         "[HtmlImage 'picture.png' (id='myId') (name='MyName')] found by: BY_IMG_SRC_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
-        tmpFound.getEntriesSorted().get(0).toString());
+        tmpEntriesSorted.get(0).toString());
   }
 
   @Test
@@ -157,11 +164,12 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
-    assertEquals(1, tmpFound.getEntriesSorted().size());
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
 
     assertEquals(
         "[HtmlImage 'picture.png' (id='myId') (name='MyName')] found by: BY_ARIA_LABEL_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
-        tmpFound.getEntriesSorted().get(0).toString());
+        tmpEntriesSorted.get(0).toString());
   }
 
   @Test
@@ -178,11 +186,12 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyName");
 
-    assertEquals(1, tmpFound.getEntriesSorted().size());
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
 
     assertEquals(
         "[HtmlImage 'MyName' (id='MyName') (name='MyName')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
-        tmpFound.getEntriesSorted().get(0).toString());
+        tmpEntriesSorted.get(0).toString());
   }
 
   @Test
@@ -202,10 +211,11 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
-    assertEquals(1, tmpFound.getEntriesSorted().size());
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlImage 'picture.png' (id='myId') (name='myName')] found by: BY_TEXT deviation: 14 distance: 20 start: 20 hierarchy: 0>1>3>4>10 index: 10",
-        tmpFound.getEntriesSorted().get(0).toString());
+        tmpEntriesSorted.get(0).toString());
   }
 
   @Test
@@ -225,13 +235,14 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId", "otherId");
 
-    assertEquals(2, tmpFound.getEntriesSorted().size());
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(2, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlImage 'picture.png' (id='myId') (name='myName')] found by: BY_TEXT deviation: 0 distance: 0 start: 6 hierarchy: 0>1>3>4>7 index: 7",
-        tmpFound.getEntriesSorted().get(0).toString());
+        tmpEntriesSorted.get(0).toString());
     assertEquals(
         "[HtmlImage 'picture.png' (id='otherId') (name='otherName')] found by: BY_TEXT deviation: 0 distance: 14 start: 20 hierarchy: 0>1>3>4>10 index: 10",
-        tmpFound.getEntriesSorted().get(1).toString());
+        tmpEntriesSorted.get(1).toString());
   }
 
   @Test
@@ -267,11 +278,12 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId_1_2", "myId_1_3",
         "myId_2_2", "myId_2_3");
 
-    assertEquals(1, tmpFound.getEntriesSorted().size());
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
 
     assertEquals(
         "[HtmlImage 'picture.png' (id='myId_2_3')] found by: BY_TABLE_COORDINATE deviation: 0 distance: 38 start: 38 hierarchy: 0>1>3>5>22>36>44>45 index: 45",
-        tmpFound.getEntriesSorted().get(0).toString());
+        tmpEntriesSorted.get(0).toString());
   }
 
   @Test
@@ -290,11 +302,12 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, "myInnerId", new WPath(tmpSearch, config));
 
-    assertEquals(1, tmpFound.getEntriesSorted().size());
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
 
     assertEquals(
         "[HtmlImage 'picture.png' (id='myInnerId') (name='MyImageName')] found by: BY_NAME deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5>6 index: 6",
-        tmpFound.getEntriesSorted().get(0).toString());
+        tmpEntriesSorted.get(0).toString());
   }
 
   @Test
@@ -313,11 +326,12 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, "myInnerId", new WPath(tmpSearch, config));
 
-    assertEquals(1, tmpFound.getEntriesSorted().size());
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
 
     assertEquals(
         "[HtmlImage 'picture.png' (id='myInnerId') (name='MyImageName')] found by: BY_IMG_ALT_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5>6 index: 6",
-        tmpFound.getEntriesSorted().get(0).toString());
+        tmpEntriesSorted.get(0).toString());
   }
 
   @Test
@@ -336,11 +350,12 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, "myInnerId", new WPath(tmpSearch, config));
 
-    assertEquals(1, tmpFound.getEntriesSorted().size());
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
 
     assertEquals(
         "[HtmlImage 'picture.png' (id='myInnerId')] found by: BY_IMG_TITLE_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5>6 index: 6",
-        tmpFound.getEntriesSorted().get(0).toString());
+        tmpEntriesSorted.get(0).toString());
   }
 
   @Test
@@ -359,11 +374,12 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, "myInnerId", new WPath(tmpSearch, config));
 
-    assertEquals(1, tmpFound.getEntriesSorted().size());
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
 
     assertEquals(
         "[HtmlImage 'picture.png' (id='myInnerId') (name='MyImageName')] found by: BY_IMG_SRC_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5>6 index: 6",
-        tmpFound.getEntriesSorted().get(0).toString());
+        tmpEntriesSorted.get(0).toString());
   }
 
   @Test
@@ -382,11 +398,12 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, "myInnerId", new WPath(tmpSearch, config));
 
-    assertEquals(1, tmpFound.getEntriesSorted().size());
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
 
     assertEquals(
         "[HtmlImage 'picture.png' (id='myInnerId') (name='MyImageName')] found by: BY_ARIA_LABEL_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5>6 index: 6",
-        tmpFound.getEntriesSorted().get(0).toString());
+        tmpEntriesSorted.get(0).toString());
   }
 
   @Test
@@ -405,11 +422,12 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, "myInnerId", new WPath(tmpSearch, config));
 
-    assertEquals(1, tmpFound.getEntriesSorted().size());
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
 
     assertEquals(
         "[HtmlImage 'picture.png' (id='myInnerId') (name='MyImageName')] found by: BY_NAME deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5>6 index: 6",
-        tmpFound.getEntriesSorted().get(0).toString());
+        tmpEntriesSorted.get(0).toString());
   }
 
   @Test
@@ -428,11 +446,12 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, "myInnerId", new WPath(tmpSearch, config));
 
-    assertEquals(1, tmpFound.getEntriesSorted().size());
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
 
     assertEquals(
         "[HtmlImage 'picture.png' (id='myInnerId')] found by: BY_IMG_ALT_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5>6 index: 6",
-        tmpFound.getEntriesSorted().get(0).toString());
+        tmpEntriesSorted.get(0).toString());
   }
 
   @Test
@@ -451,11 +470,12 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, "myInnerId", new WPath(tmpSearch, config));
 
-    assertEquals(1, tmpFound.getEntriesSorted().size());
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
 
     assertEquals(
         "[HtmlImage 'picture.png' (id='myInnerId')] found by: BY_IMG_TITLE_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5>6 index: 6",
-        tmpFound.getEntriesSorted().get(0).toString());
+        tmpEntriesSorted.get(0).toString());
   }
 
   @Test
@@ -474,11 +494,12 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, "myInnerId", new WPath(tmpSearch, config));
 
-    assertEquals(1, tmpFound.getEntriesSorted().size());
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
 
     assertEquals(
         "[HtmlImage 'picture.png' (id='myInnerId')] found by: BY_IMG_SRC_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5>6 index: 6",
-        tmpFound.getEntriesSorted().get(0).toString());
+        tmpEntriesSorted.get(0).toString());
   }
 
   @Test
@@ -497,10 +518,11 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, "myInnerId", new WPath(tmpSearch, config));
 
-    assertEquals(1, tmpFound.getEntriesSorted().size());
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
 
     assertEquals(
         "[HtmlImage 'picture.png' (id='myInnerId') (name='MyImageName')] found by: BY_ARIA_LABEL_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5>6 index: 6",
-        tmpFound.getEntriesSorted().get(0).toString());
+        tmpEntriesSorted.get(0).toString());
   }
 }

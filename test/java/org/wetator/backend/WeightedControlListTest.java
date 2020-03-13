@@ -82,13 +82,13 @@ public class WeightedControlListTest {
     tmpControl = new HtmlUnitAnchor(constructHtmlAnchor());
     tmpWeightedControlList.add(tmpControl, FoundType.BY_LABEL_ELEMENT, 1, 1, 1, "1", 1);
 
-    final List<Entry> tmpSorted = tmpWeightedControlList.getEntriesSorted();
+    final List<Entry> tmpEntriesSorted = tmpWeightedControlList.getEntriesSorted();
 
     assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID deviation: 2 distance: 2 start: 2 hierarchy: 2 index: 2",
-        tmpSorted.get(0).toString());
+        tmpEntriesSorted.get(0).toString());
     assertEquals(
         "[HtmlAnchor 'AnchorText'] found by: BY_LABEL_ELEMENT deviation: 1 distance: 1 start: 1 hierarchy: 1 index: 1",
-        tmpSorted.get(1).toString());
+        tmpEntriesSorted.get(1).toString());
   }
 
   @Test
@@ -104,14 +104,14 @@ public class WeightedControlListTest {
     tmpControl = new HtmlUnitAnchor(constructHtmlAnchor());
     tmpWeightedControlList.add(tmpControl, FoundType.BY_ID, 1, 3, 3, "3", 3);
 
-    final List<Entry> tmpSorted = tmpWeightedControlList.getEntriesSorted();
+    final List<Entry> tmpEntriesSorted = tmpWeightedControlList.getEntriesSorted();
 
     assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID deviation: 1 distance: 3 start: 3 hierarchy: 3 index: 3",
-        tmpSorted.get(0).toString());
+        tmpEntriesSorted.get(0).toString());
     assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID deviation: 2 distance: 1 start: 1 hierarchy: 1 index: 1",
-        tmpSorted.get(1).toString());
+        tmpEntriesSorted.get(1).toString());
     assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID deviation: 3 distance: 2 start: 2 hierarchy: 2 index: 2",
-        tmpSorted.get(2).toString());
+        tmpEntriesSorted.get(2).toString());
   }
 
   @Test
@@ -127,14 +127,14 @@ public class WeightedControlListTest {
     tmpControl = new HtmlUnitAnchor(constructHtmlAnchor());
     tmpWeightedControlList.add(tmpControl, FoundType.BY_ID, 1, 1, 3, "3", 3);
 
-    final List<Entry> tmpSorted = tmpWeightedControlList.getEntriesSorted();
+    final List<Entry> tmpEntriesSorted = tmpWeightedControlList.getEntriesSorted();
 
     assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID deviation: 1 distance: 1 start: 3 hierarchy: 3 index: 3",
-        tmpSorted.get(0).toString());
+        tmpEntriesSorted.get(0).toString());
     assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID deviation: 1 distance: 2 start: 1 hierarchy: 1 index: 1",
-        tmpSorted.get(1).toString());
+        tmpEntriesSorted.get(1).toString());
     assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID deviation: 1 distance: 3 start: 2 hierarchy: 2 index: 2",
-        tmpSorted.get(2).toString());
+        tmpEntriesSorted.get(2).toString());
   }
 
   @Test
@@ -150,14 +150,14 @@ public class WeightedControlListTest {
     tmpControl = new HtmlUnitAnchor(constructHtmlAnchor());
     tmpWeightedControlList.add(tmpControl, FoundType.BY_ID, 1, 1, 1, "3", 3);
 
-    final List<Entry> tmpSorted = tmpWeightedControlList.getEntriesSorted();
+    final List<Entry> tmpEntriesSorted = tmpWeightedControlList.getEntriesSorted();
 
     assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID deviation: 1 distance: 1 start: 1 hierarchy: 3 index: 3",
-        tmpSorted.get(0).toString());
+        tmpEntriesSorted.get(0).toString());
     assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID deviation: 1 distance: 1 start: 2 hierarchy: 1 index: 1",
-        tmpSorted.get(1).toString());
+        tmpEntriesSorted.get(1).toString());
     assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID deviation: 1 distance: 1 start: 3 hierarchy: 2 index: 2",
-        tmpSorted.get(2).toString());
+        tmpEntriesSorted.get(2).toString());
   }
 
   @Test
@@ -173,14 +173,14 @@ public class WeightedControlListTest {
     tmpControl = new HtmlUnitAnchor(constructHtmlAnchor());
     tmpWeightedControlList.add(tmpControl, FoundType.BY_ID, 1, 1, 1, "1", 3);
 
-    final List<Entry> tmpSorted = tmpWeightedControlList.getEntriesSorted();
+    final List<Entry> tmpEntriesSorted = tmpWeightedControlList.getEntriesSorted();
 
     assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID deviation: 1 distance: 1 start: 1 hierarchy: 2 index: 1",
-        tmpSorted.get(0).toString());
+        tmpEntriesSorted.get(0).toString());
     assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID deviation: 1 distance: 1 start: 1 hierarchy: 3 index: 2",
-        tmpSorted.get(1).toString());
+        tmpEntriesSorted.get(1).toString());
     assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID deviation: 1 distance: 1 start: 1 hierarchy: 1 index: 3",
-        tmpSorted.get(2).toString());
+        tmpEntriesSorted.get(2).toString());
   }
 
   @Test
@@ -199,17 +199,17 @@ public class WeightedControlListTest {
     tmpControl = new HtmlUnitAnchor(constructHtmlAnchor());
     tmpWeightedControlList.add(tmpControl, FoundType.BY_ID, 1, 1, 1, "1>3>4", 4);
 
-    final List<Entry> tmpSorted = tmpWeightedControlList.getEntriesSorted();
+    final List<Entry> tmpEntriesSorted = tmpWeightedControlList.getEntriesSorted();
 
     assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID deviation: 1 distance: 1 start: 1 hierarchy: 1>2 index: 2",
-        tmpSorted.get(0).toString());
+        tmpEntriesSorted.get(0).toString());
     assertEquals(
         "[HtmlAnchor 'AnchorText'] found by: BY_ID deviation: 1 distance: 1 start: 1 hierarchy: 1>3>4 index: 4",
-        tmpSorted.get(1).toString());
+        tmpEntriesSorted.get(1).toString());
     assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID deviation: 1 distance: 1 start: 1 hierarchy: 1>3 index: 3",
-        tmpSorted.get(2).toString());
+        tmpEntriesSorted.get(2).toString());
     assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID deviation: 1 distance: 1 start: 1 hierarchy: 1 index: 1",
-        tmpSorted.get(3).toString());
+        tmpEntriesSorted.get(3).toString());
   }
 
   @Test
@@ -225,14 +225,14 @@ public class WeightedControlListTest {
     tmpControl = new HtmlUnitAnchor(constructHtmlAnchor());
     tmpWeightedControlList.add(tmpControl, FoundType.BY_ID, 1, 1, 1, "1", 1);
 
-    final List<Entry> tmpSorted = tmpWeightedControlList.getEntriesSorted();
+    final List<Entry> tmpEntriesSorted = tmpWeightedControlList.getEntriesSorted();
 
     assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID deviation: 1 distance: 1 start: 1 hierarchy: 1 index: 1",
-        tmpSorted.get(0).toString());
+        tmpEntriesSorted.get(0).toString());
     assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID deviation: 1 distance: 1 start: 1 hierarchy: 2 index: 2",
-        tmpSorted.get(1).toString());
+        tmpEntriesSorted.get(1).toString());
     assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID deviation: 1 distance: 1 start: 1 hierarchy: 3 index: 3",
-        tmpSorted.get(2).toString());
+        tmpEntriesSorted.get(2).toString());
   }
 
   @Test
@@ -247,12 +247,12 @@ public class WeightedControlListTest {
     tmpControl = new HtmlUnitAnchor(constructHtmlAnchor());
     tmpWeightedControlList.add(tmpControl, FoundType.BY_ID, 4, 11, 1, "1", 0);
 
-    final List<Entry> tmpSorted = tmpWeightedControlList.getEntriesSorted();
+    final List<Entry> tmpEntriesSorted = tmpWeightedControlList.getEntriesSorted();
 
     assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID deviation: 4 distance: 10 start: 1 hierarchy: 1 index: 0",
-        tmpSorted.get(0).toString());
+        tmpEntriesSorted.get(0).toString());
     assertEquals("[HtmlAnchor 'AnchorText'] found by: BY_ID deviation: 4 distance: 11 start: 1 hierarchy: 1 index: 0",
-        tmpSorted.get(1).toString());
+        tmpEntriesSorted.get(1).toString());
   }
 
   private HtmlAnchor constructHtmlAnchor() throws IOException {
