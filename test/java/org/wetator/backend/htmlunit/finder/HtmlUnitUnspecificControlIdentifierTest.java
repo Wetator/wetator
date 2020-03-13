@@ -19,14 +19,15 @@ package org.wetator.backend.htmlunit.finder;
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.wetator.backend.MouseAction;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
+import org.wetator.backend.WeightedControlList.Entry;
 import org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifierTest;
-import org.wetator.backend.htmlunit.finder.MouseActionListeningHtmlUnitControlsFinder.HtmlUnitMouseActionListeningControlIdentifier;
+import org.wetator.backend.htmlunit.finder.MouseActionListeningHtmlUnitControlsFinder.HtmlUnitUnspecificControlIdentifier;
 import org.wetator.exception.InvalidInputException;
 import org.wetator.util.SecretString;
 
@@ -34,11 +35,11 @@ import org.wetator.util.SecretString;
  * @author rbri
  * @author frank.danek
  */
-public class HtmlUnitMouseActionListeningControlIdentifierTest extends AbstractHtmlUnitControlIdentifierTest {
+public class HtmlUnitUnspecificControlIdentifierTest extends AbstractHtmlUnitControlIdentifierTest {
 
   @Before
   public void setupIdentifier() {
-    identifier = new HtmlUnitMouseActionListeningControlIdentifier(MouseAction.CLICK);
+    identifier = new HtmlUnitUnspecificControlIdentifier();
   }
 
   @Test
@@ -46,7 +47,7 @@ public class HtmlUnitMouseActionListeningControlIdentifierTest extends AbstractH
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<span id='myId' onclick='alert(\"clicked\");'>some text</span>"
+        + "<span id='myId'>some text</span>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
@@ -55,11 +56,12 @@ public class HtmlUnitMouseActionListeningControlIdentifierTest extends AbstractH
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
-    assertEquals(1, tmpFound.getEntriesSorted().size());
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
 
     assertEquals(
         "[HtmlSpan 'some text' (id='myId')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
-        tmpFound.getEntriesSorted().get(0).toString());
+        tmpEntriesSorted.get(0).toString());
   }
 
   @Test
@@ -67,7 +69,7 @@ public class HtmlUnitMouseActionListeningControlIdentifierTest extends AbstractH
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<span id='myId' onclick='alert(\"clicked\");'>some text</span>"
+        + "<span id='myId'>some text</span>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
@@ -76,11 +78,12 @@ public class HtmlUnitMouseActionListeningControlIdentifierTest extends AbstractH
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
-    assertEquals(1, tmpFound.getEntriesSorted().size());
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
 
     assertEquals(
         "[HtmlSpan 'some text' (id='myId')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
-        tmpFound.getEntriesSorted().get(0).toString());
+        tmpEntriesSorted.get(0).toString());
   }
 
   @Test
@@ -88,7 +91,7 @@ public class HtmlUnitMouseActionListeningControlIdentifierTest extends AbstractH
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<span id='myId' onclick='alert(\"clicked\");' title='span title'>some text</span>"
+        + "<span id='myId' title='span title'>some text</span>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
@@ -97,11 +100,12 @@ public class HtmlUnitMouseActionListeningControlIdentifierTest extends AbstractH
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
-    assertEquals(1, tmpFound.getEntriesSorted().size());
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
 
     assertEquals(
         "[HtmlSpan 'some text' (id='myId')] found by: BY_TITLE_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
-        tmpFound.getEntriesSorted().get(0).toString());
+        tmpEntriesSorted.get(0).toString());
   }
 
   @Test
@@ -109,7 +113,7 @@ public class HtmlUnitMouseActionListeningControlIdentifierTest extends AbstractH
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<span id='myId' onclick='alert(\"clicked\");' aria-label='myAria'>some text</span>"
+        + "<span id='myId' aria-label='myAria'>some text</span>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
@@ -118,11 +122,12 @@ public class HtmlUnitMouseActionListeningControlIdentifierTest extends AbstractH
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
-    assertEquals(1, tmpFound.getEntriesSorted().size());
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
 
     assertEquals(
         "[HtmlSpan 'some text' (id='myId')] found by: BY_ARIA_LABEL_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
-        tmpFound.getEntriesSorted().get(0).toString());
+        tmpEntriesSorted.get(0).toString());
   }
 
   @Test
@@ -130,7 +135,7 @@ public class HtmlUnitMouseActionListeningControlIdentifierTest extends AbstractH
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<span id='myId' onclick='alert(\"clicked\");' title='myId' aria-label='myId'>myId</span>"
+        + "<span id='myId' title='myId' aria-label='myId'>myId</span>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
@@ -139,11 +144,12 @@ public class HtmlUnitMouseActionListeningControlIdentifierTest extends AbstractH
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
-    assertEquals(1, tmpFound.getEntriesSorted().size());
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
 
     assertEquals(
         "[HtmlSpan 'myId' (id='myId')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
-        tmpFound.getEntriesSorted().get(0).toString());
+        tmpEntriesSorted.get(0).toString());
   }
 
   @Test
@@ -161,13 +167,13 @@ public class HtmlUnitMouseActionListeningControlIdentifierTest extends AbstractH
         + "      <tbody>"
         + "        <tr>"
         + "          <td id='cell_1_1'>row_1</td>"
-        + "          <td id='cell_1_2'><span id='myId_1_2' onclick='alert(\"clicked\");'>ClickMe</span></td>"
-        + "          <td id='cell_1_3'><span id='myId_1_3' onclick='alert(\"clicked\");'>ClickMe</span></td>"
+        + "          <td id='cell_1_2'><span id='myId_1_2'>ClickMe</span></td>"
+        + "          <td id='cell_1_3'><span id='myId_1_3'>ClickMe</span></td>"
         + "        </tr>"
         + "        <tr>"
         + "          <td id='cell_2_1'>row_2</td>"
-        + "          <td id='cell_2_2'><span id='myId_2_2' onclick='alert(\"clicked\");'>ClickMe</span></td>"
-        + "          <td id='cell_2_3'><span id='myId_2_3' onclick='alert(\"clicked\");'>ClickMe</span></td>"
+        + "          <td id='cell_2_2'><span id='myId_2_2'>ClickMe</span></td>"
+        + "          <td id='cell_2_3'><span id='myId_2_3'>ClickMe</span></td>"
         + "        </tr>"
         + "      </tbody>"
         + "    </table>"
@@ -179,10 +185,11 @@ public class HtmlUnitMouseActionListeningControlIdentifierTest extends AbstractH
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId_1_2", "myId_1_3",
         "myId_2_2", "myId_2_3");
 
-    assertEquals(1, tmpFound.getEntriesSorted().size());
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
 
     assertEquals(
         "[HtmlSpan 'ClickMe' (id='myId_2_3')] found by: BY_TABLE_COORDINATE deviation: 0 distance: 62 start: 62 hierarchy: 0>1>3>5>22>38>47>48 index: 48",
-        tmpFound.getEntriesSorted().get(0).toString());
+        tmpEntriesSorted.get(0).toString());
   }
 }

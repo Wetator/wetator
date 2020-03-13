@@ -20,12 +20,18 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Properties;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
+import org.wetator.backend.WeightedControlList.Entry;
+import org.wetator.backend.htmlunit.HtmlUnitControlRepository;
+import org.wetator.backend.htmlunit.control.HtmlUnitAnchor;
+import org.wetator.backend.htmlunit.control.HtmlUnitInputText;
+import org.wetator.backend.htmlunit.control.identifier.HtmlUnitAnchorIdentifier;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
 import org.wetator.backend.htmlunit.util.PageUtil;
 import org.wetator.core.WetatorConfiguration;
@@ -40,6 +46,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 public class ClickableHtmlUnitControlsFinderTest {
 
   protected WetatorConfiguration config;
+  private HtmlUnitControlRepository repository;
 
   /**
    * Creates a Wetator configuration.
@@ -51,6 +58,13 @@ public class ClickableHtmlUnitControlsFinderTest {
     config = new WetatorConfiguration(new File("."), tmpProperties, null);
   }
 
+  @Before
+  public void createControlRepository() {
+    repository = new HtmlUnitControlRepository();
+    repository.add(HtmlUnitAnchor.class);
+    repository.add(HtmlUnitInputText.class);
+  }
+
   @Test
   public void empty() throws IOException, InvalidInputException {
     // @formatter:off
@@ -60,14 +74,114 @@ public class ClickableHtmlUnitControlsFinderTest {
     final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    final ClickableHtmlUnitControlsFinder tmpFinder = new ClickableHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
+    final ClickableHtmlUnitControlsFinder tmpFinder = new ClickableHtmlUnitControlsFinder(tmpHtmlPageIndex, null,
+        repository);
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString(), config));
 
     assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
-  public void clickListener_not() throws Exception {
+  public void clickable() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<a id='myId'>some text</a>"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    final ClickableHtmlUnitControlsFinder tmpFinder = new ClickableHtmlUnitControlsFinder(tmpHtmlPageIndex, null,
+        repository);
+    tmpFinder.addIdentifier(HtmlUnitAnchorIdentifier.class);
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("some text"), config));
+
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlAnchor 'some text' (id='myId')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
+        tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
+  public void clickable_withClickListener() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<a id='myId' onclick='alert(\"clicked\");'>some text</a>"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    final ClickableHtmlUnitControlsFinder tmpFinder = new ClickableHtmlUnitControlsFinder(tmpHtmlPageIndex, null,
+        repository);
+    tmpFinder.addIdentifier(HtmlUnitAnchorIdentifier.class);
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("some text"), config));
+
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlAnchor 'some text' (id='myId')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
+        tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
+  public void clickListener_knownControl_not() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "some text <input type='text' id='myId' />"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    final ClickableHtmlUnitControlsFinder tmpFinder = new ClickableHtmlUnitControlsFinder(tmpHtmlPageIndex, null,
+        repository);
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("some text"), config));
+
+    assertEquals(0, tmpFound.getEntriesSorted().size());
+  }
+
+  @Test
+  public void clickListener_knownControl_hidden() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "some text <input type='text' id='myId' onclick='alert(\"clicked\");' style='visibility: hidden;' />"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    final ClickableHtmlUnitControlsFinder tmpFinder = new ClickableHtmlUnitControlsFinder(tmpHtmlPageIndex, null,
+        repository);
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("some text"), config));
+
+    assertEquals(0, tmpFound.getEntriesSorted().size());
+  }
+
+  @Test
+  public void clickListener_knownControl() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "some text <input type='text' id='myId' onclick='alert(\"clicked\");' />"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    final ClickableHtmlUnitControlsFinder tmpFinder = new ClickableHtmlUnitControlsFinder(tmpHtmlPageIndex, null,
+        repository);
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("some text"), config));
+
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlTextInput (id='myId')] found by: BY_LABELING_TEXT deviation: 0 distance: 0 start: 9 hierarchy: 0>1>3>5 index: 5",
+        tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
+  public void clickListener_unknownControl_not() throws Exception {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<span id='myId'>some text</span>"
@@ -76,14 +190,15 @@ public class ClickableHtmlUnitControlsFinderTest {
     final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    final ClickableHtmlUnitControlsFinder tmpFinder = new ClickableHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
+    final ClickableHtmlUnitControlsFinder tmpFinder = new ClickableHtmlUnitControlsFinder(tmpHtmlPageIndex, null,
+        repository);
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("some text"), config));
 
     assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
-  public void clickListener_hidden() throws Exception {
+  public void clickListener_unknownControl_hidden() throws Exception {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<span id='myId' onclick='alert(\"clicked\");' style='visibility: hidden;'>some text</span>"
@@ -92,14 +207,15 @@ public class ClickableHtmlUnitControlsFinderTest {
     final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    final ClickableHtmlUnitControlsFinder tmpFinder = new ClickableHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
+    final ClickableHtmlUnitControlsFinder tmpFinder = new ClickableHtmlUnitControlsFinder(tmpHtmlPageIndex, null,
+        repository);
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("some text"), config));
 
     assertEquals(0, tmpFound.getEntriesSorted().size());
   }
 
   @Test
-  public void clickListener() throws Exception {
+  public void clickListener_unknownControl() throws Exception {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<span id='myId' onclick='alert(\"clicked\");'>some text</span>"
@@ -108,12 +224,14 @@ public class ClickableHtmlUnitControlsFinderTest {
     final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    final ClickableHtmlUnitControlsFinder tmpFinder = new ClickableHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
+    final ClickableHtmlUnitControlsFinder tmpFinder = new ClickableHtmlUnitControlsFinder(tmpHtmlPageIndex, null,
+        repository);
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("some text"), config));
 
-    assertEquals(1, tmpFound.getEntriesSorted().size());
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlSpan 'some text' (id='myId')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
-        tmpFound.getEntriesSorted().get(0).toString());
+        tmpEntriesSorted.get(0).toString());
   }
 }

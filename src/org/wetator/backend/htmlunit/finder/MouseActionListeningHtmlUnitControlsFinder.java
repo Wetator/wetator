@@ -24,6 +24,9 @@ import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.control.IClickable;
 import org.wetator.backend.control.IControl;
+import org.wetator.backend.htmlunit.HtmlUnitControlRepository;
+import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl;
+import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.wetator.backend.htmlunit.control.HtmlUnitUnspecificControl;
 import org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier;
@@ -49,6 +52,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 public class MouseActionListeningHtmlUnitControlsFinder extends IdentifierBasedHtmlUnitControlsFinder {
 
   private MouseAction mouseAction;
+  private HtmlUnitControlRepository controlRepository;
 
   /**
    * The constructor.
@@ -56,33 +60,54 @@ public class MouseActionListeningHtmlUnitControlsFinder extends IdentifierBasedH
    * @param aHtmlPageIndex the {@link HtmlPageIndex} index of the page
    * @param aThreadPool the thread pool to use for worker threads; may be <code>null</code>
    * @param aMouseAction the {@link MouseAction} to check for
+   * @param aControlRepository the {@link HtmlUnitControlRepository} to use; may be <code>null</code>
    */
   public MouseActionListeningHtmlUnitControlsFinder(final HtmlPageIndex aHtmlPageIndex,
-      final ThreadPoolExecutor aThreadPool, final MouseAction aMouseAction) {
+      final ThreadPoolExecutor aThreadPool, final MouseAction aMouseAction,
+      final HtmlUnitControlRepository aControlRepository) {
     super(aHtmlPageIndex, aThreadPool);
 
     mouseAction = aMouseAction;
+    controlRepository = aControlRepository;
   }
 
   @Override
   protected boolean identify(final HtmlElement aHtmlElement, final WPath aWPath,
       final WeightedControlList aFoundControls) {
-    final boolean tmpSupported = super.identify(aHtmlElement, aWPath, aFoundControls);
+    boolean tmpSupported = super.identify(aHtmlElement, aWPath, aFoundControls);
 
-    if (!tmpSupported) {
-      final AbstractHtmlUnitControlIdentifier tmpIdentifier = new HtmlUnitMouseActionListeningControlIdentifier(
-          mouseAction);
-      tmpIdentifier.initializeForAsynch(htmlPageIndex, aHtmlElement, aWPath, aFoundControls);
-      if (tmpIdentifier.isHtmlElementSupported(aHtmlElement)) {
-        execute(tmpIdentifier);
-        return true;
+    if (!tmpSupported && htmlPageIndex.hasMouseActionListener(mouseAction, aHtmlElement)) {
+      if (controlRepository != null) {
+        final Class<? extends HtmlUnitBaseControl<?>> tmpControlClass = controlRepository
+            .getForHtmlElement(aHtmlElement);
+        if (tmpControlClass != null) {
+          final IdentifiedBy tmpIdentifiedBy = tmpControlClass.getAnnotation(IdentifiedBy.class);
+
+          for (final Class<? extends AbstractHtmlUnitControlIdentifier> tmpIdentifierClass : tmpIdentifiedBy.value()) {
+            tmpSupported |= identify(tmpIdentifierClass, aHtmlElement, aWPath, aFoundControls);
+          }
+        }
+      }
+
+      // FIXME how to handle HtmlLabel elements?
+      // HtmlLabel elements having an event listener are handled properly by the HtmlUnitUnspecificControlIdentifier
+      // but HtmlLabel elements labeling an element having an event listeners are currently not supported because
+      // they do not fulfill the first if
+
+      if (!tmpSupported) {
+        final AbstractHtmlUnitControlIdentifier tmpIdentifier = new HtmlUnitUnspecificControlIdentifier();
+        tmpIdentifier.initializeForAsynch(htmlPageIndex, aHtmlElement, aWPath, aFoundControls);
+        if (tmpIdentifier.isHtmlElementSupported(aHtmlElement)) {
+          execute(tmpIdentifier);
+          return true;
+        }
       }
     }
     return tmpSupported;
   }
 
   /**
-   * Special identifier supporting every HTML element having an event listener for a {@link MouseAction} attached.<br>
+   * Special identifier supporting every HTML element.<br>
    * Handles every HTML element as {@link HtmlUnitUnspecificControl}s.<br>
    * The HTML element can be identified by:
    * <ul>
@@ -95,22 +120,12 @@ public class MouseActionListeningHtmlUnitControlsFinder extends IdentifierBasedH
    *
    * @author frank.danek
    */
-  static class HtmlUnitMouseActionListeningControlIdentifier extends AbstractMatcherBasedIdentifier {
-
-    private MouseAction mouseAction;
-
-    /**
-     * Constructor.
-     *
-     * @param aMouseAction the {@link MouseAction} to check for
-     */
-    HtmlUnitMouseActionListeningControlIdentifier(final MouseAction aMouseAction) {
-      mouseAction = aMouseAction;
-    }
+  static class HtmlUnitUnspecificControlIdentifier extends AbstractMatcherBasedIdentifier {
 
     @Override
     public boolean isHtmlElementSupported(final HtmlElement aHtmlElement) {
-      return htmlPageIndex.hasMouseActionListener(mouseAction, aHtmlElement);
+      // the ControlFinder already checked that the element has an click event handler
+      return true;
     }
 
     @Override

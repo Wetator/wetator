@@ -19,13 +19,15 @@ package org.wetator.backend.htmlunit.finder;
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
+import org.wetator.backend.WeightedControlList.Entry;
 import org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifierTest;
-import org.wetator.backend.htmlunit.finder.ClickableHtmlUnitControlsFinder.HtmlUnitClickListeningControlIdentifier;
+import org.wetator.backend.htmlunit.finder.MouseActionListeningHtmlUnitControlsFinder.HtmlUnitUnspecificControlIdentifier;
 import org.wetator.exception.InvalidInputException;
 import org.wetator.util.SecretString;
 
@@ -37,7 +39,7 @@ public class HtmlUnitClickListeningControlIdentifierTest extends AbstractHtmlUni
 
   @Before
   public void setupIdentifier() {
-    identifier = new HtmlUnitClickListeningControlIdentifier();
+    identifier = new HtmlUnitUnspecificControlIdentifier();
   }
 
   @Test
@@ -54,11 +56,12 @@ public class HtmlUnitClickListeningControlIdentifierTest extends AbstractHtmlUni
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
-    assertEquals(1, tmpFound.getEntriesSorted().size());
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
 
     assertEquals(
         "[HtmlSpan 'some text' (id='myId')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
-        tmpFound.getEntriesSorted().get(0).toString());
+        tmpEntriesSorted.get(0).toString());
   }
 
   @Test
@@ -75,11 +78,12 @@ public class HtmlUnitClickListeningControlIdentifierTest extends AbstractHtmlUni
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
-    assertEquals(1, tmpFound.getEntriesSorted().size());
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
 
     assertEquals(
         "[HtmlSpan 'some text' (id='myId')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
-        tmpFound.getEntriesSorted().get(0).toString());
+        tmpEntriesSorted.get(0).toString());
   }
 
   @Test
@@ -96,11 +100,12 @@ public class HtmlUnitClickListeningControlIdentifierTest extends AbstractHtmlUni
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
-    assertEquals(1, tmpFound.getEntriesSorted().size());
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
 
     assertEquals(
         "[HtmlSpan 'some text' (id='myId')] found by: BY_TITLE_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
-        tmpFound.getEntriesSorted().get(0).toString());
+        tmpEntriesSorted.get(0).toString());
   }
 
   @Test
@@ -117,11 +122,12 @@ public class HtmlUnitClickListeningControlIdentifierTest extends AbstractHtmlUni
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
-    assertEquals(1, tmpFound.getEntriesSorted().size());
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
 
     assertEquals(
         "[HtmlSpan 'some text' (id='myId')] found by: BY_ARIA_LABEL_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
-        tmpFound.getEntriesSorted().get(0).toString());
+        tmpEntriesSorted.get(0).toString());
   }
 
   @Test
@@ -138,11 +144,12 @@ public class HtmlUnitClickListeningControlIdentifierTest extends AbstractHtmlUni
 
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
 
-    assertEquals(1, tmpFound.getEntriesSorted().size());
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
 
     assertEquals(
         "[HtmlSpan 'myId' (id='myId')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
-        tmpFound.getEntriesSorted().get(0).toString());
+        tmpEntriesSorted.get(0).toString());
   }
 
   @Test
@@ -178,10 +185,11 @@ public class HtmlUnitClickListeningControlIdentifierTest extends AbstractHtmlUni
     final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId_1_2", "myId_1_3",
         "myId_2_2", "myId_2_3");
 
-    assertEquals(1, tmpFound.getEntriesSorted().size());
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
 
     assertEquals(
         "[HtmlSpan 'ClickMe' (id='myId_2_3')] found by: BY_TABLE_COORDINATE deviation: 0 distance: 62 start: 62 hierarchy: 0>1>3>5>22>38>47>48 index: 48",
-        tmpFound.getEntriesSorted().get(0).toString());
+        tmpEntriesSorted.get(0).toString());
   }
 }

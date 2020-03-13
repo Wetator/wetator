@@ -107,22 +107,27 @@ public class IdentifierBasedHtmlUnitControlsFinder extends AbstractHtmlUnitContr
       final WeightedControlList aFoundControls) {
     boolean tmpSupported = false;
     for (final Class<? extends AbstractHtmlUnitControlIdentifier> tmpIdentifierClass : identifiers) {
-      try {
-        final AbstractHtmlUnitControlIdentifier tmpIdentifier = tmpIdentifierClass.newInstance();
-        tmpIdentifier.initializeForAsynch(htmlPageIndex, aHtmlElement, aWPath, aFoundControls);
-        if (tmpIdentifier.isHtmlElementSupported(aHtmlElement)) {
-          tmpSupported = true;
-          execute(tmpIdentifier);
-        }
-      } catch (final IllegalAccessException e) {
-        throw new ImplementationException("Could not access identifier class '" + tmpIdentifierClass.getName() + "'.",
-            e);
-      } catch (final InstantiationException e) {
-        throw new ImplementationException(
-            "Could not instantiate identifier for class '" + tmpIdentifierClass.getName() + "'.", e);
-      }
+      tmpSupported |= identify(tmpIdentifierClass, aHtmlElement, aWPath, aFoundControls);
     }
     return tmpSupported;
+  }
+
+  protected boolean identify(final Class<? extends AbstractHtmlUnitControlIdentifier> anIdentifierClass,
+      final HtmlElement aHtmlElement, final WPath aWPath, final WeightedControlList aFoundControls) {
+    try {
+      final AbstractHtmlUnitControlIdentifier tmpIdentifier = anIdentifierClass.newInstance();
+      tmpIdentifier.initializeForAsynch(htmlPageIndex, aHtmlElement, aWPath, aFoundControls);
+      if (tmpIdentifier.isHtmlElementSupported(aHtmlElement)) {
+        execute(tmpIdentifier);
+        return true;
+      }
+    } catch (final IllegalAccessException e) {
+      throw new ImplementationException("Could not access identifier class '" + anIdentifierClass.getName() + "'.", e);
+    } catch (final InstantiationException e) {
+      throw new ImplementationException(
+          "Could not instantiate identifier for class '" + anIdentifierClass.getName() + "'.", e);
+    }
+    return false;
   }
 
   /**
