@@ -82,6 +82,10 @@ public abstract class ClickableHtmlCodeCreator {
     return input("text", anInputID);
   }
 
+  public static String inputText(final String anInputID, final String aPlaceholder) {
+    return input("text", anInputID, "placeholder='" + aPlaceholder + "'");
+  }
+
   public static String image(final String anImageId, final String anAltText) {
     return "<image id='" + anImageId + "' src='pathtoimg' " + ONCLICK + " alt='" + anAltText + "' />";
   }
@@ -150,6 +154,10 @@ public abstract class ClickableHtmlCodeCreator {
   }
 
   private static String input(final String aType, final String anInputID) {
-    return "<input type = '" + aType + "' id='" + anInputID + "' />";
+    return input(aType, anInputID, null);
+  }
+
+  private static String input(final String aType, final String anInputID, final String anOptional) {
+    return "<input type = '" + aType + "' id='" + anInputID + "' " + anOptional + "/>";
   }
 }

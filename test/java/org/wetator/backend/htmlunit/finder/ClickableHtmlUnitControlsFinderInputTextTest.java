@@ -55,6 +55,11 @@ public class ClickableHtmlUnitControlsFinderInputTextTest
       },
 
       // 1
+      { inputText("input", CONTENT),
+        new SortedEntryExpectation(new ExpectedControl(HtmlTextInput.class, "input"))
+      },
+
+      // 2
       { inputText("input") + CONTENT,
         null
       },
@@ -62,19 +67,19 @@ public class ClickableHtmlUnitControlsFinderInputTextTest
       //+++++++++++++++++++
       // label + text input
 
-      // 2
+      // 3
       { label("input", CONTENT) + inputText("input"),
         new SortedEntryExpectation(new ExpectedControl(HtmlTextInput.class, "input"))
       },
 
-      // 3
+      // 4
       { labelClickable("input", CONTENT) + inputText("input"),
         new SortedEntryExpectation(
             // FIXME new ExpectedControl(HtmlLabel.class, "lbl-input"),
             new ExpectedControl(HtmlTextInput.class, "input"))
       },
 
-      // 4
+      // 5
       { inputText("input") + labelClickable("input", CONTENT),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlTextInput.class, "input"))
@@ -83,35 +88,35 @@ public class ClickableHtmlUnitControlsFinderInputTextTest
 
       //+++++++++++++++++++++++
       // subsequent text inputs
-      // 5
+      // 6
       { CONTENT + inputText("input1") + CONTENT + inputText("input2"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlTextInput.class, "input1"),
             new ExpectedControl(HtmlTextInput.class, "input2"))
       },
 
-      // 6
+      // 7
       { CONTENT + inputText("input1") + inputText("input2"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlTextInput.class, "input1"),
             new ExpectedControl(HtmlTextInput.class, "input2"))
       },
 
-      // 7
+      // 8
       { CONTENT + inputText("input1") + "x" + inputText("input2"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlTextInput.class, "input1"),
             new ExpectedControl(HtmlTextInput.class, "input2"))
       },
 
-      // 8
+      // 9
       { CONTENT + "x" + inputText("input1") + inputText("input2"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlTextInput.class, "input1"),
             new ExpectedControl(HtmlTextInput.class, "input2"))
       },
 
-      // 9
+      // 10
       { CONTENT + "x" + inputText("input1") + CONTENT + inputText("input2"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlTextInput.class, "input2"),
