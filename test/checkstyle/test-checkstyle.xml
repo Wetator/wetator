@@ -76,10 +76,10 @@
 
     <!-- Imports -->
     <module name="AvoidStarImport">
-      <property name="excludes" value="org.mockito.Mockito,org.mockito.ArgumentMatchers,org.junit.Assert"/>
+      <property name="excludes" value="org.mockito.Mockito,org.mockito.ArgumentMatchers,org.junit.Assert,org.wetator.backend.htmlunit.finder.ClickableHtmlCodeCreator"/>
     </module>
     <module name="AvoidStaticImport">
-      <property name="excludes" value="java.util.stream.Collectors.*,org.mockito.Mockito.*,org.mockito.ArgumentMatchers.*,org.junit.Assert.*"/>
+      <property name="excludes" value="java.util.stream.Collectors.*,org.mockito.Mockito.*,org.mockito.ArgumentMatchers.*,org.junit.Assert.*,org.wetator.backend.htmlunit.finder.ClickableHtmlCodeCreator.*"/>
     </module>
     <module name="IllegalImport"/>
     <module name="RedundantImport"/>

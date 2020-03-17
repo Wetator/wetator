@@ -80,7 +80,8 @@ public class WetatorConfiguration {
    * The property name to set the WPath separator.
    */
   public static final String PROPERTY_WPATH_SEPARATOR = PROPERTY_PREFIX + "wpath.separator";
-  private static final String DEFAULT_WPATH_SEPARATOR = ">";
+  /** The default WPath separator. */
+  public static final String DEFAULT_WPATH_SEPARATOR = ">";
 
   /**
    * The property name to set the supported {@link IControl}s.

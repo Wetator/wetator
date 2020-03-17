@@ -312,6 +312,12 @@ test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitOptionIdentifi
 test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitOptionInSelectIdentifierTest.java -text svneol=unset#text/plain
 test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitSelectIdentifierTest.java -text svneol=unset#text/plain
 test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitTextAreaIdentifierTest.java -text svneol=unset#text/plain
+test/java/org/wetator/backend/htmlunit/finder/AbstractClickableHtmlUnitControlsFinderParameterizedTest.java -text
+test/java/org/wetator/backend/htmlunit/finder/AbstractClickableHtmlUnitControlsFinderTest.java -text
+test/java/org/wetator/backend/htmlunit/finder/ClickableHtmlCodeCreator.java -text
+test/java/org/wetator/backend/htmlunit/finder/ClickableHtmlUnitControlsFinderBasicTest.java -text
+test/java/org/wetator/backend/htmlunit/finder/ClickableHtmlUnitControlsFinderContainerContentDiffWPathTest.java -text
+test/java/org/wetator/backend/htmlunit/finder/ClickableHtmlUnitControlsFinderContainerContentEqWPathTest.java -text
 test/java/org/wetator/backend/htmlunit/finder/ClickableHtmlUnitControlsFinderTest.java -text svneol=unset#text/plain
 test/java/org/wetator/backend/htmlunit/finder/HtmlUnitClickListeningControlIdentifierTest.java -text svneol=unset#text/plain
 test/java/org/wetator/backend/htmlunit/finder/HtmlUnitUnspecificControlIdentifierTest.java -text
@@ -319,6 +325,7 @@ test/java/org/wetator/backend/htmlunit/finder/IdentifierBasedHtmlUnitControlsFin
 test/java/org/wetator/backend/htmlunit/finder/MouseActionListeningHtmlUnitControlsFinderTest.java -text
 test/java/org/wetator/backend/htmlunit/finder/SettableHtmlUnitControlsFinderTest.java -text svneol=unset#text/plain
 test/java/org/wetator/backend/htmlunit/finder/UnknownHtmlUnitControlsFinderTest.java -text svneol=unset#text/plain
+test/java/org/wetator/backend/htmlunit/finder/WeightedControlListEntryAssert.java -text
 test/java/org/wetator/backend/htmlunit/matcher/AbstractMatcherTest.java -text svneol=unset#text/plain
 test/java/org/wetator/backend/htmlunit/matcher/ByAriaLabelAttributeMatcherTest.java -text
 test/java/org/wetator/backend/htmlunit/matcher/ByHtmlLabelMatcherTest.java -text svneol=unset#text/plain
