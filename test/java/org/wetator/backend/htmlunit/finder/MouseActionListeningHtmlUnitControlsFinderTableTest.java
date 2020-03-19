@@ -16,13 +16,14 @@
 
 package org.wetator.backend.htmlunit.finder;
 
-import static org.wetator.backend.htmlunit.finder.ClickableHtmlCodeCreator.pageEnd;
-import static org.wetator.backend.htmlunit.finder.ClickableHtmlCodeCreator.pageStart;
-import static org.wetator.backend.htmlunit.finder.ClickableHtmlCodeCreator.tableEnd;
-import static org.wetator.backend.htmlunit.finder.ClickableHtmlCodeCreator.tableRowWithCols;
-import static org.wetator.backend.htmlunit.finder.ClickableHtmlCodeCreator.tableStart;
+import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.pageEnd;
+import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.pageStart;
+import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.tableEnd;
+import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.tableRowWithCols;
+import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.tableStart;
 
 import org.junit.Test;
+import org.wetator.backend.MouseAction;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.ExpectedControl;
@@ -34,12 +35,13 @@ import com.gargoylesoftware.htmlunit.html.HtmlTableDataCell;
 import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
 
 /**
- * Tests for element weighting during {@link ClickableHtmlUnitControlsFinder#find(WPath)} on pages with
+ * Tests for element weighting during {@link MouseActionListeningHtmlUnitControlsFinder#find(WPath)} on pages with
  * {@link HtmlTable}s and their children.
  *
  * @author tobwoerk
  */
-public class ClickableHtmlUnitControlsFinderTableTest extends AbstractClickableHtmlUnitControlsFinderTest {
+public class MouseActionListeningHtmlUnitControlsFinderTableTest
+    extends AbstractMouseActionListeningHtmlUnitControlsFinderTest {
 
   @Test
   public void tableBig() throws Exception {
@@ -75,6 +77,7 @@ public class ClickableHtmlUnitControlsFinderTableTest extends AbstractClickableH
     );
     // @formatter:on
 
+    setMouseAction(MouseAction.CLICK);
     setup(tmpHtmlCode);
     final WeightedControlList tmpFound = find();
     assertion(tmpSortedEntryExpectation, tmpFound);

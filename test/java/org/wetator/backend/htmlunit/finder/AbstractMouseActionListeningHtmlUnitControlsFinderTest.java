@@ -16,9 +16,9 @@
 
 package org.wetator.backend.htmlunit.finder;
 
-import static org.wetator.backend.htmlunit.finder.ClickableHtmlCodeCreator.CONTENT;
-import static org.wetator.backend.htmlunit.finder.ClickableHtmlCodeCreator.pageEnd;
-import static org.wetator.backend.htmlunit.finder.ClickableHtmlCodeCreator.pageStart;
+import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.CONTENT;
+import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.pageEnd;
+import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.pageStart;
 
 import java.io.File;
 import java.io.IOException;
@@ -27,6 +27,8 @@ import java.util.List;
 import java.util.Properties;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
+import org.wetator.backend.MouseAction;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier;
@@ -45,10 +47,17 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
  *
  * @author tobwoerk
  */
-public abstract class AbstractClickableHtmlUnitControlsFinderTest {
+public abstract class AbstractMouseActionListeningHtmlUnitControlsFinderTest {
+
+  protected MouseAction mouseAction;
 
   protected WetatorConfiguration config;
   protected IdentifierBasedHtmlUnitControlsFinder finder;
+
+  @BeforeClass
+  public static void resetMouseActionInCreator() {
+    MouseActionHtmlCodeCreator.resetOnMouseAction();
+  }
 
   @Before
   public void createWetatorConfiguration() {
@@ -71,7 +80,11 @@ public abstract class AbstractClickableHtmlUnitControlsFinderTest {
     final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(pageStart() + anHtmlCode + pageEnd());
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    finder = new ClickableHtmlUnitControlsFinder(tmpHtmlPageIndex, null, null);
+    finder = new MouseActionListeningHtmlUnitControlsFinder(tmpHtmlPageIndex, null, mouseAction, null);
+  }
+
+  public void setMouseAction(final MouseAction aMouseAction) {
+    mouseAction = aMouseAction;
   }
 
   @SafeVarargs

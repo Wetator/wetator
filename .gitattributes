@@ -312,19 +312,19 @@ test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitOptionIdentifi
 test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitOptionInSelectIdentifierTest.java -text svneol=unset#text/plain
 test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitSelectIdentifierTest.java -text svneol=unset#text/plain
 test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitTextAreaIdentifierTest.java -text svneol=unset#text/plain
-test/java/org/wetator/backend/htmlunit/finder/AbstractClickableHtmlUnitControlsFinderParameterizedTest.java -text
-test/java/org/wetator/backend/htmlunit/finder/AbstractClickableHtmlUnitControlsFinderTest.java -text
-test/java/org/wetator/backend/htmlunit/finder/ClickableHtmlCodeCreator.java -text
-test/java/org/wetator/backend/htmlunit/finder/ClickableHtmlUnitControlsFinderBasicTest.java -text
-test/java/org/wetator/backend/htmlunit/finder/ClickableHtmlUnitControlsFinderContainerContentDiffWPathTest.java -text
-test/java/org/wetator/backend/htmlunit/finder/ClickableHtmlUnitControlsFinderContainerContentEqWPathTest.java -text
-test/java/org/wetator/backend/htmlunit/finder/ClickableHtmlUnitControlsFinderContainerSeparatorWPathTest.java -text
-test/java/org/wetator/backend/htmlunit/finder/ClickableHtmlUnitControlsFinderInputTextTest.java -text
-test/java/org/wetator/backend/htmlunit/finder/ClickableHtmlUnitControlsFinderTableTest.java -text
+test/java/org/wetator/backend/htmlunit/finder/AbstractMouseActionListeningHtmlUnitControlsFinderTest.java -text
+test/java/org/wetator/backend/htmlunit/finder/AbstractMouseClickListeningHtmlUnitControlsFinderParameterizedTest.java -text
 test/java/org/wetator/backend/htmlunit/finder/ClickableHtmlUnitControlsFinderTest.java -text svneol=unset#text/plain
 test/java/org/wetator/backend/htmlunit/finder/HtmlUnitClickListeningControlIdentifierTest.java -text svneol=unset#text/plain
 test/java/org/wetator/backend/htmlunit/finder/HtmlUnitUnspecificControlIdentifierTest.java -text
 test/java/org/wetator/backend/htmlunit/finder/IdentifierBasedHtmlUnitControlsFinderTest.java -text svneol=unset#text/plain
+test/java/org/wetator/backend/htmlunit/finder/MouseActionHtmlCodeCreator.java -text
+test/java/org/wetator/backend/htmlunit/finder/MouseActionListeningHtmlUnitControlsFinderBasicTest.java -text
+test/java/org/wetator/backend/htmlunit/finder/MouseActionListeningHtmlUnitControlsFinderContainerContentDiffWPathTest.java -text
+test/java/org/wetator/backend/htmlunit/finder/MouseActionListeningHtmlUnitControlsFinderContainerContentEqWPathTest.java -text
+test/java/org/wetator/backend/htmlunit/finder/MouseActionListeningHtmlUnitControlsFinderContainerSeparatorWPathTest.java -text
+test/java/org/wetator/backend/htmlunit/finder/MouseActionListeningHtmlUnitControlsFinderInputTextTest.java -text
+test/java/org/wetator/backend/htmlunit/finder/MouseActionListeningHtmlUnitControlsFinderTableTest.java -text
 test/java/org/wetator/backend/htmlunit/finder/MouseActionListeningHtmlUnitControlsFinderTest.java -text
 test/java/org/wetator/backend/htmlunit/finder/SettableHtmlUnitControlsFinderTest.java -text svneol=unset#text/plain
 test/java/org/wetator/backend/htmlunit/finder/UnknownHtmlUnitControlsFinderTest.java -text svneol=unset#text/plain

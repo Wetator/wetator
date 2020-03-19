@@ -20,16 +20,18 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
+import org.wetator.backend.MouseAction;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.SortedEntryExpectation;
 
 /**
- * Common ground for parameterized {@link ClickableHtmlUnitControlsFinder} tests.
+ * Common ground for parameterized {@link MouseActionListeningHtmlUnitControlsFinder} tests listening to
+ * {@link MouseAction#CLICK}s.
  *
  * @author tobwoerk
  */
 @RunWith(Parameterized.class)
-public abstract class AbstractClickableHtmlUnitControlsFinderParameterizedTest
-    extends AbstractClickableHtmlUnitControlsFinderTest {
+public abstract class AbstractMouseClickListeningHtmlUnitControlsFinderParameterizedTest
+    extends AbstractMouseActionListeningHtmlUnitControlsFinderTest {
 
   @Parameter(0)
   public String htmlCode;
@@ -37,7 +39,8 @@ public abstract class AbstractClickableHtmlUnitControlsFinderParameterizedTest
   public SortedEntryExpectation expected;
 
   @Test
-  public void checkFoundElements() throws Exception {
+  public void checkFoundElementsClick() throws Exception {
+    setMouseAction(MouseAction.CLICK);
     super.checkFoundElements(htmlCode, expected);
   }
 }

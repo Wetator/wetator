@@ -16,10 +16,10 @@
 
 package org.wetator.backend.htmlunit.finder;
 
-import static org.wetator.backend.htmlunit.finder.ClickableHtmlCodeCreator.CONTENT;
-import static org.wetator.backend.htmlunit.finder.ClickableHtmlCodeCreator.inputText;
-import static org.wetator.backend.htmlunit.finder.ClickableHtmlCodeCreator.label;
-import static org.wetator.backend.htmlunit.finder.ClickableHtmlCodeCreator.labelClickable;
+import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.CONTENT;
+import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.inputText;
+import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.label;
+import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.labelClickable;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -34,13 +34,13 @@ import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.Sorted
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 
 /**
- * Tests for element weighting during {@link ClickableHtmlUnitControlsFinder#find(WPath)} on pages with
+ * Tests for element weighting during {@link MouseActionListeningHtmlUnitControlsFinder#find(WPath)} on pages with
  * {@link HtmlTextInput}s.
  *
  * @author tobwoerk
  */
-public class ClickableHtmlUnitControlsFinderInputTextTest
-    extends AbstractClickableHtmlUnitControlsFinderParameterizedTest {
+public class MouseActionListeningHtmlUnitControlsFinderInputTextTest
+    extends AbstractMouseClickListeningHtmlUnitControlsFinderParameterizedTest {
 
   @Parameters(name = "{index}: {0}")
   public static Collection<Object[]> provideParameters() {

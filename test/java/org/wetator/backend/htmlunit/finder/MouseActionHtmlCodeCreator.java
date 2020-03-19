@@ -17,14 +17,16 @@
 package org.wetator.backend.htmlunit.finder;
 
 /**
- * Creator for HTML code of clickable elements.
+ * Creator for HTML code of clickable elements. Adds <code>onclick</code>-event attributes per default.
  *
  * @author tobwoerk
  */
-public abstract class ClickableHtmlCodeCreator {
+public abstract class MouseActionHtmlCodeCreator {
 
   public static final String CONTENT = "test";
+
   private static final String ONCLICK = "onclick=''";
+  public static String onMouseAction = ONCLICK;
 
   public static String pageStart() {
     return "<html><body>";
@@ -71,7 +73,7 @@ public abstract class ClickableHtmlCodeCreator {
   }
 
   public static String divStart(final String aDivId) {
-    return "<div id='" + aDivId + "' " + ONCLICK + '>';
+    return "<div id='" + aDivId + "' " + onMouseAction + '>';
   }
 
   public static String divEnd() {
@@ -87,7 +89,7 @@ public abstract class ClickableHtmlCodeCreator {
   }
 
   public static String image(final String anImageId, final String anAltText) {
-    return "<image id='" + anImageId + "' src='pathtoimg' " + ONCLICK + " alt='" + anAltText + "' />";
+    return "<image id='" + anImageId + "' src='pathtoimg' " + onMouseAction + " alt='" + anAltText + "' />";
   }
 
   public static String label(final String aFor, final String aContent) {
@@ -99,7 +101,7 @@ public abstract class ClickableHtmlCodeCreator {
   }
 
   public static String labelStart(final String aFor, final boolean anIsClickable) {
-    return "<label id='lbl-" + aFor + "' for='" + aFor + '\'' + (anIsClickable ? ' ' + ONCLICK : "") + '>';
+    return "<label id='lbl-" + aFor + "' for='" + aFor + '\'' + (anIsClickable ? ' ' + onMouseAction : "") + '>';
   }
 
   public static String labelEnd() {
@@ -119,7 +121,7 @@ public abstract class ClickableHtmlCodeCreator {
   }
 
   public static String spanStart(final String aSpanId) {
-    return "<span id='" + aSpanId + "' " + ONCLICK + '>';
+    return "<span id='" + aSpanId + "' " + onMouseAction + '>';
   }
 
   public static String spanEnd() {
@@ -127,7 +129,8 @@ public abstract class ClickableHtmlCodeCreator {
   }
 
   public static String tableStart(final String aTableId) {
-    return "<table id='" + aTableId + "' " + ONCLICK + "><tbody id='" + aTableId + "-body' " + ONCLICK + '>';
+    return "<table id='" + aTableId + "' " + onMouseAction + "><tbody id='" + aTableId + "-body' " + onMouseAction
+        + '>';
   }
 
   public static String tableEnd() {
@@ -135,7 +138,7 @@ public abstract class ClickableHtmlCodeCreator {
   }
 
   public static String tableRowStart(final String aTableId, final String aRowId) {
-    return "<tr id='" + aTableId + '-' + aRowId + "' " + ONCLICK + '>';
+    return "<tr id='" + aTableId + '-' + aRowId + "' " + onMouseAction + '>';
   }
 
   public static String tableRowEnd() {
@@ -145,7 +148,7 @@ public abstract class ClickableHtmlCodeCreator {
   public static String tableRowWithCols(final String aTableId, final String aRowId, final int aColumnCount) {
     String tmpRow = tableRowStart(aTableId, aRowId);
     for (int i = 1; i <= aColumnCount; i++) {
-      tmpRow += "<td id='" + aTableId + '-' + aRowId + "-td" + (aColumnCount > 1 ? i : "") + "' " + ONCLICK + '>'
+      tmpRow += "<td id='" + aTableId + '-' + aRowId + "-td" + (aColumnCount > 1 ? i : "") + "' " + onMouseAction + '>'
           + CONTENT + "</td>";
     }
     tmpRow += tableRowEnd();
@@ -159,5 +162,9 @@ public abstract class ClickableHtmlCodeCreator {
 
   private static String input(final String aType, final String anInputID, final String anOptional) {
     return "<input type = '" + aType + "' id='" + anInputID + "' " + anOptional + "/>";
+  }
+
+  public static void resetOnMouseAction() {
+    onMouseAction = ONCLICK;
   }
 }

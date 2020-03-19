@@ -16,28 +16,32 @@
 
 package org.wetator.backend.htmlunit.finder;
 
-import static org.wetator.backend.htmlunit.finder.ClickableHtmlCodeCreator.CONTENT;
-import static org.wetator.backend.htmlunit.finder.ClickableHtmlCodeCreator.anchor;
-import static org.wetator.backend.htmlunit.finder.ClickableHtmlCodeCreator.button;
-import static org.wetator.backend.htmlunit.finder.ClickableHtmlCodeCreator.checkbox;
-import static org.wetator.backend.htmlunit.finder.ClickableHtmlCodeCreator.div;
-import static org.wetator.backend.htmlunit.finder.ClickableHtmlCodeCreator.image;
-import static org.wetator.backend.htmlunit.finder.ClickableHtmlCodeCreator.inputText;
-import static org.wetator.backend.htmlunit.finder.ClickableHtmlCodeCreator.label;
-import static org.wetator.backend.htmlunit.finder.ClickableHtmlCodeCreator.labelClickable;
-import static org.wetator.backend.htmlunit.finder.ClickableHtmlCodeCreator.radio;
-import static org.wetator.backend.htmlunit.finder.ClickableHtmlCodeCreator.span;
-import static org.wetator.backend.htmlunit.finder.ClickableHtmlCodeCreator.tableEnd;
-import static org.wetator.backend.htmlunit.finder.ClickableHtmlCodeCreator.tableRowWithCols;
-import static org.wetator.backend.htmlunit.finder.ClickableHtmlCodeCreator.tableStart;
+import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.CONTENT;
+import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.anchor;
+import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.button;
+import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.checkbox;
+import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.div;
+import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.image;
+import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.inputText;
+import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.label;
+import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.labelClickable;
+import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.radio;
+import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.span;
+import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.tableEnd;
+import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.tableRowWithCols;
+import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.tableStart;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import org.junit.AfterClass;
+import org.junit.Ignore;
+import org.junit.Test;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
+import org.wetator.backend.MouseAction;
 import org.wetator.backend.WPath;
 import org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitAnchorIdentifier;
@@ -64,11 +68,21 @@ import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 
 /**
- * Basic tests for element weighting during {@link ClickableHtmlUnitControlsFinder#find(WPath)}.
+ * Basic tests for element weighting during {@link MouseActionListeningHtmlUnitControlsFinder#find(WPath)}.
  *
  * @author tobwoerk
  */
-public class ClickableHtmlUnitControlsFinderBasicTest extends AbstractClickableHtmlUnitControlsFinderParameterizedTest {
+public class MouseActionListeningHtmlUnitControlsFinderBasicTest
+    extends AbstractMouseClickListeningHtmlUnitControlsFinderParameterizedTest {
+
+  static {
+    MouseActionHtmlCodeCreator.onMouseAction = "onclick='' ondblclick='' oncontextmenu='' mouseover=''";
+  }
+
+  @AfterClass
+  public static void resetMouseActionInCreator() {
+    MouseActionHtmlCodeCreator.resetOnMouseAction();
+  }
 
   @Parameter(2)
   public List<Class<? extends AbstractMatcherBasedIdentifier>> identifiers;
@@ -150,5 +164,25 @@ public class ClickableHtmlUnitControlsFinderBasicTest extends AbstractClickableH
     if (identifiers != null) {
       addIdentifiers(identifiers);
     }
+  }
+
+  @Test
+  public void checkFoundElementsClickDouble() throws Exception {
+    setMouseAction(MouseAction.CLICK_DOUBLE);
+    super.checkFoundElements(htmlCode, expected);
+  }
+
+  @Test
+  public void checkFoundElementsClickRight() throws Exception {
+    setMouseAction(MouseAction.CLICK_RIGHT);
+    super.checkFoundElements(htmlCode, expected);
+  }
+
+  @Test
+  @Ignore("FIXME mouse over")
+  // FIXME activate asa mouseover implementation is ready
+  public void checkFoundElementsMouseOver() throws Exception {
+    setMouseAction(MouseAction.MOUSE_OVER);
+    super.checkFoundElements(htmlCode, expected);
   }
 }

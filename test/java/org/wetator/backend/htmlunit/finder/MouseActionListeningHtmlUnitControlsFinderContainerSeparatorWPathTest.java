@@ -16,8 +16,8 @@
 
 package org.wetator.backend.htmlunit.finder;
 
-import static org.wetator.backend.htmlunit.finder.ClickableHtmlCodeCreator.CONTENT;
-import static org.wetator.backend.htmlunit.finder.ClickableHtmlCodeCreator.div;
+import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.CONTENT;
+import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.div;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -28,6 +28,7 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
+import org.wetator.backend.MouseAction;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.ExpectedControl;
@@ -37,14 +38,15 @@ import org.wetator.core.WetatorConfiguration;
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 
 /**
- * Tests for element weighting during {@link ClickableHtmlUnitControlsFinder#find(WPath)} with a static set of
+ * Tests for element weighting during {@link MouseActionListeningHtmlUnitControlsFinder#find(WPath)} with a static set
+ * of
  * {@link HtmlDivision}s and varying WPath to aim specific controls.
  *
  * @author tobwoerk
  */
 @RunWith(Parameterized.class)
-public class ClickableHtmlUnitControlsFinderContainerSeparatorWPathTest
-    extends AbstractClickableHtmlUnitControlsFinderTest {
+public class MouseActionListeningHtmlUnitControlsFinderContainerSeparatorWPathTest
+    extends AbstractMouseActionListeningHtmlUnitControlsFinderTest {
 
   private static final String SEP = WetatorConfiguration.DEFAULT_WPATH_SEPARATOR;
 
@@ -56,6 +58,7 @@ public class ClickableHtmlUnitControlsFinderContainerSeparatorWPathTest
   @Before
   public void setup() throws Exception {
     if (finder == null) {
+      setMouseAction(MouseAction.CLICK);
       super.setup(CONTENT + "x" + div("out", "x" + CONTENT + "x" + div("in", "x" + CONTENT)));
     }
   }

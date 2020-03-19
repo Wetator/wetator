@@ -16,8 +16,8 @@
 
 package org.wetator.backend.htmlunit.finder;
 
-import static org.wetator.backend.htmlunit.finder.ClickableHtmlCodeCreator.CONTENT;
-import static org.wetator.backend.htmlunit.finder.ClickableHtmlCodeCreator.div;
+import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.CONTENT;
+import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.div;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -30,15 +30,16 @@ import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.Sorted
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 
 /**
- * Tests for element weighting during {@link ClickableHtmlUnitControlsFinder#find(WPath)} on pages with
+ * Tests for element weighting during {@link MouseActionListeningHtmlUnitControlsFinder#find(WPath)} on pages with
  * {@link HtmlDivision}s and text content exactly matching the WPath.
  *
  * @author tobwoerk
- * @see ClickableHtmlUnitControlsFinderContainerContentDiffWPathTest tests from here with multiple element hits lead to
+ * @see MouseActionListeningHtmlUnitControlsFinderContainerContentDiffWPathTest tests from here with multiple
+ *      element hits lead to
  *      test cases in check sister test class
  */
-public class ClickableHtmlUnitControlsFinderContainerContentEqWPathTest
-    extends AbstractClickableHtmlUnitControlsFinderParameterizedTest {
+public class MouseActionListeningHtmlUnitControlsFinderContainerContentEqWPathTest
+    extends AbstractMouseClickListeningHtmlUnitControlsFinderParameterizedTest {
 
   @Parameters(name = "{index}: {0}")
   public static Collection<Object[]> provideParameters() {
