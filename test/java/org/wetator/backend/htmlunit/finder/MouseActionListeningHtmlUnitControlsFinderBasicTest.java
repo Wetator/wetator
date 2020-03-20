@@ -37,7 +37,6 @@ import java.util.Collection;
 import java.util.List;
 
 import org.junit.AfterClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
@@ -76,7 +75,7 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
     extends AbstractMouseClickListeningHtmlUnitControlsFinderParameterizedTest {
 
   static {
-    MouseActionHtmlCodeCreator.onMouseAction = "onclick='' ondblclick='' oncontextmenu='' mouseover=''";
+    MouseActionHtmlCodeCreator.onMouseAction = "onclick='' ondblclick='' oncontextmenu='' onmouseover=''";
   }
 
   @AfterClass
@@ -179,8 +178,6 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
   }
 
   @Test
-  @Ignore("FIXME mouse over")
-  // FIXME activate asa mouseover implementation is ready
   public void checkFoundElementsMouseOver() throws Exception {
     setMouseAction(MouseAction.MOUSE_OVER);
     super.checkFoundElements(htmlCode, expected);

@@ -16,6 +16,7 @@
 
 package org.wetator.backend.htmlunit.util;
 
+import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -149,7 +150,7 @@ public class HtmlPageIndex {
       htmlElementsWithMouseActionListener.put(tmpMouseAction, new HashSet<HtmlElement>());
     }
 
-    parseDomNode(aHtmlPage, null);
+    parseDomNode(aHtmlPage, null, EnumSet.noneOf(MouseAction.class));
   }
 
   /**
@@ -447,7 +448,8 @@ public class HtmlPageIndex {
     return htmlElementsWithMouseActionListener.get(aMouseAction).contains(anHtmlElement);
   }
 
-  private void parseDomNode(final DomNode aDomNode, final String aParentHierarchy) {
+  private void parseDomNode(final DomNode aDomNode, final String aParentHierarchy,
+      final Set<MouseAction> aParentMouseActions) {
     if (null == aDomNode) {
       return;
     }
@@ -470,43 +472,18 @@ public class HtmlPageIndex {
     }
     hierarchies.put(aDomNode, tmpHierarchy);
 
+    Set<MouseAction> tmpMouseActions = aParentMouseActions;
+
     if (isDisplayed(aDomNode)) {
       final boolean tmpIsHtmlElement = aDomNode instanceof HtmlElement;
       if (tmpIsHtmlElement) {
         final HtmlElement tmpHtmlElement = (HtmlElement) aDomNode;
         visibleHtmlElements.add(tmpHtmlElement);
 
-        // FIXME add the children of the element the handler is attached to as well
-
-        // click: click, mousedown, mouseup
-        // click-double: click, dblclick, mousedown, mouseup
-        // click-right: contextmenu, mousedown, mouseup
-        // mouse-over: mouseover, mousemove, mouseout
-        if (tmpHtmlElement.hasEventHandlers(EVENT_NAME_MOUSE_DOWN)
-            || tmpHtmlElement.hasEventHandlers(EVENT_NAME_MOUSE_UP)) {
+        tmpMouseActions = getAvailableMouseActions(tmpHtmlElement, tmpMouseActions);
+        tmpMouseActions.forEach(a -> htmlElementsWithMouseActionListener.get(a).add(tmpHtmlElement));
+        if (tmpMouseActions.contains(MouseAction.CLICK)) {
           htmlElementsWithClickListener.add(tmpHtmlElement);
-          htmlElementsWithMouseActionListener.get(MouseAction.CLICK).add(tmpHtmlElement);
-          htmlElementsWithMouseActionListener.get(MouseAction.CLICK_DOUBLE).add(tmpHtmlElement);
-          htmlElementsWithMouseActionListener.get(MouseAction.CLICK_RIGHT).add(tmpHtmlElement);
-        } else {
-          if (tmpHtmlElement.hasEventHandlers(EVENT_NAME_CLICK)) {
-            htmlElementsWithClickListener.add(tmpHtmlElement);
-            htmlElementsWithMouseActionListener.get(MouseAction.CLICK).add(tmpHtmlElement);
-            htmlElementsWithMouseActionListener.get(MouseAction.CLICK_DOUBLE).add(tmpHtmlElement);
-          } else if (tmpHtmlElement.hasEventHandlers(EVENT_NAME_DBL_CLICK)) {
-            htmlElementsWithMouseActionListener.get(MouseAction.CLICK_DOUBLE).add(tmpHtmlElement);
-          }
-
-          if (tmpHtmlElement.hasEventHandlers(EVENT_NAME_CONTEXT_MENU)) {
-            htmlElementsWithMouseActionListener.get(MouseAction.CLICK_RIGHT).add(tmpHtmlElement);
-          }
-        }
-
-        if (tmpHtmlElement.hasEventHandlers(EVENT_NAME_MOUSE_OVER)
-            || tmpHtmlElement.hasEventHandlers(EVENT_NAME_MOUSE_MOVE)
-            || tmpHtmlElement.hasEventHandlers(EVENT_NAME_MOUSE_OUT)) {
-          // mouseenter and mouseleave are currently not supported by HtmlUnit
-          htmlElementsWithMouseActionListener.get(MouseAction.MOUSE_OVER).add(tmpHtmlElement);
         }
 
         if (HtmlElementUtil.isFormatElement(aDomNode) && lastOneWasHtmlElement) {
@@ -533,13 +510,13 @@ public class HtmlPageIndex {
       } else if (aDomNode instanceof HtmlImage) {
         appendHtmlImage((HtmlImage) aDomNode);
       } else if (aDomNode instanceof HtmlSelect) {
-        appendHtmlSelect((HtmlSelect) aDomNode, tmpHierarchy);
+        appendHtmlSelect((HtmlSelect) aDomNode, tmpHierarchy, tmpMouseActions);
       } else if (aDomNode instanceof HtmlOptionGroup) {
         appendHtmlOptionGroup((HtmlOptionGroup) aDomNode);
       } else if (aDomNode instanceof HtmlLegend) {
-        appendHtmlLegend((HtmlLegend) aDomNode, tmpHierarchy);
+        appendHtmlLegend((HtmlLegend) aDomNode, tmpHierarchy, tmpMouseActions);
       } else if (aDomNode instanceof HtmlLabel) {
-        appendHtmlLabel((HtmlLabel) aDomNode, tmpHierarchy);
+        appendHtmlLabel((HtmlLabel) aDomNode, tmpHierarchy, tmpMouseActions);
       } else if (aDomNode instanceof HtmlSubmitInput) {
         appendHtmlSubmitInput((HtmlSubmitInput) aDomNode);
       } else if (aDomNode instanceof HtmlResetInput) {
@@ -547,30 +524,30 @@ public class HtmlPageIndex {
       } else if (aDomNode instanceof HtmlButtonInput) {
         appendHtmlButtonInput((HtmlButtonInput) aDomNode);
       } else if (aDomNode instanceof HtmlCheckBoxInput) {
-        appendHtmlCheckBoxInput((HtmlCheckBoxInput) aDomNode, tmpHierarchy);
+        appendHtmlCheckBoxInput((HtmlCheckBoxInput) aDomNode, tmpHierarchy, tmpMouseActions);
       } else if (aDomNode instanceof HtmlRadioButtonInput) {
-        appendHtmlRadioButtonInput((HtmlRadioButtonInput) aDomNode, tmpHierarchy);
+        appendHtmlRadioButtonInput((HtmlRadioButtonInput) aDomNode, tmpHierarchy, tmpMouseActions);
       } else if (aDomNode instanceof HtmlImageInput) {
         appendHtmlImageInput((HtmlImageInput) aDomNode);
       } else if (aDomNode instanceof HtmlInput) {
         appendHtmlInput((HtmlInput) aDomNode);
       } else if (aDomNode instanceof HtmlTextArea) {
-        appendHtmlTextArea((HtmlTextArea) aDomNode, tmpHierarchy);
+        appendHtmlTextArea((HtmlTextArea) aDomNode, tmpHierarchy, tmpMouseActions);
       } else if (aDomNode instanceof HtmlButton) {
-        appendHtmlButton((HtmlButton) aDomNode, tmpHierarchy);
+        appendHtmlButton((HtmlButton) aDomNode, tmpHierarchy, tmpMouseActions);
       } else if (aDomNode instanceof HtmlOrderedList) {
-        appendHtmlOrderedList((HtmlOrderedList) aDomNode, tmpHierarchy);
+        appendHtmlOrderedList((HtmlOrderedList) aDomNode, tmpHierarchy, tmpMouseActions);
       } else if (aDomNode instanceof HtmlObject) {
-        appendHtmlObject((HtmlObject) aDomNode, tmpHierarchy);
+        appendHtmlObject((HtmlObject) aDomNode, tmpHierarchy, tmpMouseActions);
       } else if (aDomNode instanceof HtmlInlineQuotation) {
-        appendHtmlInlineQuotation((HtmlInlineQuotation) aDomNode, tmpHierarchy);
+        appendHtmlInlineQuotation((HtmlInlineQuotation) aDomNode, tmpHierarchy, tmpMouseActions);
       } else {
         final boolean tmpIsBlock = HtmlElementUtil.isBlock(aDomNode);
         if (tmpIsBlock) {
           text.appendBlank();
           textWithoutFormControls.appendBlank();
         }
-        parseChildren(aDomNode, tmpHierarchy);
+        parseChildren(aDomNode, tmpHierarchy, tmpMouseActions);
         if (tmpIsBlock) {
           text.appendBlank();
           textWithoutFormControls.appendBlank();
@@ -615,9 +592,57 @@ public class HtmlPageIndex {
     return true;
   }
 
-  private void parseChildren(final DomNode aNode, final String aHierarchy) {
+  private Set<MouseAction> getAvailableMouseActions(final HtmlElement aHtmlElement,
+      final Set<MouseAction> aParentMouseActions) {
+    Set<MouseAction> tmpMouseActions = aParentMouseActions;
+
+    // click: click, mousedown, mouseup
+    // click-double: click, dblclick, mousedown, mouseup
+    // click-right: contextmenu, mousedown, mouseup
+    // mouse-over: mouseover, mousemove, mouseout
+    if (!aParentMouseActions
+        .containsAll(EnumSet.of(MouseAction.CLICK, MouseAction.CLICK_DOUBLE, MouseAction.CLICK_RIGHT))
+        && (aHtmlElement.hasEventHandlers(EVENT_NAME_MOUSE_DOWN)
+            || aHtmlElement.hasEventHandlers(EVENT_NAME_MOUSE_UP))) {
+      tmpMouseActions = copyAndAdd(tmpMouseActions, MouseAction.CLICK, MouseAction.CLICK_DOUBLE,
+          MouseAction.CLICK_RIGHT);
+    } else {
+      if (!aParentMouseActions.containsAll(EnumSet.of(MouseAction.CLICK, MouseAction.CLICK_DOUBLE))
+          && aHtmlElement.hasEventHandlers(EVENT_NAME_CLICK)) {
+        tmpMouseActions = copyAndAdd(tmpMouseActions, MouseAction.CLICK, MouseAction.CLICK_DOUBLE);
+      } else if (!aParentMouseActions.contains(MouseAction.CLICK_DOUBLE)
+          && aHtmlElement.hasEventHandlers(EVENT_NAME_DBL_CLICK)) {
+        tmpMouseActions = copyAndAdd(tmpMouseActions, MouseAction.CLICK_DOUBLE);
+      }
+
+      if (!aParentMouseActions.contains(MouseAction.CLICK_RIGHT)
+          && aHtmlElement.hasEventHandlers(EVENT_NAME_CONTEXT_MENU)) {
+        tmpMouseActions = copyAndAdd(tmpMouseActions, MouseAction.CLICK_RIGHT);
+      }
+    }
+
+    if (!aParentMouseActions.contains(MouseAction.MOUSE_OVER)
+        && (aHtmlElement.hasEventHandlers(EVENT_NAME_MOUSE_OVER) || aHtmlElement.hasEventHandlers(EVENT_NAME_MOUSE_MOVE)
+            || aHtmlElement.hasEventHandlers(EVENT_NAME_MOUSE_OUT))) {
+      // mouseenter and mouseleave are currently not supported by HtmlUnit
+      tmpMouseActions = copyAndAdd(tmpMouseActions, MouseAction.MOUSE_OVER);
+    }
+
+    return tmpMouseActions;
+  }
+
+  private Set<MouseAction> copyAndAdd(final Set<MouseAction> aCurrentMouseActions,
+      final MouseAction... aNewMouseActions) {
+    final Set<MouseAction> tmpMouseActions = EnumSet.copyOf(aCurrentMouseActions);
+    for (MouseAction tmpNewMouseAction : aNewMouseActions) {
+      tmpMouseActions.add(tmpNewMouseAction);
+    }
+    return tmpMouseActions;
+  }
+
+  private void parseChildren(final DomNode aNode, final String aHierarchy, final Set<MouseAction> aMouseActions) {
     for (final DomNode tmpChild : aNode.getChildren()) {
-      parseDomNode(tmpChild, aHierarchy);
+      parseDomNode(tmpChild, aHierarchy, aMouseActions);
     }
   }
 
@@ -657,14 +682,16 @@ public class HtmlPageIndex {
   private void appendHtmlInlineFrame(final HtmlInlineFrame anHtmlInlineFrame, final String aHierarchy) {
     final Page tmpPage = anHtmlInlineFrame.getEnclosedPage();
     if (tmpPage instanceof HtmlPage) {
-      parseDomNode((HtmlPage) tmpPage, aHierarchy);
+      // events are not propagated through the iframe 'border' -> start with fresh mouse actions
+      parseDomNode((HtmlPage) tmpPage, aHierarchy, EnumSet.noneOf(MouseAction.class));
     }
   }
 
   private void appendHtmlFrame(final HtmlFrame anHtmlFrame, final String aHierarchy) {
     final Page tmpPage = anHtmlFrame.getEnclosedPage();
     if (tmpPage instanceof HtmlPage) {
-      parseDomNode((HtmlPage) tmpPage, aHierarchy);
+      // events are not propagated through the frame 'border' -> start with fresh mouse actions
+      parseDomNode((HtmlPage) tmpPage, aHierarchy, EnumSet.noneOf(MouseAction.class));
     }
   }
 
@@ -683,9 +710,10 @@ public class HtmlPageIndex {
     text.append(tmpValue);
   }
 
-  private void appendHtmlTextArea(final HtmlTextArea anHtmlTextArea, final String aHierarchy) {
+  private void appendHtmlTextArea(final HtmlTextArea anHtmlTextArea, final String aHierarchy,
+      final Set<MouseAction> aMouseActions) {
     textWithoutFormControls.disableAppend();
-    parseChildren(anHtmlTextArea, aHierarchy);
+    parseChildren(anHtmlTextArea, aHierarchy, aMouseActions);
     textWithoutFormControls.enableAppend();
   }
 
@@ -698,8 +726,9 @@ public class HtmlPageIndex {
     textWithoutFormControls.appendBlank();
   }
 
-  private void appendHtmlLegend(final HtmlLegend anHtmlLegend, final String aHierarchy) {
-    parseChildren(anHtmlLegend, aHierarchy);
+  private void appendHtmlLegend(final HtmlLegend anHtmlLegend, final String aHierarchy,
+      final Set<MouseAction> aMouseActions) {
+    parseChildren(anHtmlLegend, aHierarchy, aMouseActions);
     text.appendBlank();
     textWithoutFormControls.appendBlank();
   }
@@ -709,11 +738,13 @@ public class HtmlPageIndex {
     text.append(tmpLabel);
   }
 
-  private void appendHtmlButton(final HtmlButton anHtmlButton, final String aHierarchy) {
+  private void appendHtmlButton(final HtmlButton anHtmlButton, final String aHierarchy,
+      final Set<MouseAction> aMouseActions) {
     text.appendBlank();
     textWithoutFormControls.appendBlank();
     textWithoutFormControls.disableAppend();
-    parseChildren(anHtmlButton, aHierarchy);
+    // FIXME should the content of a button always be marked as 'clickable'?
+    parseChildren(anHtmlButton, aHierarchy, aMouseActions);
     textWithoutFormControls.enableAppend();
     text.appendBlank();
     textWithoutFormControls.appendBlank();
@@ -740,37 +771,41 @@ public class HtmlPageIndex {
     text.appendBlank();
   }
 
-  private void appendHtmlCheckBoxInput(final HtmlCheckBoxInput anHtmlCheckBoxInput, final String aHierarchy) {
+  private void appendHtmlCheckBoxInput(final HtmlCheckBoxInput anHtmlCheckBoxInput, final String aHierarchy,
+      final Set<MouseAction> aMouseActions) {
     textWithoutFormControls.disableAppend();
-    parseChildren(anHtmlCheckBoxInput, aHierarchy);
+    parseChildren(anHtmlCheckBoxInput, aHierarchy, aMouseActions);
     textWithoutFormControls.enableAppend();
     text.appendBlank();
     textWithoutFormControls.appendBlank();
   }
 
-  private void appendHtmlLabel(final HtmlLabel anHtmlLabel, final String aHierarchy) {
+  private void appendHtmlLabel(final HtmlLabel anHtmlLabel, final String aHierarchy,
+      final Set<MouseAction> aMouseActions) {
     text.appendBlank();
     textWithoutFormControls.appendBlank();
-    parseChildren(anHtmlLabel, aHierarchy);
+    parseChildren(anHtmlLabel, aHierarchy, aMouseActions);
     text.appendBlank();
     textWithoutFormControls.appendBlank();
   }
 
-  private void appendHtmlRadioButtonInput(final HtmlRadioButtonInput anHtmlRadioButtonInput, final String aHierarchy) {
+  private void appendHtmlRadioButtonInput(final HtmlRadioButtonInput anHtmlRadioButtonInput, final String aHierarchy,
+      final Set<MouseAction> aMouseActions) {
     textWithoutFormControls.disableAppend();
-    parseChildren(anHtmlRadioButtonInput, aHierarchy);
+    parseChildren(anHtmlRadioButtonInput, aHierarchy, aMouseActions);
     textWithoutFormControls.enableAppend();
     text.appendBlank();
     textWithoutFormControls.appendBlank();
   }
 
-  private void appendHtmlSelect(final HtmlSelect anHtmlSelect, final String aHierarchy) {
+  private void appendHtmlSelect(final HtmlSelect anHtmlSelect, final String aHierarchy,
+      final Set<MouseAction> aMouseActions) {
     textWithoutFormControls.disableAppend();
     for (final DomNode tmpItem : anHtmlSelect.getHtmlElementDescendants()) {
       if (tmpItem instanceof HtmlOption || tmpItem instanceof HtmlOptionGroup) {
         text.appendBlank();
         textWithoutFormControls.appendBlank();
-        parseDomNode(tmpItem, aHierarchy);
+        parseDomNode(tmpItem, aHierarchy, aMouseActions);
       }
     }
     textWithoutFormControls.enableAppend();
@@ -783,7 +818,8 @@ public class HtmlPageIndex {
    *
    * @param anHtmlOrderedList the OL element
    */
-  private void appendHtmlOrderedList(final HtmlOrderedList anHtmlOrderedList, final String aHierarchy) {
+  private void appendHtmlOrderedList(final HtmlOrderedList anHtmlOrderedList, final String aHierarchy,
+      final Set<MouseAction> aMouseActions) {
     text.appendBlank();
     textWithoutFormControls.appendBlank();
 
@@ -799,38 +835,40 @@ public class HtmlPageIndex {
         textWithoutFormControls.append(String.valueOf(i++));
         textWithoutFormControls.append(". ");
 
-        parseDomNode(tmpItem, aHierarchy);
+        parseDomNode(tmpItem, aHierarchy, aMouseActions);
         final FindSpot tmpFindSpot = positions.get(tmpItem);
         tmpFindSpot.setStartPos(tmpStartPos);
 
         final FindSpot tmpFindSpotWFC = positionsWithoutFormControls.get(tmpItem);
         tmpFindSpotWFC.setStartPos(tmpStartPosWFC);
       } else {
-        parseDomNode(tmpItem, aHierarchy);
+        parseDomNode(tmpItem, aHierarchy, aMouseActions);
       }
     }
     text.appendBlank();
     textWithoutFormControls.appendBlank();
   }
 
-  private void appendHtmlObject(final HtmlObject anHtmlObject, final String aHierarchy) {
+  private void appendHtmlObject(final HtmlObject anHtmlObject, final String aHierarchy,
+      final Set<MouseAction> aMouseActions) {
     text.append(" ");
     textWithoutFormControls.append(" ");
 
     // process childs only if the control is not supported
     final HTMLObjectElement tmpJsObject = anHtmlObject.getScriptableObject();
     if (null == tmpJsObject || null == tmpJsObject.unwrap()) {
-      parseChildren(anHtmlObject, aHierarchy);
+      parseChildren(anHtmlObject, aHierarchy, aMouseActions);
     }
 
     text.append(" ");
     textWithoutFormControls.append(" ");
   }
 
-  private void appendHtmlInlineQuotation(final HtmlInlineQuotation anHtmlInlineQuotation, final String aHierarchy) {
+  private void appendHtmlInlineQuotation(final HtmlInlineQuotation anHtmlInlineQuotation, final String aHierarchy,
+      final Set<MouseAction> aMouseActions) {
     text.append(" \"");
     textWithoutFormControls.append(" \"");
-    parseChildren(anHtmlInlineQuotation, aHierarchy);
+    parseChildren(anHtmlInlineQuotation, aHierarchy, aMouseActions);
     text.append("\" ");
     textWithoutFormControls.append("\" ");
   }

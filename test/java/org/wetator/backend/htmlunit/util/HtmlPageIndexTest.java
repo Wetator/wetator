@@ -2309,6 +2309,50 @@ public class HtmlPageIndexTest {
   }
 
   @Test
+  public void hasMouseActionListener_child_actionFromParent() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<span onclick='alert(\"clicked\");'><span id='myId'>some text</span></span>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    assertTrue(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK, tmpHtmlPage.getHtmlElementById("myId")));
+  }
+
+  @Test
+  public void hasMouseActionListener_child_actionFromSelfAndParent() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<span onclick='alert(\"clicked\");'><span id='myId' onmouseover='alert(\"clicked\");'>some text</span></span>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    assertTrue(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK, tmpHtmlPage.getHtmlElementById("myId")));
+    assertTrue(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.MOUSE_OVER, tmpHtmlPage.getHtmlElementById("myId")));
+  }
+
+  @Test
+  public void hasMouseActionListener_child_multipleActionsFromParents() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<span onclick='alert(\"clicked\");'><span onmouseover='alert(\"clicked\");'><span id='myId'>some text</span></span></span>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    assertTrue(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK, tmpHtmlPage.getHtmlElementById("myId")));
+    assertTrue(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.MOUSE_OVER, tmpHtmlPage.getHtmlElementById("myId")));
+  }
+
+  @Test
   public void hasMouseActionListener_click_onClick() throws Exception {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
