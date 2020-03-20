@@ -16,8 +16,11 @@
 
 package org.wetator.backend.htmlunit.finder;
 
+import org.wetator.backend.control.IClickable;
+
 /**
- * Creator for HTML code of clickable elements. Adds <code>onclick</code>-event attributes per default.
+ * Creator for HTML code of clickable elements. Adds <code>onclick</code>-event listeners for non-{@link IClickable}s
+ * per default.
  *
  * @author tobwoerk
  */
@@ -89,7 +92,8 @@ public abstract class MouseActionHtmlCodeCreator {
   }
 
   public static String image(final String anImageId, final String anAltText) {
-    return "<image id='" + anImageId + "' src='pathtoimg' " + onMouseAction + " alt='" + anAltText + "' />";
+    return "<image id='" + anImageId + "' src='pathtoimg' " + /* FIXME onMouseAction + (Image is IClickable) */ " alt='"
+        + anAltText + "' />";
   }
 
   public static String label(final String aFor, final String aContent) {
