@@ -30,6 +30,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlImage;
  * @author rbri
  * @author frank.danek
  */
+// FIXME remove IClickable once JS-support is done but leave Identifier alive
 @ForHtmlElement(HtmlImage.class)
 @IdentifiedBy(HtmlUnitImageIdentifier.class)
 public class HtmlUnitImage extends HtmlUnitBaseControl<HtmlImage> implements IClickable {
