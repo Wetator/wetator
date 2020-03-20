@@ -2309,7 +2309,7 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  public void hasMouseActionListener_click() throws Exception {
+  public void hasMouseActionListener_click_onClick() throws Exception {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<span id='myId' onclick='alert(\"clicked\");'>some text</span>"
@@ -2323,7 +2323,35 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  public void hasMouseActionListener_clickDouble() throws Exception {
+  public void hasMouseActionListener_click_onMouseDown() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<span id='myId' onmousedown='alert(\"clicked\");'>some text</span>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    assertTrue(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK, tmpHtmlPage.getHtmlElementById("myId")));
+  }
+
+  @Test
+  public void hasMouseActionListener_click_onMouseUp() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<span id='myId' onmouseup='alert(\"clicked\");'>some text</span>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    assertTrue(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK, tmpHtmlPage.getHtmlElementById("myId")));
+  }
+
+  @Test
+  public void hasMouseActionListener_clickDouble_onDblClick() throws Exception {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<span id='myId' ondblclick='alert(\"clicked\");'>some text</span>"
@@ -2338,7 +2366,52 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  public void hasMouseActionListener_clickRight() throws Exception {
+  public void hasMouseActionListener_clickDouble_onClick() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<span id='myId' onclick='alert(\"clicked\");'>some text</span>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    assertTrue(
+        tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK_DOUBLE, tmpHtmlPage.getHtmlElementById("myId")));
+  }
+
+  @Test
+  public void hasMouseActionListener_clickDouble_onMouseDown() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<span id='myId' onmousedown='alert(\"clicked\");'>some text</span>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    assertTrue(
+        tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK_DOUBLE, tmpHtmlPage.getHtmlElementById("myId")));
+  }
+
+  @Test
+  public void hasMouseActionListener_clickDouble_onMouseUp() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<span id='myId' onmouseup='alert(\"clicked\");'>some text</span>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    assertTrue(
+        tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK_DOUBLE, tmpHtmlPage.getHtmlElementById("myId")));
+  }
+
+  @Test
+  public void hasMouseActionListener_clickRight_onContextMenu() throws Exception {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<span id='myId' oncontextmenu='alert(\"clicked\");'>some text</span>"
@@ -2353,10 +2426,68 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  public void hasMouseActionListener_mouseOver() throws Exception {
+  public void hasMouseActionListener_clickRight_onMouseDown() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<span id='myId' onmousedown='alert(\"clicked\");'>some text</span>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    assertTrue(
+        tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK_RIGHT, tmpHtmlPage.getHtmlElementById("myId")));
+  }
+
+  @Test
+  public void hasMouseActionListener_clickRight_onMouseUp() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<span id='myId' onmouseup='alert(\"clicked\");'>some text</span>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    assertTrue(
+        tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK_RIGHT, tmpHtmlPage.getHtmlElementById("myId")));
+  }
+
+  @Test
+  public void hasMouseActionListener_mouseOver_onMouseOver() throws Exception {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<span id='myId' onmouseover='alert(\"clicked\");'>some text</span>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    assertTrue(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.MOUSE_OVER, tmpHtmlPage.getHtmlElementById("myId")));
+  }
+
+  @Test
+  public void hasMouseActionListener_mouseOver_onMouseMove() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<span id='myId' onmousemove='alert(\"clicked\");'>some text</span>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    assertTrue(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.MOUSE_OVER, tmpHtmlPage.getHtmlElementById("myId")));
+  }
+
+  @Test
+  public void hasMouseActionListener_mouseOver_onMouseOut() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<span id='myId' onmouseout='alert(\"clicked\");'>some text</span>"
         + "</body></html>";
     // @formatter:on
 

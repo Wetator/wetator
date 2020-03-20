@@ -17,6 +17,7 @@
 package org.wetator.backend.htmlunit.util;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -98,7 +99,11 @@ public class HtmlPageIndex {
   private static final String EVENT_NAME_CLICK = "on" + MouseEvent.TYPE_CLICK;
   private static final String EVENT_NAME_DBL_CLICK = "on" + MouseEvent.TYPE_DBL_CLICK;
   private static final String EVENT_NAME_CONTEXT_MENU = "on" + MouseEvent.TYPE_CONTEXT_MENU;
+  private static final String EVENT_NAME_MOUSE_DOWN = "on" + MouseEvent.TYPE_MOUSE_DOWN;
+  private static final String EVENT_NAME_MOUSE_UP = "on" + MouseEvent.TYPE_MOUSE_UP;
   private static final String EVENT_NAME_MOUSE_OVER = "on" + MouseEvent.TYPE_MOUSE_OVER;
+  private static final String EVENT_NAME_MOUSE_MOVE = "on" + MouseEvent.TYPE_MOUSE_MOVE;
+  private static final String EVENT_NAME_MOUSE_OUT = "on" + MouseEvent.TYPE_MOUSE_OUT;
 
   private HtmlPage htmlPage;
 
@@ -113,8 +118,8 @@ public class HtmlPageIndex {
 
   private Map<DomNode, String> hierarchies;
 
-  private List<HtmlElement> htmlElementsWithClickListener;
-  private Map<MouseAction, List<HtmlElement>> htmlElementsWithMouseActionListener;
+  private Set<HtmlElement> htmlElementsWithClickListener;
+  private Map<MouseAction, Set<HtmlElement>> htmlElementsWithMouseActionListener;
 
   private boolean lastOneWasHtmlElement;
 
@@ -138,10 +143,10 @@ public class HtmlPageIndex {
 
     hierarchies = new HashMap<>(256);
 
-    htmlElementsWithClickListener = new LinkedList<>();
+    htmlElementsWithClickListener = new HashSet<>();
     htmlElementsWithMouseActionListener = new HashMap<>();
     for (MouseAction tmpMouseAction : MouseAction.values()) {
-      htmlElementsWithMouseActionListener.put(tmpMouseAction, new LinkedList<HtmlElement>());
+      htmlElementsWithMouseActionListener.put(tmpMouseAction, new HashSet<HtmlElement>());
     }
 
     parseDomNode(aHtmlPage, null);
@@ -471,27 +476,36 @@ public class HtmlPageIndex {
         final HtmlElement tmpHtmlElement = (HtmlElement) aDomNode;
         visibleHtmlElements.add(tmpHtmlElement);
 
-        // FIXME do we have to support more mouse events (for other commands)?
+        // FIXME add the children of the element the handler is attached to as well
+
         // click: click, mousedown, mouseup
         // click-double: click, dblclick, mousedown, mouseup
         // click-right: contextmenu, mousedown, mouseup
-        // mouse-over: mouseenter, mouseover, mousemove, mouseleave?, mouseout?
-
-        // FIXME only add the element the handler is attached to or it's children as well?
-        // events bubble in JS so e.g. clicking a nested span triggers the listener on its parent div.
-        // should be click the span or the div in that case (as both contain the same text)?
-        // in reality it does not really make a difference because the inner span does nothing itself.
-        if (tmpHtmlElement.hasEventHandlers(EVENT_NAME_CLICK)) {
+        // mouse-over: mouseover, mousemove, mouseout
+        if (tmpHtmlElement.hasEventHandlers(EVENT_NAME_MOUSE_DOWN)
+            || tmpHtmlElement.hasEventHandlers(EVENT_NAME_MOUSE_UP)) {
           htmlElementsWithClickListener.add(tmpHtmlElement);
           htmlElementsWithMouseActionListener.get(MouseAction.CLICK).add(tmpHtmlElement);
-        }
-        if (tmpHtmlElement.hasEventHandlers(EVENT_NAME_DBL_CLICK)) {
           htmlElementsWithMouseActionListener.get(MouseAction.CLICK_DOUBLE).add(tmpHtmlElement);
-        }
-        if (tmpHtmlElement.hasEventHandlers(EVENT_NAME_CONTEXT_MENU)) {
           htmlElementsWithMouseActionListener.get(MouseAction.CLICK_RIGHT).add(tmpHtmlElement);
+        } else {
+          if (tmpHtmlElement.hasEventHandlers(EVENT_NAME_CLICK)) {
+            htmlElementsWithClickListener.add(tmpHtmlElement);
+            htmlElementsWithMouseActionListener.get(MouseAction.CLICK).add(tmpHtmlElement);
+            htmlElementsWithMouseActionListener.get(MouseAction.CLICK_DOUBLE).add(tmpHtmlElement);
+          } else if (tmpHtmlElement.hasEventHandlers(EVENT_NAME_DBL_CLICK)) {
+            htmlElementsWithMouseActionListener.get(MouseAction.CLICK_DOUBLE).add(tmpHtmlElement);
+          }
+
+          if (tmpHtmlElement.hasEventHandlers(EVENT_NAME_CONTEXT_MENU)) {
+            htmlElementsWithMouseActionListener.get(MouseAction.CLICK_RIGHT).add(tmpHtmlElement);
+          }
         }
-        if (tmpHtmlElement.hasEventHandlers(EVENT_NAME_MOUSE_OVER)) {
+
+        if (tmpHtmlElement.hasEventHandlers(EVENT_NAME_MOUSE_OVER)
+            || tmpHtmlElement.hasEventHandlers(EVENT_NAME_MOUSE_MOVE)
+            || tmpHtmlElement.hasEventHandlers(EVENT_NAME_MOUSE_OUT)) {
+          // mouseenter and mouseleave are currently not supported by HtmlUnit
           htmlElementsWithMouseActionListener.get(MouseAction.MOUSE_OVER).add(tmpHtmlElement);
         }
 
