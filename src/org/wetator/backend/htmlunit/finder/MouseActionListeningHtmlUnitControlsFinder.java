@@ -95,12 +95,7 @@ public class MouseActionListeningHtmlUnitControlsFinder extends IdentifierBasedH
       // they do not fulfill the first if
 
       if (!tmpSupported) {
-        final AbstractHtmlUnitControlIdentifier tmpIdentifier = new HtmlUnitUnspecificControlIdentifier();
-        tmpIdentifier.initializeForAsynch(htmlPageIndex, aHtmlElement, aWPath, aFoundControls);
-        if (tmpIdentifier.isHtmlElementSupported(aHtmlElement)) {
-          execute(tmpIdentifier);
-          return true;
-        }
+        tmpSupported |= identify(HtmlUnitUnspecificControlIdentifier.class, aHtmlElement, aWPath, aFoundControls);
       }
     }
     return tmpSupported;

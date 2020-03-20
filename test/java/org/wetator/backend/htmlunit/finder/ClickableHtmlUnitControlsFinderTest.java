@@ -181,6 +181,28 @@ public class ClickableHtmlUnitControlsFinderTest {
   }
 
   @Test
+  public void clickListener_knownControl_withLabel() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<label for='myId'>some text</label><input type='text' id='myId' onclick='alert(\"clicked\");' />"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    final ClickableHtmlUnitControlsFinder tmpFinder = new ClickableHtmlUnitControlsFinder(tmpHtmlPageIndex, null,
+        repository);
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("some text"), config));
+
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
+    // FIXME should be BY_LABEL_ELEMENT
+    assertEquals(
+        "[HtmlTextInput (id='myId')] found by: BY_LABELING_TEXT deviation: 0 distance: 0 start: 9 hierarchy: 0>1>3>6 index: 6",
+        tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
   public void clickListener_unknownControl_not() throws Exception {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
@@ -232,6 +254,27 @@ public class ClickableHtmlUnitControlsFinderTest {
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlSpan 'some text' (id='myId')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
+        tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
+  public void clickListener_unknownControl_label() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<label id='myId' onclick='alert(\"clicked\");'>some text</label>"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    final ClickableHtmlUnitControlsFinder tmpFinder = new ClickableHtmlUnitControlsFinder(tmpHtmlPageIndex, null,
+        repository);
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("some text"), config));
+
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlLabel' (id='myId')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
         tmpEntriesSorted.get(0).toString());
   }
 }
