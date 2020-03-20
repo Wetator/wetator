@@ -23,7 +23,6 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.WeightedControlList.Entry;
 import org.wetator.exception.InvalidInputException;
@@ -53,7 +52,7 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
 
     final SecretString tmpSearch = new SecretString("MyRadioButtonId2");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyRadioButtonId1",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "MyRadioButtonId1",
         "MyRadioButtonId2");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -76,7 +75,7 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
 
     final SecretString tmpSearch = new SecretString("RadioButton1");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyRadioButtonId1",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "MyRadioButtonId1",
         "MyRadioButtonId2");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -104,7 +103,7 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
 
     final SecretString tmpSearch = new SecretString("SecondLabelText");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyLabelId1",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "MyLabelId1",
         "MyLabelId2");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -129,7 +128,7 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
 
     final SecretString tmpSearch = new SecretString("SecondLabelText");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyLabelId1",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "MyLabelId1",
         "MyLabelId2");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -156,7 +155,7 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
 
     final SecretString tmpSearch = new SecretString("SecondLabelText");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyLabelId1",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "MyLabelId1",
         "MyLabelId2");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -183,7 +182,7 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
 
     final SecretString tmpSearch = new SecretString("SecondLabelText");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyLabelId1",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "MyLabelId1",
         "MyLabelId2");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -208,7 +207,7 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
 
     final SecretString tmpSearch = new SecretString("Marker");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
@@ -232,7 +231,7 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
 
     final SecretString tmpSearch = new SecretString("Marker > ");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId", "otherId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(2, tmpEntriesSorted.size());
@@ -274,7 +273,7 @@ public class HtmlUnitInputRadioButtonIdentifierTest extends AbstractHtmlUnitCont
 
     final SecretString tmpSearch = new SecretString("[header_3; row_2]");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyRadioButtonId_1_2",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "MyRadioButtonId_1_2",
         "MyRadioButtonId_1_3", "MyRadioButtonId_2_2", "MyRadioButtonId_2_3");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();

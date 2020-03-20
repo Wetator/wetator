@@ -23,7 +23,6 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.WeightedControlList.Entry;
 import org.wetator.exception.InvalidInputException;
@@ -67,7 +66,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("not > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
         "mySelectId");
 
     assertEquals(0, tmpFound.getEntriesSorted().size());
@@ -96,7 +95,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("mySelectId > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
         "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -129,7 +128,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("mySelectLabelingTe* > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
         "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -162,7 +161,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("*ySelectId > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
         "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -195,7 +194,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("SecondSelectId > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
         "mySelectId");
 
     assertEquals(0, tmpFound.getEntriesSorted().size());
@@ -224,7 +223,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("mySelectLabelingText > mySelectId > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
         "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -257,7 +256,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("mySelectLabelingText > mySelectI* > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
         "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -290,7 +289,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("mySelectLabelingText > *ySelectId > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
         "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -323,7 +322,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("mySelectLabelingText > ySecondSelectI > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
         "mySelectId");
 
     assertEquals(0, tmpFound.getEntriesSorted().size());
@@ -352,7 +351,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("wrong text > mySelectId > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
         "mySelectId");
 
     assertEquals(0, tmpFound.getEntriesSorted().size());
@@ -374,7 +373,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("wrong text > mySelectId > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "mySelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "mySelectId");
 
     assertEquals(0, tmpFound.getEntriesSorted().size());
   }
@@ -402,7 +401,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("mySelectName > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
         "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -435,7 +434,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("mySelectNa* > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
         "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -468,7 +467,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("*ySelectName > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
         "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -501,7 +500,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("SecondSelectName > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
         "mySelectId");
 
     assertEquals(0, tmpFound.getEntriesSorted().size());
@@ -530,7 +529,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("mySelectLabelingText > mySelectName > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
         "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -563,7 +562,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("mySelectLabelingText > mySelectNa* > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
         "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -596,7 +595,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("mySelectLabelingText > *ySelectName > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
         "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -629,7 +628,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("mySelectLabelingText > ySecondSelectNam > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
         "mySelectId");
 
     assertEquals(0, tmpFound.getEntriesSorted().size());
@@ -658,7 +657,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("wrong text > mySelectName > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
         "mySelectId");
 
     assertEquals(0, tmpFound.getEntriesSorted().size());
@@ -680,7 +679,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("wrong text > mySelectName > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "mySelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "mySelectId");
 
     assertEquals(0, tmpFound.getEntriesSorted().size());
   }
@@ -708,7 +707,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("mySelectLabelingText > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
         "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -741,7 +740,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("mySelectLabelingTe* > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
         "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -774,7 +773,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("*ySelectLabelingText > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
         "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -807,7 +806,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("ySelectLabelingTex > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
         "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -840,7 +839,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("otherSelectLabelingText > mySelectLabelingText > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
         "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -873,7 +872,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("otherSelectLabelingText > mySelectLabelingTe* > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
         "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -906,7 +905,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("otherSelectLabelingText > *ySelectLabelingText > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
         "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -939,7 +938,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("otherSelectLabelingText > ySelectLabelingTex > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
         "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -972,7 +971,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("wrong text > mySelectLabelingText > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
         "mySelectId");
 
     assertEquals(0, tmpFound.getEntriesSorted().size());
@@ -995,7 +994,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("wrong text > mySelectLabelingText > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "mySelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "mySelectId");
 
     assertEquals(0, tmpFound.getEntriesSorted().size());
   }
@@ -1023,7 +1022,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("mySelectLabelText > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId", "labelId",
         "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -1056,7 +1055,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("mySelectLabelTe* > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId", "labelId",
         "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -1089,7 +1088,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("*ySelectLabelText > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId", "labelId",
         "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -1122,7 +1121,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("ySelectLabelTex > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId", "labelId",
         "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -1155,7 +1154,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("otherSelectLabelingText > mySelectLabelText > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId", "labelId",
         "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -1188,7 +1187,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("otherSelectLabelingText > mySelectLabelTe* > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId", "labelId",
         "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -1221,7 +1220,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("otherSelectLabelingText > *ySelectLabelText > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId", "labelId",
         "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -1254,7 +1253,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("otherSelectLabelingText > ySelectLabelTex > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId", "labelId",
         "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -1287,7 +1286,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("wrong text > mySelectLabelText > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId", "labelId",
         "mySelectId");
 
     assertEquals(0, tmpFound.getEntriesSorted().size());
@@ -1310,7 +1309,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("wrong text > mySelectLabelText > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "labelId", "mySelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "labelId", "mySelectId");
 
     assertEquals(0, tmpFound.getEntriesSorted().size());
   }
@@ -1338,7 +1337,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("mySelectLabelText > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
         "labelId");
 
     assertEquals(0, tmpFound.getEntriesSorted().size());
@@ -1368,7 +1367,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("mySelectLabelText > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId", "labelId",
         "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -1402,7 +1401,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("mySelectLabelTe* > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId", "labelId",
         "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -1436,7 +1435,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("*ySelectLabelText > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId", "labelId",
         "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -1470,7 +1469,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("ySelectLabelTex > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId", "labelId",
         "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -1504,7 +1503,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("otherSelectLabelingText > mySelectLabelText > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId", "labelId",
         "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -1538,7 +1537,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("otherSelectLabelingText > mySelectLabelTe* > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId", "labelId",
         "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -1572,7 +1571,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("otherSelectLabelingText > *ySelectLabelText > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId", "labelId",
         "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -1606,7 +1605,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("otherSelectLabelingText > ySelectLabelTex > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId", "labelId",
         "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -1640,7 +1639,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("wrong text > mySelectLabelText > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId", "labelId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId", "labelId",
         "mySelectId");
 
     assertEquals(0, tmpFound.getEntriesSorted().size());
@@ -1664,7 +1663,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("wrong text > mySelectLabelText > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "labelId", "mySelectId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "labelId", "mySelectId");
 
     assertEquals(0, tmpFound.getEntriesSorted().size());
   }
@@ -1693,7 +1692,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("mySelectLabelText > myText3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
         "labelId");
 
     assertEquals(0, tmpFound.getEntriesSorted().size());
@@ -1753,7 +1752,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("[header_3; row_2] > SelectLabelText > myText2");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "mySelectId_1_2",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "mySelectId_1_2",
         "mySelectId_1_3", "mySelectId_2_2", "mySelectId_2_3");
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
@@ -1785,7 +1784,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("mySelectId > not");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
         "mySelectId");
 
     assertEquals(0, tmpFound.getEntriesSorted().size());
@@ -1814,7 +1813,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("mySelectId > myText2");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
         "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -1847,7 +1846,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("mySelectId > 2opti*");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
         "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -1880,7 +1879,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("mySelectId > *Text2");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
         "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -1913,7 +1912,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("mySelectId > Text2");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
         "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -1946,7 +1945,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("mySelectId > myText2");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
         "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -1979,7 +1978,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("mySelectId > ");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
         "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -2018,7 +2017,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("mySelectId > myLabel2");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
         "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -2051,7 +2050,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("mySelectId > 2myLab*");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
         "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -2084,7 +2083,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("mySelectId > *Label2");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
         "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -2117,7 +2116,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("mySelectId > Label2");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
         "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -2150,7 +2149,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("mySelectId > ");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "otherSelectId",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
         "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
@@ -2183,7 +2182,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("myText1");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, "mySelectId", new WPath(tmpSearch, config));
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
@@ -2209,7 +2208,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("1opti*");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, "mySelectId", new WPath(tmpSearch, config));
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
@@ -2235,7 +2234,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("*Text1");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, "mySelectId", new WPath(tmpSearch, config));
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
@@ -2261,7 +2260,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("Text1");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, "mySelectId", new WPath(tmpSearch, config));
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
@@ -2287,7 +2286,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("myText1");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, "mySelectId", new WPath(tmpSearch, config));
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
@@ -2313,7 +2312,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("myLabel1");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, "mySelectId", new WPath(tmpSearch, config));
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
@@ -2339,7 +2338,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("1myLab*");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, "mySelectId", new WPath(tmpSearch, config));
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
@@ -2365,7 +2364,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("*Label1");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, "mySelectId", new WPath(tmpSearch, config));
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
@@ -2391,7 +2390,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("bel1");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, "mySelectId", new WPath(tmpSearch, config));
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "mySelectId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
@@ -2450,7 +2449,7 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
 
     final SecretString tmpSearch = new SecretString("[header_3; row_2] > myText2");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "mySelectId_1_2",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "mySelectId_1_2",
         "mySelectId_1_3", "mySelectId_2_2", "mySelectId_2_3");
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());

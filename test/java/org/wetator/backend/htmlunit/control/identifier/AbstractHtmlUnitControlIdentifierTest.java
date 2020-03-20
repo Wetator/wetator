@@ -26,6 +26,8 @@ import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
 import org.wetator.backend.htmlunit.util.PageUtil;
 import org.wetator.core.WetatorConfiguration;
+import org.wetator.exception.InvalidInputException;
+import org.wetator.util.SecretString;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -48,13 +50,8 @@ public abstract class AbstractHtmlUnitControlIdentifierTest {
     config = new WetatorConfiguration(new File("."), tmpProperties, null);
   }
 
-  protected WeightedControlList identify(final String aHtmlCode, final String anHtmlElementId, final WPath aWPath)
-      throws IOException {
-    return identify(aHtmlCode, aWPath, anHtmlElementId);
-  }
-
-  protected WeightedControlList identify(final String aHtmlCode, final WPath aWPath, final String... anHtmlElementIds)
-      throws IOException {
+  protected WeightedControlList identify(final String aHtmlCode, final SecretString aWPath,
+      final String... anHtmlElementIds) throws IOException, InvalidInputException {
     final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(aHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
@@ -63,7 +60,7 @@ public abstract class AbstractHtmlUnitControlIdentifierTest {
       final HtmlElement tmpHtmlElement = tmpHtmlPage.getHtmlElementById(tmpHtmlElementId);
 
       identifier.initialize(tmpHtmlPageIndex);
-      tmpControls.addAll(identifier.identify(aWPath, tmpHtmlElement));
+      tmpControls.addAll(identifier.identify(new WPath(aWPath, config), tmpHtmlElement));
     }
     return tmpControls;
   }

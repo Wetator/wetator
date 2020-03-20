@@ -23,7 +23,6 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.WeightedControlList.Entry;
 import org.wetator.exception.InvalidInputException;
@@ -56,7 +55,7 @@ public class HtmlUnitOptionIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     final SecretString tmpSearch = new SecretString("myOptionId1");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myOptionId1",
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myOptionId1",
         "myOptionId2", "myOptionId3");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();

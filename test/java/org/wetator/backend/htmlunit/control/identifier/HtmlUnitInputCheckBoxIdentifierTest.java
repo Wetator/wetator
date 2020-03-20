@@ -23,7 +23,6 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.WeightedControlList.Entry;
 import org.wetator.exception.InvalidInputException;
@@ -40,6 +39,8 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
     identifier = new HtmlUnitInputCheckBoxIdentifier();
   }
 
+  // FIXME add isHtmlElementSupported() tests
+
   @Test
   public void byId() throws IOException, InvalidInputException {
     // @formatter:off
@@ -52,7 +53,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
 
     final SecretString tmpSearch = new SecretString("MyCheckboxId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyCheckboxId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "MyCheckboxId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
@@ -73,7 +74,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
 
     final SecretString tmpSearch = new SecretString("MyCheckboxName");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyCheckboxId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "MyCheckboxId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
@@ -94,7 +95,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
 
     final SecretString tmpSearch = new SecretString("MyCheckboxTitle");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyCheckboxId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "MyCheckboxId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
@@ -116,8 +117,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
 
     final SecretString tmpSearch = new SecretString("CheckBox1");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyCheckboxId1",
-        "MyCheckboxId2");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "MyCheckboxId1", "MyCheckboxId2");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(2, tmpEntriesSorted.size());
@@ -144,8 +144,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
 
     final SecretString tmpSearch = new SecretString("SecondLabelText");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyLabelId1",
-        "MyLabelId2");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "MyLabelId1", "MyLabelId2");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
@@ -169,8 +168,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
 
     final SecretString tmpSearch = new SecretString("SecondLabelText");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyLabelId1",
-        "MyLabelId2");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "MyLabelId1", "MyLabelId2");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
@@ -196,8 +194,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
 
     final SecretString tmpSearch = new SecretString("SecondLabelText");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyLabelId1",
-        "MyLabelId2");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "MyLabelId1", "MyLabelId2");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
@@ -223,8 +220,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
 
     final SecretString tmpSearch = new SecretString("SecondLabelText");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyLabelId1",
-        "MyLabelId2");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "MyLabelId1", "MyLabelId2");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
@@ -248,7 +244,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
 
     final SecretString tmpSearch = new SecretString("Marker");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
@@ -272,7 +268,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
 
     final SecretString tmpSearch = new SecretString("Marker > ");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId", "otherId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(2, tmpEntriesSorted.size());
@@ -314,8 +310,8 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
 
     final SecretString tmpSearch = new SecretString("[header_3; row_2]");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyCheckboxId_1_2",
-        "MyCheckboxId_1_3", "MyCheckboxId_2_2", "MyCheckboxId_2_3");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "MyCheckboxId_1_2", "MyCheckboxId_1_3",
+        "MyCheckboxId_2_2", "MyCheckboxId_2_3");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());

@@ -16,7 +16,7 @@
 
 package org.wetator.progresslistener;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;

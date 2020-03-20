@@ -23,7 +23,6 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.WeightedControlList.Entry;
 import org.wetator.exception.InvalidInputException;
@@ -52,7 +51,7 @@ public class HtmlUnitInputResetIdentifierTest extends AbstractHtmlUnitControlIde
 
     final SecretString tmpSearch = new SecretString("myId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
@@ -74,7 +73,7 @@ public class HtmlUnitInputResetIdentifierTest extends AbstractHtmlUnitControlIde
 
     final SecretString tmpSearch = new SecretString("MyName");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
@@ -96,7 +95,7 @@ public class HtmlUnitInputResetIdentifierTest extends AbstractHtmlUnitControlIde
 
     final SecretString tmpSearch = new SecretString("ClickMe");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myId");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
@@ -118,7 +117,7 @@ public class HtmlUnitInputResetIdentifierTest extends AbstractHtmlUnitControlIde
 
     final SecretString tmpSearch = new SecretString("MyName");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "MyName");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "MyName");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
@@ -158,8 +157,8 @@ public class HtmlUnitInputResetIdentifierTest extends AbstractHtmlUnitControlIde
 
     final SecretString tmpSearch = new SecretString("[header_3; row_2]");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "myId_1_2", "myId_1_3",
-        "myId_2_2", "myId_2_3");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myId_1_2", "myId_1_3", "myId_2_2",
+        "myId_2_3");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
@@ -199,8 +198,8 @@ public class HtmlUnitInputResetIdentifierTest extends AbstractHtmlUnitControlIde
 
     final SecretString tmpSearch = new SecretString("[header_3; row_2] > Click");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, new WPath(tmpSearch, config), "InputReset_1_2",
-        "InputReset_1_3", "InputReset_2_2", "InputReset_2_3");
+    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "InputReset_1_2", "InputReset_1_3",
+        "InputReset_2_2", "InputReset_2_3");
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
