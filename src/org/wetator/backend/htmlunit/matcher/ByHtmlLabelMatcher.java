@@ -16,17 +16,15 @@
 
 package org.wetator.backend.htmlunit.matcher;
 
+import java.util.Arrays;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 
-import org.apache.commons.lang3.StringUtils;
 import org.wetator.backend.WeightedControlList.FoundType;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.FindSpot;
 
-import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlLabel;
 
@@ -101,49 +99,20 @@ public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
       final String tmpText = htmlPageIndex.getAsTextWithoutFormControls(tmpLabel);
       final int tmpDeviation = searchPattern.noOfSurroundingCharsIn(tmpText);
       if (tmpDeviation > -1) {
-        final List<MatchResult> tmpMatches = new LinkedList<>();
-
-        final String tmpForAttribute = tmpLabel.getForAttribute();
-        // label contains a for-attribute => find corresponding element
-        if (StringUtils.isNotEmpty(tmpForAttribute)) {
-          try {
-            final HtmlElement tmpElementForLabel = htmlPageIndex.getHtmlElementById(tmpForAttribute);
-            if (clazz.isAssignableFrom(tmpElementForLabel.getClass())
-                && (htmlPageIndex.isVisible(tmpElementForLabel) || matchInvisible)) {
-              tmpNodeSpot = htmlPageIndex.getPosition(aHtmlElement);
-              final String tmpTextBefore = htmlPageIndex.getTextBefore(tmpLabel);
-              final int tmpDistance;
-              if (pathSearchPattern != null) {
-                tmpDistance = pathSearchPattern.noOfCharsAfterLastShortestOccurenceIn(tmpTextBefore);
-              } else {
-                tmpDistance = tmpTextBefore.length();
-              }
-              tmpMatches.add(new ByHtmlLabelMatchResult(tmpElementForLabel, tmpLabel, FoundType.BY_LABEL_ELEMENT,
-                  tmpDeviation, tmpDistance, tmpNodeSpot.getStartPos()));
-            }
-          } catch (final ElementNotFoundException e) { // NOPMD
-            // not found
+        final HtmlElement tmpLabeledElement = tmpLabel.getReferencedElement();
+        if (tmpLabeledElement != null && clazz.isAssignableFrom(tmpLabeledElement.getClass())
+            && (htmlPageIndex.isVisible(tmpLabeledElement) || matchInvisible)) {
+          tmpNodeSpot = htmlPageIndex.getPosition(aHtmlElement);
+          final String tmpTextBefore = htmlPageIndex.getTextBefore(tmpLabel);
+          final int tmpDistance;
+          if (pathSearchPattern != null) {
+            tmpDistance = pathSearchPattern.noOfCharsAfterLastShortestOccurenceIn(tmpTextBefore);
+          } else {
+            tmpDistance = tmpTextBefore.length();
           }
+          return Arrays.asList(new ByHtmlLabelMatchResult(tmpLabeledElement, tmpLabel, FoundType.BY_LABEL_ELEMENT,
+              tmpDeviation, tmpDistance, tmpNodeSpot.getStartPos()));
         }
-
-        // element must be a nested element of label
-        final Iterable<HtmlElement> tmpChilds = tmpLabel.getHtmlElementDescendants();
-        for (final HtmlElement tmpChildElement : tmpChilds) {
-          if (clazz.isAssignableFrom(tmpChildElement.getClass())
-              && (htmlPageIndex.isVisible(tmpChildElement) || matchInvisible)) {
-            tmpNodeSpot = htmlPageIndex.getPosition(aHtmlElement);
-            final String tmpTextBefore = htmlPageIndex.getTextBefore(tmpLabel);
-            final int tmpDistance;
-            if (pathSearchPattern != null) {
-              tmpDistance = pathSearchPattern.noOfCharsAfterLastShortestOccurenceIn(tmpTextBefore);
-            } else {
-              tmpDistance = tmpTextBefore.length();
-            }
-            tmpMatches.add(new ByHtmlLabelMatchResult(tmpChildElement, tmpLabel, FoundType.BY_LABEL_ELEMENT,
-                tmpDeviation, tmpDistance, tmpNodeSpot.getStartPos()));
-          }
-        }
-        return tmpMatches;
       }
     }
 
