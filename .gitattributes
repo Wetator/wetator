@@ -1009,12 +1009,12 @@ test/xml/deselect_checkbox.wet -text svneol=unset#text/plain
 test/xml/deselect_multipleSelect.wet -text svneol=unset#text/plain
 test/xml/deselect_radio.wet -text
 test/xml/exec_java.wet -text svneol=unset#text/plain
-test/xml/ff60/event_clickOn.wet -text
-test/xml/ff60/event_deselect.wet -text
-test/xml/ff60/event_handler.wet -text
-test/xml/ff60/event_mouseOver.wet -text
-test/xml/ff60/event_select.wet -text
-test/xml/ff60/event_set.wet -text
+test/xml/ff68/event_clickOn.wet -text
+test/xml/ff68/event_deselect.wet -text
+test/xml/ff68/event_handler.wet -text
+test/xml/ff68/event_mouseOver.wet -text
+test/xml/ff68/event_select.wet -text
+test/xml/ff68/event_set.wet -text
 test/xml/flow_simple_login.wet -text svneol=unset#text/plain
 test/xml/flow_simple_search.wet -text svneol=unset#text/plain
 test/xml/go_back.wet -text svneol=unset#text/plain

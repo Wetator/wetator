@@ -42,7 +42,7 @@ import org.wetator.backend.IBrowser.BrowserType;
  *   &#064;Test
  *   &#064;Browsers({ Browser.FIREFOX_68 })
  *   public void test() {
- *     // your test method that is run with Firefox 60
+ *     // your test method that is run with Firefox 68
  *   }
  * }
  * </pre>

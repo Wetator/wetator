@@ -77,13 +77,13 @@ public interface IBrowser {
    * Enum for the supported browser types.
    */
   enum BrowserType {
-    /** firefox 60 ESR. */
-    FIREFOX_60("Firefox60", "Firefox_60"),
-    /** firefox 68 ESR. */
+    /** Firefox 68 ESR. */
     FIREFOX_68("Firefox68", "Firefox_68"),
-    /** internet explorer 11. */
+    /** Firefox ESR. */
+    FIREFOX("Firefox", "Firefox"),
+    /** Internet Explorer 11. */
     INTERNET_EXPLORER("IE11", "IE_11"),
-    /** chrome. */
+    /** Chrome. */
     CHROME("Chrome", "Chrome");
 
     private String label;
