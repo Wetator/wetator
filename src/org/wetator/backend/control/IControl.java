@@ -35,19 +35,6 @@ public interface IControl {
   String getDescribingText();
 
   /**
-   * @param aContext the current {@link WetatorContext}
-   * @return <code>true</code> if the control is disabled
-   * @throws org.wetator.exception.UnsupportedOperationException if the check is not supported by the control
-   */
-  boolean isDisabled(WetatorContext aContext);
-
-  /**
-   * @param aContext the current {@link WetatorContext}
-   * @return <code>true</code> if the control can receive the focus
-   */
-  boolean canReceiveFocus(WetatorContext aContext);
-
-  /**
    * Simulates moving the mouse over the control.
    *
    * @param aContext the current {@link WetatorContext}

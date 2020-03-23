@@ -500,53 +500,54 @@ public class HtmlPageIndex {
         // nothing
       } else if (aDomNode instanceof DomText) {
         appendDomText((DomText) aDomNode);
-      } else if (aDomNode instanceof HtmlInlineFrame) {
-        appendHtmlInlineFrame((HtmlInlineFrame) aDomNode, tmpHierarchy);
-      } else if (aDomNode instanceof HtmlFrame) {
-        appendHtmlFrame((HtmlFrame) aDomNode, tmpHierarchy);
       } else if (aDomNode instanceof HtmlBreak) {
         text.appendBlank();
         textWithoutFormControls.appendBlank();
-      } else if (aDomNode instanceof HtmlImage) {
-        appendHtmlImage((HtmlImage) aDomNode);
-      } else if (aDomNode instanceof HtmlSelect) {
-        appendHtmlSelect((HtmlSelect) aDomNode, tmpHierarchy, tmpMouseActions);
-      } else if (aDomNode instanceof HtmlOptionGroup) {
-        appendHtmlOptionGroup((HtmlOptionGroup) aDomNode);
-      } else if (aDomNode instanceof HtmlLegend) {
-        appendHtmlLegend((HtmlLegend) aDomNode, tmpHierarchy, tmpMouseActions);
-      } else if (aDomNode instanceof HtmlLabel) {
-        appendHtmlLabel((HtmlLabel) aDomNode, tmpHierarchy, tmpMouseActions);
-      } else if (aDomNode instanceof HtmlSubmitInput) {
-        appendHtmlSubmitInput((HtmlSubmitInput) aDomNode);
-      } else if (aDomNode instanceof HtmlResetInput) {
-        appendHtmlResetInput((HtmlResetInput) aDomNode);
       } else if (aDomNode instanceof HtmlButtonInput) {
         appendHtmlButtonInput((HtmlButtonInput) aDomNode);
       } else if (aDomNode instanceof HtmlCheckBoxInput) {
         appendHtmlCheckBoxInput((HtmlCheckBoxInput) aDomNode, tmpHierarchy, tmpMouseActions);
-      } else if (aDomNode instanceof HtmlRadioButtonInput) {
-        appendHtmlRadioButtonInput((HtmlRadioButtonInput) aDomNode, tmpHierarchy, tmpMouseActions);
       } else if (aDomNode instanceof HtmlImageInput) {
         appendHtmlImageInput((HtmlImageInput) aDomNode);
+      } else if (aDomNode instanceof HtmlRadioButtonInput) {
+        appendHtmlRadioButtonInput((HtmlRadioButtonInput) aDomNode, tmpHierarchy, tmpMouseActions);
+      } else if (aDomNode instanceof HtmlResetInput) {
+        appendHtmlResetInput((HtmlResetInput) aDomNode);
+      } else if (aDomNode instanceof HtmlSubmitInput) {
+        appendHtmlSubmitInput((HtmlSubmitInput) aDomNode);
       } else if (aDomNode instanceof HtmlInput) {
         appendHtmlInput((HtmlInput) aDomNode);
-      } else if (aDomNode instanceof HtmlTextArea) {
-        appendHtmlTextArea((HtmlTextArea) aDomNode, tmpHierarchy, tmpMouseActions);
       } else if (aDomNode instanceof HtmlButton) {
         appendHtmlButton((HtmlButton) aDomNode, tmpHierarchy, tmpMouseActions);
-      } else if (aDomNode instanceof HtmlOrderedList) {
-        appendHtmlOrderedList((HtmlOrderedList) aDomNode, tmpHierarchy, tmpMouseActions);
-      } else if (aDomNode instanceof HtmlObject) {
-        appendHtmlObject((HtmlObject) aDomNode, tmpHierarchy, tmpMouseActions);
+      } else if (aDomNode instanceof HtmlFrame) {
+        appendHtmlFrame((HtmlFrame) aDomNode, tmpHierarchy);
+      } else if (aDomNode instanceof HtmlImage) {
+        appendHtmlImage((HtmlImage) aDomNode);
+      } else if (aDomNode instanceof HtmlInlineFrame) {
+        appendHtmlInlineFrame((HtmlInlineFrame) aDomNode, tmpHierarchy);
       } else if (aDomNode instanceof HtmlInlineQuotation) {
         appendHtmlInlineQuotation((HtmlInlineQuotation) aDomNode, tmpHierarchy, tmpMouseActions);
+      } else if (aDomNode instanceof HtmlLabel) {
+        appendHtmlLabel((HtmlLabel) aDomNode, tmpHierarchy, tmpMouseActions);
+      } else if (aDomNode instanceof HtmlLegend) {
+        appendHtmlLegend((HtmlLegend) aDomNode, tmpHierarchy, tmpMouseActions);
+      } else if (aDomNode instanceof HtmlObject) {
+        appendHtmlObject((HtmlObject) aDomNode, tmpHierarchy, tmpMouseActions);
+      } else if (aDomNode instanceof HtmlOptionGroup) {
+        appendHtmlOptionGroup((HtmlOptionGroup) aDomNode);
+      } else if (aDomNode instanceof HtmlOrderedList) {
+        appendHtmlOrderedList((HtmlOrderedList) aDomNode, tmpHierarchy, tmpMouseActions);
+      } else if (aDomNode instanceof HtmlSelect) {
+        appendHtmlSelect((HtmlSelect) aDomNode, tmpHierarchy, tmpMouseActions);
+      } else if (aDomNode instanceof HtmlTextArea) {
+        appendHtmlTextArea((HtmlTextArea) aDomNode, tmpHierarchy, tmpMouseActions);
       } else {
         final boolean tmpIsBlock = HtmlElementUtil.isBlock(aDomNode);
         if (tmpIsBlock) {
           text.appendBlank();
           textWithoutFormControls.appendBlank();
         }
+        // FIXME the content of an anchor with href should also be marked as 'clickable'
         parseChildren(aDomNode, tmpHierarchy, tmpMouseActions);
         if (tmpIsBlock) {
           text.appendBlank();
@@ -679,89 +680,16 @@ public class HtmlPageIndex {
     textWithoutFormControls.append(tmpTxt);
   }
 
-  private void appendHtmlInlineFrame(final HtmlInlineFrame anHtmlInlineFrame, final String aHierarchy) {
-    final Page tmpPage = anHtmlInlineFrame.getEnclosedPage();
-    if (tmpPage instanceof HtmlPage) {
-      // events are not propagated through the iframe 'border' -> start with fresh mouse actions
-      parseDomNode((HtmlPage) tmpPage, aHierarchy, EnumSet.noneOf(MouseAction.class));
-    }
-  }
-
-  private void appendHtmlFrame(final HtmlFrame anHtmlFrame, final String aHierarchy) {
-    final Page tmpPage = anHtmlFrame.getEnclosedPage();
-    if (tmpPage instanceof HtmlPage) {
-      // events are not propagated through the frame 'border' -> start with fresh mouse actions
-      parseDomNode((HtmlPage) tmpPage, aHierarchy, EnumSet.noneOf(MouseAction.class));
-    }
-  }
-
-  private void appendHtmlImageInput(final HtmlImageInput anHtmlImageInput) {
-    text.appendBlank();
-    textWithoutFormControls.appendBlank();
-    text.append(anHtmlImageInput.getAltAttribute());
-    text.appendBlank();
-  }
-
-  private void appendHtmlInput(final HtmlInput anHtmlInput) {
-    String tmpValue = anHtmlInput.getValueAttribute();
-    if (StringUtils.isEmpty(tmpValue)) {
-      tmpValue = anHtmlInput.getAttribute("placeholder");
-    }
-    text.append(tmpValue);
-  }
-
-  private void appendHtmlTextArea(final HtmlTextArea anHtmlTextArea, final String aHierarchy,
-      final Set<MouseAction> aMouseActions) {
-    textWithoutFormControls.disableAppend();
-    parseChildren(anHtmlTextArea, aHierarchy, aMouseActions);
-    textWithoutFormControls.enableAppend();
-  }
-
-  private void appendHtmlImage(final HtmlImage anHtmlImage) {
-    text.appendBlank();
-    textWithoutFormControls.appendBlank();
-    text.append(anHtmlImage.getAltAttribute());
-    text.appendBlank();
-    textWithoutFormControls.append(anHtmlImage.getAltAttribute());
-    textWithoutFormControls.appendBlank();
-  }
-
-  private void appendHtmlLegend(final HtmlLegend anHtmlLegend, final String aHierarchy,
-      final Set<MouseAction> aMouseActions) {
-    parseChildren(anHtmlLegend, aHierarchy, aMouseActions);
-    text.appendBlank();
-    textWithoutFormControls.appendBlank();
-  }
-
-  private void appendHtmlOptionGroup(final HtmlOptionGroup anHtmlOptionGroup) {
-    final String tmpLabel = anHtmlOptionGroup.getLabelAttribute();
-    text.append(tmpLabel);
-  }
-
   private void appendHtmlButton(final HtmlButton anHtmlButton, final String aHierarchy,
       final Set<MouseAction> aMouseActions) {
     text.appendBlank();
     textWithoutFormControls.appendBlank();
     textWithoutFormControls.disableAppend();
-    // FIXME should the content of a button always be marked as 'clickable'?
+    // FIXME the content of a button should also be marked as 'clickable'
     parseChildren(anHtmlButton, aHierarchy, aMouseActions);
     textWithoutFormControls.enableAppend();
     text.appendBlank();
     textWithoutFormControls.appendBlank();
-  }
-
-  private void appendHtmlSubmitInput(final HtmlSubmitInput anHtmlSubmitInput) {
-    text.appendBlank();
-    textWithoutFormControls.appendBlank();
-    text.append(anHtmlSubmitInput.getValueAttribute());
-    text.appendBlank();
-  }
-
-  private void appendHtmlResetInput(final HtmlResetInput anHtmlResetInput) {
-    text.appendBlank();
-    textWithoutFormControls.appendBlank();
-    text.append(anHtmlResetInput.getValueAttribute());
-    text.appendBlank();
   }
 
   private void appendHtmlButtonInput(final HtmlButtonInput anHtmlButtonInput) {
@@ -780,6 +708,55 @@ public class HtmlPageIndex {
     textWithoutFormControls.appendBlank();
   }
 
+  private void appendHtmlFrame(final HtmlFrame anHtmlFrame, final String aHierarchy) {
+    final Page tmpPage = anHtmlFrame.getEnclosedPage();
+    if (tmpPage instanceof HtmlPage) {
+      // events are not propagated through the frame 'border' -> start with fresh mouse actions
+      parseDomNode((HtmlPage) tmpPage, aHierarchy, EnumSet.noneOf(MouseAction.class));
+    }
+  }
+
+  private void appendHtmlImage(final HtmlImage anHtmlImage) {
+    text.appendBlank();
+    textWithoutFormControls.appendBlank();
+    text.append(anHtmlImage.getAltAttribute());
+    text.appendBlank();
+    textWithoutFormControls.append(anHtmlImage.getAltAttribute());
+    textWithoutFormControls.appendBlank();
+  }
+
+  private void appendHtmlImageInput(final HtmlImageInput anHtmlImageInput) {
+    text.appendBlank();
+    textWithoutFormControls.appendBlank();
+    text.append(anHtmlImageInput.getAltAttribute());
+    text.appendBlank();
+  }
+
+  private void appendHtmlInlineFrame(final HtmlInlineFrame anHtmlInlineFrame, final String aHierarchy) {
+    final Page tmpPage = anHtmlInlineFrame.getEnclosedPage();
+    if (tmpPage instanceof HtmlPage) {
+      // events are not propagated through the iframe 'border' -> start with fresh mouse actions
+      parseDomNode((HtmlPage) tmpPage, aHierarchy, EnumSet.noneOf(MouseAction.class));
+    }
+  }
+
+  private void appendHtmlInlineQuotation(final HtmlInlineQuotation anHtmlInlineQuotation, final String aHierarchy,
+      final Set<MouseAction> aMouseActions) {
+    text.append(" \"");
+    textWithoutFormControls.append(" \"");
+    parseChildren(anHtmlInlineQuotation, aHierarchy, aMouseActions);
+    text.append("\" ");
+    textWithoutFormControls.append("\" ");
+  }
+
+  private void appendHtmlInput(final HtmlInput anHtmlInput) {
+    String tmpValue = anHtmlInput.getValueAttribute();
+    if (StringUtils.isEmpty(tmpValue)) {
+      tmpValue = anHtmlInput.getAttribute("placeholder");
+    }
+    text.append(tmpValue);
+  }
+
   private void appendHtmlLabel(final HtmlLabel anHtmlLabel, final String aHierarchy,
       final Set<MouseAction> aMouseActions) {
     text.appendBlank();
@@ -789,28 +766,31 @@ public class HtmlPageIndex {
     textWithoutFormControls.appendBlank();
   }
 
-  private void appendHtmlRadioButtonInput(final HtmlRadioButtonInput anHtmlRadioButtonInput, final String aHierarchy,
+  private void appendHtmlLegend(final HtmlLegend anHtmlLegend, final String aHierarchy,
       final Set<MouseAction> aMouseActions) {
-    textWithoutFormControls.disableAppend();
-    parseChildren(anHtmlRadioButtonInput, aHierarchy, aMouseActions);
-    textWithoutFormControls.enableAppend();
+    parseChildren(anHtmlLegend, aHierarchy, aMouseActions);
     text.appendBlank();
     textWithoutFormControls.appendBlank();
   }
 
-  private void appendHtmlSelect(final HtmlSelect anHtmlSelect, final String aHierarchy,
+  private void appendHtmlObject(final HtmlObject anHtmlObject, final String aHierarchy,
       final Set<MouseAction> aMouseActions) {
-    textWithoutFormControls.disableAppend();
-    for (final DomNode tmpItem : anHtmlSelect.getHtmlElementDescendants()) {
-      if (tmpItem instanceof HtmlOption || tmpItem instanceof HtmlOptionGroup) {
-        text.appendBlank();
-        textWithoutFormControls.appendBlank();
-        parseDomNode(tmpItem, aHierarchy, aMouseActions);
-      }
+    text.append(" ");
+    textWithoutFormControls.append(" ");
+
+    // process childs only if the control is not supported
+    final HTMLObjectElement tmpJsObject = anHtmlObject.getScriptableObject();
+    if (null == tmpJsObject || null == tmpJsObject.unwrap()) {
+      parseChildren(anHtmlObject, aHierarchy, aMouseActions);
     }
-    textWithoutFormControls.enableAppend();
-    text.appendBlank();
-    textWithoutFormControls.appendBlank();
+
+    text.append(" ");
+    textWithoutFormControls.append(" ");
+  }
+
+  private void appendHtmlOptionGroup(final HtmlOptionGroup anHtmlOptionGroup) {
+    final String tmpLabel = anHtmlOptionGroup.getLabelAttribute();
+    text.append(tmpLabel);
   }
 
   /**
@@ -849,28 +829,49 @@ public class HtmlPageIndex {
     textWithoutFormControls.appendBlank();
   }
 
-  private void appendHtmlObject(final HtmlObject anHtmlObject, final String aHierarchy,
+  private void appendHtmlRadioButtonInput(final HtmlRadioButtonInput anHtmlRadioButtonInput, final String aHierarchy,
       final Set<MouseAction> aMouseActions) {
-    text.append(" ");
-    textWithoutFormControls.append(" ");
-
-    // process childs only if the control is not supported
-    final HTMLObjectElement tmpJsObject = anHtmlObject.getScriptableObject();
-    if (null == tmpJsObject || null == tmpJsObject.unwrap()) {
-      parseChildren(anHtmlObject, aHierarchy, aMouseActions);
-    }
-
-    text.append(" ");
-    textWithoutFormControls.append(" ");
+    textWithoutFormControls.disableAppend();
+    parseChildren(anHtmlRadioButtonInput, aHierarchy, aMouseActions);
+    textWithoutFormControls.enableAppend();
+    text.appendBlank();
+    textWithoutFormControls.appendBlank();
   }
 
-  private void appendHtmlInlineQuotation(final HtmlInlineQuotation anHtmlInlineQuotation, final String aHierarchy,
+  private void appendHtmlResetInput(final HtmlResetInput anHtmlResetInput) {
+    text.appendBlank();
+    textWithoutFormControls.appendBlank();
+    text.append(anHtmlResetInput.getValueAttribute());
+    text.appendBlank();
+  }
+
+  private void appendHtmlSelect(final HtmlSelect anHtmlSelect, final String aHierarchy,
       final Set<MouseAction> aMouseActions) {
-    text.append(" \"");
-    textWithoutFormControls.append(" \"");
-    parseChildren(anHtmlInlineQuotation, aHierarchy, aMouseActions);
-    text.append("\" ");
-    textWithoutFormControls.append("\" ");
+    textWithoutFormControls.disableAppend();
+    for (final DomNode tmpItem : anHtmlSelect.getHtmlElementDescendants()) {
+      if (tmpItem instanceof HtmlOption || tmpItem instanceof HtmlOptionGroup) {
+        text.appendBlank();
+        textWithoutFormControls.appendBlank();
+        parseDomNode(tmpItem, aHierarchy, aMouseActions);
+      }
+    }
+    textWithoutFormControls.enableAppend();
+    text.appendBlank();
+    textWithoutFormControls.appendBlank();
+  }
+
+  private void appendHtmlSubmitInput(final HtmlSubmitInput anHtmlSubmitInput) {
+    text.appendBlank();
+    textWithoutFormControls.appendBlank();
+    text.append(anHtmlSubmitInput.getValueAttribute());
+    text.appendBlank();
+  }
+
+  private void appendHtmlTextArea(final HtmlTextArea anHtmlTextArea, final String aHierarchy,
+      final Set<MouseAction> aMouseActions) {
+    textWithoutFormControls.disableAppend();
+    parseChildren(anHtmlTextArea, aHierarchy, aMouseActions);
+    textWithoutFormControls.enableAppend();
   }
 
   /**

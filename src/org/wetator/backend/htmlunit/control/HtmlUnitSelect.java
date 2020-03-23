@@ -17,7 +17,6 @@
 package org.wetator.backend.htmlunit.control;
 
 import org.wetator.backend.control.IDisableable;
-import org.wetator.backend.control.IFocusable;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitSelectIdentifier;
@@ -34,7 +33,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlSelect;
  */
 @ForHtmlElement(HtmlSelect.class)
 @IdentifiedBy(HtmlUnitSelectIdentifier.class)
-public class HtmlUnitSelect extends HtmlUnitBaseControl<HtmlSelect> implements IDisableable, IFocusable {
+public class HtmlUnitSelect extends HtmlUnitFocusableControl<HtmlSelect> implements IDisableable {
 
   /**
    * The constructor.

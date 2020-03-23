@@ -20,7 +20,6 @@ import java.io.File;
 
 import org.wetator.backend.control.IControl;
 import org.wetator.backend.control.IDisableable;
-import org.wetator.backend.control.IFocusable;
 import org.wetator.backend.control.ISettable;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
@@ -52,7 +51,7 @@ import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
  */
 @ForHtmlElement(HtmlTextArea.class)
 @IdentifiedBy(HtmlUnitTextAreaIdentifier.class)
-public class HtmlUnitTextArea extends HtmlUnitBaseControl<HtmlTextArea> implements ISettable, IDisableable, IFocusable {
+public class HtmlUnitTextArea extends HtmlUnitFocusableControl<HtmlTextArea> implements ISettable, IDisableable {
 
   /**
    * The constructor.

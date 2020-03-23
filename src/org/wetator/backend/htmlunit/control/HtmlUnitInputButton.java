@@ -18,7 +18,6 @@ package org.wetator.backend.htmlunit.control;
 
 import org.wetator.backend.control.IClickable;
 import org.wetator.backend.control.IDisableable;
-import org.wetator.backend.control.IFocusable;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputButtonIdentifier;
@@ -36,8 +35,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlButtonInput;
  */
 @ForHtmlElement(HtmlButtonInput.class)
 @IdentifiedBy(HtmlUnitInputButtonIdentifier.class)
-public class HtmlUnitInputButton extends HtmlUnitBaseControl<HtmlButtonInput>
-    implements IClickable, IDisableable, IFocusable {
+public class HtmlUnitInputButton extends HtmlUnitFocusableControl<HtmlButtonInput> implements IClickable, IDisableable {
 
   /**
    * The constructor.

@@ -20,18 +20,13 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
-import org.wetator.core.WetatorContext;
-import org.wetator.exception.UnsupportedOperationException;
-import org.wetator.i18n.Messages;
 
-import com.gargoylesoftware.htmlunit.html.DisabledElement;
 import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlHiddenInput;
 import com.gargoylesoftware.htmlunit.html.HtmlLabel;
 import com.gargoylesoftware.htmlunit.html.HtmlParagraph;
 import com.gargoylesoftware.htmlunit.html.HtmlSpan;
-import com.gargoylesoftware.htmlunit.html.HtmlTableDataCell;
 
 /**
  * This is the implementation of a {@link HtmlUnitBaseControl} for so far not supported elements.
@@ -61,21 +56,21 @@ public class HtmlUnitUnspecificControl<T extends HtmlElement> extends HtmlUnitBa
   public String getDescribingText() {
     final HtmlElement tmpHtmlElement = getHtmlElement();
 
-    if (tmpHtmlElement instanceof HtmlSpan) {
-      return HtmlElementUtil.getDescribingTextForHtmlSpan((HtmlSpan) tmpHtmlElement);
-    }
-    if (tmpHtmlElement instanceof HtmlParagraph) {
-      return HtmlElementUtil.getDescribingTextForHtmlParagraph((HtmlParagraph) tmpHtmlElement);
-    }
-    if (tmpHtmlElement instanceof HtmlLabel) {
-      return HtmlElementUtil.getDescribingTextForHtmlLabel((HtmlLabel) tmpHtmlElement);
-    }
     if (tmpHtmlElement instanceof HtmlCheckBoxInput) {
       // FIXME remove? this should not be needed!
       return HtmlElementUtil.getDescribingTextForHtmlCheckBoxInput((HtmlCheckBoxInput) tmpHtmlElement);
     }
     if (tmpHtmlElement instanceof HtmlHiddenInput) {
       return HtmlElementUtil.getDescribingTextForHtmlHiddenInput((HtmlHiddenInput) tmpHtmlElement);
+    }
+    if (tmpHtmlElement instanceof HtmlLabel) {
+      return HtmlElementUtil.getDescribingTextForHtmlLabel((HtmlLabel) tmpHtmlElement);
+    }
+    if (tmpHtmlElement instanceof HtmlParagraph) {
+      return HtmlElementUtil.getDescribingTextForHtmlParagraph((HtmlParagraph) tmpHtmlElement);
+    }
+    if (tmpHtmlElement instanceof HtmlSpan) {
+      return HtmlElementUtil.getDescribingTextForHtmlSpan((HtmlSpan) tmpHtmlElement);
     }
 
     // handle things that are not implemented at the moment
@@ -108,31 +103,5 @@ public class HtmlUnitUnspecificControl<T extends HtmlElement> extends HtmlUnitBa
       aStringBuilder.append(tmpName);
       aStringBuilder.append("')");
     }
-  }
-
-  @Override
-  public boolean isDisabled(final WetatorContext aWetatorContext) {
-    final HtmlElement tmpHtmlElement = getHtmlElement();
-    boolean tmpSupported = false;
-
-    if (tmpHtmlElement instanceof DisabledElement) {
-      final DisabledElement tmpDisabledElement = (DisabledElement) tmpHtmlElement;
-      tmpSupported = true;
-
-      if (tmpDisabledElement.isDisabled()) {
-        return true;
-      }
-    }
-
-    if (tmpHtmlElement instanceof HtmlTableDataCell) {
-      return true;
-    }
-
-    if (!tmpSupported) {
-      final String tmpMessage = Messages.getMessage("disabledCheckNotSupported", getDescribingText());
-      throw new UnsupportedOperationException(tmpMessage);
-    }
-
-    return false;
   }
 }

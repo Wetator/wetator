@@ -16,8 +16,7 @@
 
 package org.wetator.backend.htmlunit.control;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 
@@ -29,11 +28,12 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
  * @author rbri
+ * @author frank.danek
  */
 public class HtmlUnitAnchorTest {
 
   @Test
-  public void isDisabled() throws IOException {
+  public void canReceiveFocus() throws IOException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='myId'>test</a>"
@@ -42,14 +42,8 @@ public class HtmlUnitAnchorTest {
     final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
     final HtmlAnchor tmpImage = (HtmlAnchor) tmpHtmlPage.getHtmlElementById("myId");
-    final HtmlUnitBaseControl<?> tmpControl = new HtmlUnitAnchor(tmpImage);
+    final HtmlUnitAnchor tmpControl = new HtmlUnitAnchor(tmpImage);
 
-    try {
-      tmpControl.isDisabled(null);
-      fail("UnsupportedOperationException expected");
-    } catch (final org.wetator.exception.UnsupportedOperationException e) {
-      assertEquals("The HTML element [HtmlAnchor 'test' (id='myId')] does not support the disabled state/property.",
-          e.getMessage());
-    }
+    assertTrue(tmpControl.canReceiveFocus(null));
   }
 }

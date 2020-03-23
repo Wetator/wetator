@@ -16,6 +16,8 @@
 
 package org.wetator.backend.control;
 
+import org.wetator.core.WetatorContext;
+
 /**
  * This interface marks all disableable (and enableable) {@link IControl}s. These controls are returned by
  * {@link org.wetator.backend.IControlFinder#getAllDisableables(org.wetator.backend.WPath)}.
@@ -23,14 +25,11 @@ package org.wetator.backend.control;
  * @author frank.danek
  */
 public interface IDisableable extends IControl {
-  // nothing so far
 
-  // FIXME move IControl#isDisabled() here?
-  // the default impl currently just throws an exception -> should never be called
-  // all really disableable controls overwrite it
-  // but: Clickables, Settables and Selectables then do not offer it by itself as
-  // they do not extend Disableable but just Control
-  // -> let Settable and Selectable extend Disableable? is it a good idea to bind these interfaces together? what about
-  // e.g. embeds or objects?
-  // -> Clickable cannot extend Disableable as not all clickables are disableable (e.g. anchors or images)
+  /**
+   * @param aContext the current {@link WetatorContext}
+   * @return <code>true</code> if the control is disabled
+   * @throws org.wetator.exception.UnsupportedOperationException if the check is not supported by the control
+   */
+  boolean isDisabled(WetatorContext aContext);
 }

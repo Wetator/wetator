@@ -17,7 +17,6 @@
 package org.wetator.backend.htmlunit.control;
 
 import org.wetator.backend.control.IClickable;
-import org.wetator.backend.control.IFocusable;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitAnchorIdentifier;
@@ -34,7 +33,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
  */
 @ForHtmlElement(HtmlAnchor.class)
 @IdentifiedBy(HtmlUnitAnchorIdentifier.class)
-public class HtmlUnitAnchor extends HtmlUnitBaseControl<HtmlAnchor> implements IClickable, IFocusable {
+public class HtmlUnitAnchor extends HtmlUnitFocusableControl<HtmlAnchor> implements IClickable {
 
   /**
    * The constructor.

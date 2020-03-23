@@ -26,14 +26,11 @@ import org.wetator.core.WetatorContext;
  */
 public interface IFocusable extends IControl {
 
-  // FIXME move IControl#canReceiveFocus() here?
-  // the default impl currently just returns false
-  // all really focusable controls overwrite it
-  // but: Clickables, Settables and Selectables then do not offer it by itself as
-  // they do not extend Focusable but just Control
-  // -> let Settable and Selectable extend Focusable? is it a good idea to bind these interfaces together? what about
-  // e.g. embeds or objects?
-  // -> Clickable cannot extend Focusable as not all clickables are focusable (e.g. images)
+  /**
+   * @param aContext the current {@link WetatorContext}
+   * @return <code>true</code> if the control can receive the focus
+   */
+  boolean canReceiveFocus(WetatorContext aContext);
 
   /**
    * @param aContext the current {@link WetatorContext}

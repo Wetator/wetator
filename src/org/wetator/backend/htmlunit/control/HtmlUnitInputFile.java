@@ -22,7 +22,6 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.wetator.backend.control.IControl;
 import org.wetator.backend.control.IDisableable;
-import org.wetator.backend.control.IFocusable;
 import org.wetator.backend.control.ISettable;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
@@ -53,8 +52,7 @@ import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
  */
 @ForHtmlElement(HtmlFileInput.class)
 @IdentifiedBy(HtmlUnitInputFileIdentifier.class)
-public class HtmlUnitInputFile extends HtmlUnitBaseControl<HtmlFileInput>
-    implements ISettable, IDisableable, IFocusable {
+public class HtmlUnitInputFile extends HtmlUnitFocusableControl<HtmlFileInput> implements ISettable, IDisableable {
 
   /**
    * The constructor.

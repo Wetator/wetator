@@ -36,6 +36,7 @@ import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.control.IControl;
 import org.wetator.backend.control.IDeselectable;
+import org.wetator.backend.control.IDisableable;
 import org.wetator.backend.control.ISelectable;
 import org.wetator.backend.control.ISettable;
 import org.wetator.core.Command;
@@ -239,7 +240,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
           // if the wpath is empty use the first 'usable' field on the page
           for (final WeightedControlList.Entry tmpEntry : tmpFoundElements.getEntriesSorted()) {
             tmpControl = (ISettable) tmpEntry.getControl();
-            if (!tmpControl.isDisabled(aContext)) {
+            if (!(tmpControl instanceof IDisableable && ((IDisableable) tmpControl).isDisabled(aContext))) {
               break;
             }
           }
@@ -275,6 +276,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       final IBrowser tmpBrowser = getBrowser(aContext);
       final IControlFinder tmpControlFinder = getControlFinder(tmpBrowser);
+
+      // FIXME add support for $PAGE pseudo wpath for clicking 'the page' (= body)
 
       // Buttons / Link / Image
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllClickables(tmpWPath);
@@ -419,6 +422,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       final IBrowser tmpBrowser = getBrowser(aContext);
       final IControlFinder tmpControlFinder = getControlFinder(tmpBrowser);
+
+      // FIXME add support for $PAGE pseudo wpath for hovering 'the page' (= body)
 
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
       tmpFoundElements.addAll(tmpControlFinder.getAllSelectables(tmpWPath));
@@ -565,8 +570,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllDisableables(tmpWPath);
 
-      final IControl tmpControl = getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
-          "noHtmlElementFound");
+      final IDisableable tmpControl = (IDisableable) getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements,
+          tmpWPath, "noHtmlElementFound");
 
       tmpBrowser.markControls(tmpControl);
       final boolean tmpIsDisabled = tmpControl.isDisabled(aContext);
@@ -591,8 +596,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllDisableables(tmpWPath);
 
-      final IControl tmpControl = getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
-          "noHtmlElementFound");
+      final IDisableable tmpControl = (IDisableable) getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements,
+          tmpWPath, "noHtmlElementFound");
 
       tmpBrowser.markControls(tmpControl);
       final boolean tmpIsDisabled = tmpControl.isDisabled(aContext);
