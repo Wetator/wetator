@@ -17,16 +17,16 @@
 package org.wetator.backend.htmlunit.control.identifier;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.WeightedControlList.Entry;
 import org.wetator.exception.InvalidInputException;
-import org.wetator.util.SecretString;
 
 /**
  * @author rbri
@@ -40,28 +40,54 @@ public class HtmlUnitOptionIdentifierTest extends AbstractHtmlUnitControlIdentif
   }
 
   @Test
-  public void byId() throws IOException, InvalidInputException {
+  public void isHtmlElementSupported() throws IOException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<select id='mySelectId' name='mySelectName' size='2'>"
-        + "<option id='myOptionId1' value='myValue1'>myText1</option>"
-        + "<option id='myOptionId2' value='myValue2'>myText2</option>"
-        + "<option id='myOptionId3' value='myValue3'>myText3</option>"
+        + "<select id='selectId' size='2'>"
+        + "<option id='myId' value='o_red'>red</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("myOptionId1");
+    assertTrue(supported(tmpHtmlCode, "myId"));
+  }
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myOptionId1",
-        "myOptionId2", "myOptionId3");
+  @Test
+  public void isHtmlElementSupported_Not() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<select id='selectId' size='2'>"
+        + "<optgroup label='colors' id='myId'>"
+        + "</select>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
 
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertFalse(supported(tmpHtmlCode, "myId"));
+  }
+
+  @Test
+  public void byId() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<select id='selectId' name='mySelectName' size='2'>"
+        + "<option id='myId1' value='myValue1'>myText1</option>"
+        + "<option id='myId2' value='myValue2'>myText2</option>"
+        + "<option id='myId3' value='myValue3'>myText3</option>"
+        + "</select>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "myId1", "myId1", "myId2", "myId3");
+
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlOption 'myText1' (id='myOptionId1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5>6 index: 6",
+        "[HtmlOption 'myText1' (id='myId1') part of [HtmlSelect (id='selectId') (name='mySelectName')]] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5>6 index: 6",
         tmpEntriesSorted.get(0).toString());
   }
 }

@@ -56,7 +56,8 @@ public class HtmlUnitInputFileIdentifier extends AbstractMatcherBasedIdentifier 
 
   @Override
   public boolean isHtmlElementSupported(final HtmlElement aHtmlElement) {
-    return aHtmlElement instanceof HtmlFileInput || aHtmlElement instanceof HtmlLabel;
+    return aHtmlElement instanceof HtmlFileInput || aHtmlElement instanceof HtmlLabel
+        && ((HtmlLabel) aHtmlElement).getReferencedElement() instanceof HtmlFileInput;
   }
 
   @Override

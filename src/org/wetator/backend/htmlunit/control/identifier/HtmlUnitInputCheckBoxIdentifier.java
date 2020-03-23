@@ -60,7 +60,8 @@ public class HtmlUnitInputCheckBoxIdentifier extends AbstractMatcherBasedIdentif
 
   @Override
   public boolean isHtmlElementSupported(final HtmlElement aHtmlElement) {
-    return aHtmlElement instanceof HtmlCheckBoxInput || aHtmlElement instanceof HtmlLabel;
+    return aHtmlElement instanceof HtmlCheckBoxInput || aHtmlElement instanceof HtmlLabel
+        && ((HtmlLabel) aHtmlElement).getReferencedElement() instanceof HtmlCheckBoxInput;
   }
 
   @Override

@@ -23,12 +23,10 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.WeightedControlList.Entry;
 import org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifierTest;
 import org.wetator.backend.htmlunit.finder.MouseActionListeningHtmlUnitControlsFinder.HtmlUnitUnspecificControlIdentifier;
 import org.wetator.exception.InvalidInputException;
-import org.wetator.util.SecretString;
 
 /**
  * @author rbri
@@ -51,13 +49,9 @@ public class HtmlUnitClickListeningControlIdentifierTest extends AbstractHtmlUni
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("myId");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "myId", "myId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
-
     assertEquals(
         "[HtmlSpan 'some text' (id='myId')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
@@ -73,13 +67,9 @@ public class HtmlUnitClickListeningControlIdentifierTest extends AbstractHtmlUni
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("some text");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "some text", "myId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
-
     assertEquals(
         "[HtmlSpan 'some text' (id='myId')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
@@ -95,13 +85,9 @@ public class HtmlUnitClickListeningControlIdentifierTest extends AbstractHtmlUni
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("span title");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "span title", "myId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
-
     assertEquals(
         "[HtmlSpan 'some text' (id='myId')] found by: BY_TITLE_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
@@ -117,13 +103,9 @@ public class HtmlUnitClickListeningControlIdentifierTest extends AbstractHtmlUni
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("myAria");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "myAria", "myId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
-
     assertEquals(
         "[HtmlSpan 'some text' (id='myId')] found by: BY_ARIA_LABEL_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
@@ -139,13 +121,9 @@ public class HtmlUnitClickListeningControlIdentifierTest extends AbstractHtmlUni
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("myId");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "myId", "myId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
-
     assertEquals(
         "[HtmlSpan 'myId' (id='myId')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
@@ -179,14 +157,10 @@ public class HtmlUnitClickListeningControlIdentifierTest extends AbstractHtmlUni
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("[header_3; row_2]");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "[header_3; row_2]", "myId_1_2", "myId_1_3", "myId_2_2",
+        "myId_2_3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myId_1_2", "myId_1_3",
-        "myId_2_2", "myId_2_3");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
-
     assertEquals(
         "[HtmlSpan 'ClickMe' (id='myId_2_3')] found by: BY_TABLE_COORDINATE deviation: 0 distance: 62 start: 62 hierarchy: 0>1>3>5>22>38>47>48 index: 48",
         tmpEntriesSorted.get(0).toString());

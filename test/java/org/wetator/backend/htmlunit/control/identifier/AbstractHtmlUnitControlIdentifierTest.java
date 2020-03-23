@@ -18,11 +18,13 @@ package org.wetator.backend.htmlunit.control.identifier;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Properties;
 
 import org.junit.Before;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
+import org.wetator.backend.WeightedControlList.Entry;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
 import org.wetator.backend.htmlunit.util.PageUtil;
 import org.wetator.core.WetatorConfiguration;
@@ -50,8 +52,18 @@ public abstract class AbstractHtmlUnitControlIdentifierTest {
     config = new WetatorConfiguration(new File("."), tmpProperties, null);
   }
 
-  protected WeightedControlList identify(final String aHtmlCode, final SecretString aWPath,
-      final String... anHtmlElementIds) throws IOException, InvalidInputException {
+  protected boolean supported(final String aHtmlCode, final String anHtmlElementId) throws IOException {
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(aHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    final HtmlElement tmpHtmlElement = tmpHtmlPage.getHtmlElementById(anHtmlElementId);
+
+    identifier.initialize(tmpHtmlPageIndex);
+    return identifier.isHtmlElementSupported(tmpHtmlElement);
+  }
+
+  protected List<Entry> identify(final String aHtmlCode, final String aWPath, final String... anHtmlElementIds)
+      throws IOException, InvalidInputException {
     final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(aHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
@@ -60,8 +72,8 @@ public abstract class AbstractHtmlUnitControlIdentifierTest {
       final HtmlElement tmpHtmlElement = tmpHtmlPage.getHtmlElementById(tmpHtmlElementId);
 
       identifier.initialize(tmpHtmlPageIndex);
-      tmpControls.addAll(identifier.identify(new WPath(aWPath, config), tmpHtmlElement));
+      tmpControls.addAll(identifier.identify(new WPath(new SecretString(aWPath), config), tmpHtmlElement));
     }
-    return tmpControls;
+    return tmpControls.getEntriesSorted();
   }
 }

@@ -17,16 +17,16 @@
 package org.wetator.backend.htmlunit.control.identifier;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.WeightedControlList.Entry;
 import org.wetator.exception.InvalidInputException;
-import org.wetator.util.SecretString;
 
 /**
  * @author rbri
@@ -40,12 +40,70 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
   }
 
   @Test
+  public void isHtmlElementSupported() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<select id='myId' size='2'>"
+        + "<option value='o_red'>red</option>"
+        + "</select>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    assertTrue(supported(tmpHtmlCode, "myId"));
+  }
+
+  @Test
+  public void isHtmlElementSupported_Not() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input id='myId' value='value' type='text'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    assertFalse(supported(tmpHtmlCode, "myId"));
+  }
+
+  @Test
+  public void isHtmlElementSupported_HtmlLabel() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<label id='labelId' for='myId'>LabelText</label>"
+        + "<select id='myId' size='2'>"
+        + "<option value='o_red'>red</option>"
+        + "</select>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    assertTrue(supported(tmpHtmlCode, "labelId"));
+  }
+
+  @Test
+  public void isHtmlElementSupported_HtmlLabel_Not() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<label id='labelId' for='myId'>LabelText</label>"
+        + "<input id='myId' value='value' type='text'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    assertFalse(supported(tmpHtmlCode, "labelId"));
+  }
+
+  @Test
   public void byId() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<select id='MyId' name='MySelectName' size='2'>"
-        + "<option id='MyOptionId' value='o_value1'>option1</option>"
+        + "<select id='myId' name='myName' size='2'>"
+        + "<option id='optionId' value='o_value1'>option1</option>"
         + "<option value='o_value2'>option2</option>"
         + "<option value='o_value3'>option3</option>"
         + "</select>"
@@ -53,14 +111,11 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("MyId");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "myId", "myId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "MyId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlSelect (id='MyId') (name='MySelectName')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
+        "[HtmlSelect (id='myId') (name='myName')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -70,13 +125,13 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' name='MyFirstSelectName' size='2'>"
+        + "<select id='myId1' name='myName1' size='2'>"
         + "<option id='1_1' value='o_value1'>option1</option>"
         + "<option id='1_2' value='o_value2'>option2</option>"
         + "<option id='1_3' value='o_value3'>option3</option>"
         + "</select>"
         + "SecondSelectLabelText"
-        + "<select id='MySecondSelectId' name='MySecondSelectName' size='2'>"
+        + "<select id='myId2' name='myName2' size='2'>"
         + "<option id='2_1' value='o_value1'>option1</option>"
         + "<option id='2_2' value='o_value2'>option2</option>"
         + "<option id='2_3' value='o_value3'>option3</option>"
@@ -85,15 +140,11 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("MyFirstSelectName");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "myName1", "myId1", "myId2");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "MyFirstSelectId",
-        "MySecondSelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlSelect (id='MyFirstSelectId') (name='MyFirstSelectName')] found by: BY_NAME deviation: 0 distance: 20 start: 20 hierarchy: 0>1>3>4>6 index: 6",
+        "[HtmlSelect (id='myId1') (name='myName1')] found by: BY_NAME deviation: 0 distance: 20 start: 20 hierarchy: 0>1>3>4>6 index: 6",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -103,13 +154,13 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' name='MyFirstSelectName' size='2'>"
+        + "<select id='myId1' name='myName1' size='2'>"
         + "<option id='1_1' value='o_value1'>option1</option>"
         + "<option id='1_2' value='o_value2'>option2</option>"
         + "<option id='1_3' value='o_value3'>option3</option>"
         + "</select>"
         + "SecondSelectLabelText"
-        + "<select id='MySecondSelectId' name='MySecondSelectName' size='2'>"
+        + "<select id='myId2' name='myName2' size='2'>"
         + "<option id='2_1' value='o_value1'>option1</option>"
         + "<option id='2_2' value='o_value2'>option2</option>"
         + "<option id='2_3' value='o_value3'>option3</option>"
@@ -118,15 +169,11 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("SecondSelectLabelText");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "SecondSelectLabelText", "myId1", "myId2");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "MyFirstSelectId",
-        "MySecondSelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlSelect (id='MySecondSelectId') (name='MySecondSelectName')] found by: BY_LABELING_TEXT deviation: 0 distance: 45 start: 66 hierarchy: 0>1>3>4>14 index: 14",
+        "[HtmlSelect (id='myId2') (name='myName2')] found by: BY_LABELING_TEXT deviation: 0 distance: 45 start: 66 hierarchy: 0>1>3>4>14 index: 14",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -135,14 +182,14 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<label id='MyFirstLabelId' for='MyFirstSelectId'>FirstSelectLabelText</label>"
-        + "<select id='MyFirstSelectId' size='2'>"
+        + "<label id='labelId1' for='myId1'>FirstSelectLabelText</label>"
+        + "<select id='myId1' size='2'>"
         + "<option id='1_1' value='o_value1'>option1</option>"
         + "<option id='1_2' value='o_value2'>option2</option>"
         + "<option id='1_3' value='o_value3'>option3</option>"
         + "</select>"
-        + "<label id='MySecondLabelId' for='MySecondSelectId'>SecondSelectLabelText</label>"
-        + "<select id='MySecondSelectId' size='2'>"
+        + "<label id='labelId2' for='myId2'>SecondSelectLabelText</label>"
+        + "<select id='myId2' size='2'>"
         + "<option id='2_1' value='o_value1'>option1</option>"
         + "<option id='2_2' value='o_value2'>option2</option>"
         + "<option id='2_3' value='o_value3'>option3</option>"
@@ -151,15 +198,11 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("SecondSelectLabelText");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "SecondSelectLabelText", "labelId1", "labelId2");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "MyFirstLabelId",
-        "MySecondLabelId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlSelect (id='MySecondSelectId')] found by: BY_LABEL_ELEMENT deviation: 0 distance: 44 start: 66 hierarchy: 0>1>3>4>16 index: 16",
+        "[HtmlSelect (id='myId2')] found by: BY_LABEL_ELEMENT deviation: 0 distance: 44 start: 66 hierarchy: 0>1>3>4>16 index: 16",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -168,14 +211,14 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<label id='MyFirstLabelId' for='MyFirstSelectId'>FirstSelectLabelText</label>"
-        + "<select id='MyFirstSelectId' size='2'>"
+        + "<label id='labelId1' for='myId1'>FirstSelectLabelText</label>"
+        + "<select id='myId1' size='2'>"
         + "<option id='1_1' value='o_value1'>option1</option>"
         + "<option id='1_2' value='o_value2'>option2</option>"
         + "<option id='1_3' value='o_value3'>option3</option>"
         + "</select>"
-        + "<label id='MySecondLabelId' for='MySecondSelectId'>SecondSelectLabelText</label>"
-        + "<select id='MySecondSelectId' size='2' style='display: none;'>"
+        + "<label id='labelId2' for='myId2'>SecondSelectLabelText</label>"
+        + "<select id='myId2' size='2' style='display: none;'>"
         + "<option id='2_1' value='o_value1'>option1</option>"
         + "<option id='2_2' value='o_value2'>option2</option>"
         + "<option id='2_3' value='o_value3'>option3</option>"
@@ -184,12 +227,9 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("SecondSelectLabelText");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "SecondSelectLabelText", "labelId1", "labelId2");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "MyFirstLabelId",
-        "MySecondLabelId");
-
-    assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpEntriesSorted.size());
   }
 
   @Test
@@ -197,15 +237,15 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<label id='MyFirstLabelId'>FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' size='2'>"
+        + "<label id='labelId1'>FirstSelectLabelText"
+        + "<select id='myId1' size='2'>"
         + "<option id='1_1' value='o_value1'>option1</option>"
         + "<option id='1_2' value='o_value2'>option2</option>"
         + "<option id='1_3' value='o_value3'>option3</option>"
         + "</select>"
         + "</label>"
-        + "<label id='MySecondLabelId'>SecondSelectLabelText"
-        + "<select id='MySecondSelectId' size='2'>"
+        + "<label id='labelId2'>SecondSelectLabelText"
+        + "<select id='myId2' size='2'>"
         + "<option id='2_1' value='o_value1'>option1</option>"
         + "<option id='2_2' value='o_value2'>option2</option>"
         + "<option id='2_3' value='o_value3'>option3</option>"
@@ -215,15 +255,11 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("SecondSelectLabelText");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "SecondSelectLabelText", "labelId1", "labelId2");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "MyFirstLabelId",
-        "MySecondLabelId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlSelect (id='MySecondSelectId')] found by: BY_LABEL_ELEMENT deviation: 0 distance: 44 start: 66 hierarchy: 0>1>3>4>14>16 index: 16",
+        "[HtmlSelect (id='myId2')] found by: BY_LABEL_ELEMENT deviation: 0 distance: 44 start: 66 hierarchy: 0>1>3>4>14>16 index: 16",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -232,15 +268,15 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<label id='MyFirstLabelId'>FirstSelectLabelText"
-        + "<select id='MyFirstSelectId' size='2'>"
+        + "<label id='labelId1'>FirstSelectLabelText"
+        + "<select id='myId1' size='2'>"
         + "<option id='1_1' value='o_value1'>option1</option>"
         + "<option id='1_2' value='o_value2'>option2</option>"
         + "<option id='1_3' value='o_value3'>option3</option>"
         + "</select>"
         + "</label>"
-        + "<label id='MySecondLabelId'>SecondSelectLabelText"
-        + "<select id='MySecondSelectId' size='2' style='display: none;'>"
+        + "<label id='labelId2'>SecondSelectLabelText"
+        + "<select id='myId2' size='2' style='display: none;'>"
         + "<option id='2_1' value='o_value1'>option1</option>"
         + "<option id='2_2' value='o_value2'>option2</option>"
         + "<option id='2_3' value='o_value3'>option3</option>"
@@ -250,12 +286,9 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("SecondSelectLabelText");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "SecondSelectLabelText", "labelId1", "labelId2");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "MyFirstLabelId",
-        "MySecondLabelId");
-
-    assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpEntriesSorted.size());
   }
 
   @Test
@@ -275,11 +308,8 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("Marker");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "Marker", "myId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlSelect (id='myId') (name='myName')] found by: BY_TEXT deviation: 14 distance: 20 start: 20 hierarchy: 0>1>3>4>10 index: 10",
@@ -307,11 +337,8 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("Marker > ");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "Marker > ", "myId", "otherId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myId", "otherId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(2, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlSelect (id='myId') (name='myName')] found by: BY_TEXT deviation: 0 distance: 0 start: 6 hierarchy: 0>1>3>4>7 index: 7",
@@ -337,12 +364,12 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
         + "        <tr>"
         + "          <td id='cell_1_1'>row_1</td>"
         + "          <td id='cell_1_2'><select id='myId_1_2' size='2'>"
-        + "            <option id='MyOptionId' value='o_value1'>option1</option>"
+        + "            <option id='optionId' value='o_value1'>option1</option>"
         + "            <option value='o_value2'>option2</option>"
         + "            <option value='o_value3'>option3</option>"
         + "          </select></td>"
         + "          <td id='cell_1_3'><select id='myId_1_3' size='2'>"
-        + "            <option id='MyOptionId' value='o_value1'>option1</option>"
+        + "            <option id='optionId' value='o_value1'>option1</option>"
         + "            <option value='o_value2'>option2</option>"
         + "            <option value='o_value3'>option3</option>"
         + "          </select></td>"
@@ -350,12 +377,12 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
         + "        <tr>"
         + "          <td id='cell_2_1'>row_2</td>"
         + "          <td id='cell_2_2'><select id='myId_2_2' size='2'>"
-        + "            <option id='MyOptionId' value='o_value1'>option1</option>"
+        + "            <option id='optionId' value='o_value1'>option1</option>"
         + "            <option value='o_value2'>option2</option>"
         + "            <option value='o_value3'>option3</option>"
         + "          </select></td>"
         + "          <td id='cell_2_3'><select id='myId_2_3' size='2'>"
-        + "            <option id='MyOptionId' value='o_value1'>option1</option>"
+        + "            <option id='optionId' value='o_value1'>option1</option>"
         + "            <option value='o_value2'>option2</option>"
         + "            <option value='o_value3'>option3</option>"
         + "          </select></td>"
@@ -365,12 +392,9 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("[header_3; row_2]");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "[header_3; row_2]", "myId_1_2", "myId_1_3", "myId_2_2",
+        "myId_2_3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myId_1_2", "myId_1_3",
-        "myId_2_2", "myId_2_3");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlSelect (id='myId_2_3')] found by: BY_TABLE_COORDINATE deviation: 0 distance: 110 start: 110 hierarchy: 0>1>3>5>22>48>62>63 index: 63",

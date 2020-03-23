@@ -17,16 +17,16 @@
 package org.wetator.backend.htmlunit.control.identifier;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.WeightedControlList.Entry;
 import org.wetator.exception.InvalidInputException;
-import org.wetator.util.SecretString;
 
 /**
  * @author rbri
@@ -40,6 +40,60 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
   }
 
   @Test
+  public void isHtmlElementSupported() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input id='myId' value='value' type='password'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    assertTrue(supported(tmpHtmlCode, "myId"));
+  }
+
+  @Test
+  public void isHtmlElementSupported_Not() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input id='myId' value='value' type='text'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    assertFalse(supported(tmpHtmlCode, "myId"));
+  }
+
+  @Test
+  public void isHtmlElementSupported_HtmlLabel() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<label id='labelId' for='myId'>LabelText</label>"
+        + "<input id='myId' value='value' type='password'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    assertTrue(supported(tmpHtmlCode, "labelId"));
+  }
+
+  @Test
+  public void isHtmlElementSupported_HtmlLabel_Not() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<label id='labelId' for='myId'>LabelText</label>"
+        + "<input id='myId' value='value' type='text'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    assertFalse(supported(tmpHtmlCode, "labelId"));
+  }
+
+  @Test
   public void byId() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
@@ -49,11 +103,8 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("myId");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "myId", "myId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlPasswordInput (id='myId') (name='myName')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
@@ -70,11 +121,8 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("myName");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "myName", "myId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlPasswordInput (id='myId') (name='myName')] found by: BY_NAME deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
@@ -93,11 +141,8 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("Marker");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "Marker", "otherId", "myId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherId", "myId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlPasswordInput (id='myId') (name='myName')] found by: BY_LABELING_TEXT deviation: 0 distance: 0 start: 6 hierarchy: 0>1>3>4>8 index: 8",
@@ -114,11 +159,8 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("myPlaceholder");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "myPlaceholder", "myId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlPasswordInput (id='myId') (name='myName')] found by: BY_PLACEHOLDER deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
@@ -136,11 +178,8 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("Label");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "Label", "labelId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "labelId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlPasswordInput (id='myId') (name='myName')] found by: BY_LABEL_ELEMENT deviation: 0 distance: 0 start: 5 hierarchy: 0>1>3>4>7 index: 7",
@@ -158,11 +197,9 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("Label");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "Label", "labelId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "labelId");
-
-    assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpEntriesSorted.size());
   }
 
   @Test
@@ -177,11 +214,8 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("Label");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "Label", "labelId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "labelId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlPasswordInput (id='myId') (name='myName')] found by: BY_LABEL_ELEMENT deviation: 0 distance: 0 start: 5 hierarchy: 0>1>3>4>5>7 index: 7",
@@ -200,11 +234,9 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("Label");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "Label", "labelId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "labelId");
-
-    assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpEntriesSorted.size());
   }
 
   @Test
@@ -220,11 +252,8 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("Marker");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "Marker", "myId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlPasswordInput (id='myId') (name='myName')] found by: BY_TEXT deviation: 14 distance: 20 start: 20 hierarchy: 0>1>3>4>10 index: 10",
@@ -244,11 +273,8 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("Marker > ");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "Marker > ", "myId", "otherId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myId", "otherId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(2, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlPasswordInput (id='myId') (name='myName')] found by: BY_TEXT deviation: 0 distance: 0 start: 6 hierarchy: 0>1>3>4>7 index: 7",
@@ -286,12 +312,9 @@ public class HtmlUnitInputPasswordIdentifierTest extends AbstractHtmlUnitControl
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("[header_3; row_2]");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "[header_3; row_2]", "myId_1_2", "myId_1_3", "myId_2_2",
+        "myId_2_3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myId_1_2", "myId_1_3",
-        "myId_2_2", "myId_2_3");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlPasswordInput (id='myId_2_3')] found by: BY_TABLE_COORDINATE deviation: 0 distance: 38 start: 38 hierarchy: 0>1>3>5>22>36>44>45 index: 45",

@@ -23,10 +23,8 @@ import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.WeightedControlList.Entry;
 import org.wetator.exception.InvalidInputException;
-import org.wetator.util.SecretString;
 
 /**
  * As the {@link HtmlUnitOptionInSelectIdentifier} does not use pretested
@@ -64,12 +62,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("not > myText3");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "not > myText3", "otherSelectId", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
-        "mySelectId");
-
-    assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpEntriesSorted.size());
   }
 
   @Test
@@ -93,12 +88,8 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("mySelectId > myText3");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "mySelectId > myText3", "otherSelectId", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
-        "mySelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 hierarchy: 0>1>3>4>14>19 index: 19",
@@ -126,12 +117,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("mySelectLabelingTe* > myText3");
-
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "mySelectLabelingTe* > myText3", "otherSelectId",
         "mySelectId");
 
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 hierarchy: 0>1>3>4>14>19 index: 19",
@@ -159,12 +147,8 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("*ySelectId > myText3");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "*ySelectId > myText3", "otherSelectId", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
-        "mySelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 hierarchy: 0>1>3>4>14>19 index: 19",
@@ -192,12 +176,10 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("SecondSelectId > myText3");
-
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "SecondSelectId > myText3", "otherSelectId",
         "mySelectId");
 
-    assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpEntriesSorted.size());
   }
 
   @Test
@@ -221,12 +203,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("mySelectLabelingText > mySelectId > myText3");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "mySelectLabelingText > mySelectId > myText3",
+        "otherSelectId", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
-        "mySelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 hierarchy: 0>1>3>4>14>19 index: 19",
@@ -254,12 +233,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("mySelectLabelingText > mySelectI* > myText3");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "mySelectLabelingText > mySelectI* > myText3",
+        "otherSelectId", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
-        "mySelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 hierarchy: 0>1>3>4>14>19 index: 19",
@@ -287,12 +263,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("mySelectLabelingText > *ySelectId > myText3");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "mySelectLabelingText > *ySelectId > myText3",
+        "otherSelectId", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
-        "mySelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 hierarchy: 0>1>3>4>14>19 index: 19",
@@ -320,12 +293,10 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("mySelectLabelingText > ySecondSelectI > myText3");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "mySelectLabelingText > ySecondSelectI > myText3",
+        "otherSelectId", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
-        "mySelectId");
-
-    assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpEntriesSorted.size());
   }
 
   @Test
@@ -349,12 +320,10 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("wrong text > mySelectId > myText3");
-
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "wrong text > mySelectId > myText3", "otherSelectId",
         "mySelectId");
 
-    assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpEntriesSorted.size());
   }
 
   @Test
@@ -371,11 +340,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("wrong text > mySelectId > myText3");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "wrong text > mySelectId > myText3", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "mySelectId");
-
-    assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpEntriesSorted.size());
   }
 
   @Test
@@ -399,12 +366,8 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("mySelectName > myText3");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "mySelectName > myText3", "otherSelectId", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
-        "mySelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 hierarchy: 0>1>3>4>14>19 index: 19",
@@ -432,12 +395,8 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("mySelectNa* > myText3");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "mySelectNa* > myText3", "otherSelectId", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
-        "mySelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 hierarchy: 0>1>3>4>14>19 index: 19",
@@ -465,12 +424,8 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("*ySelectName > myText3");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "*ySelectName > myText3", "otherSelectId", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
-        "mySelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 hierarchy: 0>1>3>4>14>19 index: 19",
@@ -498,12 +453,10 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("SecondSelectName > myText3");
-
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "SecondSelectName > myText3", "otherSelectId",
         "mySelectId");
 
-    assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpEntriesSorted.size());
   }
 
   @Test
@@ -527,12 +480,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("mySelectLabelingText > mySelectName > myText3");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "mySelectLabelingText > mySelectName > myText3",
+        "otherSelectId", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
-        "mySelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 hierarchy: 0>1>3>4>14>19 index: 19",
@@ -560,12 +510,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("mySelectLabelingText > mySelectNa* > myText3");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "mySelectLabelingText > mySelectNa* > myText3",
+        "otherSelectId", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
-        "mySelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 hierarchy: 0>1>3>4>14>19 index: 19",
@@ -593,12 +540,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("mySelectLabelingText > *ySelectName > myText3");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "mySelectLabelingText > *ySelectName > myText3",
+        "otherSelectId", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
-        "mySelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 hierarchy: 0>1>3>4>14>19 index: 19",
@@ -626,12 +570,10 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("mySelectLabelingText > ySecondSelectNam > myText3");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "mySelectLabelingText > ySecondSelectNam > myText3",
+        "otherSelectId", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
-        "mySelectId");
-
-    assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpEntriesSorted.size());
   }
 
   @Test
@@ -655,12 +597,10 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("wrong text > mySelectName > myText3");
-
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "wrong text > mySelectName > myText3", "otherSelectId",
         "mySelectId");
 
-    assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpEntriesSorted.size());
   }
 
   @Test
@@ -677,11 +617,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("wrong text > mySelectName > myText3");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "wrong text > mySelectName > myText3", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "mySelectId");
-
-    assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpEntriesSorted.size());
   }
 
   @Test
@@ -705,12 +643,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("mySelectLabelingText > myText3");
-
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "mySelectLabelingText > myText3", "otherSelectId",
         "mySelectId");
 
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 hierarchy: 0>1>3>4>14>19 index: 19",
@@ -738,12 +673,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("mySelectLabelingTe* > myText3");
-
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "mySelectLabelingTe* > myText3", "otherSelectId",
         "mySelectId");
 
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 hierarchy: 0>1>3>4>14>19 index: 19",
@@ -771,12 +703,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("*ySelectLabelingText > myText3");
-
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "*ySelectLabelingText > myText3", "otherSelectId",
         "mySelectId");
 
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 hierarchy: 0>1>3>4>14>19 index: 19",
@@ -804,12 +733,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("ySelectLabelingTex > myText3");
-
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "ySelectLabelingTex > myText3", "otherSelectId",
         "mySelectId");
 
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 1 start: 84 hierarchy: 0>1>3>4>14>19 index: 19",
@@ -837,12 +763,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("otherSelectLabelingText > mySelectLabelingText > myText3");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode,
+        "otherSelectLabelingText > mySelectLabelingText > myText3", "otherSelectId", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
-        "mySelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 hierarchy: 0>1>3>4>14>19 index: 19",
@@ -870,12 +793,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("otherSelectLabelingText > mySelectLabelingTe* > myText3");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode,
+        "otherSelectLabelingText > mySelectLabelingTe* > myText3", "otherSelectId", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
-        "mySelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 hierarchy: 0>1>3>4>14>19 index: 19",
@@ -903,12 +823,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("otherSelectLabelingText > *ySelectLabelingText > myText3");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode,
+        "otherSelectLabelingText > *ySelectLabelingText > myText3", "otherSelectId", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
-        "mySelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 hierarchy: 0>1>3>4>14>19 index: 19",
@@ -936,12 +853,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("otherSelectLabelingText > ySelectLabelingTex > myText3");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "otherSelectLabelingText > ySelectLabelingTex > myText3",
+        "otherSelectId", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
-        "mySelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 1 start: 84 hierarchy: 0>1>3>4>14>19 index: 19",
@@ -969,12 +883,10 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("wrong text > mySelectLabelingText > myText3");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "wrong text > mySelectLabelingText > myText3",
+        "otherSelectId", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
-        "mySelectId");
-
-    assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpEntriesSorted.size());
   }
 
   @Test
@@ -992,11 +904,10 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("wrong text > mySelectLabelingText > myText3");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "wrong text > mySelectLabelingText > myText3",
+        "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "mySelectId");
-
-    assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpEntriesSorted.size());
   }
 
   @Test
@@ -1020,12 +931,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("mySelectLabelText > myText3");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "mySelectLabelText > myText3", "otherSelectId",
+        "labelId", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId", "labelId",
-        "mySelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 81 hierarchy: 0>1>3>4>15>20 index: 20",
@@ -1053,12 +961,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("mySelectLabelTe* > myText3");
-
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId", "labelId",
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "mySelectLabelTe* > myText3", "otherSelectId", "labelId",
         "mySelectId");
 
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 81 hierarchy: 0>1>3>4>15>20 index: 20",
@@ -1086,12 +991,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("*ySelectLabelText > myText3");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "*ySelectLabelText > myText3", "otherSelectId",
+        "labelId", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId", "labelId",
-        "mySelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 81 hierarchy: 0>1>3>4>15>20 index: 20",
@@ -1119,12 +1021,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("ySelectLabelTex > myText3");
-
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId", "labelId",
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "ySelectLabelTex > myText3", "otherSelectId", "labelId",
         "mySelectId");
 
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 1 start: 81 hierarchy: 0>1>3>4>15>20 index: 20",
@@ -1152,12 +1051,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("otherSelectLabelingText > mySelectLabelText > myText3");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "otherSelectLabelingText > mySelectLabelText > myText3",
+        "otherSelectId", "labelId", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId", "labelId",
-        "mySelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 81 hierarchy: 0>1>3>4>15>20 index: 20",
@@ -1185,12 +1081,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("otherSelectLabelingText > mySelectLabelTe* > myText3");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "otherSelectLabelingText > mySelectLabelTe* > myText3",
+        "otherSelectId", "labelId", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId", "labelId",
-        "mySelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 81 hierarchy: 0>1>3>4>15>20 index: 20",
@@ -1218,12 +1111,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("otherSelectLabelingText > *ySelectLabelText > myText3");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "otherSelectLabelingText > *ySelectLabelText > myText3",
+        "otherSelectId", "labelId", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId", "labelId",
-        "mySelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 81 hierarchy: 0>1>3>4>15>20 index: 20",
@@ -1251,12 +1141,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("otherSelectLabelingText > ySelectLabelTex > myText3");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "otherSelectLabelingText > ySelectLabelTex > myText3",
+        "otherSelectId", "labelId", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId", "labelId",
-        "mySelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 1 start: 81 hierarchy: 0>1>3>4>15>20 index: 20",
@@ -1284,12 +1171,10 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("wrong text > mySelectLabelText > myText3");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "wrong text > mySelectLabelText > myText3",
+        "otherSelectId", "labelId", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId", "labelId",
-        "mySelectId");
-
-    assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpEntriesSorted.size());
   }
 
   @Test
@@ -1307,11 +1192,10 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("wrong text > mySelectLabelText > myText3");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "wrong text > mySelectLabelText > myText3", "labelId",
+        "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "labelId", "mySelectId");
-
-    assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpEntriesSorted.size());
   }
 
   @Test
@@ -1335,12 +1219,10 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("mySelectLabelText > myText3");
-
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "mySelectLabelText > myText3", "otherSelectId",
         "labelId");
 
-    assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpEntriesSorted.size());
   }
 
   @Test
@@ -1365,12 +1247,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("mySelectLabelText > myText3");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "mySelectLabelText > myText3", "otherSelectId",
+        "labelId", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId", "labelId",
-        "mySelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 81 hierarchy: 0>1>3>4>13>15>20 index: 20",
@@ -1399,12 +1278,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("mySelectLabelTe* > myText3");
-
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId", "labelId",
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "mySelectLabelTe* > myText3", "otherSelectId", "labelId",
         "mySelectId");
 
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 81 hierarchy: 0>1>3>4>13>15>20 index: 20",
@@ -1433,12 +1309,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("*ySelectLabelText > myText3");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "*ySelectLabelText > myText3", "otherSelectId",
+        "labelId", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId", "labelId",
-        "mySelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 81 hierarchy: 0>1>3>4>13>15>20 index: 20",
@@ -1467,12 +1340,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("ySelectLabelTex > myText3");
-
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId", "labelId",
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "ySelectLabelTex > myText3", "otherSelectId", "labelId",
         "mySelectId");
 
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 1 start: 81 hierarchy: 0>1>3>4>13>15>20 index: 20",
@@ -1501,12 +1371,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("otherSelectLabelingText > mySelectLabelText > myText3");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "otherSelectLabelingText > mySelectLabelText > myText3",
+        "otherSelectId", "labelId", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId", "labelId",
-        "mySelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 81 hierarchy: 0>1>3>4>13>15>20 index: 20",
@@ -1535,12 +1402,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("otherSelectLabelingText > mySelectLabelTe* > myText3");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "otherSelectLabelingText > mySelectLabelTe* > myText3",
+        "otherSelectId", "labelId", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId", "labelId",
-        "mySelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 81 hierarchy: 0>1>3>4>13>15>20 index: 20",
@@ -1569,12 +1433,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("otherSelectLabelingText > *ySelectLabelText > myText3");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "otherSelectLabelingText > *ySelectLabelText > myText3",
+        "otherSelectId", "labelId", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId", "labelId",
-        "mySelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 81 hierarchy: 0>1>3>4>13>15>20 index: 20",
@@ -1603,12 +1464,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("otherSelectLabelingText > ySelectLabelTex > myText3");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "otherSelectLabelingText > ySelectLabelTex > myText3",
+        "otherSelectId", "labelId", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId", "labelId",
-        "mySelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 1 start: 81 hierarchy: 0>1>3>4>13>15>20 index: 20",
@@ -1637,12 +1495,10 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("wrong text > mySelectLabelText > myText3");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "wrong text > mySelectLabelText > myText3",
+        "otherSelectId", "labelId", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId", "labelId",
-        "mySelectId");
-
-    assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpEntriesSorted.size());
   }
 
   @Test
@@ -1661,11 +1517,10 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("wrong text > mySelectLabelText > myText3");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "wrong text > mySelectLabelText > myText3", "labelId",
+        "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "labelId", "mySelectId");
-
-    assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpEntriesSorted.size());
   }
 
   @Test
@@ -1690,12 +1545,10 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("mySelectLabelText > myText3");
-
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "mySelectLabelText > myText3", "otherSelectId",
         "labelId");
 
-    assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpEntriesSorted.size());
   }
 
   @Test
@@ -1750,11 +1603,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("[header_3; row_2] > SelectLabelText > myText2");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "[header_3; row_2] > SelectLabelText > myText2",
+        "mySelectId_1_2", "mySelectId_1_3", "mySelectId_2_2", "mySelectId_2_3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "mySelectId_1_2",
-        "mySelectId_1_3", "mySelectId_2_2", "mySelectId_2_3");
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText2' part of [HtmlSelect (id='mySelectId_2_3') (name='mySelectName_2_3')]] found by: BY_LABEL deviation: 0 distance: 0 start: 158 hierarchy: 0>1>3>5>22>48>62>64>67 index: 67",
@@ -1782,12 +1633,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("mySelectId > not");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "mySelectId > not", "otherSelectId", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
-        "mySelectId");
-
-    assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpEntriesSorted.size());
   }
 
   @Test
@@ -1811,12 +1659,8 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("mySelectId > myText2");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "mySelectId > myText2", "otherSelectId", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
-        "mySelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText2' (id='myOptionId2_2') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 0 start: 76 hierarchy: 0>1>3>4>14>17 index: 17",
@@ -1844,12 +1688,8 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("mySelectId > 2opti*");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "mySelectId > 2opti*", "otherSelectId", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
-        "mySelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption '2option' (id='myOptionId2_2') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 0 start: 76 hierarchy: 0>1>3>4>14>17 index: 17",
@@ -1877,12 +1717,8 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("mySelectId > *Text2");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "mySelectId > *Text2", "otherSelectId", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
-        "mySelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText2' (id='myOptionId2_2') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 0 start: 76 hierarchy: 0>1>3>4>14>17 index: 17",
@@ -1910,12 +1746,8 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("mySelectId > Text2");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "mySelectId > Text2", "otherSelectId", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
-        "mySelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText2' (id='myOptionId2_2') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 2 distance: 0 start: 76 hierarchy: 0>1>3>4>14>17 index: 17",
@@ -1943,12 +1775,8 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("mySelectId > myText2");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "mySelectId > myText2", "otherSelectId", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
-        "mySelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText2' (id='myOptionId2_2') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 0 start: 76 hierarchy: 0>1>3>4>14>17 index: 17",
@@ -1976,12 +1804,8 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("mySelectId > ");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "mySelectId > ", "otherSelectId", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
-        "mySelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(3, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption '' (id='myOptionId2_2') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 0 start: 76 hierarchy: 0>1>3>4>14>17 index: 17",
@@ -2015,12 +1839,8 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("mySelectId > myLabel2");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "mySelectId > myLabel2", "otherSelectId", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
-        "mySelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText2' (id='myOptionId2_2') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 0 start: 76 hierarchy: 0>1>3>4>14>17 index: 17",
@@ -2048,12 +1868,8 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("mySelectId > 2myLab*");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "mySelectId > 2myLab*", "otherSelectId", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
-        "mySelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText2' (id='myOptionId2_2') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 0 start: 76 hierarchy: 0>1>3>4>14>17 index: 17",
@@ -2081,12 +1897,8 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("mySelectId > *Label2");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "mySelectId > *Label2", "otherSelectId", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
-        "mySelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText2' (id='myOptionId2_2') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 0 start: 76 hierarchy: 0>1>3>4>14>17 index: 17",
@@ -2114,12 +1926,8 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("mySelectId > Label2");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "mySelectId > Label2", "otherSelectId", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
-        "mySelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText2' (id='myOptionId2_2') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 2 distance: 0 start: 76 hierarchy: 0>1>3>4>14>17 index: 17",
@@ -2147,12 +1955,8 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("mySelectId > ");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "mySelectId > ", "otherSelectId", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "otherSelectId",
-        "mySelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(3, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText2' (id='myOptionId2_2') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 0 start: 76 hierarchy: 0>1>3>4>14>17 index: 17",
@@ -2180,11 +1984,8 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("myText1");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "myText1", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "mySelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText1' (id='myOptionId1_1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 14 start: 14 hierarchy: 0>1>3>4>7>8 index: 8",
@@ -2206,11 +2007,8 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("1opti*");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "1opti*", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "mySelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption '1option' (id='myOptionId1_1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 14 start: 14 hierarchy: 0>1>3>4>7>8 index: 8",
@@ -2232,11 +2030,8 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("*Text1");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "*Text1", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "mySelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText1' (id='myOptionId1_1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 14 start: 14 hierarchy: 0>1>3>6>7>8 index: 8",
@@ -2258,11 +2053,8 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("Text1");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "Text1", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "mySelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText1' (id='myOptionId1_1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 2 distance: 14 start: 14 hierarchy: 0>1>3>4>7>8 index: 8",
@@ -2284,11 +2076,8 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("myText1");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "myText1", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "mySelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText1' (id='myOptionId1_1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 14 start: 14 hierarchy: 0>1>3>4>7>8 index: 8",
@@ -2310,11 +2099,8 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("myLabel1");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "myLabel1", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "mySelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText1' (id='myOptionId1_1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 14 start: 14 hierarchy: 0>1>3>4>7>8 index: 8",
@@ -2336,11 +2122,8 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("1myLab*");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "1myLab*", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "mySelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText1' (id='myOptionId1_1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 14 start: 14 hierarchy: 0>1>3>4>7>8 index: 8",
@@ -2362,11 +2145,8 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("*Label1");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "*Label1", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "mySelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText1' (id='myOptionId1_1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 0 distance: 14 start: 14 hierarchy: 0>1>3>4>7>8 index: 8",
@@ -2388,11 +2168,8 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("bel1");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "bel1", "mySelectId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "mySelectId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText1' (id='myOptionId1_1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_LABEL deviation: 4 distance: 14 start: 14 hierarchy: 0>1>3>4>7>8 index: 8",
@@ -2447,11 +2224,9 @@ public class HtmlUnitOptionInSelectIdentifierTest extends AbstractHtmlUnitContro
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("[header_3; row_2] > myText2");
-
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "mySelectId_1_2",
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "[header_3; row_2] > myText2", "mySelectId_1_2",
         "mySelectId_1_3", "mySelectId_2_2", "mySelectId_2_3");
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText2' part of [HtmlSelect (id='mySelectId_2_3') (name='mySelectName_2_3')]] found by: BY_LABEL deviation: 0 distance: 86 start: 94 hierarchy: 0>1>3>5>22>48>62>64>67 index: 67",

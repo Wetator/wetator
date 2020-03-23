@@ -17,16 +17,16 @@
 package org.wetator.backend.htmlunit.control.identifier;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.WeightedControlList.Entry;
 import org.wetator.exception.InvalidInputException;
-import org.wetator.util.SecretString;
 
 /**
  * @author rbri
@@ -40,26 +40,48 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
   }
 
   @Test
+  public void isHtmlElementSupported() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<button id='myId'>ButtonWithText</button>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    assertTrue(supported(tmpHtmlCode, "myId"));
+  }
+
+  @Test
+  public void isHtmlElementSupported_Not() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<div id='myId'>ButtonWithText</div>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    assertFalse(supported(tmpHtmlCode, "myId"));
+  }
+
+  @Test
   public void byId() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<button id='myId' type='button' name='MyName'>"
+        + "<button id='myId' name='myName'>"
         + "<p>ButtonWithText</p>"
         + "</button>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("myId");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "myId", "myId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
-
     assertEquals(
-        "[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
+        "[HtmlButton 'ButtonWithText' (id='myId') (name='myName')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -68,22 +90,18 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<button id='myId' type='button' name='MyName'>"
+        + "<button id='myId' name='myName'>"
         + "<p>ButtonWithText</p>"
         + "</button>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("MyName");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "myName", "myId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
-
     assertEquals(
-        "[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] found by: BY_NAME deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
+        "[HtmlButton 'ButtonWithText' (id='myId') (name='myName')] found by: BY_NAME deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -92,22 +110,18 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<button id='myId' type='button' name='MyName'>"
+        + "<button id='myId' name='myName'>"
         + "<p>ButtonWithText</p>"
         + "</button>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("ButtonWithText");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "ButtonWithText", "myId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
-
     assertEquals(
-        "[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
+        "[HtmlButton 'ButtonWithText' (id='myId') (name='myName')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -116,22 +130,18 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<button id='myId' type='button' name='MyName' aria-label='myAria'>"
+        + "<button id='myId' name='myName' aria-label='myAria'>"
         + "<p>ButtonWithText</p>"
         + "</button>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("myAria");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "myAria", "myId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
-
     assertEquals(
-        "[HtmlButton 'ButtonWithText' (id='myId') (name='MyName')] found by: BY_ARIA_LABEL_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
+        "[HtmlButton 'ButtonWithText' (id='myId') (name='myName')] found by: BY_ARIA_LABEL_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -140,22 +150,18 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<button id='MyName' type='button' name='MyName' aria-label='MyName'>"
-        + "<p>MyName</p>"
+        + "<button id='myName' name='myName' aria-label='myName'>"
+        + "<p>myName</p>"
         + "</button>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("MyName");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "myName", "myName");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "MyName");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
-
     assertEquals(
-        "[HtmlButton 'MyName' (id='MyName') (name='MyName')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
+        "[HtmlButton 'myName' (id='myName') (name='myName')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -164,22 +170,18 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<button id='myId' type='button' name='MyName'>"
+        + "<button id='myId' name='myName'>"
         + "<img src='picture.png' name='MyImageName'>"
         + "</button>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("MyImageName");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "MyImageName", "myId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
-
     assertEquals(
-        "[HtmlButton 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_NAME deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
+        "[HtmlButton 'image: picture.png' (id='myId') (name='myName')] found by: BY_INNER_NAME deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -188,22 +190,18 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<button id='myId' type='button' name='MyName'>"
+        + "<button id='myId' name='myName'>"
         + "<img src='picture.png' alt='MyImageAlt'>"
         + "</button>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("MyImageAlt");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "MyImageAlt", "myId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
-
     assertEquals(
-        "[HtmlButton 'image: picture.png' (id='myId') (name='MyName')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
+        "[HtmlButton 'image: picture.png' (id='myId') (name='myName')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -212,22 +210,18 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<button id='myId' type='button' name='MyName'>"
+        + "<button id='myId' name='myName'>"
         + "<img src='picture.png' title='MyImageTitle'>"
         + "</button>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("MyImageTitle");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "MyImageTitle", "myId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
-
     assertEquals(
-        "[HtmlButton 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_IMG_TITLE_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
+        "[HtmlButton 'image: picture.png' (id='myId') (name='myName')] found by: BY_INNER_IMG_TITLE_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -236,22 +230,18 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<button id='myId' type='button' name='MyName'>"
+        + "<button id='myId' name='myName'>"
         + "<img src='picture.png' title='MyImageTitle'>"
         + "</button>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("picture.png");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "picture.png", "myId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
-
     assertEquals(
-        "[HtmlButton 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_IMG_SRC_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
+        "[HtmlButton 'image: picture.png' (id='myId') (name='myName')] found by: BY_INNER_IMG_SRC_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -283,14 +273,10 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("[header_3; row_2]");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "[header_3; row_2]", "myId_1_2", "myId_1_3", "myId_2_2",
+        "myId_2_3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myId_1_2", "myId_1_3",
-        "myId_2_2", "myId_2_3");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
-
     assertEquals(
         "[HtmlButton 'ClickMe' (id='myId_2_3')] found by: BY_TABLE_COORDINATE deviation: 0 distance: 62 start: 62 hierarchy: 0>1>3>5>22>38>47>48 index: 48",
         tmpEntriesSorted.get(0).toString());

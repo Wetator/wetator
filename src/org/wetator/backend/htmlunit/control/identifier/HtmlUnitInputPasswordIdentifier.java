@@ -58,7 +58,8 @@ public class HtmlUnitInputPasswordIdentifier extends AbstractMatcherBasedIdentif
 
   @Override
   public boolean isHtmlElementSupported(final HtmlElement aHtmlElement) {
-    return aHtmlElement instanceof HtmlPasswordInput || aHtmlElement instanceof HtmlLabel;
+    return aHtmlElement instanceof HtmlPasswordInput || aHtmlElement instanceof HtmlLabel
+        && ((HtmlLabel) aHtmlElement).getReferencedElement() instanceof HtmlPasswordInput;
   }
 
   @Override

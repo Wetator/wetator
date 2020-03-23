@@ -17,16 +17,16 @@
 package org.wetator.backend.htmlunit.control.identifier;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.WeightedControlList.Entry;
 import org.wetator.exception.InvalidInputException;
-import org.wetator.util.SecretString;
 
 /**
  * @author rbri
@@ -40,6 +40,32 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
   }
 
   @Test
+  public void isHtmlElementSupported() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<img id='myId' name='MyName' src='picture.png'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    assertTrue(supported(tmpHtmlCode, "myId"));
+  }
+
+  @Test
+  public void isHtmlElementSupported_Not() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<div id='myId'>picture.png</div>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    assertFalse(supported(tmpHtmlCode, "myId"));
+  }
+
+  @Test
   public void byId() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
@@ -49,13 +75,9 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("myId");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "myId", "myId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
-
     assertEquals(
         "[HtmlImage 'picture.png' (id='myId') (name='MyName')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
@@ -71,13 +93,9 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("MyName");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "MyName", "myId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
-
     assertEquals(
         "[HtmlImage 'picture.png' (id='myId') (name='MyName')] found by: BY_NAME deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
@@ -93,13 +111,9 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("MyAlt");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "MyAlt", "myId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
-
     assertEquals(
         "[HtmlImage 'picture.png' (id='myId') (name='MyName')] found by: BY_IMG_ALT_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
@@ -115,13 +129,9 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("MyTitle");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "MyTitle", "myId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
-
     assertEquals(
         "[HtmlImage 'picture.png' (id='myId') (name='MyName')] found by: BY_IMG_TITLE_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
@@ -137,13 +147,9 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("picture.png");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "picture.png", "myId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
-
     assertEquals(
         "[HtmlImage 'picture.png' (id='myId') (name='MyName')] found by: BY_IMG_SRC_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
@@ -159,13 +165,9 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("myAria");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "myAria", "myId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
-
     assertEquals(
         "[HtmlImage 'picture.png' (id='myId') (name='MyName')] found by: BY_ARIA_LABEL_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
@@ -181,13 +183,9 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("MyName");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "MyName", "MyName");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "MyName");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
-
     assertEquals(
         "[HtmlImage 'MyName' (id='MyName') (name='MyName')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
@@ -206,11 +204,8 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("Marker");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "Marker", "myId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlImage 'picture.png' (id='myId') (name='myName')] found by: BY_TEXT deviation: 14 distance: 20 start: 20 hierarchy: 0>1>3>4>10 index: 10",
@@ -230,11 +225,8 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("Marker > ");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "Marker > ", "myId", "otherId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myId", "otherId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(2, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlImage 'picture.png' (id='myId') (name='myName')] found by: BY_TEXT deviation: 0 distance: 0 start: 6 hierarchy: 0>1>3>4>7 index: 7",
@@ -272,14 +264,10 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("[header_3; row_2]");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "[header_3; row_2]", "myId_1_2", "myId_1_3", "myId_2_2",
+        "myId_2_3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myId_1_2", "myId_1_3",
-        "myId_2_2", "myId_2_3");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
-
     assertEquals(
         "[HtmlImage 'picture.png' (id='myId_2_3')] found by: BY_TABLE_COORDINATE deviation: 0 distance: 38 start: 38 hierarchy: 0>1>3>5>22>36>44>45 index: 45",
         tmpEntriesSorted.get(0).toString());
@@ -297,13 +285,9 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("MyImageName");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "MyImageName", "myInnerId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myInnerId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
-
     assertEquals(
         "[HtmlImage 'picture.png' (id='myInnerId') (name='MyImageName')] found by: BY_NAME deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5>6 index: 6",
         tmpEntriesSorted.get(0).toString());
@@ -321,13 +305,9 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("MyAlt");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "MyAlt", "myInnerId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myInnerId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
-
     assertEquals(
         "[HtmlImage 'picture.png' (id='myInnerId') (name='MyImageName')] found by: BY_IMG_ALT_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5>6 index: 6",
         tmpEntriesSorted.get(0).toString());
@@ -345,13 +325,9 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("MyImageTitle");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "MyImageTitle", "myInnerId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myInnerId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
-
     assertEquals(
         "[HtmlImage 'picture.png' (id='myInnerId')] found by: BY_IMG_TITLE_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5>6 index: 6",
         tmpEntriesSorted.get(0).toString());
@@ -369,13 +345,9 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("picture.png");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "picture.png", "myInnerId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myInnerId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
-
     assertEquals(
         "[HtmlImage 'picture.png' (id='myInnerId') (name='MyImageName')] found by: BY_IMG_SRC_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5>6 index: 6",
         tmpEntriesSorted.get(0).toString());
@@ -393,13 +365,9 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("myAria");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "myAria", "myInnerId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myInnerId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
-
     assertEquals(
         "[HtmlImage 'picture.png' (id='myInnerId') (name='MyImageName')] found by: BY_ARIA_LABEL_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5>6 index: 6",
         tmpEntriesSorted.get(0).toString());
@@ -417,13 +385,9 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("MyImageName");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "MyImageName", "myInnerId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myInnerId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
-
     assertEquals(
         "[HtmlImage 'picture.png' (id='myInnerId') (name='MyImageName')] found by: BY_NAME deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5>6 index: 6",
         tmpEntriesSorted.get(0).toString());
@@ -441,13 +405,9 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("MyImageAlt");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "MyImageAlt", "myInnerId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myInnerId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
-
     assertEquals(
         "[HtmlImage 'picture.png' (id='myInnerId')] found by: BY_IMG_ALT_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5>6 index: 6",
         tmpEntriesSorted.get(0).toString());
@@ -465,13 +425,9 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("MyImageTitle");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "MyImageTitle", "myInnerId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myInnerId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
-
     assertEquals(
         "[HtmlImage 'picture.png' (id='myInnerId')] found by: BY_IMG_TITLE_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5>6 index: 6",
         tmpEntriesSorted.get(0).toString());
@@ -489,13 +445,9 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("picture.png");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "picture.png", "myInnerId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myInnerId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
-
     assertEquals(
         "[HtmlImage 'picture.png' (id='myInnerId')] found by: BY_IMG_SRC_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5>6 index: 6",
         tmpEntriesSorted.get(0).toString());
@@ -513,13 +465,9 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("myAria");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "myAria", "myInnerId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myInnerId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
-
     assertEquals(
         "[HtmlImage 'picture.png' (id='myInnerId') (name='MyImageName')] found by: BY_ARIA_LABEL_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5>6 index: 6",
         tmpEntriesSorted.get(0).toString());

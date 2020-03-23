@@ -17,16 +17,16 @@
 package org.wetator.backend.htmlunit.control.identifier;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.WeightedControlList.Entry;
 import org.wetator.exception.InvalidInputException;
-import org.wetator.util.SecretString;
 
 /**
  * @author rbri
@@ -40,6 +40,32 @@ public class HtmlUnitInputResetIdentifierTest extends AbstractHtmlUnitControlIde
   }
 
   @Test
+  public void isHtmlElementSupported() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input id='myId' type='reset' value='ClickMe'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    assertTrue(supported(tmpHtmlCode, "myId"));
+  }
+
+  @Test
+  public void isHtmlElementSupported_Not() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input id='myId' type='button' value='ClickMe'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    assertFalse(supported(tmpHtmlCode, "myId"));
+  }
+
+  @Test
   public void byId() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
@@ -49,13 +75,9 @@ public class HtmlUnitInputResetIdentifierTest extends AbstractHtmlUnitControlIde
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("myId");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "myId", "myId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
-
     assertEquals(
         "[HtmlResetInput 'ClickMe' (id='myId')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
@@ -66,20 +88,16 @@ public class HtmlUnitInputResetIdentifierTest extends AbstractHtmlUnitControlIde
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<input id='myId' type='reset' name='MyName' value='ClickMe'>"
+        + "<input id='myId' type='reset' name='myName' value='ClickMe'>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("MyName");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "myName", "myId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
-
     assertEquals(
-        "[HtmlResetInput 'ClickMe' (id='myId') (name='MyName')] found by: BY_NAME deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
+        "[HtmlResetInput 'ClickMe' (id='myId') (name='myName')] found by: BY_NAME deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -93,13 +111,9 @@ public class HtmlUnitInputResetIdentifierTest extends AbstractHtmlUnitControlIde
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("ClickMe");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "ClickMe", "myId");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myId");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
-
     assertEquals(
         "[HtmlResetInput 'ClickMe' (id='myId')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
@@ -110,20 +124,16 @@ public class HtmlUnitInputResetIdentifierTest extends AbstractHtmlUnitControlIde
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<input id='MyName' type='reset' name='MyName' value='MyName'>"
+        + "<input id='myName' type='reset' name='myName' value='myName'>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("MyName");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "myName", "myName");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "MyName");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
-
     assertEquals(
-        "[HtmlResetInput 'MyName' (id='MyName') (name='MyName')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
+        "[HtmlResetInput 'myName' (id='myName') (name='myName')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -155,14 +165,10 @@ public class HtmlUnitInputResetIdentifierTest extends AbstractHtmlUnitControlIde
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("[header_3; row_2]");
-
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "myId_1_2", "myId_1_3", "myId_2_2",
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "[header_3; row_2]", "myId_1_2", "myId_1_3", "myId_2_2",
         "myId_2_3");
 
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
-
     assertEquals(
         "[HtmlResetInput 'ClickMe' (id='myId_2_3')] found by: BY_TABLE_COORDINATE deviation: 0 distance: 62 start: 62 hierarchy: 0>1>3>5>22>36>44>45 index: 45",
         tmpEntriesSorted.get(0).toString());
@@ -196,14 +202,10 @@ public class HtmlUnitInputResetIdentifierTest extends AbstractHtmlUnitControlIde
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("[header_3; row_2] > Click");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "[header_3; row_2] > Click", "InputReset_1_2",
+        "InputReset_1_3", "InputReset_2_2", "InputReset_2_3");
 
-    final WeightedControlList tmpFound = identify(tmpHtmlCode, tmpSearch, "InputReset_1_2", "InputReset_1_3",
-        "InputReset_2_2", "InputReset_2_3");
-
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
-
     assertEquals(
         "[HtmlResetInput 'Click' (id='InputReset_2_3')] found by: BY_LABEL deviation: 0 distance: 56 start: 56 hierarchy: 0>1>3>5>22>36>44>45 index: 45",
         tmpEntriesSorted.get(0).toString());

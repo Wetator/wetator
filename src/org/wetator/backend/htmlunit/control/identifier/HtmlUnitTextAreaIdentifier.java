@@ -56,7 +56,8 @@ public class HtmlUnitTextAreaIdentifier extends AbstractMatcherBasedIdentifier {
 
   @Override
   public boolean isHtmlElementSupported(final HtmlElement aHtmlElement) {
-    return aHtmlElement instanceof HtmlTextArea || aHtmlElement instanceof HtmlLabel;
+    return aHtmlElement instanceof HtmlTextArea || aHtmlElement instanceof HtmlLabel
+        && ((HtmlLabel) aHtmlElement).getReferencedElement() instanceof HtmlTextArea;
   }
 
   @Override
