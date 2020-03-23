@@ -35,6 +35,7 @@ import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.Expect
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.SortedEntryExpectation;
 import org.wetator.core.WetatorConfiguration;
 
+import com.gargoylesoftware.htmlunit.html.HtmlBody;
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 
 /**
@@ -69,7 +70,8 @@ public class MouseActionListeningHtmlUnitControlsFinderContainerSeparatorWPathTe
       // @formatter:off
       { new SortedEntryExpectation(
           new ExpectedControl(HtmlDivision.class, "in"),
-          new ExpectedControl(HtmlDivision.class, "out")),
+          new ExpectedControl(HtmlDivision.class, "out"),
+          new ExpectedControl(HtmlBody.class)),
         CONTENT
       },
 
@@ -83,7 +85,9 @@ public class MouseActionListeningHtmlUnitControlsFinderContainerSeparatorWPathTe
         CONTENT + SEP + CONTENT + SEP + CONTENT
       },
 
-      { new SortedEntryExpectation(new ExpectedControl(HtmlDivision.class, "out")),
+      { new SortedEntryExpectation(
+          new ExpectedControl(HtmlDivision.class, "out"),
+          new ExpectedControl(HtmlBody.class)), // FIXME why is body found here?
         CONTENT + "x x" + CONTENT
       },
 

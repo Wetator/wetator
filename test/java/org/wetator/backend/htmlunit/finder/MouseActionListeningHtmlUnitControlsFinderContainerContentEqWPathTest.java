@@ -27,6 +27,7 @@ import org.wetator.backend.WPath;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.ExpectedControl;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.SortedEntryExpectation;
 
+import com.gargoylesoftware.htmlunit.html.HtmlBody;
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 
 /**
@@ -50,7 +51,7 @@ public class MouseActionListeningHtmlUnitControlsFinderContainerContentEqWPathTe
 
       // 0
       { CONTENT + div("div"),
-        null
+        new SortedEntryExpectation(new ExpectedControl(HtmlBody.class))
       },
 
       // 1
@@ -60,7 +61,7 @@ public class MouseActionListeningHtmlUnitControlsFinderContainerContentEqWPathTe
 
       // 2
       { div("div") + CONTENT,
-        null
+        new SortedEntryExpectation(new ExpectedControl(HtmlBody.class))
       },
 
       //++++++++++++++++++++++++++++++
@@ -68,7 +69,7 @@ public class MouseActionListeningHtmlUnitControlsFinderContainerContentEqWPathTe
 
       // 3
       { CONTENT + div("out", div("in")),
-        null
+        new SortedEntryExpectation(new ExpectedControl(HtmlBody.class))
       },
 
       // 4
@@ -90,7 +91,7 @@ public class MouseActionListeningHtmlUnitControlsFinderContainerContentEqWPathTe
 
       // 7
       { div("out", div("in")) + CONTENT,
-        null
+        new SortedEntryExpectation(new ExpectedControl(HtmlBody.class))
       },
 
       //+++++++++++++++++++++++++++++++
@@ -98,24 +99,28 @@ public class MouseActionListeningHtmlUnitControlsFinderContainerContentEqWPathTe
 
       // 8
       { CONTENT + div("out", CONTENT + div("in")),
-        new SortedEntryExpectation(new ExpectedControl(HtmlDivision.class, "out"))
+        new SortedEntryExpectation(
+            new ExpectedControl(HtmlDivision.class, "out"),
+            new ExpectedControl(HtmlBody.class))
       },
 
       // 9
       { CONTENT + div("out", div("in", CONTENT)),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlDivision.class, "in"),
-            new ExpectedControl(HtmlDivision.class, "out"))
+            new ExpectedControl(HtmlDivision.class, "out"),
+            new ExpectedControl(HtmlBody.class))
       },
 
       // 10
       { CONTENT + div("out", div("in") + CONTENT),
-        new SortedEntryExpectation(new ExpectedControl(HtmlDivision.class, "out"))
+        new SortedEntryExpectation(new ExpectedControl(HtmlDivision.class, "out"),
+            new ExpectedControl(HtmlBody.class))
       },
 
       // 11
       { CONTENT + div("out", div("in")) + CONTENT,
-        null
+        new SortedEntryExpectation(new ExpectedControl(HtmlBody.class))
       },
 
       // 12
@@ -132,7 +137,9 @@ public class MouseActionListeningHtmlUnitControlsFinderContainerContentEqWPathTe
 
       // 14
       { div("out", CONTENT + div("in")) + CONTENT,
-        new SortedEntryExpectation(new ExpectedControl(HtmlDivision.class, "out"))
+        new SortedEntryExpectation(
+            new ExpectedControl(HtmlDivision.class, "out"),
+            new ExpectedControl(HtmlBody.class))
       },
 
       // 15
@@ -146,12 +153,15 @@ public class MouseActionListeningHtmlUnitControlsFinderContainerContentEqWPathTe
       { div("out", div("in", CONTENT)) + CONTENT,
         new SortedEntryExpectation(
             new ExpectedControl(HtmlDivision.class, "in"),
-            new ExpectedControl(HtmlDivision.class, "out"))
+            new ExpectedControl(HtmlDivision.class, "out"),
+            new ExpectedControl(HtmlBody.class))
       },
 
       // 17
       { div("out", div("in") + CONTENT) + CONTENT,
-        new SortedEntryExpectation(new ExpectedControl(HtmlDivision.class, "out"))
+        new SortedEntryExpectation(
+            new ExpectedControl(HtmlDivision.class, "out"),
+            new ExpectedControl(HtmlBody.class))
       },
 
       //++++++++++++++++++++++++++++++++
@@ -161,36 +171,45 @@ public class MouseActionListeningHtmlUnitControlsFinderContainerContentEqWPathTe
       { CONTENT + div("out", CONTENT + div("in", CONTENT)),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlDivision.class, "in"),
-            new ExpectedControl(HtmlDivision.class, "out"))
+            new ExpectedControl(HtmlDivision.class, "out"),
+            new ExpectedControl(HtmlBody.class))
       },
 
       // 19
       { CONTENT + div("out", CONTENT + div("in") + CONTENT),
-        new SortedEntryExpectation(new ExpectedControl(HtmlDivision.class, "out"))
+        new SortedEntryExpectation(
+            new ExpectedControl(HtmlDivision.class, "out"),
+            new ExpectedControl(HtmlBody.class))
       },
 
       // 20
       { CONTENT + div("out", CONTENT + div("in")) + CONTENT,
-        new SortedEntryExpectation(new ExpectedControl(HtmlDivision.class, "out"))
+        new SortedEntryExpectation(
+            new ExpectedControl(HtmlDivision.class, "out"),
+            new ExpectedControl(HtmlBody.class))
       },
 
       // 21
       { CONTENT + div("out", div("in", CONTENT) + CONTENT),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlDivision.class, "in"),
-            new ExpectedControl(HtmlDivision.class, "out"))
+            new ExpectedControl(HtmlDivision.class, "out"),
+            new ExpectedControl(HtmlBody.class))
       },
 
       // 22
       { CONTENT + div("out", div("in", CONTENT)) + CONTENT,
         new SortedEntryExpectation(
             new ExpectedControl(HtmlDivision.class, "in"),
-            new ExpectedControl(HtmlDivision.class, "out"))
+            new ExpectedControl(HtmlDivision.class, "out"),
+            new ExpectedControl(HtmlBody.class))
       },
 
       // 23
       { CONTENT + div("out", div("in") + CONTENT) + CONTENT,
-        new SortedEntryExpectation(new ExpectedControl(HtmlDivision.class, "out"))
+        new SortedEntryExpectation(
+            new ExpectedControl(HtmlDivision.class, "out"),
+            new ExpectedControl(HtmlBody.class))
       },
 
       // 24
@@ -204,19 +223,23 @@ public class MouseActionListeningHtmlUnitControlsFinderContainerContentEqWPathTe
       { div("out", CONTENT + div("in", CONTENT)) + CONTENT,
         new SortedEntryExpectation(
             new ExpectedControl(HtmlDivision.class, "in"),
-            new ExpectedControl(HtmlDivision.class, "out"))
+            new ExpectedControl(HtmlDivision.class, "out"),
+            new ExpectedControl(HtmlBody.class))
       },
 
       // 26
       { div("out", CONTENT + div("in") + CONTENT) + CONTENT,
-        new SortedEntryExpectation(new ExpectedControl(HtmlDivision.class, "out"))
+        new SortedEntryExpectation(
+            new ExpectedControl(HtmlDivision.class, "out"),
+            new ExpectedControl(HtmlBody.class))
       },
 
       // 27
       { div("out", div("in", CONTENT) + CONTENT) + CONTENT,
         new SortedEntryExpectation(
             new ExpectedControl(HtmlDivision.class, "in"),
-            new ExpectedControl(HtmlDivision.class, "out"))
+            new ExpectedControl(HtmlDivision.class, "out"),
+            new ExpectedControl(HtmlBody.class))
       },
 
       //++++++++++++++++++++++++++++++++++
@@ -224,7 +247,7 @@ public class MouseActionListeningHtmlUnitControlsFinderContainerContentEqWPathTe
 
       // 28
       { CONTENT + div("first") + div("second"),
-        null
+        new SortedEntryExpectation(new ExpectedControl(HtmlBody.class))
       },
 
       // 29
@@ -234,7 +257,7 @@ public class MouseActionListeningHtmlUnitControlsFinderContainerContentEqWPathTe
 
       // 30
       { div("first") + CONTENT + div("second"),
-        null
+        new SortedEntryExpectation(new ExpectedControl(HtmlBody.class))
       },
 
       // 31
@@ -244,7 +267,7 @@ public class MouseActionListeningHtmlUnitControlsFinderContainerContentEqWPathTe
 
       // 32
       { div("first") + div("second") + CONTENT,
-        null
+        new SortedEntryExpectation(new ExpectedControl(HtmlBody.class))
       },
 
       //+++++++++++++++++++++++++++++++++++
@@ -252,27 +275,33 @@ public class MouseActionListeningHtmlUnitControlsFinderContainerContentEqWPathTe
 
       // 33
       { CONTENT + div("first", CONTENT) + div("second"),
-        new SortedEntryExpectation(new ExpectedControl(HtmlDivision.class, "first"))
+        new SortedEntryExpectation(
+            new ExpectedControl(HtmlDivision.class, "first"),
+            new ExpectedControl(HtmlBody.class))
       },
 
       // 34
       { CONTENT + div("first") + CONTENT + div("second"),
-        null
+        new SortedEntryExpectation(new ExpectedControl(HtmlBody.class))
       },
 
       // 35
       { CONTENT + div("first") + div("second", CONTENT),
-        new SortedEntryExpectation(new ExpectedControl(HtmlDivision.class, "second"))
+        new SortedEntryExpectation(
+            new ExpectedControl(HtmlDivision.class, "second"),
+            new ExpectedControl(HtmlBody.class))
       },
 
       // 36
       { CONTENT + div("first") + div("second") + CONTENT,
-        null
+        new SortedEntryExpectation(new ExpectedControl(HtmlBody.class))
       },
 
       // 37
       { div("first", CONTENT) + CONTENT + div("second"),
-        new SortedEntryExpectation(new ExpectedControl(HtmlDivision.class, "first"))
+        new SortedEntryExpectation(
+            new ExpectedControl(HtmlDivision.class, "first"),
+            new ExpectedControl(HtmlBody.class))
       },
 
       // 38
@@ -284,7 +313,9 @@ public class MouseActionListeningHtmlUnitControlsFinderContainerContentEqWPathTe
 
       // 39
       { div("first", CONTENT) + div("second") + CONTENT,
-        new SortedEntryExpectation(new ExpectedControl(HtmlDivision.class, "first"))
+        new SortedEntryExpectation(
+            new ExpectedControl(HtmlDivision.class, "first"),
+            new ExpectedControl(HtmlBody.class))
       },
 
       //++++++++++++++++++++++++++++++++++++++++++++++++++++++++

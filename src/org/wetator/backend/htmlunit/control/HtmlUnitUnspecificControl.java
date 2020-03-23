@@ -25,7 +25,9 @@ import org.wetator.exception.UnsupportedOperationException;
 import org.wetator.i18n.Messages;
 
 import com.gargoylesoftware.htmlunit.html.DisabledElement;
+import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlLabel;
 import com.gargoylesoftware.htmlunit.html.HtmlParagraph;
 import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 import com.gargoylesoftware.htmlunit.html.HtmlTableDataCell;
@@ -36,6 +38,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlTableDataCell;
  * @param <T> the type of the {@link HtmlElement}.
  * @author rbri
  * @author frank.danek
+ * @author tobwoerk
  */
 public class HtmlUnitUnspecificControl<T extends HtmlElement> extends HtmlUnitBaseControl<HtmlElement> {
 
@@ -57,11 +60,17 @@ public class HtmlUnitUnspecificControl<T extends HtmlElement> extends HtmlUnitBa
   public String getDescribingText() {
     final HtmlElement tmpHtmlElement = getHtmlElement();
 
+    if (tmpHtmlElement instanceof HtmlSpan) {
+      return HtmlElementUtil.getDescribingTextForHtmlSpan((HtmlSpan) tmpHtmlElement);
+    }
     if (tmpHtmlElement instanceof HtmlParagraph) {
       return HtmlElementUtil.getDescribingTextForHtmlParagraph((HtmlParagraph) tmpHtmlElement);
     }
-    if (tmpHtmlElement instanceof HtmlSpan) {
-      return HtmlElementUtil.getDescribingTextForHtmlSpan((HtmlSpan) tmpHtmlElement);
+    if (tmpHtmlElement instanceof HtmlLabel) {
+      return HtmlElementUtil.getDescribingTextForHtmlLabel((HtmlLabel) tmpHtmlElement);
+    }
+    if (tmpHtmlElement instanceof HtmlCheckBoxInput) {
+      return HtmlElementUtil.getDescribingTextForHtmlCheckBoxInput((HtmlCheckBoxInput) tmpHtmlElement);
     }
 
     // handle things that are not implemented at the moment

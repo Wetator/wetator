@@ -40,7 +40,7 @@ public abstract class MouseActionHtmlCodeCreator {
   }
 
   public static String anchor(final String anAnchorId, final String aContent) {
-    return anchorStart(anAnchorId) + aContent + anchorEnd();
+    return anchorStart(anAnchorId) + (aContent != null ? aContent : "") + anchorEnd();
   }
 
   public static String anchorStart(final String anAnchorId) {
@@ -52,7 +52,7 @@ public abstract class MouseActionHtmlCodeCreator {
   }
 
   public static String button(final String aButtonId, final String aContent) {
-    return buttonStart(aButtonId) + aContent + buttonEnd();
+    return buttonStart(aButtonId) + (aContent != null ? aContent : "") + buttonEnd();
   }
 
   public static String buttonStart(final String aButtonId) {
@@ -72,7 +72,7 @@ public abstract class MouseActionHtmlCodeCreator {
   }
 
   public static String div(final String aDivId, final String aContent) {
-    return divStart(aDivId) + aContent + divEnd();
+    return divStart(aDivId) + (aContent != null ? aContent : "") + divEnd();
   }
 
   public static String divStart(final String aDivId) {
@@ -92,16 +92,16 @@ public abstract class MouseActionHtmlCodeCreator {
   }
 
   public static String image(final String anImageId, final String anAltText) {
-    return "<image id='" + anImageId + "' src='pathtoimg' " + /* FIXME onMouseAction + (Image is IClickable) */ " alt='"
-        + anAltText + "' />";
+    return "<image id='" + anImageId + "' src='pathtoimg' "
+        + /* FIXME onMouseAction + (Image is currently IClickable) */ " alt='" + anAltText + "' />";
   }
 
   public static String label(final String aFor, final String aContent) {
-    return labelStart(aFor, false) + aContent + labelEnd();
+    return labelStart(aFor, false) + (aContent != null ? aContent : "") + labelEnd();
   }
 
   public static String labelClickable(final String aFor, final String aContent) {
-    return labelStart(aFor, true) + aContent + labelEnd();
+    return labelStart(aFor, true) + (aContent != null ? aContent : "") + labelEnd();
   }
 
   public static String labelStart(final String aFor, final boolean anIsClickable) {
@@ -121,7 +121,7 @@ public abstract class MouseActionHtmlCodeCreator {
   }
 
   public static String span(final String aSpanId, final String aContent) {
-    return spanStart(aSpanId) + aContent + spanEnd();
+    return spanStart(aSpanId) + (aContent != null ? aContent : "") + spanEnd();
   }
 
   public static String spanStart(final String aSpanId) {
@@ -165,7 +165,7 @@ public abstract class MouseActionHtmlCodeCreator {
   }
 
   private static String input(final String aType, final String anInputID, final String anOptional) {
-    return "<input type = '" + aType + "' id='" + anInputID + "' " + anOptional + "/>";
+    return "<input type = '" + aType + "' id='" + anInputID + "' " + (anOptional != null ? anOptional : "") + "/>";
   }
 
   public static void resetOnMouseAction() {

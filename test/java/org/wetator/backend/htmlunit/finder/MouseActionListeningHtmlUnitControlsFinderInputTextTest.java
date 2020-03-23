@@ -31,6 +31,8 @@ import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputTextIdentifi
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.ExpectedControl;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.SortedEntryExpectation;
 
+import com.gargoylesoftware.htmlunit.html.HtmlBody;
+import com.gargoylesoftware.htmlunit.html.HtmlLabel;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 
 /**
@@ -51,7 +53,9 @@ public class MouseActionListeningHtmlUnitControlsFinderInputTextTest
 
       // 0
       { CONTENT + inputText("input"),
-        new SortedEntryExpectation(new ExpectedControl(HtmlTextInput.class, "input"))
+        new SortedEntryExpectation(
+            new ExpectedControl(HtmlTextInput.class, "input"),
+            new ExpectedControl(HtmlBody.class))
       },
 
       // 1
@@ -61,7 +65,7 @@ public class MouseActionListeningHtmlUnitControlsFinderInputTextTest
 
       // 2
       { inputText("input") + CONTENT,
-        null
+        new SortedEntryExpectation(new ExpectedControl(HtmlBody.class))
       },
 
       //+++++++++++++++++++
@@ -69,21 +73,24 @@ public class MouseActionListeningHtmlUnitControlsFinderInputTextTest
 
       // 3
       { label("input", CONTENT) + inputText("input"),
-        new SortedEntryExpectation(new ExpectedControl(HtmlTextInput.class, "input"))
+        new SortedEntryExpectation(
+            new ExpectedControl(HtmlTextInput.class, "input"),
+            new ExpectedControl(HtmlLabel.class, "lbl-input"))
       },
 
       // 4
       { labelClickable("input", CONTENT) + inputText("input"),
         new SortedEntryExpectation(
-            // FIXME new ExpectedControl(HtmlLabel.class, "lbl-input"),
-            new ExpectedControl(HtmlTextInput.class, "input"))
+            // FIXME should be found first? new ExpectedControl(HtmlLabel.class, "lbl-input"),
+            new ExpectedControl(HtmlTextInput.class, "input"),
+            new ExpectedControl(HtmlLabel.class, "lbl-input"))
       },
 
       // 5
       { inputText("input") + labelClickable("input", CONTENT),
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlTextInput.class, "input"))
-           // FIXME new ExpectedControl(HtmlLabel.class, "lbl-input")
+            new ExpectedControl(HtmlTextInput.class, "input"),
+            new ExpectedControl(HtmlLabel.class, "lbl-input"))
       },
 
       //+++++++++++++++++++++++
@@ -92,20 +99,23 @@ public class MouseActionListeningHtmlUnitControlsFinderInputTextTest
       { CONTENT + inputText("input1") + CONTENT + inputText("input2"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlTextInput.class, "input1"),
-            new ExpectedControl(HtmlTextInput.class, "input2"))
+            new ExpectedControl(HtmlTextInput.class, "input2"),
+            new ExpectedControl(HtmlBody.class))
       },
 
       // 7
       { CONTENT + inputText("input1") + inputText("input2"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlTextInput.class, "input1"),
-            new ExpectedControl(HtmlTextInput.class, "input2"))
+            new ExpectedControl(HtmlTextInput.class, "input2"),
+            new ExpectedControl(HtmlBody.class))
       },
 
       // 8
       { CONTENT + inputText("input1") + "x" + inputText("input2"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlTextInput.class, "input1"),
+            new ExpectedControl(HtmlBody.class),
             new ExpectedControl(HtmlTextInput.class, "input2"))
       },
 
@@ -113,14 +123,16 @@ public class MouseActionListeningHtmlUnitControlsFinderInputTextTest
       { CONTENT + "x" + inputText("input1") + inputText("input2"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlTextInput.class, "input1"),
-            new ExpectedControl(HtmlTextInput.class, "input2"))
+            new ExpectedControl(HtmlTextInput.class, "input2"),
+            new ExpectedControl(HtmlBody.class))
       },
 
       // 10
       { CONTENT + "x" + inputText("input1") + CONTENT + inputText("input2"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlTextInput.class, "input2"),
-            new ExpectedControl(HtmlTextInput.class, "input1"))
+            new ExpectedControl(HtmlTextInput.class, "input1"),
+            new ExpectedControl(HtmlBody.class))
       }
       // @formatter:on
     };

@@ -53,6 +53,7 @@ import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.Expect
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.SortedEntryExpectation;
 
 import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
+import com.gargoylesoftware.htmlunit.html.HtmlBody;
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
 import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
@@ -104,7 +105,9 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
         new SortedEntryExpectation(
             new ExpectedControl(HtmlCheckBoxInput.class, "checkbox-label"),
             new ExpectedControl(HtmlCheckBoxInput.class, "checkbox-before"),
-            new ExpectedControl(HtmlCheckBoxInput.class, "checkbox-after")),
+            new ExpectedControl(HtmlCheckBoxInput.class, "checkbox-after"),
+            new ExpectedControl(HtmlBody.class),
+            new ExpectedControl(HtmlLabel.class, "lbl-checkbox-label")),
         Arrays.asList(HtmlUnitInputCheckBoxIdentifier.class)
       },
 
@@ -114,7 +117,9 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
       },
 
       { inputText("inputText-before") + CONTENT + inputText("inputText-after"),
-        new SortedEntryExpectation(new ExpectedControl(HtmlTextInput.class, "inputText-after")),
+        new SortedEntryExpectation(
+            new ExpectedControl(HtmlTextInput.class, "inputText-after"),
+            new ExpectedControl(HtmlBody.class)),
         Arrays.asList(HtmlUnitInputTextIdentifier.class)
       },
 
@@ -134,7 +139,9 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
         new SortedEntryExpectation(
             new ExpectedControl(HtmlRadioButtonInput.class, "radio-label"),
             new ExpectedControl(HtmlRadioButtonInput.class, "radio-before"),
-            new ExpectedControl(HtmlRadioButtonInput.class, "radio-after")),
+            new ExpectedControl(HtmlRadioButtonInput.class, "radio-after"),
+            new ExpectedControl(HtmlBody.class),
+            new ExpectedControl(HtmlLabel.class, "lbl-radio-label")),
         Arrays.asList(HtmlUnitInputRadioButtonIdentifier.class)
       },
 

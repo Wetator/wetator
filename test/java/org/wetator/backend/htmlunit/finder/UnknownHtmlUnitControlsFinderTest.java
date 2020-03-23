@@ -41,6 +41,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 /**
  * @author rbri
  * @author frank.danek
+ * @author tobwoerk
  */
 public class UnknownHtmlUnitControlsFinderTest {
 
@@ -482,10 +483,10 @@ public class UnknownHtmlUnitControlsFinderTest {
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(2, tmpEntriesSorted.size());
     assertEquals(
-        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlLabel'] found by: BY_TEXT deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>5 index: 5",
+        "[HtmlLabel 'Checker' (for='myCheckbox')] found by: BY_TEXT deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>5 index: 5",
         tmpEntriesSorted.get(0).toString());
     assertEquals(
-        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput' (id='myCheckbox') (name='checkbox')] found by: BY_TITLE_TEXT deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
+        "[HtmlCheckBoxInput (id='myCheckbox') (name='checkbox')] found by: BY_TITLE_TEXT deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
         tmpEntriesSorted.get(1).toString());
   }
 

@@ -250,11 +250,11 @@ public class MouseActionListeningHtmlUnitControlsFinderTest {
     // @formatter:on
     final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
-  
+
     final MouseActionListeningHtmlUnitControlsFinder tmpFinder = new MouseActionListeningHtmlUnitControlsFinder(
         tmpHtmlPageIndex, null, MouseAction.CLICK, repository);
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("some text"), config));
-  
+
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     // FIXME should be BY_LABEL_ELEMENT
@@ -398,7 +398,7 @@ public class MouseActionListeningHtmlUnitControlsFinderTest {
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlLabel' (id='myId')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
+        "[HtmlLabel 'some text' (id='myId')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
         tmpEntriesSorted.get(0).toString());
   }
 }

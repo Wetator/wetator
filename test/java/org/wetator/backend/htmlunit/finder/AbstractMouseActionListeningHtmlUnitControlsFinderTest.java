@@ -31,6 +31,24 @@ import org.junit.BeforeClass;
 import org.wetator.backend.MouseAction;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
+import org.wetator.backend.htmlunit.HtmlUnitControlRepository;
+import org.wetator.backend.htmlunit.control.HtmlUnitAnchor;
+import org.wetator.backend.htmlunit.control.HtmlUnitButton;
+import org.wetator.backend.htmlunit.control.HtmlUnitImage;
+import org.wetator.backend.htmlunit.control.HtmlUnitInputButton;
+import org.wetator.backend.htmlunit.control.HtmlUnitInputCheckBox;
+import org.wetator.backend.htmlunit.control.HtmlUnitInputFile;
+import org.wetator.backend.htmlunit.control.HtmlUnitInputHidden;
+import org.wetator.backend.htmlunit.control.HtmlUnitInputImage;
+import org.wetator.backend.htmlunit.control.HtmlUnitInputPassword;
+import org.wetator.backend.htmlunit.control.HtmlUnitInputRadioButton;
+import org.wetator.backend.htmlunit.control.HtmlUnitInputReset;
+import org.wetator.backend.htmlunit.control.HtmlUnitInputSubmit;
+import org.wetator.backend.htmlunit.control.HtmlUnitInputText;
+import org.wetator.backend.htmlunit.control.HtmlUnitOption;
+import org.wetator.backend.htmlunit.control.HtmlUnitOptionGroup;
+import org.wetator.backend.htmlunit.control.HtmlUnitSelect;
+import org.wetator.backend.htmlunit.control.HtmlUnitTextArea;
 import org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.ExpectedControl;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.SortedEntryExpectation;
@@ -49,10 +67,14 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
  */
 public abstract class AbstractMouseActionListeningHtmlUnitControlsFinderTest {
 
+  private WetatorConfiguration config;
+  private HtmlUnitControlRepository repository;
+
   protected MouseAction mouseAction;
 
-  protected WetatorConfiguration config;
-  protected IdentifierBasedHtmlUnitControlsFinder finder;
+  protected MouseActionListeningHtmlUnitControlsFinder finder;
+  // FIXME remove as soon as included in MouseActionListeningHtmlUnitControlsFinder
+  protected UnknownHtmlUnitControlsFinder finderUnknown;
 
   @BeforeClass
   public static void resetMouseActionInCreator() {
@@ -64,6 +86,28 @@ public abstract class AbstractMouseActionListeningHtmlUnitControlsFinderTest {
     final Properties tmpProperties = new Properties();
     tmpProperties.setProperty(WetatorConfiguration.PROPERTY_BASE_URL, "http://localhost/");
     config = new WetatorConfiguration(new File("."), tmpProperties, null);
+  }
+
+  @Before
+  public void createControlRepository() {
+    repository = new HtmlUnitControlRepository();
+    repository.add(HtmlUnitAnchor.class);
+    repository.add(HtmlUnitButton.class);
+    repository.add(HtmlUnitImage.class);
+    repository.add(HtmlUnitInputButton.class);
+    repository.add(HtmlUnitInputCheckBox.class);
+    repository.add(HtmlUnitInputFile.class);
+    repository.add(HtmlUnitInputHidden.class);
+    repository.add(HtmlUnitInputImage.class);
+    repository.add(HtmlUnitInputPassword.class);
+    repository.add(HtmlUnitInputRadioButton.class);
+    repository.add(HtmlUnitInputReset.class);
+    repository.add(HtmlUnitInputSubmit.class);
+    repository.add(HtmlUnitInputText.class);
+    repository.add(HtmlUnitOption.class);
+    repository.add(HtmlUnitOptionGroup.class);
+    repository.add(HtmlUnitSelect.class);
+    repository.add(HtmlUnitTextArea.class);
   }
 
   public void checkFoundElements(final String anHtmlCode, final SortedEntryExpectation anExpected) throws Exception {
@@ -80,7 +124,8 @@ public abstract class AbstractMouseActionListeningHtmlUnitControlsFinderTest {
     final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(pageStart() + anHtmlCode + pageEnd());
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    finder = new MouseActionListeningHtmlUnitControlsFinder(tmpHtmlPageIndex, null, mouseAction, null);
+    finder = new MouseActionListeningHtmlUnitControlsFinder(tmpHtmlPageIndex, null, mouseAction, repository);
+    finderUnknown = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, repository);
   }
 
   public void setMouseAction(final MouseAction aMouseAction) {
@@ -99,7 +144,10 @@ public abstract class AbstractMouseActionListeningHtmlUnitControlsFinderTest {
   }
 
   protected final WeightedControlList find() throws InvalidInputException {
-    return finder.find(new WPath(new SecretString(getWPath()), config));
+    final WPath tmpWPath = new WPath(new SecretString(getWPath()), config);
+    final WeightedControlList tmpList = finder.find(tmpWPath);
+    tmpList.addAll(finderUnknown.find(tmpWPath));
+    return tmpList;
   }
 
   protected String getWPath() {
