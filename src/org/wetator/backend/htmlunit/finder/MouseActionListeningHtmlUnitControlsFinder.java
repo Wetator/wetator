@@ -98,6 +98,10 @@ public class MouseActionListeningHtmlUnitControlsFinder extends IdentifierBasedH
         tmpSupported |= identify(HtmlUnitUnspecificControlIdentifier.class, aHtmlElement, aWPath, aFoundControls);
       }
     }
+
+    // FIXME add unknown controls for click and mouse over
+    // see pretty complex UnknownHtmlUnitControlsFinder
+
     return tmpSupported;
   }
 
