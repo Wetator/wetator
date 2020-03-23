@@ -51,6 +51,8 @@ public class HtmlUnitFinderDelegator implements IControlFinder {
   private IdentifierBasedHtmlUnitControlsFinder clickablesFinder;
   private IdentifierBasedHtmlUnitControlsFinder selectablesFinder;
   private IdentifierBasedHtmlUnitControlsFinder deselectablesFinder;
+  private IdentifierBasedHtmlUnitControlsFinder disableablesFinder;
+  private IdentifierBasedHtmlUnitControlsFinder focusablesFinder;
   private IdentifierBasedHtmlUnitControlsFinder othersFinder;
   private AbstractHtmlUnitControlsFinder forTextFinder;
 
@@ -69,7 +71,7 @@ public class HtmlUnitFinderDelegator implements IControlFinder {
     @Override
     public Thread newThread(final Runnable aRunnable) {
       final Thread tmpThread = baseFactory.newThread(aRunnable);
-      tmpThread.setName("WETATOR FinderThread " + id++);
+      tmpThread.setName("Wetator FinderThread " + id++);
       return tmpThread;
     }
   }
@@ -125,6 +127,8 @@ public class HtmlUnitFinderDelegator implements IControlFinder {
     clickablesFinder = new IdentifierBasedHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool);
     selectablesFinder = new IdentifierBasedHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool);
     deselectablesFinder = new IdentifierBasedHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool);
+    disableablesFinder = new IdentifierBasedHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool);
+    focusablesFinder = new IdentifierBasedHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool);
     othersFinder = new IdentifierBasedHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool);
     forTextFinder = new UnknownHtmlUnitControlsFinder(htmlPageIndex, aControlRepository);
 
@@ -133,6 +137,8 @@ public class HtmlUnitFinderDelegator implements IControlFinder {
       clickablesFinder.addIdentifiers(aControlRepository.getClickableIdentifiers());
       selectablesFinder.addIdentifiers(aControlRepository.getSelectableIdentifiers());
       deselectablesFinder.addIdentifiers(aControlRepository.getDeselectableIdentifiers());
+      disableablesFinder.addIdentifiers(aControlRepository.getDisableableIdentifiers());
+      focusablesFinder.addIdentifiers(aControlRepository.getFocusableIdentifiers());
       othersFinder.addIdentifiers(aControlRepository.getOtherIdentifiers());
     }
   }
@@ -155,6 +161,16 @@ public class HtmlUnitFinderDelegator implements IControlFinder {
   @Override
   public WeightedControlList getAllDeselectables(final WPath aWPath) {
     return deselectablesFinder.find(aWPath);
+  }
+
+  @Override
+  public WeightedControlList getAllDisableables(final WPath aWPath) {
+    return disableablesFinder.find(aWPath);
+  }
+
+  @Override
+  public WeightedControlList getAllFocusables(final WPath aWPath) {
+    return focusablesFinder.find(aWPath);
   }
 
   @Override

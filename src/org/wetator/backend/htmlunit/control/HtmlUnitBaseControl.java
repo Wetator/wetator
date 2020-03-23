@@ -26,6 +26,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.control.IControl;
+import org.wetator.backend.control.IFocusable;
 import org.wetator.backend.control.KeySequence;
 import org.wetator.backend.control.KeySequence.Key;
 import org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier;
@@ -327,8 +328,21 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
     return false;
   }
 
-  @Override
-  public boolean hasFocus(final WetatorContext aWetatorContext) {
+  /**
+   * Prototype implementation of {@link IFocusable#hasFocus(WetatorContext)}. Only usable for controls implementing
+   * {@link IFocusable}.
+   *
+   * @param aContext the current {@link WetatorContext}
+   * @return <code>true</code> if the control has the focus
+   * @throws org.wetator.exception.UnsupportedOperationException if the check is not supported by the control
+   * @see IFocusable#hasFocus(WetatorContext)
+   */
+  public boolean hasFocus(final WetatorContext aContext) {
+    if (!(this instanceof IFocusable)) {
+      final String tmpMessage = Messages.getMessage("focusCheckNotSupported", getDescribingText());
+      throw new UnsupportedOperationException(tmpMessage);
+    }
+
     final HtmlElement tmpHtmlElement = getHtmlElement();
 
     final HtmlPage tmpHtmlPage = (HtmlPage) tmpHtmlElement.getPage();

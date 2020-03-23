@@ -118,6 +118,8 @@ src/org/wetator/backend/WeightedControlList.java -text
 src/org/wetator/backend/control/IClickable.java -text svneol=unset#text/plain
 src/org/wetator/backend/control/IControl.java -text
 src/org/wetator/backend/control/IDeselectable.java -text svneol=unset#text/plain
+src/org/wetator/backend/control/IDisableable.java -text
+src/org/wetator/backend/control/IFocusable.java -text
 src/org/wetator/backend/control/ISelectable.java -text svneol=unset#text/plain
 src/org/wetator/backend/control/ISettable.java -text svneol=unset#text/plain
 src/org/wetator/backend/control/KeySequence.java -text
@@ -134,7 +136,6 @@ src/org/wetator/backend/htmlunit/control/HtmlUnitImage.java -text svneol=unset#t
 src/org/wetator/backend/htmlunit/control/HtmlUnitInputButton.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/control/HtmlUnitInputCheckBox.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/control/HtmlUnitInputFile.java -text svneol=unset#text/plain
-src/org/wetator/backend/htmlunit/control/HtmlUnitInputHidden.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/control/HtmlUnitInputImage.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/control/HtmlUnitInputPassword.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/control/HtmlUnitInputRadioButton.java -text svneol=unset#text/plain

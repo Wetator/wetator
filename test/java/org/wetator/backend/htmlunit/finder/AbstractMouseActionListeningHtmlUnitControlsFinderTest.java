@@ -38,7 +38,6 @@ import org.wetator.backend.htmlunit.control.HtmlUnitImage;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputButton;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputCheckBox;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputFile;
-import org.wetator.backend.htmlunit.control.HtmlUnitInputHidden;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputImage;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputPassword;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputRadioButton;
@@ -97,7 +96,6 @@ public abstract class AbstractMouseActionListeningHtmlUnitControlsFinderTest {
     repository.add(HtmlUnitInputButton.class);
     repository.add(HtmlUnitInputCheckBox.class);
     repository.add(HtmlUnitInputFile.class);
-    repository.add(HtmlUnitInputHidden.class);
     repository.add(HtmlUnitInputImage.class);
     repository.add(HtmlUnitInputPassword.class);
     repository.add(HtmlUnitInputRadioButton.class);

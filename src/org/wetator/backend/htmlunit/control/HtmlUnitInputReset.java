@@ -17,6 +17,8 @@
 package org.wetator.backend.htmlunit.control;
 
 import org.wetator.backend.control.IClickable;
+import org.wetator.backend.control.IDisableable;
+import org.wetator.backend.control.IFocusable;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputResetIdentifier;
@@ -34,7 +36,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlResetInput;
  */
 @ForHtmlElement(HtmlResetInput.class)
 @IdentifiedBy(HtmlUnitInputResetIdentifier.class)
-public class HtmlUnitInputReset extends HtmlUnitBaseControl<HtmlResetInput> implements IClickable {
+public class HtmlUnitInputReset extends HtmlUnitBaseControl<HtmlResetInput>
+    implements IClickable, IDisableable, IFocusable {
 
   /**
    * The constructor.

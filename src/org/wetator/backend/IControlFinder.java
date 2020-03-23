@@ -57,6 +57,22 @@ public interface IControlFinder {
   WeightedControlList getAllSettables(WPath aWPath);
 
   /**
+   * Return a list of all disableable controls for the given {@link WPath}.
+   *
+   * @param aWPath the {@link WPath} describing the controls
+   * @return a {@link WeightedControlList}
+   */
+  WeightedControlList getAllDisableables(WPath aWPath);
+
+  /**
+   * Return a list of all focusable controls for the given {@link WPath}.
+   *
+   * @param aWPath the {@link WPath} describing the controls
+   * @return a {@link WeightedControlList}
+   */
+  WeightedControlList getAllFocusables(WPath aWPath);
+
+  /**
    * Return a list of all other controls (not clickable, deselectable, selectable or settable) for the given
    * {@link WPath}.
    *

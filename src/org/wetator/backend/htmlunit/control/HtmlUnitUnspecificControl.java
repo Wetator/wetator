@@ -27,6 +27,7 @@ import org.wetator.i18n.Messages;
 import com.gargoylesoftware.htmlunit.html.DisabledElement;
 import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlHiddenInput;
 import com.gargoylesoftware.htmlunit.html.HtmlLabel;
 import com.gargoylesoftware.htmlunit.html.HtmlParagraph;
 import com.gargoylesoftware.htmlunit.html.HtmlSpan;
@@ -70,7 +71,11 @@ public class HtmlUnitUnspecificControl<T extends HtmlElement> extends HtmlUnitBa
       return HtmlElementUtil.getDescribingTextForHtmlLabel((HtmlLabel) tmpHtmlElement);
     }
     if (tmpHtmlElement instanceof HtmlCheckBoxInput) {
+      // FIXME remove? this should not be needed!
       return HtmlElementUtil.getDescribingTextForHtmlCheckBoxInput((HtmlCheckBoxInput) tmpHtmlElement);
+    }
+    if (tmpHtmlElement instanceof HtmlHiddenInput) {
+      return HtmlElementUtil.getDescribingTextForHtmlHiddenInput((HtmlHiddenInput) tmpHtmlElement);
     }
 
     // handle things that are not implemented at the moment

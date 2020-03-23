@@ -563,17 +563,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final IBrowser tmpBrowser = getBrowser(aContext);
       final IControlFinder tmpControlFinder = getControlFinder(tmpBrowser);
 
-      // TextInputs / PasswordInputs / TextAreas / FileInputs
-      final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
-      tmpFoundElements.addAll(tmpControlFinder.getAllSelectables(tmpWPath));
-      tmpFoundElements.addAll(tmpControlFinder.getAllClickables(tmpWPath));
-
-      // search for special elements
-      // e.g. selects by label, name, id
-      tmpFoundElements.addAll(tmpControlFinder.getAllOtherControls(tmpWPath));
-
-      // clickable Text
-      tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
+      final WeightedControlList tmpFoundElements = tmpControlFinder.getAllDisableables(tmpWPath);
 
       final IControl tmpControl = getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
           "noHtmlElementFound");
@@ -599,17 +589,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final IBrowser tmpBrowser = getBrowser(aContext);
       final IControlFinder tmpControlFinder = getControlFinder(tmpBrowser);
 
-      // TextInputs / PasswordInputs / TextAreas / FileInputs
-      final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
-      tmpFoundElements.addAll(tmpControlFinder.getAllSelectables(tmpWPath));
-      tmpFoundElements.addAll(tmpControlFinder.getAllClickables(tmpWPath));
-
-      // search for special elements
-      // e.g. selects by label, name, id
-      tmpFoundElements.addAll(tmpControlFinder.getAllOtherControls(tmpWPath));
-
-      // clickable Text
-      tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
+      final WeightedControlList tmpFoundElements = tmpControlFinder.getAllDisableables(tmpWPath);
 
       final IControl tmpControl = getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
           "noHtmlElementFound");

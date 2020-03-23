@@ -27,6 +27,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.wetator.backend.control.IClickable;
 import org.wetator.backend.control.IControl;
 import org.wetator.backend.control.IDeselectable;
+import org.wetator.backend.control.IDisableable;
+import org.wetator.backend.control.IFocusable;
 import org.wetator.backend.control.ISelectable;
 import org.wetator.backend.control.ISettable;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl;
@@ -50,6 +52,8 @@ public class HtmlUnitControlRepository {
   private List<Class<? extends AbstractHtmlUnitControlIdentifier>> clickableIdentifiers = new LinkedList<>();
   private List<Class<? extends AbstractHtmlUnitControlIdentifier>> selectableIdentifiers = new LinkedList<>();
   private List<Class<? extends AbstractHtmlUnitControlIdentifier>> deselectableIdentifiers = new LinkedList<>();
+  private List<Class<? extends AbstractHtmlUnitControlIdentifier>> disableableIdentifiers = new LinkedList<>();
+  private List<Class<? extends AbstractHtmlUnitControlIdentifier>> focusableIdentifiers = new LinkedList<>();
   private List<Class<? extends AbstractHtmlUnitControlIdentifier>> otherIdentifiers = new LinkedList<>();
 
   /**
@@ -115,6 +119,14 @@ public class HtmlUnitControlRepository {
           tmpFound = true;
           deselectableIdentifiers.addAll(tmpIdentifierClasses);
         }
+        if (IDisableable.class.isAssignableFrom(aControlClass)) {
+          tmpFound = true;
+          disableableIdentifiers.addAll(tmpIdentifierClasses);
+        }
+        if (IFocusable.class.isAssignableFrom(aControlClass)) {
+          tmpFound = true;
+          focusableIdentifiers.addAll(tmpIdentifierClasses);
+        }
         if (!tmpFound) {
           otherIdentifiers.addAll(tmpIdentifierClasses);
         }
@@ -169,6 +181,20 @@ public class HtmlUnitControlRepository {
    */
   public List<Class<? extends AbstractHtmlUnitControlIdentifier>> getDeselectableIdentifiers() {
     return deselectableIdentifiers;
+  }
+
+  /**
+   * @return the disableableIdentifiers
+   */
+  public List<Class<? extends AbstractHtmlUnitControlIdentifier>> getDisableableIdentifiers() {
+    return disableableIdentifiers;
+  }
+
+  /**
+   * @return the focusableIdentifiers
+   */
+  public List<Class<? extends AbstractHtmlUnitControlIdentifier>> getFocusableIdentifiers() {
+    return focusableIdentifiers;
   }
 
   /**

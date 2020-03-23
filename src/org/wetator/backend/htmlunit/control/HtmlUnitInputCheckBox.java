@@ -19,6 +19,8 @@ package org.wetator.backend.htmlunit.control;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.wetator.backend.control.IDeselectable;
+import org.wetator.backend.control.IDisableable;
+import org.wetator.backend.control.IFocusable;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputCheckBoxIdentifier;
@@ -44,7 +46,8 @@ import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
  */
 @ForHtmlElement(HtmlCheckBoxInput.class)
 @IdentifiedBy(HtmlUnitInputCheckBoxIdentifier.class)
-public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput> implements IDeselectable {
+public class HtmlUnitInputCheckBox extends HtmlUnitBaseControl<HtmlCheckBoxInput>
+    implements IDeselectable, IDisableable, IFocusable {
 
   private static final Logger LOG = LogManager.getLogger(HtmlUnitInputCheckBox.class);
 

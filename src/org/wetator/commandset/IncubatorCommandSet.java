@@ -30,6 +30,7 @@ import org.wetator.backend.IControlFinder;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.control.IControl;
+import org.wetator.backend.control.IFocusable;
 import org.wetator.backend.control.KeySequence;
 import org.wetator.backend.htmlunit.HtmlUnitBrowser;
 import org.wetator.core.Command;
@@ -92,19 +93,9 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
       final IBrowser tmpBrowser = getBrowser(aContext);
       final IControlFinder tmpControlFinder = getControlFinder(tmpBrowser);
 
-      // TextInputs / PasswordInputs / TextAreas / FileInputs
-      final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
-      tmpFoundElements.addAll(tmpControlFinder.getAllSelectables(tmpWPath));
-      tmpFoundElements.addAll(tmpControlFinder.getAllClickables(tmpWPath));
+      final WeightedControlList tmpFoundElements = tmpControlFinder.getAllFocusables(tmpWPath);
 
-      // search for special elements
-      // e.g. selects by label, name, id
-      tmpFoundElements.addAll(tmpControlFinder.getAllOtherControls(tmpWPath));
-
-      // clickable Text
-      tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
-
-      final IControl tmpControl = getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
+      final IFocusable tmpControl = (IFocusable) getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
           "noHtmlElementFound");
 
       tmpBrowser.markControls(tmpControl);
