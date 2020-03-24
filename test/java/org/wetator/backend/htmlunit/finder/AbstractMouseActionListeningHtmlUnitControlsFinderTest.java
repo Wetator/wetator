@@ -60,7 +60,7 @@ import org.wetator.util.SecretString;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
- * Common ground for {@link ClickableHtmlUnitControlsFinder} tests.
+ * Common ground for {@link MouseActionListeningHtmlUnitControlsFinder} tests.
  *
  * @author tobwoerk
  */
