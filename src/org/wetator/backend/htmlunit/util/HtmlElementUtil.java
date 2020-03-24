@@ -24,6 +24,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlAbbreviated;
 import com.gargoylesoftware.htmlunit.html.HtmlAcronym;
 import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlBig;
+import com.gargoylesoftware.htmlunit.html.HtmlBody;
 import com.gargoylesoftware.htmlunit.html.HtmlBold;
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
 import com.gargoylesoftware.htmlunit.html.HtmlButtonInput;
@@ -103,6 +104,16 @@ public final class HtmlElementUtil {
     }
 
     return tmpBuilder.addId().addName().build();
+  }
+
+  /**
+   * Generates a describing text for the {@link HtmlBody}.
+   *
+   * @param anHtmlBody the control
+   * @return the describing text
+   */
+  public static String getDescribingTextForHtmlBody(final HtmlBody anHtmlBody) {
+    return DescribingTextBuilder.createDefault(anHtmlBody).build();
   }
 
   /**

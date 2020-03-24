@@ -21,6 +21,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
 
+import com.gargoylesoftware.htmlunit.html.HtmlBody;
 import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlHiddenInput;
@@ -56,6 +57,9 @@ public class HtmlUnitUnspecificControl<T extends HtmlElement> extends HtmlUnitBa
   public String getDescribingText() {
     final HtmlElement tmpHtmlElement = getHtmlElement();
 
+    if (tmpHtmlElement instanceof HtmlBody) {
+      return HtmlElementUtil.getDescribingTextForHtmlBody((HtmlBody) tmpHtmlElement);
+    }
     if (tmpHtmlElement instanceof HtmlCheckBoxInput) {
       // FIXME remove? this should not be needed!
       return HtmlElementUtil.getDescribingTextForHtmlCheckBoxInput((HtmlCheckBoxInput) tmpHtmlElement);

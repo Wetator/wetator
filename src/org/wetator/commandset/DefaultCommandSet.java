@@ -277,8 +277,6 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final IBrowser tmpBrowser = getBrowser(aContext);
       final IControlFinder tmpControlFinder = getControlFinder(tmpBrowser);
 
-      // FIXME add support for $PAGE pseudo wpath for clicking 'the page' (= body)
-
       // Buttons / Link / Image
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllClickables(tmpWPath);
 
@@ -422,8 +420,6 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       final IBrowser tmpBrowser = getBrowser(aContext);
       final IControlFinder tmpControlFinder = getControlFinder(tmpBrowser);
-
-      // FIXME add support for $PAGE pseudo wpath for hovering 'the page' (= body)
 
       final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
       tmpFoundElements.addAll(tmpControlFinder.getAllSelectables(tmpWPath));

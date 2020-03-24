@@ -16,6 +16,7 @@
 
 package org.wetator.backend.htmlunit.finder;
 
+import java.util.EnumSet;
 import java.util.List;
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -41,6 +42,7 @@ import org.wetator.backend.htmlunit.util.HtmlPageIndex;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.FindSpot;
 
+import com.gargoylesoftware.htmlunit.html.HtmlBody;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 
 /**
@@ -50,6 +52,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
  * @author frank.danek
  */
 public class MouseActionListeningHtmlUnitControlsFinder extends IdentifierBasedHtmlUnitControlsFinder {
+
+  private static final String PAGE_WPATH = "$PAGE";
 
   private MouseAction mouseAction;
   private HtmlUnitControlRepository controlRepository;
@@ -69,6 +73,30 @@ public class MouseActionListeningHtmlUnitControlsFinder extends IdentifierBasedH
 
     mouseAction = aMouseAction;
     controlRepository = aControlRepository;
+  }
+
+  @Override
+  public WeightedControlList find(final WPath aWPath) {
+    // check for the $PAGE pseudo wpath for finding the body element
+    if (EnumSet.of(MouseAction.CLICK, MouseAction.MOUSE_OVER).contains(mouseAction) && aWPath.getPathNodes().isEmpty()
+        && aWPath.getTableCoordinates().isEmpty() && aWPath.getLastNode() != null
+        && PAGE_WPATH.equals(aWPath.getLastNode().getValue())) {
+      // FIXME really support $PAGE pseudo wpath only for click and mouseOver?
+      for (final HtmlElement tmpHtmlElement : htmlPageIndex.getAllVisibleHtmlElements()) {
+        if (tmpHtmlElement instanceof HtmlBody) {
+          final WeightedControlList tmpFoundControls = new WeightedControlList();
+          tmpFoundControls.add(new HtmlUnitUnspecificControl<HtmlBody>((HtmlBody) tmpHtmlElement),
+              WeightedControlList.FoundType.BY_ID, // by (pseudo) id
+              0, // no deviation
+              0, // no distance from page start
+              htmlPageIndex.getPosition(tmpHtmlElement).getStartPos(), htmlPageIndex.getHierarchy(tmpHtmlElement),
+              htmlPageIndex.getIndex(tmpHtmlElement));
+          return tmpFoundControls;
+        }
+      }
+    }
+
+    return super.find(aWPath);
   }
 
   @Override

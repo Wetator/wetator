@@ -142,7 +142,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlBody'] found by: BY_TEXT deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3 index: 3",
+        "[HtmlBody] found by: BY_TEXT deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3 index: 3",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -164,7 +164,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlBody'] found by: BY_TEXT deviation: 2 distance: 0 start: 0 hierarchy: 0>1>3 index: 3",
+        "[HtmlBody] found by: BY_TEXT deviation: 2 distance: 0 start: 0 hierarchy: 0>1>3 index: 3",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -186,7 +186,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlBody'] found by: BY_TEXT deviation: 0 distance: 2 start: 0 hierarchy: 0>1>3 index: 3",
+        "[HtmlBody] found by: BY_TEXT deviation: 0 distance: 2 start: 0 hierarchy: 0>1>3 index: 3",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -208,7 +208,7 @@ public class UnknownHtmlUnitControlsFinderTest {
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlBody'] found by: BY_TEXT deviation: 1 distance: 1 start: 0 hierarchy: 0>1>3 index: 3",
+        "[HtmlBody] found by: BY_TEXT deviation: 1 distance: 1 start: 0 hierarchy: 0>1>3 index: 3",
         tmpEntriesSorted.get(0).toString());
   }
 

@@ -33,6 +33,7 @@ import org.wetator.backend.htmlunit.HtmlUnitControlRepository;
 import org.wetator.backend.htmlunit.control.HtmlUnitAnchor;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputText;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitAnchorIdentifier;
+import org.wetator.backend.htmlunit.control.identifier.HtmlUnitButtonIdentifier;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
 import org.wetator.backend.htmlunit.util.PageUtil;
 import org.wetator.core.WetatorConfiguration;
@@ -382,6 +383,56 @@ public class MouseActionListeningHtmlUnitControlsFinderTest {
   }
 
   @Test
+  public void listener_unknownControl_anchorChild() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<a id='otherId' href='#'><span id='myId'>some text</span></a>"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    final MouseActionListeningHtmlUnitControlsFinder tmpFinder = new MouseActionListeningHtmlUnitControlsFinder(
+        tmpHtmlPageIndex, null, MouseAction.CLICK, repository);
+    tmpFinder.addIdentifier(HtmlUnitAnchorIdentifier.class);
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("some text"), config));
+
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(2, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlSpan 'some text' (id='myId')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
+        tmpEntriesSorted.get(0).toString());
+    assertEquals(
+        "[HtmlAnchor 'some text' (id='otherId')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
+        tmpEntriesSorted.get(1).toString());
+  }
+
+  @Test
+  public void listener_unknownControl_buttonChild() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<button id='otherId'><span id='myId'>some text</button></a>"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    final MouseActionListeningHtmlUnitControlsFinder tmpFinder = new MouseActionListeningHtmlUnitControlsFinder(
+        tmpHtmlPageIndex, null, MouseAction.CLICK, repository);
+    tmpFinder.addIdentifier(HtmlUnitButtonIdentifier.class);
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("some text"), config));
+
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(2, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlSpan 'some text' (id='myId')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
+        tmpEntriesSorted.get(0).toString());
+    assertEquals(
+        "[HtmlButton 'some text' (id='otherId')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
+        tmpEntriesSorted.get(1).toString());
+  }
+
+  @Test
   public void listener_unknownControl_label() throws Exception {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
@@ -399,6 +450,92 @@ public class MouseActionListeningHtmlUnitControlsFinderTest {
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlLabel 'some text' (id='myId')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
+        tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
+  public void page_click() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body id='myId'>"
+        + "<a id='otherId'>$PAGE</a>"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    final MouseActionListeningHtmlUnitControlsFinder tmpFinder = new MouseActionListeningHtmlUnitControlsFinder(
+        tmpHtmlPageIndex, null, MouseAction.CLICK, repository);
+    tmpFinder.addIdentifier(HtmlUnitAnchorIdentifier.class);
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("$PAGE"), config));
+
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals("[HtmlBody (id='myId')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3 index: 3",
+        tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
+  public void page_clickDouble() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body id='myId'>"
+        + "<a id='otherId'>$PAGE</a>"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    final MouseActionListeningHtmlUnitControlsFinder tmpFinder = new MouseActionListeningHtmlUnitControlsFinder(
+        tmpHtmlPageIndex, null, MouseAction.CLICK_DOUBLE, repository);
+    tmpFinder.addIdentifier(HtmlUnitAnchorIdentifier.class);
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("$PAGE"), config));
+
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlAnchor '$PAGE' (id='otherId')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
+        tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
+  public void page_clickRight() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body id='myId'>"
+        + "<a id='otherId'>$PAGE</a>"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    final MouseActionListeningHtmlUnitControlsFinder tmpFinder = new MouseActionListeningHtmlUnitControlsFinder(
+        tmpHtmlPageIndex, null, MouseAction.CLICK_RIGHT, repository);
+    tmpFinder.addIdentifier(HtmlUnitAnchorIdentifier.class);
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("$PAGE"), config));
+
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlAnchor '$PAGE' (id='otherId')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
+        tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
+  public void page_mouseOver() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body id='myId'>"
+        + "<a id='otherId'>$PAGE</a>"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    final MouseActionListeningHtmlUnitControlsFinder tmpFinder = new MouseActionListeningHtmlUnitControlsFinder(
+        tmpHtmlPageIndex, null, MouseAction.MOUSE_OVER, repository);
+    tmpFinder.addIdentifier(HtmlUnitAnchorIdentifier.class);
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("$PAGE"), config));
+
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals("[HtmlBody (id='myId')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3 index: 3",
         tmpEntriesSorted.get(0).toString());
   }
 }

@@ -52,7 +52,10 @@ public abstract class WeightedControlListEntryAssert {
         tmpDescribingText = tmpDescribingText.substring(1, tmpDescribingText.length() - 1);
       }
 
-      String tmpEntryExpectation = tmpDescribingText.substring(0, tmpDescribingText.indexOf(' '));
+      String tmpEntryExpectation = tmpDescribingText;
+      if (tmpDescribingText.indexOf(' ') >= 0) {
+        tmpEntryExpectation = tmpEntryExpectation.substring(0, tmpDescribingText.indexOf(' '));
+      }
 
       final Matcher tmpIDMatcher = ID_PATTERN.matcher(tmpDescribingText);
       if (tmpIDMatcher.find()) {

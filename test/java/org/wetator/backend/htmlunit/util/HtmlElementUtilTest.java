@@ -44,6 +44,7 @@ import org.wetator.backend.htmlunit.control.HtmlUnitUnspecificControl;
 
 import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
+import com.gargoylesoftware.htmlunit.html.HtmlBody;
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
 import com.gargoylesoftware.htmlunit.html.HtmlButtonInput;
 import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
@@ -245,6 +246,44 @@ public class HtmlElementUtilTest {
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlAnchor(tmpHtmlAnchor);
     assertEquals("[HtmlAnchor 'AnchorText' (id='AnchorId') (name='AnchorName')]", tmpResult);
+  }
+
+  @Test
+  public void getDescribingTextFor_HtmlBody() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "some text"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    final HtmlBody tmpBody = (HtmlBody) tmpHtmlPage.getBody();
+
+    String tmpResult;
+    tmpResult = new HtmlUnitUnspecificControl<HtmlBody>(tmpBody).getDescribingText();
+    assertEquals("[HtmlBody]", tmpResult);
+
+    tmpResult = HtmlElementUtil.getDescribingTextForHtmlBody(tmpBody);
+    assertEquals("[HtmlBody]", tmpResult);
+  }
+
+  @Test
+  public void getDescribingTextFor_HtmlBody_Id() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body id='tx'>"
+        + "some text"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    final HtmlBody tmpBody = (HtmlBody) tmpHtmlPage.getBody();
+
+    String tmpResult;
+    tmpResult = new HtmlUnitUnspecificControl<HtmlBody>(tmpBody).getDescribingText();
+    assertEquals("[HtmlBody (id='tx')]", tmpResult);
+
+    tmpResult = HtmlElementUtil.getDescribingTextForHtmlBody(tmpBody);
+    assertEquals("[HtmlBody (id='tx')]", tmpResult);
   }
 
   @Test
