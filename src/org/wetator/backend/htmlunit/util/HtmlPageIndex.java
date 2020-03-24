@@ -39,8 +39,10 @@ import org.wetator.util.NormalizedString;
 import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.html.DomComment;
+import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.DomNode;
 import com.gargoylesoftware.htmlunit.html.DomText;
+import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlApplet;
 import com.gargoylesoftware.htmlunit.html.HtmlBody;
 import com.gargoylesoftware.htmlunit.html.HtmlBreak;
@@ -542,12 +544,18 @@ public class HtmlPageIndex {
       } else if (aDomNode instanceof HtmlTextArea) {
         appendHtmlTextArea((HtmlTextArea) aDomNode, tmpHierarchy, tmpMouseActions);
       } else {
+        if (aDomNode instanceof HtmlAnchor
+            && DomElement.ATTRIBUTE_NOT_DEFINED != ((HtmlAnchor) aDomNode).getHrefAttribute()
+            && !tmpMouseActions.contains(MouseAction.CLICK)) {
+          // the content of an anchor with href should also be marked as 'clickable'
+          tmpMouseActions = copyAndAdd(tmpMouseActions, MouseAction.CLICK);
+        }
+
         final boolean tmpIsBlock = HtmlElementUtil.isBlock(aDomNode);
         if (tmpIsBlock) {
           text.appendBlank();
           textWithoutFormControls.appendBlank();
         }
-        // FIXME the content of an anchor with href should also be marked as 'clickable'
         parseChildren(aDomNode, tmpHierarchy, tmpMouseActions);
         if (tmpIsBlock) {
           text.appendBlank();
@@ -684,11 +692,16 @@ public class HtmlPageIndex {
 
   private void appendHtmlButton(final HtmlButton anHtmlButton, final String aHierarchy,
       final Set<MouseAction> aMouseActions) {
+    Set<MouseAction> tmpMouseActions = aMouseActions;
+    if (!tmpMouseActions.contains(MouseAction.CLICK)) {
+      // the content of a button should also be marked as 'clickable'
+      tmpMouseActions = copyAndAdd(tmpMouseActions, MouseAction.CLICK);
+    }
+
     text.appendBlank();
     textWithoutFormControls.appendBlank();
     textWithoutFormControls.disableAppend();
-    // FIXME the content of a button should also be marked as 'clickable'
-    parseChildren(anHtmlButton, aHierarchy, aMouseActions);
+    parseChildren(anHtmlButton, aHierarchy, tmpMouseActions);
     textWithoutFormControls.enableAppend();
     text.appendBlank();
     textWithoutFormControls.appendBlank();
