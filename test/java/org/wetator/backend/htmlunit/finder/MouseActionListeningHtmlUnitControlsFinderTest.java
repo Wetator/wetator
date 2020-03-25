@@ -258,10 +258,33 @@ public class MouseActionListeningHtmlUnitControlsFinderTest {
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
-    // FIXME should be BY_LABEL_ELEMENT
     assertEquals(
-        "[HtmlTextInput (id='myId')] found by: BY_LABELING_TEXT deviation: 0 distance: 0 start: 9 hierarchy: 0>1>3>6 index: 6",
+        "[HtmlTextInput (id='myId')] found by: BY_LABEL_ELEMENT deviation: 0 distance: 0 start: 9 hierarchy: 0>1>3>6 index: 6",
         tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
+  public void listener_knownControl_withLabelHavingListener() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<label for='myId' onclick='alert(\"clicked\");'>some text</label><input type='text' id='myId' onclick='alert(\"clicked\");' />"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    final MouseActionListeningHtmlUnitControlsFinder tmpFinder = new MouseActionListeningHtmlUnitControlsFinder(
+        tmpHtmlPageIndex, null, MouseAction.CLICK, repository);
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("some text"), config));
+
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(2, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlLabel 'some text' (for='myId')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
+        tmpEntriesSorted.get(0).toString());
+    assertEquals(
+        "[HtmlTextInput (id='myId')] found by: BY_LABEL_ELEMENT deviation: 0 distance: 0 start: 9 hierarchy: 0>1>3>6 index: 6",
+        tmpEntriesSorted.get(1).toString());
   }
 
   @Test
@@ -491,8 +514,7 @@ public class MouseActionListeningHtmlUnitControlsFinderTest {
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
-    assertEquals(
-        "[HtmlAnchor '$PAGE' (id='otherId')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
+    assertEquals("[HtmlBody (id='myId')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3 index: 3",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -513,8 +535,7 @@ public class MouseActionListeningHtmlUnitControlsFinderTest {
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
-    assertEquals(
-        "[HtmlAnchor '$PAGE' (id='otherId')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
+    assertEquals("[HtmlBody (id='myId')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3 index: 3",
         tmpEntriesSorted.get(0).toString());
   }
 

@@ -16,7 +16,6 @@
 
 package org.wetator.backend.htmlunit.finder;
 
-import java.util.EnumSet;
 import java.util.List;
 import java.util.concurrent.ThreadPoolExecutor;
 
@@ -44,6 +43,7 @@ import org.wetator.util.FindSpot;
 
 import com.gargoylesoftware.htmlunit.html.HtmlBody;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlLabel;
 
 /**
  * In addition to the {@link IdentifierBasedHtmlUnitControlsFinder} this finder has a support for elements not marked as
@@ -78,10 +78,8 @@ public class MouseActionListeningHtmlUnitControlsFinder extends IdentifierBasedH
   @Override
   public WeightedControlList find(final WPath aWPath) {
     // check for the $PAGE pseudo wpath for finding the body element
-    if (EnumSet.of(MouseAction.CLICK, MouseAction.MOUSE_OVER).contains(mouseAction) && aWPath.getPathNodes().isEmpty()
-        && aWPath.getTableCoordinates().isEmpty() && aWPath.getLastNode() != null
+    if (aWPath.getPathNodes().isEmpty() && aWPath.getTableCoordinates().isEmpty() && aWPath.getLastNode() != null
         && PAGE_WPATH.equals(aWPath.getLastNode().getValue())) {
-      // FIXME really support $PAGE pseudo wpath only for click and mouseOver?
       for (final HtmlElement tmpHtmlElement : htmlPageIndex.getAllVisibleHtmlElements()) {
         if (tmpHtmlElement instanceof HtmlBody) {
           final WeightedControlList tmpFoundControls = new WeightedControlList();
@@ -104,26 +102,46 @@ public class MouseActionListeningHtmlUnitControlsFinder extends IdentifierBasedH
       final WeightedControlList aFoundControls) {
     boolean tmpSupported = super.identify(aHtmlElement, aWPath, aFoundControls);
 
-    if (!tmpSupported && htmlPageIndex.hasMouseActionListener(mouseAction, aHtmlElement)) {
-      if (controlRepository != null) {
-        final Class<? extends HtmlUnitBaseControl<?>> tmpControlClass = controlRepository
-            .getForHtmlElement(aHtmlElement);
-        if (tmpControlClass != null) {
-          final IdentifiedBy tmpIdentifiedBy = tmpControlClass.getAnnotation(IdentifiedBy.class);
+    if (!tmpSupported) {
+      // ok, not identified the 'normal' way -> let's look for action listeners
+      if (htmlPageIndex.hasMouseActionListener(mouseAction, aHtmlElement)) {
+        // first try the known controls
+        if (controlRepository != null) {
+          final Class<? extends HtmlUnitBaseControl<?>> tmpControlClass = controlRepository
+              .getForHtmlElement(aHtmlElement);
+          if (tmpControlClass != null) {
+            final IdentifiedBy tmpIdentifiedBy = tmpControlClass.getAnnotation(IdentifiedBy.class);
 
-          for (final Class<? extends AbstractHtmlUnitControlIdentifier> tmpIdentifierClass : tmpIdentifiedBy.value()) {
-            tmpSupported |= identify(tmpIdentifierClass, aHtmlElement, aWPath, aFoundControls);
+            for (final Class<? extends AbstractHtmlUnitControlIdentifier> tmpIdentifierClass : tmpIdentifiedBy
+                .value()) {
+              tmpSupported |= identify(tmpIdentifierClass, aHtmlElement, aWPath, aFoundControls);
+            }
           }
+        }
+
+        // then try the unknown controls
+        if (!tmpSupported) {
+          tmpSupported |= identify(HtmlUnitUnspecificControlIdentifier.class, aHtmlElement, aWPath, aFoundControls);
         }
       }
 
-      // FIXME how to handle HtmlLabel elements?
-      // HtmlLabel elements having an event listener are handled properly by the HtmlUnitUnspecificControlIdentifier
-      // but HtmlLabel elements labeling an element having an event listeners are currently not supported because
-      // they do not fulfill the first if
+      // ... and for a label we also have to check it's labeled element for action listeners
+      if (aHtmlElement instanceof HtmlLabel && controlRepository != null) {
+        final HtmlLabel tmpHtmlLabel = (HtmlLabel) aHtmlElement;
+        final HtmlElement tmpLabeledElement = tmpHtmlLabel.getReferencedElement();
 
-      if (!tmpSupported) {
-        tmpSupported |= identify(HtmlUnitUnspecificControlIdentifier.class, aHtmlElement, aWPath, aFoundControls);
+        if (htmlPageIndex.hasMouseActionListener(mouseAction, tmpLabeledElement)) {
+          final Class<? extends HtmlUnitBaseControl<?>> tmpControlClass = controlRepository
+              .getForHtmlElement(tmpLabeledElement);
+          if (tmpControlClass != null) {
+            final IdentifiedBy tmpIdentifiedBy = tmpControlClass.getAnnotation(IdentifiedBy.class);
+
+            for (final Class<? extends AbstractHtmlUnitControlIdentifier> tmpIdentifierClass : tmpIdentifiedBy
+                .value()) {
+              tmpSupported |= identify(tmpIdentifierClass, aHtmlElement, aWPath, aFoundControls);
+            }
+          }
+        }
       }
     }
 

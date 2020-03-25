@@ -165,7 +165,8 @@ public abstract class MouseActionHtmlCodeCreator {
   }
 
   private static String input(final String aType, final String anInputID, final String anOptional) {
-    return "<input type = '" + aType + "' id='" + anInputID + "' " + (anOptional != null ? anOptional : "") + "/>";
+    return "<input type = '" + aType + "' id='" + anInputID + "' " + onMouseAction
+        + (anOptional != null ? anOptional : "") + "/>";
   }
 
   public static void resetOnMouseAction() {

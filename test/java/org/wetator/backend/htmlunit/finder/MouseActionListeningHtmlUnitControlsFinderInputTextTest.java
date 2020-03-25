@@ -21,13 +21,11 @@ import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.inp
 import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.label;
 import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.labelClickable;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
 
 import org.junit.runners.Parameterized.Parameters;
 import org.wetator.backend.WPath;
-import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputTextIdentifier;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.ExpectedControl;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.SortedEntryExpectation;
 
@@ -81,9 +79,8 @@ public class MouseActionListeningHtmlUnitControlsFinderInputTextTest
       // 4
       { labelClickable("input", CONTENT) + inputText("input"),
         new SortedEntryExpectation(
-            // FIXME should be found first? new ExpectedControl(HtmlLabel.class, "lbl-input"),
-            new ExpectedControl(HtmlTextInput.class, "input"),
-            new ExpectedControl(HtmlLabel.class, "lbl-input"))
+            new ExpectedControl(HtmlLabel.class, "lbl-input"),
+            new ExpectedControl(HtmlTextInput.class, "input"))
       },
 
       // 5
@@ -137,11 +134,5 @@ public class MouseActionListeningHtmlUnitControlsFinderInputTextTest
       // @formatter:on
     };
     return Arrays.asList(tmpData);
-  }
-
-  @Override
-  protected void setup(final String anHtmlCode) throws IOException {
-    super.setup(anHtmlCode);
-    addIdentifiers(HtmlUnitInputTextIdentifier.class);
   }
 }
