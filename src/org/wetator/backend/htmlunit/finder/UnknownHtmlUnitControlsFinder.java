@@ -83,6 +83,7 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
     }
 
     if (aWPath.getLastNode() == null || aWPath.getLastNode().isEmpty()) {
+      // wpath ends with empty node or contains only table coordinates
       int tmpStartPos = 0;
       if (tmpPathSpot != null) {
         tmpStartPos = Math.max(0, tmpPathSpot.getEndPos());
@@ -117,7 +118,7 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
 
     final SearchPattern tmpSearchPattern = aWPath.getLastNode().getSearchPattern();
 
-    // search with id / title
+    // search by id / title
     final ByIdMatcher tmpIdMatcher = new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot,
         tmpSearchPattern);
     final ByTitleAttributeMatcher tmpTitleMatcher = new ByTitleAttributeMatcher(htmlPageIndex, tmpPathSearchPattern,
@@ -150,6 +151,7 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
       }
     }
 
+    // search by text
     int tmpStartPos = 0;
     if (tmpPathSpot != null) {
       tmpStartPos = Math.max(0, tmpPathSpot.getEndPos());
