@@ -33,7 +33,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
  */
 public abstract class WeightedControlListEntryAssert {
 
-  private static final Pattern ID_PATTERN = Pattern.compile("\\(id=.*\\)");
+  private static final Pattern ID_PATTERN = Pattern.compile("\\(id=[^\\)]*\\)");
 
   public static void assertEntriesSorted(final SortedEntryExpectation anExpected, final WeightedControlList anActual) {
     Assert.assertEquals(anExpected == null ? "" : anExpected.toString(),
@@ -59,10 +59,9 @@ public abstract class WeightedControlListEntryAssert {
 
       final Matcher tmpIDMatcher = ID_PATTERN.matcher(tmpDescribingText);
       if (tmpIDMatcher.find()) {
-        tmpEntryExpectation += tmpDescribingText.substring(tmpIDMatcher.start() - 1,
-            tmpDescribingText.indexOf(')') + 1);
+        tmpEntryExpectation += ' ' + tmpIDMatcher.group();
       }
-      tmpEntryList.append(tmpEntryExpectation.trim());
+      tmpEntryList.append(tmpEntryExpectation);
 
       if (anEntryList.indexOf(tmpEntry) != anEntryList.size() - 1) {
         tmpEntryList.append('\n');
