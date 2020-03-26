@@ -25,6 +25,7 @@ import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.wetator.backend.Action;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.IControlFinder;
 import org.wetator.backend.WPath;
@@ -93,7 +94,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
       final IBrowser tmpBrowser = getBrowser(aContext);
       final IControlFinder tmpControlFinder = getControlFinder(tmpBrowser);
 
-      final WeightedControlList tmpFoundElements = tmpControlFinder.getAllFocusables(tmpWPath);
+      final WeightedControlList tmpFoundElements = tmpControlFinder.findControls(Action.FOCUS, tmpWPath);
 
       final IFocusable tmpControl = (IFocusable) getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
           "noHtmlElementFound");

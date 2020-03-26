@@ -176,14 +176,7 @@ public class HtmlUnitInputCheckBox extends HtmlUnitFocusableControl<HtmlCheckBox
 
   @Override
   public boolean isDisabled(final WetatorContext aWetatorContext) {
-    final HtmlCheckBoxInput tmpHtmlCheckBoxInput = getHtmlElement();
-
-    return tmpHtmlCheckBoxInput.isDisabled();
-  }
-
-  @Override
-  public boolean canReceiveFocus(final WetatorContext aWetatorContext) {
-    return !isDisabled(aWetatorContext);
+    return getHtmlElement().isDisabled();
   }
 
   /**

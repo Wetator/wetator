@@ -129,14 +129,7 @@ public class HtmlUnitInputRadioButton extends HtmlUnitFocusableControl<HtmlRadio
 
   @Override
   public boolean isDisabled(final WetatorContext aWetatorContext) {
-    final HtmlRadioButtonInput tmpHtmlRadioButtonInput = getHtmlElement();
-
-    return tmpHtmlRadioButtonInput.isDisabled();
-  }
-
-  @Override
-  public boolean canReceiveFocus(final WetatorContext aWetatorContext) {
-    return !isDisabled(aWetatorContext);
+    return getHtmlElement().isDisabled();
   }
 
   /**

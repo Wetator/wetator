@@ -14,7 +14,7 @@
  */
 
 
-package org.wetator.backend;
+package org.wetator.backend.htmlunit;
 
 /**
  * Contains all supported mouse actions.

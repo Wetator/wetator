@@ -18,15 +18,16 @@ package org.wetator.backend.control;
 
 import java.io.File;
 
+import org.wetator.backend.Action;
 import org.wetator.core.WetatorContext;
 import org.wetator.exception.ActionException;
 import org.wetator.exception.AssertionException;
 import org.wetator.util.SecretString;
 
 /**
- * This interface marks all settable {@link IControl}s. These controls are returned by
- * {@link org.wetator.backend.IControlFinder#getAllSettables(org.wetator.backend.WPath)}.
+ * This interface marks all settable {@link IControl}s.
  *
+ * @see Action#SET
  * @author frank.danek
  */
 public interface ISettable extends IControl {

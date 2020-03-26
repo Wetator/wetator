@@ -40,15 +40,11 @@ import org.junit.AfterClass;
 import org.junit.Test;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
-import org.wetator.backend.MouseAction;
 import org.wetator.backend.WPath;
+import org.wetator.backend.htmlunit.MouseAction;
 import org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitAnchorIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitButtonIdentifier;
-import org.wetator.backend.htmlunit.control.identifier.HtmlUnitImageIdentifier;
-import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputCheckBoxIdentifier;
-import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputRadioButtonIdentifier;
-import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputTextIdentifier;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.ExpectedControl;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.SortedEntryExpectation;
 
@@ -108,7 +104,7 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
             new ExpectedControl(HtmlCheckBoxInput.class, "checkbox-after"),
             new ExpectedControl(HtmlBody.class),
             new ExpectedControl(HtmlLabel.class, "lbl-checkbox-label")),
-        Arrays.asList(HtmlUnitInputCheckBoxIdentifier.class)
+        null
       },
 
       { div("div-before", null) + div("div", CONTENT) + div("div-after", null),
@@ -120,14 +116,14 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
         new SortedEntryExpectation(
             new ExpectedControl(HtmlTextInput.class, "inputText-after"),
             new ExpectedControl(HtmlBody.class)),
-        Arrays.asList(HtmlUnitInputTextIdentifier.class)
+        null
       },
 
       { image("img-before", "") + image("img", CONTENT) + image("img-after", ""),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlImage.class, "img"),
             new ExpectedControl(HtmlImage.class, "img-after")),
-        Arrays.asList(HtmlUnitImageIdentifier.class)
+        null
       },
 
       { labelClickable("before", "") + labelClickable("main", CONTENT) + labelClickable("after", ""),
@@ -142,7 +138,7 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
             new ExpectedControl(HtmlRadioButtonInput.class, "radio-after"),
             new ExpectedControl(HtmlBody.class),
             new ExpectedControl(HtmlLabel.class, "lbl-radio-label")),
-        Arrays.asList(HtmlUnitInputRadioButtonIdentifier.class)
+        null
       },
 
       { span("span-before", null) + span("span", CONTENT) + span("span-after", null),

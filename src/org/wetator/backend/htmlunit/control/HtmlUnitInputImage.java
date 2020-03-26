@@ -53,13 +53,6 @@ public class HtmlUnitInputImage extends HtmlUnitFocusableControl<HtmlImageInput>
 
   @Override
   public boolean isDisabled(final WetatorContext aWetatorContext) {
-    final HtmlImageInput tmpHtmlImageInput = getHtmlElement();
-
-    return tmpHtmlImageInput.isDisabled();
-  }
-
-  @Override
-  public boolean canReceiveFocus(final WetatorContext aWetatorContext) {
-    return !isDisabled(aWetatorContext);
+    return getHtmlElement().isDisabled();
   }
 }

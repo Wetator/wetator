@@ -24,7 +24,7 @@ import org.wetator.backend.control.ISelectable;
 import org.wetator.backend.control.ISettable;
 
 /**
- * The common interface for the backend.
+ * A control finder is responsible for finding the correct controls in a page to execute an action or assertion on them.
  *
  * @author rbri
  * @author frank.danek
@@ -32,58 +32,19 @@ import org.wetator.backend.control.ISettable;
 public interface IControlFinder {
 
   /**
-   * Return a list of all clickable controls for the given {@link WPath}.<br>
-   * All returned controls implement {@link IControl}.
+   * Returns a list of all controls for the given {@link WPath} supporting the given {@link Action}.<br>
+   * For {@link Action#SET} all returned controls implement {@link ISettable}.<br>
+   * For {@link Action#SELECT} all returned controls implement {@link ISelectable}.<br>
+   * For {@link Action#DESELECT} all returned controls implement {@link IDeselectable}.<br>
+   * For {@link Action#DISABLE} all returned controls implement {@link IDisableable}.<br>
+   * For {@link Action#FOCUS} all returned controls implement {@link IFocusable}.<br>
+   * For all other actions all returned controls implement {@link IControl}.<br>
    *
+   * @param anAction the {@link Action} that needs to be supported
    * @param aWPath the {@link WPath} describing the controls
    * @return a {@link WeightedControlList}
    */
-  WeightedControlList getAllClickables(WPath aWPath);
-
-  /**
-   * Return a list of all settable controls for the given {@link WPath}.<br>
-   * All returned controls implement {@link ISettable}.
-   *
-   * @param aWPath the {@link WPath} describing the controls
-   * @return a {@link WeightedControlList}
-   */
-  WeightedControlList getAllSettables(WPath aWPath);
-
-  /**
-   * Return a list of all selectable controls for the given {@link WPath}.<br>
-   * All returned controls implement {@link ISelectable}.
-   *
-   * @param aWPath the {@link WPath} describing the controls
-   * @return a {@link WeightedControlList}
-   */
-  WeightedControlList getAllSelectables(WPath aWPath);
-
-  /**
-   * Return a list of all deselectable controls for the given {@link WPath}.<br>
-   * All returned controls implement {@link IDeselectable}.
-   *
-   * @param aWPath the {@link WPath} describing the controls
-   * @return a {@link WeightedControlList}
-   */
-  WeightedControlList getAllDeselectables(WPath aWPath);
-
-  /**
-   * Return a list of all disableable controls for the given {@link WPath}.<br>
-   * All returned controls implement {@link IDisableable}.
-   *
-   * @param aWPath the {@link WPath} describing the controls
-   * @return a {@link WeightedControlList}
-   */
-  WeightedControlList getAllDisableables(WPath aWPath);
-
-  /**
-   * Return a list of all focusable controls for the given {@link WPath}.<br>
-   * All returned controls implement {@link IFocusable}.
-   *
-   * @param aWPath the {@link WPath} describing the controls
-   * @return a {@link WeightedControlList}
-   */
-  WeightedControlList getAllFocusables(WPath aWPath);
+  WeightedControlList findControls(Action anAction, WPath aWPath);
 
   /**
    * Return a list of all other controls (not clickable, deselectable, selectable or settable) for the given

@@ -27,7 +27,7 @@ import java.util.Map;
 
 import org.junit.Ignore;
 import org.junit.Test;
-import org.wetator.backend.MouseAction;
+import org.wetator.backend.htmlunit.MouseAction;
 import org.wetator.util.FindSpot;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;

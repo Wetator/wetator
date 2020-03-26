@@ -180,9 +180,4 @@ public class HtmlUnitTextArea extends HtmlUnitFocusableControl<HtmlTextArea> imp
 
     return tmpHtmlTextArea.isDisabled() || tmpHtmlTextArea.isReadOnly();
   }
-
-  @Override
-  public boolean canReceiveFocus(final WetatorContext aWetatorContext) {
-    return !isDisabled(aWetatorContext);
-  }
 }

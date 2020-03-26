@@ -31,7 +31,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.WordUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.wetator.backend.MouseAction;
+import org.wetator.backend.htmlunit.MouseAction;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.FindSpot;
 import org.wetator.util.NormalizedString;

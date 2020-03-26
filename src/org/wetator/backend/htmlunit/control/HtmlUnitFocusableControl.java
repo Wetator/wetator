@@ -18,14 +18,10 @@ package org.wetator.backend.htmlunit.control;
 
 import org.wetator.backend.control.IControl;
 import org.wetator.backend.control.IFocusable;
-import org.wetator.backend.htmlunit.util.ExceptionUtil;
 import org.wetator.core.WetatorContext;
 
-import com.gargoylesoftware.htmlunit.ScriptException;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
-
-import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
 /**
  * This is the base implementation of a {@link IFocusable} {@link IControl} using HtmlUnit as backend.
@@ -33,6 +29,9 @@ import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
  * @param <T> the type of the {@link HtmlElement}.
  * @author frank.danek
  */
+// FIXME convert to interface with default method?
+// getHtmlElement() must become public then
+// FIXME create interface for disableable, too?
 public abstract class HtmlUnitFocusableControl<T extends HtmlElement> extends HtmlUnitBaseControl<T>
     implements IFocusable {
 
@@ -43,21 +42,6 @@ public abstract class HtmlUnitFocusableControl<T extends HtmlElement> extends Ht
    */
   protected HtmlUnitFocusableControl(final T anHtmlElement) {
     super(anHtmlElement);
-  }
-
-  @Override
-  protected void focus(final WetatorContext aWetatorContext) {
-    if (canReceiveFocus(aWetatorContext)) {
-      try {
-        getHtmlElement().focus();
-      } catch (final ScriptException e) {
-        aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
-      } catch (final WrappedException e) {
-        final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
-        aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
-            tmpScriptException);
-      }
-    }
   }
 
   @Override

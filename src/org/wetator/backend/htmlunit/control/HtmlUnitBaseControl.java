@@ -91,8 +91,6 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
   public void click(final WetatorContext aWetatorContext) throws ActionException {
     mouseOver(aWetatorContext);
 
-    focus(aWetatorContext);
-
     try {
       final HtmlElement tmpHtmlElement = getHtmlElement();
       if (LOG.isDebugEnabled()) {
@@ -128,8 +126,6 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
   @Override
   public void clickDouble(final WetatorContext aWetatorContext) throws ActionException {
     mouseOver(aWetatorContext);
-
-    focus(aWetatorContext);
 
     try {
       final HtmlElement tmpHtmlElement = getHtmlElement();
@@ -167,8 +163,6 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
   public void clickRight(final WetatorContext aWetatorContext) throws ActionException {
     mouseOver(aWetatorContext);
 
-    focus(aWetatorContext);
-
     try {
       final HtmlElement tmpHtmlElement = getHtmlElement();
       if (LOG.isDebugEnabled()) {
@@ -199,15 +193,6 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
       final String tmpMessage = Messages.getMessage("serverError", e.getMessage(), getDescribingText());
       throw new ActionException(tmpMessage, e);
     }
-  }
-
-  /**
-   * Focuses this control if supported. Otherwise does nothing.
-   *
-   * @param aWetatorContext the current {@link WetatorContext}
-   */
-  protected void focus(final WetatorContext aWetatorContext) {
-    // nothing here
   }
 
   @Override

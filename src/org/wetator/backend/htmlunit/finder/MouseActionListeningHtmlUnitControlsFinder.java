@@ -19,12 +19,12 @@ package org.wetator.backend.htmlunit.finder;
 import java.util.List;
 import java.util.concurrent.ThreadPoolExecutor;
 
-import org.wetator.backend.MouseAction;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.control.IClickable;
 import org.wetator.backend.control.IControl;
 import org.wetator.backend.htmlunit.HtmlUnitControlRepository;
+import org.wetator.backend.htmlunit.MouseAction;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.wetator.backend.htmlunit.control.HtmlUnitUnspecificControl;

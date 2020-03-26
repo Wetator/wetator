@@ -53,13 +53,6 @@ public class HtmlUnitInputSubmit extends HtmlUnitFocusableControl<HtmlSubmitInpu
 
   @Override
   public boolean isDisabled(final WetatorContext aWetatorContext) {
-    final HtmlSubmitInput tmpHtmlSubmitInput = getHtmlElement();
-
-    return tmpHtmlSubmitInput.isDisabled();
-  }
-
-  @Override
-  public boolean canReceiveFocus(final WetatorContext aWetatorContext) {
-    return !isDisabled(aWetatorContext);
+    return getHtmlElement().isDisabled();
   }
 }

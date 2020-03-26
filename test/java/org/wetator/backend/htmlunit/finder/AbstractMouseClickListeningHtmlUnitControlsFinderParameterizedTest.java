@@ -20,7 +20,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
-import org.wetator.backend.MouseAction;
+import org.wetator.backend.htmlunit.MouseAction;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.SortedEntryExpectation;
 
 /**

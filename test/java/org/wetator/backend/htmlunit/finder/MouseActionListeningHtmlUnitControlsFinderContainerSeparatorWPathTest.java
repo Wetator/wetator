@@ -28,9 +28,9 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
-import org.wetator.backend.MouseAction;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
+import org.wetator.backend.htmlunit.MouseAction;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.ExpectedControl;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.SortedEntryExpectation;
 import org.wetator.core.WetatorConfiguration;
@@ -87,7 +87,7 @@ public class MouseActionListeningHtmlUnitControlsFinderContainerSeparatorWPathTe
 
       { new SortedEntryExpectation(
           new ExpectedControl(HtmlDivision.class, "out"),
-          new ExpectedControl(HtmlBody.class)), // FIXME why is body found here?
+          new ExpectedControl(HtmlBody.class)),
         CONTENT + "x x" + CONTENT
       },
 

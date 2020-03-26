@@ -110,9 +110,9 @@ src/org/wetator/Messages.properties -text
 src/org/wetator/Version.java -text
 src/org/wetator/Wetator.java -text
 src/org/wetator/WetatorScriptConverter.java -text svneol=unset#text/plain
+src/org/wetator/backend/Action.java -text
 src/org/wetator/backend/IBrowser.java -text
 src/org/wetator/backend/IControlFinder.java -text
-src/org/wetator/backend/MouseAction.java -text
 src/org/wetator/backend/WPath.java -text svneol=unset#text/plain
 src/org/wetator/backend/WeightedControlList.java -text
 src/org/wetator/backend/control/IClickable.java -text svneol=unset#text/plain
@@ -127,6 +127,7 @@ src/org/wetator/backend/htmlunit/HtmlUnitBrowser.java -text
 src/org/wetator/backend/htmlunit/HtmlUnitControlRepository.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/HtmlUnitFinderDelegator.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/JavaScriptErrorListener.java -text
+src/org/wetator/backend/htmlunit/MouseAction.java -text
 src/org/wetator/backend/htmlunit/ResponseStore.java -text
 src/org/wetator/backend/htmlunit/XHtmlOutputter.java -text
 src/org/wetator/backend/htmlunit/control/HtmlUnitAnchor.java -text svneol=unset#text/plain
@@ -287,7 +288,6 @@ test/java/org/wetator/backend/htmlunit/HtmlUnitFinderDelegatorTest.java -text
 test/java/org/wetator/backend/htmlunit/HtmlUnitTest.html -text
 test/java/org/wetator/backend/htmlunit/XHtmlOutputterHtmlPageTest.java -text
 test/java/org/wetator/backend/htmlunit/XHtmlOutputterXHtmlPageTest.java -text
-test/java/org/wetator/backend/htmlunit/control/HtmlUnitAnchorTest.java -text
 test/java/org/wetator/backend/htmlunit/control/HtmlUnitBaseControlTest.java -text
 test/java/org/wetator/backend/htmlunit/control/HtmlUnitButtonTest.java -text
 test/java/org/wetator/backend/htmlunit/control/HtmlUnitInputResetTest.java -text

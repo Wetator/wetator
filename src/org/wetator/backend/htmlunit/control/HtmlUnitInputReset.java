@@ -53,13 +53,6 @@ public class HtmlUnitInputReset extends HtmlUnitFocusableControl<HtmlResetInput>
 
   @Override
   public boolean isDisabled(final WetatorContext aWetatorContext) {
-    final HtmlResetInput tmpHtmlResetInput = getHtmlElement();
-
-    return tmpHtmlResetInput.isDisabled();
-  }
-
-  @Override
-  public boolean canReceiveFocus(final WetatorContext aWetatorContext) {
-    return !isDisabled(aWetatorContext);
+    return getHtmlElement().isDisabled();
   }
 }

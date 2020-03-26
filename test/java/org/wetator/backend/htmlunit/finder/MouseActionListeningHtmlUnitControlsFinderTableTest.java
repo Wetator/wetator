@@ -23,9 +23,9 @@ import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.tab
 import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.tableStart;
 
 import org.junit.Test;
-import org.wetator.backend.MouseAction;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
+import org.wetator.backend.htmlunit.MouseAction;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.ExpectedControl;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.SortedEntryExpectation;
 

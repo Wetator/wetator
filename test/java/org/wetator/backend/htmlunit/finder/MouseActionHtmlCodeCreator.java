@@ -92,8 +92,7 @@ public abstract class MouseActionHtmlCodeCreator {
   }
 
   public static String image(final String anImageId, final String anAltText) {
-    return "<image id='" + anImageId + "' src='pathtoimg' "
-        + /* FIXME onMouseAction + (Image is currently IClickable) */ " alt='" + anAltText + "' />";
+    return "<image id='" + anImageId + "' src='pathtoimg' " + onMouseAction + " alt='" + anAltText + "' />";
   }
 
   public static String label(final String aFor, final String aContent) {

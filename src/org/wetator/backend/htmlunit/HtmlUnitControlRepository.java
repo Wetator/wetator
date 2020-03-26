@@ -24,6 +24,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.commons.lang3.StringUtils;
+import org.wetator.backend.Action;
 import org.wetator.backend.control.IClickable;
 import org.wetator.backend.control.IControl;
 import org.wetator.backend.control.IDeselectable;
@@ -48,13 +49,18 @@ public class HtmlUnitControlRepository {
   private Map<String, Class<HtmlUnitBaseControl<?>>> forElementMap = new HashMap<>();
   private Map<String, Map<String, Class<HtmlUnitBaseControl<?>>>> forElementAndAttributeMap = new HashMap<>();
 
-  private List<Class<? extends AbstractHtmlUnitControlIdentifier>> settableIdentifiers = new LinkedList<>();
-  private List<Class<? extends AbstractHtmlUnitControlIdentifier>> clickableIdentifiers = new LinkedList<>();
-  private List<Class<? extends AbstractHtmlUnitControlIdentifier>> selectableIdentifiers = new LinkedList<>();
-  private List<Class<? extends AbstractHtmlUnitControlIdentifier>> deselectableIdentifiers = new LinkedList<>();
-  private List<Class<? extends AbstractHtmlUnitControlIdentifier>> disableableIdentifiers = new LinkedList<>();
-  private List<Class<? extends AbstractHtmlUnitControlIdentifier>> focusableIdentifiers = new LinkedList<>();
+  private Map<Action, List<Class<? extends AbstractHtmlUnitControlIdentifier>>> identifiers = new HashMap<>();
+
   private List<Class<? extends AbstractHtmlUnitControlIdentifier>> otherIdentifiers = new LinkedList<>();
+
+  /**
+   * Initializes the repository.
+   */
+  public HtmlUnitControlRepository() {
+    for (Action tmpAction : Action.values()) {
+      identifiers.put(tmpAction, new LinkedList<>());
+    }
+  }
 
   /**
    * @param aControlClassList the classes of the controls to add
@@ -103,29 +109,31 @@ public class HtmlUnitControlRepository {
             .asList(tmpIdentifiers.value());
 
         boolean tmpFound = false;
-        if (ISettable.class.isAssignableFrom(aControlClass)) {
-          tmpFound = true;
-          settableIdentifiers.addAll(tmpIdentifierClasses);
-        }
         if (IClickable.class.isAssignableFrom(aControlClass)) {
           tmpFound = true;
-          clickableIdentifiers.addAll(tmpIdentifierClasses);
+          identifiers.get(Action.CLICK).addAll(tmpIdentifierClasses);
+          identifiers.get(Action.CLICK_DOUBLE).addAll(tmpIdentifierClasses);
+          identifiers.get(Action.CLICK_RIGHT).addAll(tmpIdentifierClasses);
+        }
+        if (ISettable.class.isAssignableFrom(aControlClass)) {
+          tmpFound = true;
+          identifiers.get(Action.SET).addAll(tmpIdentifierClasses);
         }
         if (ISelectable.class.isAssignableFrom(aControlClass)) {
           tmpFound = true;
-          selectableIdentifiers.addAll(tmpIdentifierClasses);
+          identifiers.get(Action.SELECT).addAll(tmpIdentifierClasses);
         }
         if (IDeselectable.class.isAssignableFrom(aControlClass)) {
           tmpFound = true;
-          deselectableIdentifiers.addAll(tmpIdentifierClasses);
+          identifiers.get(Action.DESELECT).addAll(tmpIdentifierClasses);
         }
         if (IDisableable.class.isAssignableFrom(aControlClass)) {
           tmpFound = true;
-          disableableIdentifiers.addAll(tmpIdentifierClasses);
+          identifiers.get(Action.DISABLE).addAll(tmpIdentifierClasses);
         }
         if (IFocusable.class.isAssignableFrom(aControlClass)) {
           tmpFound = true;
-          focusableIdentifiers.addAll(tmpIdentifierClasses);
+          identifiers.get(Action.FOCUS).addAll(tmpIdentifierClasses);
         }
         if (!tmpFound) {
           otherIdentifiers.addAll(tmpIdentifierClasses);
@@ -156,45 +164,11 @@ public class HtmlUnitControlRepository {
   }
 
   /**
-   * @return the settableIdentifiers
+   * @param anAction the {@link Action} to get the identifiers for
+   * @return a list containing the identifiers or an empty list
    */
-  public List<Class<? extends AbstractHtmlUnitControlIdentifier>> getSettableIdentifiers() {
-    return settableIdentifiers;
-  }
-
-  /**
-   * @return the clickableIdentifiers
-   */
-  public List<Class<? extends AbstractHtmlUnitControlIdentifier>> getClickableIdentifiers() {
-    return clickableIdentifiers;
-  }
-
-  /**
-   * @return the selectableIdentifiers
-   */
-  public List<Class<? extends AbstractHtmlUnitControlIdentifier>> getSelectableIdentifiers() {
-    return selectableIdentifiers;
-  }
-
-  /**
-   * @return the deselectableIdentifiers
-   */
-  public List<Class<? extends AbstractHtmlUnitControlIdentifier>> getDeselectableIdentifiers() {
-    return deselectableIdentifiers;
-  }
-
-  /**
-   * @return the disableableIdentifiers
-   */
-  public List<Class<? extends AbstractHtmlUnitControlIdentifier>> getDisableableIdentifiers() {
-    return disableableIdentifiers;
-  }
-
-  /**
-   * @return the focusableIdentifiers
-   */
-  public List<Class<? extends AbstractHtmlUnitControlIdentifier>> getFocusableIdentifiers() {
-    return focusableIdentifiers;
+  public List<Class<? extends AbstractHtmlUnitControlIdentifier>> getIdentifiers(final Action anAction) {
+    return identifiers.get(anAction);
   }
 
   /**

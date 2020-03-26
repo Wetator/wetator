@@ -16,12 +16,13 @@
 
 package org.wetator.backend.control;
 
+import org.wetator.backend.Action;
 import org.wetator.core.WetatorContext;
 
 /**
- * This interface marks all disableable (and enableable) {@link IControl}s. These controls are returned by
- * {@link org.wetator.backend.IControlFinder#getAllDisableables(org.wetator.backend.WPath)}.
+ * This interface marks all disableable (and enableable) {@link IControl}s.
  *
+ * @see Action#DISABLE
  * @author frank.danek
  */
 public interface IDisableable extends IControl {

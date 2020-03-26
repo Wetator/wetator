@@ -16,13 +16,14 @@
 
 package org.wetator.backend.control;
 
+import org.wetator.backend.Action;
 import org.wetator.core.WetatorContext;
 import org.wetator.exception.ActionException;
 
 /**
- * This interface marks all selectable {@link IControl}s. These controls are returned by
- * {@link org.wetator.backend.IControlFinder#getAllSelectables(org.wetator.backend.WPath)}.
+ * This interface marks all selectable {@link IControl}s.
  *
+ * @see Action#SELECT
  * @author frank.danek
  */
 public interface ISelectable extends IControl {

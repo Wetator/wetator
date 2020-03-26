@@ -28,10 +28,10 @@ import java.util.Properties;
 
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.wetator.backend.MouseAction;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.htmlunit.HtmlUnitControlRepository;
+import org.wetator.backend.htmlunit.MouseAction;
 import org.wetator.backend.htmlunit.control.HtmlUnitAnchor;
 import org.wetator.backend.htmlunit.control.HtmlUnitButton;
 import org.wetator.backend.htmlunit.control.HtmlUnitImage;

@@ -51,13 +51,6 @@ public class HtmlUnitSelect extends HtmlUnitFocusableControl<HtmlSelect> impleme
 
   @Override
   public boolean isDisabled(final WetatorContext aWetatorContext) {
-    final HtmlSelect tmpHtmlSelect = getHtmlElement();
-
-    return tmpHtmlSelect.isDisabled();
-  }
-
-  @Override
-  public boolean canReceiveFocus(final WetatorContext aWetatorContext) {
-    return !isDisabled(aWetatorContext);
+    return getHtmlElement().isDisabled();
   }
 }

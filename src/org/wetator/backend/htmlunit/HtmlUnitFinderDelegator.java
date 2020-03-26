@@ -16,16 +16,20 @@
 
 package org.wetator.backend.htmlunit;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import org.wetator.backend.Action;
 import org.wetator.backend.IControlFinder;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.htmlunit.finder.AbstractHtmlUnitControlsFinder;
 import org.wetator.backend.htmlunit.finder.IdentifierBasedHtmlUnitControlsFinder;
+import org.wetator.backend.htmlunit.finder.MouseActionListeningHtmlUnitControlsFinder;
 import org.wetator.backend.htmlunit.finder.SettableHtmlUnitControlsFinder;
 import org.wetator.backend.htmlunit.finder.UnknownHtmlUnitControlsFinder;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
@@ -47,12 +51,8 @@ public class HtmlUnitFinderDelegator implements IControlFinder {
 
   private static ThreadPoolExecutor threadPool;
 
-  private IdentifierBasedHtmlUnitControlsFinder settablesFinder;
-  private IdentifierBasedHtmlUnitControlsFinder clickablesFinder;
-  private IdentifierBasedHtmlUnitControlsFinder selectablesFinder;
-  private IdentifierBasedHtmlUnitControlsFinder deselectablesFinder;
-  private IdentifierBasedHtmlUnitControlsFinder disableablesFinder;
-  private IdentifierBasedHtmlUnitControlsFinder focusablesFinder;
+  private Map<Action, AbstractHtmlUnitControlsFinder> finders = new HashMap<>();
+
   private IdentifierBasedHtmlUnitControlsFinder othersFinder;
   private AbstractHtmlUnitControlsFinder forTextFinder;
 
@@ -123,54 +123,35 @@ public class HtmlUnitFinderDelegator implements IControlFinder {
 
     final ThreadPoolExecutor tmpThreadPool = getThreadPool();
 
-    settablesFinder = new SettableHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool);
-    clickablesFinder = new IdentifierBasedHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool);
-    selectablesFinder = new IdentifierBasedHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool);
-    deselectablesFinder = new IdentifierBasedHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool);
-    disableablesFinder = new IdentifierBasedHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool);
-    focusablesFinder = new IdentifierBasedHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool);
+    finders.put(Action.CLICK, new MouseActionListeningHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool,
+        MouseAction.CLICK, aControlRepository));
+    finders.put(Action.CLICK_DOUBLE, new MouseActionListeningHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool,
+        MouseAction.CLICK_DOUBLE, aControlRepository));
+    finders.put(Action.CLICK_RIGHT, new MouseActionListeningHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool,
+        MouseAction.CLICK_RIGHT, aControlRepository));
+    finders.put(Action.MOUSE_OVER, new MouseActionListeningHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool,
+        MouseAction.MOUSE_OVER, aControlRepository));
+    finders.put(Action.SET, new SettableHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool));
+    finders.put(Action.SELECT, new IdentifierBasedHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool));
+    finders.put(Action.DESELECT, new IdentifierBasedHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool));
+    finders.put(Action.DISABLE, new IdentifierBasedHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool));
+    finders.put(Action.FOCUS, new IdentifierBasedHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool));
+
     othersFinder = new IdentifierBasedHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool);
     forTextFinder = new UnknownHtmlUnitControlsFinder(htmlPageIndex, aControlRepository);
 
     if (aControlRepository != null) {
-      settablesFinder.addIdentifiers(aControlRepository.getSettableIdentifiers());
-      clickablesFinder.addIdentifiers(aControlRepository.getClickableIdentifiers());
-      selectablesFinder.addIdentifiers(aControlRepository.getSelectableIdentifiers());
-      deselectablesFinder.addIdentifiers(aControlRepository.getDeselectableIdentifiers());
-      disableablesFinder.addIdentifiers(aControlRepository.getDisableableIdentifiers());
-      focusablesFinder.addIdentifiers(aControlRepository.getFocusableIdentifiers());
+      finders.entrySet().stream().filter(e -> e.getValue() instanceof IdentifierBasedHtmlUnitControlsFinder)
+          .forEach(e -> ((IdentifierBasedHtmlUnitControlsFinder) e.getValue())
+              .addIdentifiers(aControlRepository.getIdentifiers(e.getKey())));
+
       othersFinder.addIdentifiers(aControlRepository.getOtherIdentifiers());
     }
   }
 
   @Override
-  public WeightedControlList getAllSettables(final WPath aWPath) {
-    return settablesFinder.find(aWPath);
-  }
-
-  @Override
-  public WeightedControlList getAllClickables(final WPath aWPath) {
-    return clickablesFinder.find(aWPath);
-  }
-
-  @Override
-  public WeightedControlList getAllSelectables(final WPath aWPath) {
-    return selectablesFinder.find(aWPath);
-  }
-
-  @Override
-  public WeightedControlList getAllDeselectables(final WPath aWPath) {
-    return deselectablesFinder.find(aWPath);
-  }
-
-  @Override
-  public WeightedControlList getAllDisableables(final WPath aWPath) {
-    return disableablesFinder.find(aWPath);
-  }
-
-  @Override
-  public WeightedControlList getAllFocusables(final WPath aWPath) {
-    return focusablesFinder.find(aWPath);
+  public WeightedControlList findControls(final Action anAction, final WPath aWPath) {
+    return finders.get(anAction).find(aWPath);
   }
 
   @Override

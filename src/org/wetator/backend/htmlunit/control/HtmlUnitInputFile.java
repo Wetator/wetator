@@ -181,13 +181,6 @@ public class HtmlUnitInputFile extends HtmlUnitFocusableControl<HtmlFileInput> i
 
   @Override
   public boolean isDisabled(final WetatorContext aWetatorContext) {
-    final HtmlFileInput tmpHtmlFileInput = getHtmlElement();
-
-    return tmpHtmlFileInput.isDisabled();
-  }
-
-  @Override
-  public boolean canReceiveFocus(final WetatorContext aWetatorContext) {
-    return !isDisabled(aWetatorContext);
+    return getHtmlElement().isDisabled();
   }
 }

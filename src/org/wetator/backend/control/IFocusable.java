@@ -16,21 +16,16 @@
 
 package org.wetator.backend.control;
 
+import org.wetator.backend.Action;
 import org.wetator.core.WetatorContext;
 
 /**
- * This interface marks all focusable {@link IControl}s. These controls are returned by
- * {@link org.wetator.backend.IControlFinder#getAllFocusables(org.wetator.backend.WPath)}.
+ * This interface marks all focusable {@link IControl}s.
  *
+ * @see Action#FOCUS
  * @author frank.danek
  */
 public interface IFocusable extends IControl {
-
-  /**
-   * @param aContext the current {@link WetatorContext}
-   * @return <code>true</code> if the control can receive the focus
-   */
-  boolean canReceiveFocus(WetatorContext aContext);
 
   /**
    * @param aContext the current {@link WetatorContext}

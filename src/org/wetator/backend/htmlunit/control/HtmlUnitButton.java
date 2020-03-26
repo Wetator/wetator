@@ -52,13 +52,6 @@ public class HtmlUnitButton extends HtmlUnitFocusableControl<HtmlButton> impleme
 
   @Override
   public boolean isDisabled(final WetatorContext aWetatorContext) {
-    final HtmlButton tmpHtmlButton = getHtmlElement();
-
-    return tmpHtmlButton.isDisabled();
-  }
-
-  @Override
-  public boolean canReceiveFocus(final WetatorContext aWetatorContext) {
-    return !isDisabled(aWetatorContext);
+    return getHtmlElement().isDisabled();
   }
 }

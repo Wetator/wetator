@@ -25,11 +25,11 @@ import java.util.Properties;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.wetator.backend.MouseAction;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.WeightedControlList.Entry;
 import org.wetator.backend.htmlunit.HtmlUnitControlRepository;
+import org.wetator.backend.htmlunit.MouseAction;
 import org.wetator.backend.htmlunit.control.HtmlUnitAnchor;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputText;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitAnchorIdentifier;

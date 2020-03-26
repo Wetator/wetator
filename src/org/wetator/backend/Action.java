@@ -14,26 +14,31 @@
  */
 
 
-package org.wetator.backend.control;
-
-import org.wetator.backend.Action;
-import org.wetator.core.WetatorContext;
-import org.wetator.exception.ActionException;
+package org.wetator.backend;
 
 /**
- * This interface marks all deselectable {@link IControl}s. All deselectable control
- * are also selectable.
- * 
- * @see Action#DESELECT
+ * Contains all supported actions.
+ *
  * @author frank.danek
  */
-public interface IDeselectable extends ISelectable {
+public enum Action {
 
-  /**
-   * Deselects the control.
-   *
-   * @param aContext the current {@link WetatorContext}
-   * @throws ActionException if an error occurred during the deselect
-   */
-  void deselect(WetatorContext aContext) throws ActionException;
+  /** Single left click on a control. */
+  CLICK,
+  /** Double left click on a control. */
+  CLICK_DOUBLE,
+  /** Single right click on a control. */
+  CLICK_RIGHT,
+  /** Move the mouse over a control. */
+  MOUSE_OVER,
+  /** Set the value of a control. */
+  SET,
+  /** Select a control. */
+  SELECT,
+  /** Deselect a control. */
+  DESELECT,
+  /** Disable a control. */
+  DISABLE,
+  /** Focus a control. */
+  FOCUS,
 }

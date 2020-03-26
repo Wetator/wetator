@@ -595,26 +595,6 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void label_byTextAndTitle() throws IOException, InvalidInputException {
-    // @formatter:off
-    final String tmpHtmlCode = "<html><body>"
-        + "<input type='checkbox' name='checkbox' id='myCheckbox' title='Checker'>"
-        + "<label for='myCheckbox'>Checker</label>"
-        + "</body></html>";
-    // @formatter:on
-
-    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "Checker");
-
-    assertEquals(2, tmpEntriesSorted.size());
-    assertEquals(
-        "[HtmlLabel 'Checker' (for='myCheckbox')] found by: BY_TEXT deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>5 index: 5",
-        tmpEntriesSorted.get(0).toString());
-    assertEquals(
-        "[HtmlCheckBoxInput (id='myCheckbox') (name='checkbox')] found by: BY_TITLE_TEXT deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
-        tmpEntriesSorted.get(1).toString());
-  }
-
-  @Test
   public void manyParagraphs() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
@@ -689,16 +669,16 @@ public class UnknownHtmlUnitControlsFinderTest {
         + "    </table>"
         + "</body></html>";
     // @formatter:on
-  
+
     List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "[header_3; row_2]");
-  
+
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlSpan 'Text_2_3'] found by: BY_TEXT deviation: 8 distance: 65 start: 65 hierarchy: 0>1>3>5>22>38>47>48 index: 48",
         tmpEntriesSorted.get(0).toString());
-  
+
     tmpEntriesSorted = find(tmpHtmlCode, "[header_2; row_1]");
-  
+
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlSpan 'Text_1_2'] found by: BY_TEXT deviation: 8 distance: 32 start: 32 hierarchy: 0>1>3>5>22>24>29>30 index: 30",
@@ -732,16 +712,16 @@ public class UnknownHtmlUnitControlsFinderTest {
         + "    </table>"
         + "</body></html>";
     // @formatter:on
-  
+
     List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "[; row_2]");
-  
+
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlTableDataCell' (id='cell_2_1')] found by: BY_TEXT deviation: 5 distance: 50 start: 50 hierarchy: 0>1>3>5>22>39>41 index: 41",
         tmpEntriesSorted.get(0).toString());
-  
+
     tmpEntriesSorted = find(tmpHtmlCode, "[; row_1]");
-  
+
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlSpan 'row_1'] found by: BY_TEXT deviation: 5 distance: 26 start: 26 hierarchy: 0>1>3>5>22>24>26>27 index: 27",
@@ -775,16 +755,16 @@ public class UnknownHtmlUnitControlsFinderTest {
         + "    </table>"
         + "</body></html>";
     // @formatter:on
-  
+
     List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "[; row_2] > Text_2_2 >");
-  
+
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlSpan 'Text_2_3'] found by: BY_TEXT deviation: 8 distance: 0 start: 65 hierarchy: 0>1>3>5>22>39>48>49 index: 49",
         tmpEntriesSorted.get(0).toString());
-  
+
     tmpEntriesSorted = find(tmpHtmlCode, "[; row_1] > Text_1_3 >");
-  
+
     assertEquals(0, tmpEntriesSorted.size());
   }
 
@@ -815,16 +795,16 @@ public class UnknownHtmlUnitControlsFinderTest {
         + "    </table>"
         + "</body></html>";
     // @formatter:on
-  
+
     List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "[header_1;]");
-  
+
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlTableHeaderCell' (id='header_1')] found by: BY_TEXT deviation: 8 distance: 0 start: 0 hierarchy: 0>1>3>5>7>9>11 index: 11",
         tmpEntriesSorted.get(0).toString());
-  
+
     tmpEntriesSorted = find(tmpHtmlCode, "[header_3;]");
-  
+
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlTableHeaderCell' (id='header_3')] found by: BY_TEXT deviation: 8 distance: 17 start: 17 hierarchy: 0>1>3>5>7>9>17 index: 17",
@@ -858,16 +838,16 @@ public class UnknownHtmlUnitControlsFinderTest {
         + "    </table>"
         + "</body></html>";
     // @formatter:on
-  
+
     List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "[header_1;] > Text_1_2 >");
-  
+
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlSpan 'Text_2_1'] found by: BY_TEXT deviation: 8 distance: 9 start: 50 hierarchy: 0>1>3>5>22>39>41>42 index: 42",
         tmpEntriesSorted.get(0).toString());
-  
+
     tmpEntriesSorted = find(tmpHtmlCode, "[header_2;] > row_1 >");
-  
+
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlSpan 'Text_1_2'] found by: BY_TEXT deviation: 8 distance: 0 start: 32 hierarchy: 0>1>3>5>22>24>30>31 index: 31",

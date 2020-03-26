@@ -41,7 +41,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   public void eventClickOnFF68() throws InvalidInputException {
     executeTestFile("ff68/event_clickOn.wet");
 
-    Assert.assertEquals(63, getSteps());
+    Assert.assertEquals(70, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
@@ -51,7 +51,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   public void eventClickOnIE() throws InvalidInputException {
     executeTestFile("ie11/event_clickOn.wet");
 
-    Assert.assertEquals(63, getSteps());
+    Assert.assertEquals(70, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }

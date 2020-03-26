@@ -16,12 +16,16 @@
 
 package org.wetator.backend.control;
 
+import org.wetator.backend.Action;
+
 /**
- * This interface marks all clickable {@link IControl}s. These controls are returned by
- * {@link org.wetator.backend.IControlFinder#getAllClickables(org.wetator.backend.WPath)}.<br>
+ * This interface marks all clickable {@link IControl}s.<br>
  * As all controls implement {@link #click(org.wetator.core.WetatorContext)} no additional action needs to be
  * implemented.
  *
+ * @see Action#CLICK
+ * @see Action#CLICK_DOUBLE
+ * @see Action#CLICK_RIGHT
  * @author frank.danek
  */
 public interface IClickable extends IControl {
