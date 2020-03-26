@@ -22,7 +22,7 @@ import org.wetator.backend.control.IClickable;
  * Builder for HTML code of clickable elements.<br>
  * <br>
  * Adds <code>onclick</code>-event listeners for non-{@link IClickable}s
- * per default. Use {@link #noListen()} to avoid that.
+ * per default. Use {@link #noListen()} to avoid.
  *
  * @author tobwoerk
  */
@@ -148,7 +148,6 @@ public class MouseActionHtmlCodeBuilder {
   }
 
   public String build() {
-
     switch (elementType) {
       case ANCHOR:
         return MouseActionHtmlCodeCreator.a(id, content);
