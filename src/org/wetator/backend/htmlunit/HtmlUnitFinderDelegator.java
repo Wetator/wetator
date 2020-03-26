@@ -53,7 +53,6 @@ public class HtmlUnitFinderDelegator implements IControlFinder {
 
   private Map<Action, AbstractHtmlUnitControlsFinder> finders = new HashMap<>();
 
-  private IdentifierBasedHtmlUnitControlsFinder othersFinder;
   private AbstractHtmlUnitControlsFinder forTextFinder;
 
   /**
@@ -137,26 +136,18 @@ public class HtmlUnitFinderDelegator implements IControlFinder {
     finders.put(Action.DISABLE, new IdentifierBasedHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool));
     finders.put(Action.FOCUS, new IdentifierBasedHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool));
 
-    othersFinder = new IdentifierBasedHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool);
     forTextFinder = new UnknownHtmlUnitControlsFinder(htmlPageIndex, aControlRepository);
 
     if (aControlRepository != null) {
       finders.entrySet().stream().filter(e -> e.getValue() instanceof IdentifierBasedHtmlUnitControlsFinder)
           .forEach(e -> ((IdentifierBasedHtmlUnitControlsFinder) e.getValue())
               .addIdentifiers(aControlRepository.getIdentifiers(e.getKey())));
-
-      othersFinder.addIdentifiers(aControlRepository.getOtherIdentifiers());
     }
   }
 
   @Override
   public WeightedControlList findControls(final Action anAction, final WPath aWPath) {
     return finders.get(anAction).find(aWPath);
-  }
-
-  @Override
-  public WeightedControlList getAllOtherControls(final WPath aWPath) {
-    return othersFinder.find(aWPath);
   }
 
   @Override

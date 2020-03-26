@@ -24,7 +24,6 @@ import org.wetator.backend.control.IDisableable;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitOptionIdentifier;
-import org.wetator.backend.htmlunit.control.identifier.HtmlUnitOptionInSelectIdentifier;
 import org.wetator.backend.htmlunit.util.ExceptionUtil;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
 import org.wetator.core.WetatorContext;
@@ -48,7 +47,7 @@ import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
  * @author frank.danek
  */
 @ForHtmlElement(HtmlOption.class)
-@IdentifiedBy({ HtmlUnitOptionInSelectIdentifier.class, HtmlUnitOptionIdentifier.class })
+@IdentifiedBy({ HtmlUnitOptionIdentifier.class })
 public class HtmlUnitOption extends HtmlUnitFocusableControl<HtmlOption> implements IDeselectable, IDisableable {
 
   private static final Logger LOG = LogManager.getLogger(HtmlUnitOption.class);

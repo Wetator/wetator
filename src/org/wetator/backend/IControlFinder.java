@@ -47,15 +47,6 @@ public interface IControlFinder {
   WeightedControlList findControls(Action anAction, WPath aWPath);
 
   /**
-   * Return a list of all other controls (not clickable, deselectable, selectable or settable) for the given
-   * {@link WPath}.
-   *
-   * @param aWPath the {@link WPath} describing the controls
-   * @return a {@link WeightedControlList}
-   */
-  WeightedControlList getAllOtherControls(WPath aWPath);
-
-  /**
    * Return a list of all controls for the given {@link WPath}.
    *
    * @param aWPath the {@link WPath} describing the controls

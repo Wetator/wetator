@@ -21,6 +21,7 @@ package org.wetator.backend;
  *
  * @author frank.danek
  */
+// FIXME find a better name
 public enum Action {
 
   /** Single left click on a control. */

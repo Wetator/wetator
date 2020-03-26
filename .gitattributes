@@ -165,7 +165,6 @@ src/org/wetator/backend/htmlunit/control/identifier/HtmlUnitInputSubmitIdentifie
 src/org/wetator/backend/htmlunit/control/identifier/HtmlUnitInputTextIdentifier.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/control/identifier/HtmlUnitOptionGroupIdentifier.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/control/identifier/HtmlUnitOptionIdentifier.java -text svneol=unset#text/plain
-src/org/wetator/backend/htmlunit/control/identifier/HtmlUnitOptionInSelectIdentifier.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/control/identifier/HtmlUnitSelectIdentifier.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/control/identifier/HtmlUnitTextAreaIdentifier.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/finder/AbstractHtmlUnitControlsFinder.java -text svneol=unset#text/plain
@@ -308,12 +307,10 @@ test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitInputSubmitIde
 test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitInputTextIdentifierTest.java -text svneol=unset#text/plain
 test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitOptionGroupIdentifierTest.java -text svneol=unset#text/plain
 test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitOptionIdentifierTest.java -text svneol=unset#text/plain
-test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitOptionInSelectIdentifierTest.java -text svneol=unset#text/plain
 test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitSelectIdentifierTest.java -text svneol=unset#text/plain
 test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitTextAreaIdentifierTest.java -text svneol=unset#text/plain
 test/java/org/wetator/backend/htmlunit/finder/AbstractMouseActionListeningHtmlUnitControlsFinderTest.java -text
 test/java/org/wetator/backend/htmlunit/finder/AbstractMouseClickListeningHtmlUnitControlsFinderParameterizedTest.java -text
-test/java/org/wetator/backend/htmlunit/finder/HtmlUnitClickListeningControlIdentifierTest.java -text svneol=unset#text/plain
 test/java/org/wetator/backend/htmlunit/finder/HtmlUnitUnspecificControlIdentifierTest.java -text
 test/java/org/wetator/backend/htmlunit/finder/IdentifierBasedHtmlUnitControlsFinderTest.java -text svneol=unset#text/plain
 test/java/org/wetator/backend/htmlunit/finder/MouseActionHtmlCodeBuilder.java -text

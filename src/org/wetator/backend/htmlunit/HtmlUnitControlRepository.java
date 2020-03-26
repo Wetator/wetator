@@ -51,8 +51,6 @@ public class HtmlUnitControlRepository {
 
   private Map<Action, List<Class<? extends AbstractHtmlUnitControlIdentifier>>> identifiers = new HashMap<>();
 
-  private List<Class<? extends AbstractHtmlUnitControlIdentifier>> otherIdentifiers = new LinkedList<>();
-
   /**
    * Initializes the repository.
    */
@@ -108,35 +106,25 @@ public class HtmlUnitControlRepository {
         final List<Class<? extends AbstractHtmlUnitControlIdentifier>> tmpIdentifierClasses = Arrays
             .asList(tmpIdentifiers.value());
 
-        boolean tmpFound = false;
         if (IClickable.class.isAssignableFrom(aControlClass)) {
-          tmpFound = true;
           identifiers.get(Action.CLICK).addAll(tmpIdentifierClasses);
           identifiers.get(Action.CLICK_DOUBLE).addAll(tmpIdentifierClasses);
           identifiers.get(Action.CLICK_RIGHT).addAll(tmpIdentifierClasses);
         }
         if (ISettable.class.isAssignableFrom(aControlClass)) {
-          tmpFound = true;
           identifiers.get(Action.SET).addAll(tmpIdentifierClasses);
         }
         if (ISelectable.class.isAssignableFrom(aControlClass)) {
-          tmpFound = true;
           identifiers.get(Action.SELECT).addAll(tmpIdentifierClasses);
         }
         if (IDeselectable.class.isAssignableFrom(aControlClass)) {
-          tmpFound = true;
           identifiers.get(Action.DESELECT).addAll(tmpIdentifierClasses);
         }
         if (IDisableable.class.isAssignableFrom(aControlClass)) {
-          tmpFound = true;
           identifiers.get(Action.DISABLE).addAll(tmpIdentifierClasses);
         }
         if (IFocusable.class.isAssignableFrom(aControlClass)) {
-          tmpFound = true;
           identifiers.get(Action.FOCUS).addAll(tmpIdentifierClasses);
-        }
-        if (!tmpFound) {
-          otherIdentifiers.addAll(tmpIdentifierClasses);
         }
       }
     }
@@ -169,12 +157,5 @@ public class HtmlUnitControlRepository {
    */
   public List<Class<? extends AbstractHtmlUnitControlIdentifier>> getIdentifiers(final Action anAction) {
     return identifiers.get(anAction);
-  }
-
-  /**
-   * @return the otherIdentifiers
-   */
-  public List<Class<? extends AbstractHtmlUnitControlIdentifier>> getOtherIdentifiers() {
-    return otherIdentifiers;
   }
 }

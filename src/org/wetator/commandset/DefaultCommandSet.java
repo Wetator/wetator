@@ -308,8 +308,6 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       final WeightedControlList tmpFoundElements = tmpControlFinder.findControls(Action.CLICK_DOUBLE, tmpWPath);
 
-      // FIXME what is this for?
-      tmpFoundElements.addAll(tmpControlFinder.getAllOtherControls(tmpWPath));
       // FIXME remove when supported by MouseActionListeningHtmlUnitControlsFinder
       tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
 
@@ -339,8 +337,6 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       final WeightedControlList tmpFoundElements = tmpControlFinder.findControls(Action.CLICK_DOUBLE, tmpWPath);
 
-      // FIXME what is this for?
-      // tmpFoundElements.addAll(tmpControlFinder.getAllOtherControls(tmpWPath));
       // FIXME remove when supported by MouseActionListeningHtmlUnitControlsFinder
       tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
 
@@ -422,10 +418,6 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       final WeightedControlList tmpFoundElements = tmpControlFinder.findControls(Action.MOUSE_OVER, tmpWPath);
 
-      // FIXME what is this for?
-      // search for special elements
-      // e.g. selects by label, name, id
-      tmpFoundElements.addAll(tmpControlFinder.getAllOtherControls(tmpWPath));
       // FIXME remove when supported by MouseActionListeningHtmlUnitControlsFinder
       tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
 
