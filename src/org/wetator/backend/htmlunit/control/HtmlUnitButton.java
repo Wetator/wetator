@@ -17,12 +17,10 @@
 package org.wetator.backend.htmlunit.control;
 
 import org.wetator.backend.control.IClickable;
-import org.wetator.backend.control.IDisableable;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitButtonIdentifier;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
-import org.wetator.core.WetatorContext;
 
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
 
@@ -34,7 +32,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlButton;
  */
 @ForHtmlElement(HtmlButton.class)
 @IdentifiedBy(HtmlUnitButtonIdentifier.class)
-public class HtmlUnitButton extends HtmlUnitFocusableControl<HtmlButton> implements IClickable, IDisableable {
+public class HtmlUnitButton extends HtmlUnitBaseControl<HtmlButton>
+    implements IClickable, IHtmlUnitDisableable<HtmlButton>, IHtmlUnitFocusable<HtmlButton> {
 
   /**
    * The constructor.
@@ -50,8 +49,8 @@ public class HtmlUnitButton extends HtmlUnitFocusableControl<HtmlButton> impleme
     return HtmlElementUtil.getDescribingTextForHtmlButton(getHtmlElement());
   }
 
-  @Override
-  public boolean isDisabled(final WetatorContext aWetatorContext) {
-    return getHtmlElement().isDisabled();
-  }
+  // @Override
+  // public boolean isDisabled(final WetatorContext aWetatorContext) {
+  // return getHtmlElement().isDisabled();
+  // }
 }

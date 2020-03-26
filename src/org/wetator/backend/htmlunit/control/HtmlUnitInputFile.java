@@ -21,7 +21,6 @@ import java.io.File;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.wetator.backend.control.IControl;
-import org.wetator.backend.control.IDisableable;
 import org.wetator.backend.control.ISettable;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
@@ -52,7 +51,8 @@ import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
  */
 @ForHtmlElement(HtmlFileInput.class)
 @IdentifiedBy(HtmlUnitInputFileIdentifier.class)
-public class HtmlUnitInputFile extends HtmlUnitFocusableControl<HtmlFileInput> implements ISettable, IDisableable {
+public class HtmlUnitInputFile extends HtmlUnitBaseControl<HtmlFileInput>
+    implements ISettable, IHtmlUnitDisableable<HtmlFileInput>, IHtmlUnitFocusable<HtmlFileInput> {
 
   /**
    * The constructor.
@@ -177,10 +177,5 @@ public class HtmlUnitInputFile extends HtmlUnitFocusableControl<HtmlFileInput> i
   public void assertValue(final WetatorContext aWetatorContext, final SecretString anExpectedValue)
       throws AssertionException {
     Assert.assertEquals(anExpectedValue, getHtmlElement().getValueAttribute(), "expectedValueNotFound");
-  }
-
-  @Override
-  public boolean isDisabled(final WetatorContext aWetatorContext) {
-    return getHtmlElement().isDisabled();
   }
 }

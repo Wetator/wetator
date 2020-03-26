@@ -18,7 +18,6 @@ package org.wetator.backend.htmlunit.control;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.wetator.backend.control.IDisableable;
 import org.wetator.backend.control.ISelectable;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
@@ -45,8 +44,8 @@ import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
  */
 @ForHtmlElement(HtmlRadioButtonInput.class)
 @IdentifiedBy(HtmlUnitInputRadioButtonIdentifier.class)
-public class HtmlUnitInputRadioButton extends HtmlUnitFocusableControl<HtmlRadioButtonInput>
-    implements ISelectable, IDisableable {
+public class HtmlUnitInputRadioButton extends HtmlUnitBaseControl<HtmlRadioButtonInput>
+    implements ISelectable, IHtmlUnitDisableable<HtmlRadioButtonInput>, IHtmlUnitFocusable<HtmlRadioButtonInput> {
 
   private static final Logger LOG = LogManager.getLogger(HtmlUnitInputRadioButton.class);
 
@@ -122,14 +121,7 @@ public class HtmlUnitInputRadioButton extends HtmlUnitFocusableControl<HtmlRadio
 
   @Override
   public boolean isSelected(final WetatorContext aWetatorContext) {
-    final HtmlRadioButtonInput tmpHtmlRadioButtonInput = getHtmlElement();
-
-    return tmpHtmlRadioButtonInput.isChecked();
-  }
-
-  @Override
-  public boolean isDisabled(final WetatorContext aWetatorContext) {
-    return getHtmlElement().isDisabled();
+    return getHtmlElement().isChecked();
   }
 
   /**

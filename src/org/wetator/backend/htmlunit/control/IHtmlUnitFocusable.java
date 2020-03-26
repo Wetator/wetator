@@ -16,7 +16,6 @@
 
 package org.wetator.backend.htmlunit.control;
 
-import org.wetator.backend.control.IControl;
 import org.wetator.backend.control.IFocusable;
 import org.wetator.core.WetatorContext;
 
@@ -24,28 +23,16 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
- * This is the base implementation of a {@link IFocusable} {@link IControl} using HtmlUnit as backend.
+ * This interface marks a {@link IFocusable} {@link IHtmlUnitControl}.<br>
+ * It provides a default implementation of {@link #hasFocus(WetatorContext)}.
  *
- * @param <T> the type of the {@link HtmlElement}.
+ * @param <T> the type of the {@link HtmlElement}
  * @author frank.danek
  */
-// FIXME convert to interface with default method?
-// getHtmlElement() must become public then
-// FIXME create interface for disableable, too?
-public abstract class HtmlUnitFocusableControl<T extends HtmlElement> extends HtmlUnitBaseControl<T>
-    implements IFocusable {
-
-  /**
-   * The constructor.
-   *
-   * @param anHtmlElement the {@link HtmlElement} from the backend
-   */
-  protected HtmlUnitFocusableControl(final T anHtmlElement) {
-    super(anHtmlElement);
-  }
+public interface IHtmlUnitFocusable<T extends HtmlElement> extends IHtmlUnitControl<T>, IFocusable {
 
   @Override
-  public boolean hasFocus(final WetatorContext aContext) {
+  default boolean hasFocus(final WetatorContext aWetatorContext) {
     final HtmlElement tmpHtmlElement = getHtmlElement();
 
     final HtmlPage tmpHtmlPage = (HtmlPage) tmpHtmlElement.getPage();

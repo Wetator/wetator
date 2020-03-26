@@ -16,12 +16,10 @@
 
 package org.wetator.backend.htmlunit.control;
 
-import org.wetator.backend.control.IDisableable;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitSelectIdentifier;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
-import org.wetator.core.WetatorContext;
 
 import com.gargoylesoftware.htmlunit.html.HtmlSelect;
 
@@ -33,7 +31,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlSelect;
  */
 @ForHtmlElement(HtmlSelect.class)
 @IdentifiedBy(HtmlUnitSelectIdentifier.class)
-public class HtmlUnitSelect extends HtmlUnitFocusableControl<HtmlSelect> implements IDisableable {
+public class HtmlUnitSelect extends HtmlUnitBaseControl<HtmlSelect>
+    implements IHtmlUnitDisableable<HtmlSelect>, IHtmlUnitFocusable<HtmlSelect> {
 
   /**
    * The constructor.
@@ -47,10 +46,5 @@ public class HtmlUnitSelect extends HtmlUnitFocusableControl<HtmlSelect> impleme
   @Override
   public String getDescribingText() {
     return HtmlElementUtil.getDescribingTextForHtmlSelect(getHtmlElement());
-  }
-
-  @Override
-  public boolean isDisabled(final WetatorContext aWetatorContext) {
-    return getHtmlElement().isDisabled();
   }
 }

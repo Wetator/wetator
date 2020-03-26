@@ -20,7 +20,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.control.IDeselectable;
-import org.wetator.backend.control.IDisableable;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitOptionIdentifier;
@@ -48,7 +47,8 @@ import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
  */
 @ForHtmlElement(HtmlOption.class)
 @IdentifiedBy({ HtmlUnitOptionIdentifier.class })
-public class HtmlUnitOption extends HtmlUnitFocusableControl<HtmlOption> implements IDeselectable, IDisableable {
+public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption>
+    implements IDeselectable, IHtmlUnitDisableable<HtmlOption>, IHtmlUnitFocusable<HtmlOption> {
 
   private static final Logger LOG = LogManager.getLogger(HtmlUnitOption.class);
 
@@ -108,9 +108,7 @@ public class HtmlUnitOption extends HtmlUnitFocusableControl<HtmlOption> impleme
 
   @Override
   public boolean isSelected(final WetatorContext aWetatorContext) {
-    final HtmlOption tmpHtmlOption = getHtmlElement();
-
-    return tmpHtmlOption.isSelected();
+    return getHtmlElement().isSelected();
   }
 
   @Override

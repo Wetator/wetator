@@ -17,12 +17,10 @@
 package org.wetator.backend.htmlunit.control;
 
 import org.wetator.backend.control.IClickable;
-import org.wetator.backend.control.IDisableable;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputSubmitIdentifier;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
-import org.wetator.core.WetatorContext;
 
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 
@@ -35,7 +33,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
  */
 @ForHtmlElement(HtmlSubmitInput.class)
 @IdentifiedBy(HtmlUnitInputSubmitIdentifier.class)
-public class HtmlUnitInputSubmit extends HtmlUnitFocusableControl<HtmlSubmitInput> implements IClickable, IDisableable {
+public class HtmlUnitInputSubmit extends HtmlUnitBaseControl<HtmlSubmitInput>
+    implements IClickable, IHtmlUnitDisableable<HtmlSubmitInput>, IHtmlUnitFocusable<HtmlSubmitInput> {
 
   /**
    * The constructor.
@@ -49,10 +48,5 @@ public class HtmlUnitInputSubmit extends HtmlUnitFocusableControl<HtmlSubmitInpu
   @Override
   public String getDescribingText() {
     return HtmlElementUtil.getDescribingTextForHtmlSubmitInput(getHtmlElement());
-  }
-
-  @Override
-  public boolean isDisabled(final WetatorContext aWetatorContext) {
-    return getHtmlElement().isDisabled();
   }
 }

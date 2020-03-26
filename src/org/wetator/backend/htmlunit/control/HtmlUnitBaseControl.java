@@ -51,11 +51,11 @@ import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 /**
  * This is the base implementation of a {@link IControl} using HtmlUnit as backend.
  *
- * @param <T> the type of the {@link HtmlElement}.
+ * @param <T> the type of the {@link HtmlElement}
  * @author rbri
  * @author frank.danek
  */
-public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
+public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements IHtmlUnitControl<T> {
 
   private static final Logger LOG = LogManager.getLogger(HtmlUnitBaseControl.class);
 
@@ -80,10 +80,8 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
     return false;
   }
 
-  /**
-   * @return the backing {@link HtmlElement} from HtmlUnit
-   */
-  protected T getHtmlElement() {
+  @Override
+  public T getHtmlElement() {
     return htmlElement;
   }
 

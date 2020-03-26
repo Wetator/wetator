@@ -19,7 +19,6 @@ package org.wetator.backend.htmlunit.control;
 import java.io.File;
 
 import org.wetator.backend.control.IControl;
-import org.wetator.backend.control.IDisableable;
 import org.wetator.backend.control.ISettable;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
@@ -52,7 +51,8 @@ import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
  */
 @ForHtmlElement(HtmlTextInput.class)
 @IdentifiedBy(HtmlUnitInputTextIdentifier.class)
-public class HtmlUnitInputText extends HtmlUnitFocusableControl<HtmlTextInput> implements ISettable, IDisableable {
+public class HtmlUnitInputText extends HtmlUnitBaseControl<HtmlTextInput>
+    implements ISettable, IHtmlUnitDisableable<HtmlTextInput>, IHtmlUnitFocusable<HtmlTextInput> {
 
   /**
    * The constructor.

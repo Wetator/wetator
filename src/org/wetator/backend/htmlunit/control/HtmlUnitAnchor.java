@@ -32,7 +32,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
  */
 @ForHtmlElement(HtmlAnchor.class)
 @IdentifiedBy(HtmlUnitAnchorIdentifier.class)
-public class HtmlUnitAnchor extends HtmlUnitFocusableControl<HtmlAnchor> implements IClickable {
+public class HtmlUnitAnchor extends HtmlUnitBaseControl<HtmlAnchor>
+    implements IClickable, IHtmlUnitFocusable<HtmlAnchor> {
 
   /**
    * The constructor.
