@@ -16,11 +16,8 @@
 
 package org.wetator.backend.htmlunit.finder;
 
-import org.wetator.backend.control.IClickable;
-
 /**
- * Creator for HTML code of clickable elements. Adds <code>onclick</code>-event listeners for non-{@link IClickable}s
- * per default.
+ * Creator for HTML code of clickable elements.
  *
  * @author tobwoerk
  */
@@ -39,133 +36,97 @@ public abstract class MouseActionHtmlCodeCreator {
     return "</body></html>";
   }
 
-  public static String anchor(final String anAnchorId, final String aContent) {
-    return anchorStart(anAnchorId) + (aContent != null ? aContent : "") + anchorEnd();
-  }
-
-  public static String anchorStart(final String anAnchorId) {
-    return "<a id='" + anAnchorId + "' href='#'>";
-  }
-
-  public static String anchorEnd() {
-    return "</a>";
+  public static String a(final String anAnchorId, final String aContent) {
+    return "<a id='" + anAnchorId + "' href='#'>" + (aContent != null ? aContent : "") + "</a>";
   }
 
   public static String button(final String aButtonId, final String aContent) {
-    return buttonStart(aButtonId) + (aContent != null ? aContent : "") + buttonEnd();
+    return "<button id='" + aButtonId + "' type='button'>" + (aContent != null ? aContent : "") + "</button>";
   }
 
-  public static String buttonStart(final String aButtonId) {
-    return "<button id='" + aButtonId + "' type='button'>";
+  public static String checkbox(final String aCheckboxId, final boolean anIsListening) {
+    return input("checkbox", aCheckboxId, anIsListening);
   }
 
-  public static String buttonEnd() {
-    return "</button>";
-  }
-
-  public static String checkbox(final String aCheckboxId) {
-    return input("checkbox", aCheckboxId);
-  }
-
-  public static String div(final String aDivId) {
-    return divStart(aDivId) + divEnd();
-  }
-
-  public static String div(final String aDivId, final String aContent) {
-    return divStart(aDivId) + (aContent != null ? aContent : "") + divEnd();
-  }
-
-  public static String divStart(final String aDivId) {
-    return "<div id='" + aDivId + "' " + onMouseAction + '>';
+  public static String divStart(final String aDivId, final boolean anIsListening) {
+    return "<div id='" + aDivId + "'" + (anIsListening ? ' ' + onMouseAction : "") + '>';
   }
 
   public static String divEnd() {
     return "</div>";
   }
 
-  public static String inputText(final String anInputID) {
-    return input("text", anInputID);
+  public static String inputText(final String anInputID, final String aPlaceholder, final boolean anIsListening) {
+    if (aPlaceholder != null) {
+      return input("text", anInputID, anIsListening, "placeholder='" + aPlaceholder + "'");
+    }
+    return input("text", anInputID, anIsListening);
   }
 
-  public static String inputText(final String anInputID, final String aPlaceholder) {
-    return input("text", anInputID, "placeholder='" + aPlaceholder + "'");
+  public static String image(final String anImageId, final String anAltText, final boolean anIsListening) {
+    return "<image id='" + anImageId + "'" + (anAltText != null ? " alt='" + anAltText + "'" : "")
+        + (anIsListening ? ' ' + onMouseAction : "") + " src='pathtoimg' />";
   }
 
-  public static String image(final String anImageId, final String anAltText) {
-    return "<image id='" + anImageId + "' src='pathtoimg' " + onMouseAction + " alt='" + anAltText + "' />";
-  }
-
-  public static String label(final String aFor, final String aContent) {
-    return labelStart(aFor, false) + (aContent != null ? aContent : "") + labelEnd();
-  }
-
-  public static String labelClickable(final String aFor, final String aContent) {
-    return labelStart(aFor, true) + (aContent != null ? aContent : "") + labelEnd();
-  }
-
-  public static String labelStart(final String aFor, final boolean anIsClickable) {
-    return "<label id='lbl-" + aFor + "' for='" + aFor + '\'' + (anIsClickable ? ' ' + onMouseAction : "") + '>';
+  public static String labelStart(final String aFor, final boolean anIsListening) {
+    return "<label id='lbl-" + aFor + "' for='" + aFor + '\'' + (anIsListening ? ' ' + onMouseAction : "") + '>';
   }
 
   public static String labelEnd() {
     return "</label>";
   }
 
-  public static String radio(final String aRadioId) {
-    return input("radio", aRadioId);
+  public static String radio(final String aRadioId, final boolean anIsListening) {
+    return input("radio", aRadioId, anIsListening);
   }
 
-  public static String span(final String aSpanId) {
-    return spanStart(aSpanId) + spanEnd();
-  }
-
-  public static String span(final String aSpanId, final String aContent) {
-    return spanStart(aSpanId) + (aContent != null ? aContent : "") + spanEnd();
-  }
-
-  public static String spanStart(final String aSpanId) {
-    return "<span id='" + aSpanId + "' " + onMouseAction + '>';
+  public static String spanStart(final String aSpanId, final boolean anIsListening) {
+    return "<span id='" + aSpanId + "'" + (anIsListening ? ' ' + onMouseAction : "") + '>';
   }
 
   public static String spanEnd() {
     return "</span>";
   }
 
-  public static String tableStart(final String aTableId) {
-    return "<table id='" + aTableId + "' " + onMouseAction + "><tbody id='" + aTableId + "-body' " + onMouseAction
-        + '>';
+  // FIXME tables -> builder
+
+  public static String tableStart(final String aTableId, final boolean anIsListening) {
+    return "<table id='" + aTableId + "'" + (anIsListening ? ' ' + onMouseAction : "") + "><tbody id='" + aTableId
+        + "-body'" + (anIsListening ? ' ' + onMouseAction : "") + '>';
   }
 
   public static String tableEnd() {
     return "</tbody></table>";
   }
 
-  public static String tableRowStart(final String aTableId, final String aRowId) {
-    return "<tr id='" + aTableId + '-' + aRowId + "' " + onMouseAction + '>';
+  public static String tableRowStart(final String aTableId, final String aRowId, final boolean anIsListening) {
+    return "<tr id='" + aTableId + '-' + aRowId + "'" + (anIsListening ? ' ' + onMouseAction : "") + '>';
   }
 
   public static String tableRowEnd() {
     return "</tr>";
   }
 
-  public static String tableRowWithCols(final String aTableId, final String aRowId, final int aColumnCount) {
-    String tmpRow = tableRowStart(aTableId, aRowId);
+  public static String tableRowWithCols(final String aTableId, final String aRowId, final int aColumnCount,
+      final boolean anIsListening) {
+    String tmpRow = tableRowStart(aTableId, aRowId, anIsListening);
     for (int i = 1; i <= aColumnCount; i++) {
-      tmpRow += "<td id='" + aTableId + '-' + aRowId + "-td" + (aColumnCount > 1 ? i : "") + "' " + onMouseAction + '>'
-          + CONTENT + "</td>";
+      tmpRow += "<td id='" + aTableId + '-' + aRowId + "-td" + (aColumnCount > 1 ? i : "") + "'"
+          + (anIsListening ? ' ' + onMouseAction : "") + '>' + CONTENT + "</td>";
     }
     tmpRow += tableRowEnd();
 
     return tmpRow;
   }
 
-  private static String input(final String aType, final String anInputID) {
-    return input(aType, anInputID, null);
+  private static String input(final String aType, final String anInputID, final boolean anIsListening) {
+    return input(aType, anInputID, anIsListening, null);
   }
 
-  private static String input(final String aType, final String anInputID, final String anOptional) {
-    return "<input type = '" + aType + "' id='" + anInputID + "' " + onMouseAction
-        + (anOptional != null ? anOptional : "") + "/>";
+  private static String input(final String aType, final String anInputID, final boolean anIsListening,
+      final String anOptional) {
+    return "<input type = '" + aType + "' id='" + anInputID + "'" + (anIsListening ? ' ' + onMouseAction : "")
+        + (anOptional != null ? ' ' + anOptional : "") + " />";
   }
 
   public static void resetOnMouseAction() {

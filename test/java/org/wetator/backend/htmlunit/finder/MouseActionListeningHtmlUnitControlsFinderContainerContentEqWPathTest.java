@@ -16,8 +16,9 @@
 
 package org.wetator.backend.htmlunit.finder;
 
+import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeBuilder.div;
+
 import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.CONTENT;
-import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.div;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -251,7 +252,7 @@ public class MouseActionListeningHtmlUnitControlsFinderContainerContentEqWPathTe
       },
 
       // 29
-      { div("first", CONTENT) + div("second"),
+      { div("first", CONTENT).build() + div("second"),
         new SortedEntryExpectation(new ExpectedControl(HtmlDivision.class, "first"))
       },
 
@@ -261,12 +262,12 @@ public class MouseActionListeningHtmlUnitControlsFinderContainerContentEqWPathTe
       },
 
       // 31
-      { div("first") + div("second", CONTENT),
+      { div("first").build() + div("second", CONTENT),
         new SortedEntryExpectation(new ExpectedControl(HtmlDivision.class, "second"))
       },
 
       // 32
-      { div("first") + div("second") + CONTENT,
+      { div("first").build() + div("second") + CONTENT,
         new SortedEntryExpectation(new ExpectedControl(HtmlBody.class))
       },
 
@@ -305,14 +306,14 @@ public class MouseActionListeningHtmlUnitControlsFinderContainerContentEqWPathTe
       },
 
       // 38
-      { div("first", CONTENT) + div("second", CONTENT),
+      { div("first", CONTENT).build() + div("second", CONTENT),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlDivision.class, "first"),
             new ExpectedControl(HtmlDivision.class, "second"))
       },
 
       // 39
-      { div("first", CONTENT) + div("second") + CONTENT,
+      { div("first", CONTENT).build() + div("second") + CONTENT,
         new SortedEntryExpectation(
             new ExpectedControl(HtmlDivision.class, "first"),
             new ExpectedControl(HtmlBody.class))
@@ -327,7 +328,7 @@ public class MouseActionListeningHtmlUnitControlsFinderContainerContentEqWPathTe
       },
 
       // 41
-      { div("out", div("first", CONTENT) + div("second")),
+      { div("out", div("first", CONTENT).build() + div("second")),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlDivision.class, "first"),
             new ExpectedControl(HtmlDivision.class, "out"))
@@ -339,14 +340,14 @@ public class MouseActionListeningHtmlUnitControlsFinderContainerContentEqWPathTe
       },
 
       // 43
-      { div("out", div("first") + div("second", CONTENT)),
+      { div("out", div("first").build() + div("second", CONTENT)),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlDivision.class, "second"),
             new ExpectedControl(HtmlDivision.class, "out"))
       },
 
       // 44
-      { div("out", div("first") + div("second") + CONTENT),
+      { div("out", div("first").build() + div("second") + CONTENT),
         new SortedEntryExpectation(new ExpectedControl(HtmlDivision.class, "out"))
       },
 
@@ -385,7 +386,7 @@ public class MouseActionListeningHtmlUnitControlsFinderContainerContentEqWPathTe
       },
 
       // 50
-      { div("out", div("first", CONTENT) + div("second", CONTENT)),
+      { div("out", div("first", CONTENT).build() + div("second", CONTENT)),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlDivision.class, "first"),
             new ExpectedControl(HtmlDivision.class, "second"),
@@ -393,7 +394,7 @@ public class MouseActionListeningHtmlUnitControlsFinderContainerContentEqWPathTe
       },
 
       // 51
-      { div("out", div("first", CONTENT) + div("second") + CONTENT),
+      { div("out", div("first", CONTENT).build() + div("second") + CONTENT),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlDivision.class, "first"),
             new ExpectedControl(HtmlDivision.class, "out"))

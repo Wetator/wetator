@@ -18,9 +18,6 @@ package org.wetator.backend.htmlunit.finder;
 
 import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.pageEnd;
 import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.pageStart;
-import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.tableEnd;
-import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.tableRowWithCols;
-import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.tableStart;
 
 import org.junit.Test;
 import org.wetator.backend.WPath;
@@ -48,12 +45,12 @@ public class MouseActionListeningHtmlUnitControlsFinderTableTest
     // @formatter:off
     final String tmpHtmlCode = pageStart()
 
-    + tableStart("table")
-    + tableRowWithCols("table", "tr1", 2)
-    + tableRowWithCols("table", "tr2", 3)
-    + tableRowWithCols("table", "tr3", 2)
-    + tableRowWithCols("table", "tr4", 1)
-    + tableEnd()
+    + MouseActionHtmlCodeCreator.tableStart("table", true)
+    + MouseActionHtmlCodeCreator.tableRowWithCols("table", "tr1", 2, true)
+    + MouseActionHtmlCodeCreator.tableRowWithCols("table", "tr2", 3, true)
+    + MouseActionHtmlCodeCreator.tableRowWithCols("table", "tr3", 2, true)
+    + MouseActionHtmlCodeCreator.tableRowWithCols("table", "tr4", 1, true)
+    + MouseActionHtmlCodeCreator.tableEnd()
 
     + pageEnd();
     // @formatter:on

@@ -16,10 +16,10 @@
 
 package org.wetator.backend.htmlunit.finder;
 
+import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeBuilder.inputText;
+import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeBuilder.label;
+
 import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.CONTENT;
-import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.inputText;
-import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.label;
-import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.labelClickable;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -70,21 +70,21 @@ public class MouseActionListeningHtmlUnitControlsFinderInputTextTest
       // label + text input
 
       // 3
-      { label("input", CONTENT) + inputText("input"),
+      { label("input", CONTENT).noListen().build() + inputText("input"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlTextInput.class, "input"),
             new ExpectedControl(HtmlLabel.class, "lbl-input"))
       },
 
       // 4
-      { labelClickable("input", CONTENT) + inputText("input"),
+      { label("input", CONTENT).build() + inputText("input"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlLabel.class, "lbl-input"),
             new ExpectedControl(HtmlTextInput.class, "input"))
       },
 
       // 5
-      { inputText("input") + labelClickable("input", CONTENT),
+      { inputText("input") + label("input", CONTENT).build(),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlTextInput.class, "input"),
             new ExpectedControl(HtmlLabel.class, "lbl-input"))

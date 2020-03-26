@@ -16,8 +16,9 @@
 
 package org.wetator.backend.htmlunit.finder;
 
+import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeBuilder.div;
+
 import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.CONTENT;
-import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.div;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -129,35 +130,35 @@ public class MouseActionListeningHtmlUnitControlsFinderContainerContentDiffWPath
       },
 
       // 12
-      { div("first", CONTENT + "x") + div("second", CONTENT),
+      { div("first", CONTENT + "x").build() + div("second", CONTENT),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlDivision.class, "second"),
             new ExpectedControl(HtmlDivision.class, "first"))
       },
 
       // 13
-      { div("first", CONTENT) + div("second", CONTENT + "x"),
+      { div("first", CONTENT).build() + div("second", CONTENT + "x"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlDivision.class, "first"),
             new ExpectedControl(HtmlDivision.class, "second"))
       },
 
       // 14
-      { div("first", CONTENT + "x") + div("second", CONTENT + "x"),
+      { div("first", CONTENT + "x").build() + div("second", CONTENT + "x"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlDivision.class, "first"),
             new ExpectedControl(HtmlDivision.class, "second"))
       },
 
       // 15
-      { div("out", div("first", CONTENT + "x") + div("second")),
+      { div("out", div("first", CONTENT + "x").build() + div("second")),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlDivision.class, "first"),
             new ExpectedControl(HtmlDivision.class, "out"))
       },
 
       // 16
-      { div("out", div("first") + div("second", CONTENT + "x")),
+      { div("out", div("first").build() + div("second", CONTENT + "x")),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlDivision.class, "second"),
             new ExpectedControl(HtmlDivision.class, "out"))
@@ -227,7 +228,7 @@ public class MouseActionListeningHtmlUnitControlsFinderContainerContentDiffWPath
       },
 
       // 26
-      { div("out", div("first", CONTENT + "x") + div("second", CONTENT)),
+      { div("out", div("first", CONTENT + "x").build() + div("second", CONTENT)),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlDivision.class, "second"),
             new ExpectedControl(HtmlDivision.class, "first"),
@@ -235,7 +236,7 @@ public class MouseActionListeningHtmlUnitControlsFinderContainerContentDiffWPath
       },
 
       // 27
-      { div("out", div("first", CONTENT) + div("second", CONTENT + "x")),
+      { div("out", div("first", CONTENT).build() + div("second", CONTENT + "x")),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlDivision.class, "first"),
             new ExpectedControl(HtmlDivision.class, "second"),
@@ -243,7 +244,7 @@ public class MouseActionListeningHtmlUnitControlsFinderContainerContentDiffWPath
       },
 
       // 28
-      { div("out", div("first", CONTENT + "x") + div("second", CONTENT + "x")),
+      { div("out", div("first", CONTENT + "x").build() + div("second", CONTENT + "x")),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlDivision.class, "first"),
             new ExpectedControl(HtmlDivision.class, "second"),
@@ -251,21 +252,21 @@ public class MouseActionListeningHtmlUnitControlsFinderContainerContentDiffWPath
       },
 
       // 29
-      { div("out", div("first", CONTENT + "x") + div("second") + CONTENT),
+      { div("out", div("first", CONTENT + "x").build() + div("second") + CONTENT),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlDivision.class, "first"),
             new ExpectedControl(HtmlDivision.class, "out"))
       },
 
       // 30
-      { div("out", div("first", CONTENT) + div("second") + CONTENT + "x"),
+      { div("out", div("first", CONTENT).build() + div("second") + CONTENT + "x"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlDivision.class, "first"),
             new ExpectedControl(HtmlDivision.class, "out"))
       },
 
       // 31
-      { div("out", div("first", CONTENT + "x") + div("second") + CONTENT + "x"),
+      { div("out", div("first", CONTENT + "x").build() + div("second") + CONTENT + "x"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlDivision.class, "first"),
             new ExpectedControl(HtmlDivision.class, "out"))

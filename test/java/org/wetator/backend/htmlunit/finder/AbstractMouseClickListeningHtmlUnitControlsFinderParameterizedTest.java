@@ -34,13 +34,20 @@ public abstract class AbstractMouseClickListeningHtmlUnitControlsFinderParameter
     extends AbstractMouseActionListeningHtmlUnitControlsFinderTest {
 
   @Parameter(0)
-  public String htmlCode;
+  public Object htmlCodeBuilder;
   @Parameter(1)
   public SortedEntryExpectation expected;
 
   @Test
   public void checkFoundElementsClick() throws Exception {
     setMouseAction(MouseAction.CLICK);
-    super.checkFoundElements(htmlCode, expected);
+
+    if (htmlCodeBuilder instanceof MouseActionHtmlCodeBuilder) {
+      htmlCodeBuilder = ((MouseActionHtmlCodeBuilder) htmlCodeBuilder).build();
+    } else if (!(htmlCodeBuilder instanceof String)) {
+      throw new RuntimeException(htmlCodeBuilder + " has to be of type "
+          + MouseActionHtmlCodeBuilder.class.getSimpleName() + " or " + String.class.getSimpleName());
+    }
+    super.checkFoundElements((String) htmlCodeBuilder, expected);
   }
 }

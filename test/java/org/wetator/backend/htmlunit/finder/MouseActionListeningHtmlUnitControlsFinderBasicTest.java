@@ -16,20 +16,17 @@
 
 package org.wetator.backend.htmlunit.finder;
 
+import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeBuilder.a;
+import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeBuilder.button;
+import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeBuilder.checkbox;
+import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeBuilder.div;
+import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeBuilder.image;
+import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeBuilder.inputText;
+import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeBuilder.label;
+import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeBuilder.radio;
+import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeBuilder.span;
+
 import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.CONTENT;
-import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.anchor;
-import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.button;
-import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.checkbox;
-import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.div;
-import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.image;
-import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.inputText;
-import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.label;
-import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.labelClickable;
-import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.radio;
-import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.span;
-import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.tableEnd;
-import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.tableRowWithCols;
-import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.tableStart;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -87,17 +84,17 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
   public static Collection<Object[]> provideParameters() {
     final Object[][] tmpData = new Object[][] { //
     // @formatter:off
-      { anchor("anchor-before", null) + anchor("anchor", CONTENT) + anchor("anchor-after", null),
+      { a("anchor-before").build() + a("anchor", CONTENT) + a("anchor-after"),
         new SortedEntryExpectation(new ExpectedControl(HtmlAnchor.class, "anchor")),
         Arrays.asList(HtmlUnitAnchorIdentifier.class)
       },
 
-      { button("button-before", null) + button("button", CONTENT) + button("button-after", null),
+      { button("button-before").build() + button("button", CONTENT) + button("button-after"),
         new SortedEntryExpectation(new ExpectedControl(HtmlButton.class, "button")),
         Arrays.asList(HtmlUnitButtonIdentifier.class)
       },
 
-      { checkbox("checkbox-before") + CONTENT + checkbox("checkbox-after") + label("checkbox-label", CONTENT) + checkbox("checkbox-label"),
+      { checkbox("checkbox-before") + CONTENT + checkbox("checkbox-after") + label("checkbox-label", CONTENT).noListen() + checkbox("checkbox-label"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlCheckBoxInput.class, "checkbox-label"),
             new ExpectedControl(HtmlCheckBoxInput.class, "checkbox-before"),
@@ -107,7 +104,7 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
         null
       },
 
-      { div("div-before", null) + div("div", CONTENT) + div("div-after", null),
+      { div("div-before").build() + div("div", CONTENT) + div("div-after"),
         new SortedEntryExpectation(new ExpectedControl(HtmlDivision.class, "div")),
         null
       },
@@ -119,19 +116,19 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
         null
       },
 
-      { image("img-before", "") + image("img", CONTENT) + image("img-after", ""),
+      { image("img-before").build() + image("img", CONTENT) + image("img-after", ""),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlImage.class, "img"),
             new ExpectedControl(HtmlImage.class, "img-after")),
         null
       },
 
-      { labelClickable("before", "") + labelClickable("main", CONTENT) + labelClickable("after", ""),
+      { label("before").build() + label("main", CONTENT) + label("after"),
         new SortedEntryExpectation(new ExpectedControl(HtmlLabel.class, "lbl-main")),
         null
       },
 
-      { radio("radio-before") + CONTENT + radio("radio-after") + label("radio-label", CONTENT) + radio("radio-label"),
+      { radio("radio-before") + CONTENT + radio("radio-after") + label("radio-label", CONTENT).noListen() + radio("radio-label"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlRadioButtonInput.class, "radio-label"),
             new ExpectedControl(HtmlRadioButtonInput.class, "radio-before"),
@@ -141,12 +138,12 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
         null
       },
 
-      { span("span-before", null) + span("span", CONTENT) + span("span-after", null),
+      { span("span-before").build() + span("span", CONTENT) + span("span-after"),
         new SortedEntryExpectation(new ExpectedControl(HtmlSpan.class, "span")),
         null
       },
 
-      { tableStart("table") + tableRowWithCols("table", "tr", 1) + tableEnd(),
+      { MouseActionHtmlCodeCreator.tableStart("table", true) + MouseActionHtmlCodeCreator.tableRowWithCols("table", "tr", 1, true) + MouseActionHtmlCodeCreator.tableEnd(),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlTableDataCell.class, "table-tr-td"),
             new ExpectedControl(HtmlTableRow.class, "table-tr"),
@@ -171,18 +168,18 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
   @Test
   public void checkFoundElementsClickDouble() throws Exception {
     setMouseAction(MouseAction.CLICK_DOUBLE);
-    super.checkFoundElements(htmlCode, expected);
+    super.checkFoundElements((String) htmlCodeBuilder, expected);
   }
 
   @Test
   public void checkFoundElementsClickRight() throws Exception {
     setMouseAction(MouseAction.CLICK_RIGHT);
-    super.checkFoundElements(htmlCode, expected);
+    super.checkFoundElements((String) htmlCodeBuilder, expected);
   }
 
   @Test
   public void checkFoundElementsMouseOver() throws Exception {
     setMouseAction(MouseAction.MOUSE_OVER);
-    super.checkFoundElements(htmlCode, expected);
+    super.checkFoundElements((String) htmlCodeBuilder, expected);
   }
 }
