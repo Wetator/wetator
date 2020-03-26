@@ -95,6 +95,9 @@ public class MouseActionListeningHtmlUnitControlsFinder extends IdentifierBasedH
     }
 
     return super.find(aWPath);
+
+    // FIXME [UNKNOWN] search for controls with matching text for click and mouse over
+    // see pretty complex UnknownHtmlUnitControlsFinder
   }
 
   @Override
@@ -103,7 +106,7 @@ public class MouseActionListeningHtmlUnitControlsFinder extends IdentifierBasedH
     boolean tmpSupported = super.identify(aHtmlElement, aWPath, aFoundControls);
 
     if (!tmpSupported) {
-      // ok, not identified the 'normal' way -> let's look for action listeners
+      // ok, not identified the 'normal' way -> let's look for controls having a matching action listener
       if (htmlPageIndex.hasMouseActionListener(mouseAction, aHtmlElement)) {
         // first try the known controls
         if (controlRepository != null) {
@@ -145,7 +148,7 @@ public class MouseActionListeningHtmlUnitControlsFinder extends IdentifierBasedH
       }
     }
 
-    // FIXME add unknown controls for click and mouse over
+    // FIXME [UNKNOWN] add unknown controls without action listener for click and mouse over
     // see pretty complex UnknownHtmlUnitControlsFinder
 
     return tmpSupported;
@@ -169,7 +172,7 @@ public class MouseActionListeningHtmlUnitControlsFinder extends IdentifierBasedH
 
     @Override
     public boolean isHtmlElementSupported(final HtmlElement aHtmlElement) {
-      // the ControlFinder already checked that the element has an click event handler
+      // the ControlsFinder already checked that the element has the right action listener
       return true;
     }
 

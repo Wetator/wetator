@@ -605,7 +605,7 @@ public class HtmlPageIndex {
       final Set<MouseAction> aParentMouseActions) {
     Set<MouseAction> tmpMouseActions = aParentMouseActions;
 
-    // FIXME add support for CSS :hover pseudo class for mouse over
+    // FIXME [CSS MOUSE OVER] add support for CSS :hover pseudo class for mouse over
 
     // click: click, mousedown, mouseup
     // click-double: click, dblclick, mousedown, mouseup

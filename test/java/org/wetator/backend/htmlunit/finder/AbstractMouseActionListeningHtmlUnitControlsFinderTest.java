@@ -72,7 +72,7 @@ public abstract class AbstractMouseActionListeningHtmlUnitControlsFinderTest {
   protected MouseAction mouseAction;
 
   protected MouseActionListeningHtmlUnitControlsFinder finder;
-  // FIXME remove as soon as included in MouseActionListeningHtmlUnitControlsFinder
+  // FIXME [UNKNOWN] remove as soon as included in MouseActionListeningHtmlUnitControlsFinder
   protected UnknownHtmlUnitControlsFinder finderUnknown;
 
   @BeforeClass

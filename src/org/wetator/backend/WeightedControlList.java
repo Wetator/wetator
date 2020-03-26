@@ -140,21 +140,27 @@ public final class WeightedControlList {
     public static final FoundType BY_ARIA_LABEL_ATTRIBUTE = new FoundType("BY_ARIA_LABEL_ATTRIBUTE", 5500);
 
     /** Found by image source attribute match. */
+    // FIXME [INNER IMAGE] reevaluate weight
     public static final FoundType BY_IMG_SRC_ATTRIBUTE = new FoundType("BY_IMG_SRC_ATTRIBUTE", 5000);
 
     /** Found by image alt attribute match. */
+    // FIXME [INNER IMAGE] should have the same weight as BY_LABEL
     public static final FoundType BY_IMG_ALT_ATTRIBUTE = new FoundType("BY_IMG_ALT_ATTRIBUTE", 5000);
 
     /** Found by image title attribute match. */
+    // FIXME [INNER IMAGE] should have the same weight as or be replaced by BY_TITLE_ATTRIBUTE
     public static final FoundType BY_IMG_TITLE_ATTRIBUTE = new FoundType("BY_IMG_TITLE_ATTRIBUTE", 5000);
 
     /** Found by inner image source attribute match. */
+    // FIXME [INNER IMAGE] remove once children of anchors and buttons are clickable
     public static final FoundType BY_INNER_IMG_SRC_ATTRIBUTE = new FoundType("BY_INNER_IMG_SRC_ATTRIBUTE", 4000);
 
     /** Found by inner image alt attribute match. */
+    // FIXME [INNER IMAGE] remove once children of anchors and buttons are clickable
     public static final FoundType BY_INNER_IMG_ALT_ATTRIBUTE = new FoundType("BY_INNER_IMG_ALT_ATTRIBUTE", 4000);
 
     /** Found by inner image title attribute match. */
+    // FIXME [INNER IMAGE] remove once children of anchors and buttons are clickable
     public static final FoundType BY_INNER_IMG_TITLE_ATTRIBUTE = new FoundType("BY_INNER_IMG_TITLE_ATTRIBUTE", 4000);
 
     /** Found by title attribute match. */
@@ -176,6 +182,7 @@ public final class WeightedControlList {
     public static final FoundType BY_NAME = new FoundType("BY_NAME", 1000);
 
     /** Found by inner name match. */
+    // FIXME [INNER IMAGE] remove once children of anchors and buttons are clickable
     public static final FoundType BY_INNER_NAME = new FoundType("BY_INNER_NAME", 900);
 
     /** Found by id match. */

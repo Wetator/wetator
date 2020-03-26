@@ -35,7 +35,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
  *
  * @author frank.danek
  */
-// FIXME remove once children of anchors and buttons are clickable
+// FIXME [INNER IMAGE] remove once children of anchors and buttons are clickable
 public class ByInnerImageMatcher extends AbstractHtmlUnitElementMatcher {
 
   /**
