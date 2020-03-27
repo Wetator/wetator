@@ -148,7 +148,7 @@ public class HtmlPageIndex {
 
     htmlElementsWithClickListener = new HashSet<>();
     htmlElementsWithMouseActionListener = new HashMap<>();
-    for (MouseAction tmpMouseAction : MouseAction.values()) {
+    for (final MouseAction tmpMouseAction : MouseAction.values()) {
       htmlElementsWithMouseActionListener.put(tmpMouseAction, new HashSet<HtmlElement>());
     }
 
@@ -645,7 +645,7 @@ public class HtmlPageIndex {
   private Set<MouseAction> copyAndAdd(final Set<MouseAction> aCurrentMouseActions,
       final MouseAction... aNewMouseActions) {
     final Set<MouseAction> tmpMouseActions = EnumSet.copyOf(aCurrentMouseActions);
-    for (MouseAction tmpNewMouseAction : aNewMouseActions) {
+    for (final MouseAction tmpNewMouseAction : aNewMouseActions) {
       tmpMouseActions.add(tmpNewMouseAction);
     }
     return tmpMouseActions;

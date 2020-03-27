@@ -55,7 +55,7 @@ public class HtmlUnitControlRepository {
    * Initializes the repository.
    */
   public HtmlUnitControlRepository() {
-    for (Action tmpAction : Action.values()) {
+    for (final Action tmpAction : Action.values()) {
       identifiers.put(tmpAction, new LinkedList<>());
     }
   }
