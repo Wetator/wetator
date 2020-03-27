@@ -34,6 +34,7 @@ import org.wetator.backend.htmlunit.control.HtmlUnitAnchor;
 import org.wetator.backend.htmlunit.control.HtmlUnitButton;
 import org.wetator.backend.htmlunit.control.HtmlUnitImage;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputText;
+import org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitAnchorIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitButtonIdentifier;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
@@ -74,14 +75,10 @@ public class MouseActionListeningHtmlUnitControlsFinderTest {
     final String tmpHtmlCode = "<html><body>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    final MouseActionListeningHtmlUnitControlsFinder tmpFinder = new MouseActionListeningHtmlUnitControlsFinder(
-        tmpHtmlPageIndex, null, MouseAction.CLICK, repository);
-    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString(), config));
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "", MouseAction.CLICK);
 
-    assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpEntriesSorted.size());
   }
 
   @Test
@@ -91,15 +88,10 @@ public class MouseActionListeningHtmlUnitControlsFinderTest {
         + "<a id='myId'>some text</a>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    final MouseActionListeningHtmlUnitControlsFinder tmpFinder = new MouseActionListeningHtmlUnitControlsFinder(
-        tmpHtmlPageIndex, null, MouseAction.CLICK, repository);
-    tmpFinder.addIdentifier(HtmlUnitAnchorIdentifier.class);
-    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("some text"), config));
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "some text", MouseAction.CLICK,
+        HtmlUnitAnchorIdentifier.class);
 
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlAnchor 'some text' (id='myId')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
@@ -113,15 +105,10 @@ public class MouseActionListeningHtmlUnitControlsFinderTest {
         + "<a id='myId' onclick='alert(\"test\");'>some text</a>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    final MouseActionListeningHtmlUnitControlsFinder tmpFinder = new MouseActionListeningHtmlUnitControlsFinder(
-        tmpHtmlPageIndex, null, MouseAction.CLICK, repository);
-    tmpFinder.addIdentifier(HtmlUnitAnchorIdentifier.class);
-    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("some text"), config));
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "some text", MouseAction.CLICK,
+        HtmlUnitAnchorIdentifier.class);
 
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlAnchor 'some text' (id='myId')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
@@ -135,14 +122,10 @@ public class MouseActionListeningHtmlUnitControlsFinderTest {
         + "some text <input type='text' id='myId' />"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    final MouseActionListeningHtmlUnitControlsFinder tmpFinder = new MouseActionListeningHtmlUnitControlsFinder(
-        tmpHtmlPageIndex, null, MouseAction.CLICK, repository);
-    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("some text"), config));
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "some text", MouseAction.CLICK);
 
-    assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpEntriesSorted.size());
   }
 
   @Test
@@ -152,14 +135,10 @@ public class MouseActionListeningHtmlUnitControlsFinderTest {
         + "some text <input type='text' id='myId' onclick='alert(\"test\");' style='visibility: hidden;' />"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    final MouseActionListeningHtmlUnitControlsFinder tmpFinder = new MouseActionListeningHtmlUnitControlsFinder(
-        tmpHtmlPageIndex, null, MouseAction.CLICK, repository);
-    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("some text"), config));
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "some text", MouseAction.CLICK);
 
-    assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpEntriesSorted.size());
   }
 
   @Test
@@ -169,14 +148,9 @@ public class MouseActionListeningHtmlUnitControlsFinderTest {
         + "some text <input type='text' id='myId' onclick='alert(\"test\");' />"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    final MouseActionListeningHtmlUnitControlsFinder tmpFinder = new MouseActionListeningHtmlUnitControlsFinder(
-        tmpHtmlPageIndex, null, MouseAction.CLICK, repository);
-    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("some text"), config));
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "some text", MouseAction.CLICK);
 
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlTextInput (id='myId')] found by: BY_LABELING_TEXT deviation: 0 distance: 0 start: 9 hierarchy: 0>1>3>5 index: 5",
@@ -190,14 +164,9 @@ public class MouseActionListeningHtmlUnitControlsFinderTest {
         + "some text <input type='text' id='myId' ondblclick='alert(\"test\");' />"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    final MouseActionListeningHtmlUnitControlsFinder tmpFinder = new MouseActionListeningHtmlUnitControlsFinder(
-        tmpHtmlPageIndex, null, MouseAction.CLICK_DOUBLE, repository);
-    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("some text"), config));
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "some text", MouseAction.CLICK_DOUBLE);
 
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlTextInput (id='myId')] found by: BY_LABELING_TEXT deviation: 0 distance: 0 start: 9 hierarchy: 0>1>3>5 index: 5",
@@ -211,14 +180,9 @@ public class MouseActionListeningHtmlUnitControlsFinderTest {
         + "some text <input type='text' id='myId' oncontextmenu='alert(\"test\");' />"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    final MouseActionListeningHtmlUnitControlsFinder tmpFinder = new MouseActionListeningHtmlUnitControlsFinder(
-        tmpHtmlPageIndex, null, MouseAction.CLICK_RIGHT, repository);
-    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("some text"), config));
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "some text", MouseAction.CLICK_RIGHT);
 
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlTextInput (id='myId')] found by: BY_LABELING_TEXT deviation: 0 distance: 0 start: 9 hierarchy: 0>1>3>5 index: 5",
@@ -232,14 +196,9 @@ public class MouseActionListeningHtmlUnitControlsFinderTest {
         + "some text <input type='text' id='myId' onmouseover='alert(\"test\");' />"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    final MouseActionListeningHtmlUnitControlsFinder tmpFinder = new MouseActionListeningHtmlUnitControlsFinder(
-        tmpHtmlPageIndex, null, MouseAction.MOUSE_OVER, repository);
-    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("some text"), config));
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "some text", MouseAction.MOUSE_OVER);
 
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlTextInput (id='myId')] found by: BY_LABELING_TEXT deviation: 0 distance: 0 start: 9 hierarchy: 0>1>3>5 index: 5",
@@ -253,15 +212,10 @@ public class MouseActionListeningHtmlUnitControlsFinderTest {
         + "<a id='otherId' href='#'><image id='myId' src='picture.png' alt='some text'></a>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    final MouseActionListeningHtmlUnitControlsFinder tmpFinder = new MouseActionListeningHtmlUnitControlsFinder(
-        tmpHtmlPageIndex, null, MouseAction.CLICK, repository);
-    tmpFinder.addIdentifier(HtmlUnitAnchorIdentifier.class);
-    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("some text"), config));
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "some text", MouseAction.CLICK,
+        HtmlUnitAnchorIdentifier.class);
 
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(2, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlImage 'picture.png' (id='myId')] found by: BY_IMG_ALT_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
@@ -278,15 +232,10 @@ public class MouseActionListeningHtmlUnitControlsFinderTest {
         + "<button id='otherId'><image id='myId' src='picture.png' alt='some text'></button>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    final MouseActionListeningHtmlUnitControlsFinder tmpFinder = new MouseActionListeningHtmlUnitControlsFinder(
-        tmpHtmlPageIndex, null, MouseAction.CLICK, repository);
-    tmpFinder.addIdentifier(HtmlUnitButtonIdentifier.class);
-    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("some text"), config));
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "some text", MouseAction.CLICK,
+        HtmlUnitButtonIdentifier.class);
 
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(2, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlImage 'picture.png' (id='myId')] found by: BY_IMG_ALT_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
@@ -303,14 +252,9 @@ public class MouseActionListeningHtmlUnitControlsFinderTest {
         + "<label for='myId'>some text</label><input type='text' id='myId' onclick='alert(\"clicked\");' />"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    final MouseActionListeningHtmlUnitControlsFinder tmpFinder = new MouseActionListeningHtmlUnitControlsFinder(
-        tmpHtmlPageIndex, null, MouseAction.CLICK, repository);
-    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("some text"), config));
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "some text", MouseAction.CLICK);
 
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlTextInput (id='myId')] found by: BY_LABEL_ELEMENT deviation: 0 distance: 0 start: 9 hierarchy: 0>1>3>6 index: 6",
@@ -324,14 +268,9 @@ public class MouseActionListeningHtmlUnitControlsFinderTest {
         + "<label for='myId' onclick='alert(\"clicked\");'>some text</label><input type='text' id='myId' onclick='alert(\"clicked\");' />"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    final MouseActionListeningHtmlUnitControlsFinder tmpFinder = new MouseActionListeningHtmlUnitControlsFinder(
-        tmpHtmlPageIndex, null, MouseAction.CLICK, repository);
-    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("some text"), config));
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "some text", MouseAction.CLICK);
 
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(2, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlLabel 'some text' (for='myId')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
@@ -348,14 +287,10 @@ public class MouseActionListeningHtmlUnitControlsFinderTest {
         + "<span id='myId'>some text</span>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    final MouseActionListeningHtmlUnitControlsFinder tmpFinder = new MouseActionListeningHtmlUnitControlsFinder(
-        tmpHtmlPageIndex, null, MouseAction.CLICK, repository);
-    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("some text"), config));
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "some text", MouseAction.CLICK);
 
-    assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpEntriesSorted.size());
   }
 
   @Test
@@ -365,14 +300,10 @@ public class MouseActionListeningHtmlUnitControlsFinderTest {
         + "<span id='myId' onclick='alert(\"test\");' style='visibility: hidden;'>some text</span>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    final MouseActionListeningHtmlUnitControlsFinder tmpFinder = new MouseActionListeningHtmlUnitControlsFinder(
-        tmpHtmlPageIndex, null, MouseAction.CLICK, repository);
-    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("some text"), config));
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "some text", MouseAction.CLICK);
 
-    assertEquals(0, tmpFound.getEntriesSorted().size());
+    assertEquals(0, tmpEntriesSorted.size());
   }
 
   @Test
@@ -382,14 +313,9 @@ public class MouseActionListeningHtmlUnitControlsFinderTest {
         + "<span id='myId' onclick='alert(\"test\");'>some text</span>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    final MouseActionListeningHtmlUnitControlsFinder tmpFinder = new MouseActionListeningHtmlUnitControlsFinder(
-        tmpHtmlPageIndex, null, MouseAction.CLICK, repository);
-    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("some text"), config));
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "some text", MouseAction.CLICK);
 
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlSpan 'some text' (id='myId')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
@@ -403,14 +329,9 @@ public class MouseActionListeningHtmlUnitControlsFinderTest {
         + "<span id='myId' ondblclick='alert(\"test\");'>some text</span>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    final MouseActionListeningHtmlUnitControlsFinder tmpFinder = new MouseActionListeningHtmlUnitControlsFinder(
-        tmpHtmlPageIndex, null, MouseAction.CLICK_DOUBLE, repository);
-    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("some text"), config));
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "some text", MouseAction.CLICK_DOUBLE);
 
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlSpan 'some text' (id='myId')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
@@ -424,14 +345,9 @@ public class MouseActionListeningHtmlUnitControlsFinderTest {
         + "<span id='myId' oncontextmenu='alert(\"test\");'>some text</span>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    final MouseActionListeningHtmlUnitControlsFinder tmpFinder = new MouseActionListeningHtmlUnitControlsFinder(
-        tmpHtmlPageIndex, null, MouseAction.CLICK_RIGHT, repository);
-    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("some text"), config));
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "some text", MouseAction.CLICK_RIGHT);
 
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlSpan 'some text' (id='myId')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
@@ -445,14 +361,9 @@ public class MouseActionListeningHtmlUnitControlsFinderTest {
         + "<span id='myId' onmouseover='alert(\"test\");'>some text</span>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    final MouseActionListeningHtmlUnitControlsFinder tmpFinder = new MouseActionListeningHtmlUnitControlsFinder(
-        tmpHtmlPageIndex, null, MouseAction.MOUSE_OVER, repository);
-    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("some text"), config));
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "some text", MouseAction.MOUSE_OVER);
 
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlSpan 'some text' (id='myId')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
@@ -466,15 +377,10 @@ public class MouseActionListeningHtmlUnitControlsFinderTest {
         + "<a id='otherId' href='#'><span id='myId'>some text</span></a>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    final MouseActionListeningHtmlUnitControlsFinder tmpFinder = new MouseActionListeningHtmlUnitControlsFinder(
-        tmpHtmlPageIndex, null, MouseAction.CLICK, repository);
-    tmpFinder.addIdentifier(HtmlUnitAnchorIdentifier.class);
-    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("some text"), config));
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "some text", MouseAction.CLICK,
+        HtmlUnitAnchorIdentifier.class);
 
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(2, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlSpan 'some text' (id='myId')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
@@ -491,15 +397,10 @@ public class MouseActionListeningHtmlUnitControlsFinderTest {
         + "<button id='otherId'><span id='myId'>some text</span></button>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    final MouseActionListeningHtmlUnitControlsFinder tmpFinder = new MouseActionListeningHtmlUnitControlsFinder(
-        tmpHtmlPageIndex, null, MouseAction.CLICK, repository);
-    tmpFinder.addIdentifier(HtmlUnitButtonIdentifier.class);
-    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("some text"), config));
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "some text", MouseAction.CLICK,
+        HtmlUnitButtonIdentifier.class);
 
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(2, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlSpan 'some text' (id='myId')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
@@ -516,14 +417,9 @@ public class MouseActionListeningHtmlUnitControlsFinderTest {
         + "<label id='myId' onclick='alert(\"clicked\");'>some text</label>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    final MouseActionListeningHtmlUnitControlsFinder tmpFinder = new MouseActionListeningHtmlUnitControlsFinder(
-        tmpHtmlPageIndex, null, MouseAction.CLICK, repository);
-    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("some text"), config));
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "some text", MouseAction.CLICK);
 
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlLabel 'some text' (id='myId')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
@@ -537,15 +433,9 @@ public class MouseActionListeningHtmlUnitControlsFinderTest {
         + "<a id='otherId'>$PAGE</a>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    final MouseActionListeningHtmlUnitControlsFinder tmpFinder = new MouseActionListeningHtmlUnitControlsFinder(
-        tmpHtmlPageIndex, null, MouseAction.CLICK, repository);
-    tmpFinder.addIdentifier(HtmlUnitAnchorIdentifier.class);
-    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("$PAGE"), config));
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "$PAGE", MouseAction.CLICK, HtmlUnitAnchorIdentifier.class);
 
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals("[HtmlBody (id='myId')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3 index: 3",
         tmpEntriesSorted.get(0).toString());
@@ -558,15 +448,10 @@ public class MouseActionListeningHtmlUnitControlsFinderTest {
         + "<a id='otherId'>$PAGE</a>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    final MouseActionListeningHtmlUnitControlsFinder tmpFinder = new MouseActionListeningHtmlUnitControlsFinder(
-        tmpHtmlPageIndex, null, MouseAction.CLICK_DOUBLE, repository);
-    tmpFinder.addIdentifier(HtmlUnitAnchorIdentifier.class);
-    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("$PAGE"), config));
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "$PAGE", MouseAction.CLICK_DOUBLE,
+        HtmlUnitAnchorIdentifier.class);
 
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals("[HtmlBody (id='myId')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3 index: 3",
         tmpEntriesSorted.get(0).toString());
@@ -579,15 +464,10 @@ public class MouseActionListeningHtmlUnitControlsFinderTest {
         + "<a id='otherId'>$PAGE</a>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    final MouseActionListeningHtmlUnitControlsFinder tmpFinder = new MouseActionListeningHtmlUnitControlsFinder(
-        tmpHtmlPageIndex, null, MouseAction.CLICK_RIGHT, repository);
-    tmpFinder.addIdentifier(HtmlUnitAnchorIdentifier.class);
-    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("$PAGE"), config));
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "$PAGE", MouseAction.CLICK_RIGHT,
+        HtmlUnitAnchorIdentifier.class);
 
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals("[HtmlBody (id='myId')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3 index: 3",
         tmpEntriesSorted.get(0).toString());
@@ -600,17 +480,29 @@ public class MouseActionListeningHtmlUnitControlsFinderTest {
         + "<a id='otherId'>$PAGE</a>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    final MouseActionListeningHtmlUnitControlsFinder tmpFinder = new MouseActionListeningHtmlUnitControlsFinder(
-        tmpHtmlPageIndex, null, MouseAction.MOUSE_OVER, repository);
-    tmpFinder.addIdentifier(HtmlUnitAnchorIdentifier.class);
-    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("$PAGE"), config));
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "$PAGE", MouseAction.MOUSE_OVER,
+        HtmlUnitAnchorIdentifier.class);
 
-    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals("[HtmlBody (id='myId')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3 index: 3",
         tmpEntriesSorted.get(0).toString());
+  }
+
+  @SafeVarargs
+  private final List<Entry> find(final String aHtmlCode, final String aWPath, final MouseAction aMouseAction,
+      final Class<? extends AbstractHtmlUnitControlIdentifier>... aIdentifiers)
+      throws IOException, InvalidInputException {
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(aHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    final MouseActionListeningHtmlUnitControlsFinder tmpFinder = new MouseActionListeningHtmlUnitControlsFinder(
+        tmpHtmlPageIndex, null, aMouseAction, repository);
+    for (Class<? extends AbstractHtmlUnitControlIdentifier> tmpIdentifier : aIdentifiers) {
+      tmpFinder.addIdentifier(tmpIdentifier);
+    }
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString(aWPath), config));
+
+    return tmpFound.getEntriesSorted();
   }
 }
