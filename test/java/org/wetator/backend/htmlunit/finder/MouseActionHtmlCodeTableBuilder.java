@@ -45,12 +45,12 @@ public final class MouseActionHtmlCodeTableBuilder {
     }
   }
 
-  public static MouseActionHtmlCodeTableBuilder table(final String aTableId) {
-    return new MouseActionHtmlCodeTableBuilder(aTableId);
-  }
-
   private MouseActionHtmlCodeTableBuilder(final String aTableId) {
     tableId = aTableId;
+  }
+
+  public static MouseActionHtmlCodeTableBuilder table(final String aTableId) {
+    return new MouseActionHtmlCodeTableBuilder(aTableId);
   }
 
   public MouseActionHtmlCodeTableBuilder tr(final String aRowId, final int aColumnCount) {
