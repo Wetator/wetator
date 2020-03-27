@@ -17,8 +17,6 @@
 package org.wetator.backend.htmlunit.finder;
 
 import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.CONTENT;
-import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.pageEnd;
-import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.pageStart;
 
 import java.io.File;
 import java.io.IOException;
@@ -123,7 +121,8 @@ public abstract class AbstractMouseActionListeningHtmlUnitControlsFinderTest {
   }
 
   protected void setup(final String anHtmlCode) throws IOException {
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(pageStart() + anHtmlCode + pageEnd());
+    final HtmlPage tmpHtmlPage = PageUtil
+        .constructHtmlPage(MouseActionHtmlCodeCreator.pageStart() + anHtmlCode + MouseActionHtmlCodeCreator.pageEnd());
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     finder = new MouseActionListeningHtmlUnitControlsFinder(tmpHtmlPageIndex, null, mouseAction, repository);

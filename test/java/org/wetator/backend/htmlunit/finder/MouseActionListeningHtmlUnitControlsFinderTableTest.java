@@ -18,9 +18,6 @@ package org.wetator.backend.htmlunit.finder;
 
 import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeTableBuilder.table;
 
-import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.pageEnd;
-import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.pageStart;
-
 import org.junit.Test;
 import org.wetator.backend.WPath;
 import org.wetator.backend.htmlunit.MouseAction;
@@ -44,7 +41,7 @@ public class MouseActionListeningHtmlUnitControlsFinderTableTest
   @Test
   public void tableBig() throws Exception {
     // @formatter:off
-    final String tmpHtmlCode = pageStart()
+    final String tmpHtmlCode = MouseActionHtmlCodeCreator.pageStart()
 
     + table("table")
         .tr("tr1", 2)
@@ -52,7 +49,7 @@ public class MouseActionListeningHtmlUnitControlsFinderTableTest
         .tr("tr3", 2)
         .tr("tr4", 1)
 
-    + pageEnd();
+    + MouseActionHtmlCodeCreator.pageEnd();
     // @formatter:on
 
     // @formatter:off
