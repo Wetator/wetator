@@ -126,6 +126,46 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
   }
 
   @Test
+  public void byTitle() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<button id='myId' name='myName' title='myTitle'>"
+        + "<p>ButtonWithText</p>"
+        + "</button>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "myTitle", "myId");
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlButton 'ButtonWithText' (id='myId') (name='myName')] found by: BY_TITLE_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
+        tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
+  public void byIdNameText() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<button id='myButton' name='myButton'>"
+        + "<p>myButton</p>"
+        + "</button>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "myButton", "myButton");
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlButton 'myButton' (id='myButton') (name='myButton')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
+        tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
   public void byAriaLabel() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
@@ -166,58 +206,81 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
   }
 
   @Test
-  public void byInnerImage_Name() throws IOException, InvalidInputException {
+  public void byInnerImage_name() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<button id='myId' name='myName'>"
-        + "<img src='picture.png' name='MyImageName'>"
+        + "<img src='picture.png' name='myImageName'>"
         + "</button>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "MyImageName", "myId");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "myImageName", "myId");
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlButton 'image: picture.png' (id='myId') (name='myName')] found by: BY_INNER_NAME deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
+        "[HtmlButton 'image: picture.png' (id='myId') (name='myName')] found by: BY_INNER_IMG_NAME deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
   }
 
   @Test
-  public void byInnerImage_Alt() throws IOException, InvalidInputException {
+  public void byInnerImage_alt_imageOnly() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<button id='myId' name='myName'>"
-        + "<img src='picture.png' alt='MyImageAlt'>"
+        + "<img src='picture.png' alt='myImageAlt'>"
         + "</button>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "MyImageAlt", "myId");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "myImageAlt", "myId");
 
     assertEquals(1, tmpEntriesSorted.size());
+    // if the anchor just contains the image the image's alt text is also the anchors text -> we loose to BY_LABEL
+    // but in the end it does not matter as both are weighted equally
     assertEquals(
         "[HtmlButton 'image: picture.png' (id='myId') (name='myName')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
   }
 
   @Test
-  public void byInnerImage_Title() throws IOException, InvalidInputException {
+  public void byInnerImage_alt_mixed() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<button id='myId' name='myName'>"
-        + "<img src='picture.png' title='MyImageTitle'>"
+        + "<img src='picture.png' alt='myImageAlt'>"
+        + "x"
         + "</button>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "MyImageTitle", "myId");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "myImageAlt", "myId");
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlButton 'image: picture.png' 'x' (id='myId') (name='myName')] found by: BY_INNER_IMG_ALT_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
+        tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
+  public void byInnerImage_title() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<button id='myId' name='myName'>"
+        + "<img src='picture.png' title='myImageTitle'>"
+        + "</button>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "myImageTitle", "myId");
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
@@ -226,12 +289,12 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
   }
 
   @Test
-  public void byInnerImage_Src() throws IOException, InvalidInputException {
+  public void byInnerImage_src() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<button id='myId' name='myName'>"
-        + "<img src='picture.png' title='MyImageTitle'>"
+        + "<img src='picture.png'>"
         + "</button>"
         + "</form>"
         + "</body></html>";

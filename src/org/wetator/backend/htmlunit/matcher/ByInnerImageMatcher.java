@@ -27,15 +27,13 @@ import org.wetator.util.FindSpot;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlImage;
-import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
 
 /**
- * This matcher checks if the given element contains an image ({@link HtmlImage} or {@link HtmlImageInput}) and this
- * image matches the criteria.
+ * This matcher checks if the given element contains an {@link HtmlImage} and this
+ * image's attributes 'alt', 'title', 'src' or 'name' match the criteria.
  *
  * @author frank.danek
  */
-// FIXME [INNER IMAGE] remove once children of anchors and buttons are clickable
 public class ByInnerImageMatcher extends AbstractHtmlUnitElementMatcher {
 
   /**
@@ -65,25 +63,25 @@ public class ByInnerImageMatcher extends AbstractHtmlUnitElementMatcher {
     if (pathSpot == null || pathSpot.getEndPos() <= tmpNodeSpot.getStartPos()) {
       final List<MatchResult> tmpMatches = new LinkedList<>();
 
-      // now check for the including image
-      final Iterable<HtmlElement> tmpAllchildElements = aHtmlElement.getHtmlElementDescendants();
-      for (final HtmlElement tmpInnerElement : tmpAllchildElements) {
+      // now check for the inner image
+      final Iterable<HtmlElement> tmpInnerElements = aHtmlElement.getHtmlElementDescendants();
+      for (final HtmlElement tmpInnerElement : tmpInnerElements) {
         if (tmpInnerElement instanceof HtmlImage) {
           // does image alt-text match?
           tmpMatches.addAll(new ByInnerImageAltAttributeMatcher(htmlPageIndex, pathSearchPattern, pathSpot,
-              searchPattern, tmpInnerElement).matches(aHtmlElement));
+              searchPattern, (HtmlImage) tmpInnerElement).matches(aHtmlElement));
 
           // does image title-text match?
           tmpMatches.addAll(new ByInnerImageTitleAttributeMatcher(htmlPageIndex, pathSearchPattern, pathSpot,
-              searchPattern, tmpInnerElement).matches(aHtmlElement));
+              searchPattern, (HtmlImage) tmpInnerElement).matches(aHtmlElement));
 
           // does image filename match?
           tmpMatches.addAll(new ByInnerImageSrcAttributeMatcher(htmlPageIndex, pathSearchPattern, pathSpot,
-              searchPattern, tmpInnerElement).matches(aHtmlElement));
+              searchPattern, (HtmlImage) tmpInnerElement).matches(aHtmlElement));
 
-          tmpMatches
-              .addAll(new ByInnerNameMatcher(htmlPageIndex, pathSearchPattern, pathSpot, searchPattern, tmpInnerElement)
-                  .matches(aHtmlElement));
+          // does image name match?
+          tmpMatches.addAll(new ByInnerImageNameMatcher(htmlPageIndex, pathSearchPattern, pathSpot, searchPattern,
+              (HtmlImage) tmpInnerElement).matches(aHtmlElement));
         }
       }
       return tmpMatches;
@@ -93,14 +91,13 @@ public class ByInnerImageMatcher extends AbstractHtmlUnitElementMatcher {
   }
 
   /**
-   * This matcher checks if the attribute 'alt' of the given image ({@link HtmlImage} or {@link HtmlImageInput}) matches
-   * the criteria.
+   * This matcher checks if the attribute 'alt' of the given {@link HtmlImage} matches the criteria.
    *
    * @author frank.danek
    */
   protected static class ByInnerImageAltAttributeMatcher extends AbstractByAttributeMatcher {
 
-    private HtmlElement innerHtmlElement;
+    private HtmlImage innerHtmlImage;
 
     /**
      * The constructor.<br>
@@ -111,35 +108,28 @@ public class ByInnerImageMatcher extends AbstractHtmlUnitElementMatcher {
      *        path given
      * @param aPathSpot the {@link FindSpot} the path was found first or <code>null</code> if no path given
      * @param aSearchPattern the {@link SearchPattern} describing the element
-     * @param anInnerHtmlElement the inner image element
+     * @param anInnerHtmlImage the inner image element
      */
     public ByInnerImageAltAttributeMatcher(final HtmlPageIndex aHtmlPageIndex, final SearchPattern aPathSearchPattern,
-        final FindSpot aPathSpot, final SearchPattern aSearchPattern, final HtmlElement anInnerHtmlElement) {
+        final FindSpot aPathSpot, final SearchPattern aSearchPattern, final HtmlImage anInnerHtmlImage) {
       super(aHtmlPageIndex, aPathSearchPattern, aPathSpot, aSearchPattern, FoundType.BY_INNER_IMG_ALT_ATTRIBUTE);
-      innerHtmlElement = anInnerHtmlElement;
+      innerHtmlImage = anInnerHtmlImage;
     }
 
     @Override
     protected String getAttributeValue(final HtmlElement aHtmlElement) {
-      if (innerHtmlElement instanceof HtmlImage) {
-        return ((HtmlImage) innerHtmlElement).getAltAttribute();
-      }
-      if (innerHtmlElement instanceof HtmlImageInput) {
-        return ((HtmlImageInput) innerHtmlElement).getAltAttribute();
-      }
-      return null;
+      return innerHtmlImage.getAltAttribute();
     }
   }
 
   /**
-   * This matcher checks if the attribute 'src' of the given image ({@link HtmlImage} or {@link HtmlImageInput}) matches
-   * the criteria.
+   * This matcher checks if the attribute 'src' of the given image {@link HtmlImage} matches the criteria.
    *
    * @author frank.danek
    */
   protected static class ByInnerImageSrcAttributeMatcher extends AbstractByAttributeMatcher {
 
-    private HtmlElement innerHtmlElement;
+    private HtmlImage innerHtmlImage;
 
     /**
      * The constructor.<br>
@@ -150,36 +140,29 @@ public class ByInnerImageMatcher extends AbstractHtmlUnitElementMatcher {
      *        path given
      * @param aPathSpot the {@link FindSpot} the path was found first or <code>null</code> if no path given
      * @param aSearchPattern the {@link SearchPattern} describing the element
-     * @param anInnerHtmlElement the inner image element
+     * @param anInnerHtmlImage the inner image element
      */
     public ByInnerImageSrcAttributeMatcher(final HtmlPageIndex aHtmlPageIndex, final SearchPattern aPathSearchPattern,
-        final FindSpot aPathSpot, final SearchPattern aSearchPattern, final HtmlElement anInnerHtmlElement) {
+        final FindSpot aPathSpot, final SearchPattern aSearchPattern, final HtmlImage anInnerHtmlImage) {
       super(aHtmlPageIndex, aPathSearchPattern, aPathSpot, aSearchPattern, FoundType.BY_INNER_IMG_SRC_ATTRIBUTE);
-      innerHtmlElement = anInnerHtmlElement;
+      innerHtmlImage = anInnerHtmlImage;
       matchType = MatchType.ENDS_WITH;
     }
 
     @Override
     protected String getAttributeValue(final HtmlElement aHtmlElement) {
-      if (innerHtmlElement instanceof HtmlImage) {
-        return ((HtmlImage) innerHtmlElement).getSrcAttribute();
-      }
-      if (innerHtmlElement instanceof HtmlImageInput) {
-        return ((HtmlImageInput) innerHtmlElement).getSrcAttribute();
-      }
-      return null;
+      return innerHtmlImage.getSrcAttribute();
     }
   }
 
   /**
-   * This matcher checks if the attribute 'title' of the given image ({@link HtmlImage} or {@link HtmlImageInput})
-   * matches the criteria.
+   * This matcher checks if the attribute 'title' of the given {@link HtmlImage} matches the criteria.
    *
    * @author frank.danek
    */
   protected static class ByInnerImageTitleAttributeMatcher extends AbstractByAttributeMatcher {
 
-    private HtmlElement innerHtmlElement;
+    private HtmlImage innerHtmlImage;
 
     /**
      * The constructor.<br>
@@ -190,32 +173,28 @@ public class ByInnerImageMatcher extends AbstractHtmlUnitElementMatcher {
      *        path given
      * @param aPathSpot the {@link FindSpot} the path was found first or <code>null</code> if no path given
      * @param aSearchPattern the {@link SearchPattern} describing the element
-     * @param anInnerHtmlElement the inner image element
+     * @param anInnerHtmlImage the inner image element
      */
     public ByInnerImageTitleAttributeMatcher(final HtmlPageIndex aHtmlPageIndex, final SearchPattern aPathSearchPattern,
-        final FindSpot aPathSpot, final SearchPattern aSearchPattern, final HtmlElement anInnerHtmlElement) {
+        final FindSpot aPathSpot, final SearchPattern aSearchPattern, final HtmlImage anInnerHtmlImage) {
       super(aHtmlPageIndex, aPathSearchPattern, aPathSpot, aSearchPattern, FoundType.BY_INNER_IMG_TITLE_ATTRIBUTE);
-      innerHtmlElement = anInnerHtmlElement;
+      innerHtmlImage = anInnerHtmlImage;
     }
 
     @Override
     protected String getAttributeValue(final HtmlElement aHtmlElement) {
-      if (innerHtmlElement instanceof HtmlImage || innerHtmlElement instanceof HtmlImageInput) {
-        return innerHtmlElement.getAttribute("title");
-      }
-      return null;
+      return innerHtmlImage.getAttribute("title");
     }
   }
 
   /**
-   * This matcher checks if the attribute 'name' of the given image ({@link HtmlImage} or {@link HtmlImageInput})
-   * matches the criteria.
+   * This matcher checks if the attribute 'name' of the given {@link HtmlImage} matches the criteria.
    *
    * @author frank.danek
    */
-  protected static class ByInnerNameMatcher extends AbstractByAttributeMatcher {
+  protected static class ByInnerImageNameMatcher extends AbstractByAttributeMatcher {
 
-    private HtmlElement innerHtmlElement;
+    private HtmlImage innerHtmlImage;
 
     /**
      * The constructor.<br>
@@ -226,21 +205,18 @@ public class ByInnerImageMatcher extends AbstractHtmlUnitElementMatcher {
      *        path given
      * @param aPathSpot the {@link FindSpot} the path was found first or <code>null</code> if no path given
      * @param aSearchPattern the {@link SearchPattern} describing the element
-     * @param anInnerHtmlElement the inner image element
+     * @param anInnerHtmlImage the inner image element
      */
-    public ByInnerNameMatcher(final HtmlPageIndex aHtmlPageIndex, final SearchPattern aPathSearchPattern,
-        final FindSpot aPathSpot, final SearchPattern aSearchPattern, final HtmlElement anInnerHtmlElement) {
-      super(aHtmlPageIndex, aPathSearchPattern, aPathSpot, aSearchPattern, FoundType.BY_INNER_NAME);
-      innerHtmlElement = anInnerHtmlElement;
+    public ByInnerImageNameMatcher(final HtmlPageIndex aHtmlPageIndex, final SearchPattern aPathSearchPattern,
+        final FindSpot aPathSpot, final SearchPattern aSearchPattern, final HtmlImage anInnerHtmlImage) {
+      super(aHtmlPageIndex, aPathSearchPattern, aPathSpot, aSearchPattern, FoundType.BY_INNER_IMG_NAME);
+      innerHtmlImage = anInnerHtmlImage;
       matchType = MatchType.EXACT;
     }
 
     @Override
     protected String getAttributeValue(final HtmlElement aHtmlElement) {
-      if (innerHtmlElement instanceof HtmlImage || innerHtmlElement instanceof HtmlImageInput) {
-        return innerHtmlElement.getAttribute("name");
-      }
-      return null;
+      return innerHtmlImage.getAttribute("name");
     }
   }
 }

@@ -44,7 +44,7 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<a id='myId' href='snoopy.php'>TestAnchor</a>"
+        + "<a id='myId' href='snoopy.php'>AnchorWithText</a>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
@@ -57,7 +57,7 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<div id='myId'>TestAnchor</div>"
+        + "<div id='myId'>AnchorWithText</div>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
@@ -70,7 +70,9 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<a id='myId' href='snoopy.php'>TestAnchor</a>"
+        + "<a id='myId' name='myName' href='snoopy.php'>"
+        + "<p>AnchorWithText</p>"
+        + "</a>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
@@ -79,7 +81,7 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlAnchor 'TestAnchor' (id='myId')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
+        "[HtmlAnchor 'AnchorWithText' (id='myId') (name='myName')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -88,16 +90,18 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<a id='myId' name='MyName' href='snoopy.php'>TestAnchor</a>"
+        + "<a id='myId' name='myName' href='snoopy.php'>"
+        + "<p>AnchorWithText</p>"
+        + "</a>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "MyName", "myId");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "myName", "myId");
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlAnchor 'TestAnchor' (id='myId') (name='MyName')] found by: BY_NAME deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
+        "[HtmlAnchor 'AnchorWithText' (id='myId') (name='myName')] found by: BY_NAME deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -106,16 +110,18 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<a id='myId' name='MyName' href='snoopy.php'>TestAnchor</a>"
+        + "<a id='myId' name='myName' href='snoopy.php'>"
+        + "<p>AnchorWithText</p>"
+        + "</a>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "TestAnchor", "myId");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "AnchorWithText", "myId");
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlAnchor 'TestAnchor' (id='myId') (name='MyName')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
+        "[HtmlAnchor 'AnchorWithText' (id='myId') (name='myName')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -124,16 +130,18 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<a id='myId' name='MyName' href='snoopy.php' title='AnchorTitle'>TestAnchor</a>"
+        + "<a id='myId' name='myName' href='snoopy.php' title='myTitle'>"
+        + "<p>AnchorWithText</p>"
+        + "</a>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "AnchorTitle", "myId");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "myTitle", "myId");
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlAnchor 'TestAnchor' (id='myId') (name='MyName')] found by: BY_TITLE_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
+        "[HtmlAnchor 'AnchorWithText' (id='myId') (name='myName')] found by: BY_TITLE_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -142,7 +150,9 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<a id='myAnchor' name='myAnchor' href='snoopy.php'>myAnchor</a>"
+        + "<a id='myAnchor' name='myAnchor' href='snoopy.php'>"
+        + "<p>myAnchor</p>"
+        + "</a>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
@@ -160,16 +170,18 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<a id='myAnchor' name='myAnchor' href='snoopy.php' aria-label='myAria'>myAnchor</a>"
+        + "<a id='myId' name='myName' href='snoopy.php' aria-label='myAria'>"
+        + "<p>AnchorWithText</p>"
+        + "</a>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "myAria", "myAnchor");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "myAria", "myId");
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlAnchor 'myAnchor' (id='myAnchor') (name='myAnchor')] found by: BY_ARIA_LABEL_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
+        "[HtmlAnchor 'AnchorWithText' (id='myId') (name='myName')] found by: BY_ARIA_LABEL_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -178,7 +190,9 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<a id='myAnchor' name='myAnchor' href='snoopy.php' aria-label='myAnchor'>myAnchor</a>"
+        + "<a id='myAnchor' name='myAnchor' href='snoopy.php' aria-label='myAnchor'>"
+        + "<p>myAnchor</p>"
+        + "</a>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
@@ -192,72 +206,95 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
   }
 
   @Test
-  public void byInnerImage_Name() throws IOException, InvalidInputException {
+  public void byInnerImage_name() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<a id='myId' name='MyName' href='snoopy.php'>"
-        + "<img src='picture.png' name='MyImageName'>"
+        + "<a id='myId' name='myName' href='snoopy.php'>"
+        + "<img src='picture.png' name='myImageName'>"
         + "</a>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "MyImageName", "myId");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "myImageName", "myId");
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_NAME deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
+        "[HtmlAnchor 'image: picture.png' (id='myId') (name='myName')] found by: BY_INNER_IMG_NAME deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
   }
 
   @Test
-  public void byInnerImage_Alt() throws IOException, InvalidInputException {
+  public void byInnerImage_alt_imageOnly() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<a id='myId' name='MyName' href='snoopy.php'>"
-        + "<img src='picture.png' name='MyImageName' alt='MyAlt'>"
+        + "<a id='myId' name='myName' href='snoopy.php'>"
+        + "<img src='picture.png' alt='myImageAlt'>"
         + "</a>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "MyAlt", "myId");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "myImageAlt", "myId");
 
     assertEquals(1, tmpEntriesSorted.size());
+    // if the anchor just contains the image the image's alt text is also the anchors text -> we loose to BY_LABEL
+    // but in the end it does not matter as both are weighted equally
     assertEquals(
-        "[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
+        "[HtmlAnchor 'image: picture.png' (id='myId') (name='myName')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
   }
 
   @Test
-  public void byInnerImage_Title() throws IOException, InvalidInputException {
+  public void byInnerImage_alt_mixed() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<a id='myId' name='MyName' href='snoopy.php'>"
-        + "<img src='picture.png' name='MyImageName' title='MyTitle'>"
+        + "<a id='myId' name='myName' href='snoopy.php'>"
+        + "<img src='picture.png' alt='myImageAlt'>"
+        + "x"
         + "</a>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "MyTitle", "myId");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "myImageAlt", "myId");
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_IMG_TITLE_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
+        "[HtmlAnchor 'image: picture.png' 'x' (id='myId') (name='myName')] found by: BY_INNER_IMG_ALT_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
   }
 
   @Test
-  public void byInnerImage_Src() throws IOException, InvalidInputException {
+  public void byInnerImage_title() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<a id='myId' name='MyName' href='snoopy.php'>"
-        + "<img src='picture.png' name='MyImageName' title='MyTitle'>"
+        + "<a id='myId' name='myName' href='snoopy.php'>"
+        + "<img src='picture.png' title='myImageTitle'>"
+        + "</a>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "myImageTitle", "myId");
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlAnchor 'image: picture.png' (id='myId') (name='myName')] found by: BY_INNER_IMG_TITLE_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
+        tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
+  public void byInnerImage_src() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<a id='myId' name='myName' href='snoopy.php'>"
+        + "<img src='picture.png'>"
         + "</a>"
         + "</form>"
         + "</body></html>";
@@ -267,7 +304,7 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlAnchor 'image: picture.png' (id='myId') (name='MyName')] found by: BY_INNER_IMG_SRC_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
+        "[HtmlAnchor 'image: picture.png' (id='myId') (name='myName')] found by: BY_INNER_IMG_SRC_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
   }
 

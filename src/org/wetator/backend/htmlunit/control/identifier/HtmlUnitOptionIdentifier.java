@@ -114,6 +114,8 @@ public class HtmlUnitOptionIdentifier extends AbstractHtmlUnitControlIdentifier 
               // select part -> distance from end of part to select
               tmpDistance = tmpSearchPatternSelect.noOfCharsAfterLastOccurenceIn(tmpLabelingTextBefore);
             }
+            // we have to use the reversed table coordinates to work from the inner most (last) to the outer most
+            // (first)
             identifyOption(tmpEnclosingSelect, (HtmlOption) aHtmlElement, tmpSearchPattern,
                 aWPath.getTableCoordinatesReversed(), tmpDistance, tmpResult);
           }
@@ -133,6 +135,8 @@ public class HtmlUnitOptionIdentifier extends AbstractHtmlUnitControlIdentifier 
               // name matched select directly -> distance from select to option -> distance 0
               tmpDistance = 0;
             }
+            // we have to use the reversed table coordinates to work from the inner most (last) to the outer most
+            // (first)
             identifyOption(tmpEnclosingSelect, (HtmlOption) aHtmlElement, tmpSearchPattern,
                 aWPath.getTableCoordinatesReversed(), tmpDistance, tmpResult);
           }
@@ -152,6 +156,8 @@ public class HtmlUnitOptionIdentifier extends AbstractHtmlUnitControlIdentifier 
               // id matched select directly -> distance from select to option -> distance 0
               tmpDistance = 0;
             }
+            // we have to use the reversed table coordinates to work from the inner most (last) to the outer most
+            // (first)
             identifyOption(tmpEnclosingSelect, (HtmlOption) aHtmlElement, tmpSearchPattern,
                 aWPath.getTableCoordinatesReversed(), tmpDistance, tmpResult);
           }
@@ -182,6 +188,8 @@ public class HtmlUnitOptionIdentifier extends AbstractHtmlUnitControlIdentifier 
             }
             final HtmlSelect tmpSelect = (HtmlSelect) tmpLabeledElement;
             for (final HtmlOption tmpOption : tmpSelect.getOptions()) {
+              // we have to use the reversed table coordinates to work from the inner most (last) to the outer most
+              // (first)
               identifyOption(tmpSelect, tmpOption, tmpSearchPattern, aWPath.getTableCoordinatesReversed(), tmpDistance,
                   tmpResult);
             }

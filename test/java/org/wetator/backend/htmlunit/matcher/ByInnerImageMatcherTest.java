@@ -310,7 +310,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_INNER_NAME, 0, 14, 14, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_INNER_IMG_NAME, 0, 14, 14, tmpMatches.get(0));
   }
 
   @Test
@@ -329,7 +329,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_INNER_NAME, 0, 14, 14, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_INNER_IMG_NAME, 0, 14, 14, tmpMatches.get(0));
   }
 
   @Test
@@ -348,7 +348,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_INNER_NAME, 0, 14, 14, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_INNER_IMG_NAME, 0, 14, 14, tmpMatches.get(0));
   }
 
   @Test
@@ -409,7 +409,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
     assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_INNER_NAME, 0, 5, 14, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_INNER_IMG_NAME, 0, 5, 14, tmpMatches.get(0));
   }
 
   @Test
@@ -431,7 +431,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
     assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_INNER_NAME, 0, 5, 14, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_INNER_IMG_NAME, 0, 5, 14, tmpMatches.get(0));
   }
 
   @Test
@@ -453,7 +453,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
     assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_INNER_NAME, 0, 5, 14, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_INNER_IMG_NAME, 0, 5, 14, tmpMatches.get(0));
   }
 
   @Test
