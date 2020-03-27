@@ -17,14 +17,12 @@
 package org.wetator.backend.htmlunit.finder;
 
 import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeTableBuilder.table;
-import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeTableBuilder.tr;
 
 import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.pageEnd;
 import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.pageStart;
 
 import org.junit.Test;
 import org.wetator.backend.WPath;
-import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.htmlunit.MouseAction;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.ExpectedControl;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.SortedEntryExpectation;
@@ -48,12 +46,11 @@ public class MouseActionListeningHtmlUnitControlsFinderTableTest
     // @formatter:off
     final String tmpHtmlCode = pageStart()
 
-    + table("table",
-        tr("table", "tr1", 2).build()
-      + tr("table", "tr2", 3)
-      + tr("table", "tr3", 2)
-      + tr("table", "tr4", 1)
-    )
+    + table("table")
+        .tr("tr1", 2)
+        .tr("tr2", 3)
+        .tr("tr3", 2)
+        .tr("tr4", 1)
 
     + pageEnd();
     // @formatter:on
@@ -78,8 +75,6 @@ public class MouseActionListeningHtmlUnitControlsFinderTableTest
     // @formatter:on
 
     setMouseAction(MouseAction.CLICK);
-    setup(tmpHtmlCode);
-    final WeightedControlList tmpFound = find();
-    assertion(tmpSortedEntryExpectation, tmpFound);
+    checkFoundElements(tmpHtmlCode, tmpSortedEntryExpectation);
   }
 }

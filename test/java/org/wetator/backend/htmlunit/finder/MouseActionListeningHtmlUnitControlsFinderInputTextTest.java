@@ -16,9 +16,6 @@
 
 package org.wetator.backend.htmlunit.finder;
 
-import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeBuilder.inputText;
-import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeBuilder.label;
-
 import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.CONTENT;
 
 import java.util.Arrays;
@@ -70,21 +67,21 @@ public class MouseActionListeningHtmlUnitControlsFinderInputTextTest
       // label + text input
 
       // 3
-      { label("input", CONTENT).noListen().build() + inputText("input"),
+      { label("input", CONTENT).noListen().inputText("input"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlTextInput.class, "input"),
             new ExpectedControl(HtmlLabel.class, "lbl-input"))
       },
 
       // 4
-      { label("input", CONTENT).build() + inputText("input"),
+      { label("input", CONTENT).inputText("input"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlLabel.class, "lbl-input"),
             new ExpectedControl(HtmlTextInput.class, "input"))
       },
 
       // 5
-      { inputText("input") + label("input", CONTENT).build(),
+      { inputText("input").label("input", CONTENT),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlTextInput.class, "input"),
             new ExpectedControl(HtmlLabel.class, "lbl-input"))

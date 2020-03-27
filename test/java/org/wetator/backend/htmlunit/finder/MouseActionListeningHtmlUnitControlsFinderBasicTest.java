@@ -17,17 +17,6 @@
 package org.wetator.backend.htmlunit.finder;
 
 import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeTableBuilder.table;
-import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeTableBuilder.tr;
-
-import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeBuilder.a;
-import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeBuilder.button;
-import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeBuilder.checkbox;
-import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeBuilder.div;
-import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeBuilder.image;
-import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeBuilder.inputText;
-import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeBuilder.label;
-import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeBuilder.radio;
-import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeBuilder.span;
 
 import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.CONTENT;
 
@@ -87,17 +76,17 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
   public static Collection<Object[]> provideParameters() {
     final Object[][] tmpData = new Object[][] { //
     // @formatter:off
-      { a("anchor-before").build() + a("anchor", CONTENT) + a("anchor-after"),
+      { a("anchor-before").a("anchor", CONTENT).a("anchor-after"),
         new SortedEntryExpectation(new ExpectedControl(HtmlAnchor.class, "anchor")),
         Arrays.asList(HtmlUnitAnchorIdentifier.class)
       },
 
-      { button("button-before").build() + button("button", CONTENT) + button("button-after"),
+      { button("button-before").button("button", CONTENT).button("button-after"),
         new SortedEntryExpectation(new ExpectedControl(HtmlButton.class, "button")),
         Arrays.asList(HtmlUnitButtonIdentifier.class)
       },
 
-      { checkbox("checkbox-before") + CONTENT + checkbox("checkbox-after") + label("checkbox-label", CONTENT).noListen() + checkbox("checkbox-label"),
+      { checkbox("checkbox-before") + CONTENT + checkbox("checkbox-after").label("checkbox-label", CONTENT).noListen().checkbox("checkbox-label"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlCheckBoxInput.class, "checkbox-label"),
             new ExpectedControl(HtmlCheckBoxInput.class, "checkbox-before"),
@@ -107,7 +96,7 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
         null
       },
 
-      { div("div-before").build() + div("div", CONTENT) + div("div-after"),
+      { div("div-before").div("div", CONTENT).div("div-after"),
         new SortedEntryExpectation(new ExpectedControl(HtmlDivision.class, "div")),
         null
       },
@@ -119,19 +108,19 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
         null
       },
 
-      { image("img-before").build() + image("img", CONTENT) + image("img-after", ""),
+      { image("img-before").image("img", CONTENT).image("img-after"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlImage.class, "img"),
             new ExpectedControl(HtmlImage.class, "img-after")),
         null
       },
 
-      { label("before").build() + label("main", CONTENT) + label("after"),
+      { label("before").label("main", CONTENT).label("after"),
         new SortedEntryExpectation(new ExpectedControl(HtmlLabel.class, "lbl-main")),
         null
       },
 
-      { radio("radio-before") + CONTENT + radio("radio-after") + label("radio-label", CONTENT).noListen() + radio("radio-label"),
+      { radio("radio-before") + CONTENT + radio("radio-after").label("radio-label", CONTENT).noListen().radio("radio-label"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlRadioButtonInput.class, "radio-label"),
             new ExpectedControl(HtmlRadioButtonInput.class, "radio-before"),
@@ -141,12 +130,12 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
         null
       },
 
-      { span("span-before").build() + span("span", CONTENT) + span("span-after"),
+      { span("span-before").span("span", CONTENT).span("span-after"),
         new SortedEntryExpectation(new ExpectedControl(HtmlSpan.class, "span")),
         null
       },
 
-      { table("table", tr("table", "tr", 1)).build(),
+      { table("table").tr("tr", 1),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlTableDataCell.class, "table-tr-td"),
             new ExpectedControl(HtmlTableRow.class, "table-tr"),
@@ -171,18 +160,18 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
   @Test
   public void checkFoundElementsClickDouble() throws Exception {
     setMouseAction(MouseAction.CLICK_DOUBLE);
-    super.checkFoundElements((String) htmlCodeBuilder, expected);
+    super.checkFoundElements(htmlCode, expected);
   }
 
   @Test
   public void checkFoundElementsClickRight() throws Exception {
     setMouseAction(MouseAction.CLICK_RIGHT);
-    super.checkFoundElements((String) htmlCodeBuilder, expected);
+    super.checkFoundElements(htmlCode, expected);
   }
 
   @Test
   public void checkFoundElementsMouseOver() throws Exception {
     setMouseAction(MouseAction.MOUSE_OVER);
-    super.checkFoundElements((String) htmlCodeBuilder, expected);
+    super.checkFoundElements(htmlCode, expected);
   }
 }

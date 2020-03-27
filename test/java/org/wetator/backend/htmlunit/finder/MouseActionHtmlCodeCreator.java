@@ -105,7 +105,7 @@ public abstract class MouseActionHtmlCodeCreator {
           + (anIsListening ? ' ' + onMouseAction : "") + '>' + CONTENT + "</td>";
     }
     tmpRow += tableRowEnd();
-  
+
     return tmpRow;
   }
 

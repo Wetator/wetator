@@ -16,8 +16,6 @@
 
 package org.wetator.backend.htmlunit.finder;
 
-import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeBuilder.div;
-
 import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.CONTENT;
 
 import java.util.Arrays;

@@ -22,12 +22,10 @@ import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.pag
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.htmlunit.HtmlUnitControlRepository;
@@ -49,7 +47,6 @@ import org.wetator.backend.htmlunit.control.HtmlUnitOptionGroup;
 import org.wetator.backend.htmlunit.control.HtmlUnitSelect;
 import org.wetator.backend.htmlunit.control.HtmlUnitTextArea;
 import org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier;
-import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.ExpectedControl;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.SortedEntryExpectation;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
 import org.wetator.backend.htmlunit.util.PageUtil;
@@ -75,8 +72,7 @@ public abstract class AbstractMouseActionListeningHtmlUnitControlsFinderTest {
   // FIXME [UNKNOWN] remove as soon as included in MouseActionListeningHtmlUnitControlsFinder
   protected UnknownHtmlUnitControlsFinder finderUnknown;
 
-  @BeforeClass
-  public static void resetMouseActionInCreator() {
+  static {
     MouseActionHtmlCodeCreator.resetOnMouseAction();
   }
 
@@ -108,14 +104,22 @@ public abstract class AbstractMouseActionListeningHtmlUnitControlsFinderTest {
     repository.add(HtmlUnitTextArea.class);
   }
 
-  public void checkFoundElements(final String anHtmlCode, final SortedEntryExpectation anExpected) throws Exception {
+  public void checkFoundElements(final Object anHtmlCode, final SortedEntryExpectation anExpected) throws Exception {
+    if (anHtmlCode instanceof MouseActionHtmlCodeBuilder) {
+      checkFoundElements(((MouseActionHtmlCodeBuilder) anHtmlCode).build(), anExpected);
+    } else if (anHtmlCode instanceof MouseActionHtmlCodeTableBuilder) {
+      checkFoundElements(((MouseActionHtmlCodeTableBuilder) anHtmlCode).build(), anExpected);
+    } else if (anHtmlCode instanceof String) {
+      checkFoundElements((String) anHtmlCode, anExpected);
+    } else {
+      throw new RuntimeException("'" + anHtmlCode + "' of wrong type (" + anHtmlCode.getClass().getSimpleName() + ").");
+    }
+  }
+
+  private void checkFoundElements(final String anHtmlCode, final SortedEntryExpectation anExpected) throws Exception {
     setup(anHtmlCode);
     final WeightedControlList tmpFound = find();
     assertion(anExpected, tmpFound);
-  }
-
-  public void checkFoundElements(final String anHtmlCode, final ExpectedControl... anExpected) throws Exception {
-    checkFoundElements(anHtmlCode, new SortedEntryExpectation(anExpected));
   }
 
   protected void setup(final String anHtmlCode) throws IOException {
@@ -128,11 +132,6 @@ public abstract class AbstractMouseActionListeningHtmlUnitControlsFinderTest {
 
   public void setMouseAction(final MouseAction aMouseAction) {
     mouseAction = aMouseAction;
-  }
-
-  @SafeVarargs
-  protected final void addIdentifiers(final Class<? extends AbstractMatcherBasedIdentifier>... anIdentifiers) {
-    finder.addIdentifiers(Arrays.asList(anIdentifiers));
   }
 
   protected final void addIdentifiers(final List<Class<? extends AbstractMatcherBasedIdentifier>> anIdentifiers) {
@@ -156,7 +155,87 @@ public abstract class AbstractMouseActionListeningHtmlUnitControlsFinderTest {
     WeightedControlListEntryAssert.assertEntriesSorted(anExpected, anActual);
   }
 
-  protected final void assertion(final WeightedControlList anActual, final ExpectedControl... anExpected) {
-    assertion(new SortedEntryExpectation(anExpected), anActual);
+  protected static MouseActionHtmlCodeBuilder a(final String anId, final MouseActionHtmlCodeBuilder aContent) {
+    return a(anId, aContent.build());
+  }
+
+  protected static MouseActionHtmlCodeBuilder a(final String anId, final String aContent) {
+    return new MouseActionHtmlCodeBuilder().a(anId, aContent);
+  }
+
+  protected static MouseActionHtmlCodeBuilder a(final String anId) {
+    return new MouseActionHtmlCodeBuilder().a(anId);
+  }
+
+  protected static MouseActionHtmlCodeBuilder button(final String anId, final MouseActionHtmlCodeBuilder aContent) {
+    return button(anId, aContent.build());
+  }
+
+  protected static MouseActionHtmlCodeBuilder button(final String anId, final String aContent) {
+    return new MouseActionHtmlCodeBuilder().button(anId, aContent);
+  }
+
+  protected static MouseActionHtmlCodeBuilder button(final String anId) {
+    return new MouseActionHtmlCodeBuilder().button(anId);
+  }
+
+  protected static MouseActionHtmlCodeBuilder checkbox(final String anId) {
+    return new MouseActionHtmlCodeBuilder().checkbox(anId);
+  }
+
+  protected static MouseActionHtmlCodeBuilder div(final String anId, final MouseActionHtmlCodeBuilder aContent) {
+    return div(anId, aContent.build());
+  }
+
+  protected static MouseActionHtmlCodeBuilder div(final String anId, final String aContent) {
+    return new MouseActionHtmlCodeBuilder().div(anId, aContent);
+  }
+
+  protected static MouseActionHtmlCodeBuilder div(final String anId) {
+    return new MouseActionHtmlCodeBuilder().div(anId);
+  }
+
+  protected static MouseActionHtmlCodeBuilder image(final String anId, final String anAltText) {
+    return new MouseActionHtmlCodeBuilder().image(anId, anAltText);
+  }
+
+  protected static MouseActionHtmlCodeBuilder image(final String anId) {
+    return new MouseActionHtmlCodeBuilder().image(anId);
+  }
+
+  protected static MouseActionHtmlCodeBuilder inputText(final String anId, final String aPlaceholder) {
+    return new MouseActionHtmlCodeBuilder().inputText(anId, aPlaceholder);
+  }
+
+  protected static MouseActionHtmlCodeBuilder inputText(final String anId) {
+    return new MouseActionHtmlCodeBuilder().inputText(anId);
+  }
+
+  protected static MouseActionHtmlCodeBuilder label(final String anId, final MouseActionHtmlCodeBuilder aContent) {
+    return label(anId, aContent.build());
+  }
+
+  protected static MouseActionHtmlCodeBuilder label(final String anId, final String aContent) {
+    return new MouseActionHtmlCodeBuilder().label(anId, aContent);
+  }
+
+  protected static MouseActionHtmlCodeBuilder label(final String anId) {
+    return new MouseActionHtmlCodeBuilder().label(anId);
+  }
+
+  protected static MouseActionHtmlCodeBuilder radio(final String anId) {
+    return new MouseActionHtmlCodeBuilder().radio(anId);
+  }
+
+  protected static MouseActionHtmlCodeBuilder span(final String anId, final MouseActionHtmlCodeBuilder aContent) {
+    return span(anId, aContent.build());
+  }
+
+  protected static MouseActionHtmlCodeBuilder span(final String anId, final String aContent) {
+    return new MouseActionHtmlCodeBuilder().span(anId, aContent);
+  }
+
+  protected static MouseActionHtmlCodeBuilder span(final String anId) {
+    return new MouseActionHtmlCodeBuilder().span(anId);
   }
 }
