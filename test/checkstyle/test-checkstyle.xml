@@ -76,10 +76,10 @@
 
     <!-- Imports -->
     <module name="AvoidStarImport">
-      <property name="excludes" value="org.mockito.Mockito,org.mockito.ArgumentMatchers,org.junit.Assert,org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeBuilder"/>
+      <property name="excludes" value="org.mockito.Mockito,org.mockito.ArgumentMatchers,org.junit.Assert,org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeBuilder,,org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeTableBuilder"/>
     </module>
     <module name="AvoidStaticImport">
-      <property name="excludes" value="java.util.stream.Collectors.*,org.mockito.Mockito.*,org.mockito.ArgumentMatchers.*,org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeBuilder.*,org.junit.Assert.*,org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.CONTENT,org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.pageStart,org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.pageEnd"/>
+      <property name="excludes" value="java.util.stream.Collectors.*,org.mockito.Mockito.*,org.mockito.ArgumentMatchers.*,org.junit.Assert.*,org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeBuilder.*,org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeTableBuilder.*,org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.CONTENT,org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.pageStart,org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.pageEnd"/>
     </module>
     <module name="IllegalImport"/>
     <module name="RedundantImport"/>

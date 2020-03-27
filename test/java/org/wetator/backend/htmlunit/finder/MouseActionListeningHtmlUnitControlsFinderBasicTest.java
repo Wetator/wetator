@@ -16,6 +16,9 @@
 
 package org.wetator.backend.htmlunit.finder;
 
+import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeTableBuilder.table;
+import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeTableBuilder.tr;
+
 import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeBuilder.a;
 import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeBuilder.button;
 import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeBuilder.checkbox;
@@ -143,7 +146,7 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
         null
       },
 
-      { MouseActionHtmlCodeCreator.tableStart("table", true) + MouseActionHtmlCodeCreator.tableRowWithCols("table", "tr", 1, true) + MouseActionHtmlCodeCreator.tableEnd(),
+      { table("table", tr("table", "tr", 1)).build(),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlTableDataCell.class, "table-tr-td"),
             new ExpectedControl(HtmlTableRow.class, "table-tr"),

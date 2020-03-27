@@ -156,8 +156,7 @@ public class MouseActionHtmlCodeBuilder {
       case CHECKBOX:
         return MouseActionHtmlCodeCreator.checkbox(id, listen);
       case DIV:
-        final StringBuilder tmpDivHtml = new StringBuilder();
-        tmpDivHtml.append(MouseActionHtmlCodeCreator.divStart(id, listen));
+        final StringBuilder tmpDivHtml = new StringBuilder(MouseActionHtmlCodeCreator.divStart(id, listen));
         if (content != null) {
           tmpDivHtml.append(content);
         }
@@ -168,8 +167,7 @@ public class MouseActionHtmlCodeBuilder {
       case INPUT_TEXT:
         return MouseActionHtmlCodeCreator.inputText(id, content, listen);
       case LABEL:
-        final StringBuilder tmpLabelHtml = new StringBuilder();
-        tmpLabelHtml.append(MouseActionHtmlCodeCreator.labelStart(id, listen));
+        final StringBuilder tmpLabelHtml = new StringBuilder(MouseActionHtmlCodeCreator.labelStart(id, listen));
         if (content != null) {
           tmpLabelHtml.append(content);
         }
@@ -178,8 +176,7 @@ public class MouseActionHtmlCodeBuilder {
       case RADIO:
         return MouseActionHtmlCodeCreator.radio(id, listen);
       case SPAN:
-        final StringBuilder tmpSpanHtml = new StringBuilder();
-        tmpSpanHtml.append(MouseActionHtmlCodeCreator.spanStart(id, listen));
+        final StringBuilder tmpSpanHtml = new StringBuilder(MouseActionHtmlCodeCreator.spanStart(id, listen));
         if (content != null) {
           tmpSpanHtml.append(content);
         }
