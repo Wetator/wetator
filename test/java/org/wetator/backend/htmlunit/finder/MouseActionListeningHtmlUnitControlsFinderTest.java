@@ -31,6 +31,8 @@ import org.wetator.backend.WeightedControlList.Entry;
 import org.wetator.backend.htmlunit.HtmlUnitControlRepository;
 import org.wetator.backend.htmlunit.MouseAction;
 import org.wetator.backend.htmlunit.control.HtmlUnitAnchor;
+import org.wetator.backend.htmlunit.control.HtmlUnitButton;
+import org.wetator.backend.htmlunit.control.HtmlUnitImage;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputText;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitAnchorIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitButtonIdentifier;
@@ -61,6 +63,8 @@ public class MouseActionListeningHtmlUnitControlsFinderTest {
   public void createControlRepository() {
     repository = new HtmlUnitControlRepository();
     repository.add(HtmlUnitAnchor.class);
+    repository.add(HtmlUnitButton.class);
+    repository.add(HtmlUnitImage.class);
     repository.add(HtmlUnitInputText.class);
   }
 
@@ -240,6 +244,56 @@ public class MouseActionListeningHtmlUnitControlsFinderTest {
     assertEquals(
         "[HtmlTextInput (id='myId')] found by: BY_LABELING_TEXT deviation: 0 distance: 0 start: 9 hierarchy: 0>1>3>5 index: 5",
         tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
+  public void listener_knownControl_anchorChild() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<a id='otherId' href='#'><image id='myId' src='picture.png' alt='some text'></a>"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    final MouseActionListeningHtmlUnitControlsFinder tmpFinder = new MouseActionListeningHtmlUnitControlsFinder(
+        tmpHtmlPageIndex, null, MouseAction.CLICK, repository);
+    tmpFinder.addIdentifier(HtmlUnitAnchorIdentifier.class);
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("some text"), config));
+
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(2, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlImage 'picture.png' (id='myId')] found by: BY_IMG_ALT_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
+        tmpEntriesSorted.get(0).toString());
+    assertEquals(
+        "[HtmlAnchor 'image: picture.png' (id='otherId')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
+        tmpEntriesSorted.get(1).toString());
+  }
+
+  @Test
+  public void listener_knownControl_buttonChild() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<button id='otherId'><image id='myId' src='picture.png' alt='some text'></button>"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    final MouseActionListeningHtmlUnitControlsFinder tmpFinder = new MouseActionListeningHtmlUnitControlsFinder(
+        tmpHtmlPageIndex, null, MouseAction.CLICK, repository);
+    tmpFinder.addIdentifier(HtmlUnitButtonIdentifier.class);
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString("some text"), config));
+
+    final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
+    assertEquals(2, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlImage 'picture.png' (id='myId')] found by: BY_IMG_ALT_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
+        tmpEntriesSorted.get(0).toString());
+    assertEquals(
+        "[HtmlButton 'image: picture.png' (id='otherId')] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
+        tmpEntriesSorted.get(1).toString());
   }
 
   @Test
@@ -434,7 +488,7 @@ public class MouseActionListeningHtmlUnitControlsFinderTest {
   public void listener_unknownControl_buttonChild() throws Exception {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "<button id='otherId'><span id='myId'>some text</button></a>"
+        + "<button id='otherId'><span id='myId'>some text</span></button>"
         + "</body></html>";
     // @formatter:on
     final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
