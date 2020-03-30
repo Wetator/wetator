@@ -77,7 +77,8 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
     final Object[][] tmpData = new Object[][] { //
     // @formatter:off
       { a("anchor-before").a("anchor", CONTENT).a("anchor-after"),
-        new SortedEntryExpectation(new ExpectedControl(HtmlAnchor.class, "anchor")),
+        new SortedEntryExpectation(
+            new ExpectedControl(HtmlAnchor.class, "anchor")),
         Arrays.asList(HtmlUnitAnchorIdentifier.class)
       },
 
@@ -97,7 +98,8 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
       },
 
       { div("div-before").div("div", CONTENT).div("div-after"),
-        new SortedEntryExpectation(new ExpectedControl(HtmlDivision.class, "div")),
+        new SortedEntryExpectation(
+            new ExpectedControl(HtmlDivision.class, "div")),
         null
       },
 
@@ -116,7 +118,8 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
       },
 
       { label("before").label("main", CONTENT).label("after"),
-        new SortedEntryExpectation(new ExpectedControl(HtmlLabel.class, "lbl-main")),
+        new SortedEntryExpectation(
+            new ExpectedControl(HtmlLabel.class, "lbl-main")),
         null
       },
 
@@ -131,7 +134,8 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
       },
 
       { span("span-before").span("span", CONTENT).span("span-after"),
-        new SortedEntryExpectation(new ExpectedControl(HtmlSpan.class, "span")),
+        new SortedEntryExpectation(
+            new ExpectedControl(HtmlSpan.class, "span")),
         null
       },
 

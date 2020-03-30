@@ -55,12 +55,14 @@ public class MouseActionListeningHtmlUnitControlsFinderInputTextTest
 
       // 1
       { inputText("input", CONTENT),
-        new SortedEntryExpectation(new ExpectedControl(HtmlTextInput.class, "input"))
+        new SortedEntryExpectation(
+            new ExpectedControl(HtmlTextInput.class, "input"))
       },
 
       // 2
       { inputText("input") + CONTENT,
-        new SortedEntryExpectation(new ExpectedControl(HtmlBody.class))
+        new SortedEntryExpectation(
+            new ExpectedControl(HtmlBody.class))
       },
 
       //+++++++++++++++++++

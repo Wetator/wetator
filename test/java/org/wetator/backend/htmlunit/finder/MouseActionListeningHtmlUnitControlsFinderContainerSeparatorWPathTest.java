@@ -80,7 +80,8 @@ public class MouseActionListeningHtmlUnitControlsFinderContainerSeparatorWPathTe
         CONTENT + SEP + CONTENT
       },
 
-      { new SortedEntryExpectation(new ExpectedControl(HtmlDivision.class, "in")),
+      { new SortedEntryExpectation(
+          new ExpectedControl(HtmlDivision.class, "in")),
         CONTENT + SEP + CONTENT + SEP + CONTENT
       },
 
@@ -90,7 +91,8 @@ public class MouseActionListeningHtmlUnitControlsFinderContainerSeparatorWPathTe
         CONTENT + "x x" + CONTENT
       },
 
-      { new SortedEntryExpectation(new ExpectedControl(HtmlDivision.class, "out")),
+      { new SortedEntryExpectation(
+          new ExpectedControl(HtmlDivision.class, "out")),
         CONTENT + "x " + SEP + " x" + CONTENT + "x x" + CONTENT
       },
       // @formatter:on
