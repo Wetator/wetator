@@ -23,7 +23,6 @@ import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.CON
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.List;
 
 import org.junit.AfterClass;
 import org.junit.Test;
@@ -70,7 +69,7 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
   }
 
   @Parameter(2)
-  public List<Class<? extends AbstractMatcherBasedIdentifier>> identifiers;
+  public Class<? extends AbstractMatcherBasedIdentifier> identifier;
 
   @Parameters(name = "{0}")
   public static Collection<Object[]> provideParameters() {
@@ -79,12 +78,12 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
       { a("anchor-before").a("anchor", CONTENT).a("anchor-after"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlAnchor.class, "anchor")),
-        Arrays.asList(HtmlUnitAnchorIdentifier.class)
+        HtmlUnitAnchorIdentifier.class
       },
 
       { button("button-before").button("button", CONTENT).button("button-after"),
         new SortedEntryExpectation(new ExpectedControl(HtmlButton.class, "button")),
-        Arrays.asList(HtmlUnitButtonIdentifier.class)
+        HtmlUnitButtonIdentifier.class
       },
 
       { checkbox("checkbox-before") + CONTENT + checkbox("checkbox-after").label("checkbox-label", CONTENT).noListen().checkbox("checkbox-label"),
@@ -156,8 +155,8 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
   protected void setup(final String anHtmlCode) throws IOException {
     super.setup(anHtmlCode);
 
-    if (identifiers != null) {
-      addIdentifiers(identifiers);
+    if (identifier != null) {
+      addIdentifiers(identifier);
     }
   }
 

@@ -34,9 +34,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlDivision;
  * {@link HtmlDivision}s and text content exactly matching the WPath.
  *
  * @author tobwoerk
- * @see MouseActionListeningHtmlUnitControlsFinderContainerContentDiffWPathTest tests from here with multiple
- *      element hits lead to
- *      test cases in check sister test class
+ * @see MouseActionListeningHtmlUnitControlsFinderContainerContentDiffWPathTest tests from here with multiple element
+ *      hits lead to test cases in check sister test class
  */
 public class MouseActionListeningHtmlUnitControlsFinderContainerContentEqWPathTest
     extends AbstractMouseClickListeningHtmlUnitControlsFinderParameterizedTest {

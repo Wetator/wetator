@@ -20,7 +20,6 @@ import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.CON
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import java.util.Properties;
 
 import org.junit.Before;
@@ -133,7 +132,8 @@ public abstract class AbstractMouseActionListeningHtmlUnitControlsFinderTest {
     mouseAction = aMouseAction;
   }
 
-  protected final void addIdentifiers(final List<Class<? extends AbstractMatcherBasedIdentifier>> anIdentifiers) {
+  @SafeVarargs
+  protected final void addIdentifiers(final Class<? extends AbstractMatcherBasedIdentifier>... anIdentifiers) {
     for (Class<? extends AbstractMatcherBasedIdentifier> tmpIdentifier : anIdentifiers) {
       finder.addIdentifier(tmpIdentifier);
     }

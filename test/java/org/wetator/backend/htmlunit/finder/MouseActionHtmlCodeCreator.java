@@ -41,7 +41,7 @@ public abstract class MouseActionHtmlCodeCreator {
   }
 
   static String button(final String aButtonId, final String aContent) {
-    return "<button id='" + aButtonId + "' type='button'>" + (aContent != null ? aContent : "") + "</button>";
+    return "<button type='button' id='" + aButtonId + "'>" + (aContent != null ? aContent : "") + "</button>";
   }
 
   static String checkbox(final String aCheckboxId, final boolean anIsListening) {
