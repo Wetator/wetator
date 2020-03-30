@@ -41,6 +41,6 @@ public abstract class AbstractMouseClickListeningHtmlUnitControlsFinderParameter
   @Test
   public void checkFoundElementsClick() throws Exception {
     setMouseAction(MouseAction.CLICK);
-    super.checkFoundElements(htmlCode, expected);
+    checkFoundElements(htmlCode, expected);
   }
 }

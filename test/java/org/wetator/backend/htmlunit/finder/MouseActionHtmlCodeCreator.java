@@ -25,8 +25,12 @@ public abstract class MouseActionHtmlCodeCreator {
 
   public static final String CONTENT = "test";
 
-  private static final String ONCLICK = "onclick=''";
-  public static String onMouseAction = ONCLICK;
+  private static final String ON_CLICK = "onclick=''";
+  private static final String ON_CLICK_DOUBLE = "ondblclick=''";
+  private static final String ON_CLICK_RIGHT = "oncontextmenu=''";
+  private static final String ON_MOUSE_OVER = "onmouseover=''";
+  private static final String ON_ANY_MOUSE_ACTION = "onclick='' ondblclick='' oncontextmenu='' onmouseover=''";
+  private static String onMouseAction = ON_CLICK;
 
   public static String pageStart() {
     return "<html><body>";
@@ -128,6 +132,26 @@ public abstract class MouseActionHtmlCodeCreator {
   }
 
   public static void resetOnMouseAction() {
-    onMouseAction = ONCLICK;
+    listenToClick();
+  }
+
+  public static void listenToClick() {
+    onMouseAction = ON_CLICK;
+  }
+
+  public static void listenToClickDouble() {
+    onMouseAction = ON_CLICK_DOUBLE;
+  }
+
+  public static void listenToClickRight() {
+    onMouseAction = ON_CLICK_RIGHT;
+  }
+
+  public static void listenToMouseOver() {
+    onMouseAction = ON_MOUSE_OVER;
+  }
+
+  public static void listenToAnyMouseAction() {
+    onMouseAction = ON_ANY_MOUSE_ACTION;
   }
 }

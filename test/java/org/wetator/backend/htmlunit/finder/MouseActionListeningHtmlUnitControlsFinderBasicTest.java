@@ -60,7 +60,7 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
     extends AbstractMouseClickListeningHtmlUnitControlsFinderParameterizedTest {
 
   static {
-    MouseActionHtmlCodeCreator.onMouseAction = "onclick='' ondblclick='' oncontextmenu='' onmouseover=''";
+    MouseActionHtmlCodeCreator.listenToAnyMouseAction();
   }
 
   @AfterClass
@@ -163,18 +163,18 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
   @Test
   public void checkFoundElementsClickDouble() throws Exception {
     setMouseAction(MouseAction.CLICK_DOUBLE);
-    super.checkFoundElements(htmlCode, expected);
+    checkFoundElements(htmlCode, expected);
   }
 
   @Test
   public void checkFoundElementsClickRight() throws Exception {
     setMouseAction(MouseAction.CLICK_RIGHT);
-    super.checkFoundElements(htmlCode, expected);
+    checkFoundElements(htmlCode, expected);
   }
 
   @Test
   public void checkFoundElementsMouseOver() throws Exception {
     setMouseAction(MouseAction.MOUSE_OVER);
-    super.checkFoundElements(htmlCode, expected);
+    checkFoundElements(htmlCode, expected);
   }
 }
