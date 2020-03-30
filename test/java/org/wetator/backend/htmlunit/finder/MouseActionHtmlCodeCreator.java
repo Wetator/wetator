@@ -60,11 +60,25 @@ public abstract class MouseActionHtmlCodeCreator {
     return "</div>";
   }
 
+  static String inputButton(final String anInputID, final String aValue, final boolean anIsListening) {
+    return input("button", anInputID, anIsListening, aValue != null ? "value='" + aValue + "'" : "");
+  }
+
+  static String inputImage(final String anInputID, final String anAltText, final boolean anIsListening) {
+    return input("image", anInputID, anIsListening,
+        (anAltText != null ? "alt='" + anAltText + "' " : "") + "src='pathtoimg'");
+  }
+
+  static String inputReset(final String anInputID, final String aValue, final boolean anIsListening) {
+    return input("reset", anInputID, anIsListening, aValue != null ? "value='" + aValue + "'" : "");
+  }
+
+  static String inputSubmit(final String anInputID, final String aValue, final boolean anIsListening) {
+    return input("submit", anInputID, anIsListening, aValue != null ? "value='" + aValue + "'" : "");
+  }
+
   static String inputText(final String anInputID, final String aPlaceholder, final boolean anIsListening) {
-    if (aPlaceholder != null) {
-      return input("text", anInputID, anIsListening, "placeholder='" + aPlaceholder + "'");
-    }
-    return input("text", anInputID, anIsListening);
+    return input("text", anInputID, anIsListening, aPlaceholder != null ? "placeholder='" + aPlaceholder + "'" : "");
   }
 
   static String image(final String anImageId, final String anAltText, final boolean anIsListening) {

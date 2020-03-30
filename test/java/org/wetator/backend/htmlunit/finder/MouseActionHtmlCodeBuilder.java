@@ -52,6 +52,10 @@ public class MouseActionHtmlCodeBuilder {
     CHECKBOX,
     DIV,
     IMAGE,
+    INPUT_BUTTON,
+    INPUT_IMAGE,
+    INPUT_RESET,
+    INPUT_SUBMIT,
     INPUT_TEXT,
     LABEL,
     RADIO,
@@ -104,6 +108,38 @@ public class MouseActionHtmlCodeBuilder {
 
   public MouseActionHtmlCodeBuilder image(final String anId) {
     return add(ElementType.IMAGE, anId);
+  }
+
+  public MouseActionHtmlCodeBuilder inputButton(final String anId, final String aValue) {
+    return inputButton(anId).contain(aValue);
+  }
+
+  public MouseActionHtmlCodeBuilder inputButton(final String anId) {
+    return add(ElementType.INPUT_BUTTON, anId);
+  }
+
+  public MouseActionHtmlCodeBuilder inputImage(final String anId, final String anAltText) {
+    return add(ElementType.INPUT_IMAGE, anId).contain(anAltText);
+  }
+
+  public MouseActionHtmlCodeBuilder inputImage(final String anId) {
+    return add(ElementType.INPUT_IMAGE, anId);
+  }
+
+  public MouseActionHtmlCodeBuilder inputReset(final String anId, final String aValue) {
+    return inputReset(anId).contain(aValue);
+  }
+
+  public MouseActionHtmlCodeBuilder inputReset(final String anId) {
+    return add(ElementType.INPUT_RESET, anId);
+  }
+
+  public MouseActionHtmlCodeBuilder inputSubmit(final String anId, final String aValue) {
+    return inputSubmit(anId).contain(aValue);
+  }
+
+  public MouseActionHtmlCodeBuilder inputSubmit(final String anId) {
+    return add(ElementType.INPUT_SUBMIT, anId);
   }
 
   public MouseActionHtmlCodeBuilder inputText(final String anId, final String aPlaceholder) {
@@ -180,6 +216,18 @@ public class MouseActionHtmlCodeBuilder {
           break;
         case IMAGE:
           tmpHtml.append(MouseActionHtmlCodeCreator.image(tmpElement.id, tmpElement.content, tmpElement.listen));
+          break;
+        case INPUT_BUTTON:
+          tmpHtml.append(MouseActionHtmlCodeCreator.inputButton(tmpElement.id, tmpElement.content, tmpElement.listen));
+          break;
+        case INPUT_IMAGE:
+          tmpHtml.append(MouseActionHtmlCodeCreator.inputImage(tmpElement.id, tmpElement.content, tmpElement.listen));
+          break;
+        case INPUT_RESET:
+          tmpHtml.append(MouseActionHtmlCodeCreator.inputReset(tmpElement.id, tmpElement.content, tmpElement.listen));
+          break;
+        case INPUT_SUBMIT:
+          tmpHtml.append(MouseActionHtmlCodeCreator.inputSubmit(tmpElement.id, tmpElement.content, tmpElement.listen));
           break;
         case INPUT_TEXT:
           tmpHtml.append(MouseActionHtmlCodeCreator.inputText(tmpElement.id, tmpElement.content, tmpElement.listen));

@@ -202,6 +202,34 @@ public abstract class AbstractMouseActionListeningHtmlUnitControlsFinderTest {
     return new MouseActionHtmlCodeBuilder().image(anId);
   }
 
+  protected static MouseActionHtmlCodeBuilder inputButton(final String anId, final String aValue) {
+    return new MouseActionHtmlCodeBuilder().inputButton(anId, aValue);
+  }
+
+  protected static MouseActionHtmlCodeBuilder inputButton(final String anId) {
+    return new MouseActionHtmlCodeBuilder().inputButton(anId);
+  }
+
+  protected static MouseActionHtmlCodeBuilder inputImage(final String anId, final String anAltTetxValue) {
+    return new MouseActionHtmlCodeBuilder().inputImage(anId, anAltTetxValue);
+  }
+
+  protected static MouseActionHtmlCodeBuilder inputImage(final String anId) {
+    return new MouseActionHtmlCodeBuilder().inputImage(anId);
+  }
+
+  protected static MouseActionHtmlCodeBuilder inputReset(final String anId, final String aValue) {
+    return new MouseActionHtmlCodeBuilder().inputReset(anId, aValue);
+  }
+
+  protected static MouseActionHtmlCodeBuilder inputReset(final String anId) {
+    return new MouseActionHtmlCodeBuilder().inputReset(anId);
+  }
+
+  protected static MouseActionHtmlCodeBuilder inputSubmit(final String anId) {
+    return new MouseActionHtmlCodeBuilder().inputSubmit(anId);
+  }
+
   protected static MouseActionHtmlCodeBuilder inputText(final String anId, final String aPlaceholder) {
     return new MouseActionHtmlCodeBuilder().inputText(anId, aPlaceholder);
   }

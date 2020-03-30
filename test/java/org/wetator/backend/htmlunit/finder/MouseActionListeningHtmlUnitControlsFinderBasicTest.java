@@ -39,12 +39,16 @@ import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.Sorted
 import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlBody;
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
+import com.gargoylesoftware.htmlunit.html.HtmlButtonInput;
 import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 import com.gargoylesoftware.htmlunit.html.HtmlImage;
+import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
 import com.gargoylesoftware.htmlunit.html.HtmlLabel;
 import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
+import com.gargoylesoftware.htmlunit.html.HtmlResetInput;
 import com.gargoylesoftware.htmlunit.html.HtmlSpan;
+import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 import com.gargoylesoftware.htmlunit.html.HtmlTable;
 import com.gargoylesoftware.htmlunit.html.HtmlTableBody;
 import com.gargoylesoftware.htmlunit.html.HtmlTableDataCell;
@@ -102,10 +106,34 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
         null
       },
 
-      { inputText("inputText-before") + CONTENT + inputText("inputText-after"),
+      { inputButton("inputButton-before").inputButton("inputButton", CONTENT).inputButton("inputButton-after"),
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlTextInput.class, "inputText-after"),
-            new ExpectedControl(HtmlBody.class)),
+            new ExpectedControl(HtmlButtonInput.class, "inputButton")),
+        null
+      },
+
+      { inputImage("inputImg-before").inputImage("inputImg", CONTENT).inputImage("inputImg-after"),
+        new SortedEntryExpectation(
+            new ExpectedControl(HtmlImageInput.class, "inputImg")),
+        null
+      },
+
+      { inputReset("inputReset-before").inputReset("inputReset", CONTENT).inputReset("inputReset-after"),
+        new SortedEntryExpectation(
+            new ExpectedControl(HtmlResetInput.class, "inputReset")),
+        null
+      },
+
+      { inputSubmit("inputSubmit-before").inputSubmit("inputSubmit", CONTENT).inputSubmit("inputSubmit-after"),
+        new SortedEntryExpectation(
+            new ExpectedControl(HtmlSubmitInput.class, "inputSubmit")),
+        null
+      },
+
+      { inputText("inputText-before").inputText("inputText", CONTENT).inputText("inputText-after"),
+        new SortedEntryExpectation(
+            new ExpectedControl(HtmlTextInput.class, "inputText"),
+            new ExpectedControl(HtmlTextInput.class, "inputText-after")),
         null
       },
 
