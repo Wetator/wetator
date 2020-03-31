@@ -121,7 +121,6 @@ public class HtmlPageIndex {
 
   private Map<DomNode, String> hierarchies;
 
-  private Set<HtmlElement> htmlElementsWithClickListener;
   private Map<MouseAction, Set<HtmlElement>> htmlElementsWithMouseActionListener;
 
   private boolean lastOneWasHtmlElement;
@@ -146,7 +145,6 @@ public class HtmlPageIndex {
 
     hierarchies = new HashMap<>(256);
 
-    htmlElementsWithClickListener = new HashSet<>();
     htmlElementsWithMouseActionListener = new HashMap<>();
     for (final MouseAction tmpMouseAction : MouseAction.values()) {
       htmlElementsWithMouseActionListener.put(tmpMouseAction, new HashSet<HtmlElement>());
@@ -430,16 +428,6 @@ public class HtmlPageIndex {
   }
 
   /**
-   * Returns <code>true</code> if the given element has an event listener for the <code>click</code> event.
-   *
-   * @param anHtmlElement the element to check
-   * @return <code>true</code> if the given element has an event listener for the <code>click</code> event
-   */
-  public boolean hasClickListener(final HtmlElement anHtmlElement) {
-    return htmlElementsWithClickListener.contains(anHtmlElement);
-  }
-
-  /**
    * Returns <code>true</code> if the given element has an event listener for the given {@link MouseAction}.
    *
    * @param aMouseAction the mouse action to check
@@ -482,11 +470,11 @@ public class HtmlPageIndex {
         final HtmlElement tmpHtmlElement = (HtmlElement) aDomNode;
         visibleHtmlElements.add(tmpHtmlElement);
 
+        // FIXME maybe we should exclude HtmlHtml and HtmlBody from action scanning
+        // otherwise all elements on the page would be e.g. clickable
+        // (there are some js libs that add such event listeners to html or body)
         tmpMouseActions = getAvailableMouseActions(tmpHtmlElement, tmpMouseActions);
         tmpMouseActions.forEach(a -> htmlElementsWithMouseActionListener.get(a).add(tmpHtmlElement));
-        if (tmpMouseActions.contains(MouseAction.CLICK)) {
-          htmlElementsWithClickListener.add(tmpHtmlElement);
-        }
 
         if (HtmlElementUtil.isFormatElement(aDomNode) && lastOneWasHtmlElement) {
           // IE suppresses whitespace between two elements

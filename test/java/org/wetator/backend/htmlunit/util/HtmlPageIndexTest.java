@@ -2185,68 +2185,6 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  public void hasClickListener_Not() throws Exception {
-    // @formatter:off
-    final String tmpHtmlCode = "<html><body>"
-        + "<span id='myId'>some text</span>"
-        + "</body></html>";
-    // @formatter:on
-
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
-
-    assertFalse(tmpHtmlPageIndex.hasClickListener(tmpHtmlPage.getHtmlElementById("myId")));
-  }
-
-  @Test
-  public void hasClickListener_ByOnClick() throws Exception {
-    // @formatter:off
-    final String tmpHtmlCode = "<html><body>"
-        + "<span id='myId' onclick='alert(\"clicked\");'>some text</span>"
-        + "</body></html>";
-    // @formatter:on
-
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
-
-    assertTrue(tmpHtmlPageIndex.hasClickListener(tmpHtmlPage.getHtmlElementById("myId")));
-  }
-
-  @Test
-  public void hasClickListener_ByAddEventListener() throws Exception {
-    // @formatter:off
-    final String tmpHtmlCode = "<html><body>"
-        + "<span id='myId'>some text</span>"
-        + "<script>"
-        + "document.getElementById('myId').addEventListener('click', function() { alert('clicked'); });"
-        + "</script>"
-        + "</body></html>";
-    // @formatter:on
-
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
-
-    assertTrue(tmpHtmlPageIndex.hasClickListener(tmpHtmlPage.getHtmlElementById("myId")));
-  }
-
-  @Test
-  public void hasClickListener_ByJSOnClick() throws Exception {
-    // @formatter:off
-    final String tmpHtmlCode = "<html><body>"
-        + "<span id='myId'>some text</span>"
-        + "<script>"
-        + "document.getElementById('myId').onclick = function() { alert('clicked'); };"
-        + "</script>"
-        + "</body></html>";
-    // @formatter:on
-
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
-
-    assertTrue(tmpHtmlPageIndex.hasClickListener(tmpHtmlPage.getHtmlElementById("myId")));
-  }
-
-  @Test
   public void hasMouseActionListener_not() throws Exception {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
