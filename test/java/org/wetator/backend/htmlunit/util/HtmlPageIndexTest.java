@@ -2291,6 +2291,34 @@ public class HtmlPageIndexTest {
   }
 
   @Test
+  public void hasMouseActionListener_child_noActionFromHtml() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html onclick='alert(\"clicked\");'><body>"
+        + "<span id='myId'>some text</span>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    assertFalse(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK, tmpHtmlPage.getHtmlElementById("myId")));
+  }
+
+  @Test
+  public void hasMouseActionListener_child_noActionFromBody() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body onclick='alert(\"clicked\");'>"
+        + "<span id='myId'>some text</span>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    assertFalse(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK, tmpHtmlPage.getHtmlElementById("myId")));
+  }
+
+  @Test
   public void hasMouseActionListener_click_onClick() throws Exception {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"

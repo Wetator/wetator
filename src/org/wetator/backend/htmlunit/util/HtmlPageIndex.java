@@ -55,6 +55,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlFrame;
 import com.gargoylesoftware.htmlunit.html.HtmlHead;
 import com.gargoylesoftware.htmlunit.html.HtmlHiddenInput;
+import com.gargoylesoftware.htmlunit.html.HtmlHtml;
 import com.gargoylesoftware.htmlunit.html.HtmlImage;
 import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
 import com.gargoylesoftware.htmlunit.html.HtmlInlineFrame;
@@ -470,11 +471,12 @@ public class HtmlPageIndex {
         final HtmlElement tmpHtmlElement = (HtmlElement) aDomNode;
         visibleHtmlElements.add(tmpHtmlElement);
 
-        // FIXME maybe we should exclude HtmlHtml and HtmlBody from action scanning
-        // otherwise all elements on the page would be e.g. clickable
-        // (there are some js libs that add such event listeners to html or body)
-        tmpMouseActions = getAvailableMouseActions(tmpHtmlElement, tmpMouseActions);
-        tmpMouseActions.forEach(a -> htmlElementsWithMouseActionListener.get(a).add(tmpHtmlElement));
+        if (!(tmpHtmlElement instanceof HtmlHtml || tmpHtmlElement instanceof HtmlBody)) {
+          // we exclude HtmlHtml and HtmlBody from action scanning because otherwise all elements on the page would be
+          // e.g. clickable (there are some js libs that add such event listeners to html or body)
+          tmpMouseActions = getAvailableMouseActions(tmpHtmlElement, tmpMouseActions);
+          tmpMouseActions.forEach(a -> htmlElementsWithMouseActionListener.get(a).add(tmpHtmlElement));
+        }
 
         if (HtmlElementUtil.isFormatElement(aDomNode) && lastOneWasHtmlElement) {
           // IE suppresses whitespace between two elements
