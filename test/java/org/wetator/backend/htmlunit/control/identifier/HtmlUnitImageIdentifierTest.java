@@ -120,7 +120,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
   }
 
   @Test
-  public void byImageTitle() throws IOException, InvalidInputException {
+  public void byTitle() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -133,7 +133,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlImage 'picture.png' (id='myId') (name='MyName')] found by: BY_IMG_TITLE_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
+        "[HtmlImage 'picture.png' (id='myId') (name='MyName')] found by: BY_TITLE_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -314,7 +314,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
   }
 
   @Test
-  public void inAnchor_byImageTitle() throws IOException, InvalidInputException {
+  public void inAnchor_byTitle() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -329,7 +329,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlImage 'picture.png' (id='myInnerId')] found by: BY_IMG_TITLE_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5>6 index: 6",
+        "[HtmlImage 'picture.png' (id='myInnerId')] found by: BY_TITLE_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5>6 index: 6",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -414,7 +414,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
   }
 
   @Test
-  public void inButton_byImageTitle() throws IOException, InvalidInputException {
+  public void inButton_byTitle() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -429,7 +429,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlImage 'picture.png' (id='myInnerId')] found by: BY_IMG_TITLE_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5>6 index: 6",
+        "[HtmlImage 'picture.png' (id='myInnerId')] found by: BY_TITLE_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5>6 index: 6",
         tmpEntriesSorted.get(0).toString());
   }
 

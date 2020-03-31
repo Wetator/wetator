@@ -181,7 +181,6 @@ src/org/wetator/backend/htmlunit/matcher/ByHtmlLabelMatcher.java -text svneol=un
 src/org/wetator/backend/htmlunit/matcher/ByIdMatcher.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/matcher/ByImageAltAttributeMatcher.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/matcher/ByImageSrcAttributeMatcher.java -text svneol=unset#text/plain
-src/org/wetator/backend/htmlunit/matcher/ByImageTitleAttributeMatcher.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/matcher/ByInnerImageMatcher.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/matcher/ByLabelAttributeMatcher.java -text svneol=unset#text/plain
 src/org/wetator/backend/htmlunit/matcher/ByLabelingTextAfterMatcher.java -text svneol=unset#text/plain
@@ -337,7 +336,6 @@ test/java/org/wetator/backend/htmlunit/matcher/ByHtmlLabelMatcherTest.java -text
 test/java/org/wetator/backend/htmlunit/matcher/ByIdMatcherTest.java -text svneol=unset#text/plain
 test/java/org/wetator/backend/htmlunit/matcher/ByImageAltAttributeMatcherTest.java -text svneol=unset#text/plain
 test/java/org/wetator/backend/htmlunit/matcher/ByImageSrcAttributeMatcherTest.java -text svneol=unset#text/plain
-test/java/org/wetator/backend/htmlunit/matcher/ByImageTitleAttributeMatcherTest.java -text svneol=unset#text/plain
 test/java/org/wetator/backend/htmlunit/matcher/ByInnerImageMatcherTest.java -text svneol=unset#text/plain
 test/java/org/wetator/backend/htmlunit/matcher/ByLabelAttributeMatcherTest.java -text svneol=unset#text/plain
 test/java/org/wetator/backend/htmlunit/matcher/ByLabelingTextAfterMatcherTest.java -text svneol=unset#text/plain

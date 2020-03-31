@@ -140,19 +140,13 @@ public final class WeightedControlList {
     public static final FoundType BY_ARIA_LABEL_ATTRIBUTE = new FoundType("BY_ARIA_LABEL_ATTRIBUTE", 5500);
 
     /** Found by inner image source attribute match. */
-    // FIXME re-evaluate weight
     public static final FoundType BY_INNER_IMG_SRC_ATTRIBUTE = new FoundType("BY_INNER_IMG_SRC_ATTRIBUTE", 4000);
 
     /** Found by image source attribute match. */
-    // FIXME re-evaluate weight
     public static final FoundType BY_IMG_SRC_ATTRIBUTE = new FoundType("BY_IMG_SRC_ATTRIBUTE", 4000);
 
     /** Found by inner image title attribute match. */
     public static final FoundType BY_INNER_IMG_TITLE_ATTRIBUTE = new FoundType("BY_INNER_IMG_TITLE_ATTRIBUTE", 3500);
-
-    /** Found by image title attribute match. */
-    // FIXME still needed? or should we just use BY_TITLE_ATTRIBUTE?
-    public static final FoundType BY_IMG_TITLE_ATTRIBUTE = new FoundType("BY_IMG_TITLE_ATTRIBUTE", 3500);
 
     /** Found by title attribute match. */
     public static final FoundType BY_TITLE_ATTRIBUTE = new FoundType("BY_TITLE_ATTRIBUTE", 3500);
