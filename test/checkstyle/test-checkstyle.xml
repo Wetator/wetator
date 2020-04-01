@@ -79,7 +79,7 @@
       <property name="excludes" value="org.mockito.Mockito,org.mockito.ArgumentMatchers,org.junit.Assert"/>
     </module>
     <module name="AvoidStaticImport">
-      <property name="excludes" value="java.util.stream.Collectors.*,org.mockito.Mockito.*,org.mockito.ArgumentMatchers.*,org.junit.Assert.*,org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeTableBuilder.table,org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.CONTENT"/>
+      <property name="excludes" value="java.util.stream.Collectors.*,org.mockito.Mockito.*,org.mockito.ArgumentMatchers.*,org.junit.Assert.*,org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.CONTENT"/>
     </module>
     <module name="IllegalImport"/>
     <module name="RedundantImport"/>
