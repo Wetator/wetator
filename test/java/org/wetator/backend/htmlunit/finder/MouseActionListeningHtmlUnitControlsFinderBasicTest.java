@@ -46,6 +46,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlLabel;
 import com.gargoylesoftware.htmlunit.html.HtmlOption;
 import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
 import com.gargoylesoftware.htmlunit.html.HtmlResetInput;
+import com.gargoylesoftware.htmlunit.html.HtmlSelect;
 import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 import com.gargoylesoftware.htmlunit.html.HtmlTable;
@@ -159,9 +160,12 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
         null
       },
 
-      { select("select").option("noop").option("op", CONTENT),
+      { select("select-before") + CONTENT + select("select").option("opt-before").option("opt", CONTENT).option("opt-after") + select("select-after"),
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlOption.class, "select-op")),
+            new ExpectedControl(HtmlOption.class, "select-opt"),
+            new ExpectedControl(HtmlSelect.class, "select"),
+            new ExpectedControl(HtmlSelect.class, "select-after"),
+            new ExpectedControl(HtmlBody.class)),
         null
       },
 
@@ -171,12 +175,13 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
         null
       },
 
-      { table("table").tr("tr", 1),
+      { table("table-before") + CONTENT + table("table").tr("tr", 1) + table("table-after"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlTableDataCell.class, "table-tr-td"),
             new ExpectedControl(HtmlTableRow.class, "table-tr"),
             new ExpectedControl(HtmlTableBody.class, "table-body"),
-            new ExpectedControl(HtmlTable.class, "table")),
+            new ExpectedControl(HtmlTable.class, "table"),
+            new ExpectedControl(HtmlBody.class)),
         null
       }
       // @formatter:on
