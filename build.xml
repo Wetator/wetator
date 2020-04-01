@@ -279,6 +279,7 @@
                     <patternset refid="libPattern" />
                 </fileset>
             </classpath>
+        	<compilerarg value="-Xlint:deprecation"/>
         </javac>
 
         <!-- copy resources -->
@@ -722,7 +723,7 @@ ENDLOCAL
             <include name="wetator.bat" />
         </fixcrlf>
 
-        <zip destfile="${dir.deploy}/${application.jar-basename}_${application.version}.zip">
+        <zip destfile="${dir.deploy}/${application.jar-basename}-${application.version}.zip">
             <fileset dir="${dir.build}" >
                 <include name="wetator.bat" />
             </fileset>
