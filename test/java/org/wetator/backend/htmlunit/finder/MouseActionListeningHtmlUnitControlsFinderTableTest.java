@@ -16,8 +16,6 @@
 
 package org.wetator.backend.htmlunit.finder;
 
-import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeTableBuilder.table;
-
 import org.junit.Test;
 import org.wetator.backend.WPath;
 import org.wetator.backend.htmlunit.MouseAction;

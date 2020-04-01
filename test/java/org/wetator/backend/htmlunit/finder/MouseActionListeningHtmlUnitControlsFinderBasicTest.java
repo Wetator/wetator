@@ -16,8 +16,6 @@
 
 package org.wetator.backend.htmlunit.finder;
 
-import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeTableBuilder.table;
-
 import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.CONTENT;
 
 import java.io.IOException;
@@ -45,6 +43,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 import com.gargoylesoftware.htmlunit.html.HtmlImage;
 import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
 import com.gargoylesoftware.htmlunit.html.HtmlLabel;
+import com.gargoylesoftware.htmlunit.html.HtmlOption;
 import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
 import com.gargoylesoftware.htmlunit.html.HtmlResetInput;
 import com.gargoylesoftware.htmlunit.html.HtmlSpan;
@@ -157,6 +156,12 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
             new ExpectedControl(HtmlRadioButtonInput.class, "radio-after"),
             new ExpectedControl(HtmlBody.class),
             new ExpectedControl(HtmlLabel.class, "lbl-radio-label")),
+        null
+      },
+
+      { select("select").option("noop").option("op", CONTENT),
+        new SortedEntryExpectation(
+            new ExpectedControl(HtmlOption.class, "select-op")),
         null
       },
 

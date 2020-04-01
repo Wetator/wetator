@@ -104,6 +104,8 @@ public abstract class AbstractMouseActionListeningHtmlUnitControlsFinderTest {
   public void checkFoundElements(final Object anHtmlCode, final SortedEntryExpectation anExpected) throws Exception {
     if (anHtmlCode instanceof MouseActionHtmlCodeBuilder) {
       checkFoundElements(((MouseActionHtmlCodeBuilder) anHtmlCode).build(), anExpected);
+    } else if (anHtmlCode instanceof MouseActionHtmlCodeSelectBuilder) {
+      checkFoundElements(((MouseActionHtmlCodeSelectBuilder) anHtmlCode).build(), anExpected);
     } else if (anHtmlCode instanceof MouseActionHtmlCodeTableBuilder) {
       checkFoundElements(((MouseActionHtmlCodeTableBuilder) anHtmlCode).build(), anExpected);
     } else if (anHtmlCode instanceof String) {
@@ -254,6 +256,10 @@ public abstract class AbstractMouseActionListeningHtmlUnitControlsFinderTest {
     return new MouseActionHtmlCodeBuilder().radio(anId);
   }
 
+  protected static MouseActionHtmlCodeSelectBuilder select(final String anId) {
+    return MouseActionHtmlCodeSelectBuilder.select(anId);
+  }
+
   protected static MouseActionHtmlCodeBuilder span(final String anId, final MouseActionHtmlCodeBuilder aContent) {
     return span(anId, aContent.build());
   }
@@ -264,5 +270,9 @@ public abstract class AbstractMouseActionListeningHtmlUnitControlsFinderTest {
 
   protected static MouseActionHtmlCodeBuilder span(final String anId) {
     return new MouseActionHtmlCodeBuilder().span(anId);
+  }
+
+  protected static MouseActionHtmlCodeTableBuilder table(final String anId) {
+    return MouseActionHtmlCodeTableBuilder.table(anId);
   }
 }

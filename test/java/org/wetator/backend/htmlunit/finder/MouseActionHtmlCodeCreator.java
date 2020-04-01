@@ -53,7 +53,7 @@ public abstract class MouseActionHtmlCodeCreator {
   }
 
   static String divStart(final String aDivId, final boolean anIsListening) {
-    return "<div id='" + aDivId + "'" + (anIsListening ? ' ' + onMouseAction : "") + '>';
+    return "<div id='" + aDivId + '\'' + (anIsListening ? ' ' + onMouseAction : "") + '>';
   }
 
   static String divEnd() {
@@ -61,7 +61,7 @@ public abstract class MouseActionHtmlCodeCreator {
   }
 
   static String inputButton(final String anInputID, final String aValue, final boolean anIsListening) {
-    return input("button", anInputID, anIsListening, aValue != null ? "value='" + aValue + "'" : "");
+    return input("button", anInputID, anIsListening, aValue != null ? "value='" + aValue + '\'' : "");
   }
 
   static String inputImage(final String anInputID, final String anAltText, final boolean anIsListening) {
@@ -70,19 +70,19 @@ public abstract class MouseActionHtmlCodeCreator {
   }
 
   static String inputReset(final String anInputID, final String aValue, final boolean anIsListening) {
-    return input("reset", anInputID, anIsListening, aValue != null ? "value='" + aValue + "'" : "");
+    return input("reset", anInputID, anIsListening, aValue != null ? "value='" + aValue + '\'' : "");
   }
 
   static String inputSubmit(final String anInputID, final String aValue, final boolean anIsListening) {
-    return input("submit", anInputID, anIsListening, aValue != null ? "value='" + aValue + "'" : "");
+    return input("submit", anInputID, anIsListening, aValue != null ? "value='" + aValue + '\'' : "");
   }
 
   static String inputText(final String anInputID, final String aPlaceholder, final boolean anIsListening) {
-    return input("text", anInputID, anIsListening, aPlaceholder != null ? "placeholder='" + aPlaceholder + "'" : "");
+    return input("text", anInputID, anIsListening, aPlaceholder != null ? "placeholder='" + aPlaceholder + '\'' : "");
   }
 
   static String image(final String anImageId, final String anAltText, final boolean anIsListening) {
-    return "<image id='" + anImageId + "'" + (anAltText != null ? " alt='" + anAltText + "'" : "")
+    return "<image id='" + anImageId + '\'' + (anAltText != null ? " alt='" + anAltText + '\'' : "")
         + (anIsListening ? ' ' + onMouseAction : "") + " src='pathtoimg' />";
   }
 
@@ -99,15 +99,30 @@ public abstract class MouseActionHtmlCodeCreator {
   }
 
   static String spanStart(final String aSpanId, final boolean anIsListening) {
-    return "<span id='" + aSpanId + "'" + (anIsListening ? ' ' + onMouseAction : "") + '>';
+    return "<span id='" + aSpanId + '\'' + (anIsListening ? ' ' + onMouseAction : "") + '>';
   }
 
   static String spanEnd() {
     return "</span>";
   }
 
+  static String selectStart(final String aSelectId, final boolean anIsListening) {
+    return "<select id='" + aSelectId + '\'' + (anIsListening ? ' ' + onMouseAction : "") + ">";
+  }
+
+  static String selectEnd() {
+    return "</select>";
+  }
+
+  static String selectOption(final String aSelectId, final String anOptionId, final String aContent,
+      final boolean anIsListening) {
+    final String tmpOptionId = aSelectId + '-' + anOptionId;
+    return "<option id='" + tmpOptionId + '\'' + (anIsListening ? ' ' + onMouseAction : "") + " value='" + tmpOptionId
+        + "-val'>" + (aContent != null ? aContent : "") + "</option>";
+  }
+
   static String tableStart(final String aTableId, final boolean anIsListening) {
-    return "<table id='" + aTableId + "'" + (anIsListening ? ' ' + onMouseAction : "") + "><tbody id='" + aTableId
+    return "<table id='" + aTableId + '\'' + (anIsListening ? ' ' + onMouseAction : "") + "><tbody id='" + aTableId
         + "-body'" + (anIsListening ? ' ' + onMouseAction : "") + '>';
   }
 
@@ -119,7 +134,7 @@ public abstract class MouseActionHtmlCodeCreator {
       final boolean anIsListening) {
     String tmpRow = tableRowStart(aTableId, aRowId, anIsListening);
     for (int i = 1; i <= aColumnCount; i++) {
-      tmpRow += "<td id='" + aTableId + '-' + aRowId + "-td" + (aColumnCount > 1 ? i : "") + "'"
+      tmpRow += "<td id='" + aTableId + '-' + aRowId + "-td" + (aColumnCount > 1 ? i : "") + '\''
           + (anIsListening ? ' ' + onMouseAction : "") + '>' + CONTENT + "</td>";
     }
     tmpRow += tableRowEnd();
@@ -128,7 +143,7 @@ public abstract class MouseActionHtmlCodeCreator {
   }
 
   private static String tableRowStart(final String aTableId, final String aRowId, final boolean anIsListening) {
-    return "<tr id='" + aTableId + '-' + aRowId + "'" + (anIsListening ? ' ' + onMouseAction : "") + '>';
+    return "<tr id='" + aTableId + '-' + aRowId + '\'' + (anIsListening ? ' ' + onMouseAction : "") + '>';
   }
 
   private static String tableRowEnd() {
@@ -141,7 +156,7 @@ public abstract class MouseActionHtmlCodeCreator {
 
   private static String input(final String aType, final String anInputID, final boolean anIsListening,
       final String anOptional) {
-    return "<input type = '" + aType + "' id='" + anInputID + "'" + (anIsListening ? ' ' + onMouseAction : "")
+    return "<input type = '" + aType + "' id='" + anInputID + '\'' + (anIsListening ? ' ' + onMouseAction : "")
         + (anOptional != null ? ' ' + anOptional : "") + " />";
   }
 

@@ -316,6 +316,7 @@ test/java/org/wetator/backend/htmlunit/finder/HtmlUnitUnspecificControlIdentifie
 test/java/org/wetator/backend/htmlunit/finder/IdentifierBasedHtmlUnitControlsFinderTest.java -text svneol=unset#text/plain
 test/java/org/wetator/backend/htmlunit/finder/MouseActionHtmlCodeBuilder.java -text
 test/java/org/wetator/backend/htmlunit/finder/MouseActionHtmlCodeCreator.java -text
+test/java/org/wetator/backend/htmlunit/finder/MouseActionHtmlCodeSelectBuilder.java -text
 test/java/org/wetator/backend/htmlunit/finder/MouseActionHtmlCodeTableBuilder.java -text
 test/java/org/wetator/backend/htmlunit/finder/MouseActionListeningHtmlUnitControlsFinderAnchorTest.java -text
 test/java/org/wetator/backend/htmlunit/finder/MouseActionListeningHtmlUnitControlsFinderBasicTest.java -text
