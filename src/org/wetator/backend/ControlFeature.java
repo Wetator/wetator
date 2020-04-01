@@ -17,29 +17,28 @@
 package org.wetator.backend;
 
 /**
- * Contains all supported actions.
+ * Contains all features a control can support.
  *
  * @author frank.danek
  */
-// FIXME find a better name
-public enum Action {
+public enum ControlFeature {
 
-  /** Single left click on a control. */
+  /** A control supports being clicked by a single left click. */
   CLICK,
-  /** Double left click on a control. */
+  /** A control supports being clicked by a double left click. */
   CLICK_DOUBLE,
-  /** Single right click on a control. */
+  /** A control supports being clicked by a single right click. */
   CLICK_RIGHT,
-  /** Move the mouse over a control. */
+  /** A control supports the mouse moved over it. */
   MOUSE_OVER,
-  /** Set the value of a control. */
+  /** A control supports its value being set. */
   SET,
-  /** Select a control. */
+  /** A control supports being selected. */
   SELECT,
-  /** Deselect a control. */
+  /** A control supports being deselected. */
   DESELECT,
-  /** Disable a control. */
+  /** A control supports being disabled. */
   DISABLE,
-  /** Focus a control. */
+  /** A control supports being focused. */
   FOCUS,
 }

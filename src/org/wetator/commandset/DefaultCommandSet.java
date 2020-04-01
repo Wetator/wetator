@@ -30,7 +30,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.reflect.MethodUtils;
-import org.wetator.backend.Action;
+import org.wetator.backend.ControlFeature;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.IControlFinder;
 import org.wetator.backend.WPath;
@@ -234,7 +234,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       if (tmpControl == null) {
         final IControlFinder tmpControlFinder = getControlFinder(tmpBrowser);
 
-        final WeightedControlList tmpFoundElements = tmpControlFinder.findControls(Action.SET, tmpWPath);
+        final WeightedControlList tmpFoundElements = tmpControlFinder.findControls(ControlFeature.SET, tmpWPath);
 
         if (tmpWPath.isEmpty()) {
           // if the wpath is empty use the first 'usable' field on the page
@@ -277,7 +277,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final IBrowser tmpBrowser = getBrowser(aContext);
       final IControlFinder tmpControlFinder = getControlFinder(tmpBrowser);
 
-      final WeightedControlList tmpFoundElements = tmpControlFinder.findControls(Action.CLICK, tmpWPath);
+      final WeightedControlList tmpFoundElements = tmpControlFinder.findControls(ControlFeature.CLICK, tmpWPath);
 
       // FIXME [UNKNOWN] remove when supported by MouseActionListeningHtmlUnitControlsFinder
       tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
@@ -306,7 +306,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final IBrowser tmpBrowser = getBrowser(aContext);
       final IControlFinder tmpControlFinder = getControlFinder(tmpBrowser);
 
-      final WeightedControlList tmpFoundElements = tmpControlFinder.findControls(Action.CLICK_DOUBLE, tmpWPath);
+      final WeightedControlList tmpFoundElements = tmpControlFinder.findControls(ControlFeature.CLICK_DOUBLE, tmpWPath);
 
       // FIXME [UNKNOWN] remove when supported by MouseActionListeningHtmlUnitControlsFinder
       tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
@@ -335,7 +335,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final IBrowser tmpBrowser = getBrowser(aContext);
       final IControlFinder tmpControlFinder = getControlFinder(tmpBrowser);
 
-      final WeightedControlList tmpFoundElements = tmpControlFinder.findControls(Action.CLICK_DOUBLE, tmpWPath);
+      final WeightedControlList tmpFoundElements = tmpControlFinder.findControls(ControlFeature.CLICK_DOUBLE, tmpWPath);
 
       // FIXME [UNKNOWN] remove when supported by MouseActionListeningHtmlUnitControlsFinder
       tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
@@ -364,7 +364,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final IBrowser tmpBrowser = getBrowser(aContext);
       final IControlFinder tmpControlFinder = getControlFinder(tmpBrowser);
 
-      final WeightedControlList tmpFoundElements = tmpControlFinder.findControls(Action.SELECT, tmpWPath);
+      final WeightedControlList tmpFoundElements = tmpControlFinder.findControls(ControlFeature.SELECT, tmpWPath);
 
       final ISelectable tmpControl = (ISelectable) getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
           "noSelectableHtmlElmentFound");
@@ -390,7 +390,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final IBrowser tmpBrowser = getBrowser(aContext);
       final IControlFinder tmpControlFinder = getControlFinder(tmpBrowser);
 
-      final WeightedControlList tmpFoundElements = tmpControlFinder.findControls(Action.DESELECT, tmpWPath);
+      final WeightedControlList tmpFoundElements = tmpControlFinder.findControls(ControlFeature.DESELECT, tmpWPath);
 
       final IDeselectable tmpControl = (IDeselectable) getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements,
           tmpWPath, "noDeselectableHtmlElmentFound");
@@ -416,7 +416,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final IBrowser tmpBrowser = getBrowser(aContext);
       final IControlFinder tmpControlFinder = getControlFinder(tmpBrowser);
 
-      final WeightedControlList tmpFoundElements = tmpControlFinder.findControls(Action.MOUSE_OVER, tmpWPath);
+      final WeightedControlList tmpFoundElements = tmpControlFinder.findControls(ControlFeature.MOUSE_OVER, tmpWPath);
 
       // FIXME [UNKNOWN] remove when supported by MouseActionListeningHtmlUnitControlsFinder
       tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
@@ -554,7 +554,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final IBrowser tmpBrowser = getBrowser(aContext);
       final IControlFinder tmpControlFinder = getControlFinder(tmpBrowser);
 
-      final WeightedControlList tmpFoundElements = tmpControlFinder.findControls(Action.DISABLE, tmpWPath);
+      final WeightedControlList tmpFoundElements = tmpControlFinder.findControls(ControlFeature.DISABLE, tmpWPath);
 
       final IDisableable tmpControl = (IDisableable) getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements,
           tmpWPath, "noHtmlElementFound");
@@ -580,7 +580,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final IBrowser tmpBrowser = getBrowser(aContext);
       final IControlFinder tmpControlFinder = getControlFinder(tmpBrowser);
 
-      final WeightedControlList tmpFoundElements = tmpControlFinder.findControls(Action.DISABLE, tmpWPath);
+      final WeightedControlList tmpFoundElements = tmpControlFinder.findControls(ControlFeature.DISABLE, tmpWPath);
 
       final IDisableable tmpControl = (IDisableable) getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements,
           tmpWPath, "noHtmlElementFound");
@@ -609,7 +609,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final IBrowser tmpBrowser = getBrowser(aContext);
       final IControlFinder tmpControlFinder = getControlFinder(tmpBrowser);
 
-      final WeightedControlList tmpFoundElements = tmpControlFinder.findControls(Action.SET, tmpWPath);
+      final WeightedControlList tmpFoundElements = tmpControlFinder.findControls(ControlFeature.SET, tmpWPath);
 
       final ISettable tmpControl = (ISettable) getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
           "noSettableHtmlElmentFound");
@@ -634,7 +634,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final IBrowser tmpBrowser = getBrowser(aContext);
       final IControlFinder tmpControlFinder = getControlFinder(tmpBrowser);
 
-      final WeightedControlList tmpFoundElements = tmpControlFinder.findControls(Action.SELECT, tmpWPath);
+      final WeightedControlList tmpFoundElements = tmpControlFinder.findControls(ControlFeature.SELECT, tmpWPath);
 
       final ISelectable tmpControl = (ISelectable) getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
           "noSelectableHtmlElmentFound");
@@ -660,7 +660,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final IBrowser tmpBrowser = getBrowser(aContext);
       final IControlFinder tmpControlFinder = getControlFinder(tmpBrowser);
 
-      final WeightedControlList tmpFoundElements = tmpControlFinder.findControls(Action.SELECT, tmpWPath);
+      final WeightedControlList tmpFoundElements = tmpControlFinder.findControls(ControlFeature.SELECT, tmpWPath);
 
       final ISelectable tmpControl = (ISelectable) getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
           "noDeselectableHtmlElmentFound");

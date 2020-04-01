@@ -110,7 +110,7 @@ src/org/wetator/Messages.properties -text
 src/org/wetator/Version.java -text
 src/org/wetator/Wetator.java -text
 src/org/wetator/WetatorScriptConverter.java -text svneol=unset#text/plain
-src/org/wetator/backend/Action.java -text
+src/org/wetator/backend/ControlFeature.java -text
 src/org/wetator/backend/IBrowser.java -text
 src/org/wetator/backend/IControlFinder.java -text
 src/org/wetator/backend/WPath.java -text svneol=unset#text/plain

@@ -32,19 +32,19 @@ import org.wetator.backend.control.ISettable;
 public interface IControlFinder {
 
   /**
-   * Returns a list of all controls for the given {@link WPath} supporting the given {@link Action}.<br>
-   * For {@link Action#SET} all returned controls implement {@link ISettable}.<br>
-   * For {@link Action#SELECT} all returned controls implement {@link ISelectable}.<br>
-   * For {@link Action#DESELECT} all returned controls implement {@link IDeselectable}.<br>
-   * For {@link Action#DISABLE} all returned controls implement {@link IDisableable}.<br>
-   * For {@link Action#FOCUS} all returned controls implement {@link IFocusable}.<br>
-   * For all other actions all returned controls implement {@link IControl}.<br>
+   * Returns a list of all controls for the given {@link WPath} supporting the given {@link ControlFeature}.<br>
+   * For {@link ControlFeature#SET} all returned controls implement {@link ISettable}.<br>
+   * For {@link ControlFeature#SELECT} all returned controls implement {@link ISelectable}.<br>
+   * For {@link ControlFeature#DESELECT} all returned controls implement {@link IDeselectable}.<br>
+   * For {@link ControlFeature#DISABLE} all returned controls implement {@link IDisableable}.<br>
+   * For {@link ControlFeature#FOCUS} all returned controls implement {@link IFocusable}.<br>
+   * For all other features all returned controls implement {@link IControl}.<br>
    *
-   * @param anAction the {@link Action} that needs to be supported
+   * @param aFeature the {@link ControlFeature} that needs to be supported
    * @param aWPath the {@link WPath} describing the controls
    * @return a {@link WeightedControlList}
    */
-  WeightedControlList findControls(Action anAction, WPath aWPath);
+  WeightedControlList findControls(ControlFeature aFeature, WPath aWPath);
 
   /**
    * Return a list of all controls for the given {@link WPath}.

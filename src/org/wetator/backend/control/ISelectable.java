@@ -16,14 +16,14 @@
 
 package org.wetator.backend.control;
 
-import org.wetator.backend.Action;
+import org.wetator.backend.ControlFeature;
 import org.wetator.core.WetatorContext;
 import org.wetator.exception.ActionException;
 
 /**
  * This interface marks all selectable {@link IControl}s.
  *
- * @see Action#SELECT
+ * @see ControlFeature#SELECT
  * @author frank.danek
  */
 public interface ISelectable extends IControl {

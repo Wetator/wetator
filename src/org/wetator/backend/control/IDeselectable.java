@@ -16,7 +16,7 @@
 
 package org.wetator.backend.control;
 
-import org.wetator.backend.Action;
+import org.wetator.backend.ControlFeature;
 import org.wetator.core.WetatorContext;
 import org.wetator.exception.ActionException;
 
@@ -24,7 +24,7 @@ import org.wetator.exception.ActionException;
  * This interface marks all deselectable {@link IControl}s. All deselectable control
  * are also selectable.
  * 
- * @see Action#DESELECT
+ * @see ControlFeature#DESELECT
  * @author frank.danek
  */
 public interface IDeselectable extends ISelectable {

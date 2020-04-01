@@ -16,13 +16,13 @@
 
 package org.wetator.backend.control;
 
-import org.wetator.backend.Action;
+import org.wetator.backend.ControlFeature;
 import org.wetator.core.WetatorContext;
 
 /**
  * This interface marks all focusable {@link IControl}s.
  *
- * @see Action#FOCUS
+ * @see ControlFeature#FOCUS
  * @author frank.danek
  */
 public interface IFocusable extends IControl {

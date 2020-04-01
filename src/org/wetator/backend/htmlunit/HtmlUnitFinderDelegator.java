@@ -23,7 +23,7 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import org.wetator.backend.Action;
+import org.wetator.backend.ControlFeature;
 import org.wetator.backend.IControlFinder;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
@@ -51,7 +51,7 @@ public class HtmlUnitFinderDelegator implements IControlFinder {
 
   private static ThreadPoolExecutor threadPool;
 
-  private Map<Action, AbstractHtmlUnitControlsFinder> finders = new HashMap<>();
+  private Map<ControlFeature, AbstractHtmlUnitControlsFinder> finders = new HashMap<>();
 
   private AbstractHtmlUnitControlsFinder forTextFinder;
 
@@ -122,19 +122,19 @@ public class HtmlUnitFinderDelegator implements IControlFinder {
 
     final ThreadPoolExecutor tmpThreadPool = getThreadPool();
 
-    finders.put(Action.CLICK, new MouseActionListeningHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool,
+    finders.put(ControlFeature.CLICK, new MouseActionListeningHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool,
         MouseAction.CLICK, aControlRepository));
-    finders.put(Action.CLICK_DOUBLE, new MouseActionListeningHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool,
-        MouseAction.CLICK_DOUBLE, aControlRepository));
-    finders.put(Action.CLICK_RIGHT, new MouseActionListeningHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool,
+    finders.put(ControlFeature.CLICK_DOUBLE, new MouseActionListeningHtmlUnitControlsFinder(htmlPageIndex,
+        tmpThreadPool, MouseAction.CLICK_DOUBLE, aControlRepository));
+    finders.put(ControlFeature.CLICK_RIGHT, new MouseActionListeningHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool,
         MouseAction.CLICK_RIGHT, aControlRepository));
-    finders.put(Action.MOUSE_OVER, new MouseActionListeningHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool,
+    finders.put(ControlFeature.MOUSE_OVER, new MouseActionListeningHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool,
         MouseAction.MOUSE_OVER, aControlRepository));
-    finders.put(Action.SET, new SettableHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool));
-    finders.put(Action.SELECT, new IdentifierBasedHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool));
-    finders.put(Action.DESELECT, new IdentifierBasedHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool));
-    finders.put(Action.DISABLE, new IdentifierBasedHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool));
-    finders.put(Action.FOCUS, new IdentifierBasedHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool));
+    finders.put(ControlFeature.SET, new SettableHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool));
+    finders.put(ControlFeature.SELECT, new IdentifierBasedHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool));
+    finders.put(ControlFeature.DESELECT, new IdentifierBasedHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool));
+    finders.put(ControlFeature.DISABLE, new IdentifierBasedHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool));
+    finders.put(ControlFeature.FOCUS, new IdentifierBasedHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool));
 
     forTextFinder = new UnknownHtmlUnitControlsFinder(htmlPageIndex, aControlRepository);
 
@@ -146,8 +146,8 @@ public class HtmlUnitFinderDelegator implements IControlFinder {
   }
 
   @Override
-  public WeightedControlList findControls(final Action anAction, final WPath aWPath) {
-    return finders.get(anAction).find(aWPath);
+  public WeightedControlList findControls(final ControlFeature aFeature, final WPath aWPath) {
+    return finders.get(aFeature).find(aWPath);
   }
 
   @Override
