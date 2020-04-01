@@ -93,10 +93,10 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void text_byText_not() throws IOException, InvalidInputException {
+  public void textInBody_byText_not() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "MyText"
+        + "myText"
         + "</body></html>";
     // @formatter:on
 
@@ -106,14 +106,14 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void text_byText_full() throws IOException, InvalidInputException {
+  public void textInBody_byText_full() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "MyText"
+        + "myText"
         + "</body></html>";
     // @formatter:on
 
-    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "MyText");
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "myText");
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals("[HtmlBody] found by: BY_TEXT deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3 index: 3",
@@ -121,14 +121,14 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void text_byText_wildcardRight() throws IOException, InvalidInputException {
+  public void textInBody_byText_wildcardRight() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "MyText"
+        + "myText"
         + "</body></html>";
     // @formatter:on
 
-    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "MyTe*");
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "myTe*");
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals("[HtmlBody] found by: BY_TEXT deviation: 2 distance: 0 start: 0 hierarchy: 0>1>3 index: 3",
@@ -136,10 +136,10 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void text_byText_wildcardLeft() throws IOException, InvalidInputException {
+  public void textInBody_byText_wildcardLeft() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "MyText"
+        + "myText"
         + "</body></html>";
     // @formatter:on
 
@@ -151,10 +151,10 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void text_byText_part() throws IOException, InvalidInputException {
+  public void textInBody_byText_part() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "MyText"
+        + "myText"
         + "</body></html>";
     // @formatter:on
 
@@ -166,7 +166,133 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void paragraph_byText_not() throws IOException, InvalidInputException {
+  public void textInBody_byText_formated() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "my<b>T</b>ext"
+        + "</body></html>";
+    // @formatter:on
+
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "myText");
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals("[HtmlBody] found by: BY_TEXT deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3 index: 3",
+        tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
+  public void textInBody_byText_empty_textBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "myText "
+        + "Some text .... "
+        + "myText"
+        + "</body></html>";
+    // @formatter:on
+
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "Some text > ");
+
+    assertEquals(0, tmpEntriesSorted.size());
+  }
+
+  @Test
+  public void textInBody_byText_full_textBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "myText "
+        + "Some text .... "
+        + "myText"
+        + "</body></html>";
+    // @formatter:on
+
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "Some text > myText");
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals("[HtmlBody] found by: BY_TEXT deviation: 0 distance: 6 start: 0 hierarchy: 0>1>3 index: 3",
+        tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
+  public void textInBody_byText_wildcardRight_textBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "myText "
+        + "Some text .... "
+        + "myText"
+        + "</body></html>";
+    // @formatter:on
+
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "Some text > myTe*");
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals("[HtmlBody] found by: BY_TEXT deviation: 2 distance: 6 start: 0 hierarchy: 0>1>3 index: 3",
+        tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
+  public void textInBody_byText_wildcardLeft_textBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "myText "
+        + "Some text .... "
+        + "myText"
+        + "</body></html>";
+    // @formatter:on
+
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "Some text > *Text");
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals("[HtmlBody] found by: BY_TEXT deviation: 0 distance: 8 start: 0 hierarchy: 0>1>3 index: 3",
+        tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
+  public void textInBody_byText_part_textBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "myText "
+        + "Some text .... "
+        + "myText"
+        + "</body></html>";
+    // @formatter:on
+
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "Some text > yTex");
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals("[HtmlBody] found by: BY_TEXT deviation: 1 distance: 7 start: 0 hierarchy: 0>1>3 index: 3",
+        tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
+  public void textInBody_byText_full_wrongTextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "myText "
+        + "Some text .... "
+        + "myText"
+        + "</body></html>";
+    // @formatter:on
+
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "wrong text > myText");
+
+    assertEquals(0, tmpEntriesSorted.size());
+  }
+
+  @Test
+  public void textInBody_byText_full_noTextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "myText"
+        + "</body></html>";
+    // @formatter:on
+
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "wrong text > myText");
+
+    assertEquals(0, tmpEntriesSorted.size());
+  }
+
+  @Test
+  public void unknown_byText_not() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<p>Some text .... </p>"
@@ -180,7 +306,7 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void paragraph_byText_full() throws IOException, InvalidInputException {
+  public void unknown_byText_full() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<p>Some text .... </p>"
@@ -197,7 +323,7 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void paragraph_byText_wildcardRight() throws IOException, InvalidInputException {
+  public void unknown_byText_wildcardRight() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<p>Some text .... </p>"
@@ -214,7 +340,7 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void paragraph_byText_wildcardLeft() throws IOException, InvalidInputException {
+  public void unknown_byText_wildcardLeft() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<p>Some text .... </p>"
@@ -231,7 +357,7 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void paragraph_byText_part() throws IOException, InvalidInputException {
+  public void unknown_byText_part() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<p>Some text .... </p>"
@@ -248,7 +374,7 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void paragraph_byText_formated() throws IOException, InvalidInputException {
+  public void unknown_byText_formated() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<p>Some text .... </p>"
@@ -265,7 +391,7 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void paragraph_byText_empty_textBefore() throws IOException, InvalidInputException {
+  public void unknown_byText_empty_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<p id='otherId'>myText</p>"
@@ -283,7 +409,7 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void paragraph_byText_full_textBefore() throws IOException, InvalidInputException {
+  public void unknown_byText_full_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<p id='otherId'>myText</p>"
@@ -301,7 +427,7 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void paragraph_byText_wildcardRight_textBefore() throws IOException, InvalidInputException {
+  public void unknown_byText_wildcardRight_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<p id='otherId'>myText</p>"
@@ -319,7 +445,7 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void paragraph_byText_wildcardLeft_textBefore() throws IOException, InvalidInputException {
+  public void unknown_byText_wildcardLeft_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<p id='otherId'>myText</p>"
@@ -337,7 +463,7 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void paragraph_byText_part_textBefore() throws IOException, InvalidInputException {
+  public void unknown_byText_part_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<p id='otherId'>myText</p>"
@@ -355,7 +481,7 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void paragraph_byText_full_wrongTextBefore() throws IOException, InvalidInputException {
+  public void unknown_byText_full_wrongTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<p id='otherId'>myText</p>"
@@ -370,7 +496,7 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void paragraph_byText_full_noTextBefore() throws IOException, InvalidInputException {
+  public void unknown_byText_full_noTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<p>myText</p>"
@@ -383,7 +509,58 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void paragraph_byId_not() throws IOException, InvalidInputException {
+  public void unknown_byText_many() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<p>my<b>T</b>ext</p>"
+        + "<p>line2</p>"
+        + "<p>line3</p>"
+        + "</body></html>";
+    // @formatter:on
+
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "myText > ine3");
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlParagraph 'line3'] found by: BY_TEXT deviation: 0 distance: 8 start: 12 hierarchy: 0>1>3>11 index: 11",
+        tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
+  public void unknown_byText_many_matchInside() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<p>line2</p>"
+        + "<p>line3</p>"
+        + "</body></html>";
+    // @formatter:on
+
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "line2 li > ne3");
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlParagraph 'line3'] found by: BY_TEXT deviation: 0 distance: 0 start: 5 hierarchy: 0>1>3>6 index: 6",
+        tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
+  public void unknown_byText_many_matchAcross() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<p>line2</p>"
+        + "<p>line3</p>"
+        + "</body></html>";
+    // @formatter:on
+
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "li > ne2 line3");
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals("[HtmlBody] found by: BY_TEXT deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3 index: 3",
+        tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
+  public void unknown_byId_not() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<p>Some text .... </p>"
@@ -397,7 +574,7 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void paragraph_byId_full() throws IOException, InvalidInputException {
+  public void unknown_byId_full() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<p>Some text .... </p>"
@@ -414,7 +591,7 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void paragraph_byId_wildcardRight() throws IOException, InvalidInputException {
+  public void unknown_byId_wildcardRight() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<p>Some text .... </p>"
@@ -431,7 +608,7 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void paragraph_byId_wildcardLeft() throws IOException, InvalidInputException {
+  public void unknown_byId_wildcardLeft() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<p>Some text .... </p>"
@@ -448,7 +625,7 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void paragraph_byId_part() throws IOException, InvalidInputException {
+  public void unknown_byId_part() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<p>Some text .... </p>"
@@ -462,7 +639,7 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void paragraph_byId_empty_textBefore() throws IOException, InvalidInputException {
+  public void unknown_byId_empty_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<p id='otherId'>myText</p>"
@@ -481,7 +658,7 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void paragraph_byId_full_textBefore() throws IOException, InvalidInputException {
+  public void unknown_byId_full_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<p id='otherId'>myText</p>"
@@ -499,7 +676,7 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void paragraph_byId_wildcardRight_textBefore() throws IOException, InvalidInputException {
+  public void unknown_byId_wildcardRight_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<p id='otherId'>myText</p>"
@@ -517,7 +694,7 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void paragraph_byId_wildcardLeft_textBefore() throws IOException, InvalidInputException {
+  public void unknown_byId_wildcardLeft_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<p id='otherId'>myText</p>"
@@ -535,7 +712,7 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void paragraph_byId_part_textBefore() throws IOException, InvalidInputException {
+  public void unknown_byId_part_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<p id='otherId'>myText</p>"
@@ -544,13 +721,13 @@ public class UnknownHtmlUnitControlsFinderTest {
         + "</body></html>";
     // @formatter:on
 
-    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "Some Text > yI");
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "Some text > yI");
 
     assertEquals(0, tmpEntriesSorted.size());
   }
 
   @Test
-  public void paragraph_byId_full_wrongTextBefore() throws IOException, InvalidInputException {
+  public void unknown_byId_full_wrongTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<p id='otherId'>myText</p>"
@@ -565,7 +742,7 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void paragraph_byId_full_noTextBefore() throws IOException, InvalidInputException {
+  public void unknown_byId_full_noTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<p id='myId'>myText</p>"
@@ -578,15 +755,15 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void paragraph_byTitle() throws IOException, InvalidInputException {
+  public void unknown_byTitle() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<p>Some text .... </p>"
-        + "<p id='myId' title='my title'>myText</p>"
+        + "<p id='myId' title='myTitle'>myText</p>"
         + "</body></html>";
     // @formatter:on
 
-    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "my title");
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "myTitle");
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
@@ -595,55 +772,208 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void manyParagraphs() throws IOException, InvalidInputException {
+  public void unknown_byTitle_not() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "<p>My<b>T</b>ext</p>"
-        + "<p>line2</p>"
-        + "<p>line3</p>"
+        + "<p>Some text .... </p>"
+        + "<p id='myId' title='myTitle'>myText</p>"
         + "</body></html>";
     // @formatter:on
 
-    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "MyText > ine3");
-
-    assertEquals(1, tmpEntriesSorted.size());
-    assertEquals(
-        "[HtmlParagraph 'line3'] found by: BY_TEXT deviation: 0 distance: 8 start: 12 hierarchy: 0>1>3>11 index: 11",
-        tmpEntriesSorted.get(0).toString());
-  }
-
-  @Test
-  public void manyParagraphs_matchInside() throws IOException, InvalidInputException {
-    // @formatter:off
-    final String tmpHtmlCode = "<html><body>"
-        + "<p>line2</p>"
-        + "<p>line3</p>"
-        + "</body></html>";
-    // @formatter:on
-
-    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "line2 li > ne3");
-
-    assertEquals(1, tmpEntriesSorted.size());
-    assertEquals(
-        "[HtmlParagraph 'line3'] found by: BY_TEXT deviation: 0 distance: 0 start: 5 hierarchy: 0>1>3>6 index: 6",
-        tmpEntriesSorted.get(0).toString());
-  }
-
-  @Test
-  public void ignoringElementForControl() throws IOException, InvalidInputException {
-    // @formatter:off
-    final String tmpHtmlCode = "<html><body>"
-        + "<a>myText</a>"
-        + "</body></html>";
-    // @formatter:on
-
-    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "myText", HtmlUnitAnchor.class);
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "not");
 
     assertEquals(0, tmpEntriesSorted.size());
   }
 
   @Test
-  public void byTableCoordinates() throws IOException, InvalidInputException {
+  public void unknown_byTitle_full() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<p>Some text .... </p>"
+        + "<p id='myId' title='myTitle'>myText</p>"
+        + "</body></html>";
+    // @formatter:on
+
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "myTitle");
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlParagraph 'myText' (id='myId')] found by: BY_TITLE_TEXT deviation: 0 distance: 14 start: 14 hierarchy: 0>1>3>6 index: 6",
+        tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
+  public void unknown_byTitle_wildcardRight() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<p>Some text .... </p>"
+        + "<p id='myId' title='myTitle'>myText</p>"
+        + "</body></html>";
+    // @formatter:on
+
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "myTit*");
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlParagraph 'myText' (id='myId')] found by: BY_TITLE_TEXT deviation: 0 distance: 14 start: 14 hierarchy: 0>1>3>6 index: 6",
+        tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
+  public void unknown_byTitle_wildcardLeft() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<p>Some text .... </p>"
+        + "<p id='myId' title='myTitle'>myText</p>"
+        + "</body></html>";
+    // @formatter:on
+
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "*Title");
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlParagraph 'myText' (id='myId')] found by: BY_TITLE_TEXT deviation: 0 distance: 14 start: 14 hierarchy: 0>1>3>6 index: 6",
+        tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
+  public void unknown_byTitle_part() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<p>Some text .... </p>"
+        + "<p id='myId' title='myTitle'>myText</p>"
+        + "</body></html>";
+    // @formatter:on
+
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "yTitl");
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlParagraph 'myText' (id='myId')] found by: BY_TITLE_TEXT deviation: 2 distance: 14 start: 14 hierarchy: 0>1>3>6 index: 6",
+        tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
+  public void unknown_byTitle_empty_textBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<p id='otherId' title='myTitle'>myText</p>"
+        + "<p>Some text .... </p>"
+        + "<p id='myId' title='myTitle'>myText</p>"
+        + "</body></html>";
+    // @formatter:on
+
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "Some text > ");
+
+    assertEquals(1, tmpEntriesSorted.size());
+    // actually found by text and not by id
+    assertEquals(
+        "[HtmlParagraph 'myText' (id='myId')] found by: BY_TEXT deviation: 6 distance: 5 start: 21 hierarchy: 0>1>3>8 index: 8",
+        tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
+  public void unknown_byTitle_full_textBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<p id='otherId' title='myTitle'>myText</p>"
+        + "<p>Some text .... </p>"
+        + "<p id='myId' title='myTitle'>myText</p>"
+        + "</body></html>";
+    // @formatter:on
+
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "Some text > myTitle");
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlParagraph 'myText' (id='myId')] found by: BY_TITLE_TEXT deviation: 0 distance: 5 start: 21 hierarchy: 0>1>3>8 index: 8",
+        tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
+  public void unknown_byTitle_wildcardRight_textBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<p id='otherId' title='myTitle'>myText</p>"
+        + "<p>Some text .... </p>"
+        + "<p id='myId' title='myTitle'>myText</p>"
+        + "</body></html>";
+    // @formatter:on
+
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "Some text > myTit*");
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlParagraph 'myText' (id='myId')] found by: BY_TITLE_TEXT deviation: 0 distance: 5 start: 21 hierarchy: 0>1>3>8 index: 8",
+        tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
+  public void unknown_byTitle_wildcardLeft_textBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<p id='otherId' title='myTitle'>myText</p>"
+        + "<p>Some text .... </p>"
+        + "<p id='myId' title='myTitle'>myText</p>"
+        + "</body></html>";
+    // @formatter:on
+
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "Some text > *Title");
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlParagraph 'myText' (id='myId')] found by: BY_TITLE_TEXT deviation: 0 distance: 5 start: 21 hierarchy: 0>1>3>8 index: 8",
+        tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
+  public void unknown_byTitle_part_textBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<p id='otherId' title='myTitle'>myText</p>"
+        + "<p>Some text .... </p>"
+        + "<p id='myId' title='myTitle'>myText</p>"
+        + "</body></html>";
+    // @formatter:on
+
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "Some text > yTitl");
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlParagraph 'myText' (id='myId')] found by: BY_TITLE_TEXT deviation: 2 distance: 5 start: 21 hierarchy: 0>1>3>8 index: 8",
+        tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
+  public void unknown_byTitle_full_wrongTextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<p id='otherId' title='myTitle'>myText</p>"
+        + "<p>Some text .... </p>"
+        + "<p id='myId' title='myTitle'>myText</p>"
+        + "</body></html>";
+    // @formatter:on
+
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "wrong Text > myTitle");
+
+    assertEquals(0, tmpEntriesSorted.size());
+  }
+
+  @Test
+  public void unknown_byTitle_full_noTextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<p id='myId' title='myTitle'>myText</p>"
+        + "</body></html>";
+    // @formatter:on
+
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "wrong Text > myTitle");
+
+    assertEquals(0, tmpEntriesSorted.size());
+  }
+
+  @Test
+  public void unknown_byTableCoordinates() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "    <table border='0' cellspacing='20' cellpadding='30'>"
@@ -686,7 +1016,7 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void byTableCoordinatesHorizontalOnly() throws IOException, InvalidInputException {
+  public void unknown_byTableCoordinates_horizontalOnly() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "    <table border='0' cellspacing='20' cellpadding='30'>"
@@ -729,7 +1059,7 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void byTableCoordinatesHorizontalOnlyTextBefore() throws IOException, InvalidInputException {
+  public void unknown_byTableCoordinates_horizontalOnly_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "    <table border='0' cellspacing='20' cellpadding='30'>"
@@ -769,7 +1099,7 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void byTableCoordinatesVerticalOnly() throws IOException, InvalidInputException {
+  public void unknown_byTableCoordinates_verticalOnly() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "    <table border='0' cellspacing='20' cellpadding='30'>"
@@ -812,7 +1142,7 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void byTableCoordinatesVerticalOnlyTextBefore() throws IOException, InvalidInputException {
+  public void unknown_byTableCoordinates_verticalOnly_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "    <table border='0' cellspacing='20' cellpadding='30'>"
@@ -855,7 +1185,7 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void inTable_byId() throws IOException, InvalidInputException {
+  public void unknown_inTable_byId() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "    <table border='0' cellspacing='20' cellpadding='30'>"
@@ -895,7 +1225,7 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void inTable_byTitle() throws IOException, InvalidInputException {
+  public void unknown_inTable_byTitle() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "    <table border='0' cellspacing='20' cellpadding='30'>"
@@ -935,7 +1265,7 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void inTable_byText() throws IOException, InvalidInputException {
+  public void unknown_inTable_byText() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "    <table border='0' cellspacing='20' cellpadding='30'>"
@@ -975,7 +1305,7 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void inTable_empty_textBefore() throws IOException, InvalidInputException {
+  public void unknown_inTable_empty_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "    <table border='0' cellspacing='20' cellpadding='30'>"
@@ -1032,6 +1362,19 @@ public class UnknownHtmlUnitControlsFinderTest {
         tmpEntriesSorted.get(0).toString());
 
     tmpEntriesSorted = find(tmpHtmlCode, "Wrong text > [header_2; row_2] >");
+
+    assertEquals(0, tmpEntriesSorted.size());
+  }
+
+  @Test
+  public void known() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<a>myText</a>"
+        + "</body></html>";
+    // @formatter:on
+
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "myText", HtmlUnitAnchor.class);
 
     assertEquals(0, tmpEntriesSorted.size());
   }
