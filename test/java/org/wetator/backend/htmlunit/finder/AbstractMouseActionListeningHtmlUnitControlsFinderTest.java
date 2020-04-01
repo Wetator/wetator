@@ -256,6 +256,10 @@ public abstract class AbstractMouseActionListeningHtmlUnitControlsFinderTest {
     return new MouseActionHtmlCodeBuilder().radio(anId);
   }
 
+  protected static MouseActionHtmlCodeSelectBuilder select(final String anId, final String aName) {
+    return MouseActionHtmlCodeSelectBuilder.select(anId, aName);
+  }
+
   protected static MouseActionHtmlCodeSelectBuilder select(final String anId) {
     return MouseActionHtmlCodeSelectBuilder.select(anId);
   }

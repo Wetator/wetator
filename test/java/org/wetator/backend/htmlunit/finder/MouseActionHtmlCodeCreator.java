@@ -106,8 +106,9 @@ public abstract class MouseActionHtmlCodeCreator {
     return "</span>";
   }
 
-  static String selectStart(final String aSelectId, final boolean anIsListening) {
-    return "<select id='" + aSelectId + '\'' + (anIsListening ? ' ' + onMouseAction : "") + ">";
+  static String selectStart(final String aSelectId, final String aName, final boolean anIsListening) {
+    return "<select id='" + aSelectId + '\'' + (aName != null ? " name='" + aName + '\'' : "")
+        + (anIsListening ? ' ' + onMouseAction : "") + ">";
   }
 
   static String selectEnd() {

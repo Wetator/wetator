@@ -160,9 +160,9 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
         null
       },
 
-      { select("select-before") + CONTENT + select("select").option("opt-before").option("opt", CONTENT).option("opt-after") + select("select-after"),
+      { select("select-before") + CONTENT + select("select").option("option-before").option("option", CONTENT).option("option-after") + select("select-after"),
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlOption.class, "select-opt"),
+            new ExpectedControl(HtmlOption.class, "select-option"),
             new ExpectedControl(HtmlSelect.class, "select"),
             new ExpectedControl(HtmlSelect.class, "select-after"),
             new ExpectedControl(HtmlBody.class)),

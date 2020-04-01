@@ -91,6 +91,7 @@ public class MouseActionListeningHtmlUnitControlsFinderInputTextTest
 
       //+++++++++++++++++++++++
       // subsequent text inputs
+
       // 6
       { CONTENT + inputText("input1") + CONTENT + inputText("input2"),
         new SortedEntryExpectation(

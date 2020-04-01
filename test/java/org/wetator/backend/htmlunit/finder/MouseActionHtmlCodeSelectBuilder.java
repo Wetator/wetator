@@ -29,6 +29,7 @@ import java.util.List;
 public final class MouseActionHtmlCodeSelectBuilder {
 
   private String selectId;
+  private String name;
   private List<SelectOption> options = new ArrayList<>();
 
   private boolean listenSelect = true;
@@ -57,6 +58,12 @@ public final class MouseActionHtmlCodeSelectBuilder {
     return new MouseActionHtmlCodeSelectBuilder(aSelectId);
   }
 
+  public static MouseActionHtmlCodeSelectBuilder select(final String aSelectId, final String aName) {
+    final MouseActionHtmlCodeSelectBuilder tmpBuilder = select(aSelectId);
+    tmpBuilder.name = aName;
+    return tmpBuilder;
+  }
+
   public MouseActionHtmlCodeSelectBuilder option(final String anOptionId) {
     options.add(new SelectOption(anOptionId));
     return this;
@@ -78,7 +85,7 @@ public final class MouseActionHtmlCodeSelectBuilder {
 
   public String build() {
     final StringBuilder tmpSelectHtml = new StringBuilder(
-        MouseActionHtmlCodeCreator.selectStart(selectId, listenSelect));
+        MouseActionHtmlCodeCreator.selectStart(selectId, name, listenSelect));
     for (SelectOption tmpOption : options) {
       tmpSelectHtml.append(MouseActionHtmlCodeCreator.selectOption(selectId, tmpOption.optionId, tmpOption.content,
           tmpOption.listenOption));
