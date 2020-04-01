@@ -199,7 +199,7 @@ public class ByIdMatcherTest extends AbstractMatcherTest {
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("Some Text > yI");
+    final SecretString tmpSearch = new SecretString("Some text > yI");
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
