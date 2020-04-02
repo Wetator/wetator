@@ -6,6 +6,7 @@
 .settings/org.eclipse.jdt.core.prefs -text svneol=unset#text/plain
 .settings/org.eclipse.jdt.launching.prefs -text svneol=unset#text/plain
 .settings/org.eclipse.jdt.ui.prefs -text svneol=unset#text/plain
+/Jenkinsfile -text
 /LICENSE.txt -text
 /actions.txt -text svneol=unset#text/plain
 ant_lib/bcpg-jdk15on-1.64.jar -text
