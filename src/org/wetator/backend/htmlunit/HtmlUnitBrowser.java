@@ -354,6 +354,7 @@ public final class HtmlUnitBrowser implements IBrowser {
     try {
       webClient.getPage(aUrl);
       waitForImmediateJobs();
+      // FIXME log info if redirected (current URL != given URL)?
     } catch (final ScriptException e) {
       addFailure("javascriptError", new String[] { e.getMessage() }, e);
     } catch (final WrappedException e) {
