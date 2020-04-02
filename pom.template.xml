@@ -72,7 +72,7 @@
     </issueManagement>
     <ciManagement>
         <system>jenkins</system>
-        <url>https://www.wetator.org/jenkins/job/wetator/</url>
+        <url>https://jenkins.wetator.org/job/wetator/</url>
     </ciManagement>
 
     <properties>

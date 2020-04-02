@@ -15,7 +15,6 @@ ant_lib/ivy-2.5.0.jar -text
 /build-properties.xml -text
 /build.properties -text
 /build.xml -text
-/chat -text
 docu/droid-sans.zip -text
 docu/images/cfg_jsjobs.png -text
 docu/images/cfg_jsjobs_filter.png -text
