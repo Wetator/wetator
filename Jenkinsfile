@@ -8,6 +8,7 @@ pipeline {
         disableConcurrentBuilds()
         timestamps()
         timeout(time: 1, unit: 'HOURS')
+        skipDefaultCheckout true
     }
     stages {
         stage('checkout') {
@@ -22,7 +23,7 @@ pipeline {
             steps {
                 wrap([$class: 'Xvfb']) {
                     withAnt(installation: 'Ant 1.10.7', jdk: 'OpenJdk 1.8') {
-                        sh "ant publish-local"
+                        sh "ant /notests publish-local"
                     }
                 }
             }
