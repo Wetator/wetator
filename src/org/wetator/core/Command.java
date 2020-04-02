@@ -136,110 +136,70 @@ public final class Command {
       tmpResult.append(" COMMENT");
     }
 
+    final StringBuilder tmpParams = new StringBuilder();
     Parameter tmpParameter = getFirstParameter();
-    tmpResult.append(" firstParam: '");
     if (null != tmpParameter) {
-      tmpResult.append(tmpParameter.getValue(aContext).toString());
+      tmpParams.append(" 1: '").append(tmpParameter.getValue(aContext).toString()).append('\'');
     }
-    tmpResult.append('\''); // NOPMD
 
     tmpParameter = getSecondParameter();
-    tmpResult.append(" '");
     if (null != tmpParameter) {
-      tmpResult.append(getSecondParameter().getValue(aContext).toString());
+      tmpParams.append(" 2: '").append(getSecondParameter().getValue(aContext).toString()).append('\'');
     }
-    tmpResult.append('\'');
 
     tmpParameter = getThirdParameter();
     if (null != tmpParameter) {
-      tmpResult.append(" '").append(getThirdParameter().getValue(aContext).toString()).append('\'');
+      tmpParams.append(" 3: '").append(getThirdParameter().getValue(aContext).toString()).append('\'');
     }
 
-    tmpResult.append(']');
+    if (tmpParams.length() == 0) {
+      tmpParams.append(' ');
+    }
+
+    tmpResult.append(" params: (").append(tmpParams.substring(1)).append(")]");
     return tmpResult.toString();
   }
 
   /**
-   * Returns the first parameter as secret string.
-   * The parameter is taken at whole, not parsed.
+   * Returns the first parameter as {@link SecretString}.
+   * The parameter is taken as is, not parsed.
    *
-   * @param aContext the context
-   * @return a secret string or null if the first parameter was not set
+   * @param aContext the current {@link WetatorContext}
+   * @return the first parameter as {@link SecretString} or an empty {@link SecretString} if it was not set
    */
   public SecretString getFirstParameterValue(final WetatorContext aContext) {
-    final Parameter tmpFirstParameter = getFirstParameter();
-
-    if (null == tmpFirstParameter) {
-      return new SecretString();
-    }
-
-    return tmpFirstParameter.getValue(aContext);
+    return getParameterValue(getFirstParameter(), aContext);
   }
 
   /**
-   * Returns the first parameter as secret string.
-   * The parameter is taken at whole, not parsed.
+   * Returns the first parameter as {@link SecretString}.
+   * The parameter is taken as is, not parsed.
    *
-   * @param aContext the context
-   * @return a secret string
-   * @throws InvalidInputException if the first parameter is not set
+   * @param aContext the current {@link WetatorContext}
+   * @return the first parameter as {@link SecretString}
+   * @throws InvalidInputException if the first parameter was not set
    */
   public SecretString getRequiredFirstParameterValue(final WetatorContext aContext) throws InvalidInputException {
-    final Parameter tmpFirstParameter = getFirstParameter();
-
-    if (null == tmpFirstParameter) {
-      invalidInput("emptyFirstParameter", getName());
-    }
-
-    return tmpFirstParameter.getValue(aContext);
+    return getRequiredParameterValue(getFirstParameter(), aContext, "emptyFirstParameter");
   }
 
   /**
-   * Returns the list of secret strings parsed from the second parameter.
+   * Returns the second parameter as {@link SecretString}.
+   * The parameter is taken as is, not parsed.
    *
-   * @param aContext the context
-   * @return the list of secret strings (never null)
-   */
-  public List<SecretString> getSecondParameterValues(final WetatorContext aContext) {
-    final Parameter tmpSecondParameter = getSecondParameter();
-
-    final List<SecretString> tmpResult = new LinkedList<>();
-    if (null == tmpSecondParameter) {
-      return tmpResult;
-    }
-
-    final List<Parameter.Part> tmpParts = tmpSecondParameter.getParts();
-
-    for (final Parameter.Part tmpPart : tmpParts) {
-      tmpResult.add(tmpPart.getValue(aContext));
-    }
-
-    return tmpResult;
-  }
-
-  /**
-   * Returns the second parameter as secret string.
-   * The parameter is taken at whole, not parsed.
-   *
-   * @param aContext the context
-   * @return a secret string or null if the second parameter was not set
+   * @param aContext the current {@link WetatorContext}
+   * @return the second parameter as {@link SecretString} or an empty {@link SecretString} if it was not set
    */
   public SecretString getSecondParameterValue(final WetatorContext aContext) {
-    final Parameter tmpSecondParameter = getSecondParameter();
-
-    if (null == tmpSecondParameter) {
-      return null;
-    }
-
-    return tmpSecondParameter.getValue(aContext);
+    return getParameterValue(getSecondParameter(), aContext);
   }
 
   /**
-   * Returns the second parameter as long.
+   * Returns the second parameter as {@link Long}.
    *
-   * @param aContext the context
-   * @return a Long (or null if not set)
-   * @throws InvalidInputException if the second parameter is not convertible into a long
+   * @param aContext the current {@link WetatorContext}
+   * @return the second parameter as {@link Long} or <code>null</code> if it was not set
+   * @throws InvalidInputException if the second parameter is not convertible into a {@link Long}
    */
   public Long getSecondParameterLongValue(final WetatorContext aContext) throws InvalidInputException {
     final Parameter tmpSecondParameter = getSecondParameter();
@@ -263,11 +223,46 @@ public final class Command {
   }
 
   /**
-   * Returns the list of secret strings parsed from the second parameter.
+   * Returns the list of {@link SecretString}s parsed from the second parameter.
    *
-   * @param aContext the context
-   * @return the list of secret strings (never null)
-   * @throws InvalidInputException if the second parameter is not set
+   * @param aContext the current {@link WetatorContext}
+   * @return the list of {@link SecretString}s parsed from the second parameter or an empty list if it was not set
+   */
+  public List<SecretString> getSecondParameterValues(final WetatorContext aContext) {
+    final Parameter tmpSecondParameter = getSecondParameter();
+
+    final List<SecretString> tmpResult = new LinkedList<>();
+    if (null == tmpSecondParameter) {
+      return tmpResult;
+    }
+
+    final List<Parameter.Part> tmpParts = tmpSecondParameter.getParts();
+
+    for (final Parameter.Part tmpPart : tmpParts) {
+      tmpResult.add(tmpPart.getValue(aContext));
+    }
+
+    return tmpResult;
+  }
+
+  /**
+   * Returns the second parameter as {@link SecretString}.
+   * The parameter is taken as is, not parsed.
+   *
+   * @param aContext the current {@link WetatorContext}
+   * @return the second parameter as {@link SecretString}
+   * @throws InvalidInputException if the second parameter was not set
+   */
+  public SecretString getRequiredSecondParameterValue(final WetatorContext aContext) throws InvalidInputException {
+    return getRequiredParameterValue(getSecondParameter(), aContext, "emptySecondParameter");
+  }
+
+  /**
+   * Returns the list of {@link SecretString}s parsed from the second parameter.
+   *
+   * @param aContext the current {@link WetatorContext}
+   * @return the list of {@link SecretString}s parsed from the second parameter or an empty list if it was not set
+   * @throws InvalidInputException if the second parameter was not set
    */
   public List<SecretString> getRequiredSecondParameterValues(final WetatorContext aContext)
       throws InvalidInputException {
@@ -280,47 +275,47 @@ public final class Command {
     return getSecondParameterValues(aContext);
   }
 
-  /**
-   * Returns the second parameter as secret string.
-   * The parameter is taken at whole, not parsed.
-   *
-   * @param aContext the context
-   * @return a secret string
-   * @throws InvalidInputException if the second parameter is not set
-   */
-  public SecretString getRequiredSecondParameterValue(final WetatorContext aContext) throws InvalidInputException {
-    final Parameter tmpSecondParameter = getSecondParameter();
-
-    if (null == tmpSecondParameter) {
-      invalidInput("emptySecondParameter", getName());
+  private SecretString getParameterValue(final Parameter aParameter, final WetatorContext aContext) {
+    if (null == aParameter) {
+      return new SecretString();
     }
 
-    return tmpSecondParameter.getValue(aContext);
+    return aParameter.getValue(aContext);
+  }
+
+  private SecretString getRequiredParameterValue(final Parameter aParameter, final WetatorContext aContext,
+      final String anErrorMessageKey) throws InvalidInputException {
+    if (null == aParameter) {
+      invalidInput(anErrorMessageKey, getName());
+    }
+
+    return getParameterValue(aParameter, aContext);
   }
 
   /**
    * Asserts that the second parameter is not set.
    *
-   * @param aContext the context
-   * @throws InvalidInputException if the second parameter is set
+   * @param aContext the current {@link WetatorContext}
+   * @throws InvalidInputException if the second parameter was set
    */
   public void checkNoUnusedSecondParameter(final WetatorContext aContext) throws InvalidInputException {
-    final Parameter tmpParameter = getSecondParameter();
-    if (null != tmpParameter) {
-      invalidInput("unusedParameter", getName(), tmpParameter.getValue(aContext).toString(), "2");
-    }
+    checkNoUnusedParameter(getSecondParameter(), aContext, "2");
   }
 
   /**
    * Asserts that the third parameter is not set.
    *
-   * @param aContext the context
-   * @throws InvalidInputException if the third parameter is set
+   * @param aContext the current {@link WetatorContext}
+   * @throws InvalidInputException if the third parameter was set
    */
   public void checkNoUnusedThirdParameter(final WetatorContext aContext) throws InvalidInputException {
-    final Parameter tmpParameter = getThirdParameter();
-    if (null != tmpParameter) {
-      invalidInput("unusedParameter", getName(), tmpParameter.getValue(aContext).toString(), "3");
+    checkNoUnusedParameter(getThirdParameter(), aContext, "3");
+  }
+
+  private void checkNoUnusedParameter(final Parameter aParameter, final WetatorContext aContext,
+      final String aParameterIndex) throws InvalidInputException {
+    if (null != aParameter) {
+      invalidInput("unusedParameter", getName(), aParameter.getValue(aContext).toString(), aParameterIndex);
     }
   }
 

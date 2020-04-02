@@ -18,7 +18,9 @@ package org.wetator.core;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import org.wetator.util.SecretString;
 
 /**
@@ -27,31 +29,31 @@ import org.wetator.util.SecretString;
  */
 public class VariableTest {
 
+  @Rule
+  public ExpectedException thrown = ExpectedException.none();
+
   @Test
   public void stringOnlyNameNull() {
-    try {
-      new Variable(null, "value");
-    } catch (final IllegalArgumentException e) {
-      assertEquals("The variable's name is mandatory.", e.getMessage());
-    }
+    thrown.expect(IllegalArgumentException.class);
+    thrown.expectMessage("The variable's name is mandatory.");
+
+    new Variable(null, "value");
   }
 
   @Test
   public void stringOnlyNameEmpty() {
-    try {
-      new Variable("", "value");
-    } catch (final IllegalArgumentException e) {
-      assertEquals("The variable's name is mandatory.", e.getMessage());
-    }
+    thrown.expect(IllegalArgumentException.class);
+    thrown.expectMessage("The variable's name is mandatory.");
+
+    new Variable("", "value");
   }
 
   @Test
   public void stringOnlyNameBlank() {
-    try {
-      new Variable(" ", "value");
-    } catch (final IllegalArgumentException e) {
-      assertEquals("The variable's name is mandatory.", e.getMessage());
-    }
+    thrown.expect(IllegalArgumentException.class);
+    thrown.expectMessage("The variable's name is mandatory.");
+
+    new Variable(" ", "value");
   }
 
   @Test
@@ -92,29 +94,26 @@ public class VariableTest {
 
   @Test
   public void stringPublicNameNull() {
-    try {
-      new Variable(null, "value", false);
-    } catch (final IllegalArgumentException e) {
-      assertEquals("The variable's name is mandatory.", e.getMessage());
-    }
+    thrown.expect(IllegalArgumentException.class);
+    thrown.expectMessage("The variable's name is mandatory.");
+
+    new Variable(null, "value", false);
   }
 
   @Test
   public void stringPublicNameEmpty() {
-    try {
-      new Variable("", "value", false);
-    } catch (final IllegalArgumentException e) {
-      assertEquals("The variable's name is mandatory.", e.getMessage());
-    }
+    thrown.expect(IllegalArgumentException.class);
+    thrown.expectMessage("The variable's name is mandatory.");
+
+    new Variable("", "value", false);
   }
 
   @Test
   public void stringPublicNameBlank() {
-    try {
-      new Variable(" ", "value", false);
-    } catch (final IllegalArgumentException e) {
-      assertEquals("The variable's name is mandatory.", e.getMessage());
-    }
+    thrown.expect(IllegalArgumentException.class);
+    thrown.expectMessage("The variable's name is mandatory.");
+
+    new Variable(" ", "value", false);
   }
 
   @Test
@@ -155,29 +154,26 @@ public class VariableTest {
 
   @Test
   public void stringSecretNameNull() {
-    try {
-      new Variable(null, "value", true);
-    } catch (final IllegalArgumentException e) {
-      assertEquals("The variable's name is mandatory.", e.getMessage());
-    }
+    thrown.expect(IllegalArgumentException.class);
+    thrown.expectMessage("The variable's name is mandatory.");
+
+    new Variable(null, "value", true);
   }
 
   @Test
   public void stringSecretNameEmpty() {
-    try {
-      new Variable("", "value", true);
-    } catch (final IllegalArgumentException e) {
-      assertEquals("The variable's name is mandatory.", e.getMessage());
-    }
+    thrown.expect(IllegalArgumentException.class);
+    thrown.expectMessage("The variable's name is mandatory.");
+
+    new Variable("", "value", true);
   }
 
   @Test
   public void stringSecretNameBlank() {
-    try {
-      new Variable(" ", "value", true);
-    } catch (final IllegalArgumentException e) {
-      assertEquals("The variable's name is mandatory.", e.getMessage());
-    }
+    thrown.expect(IllegalArgumentException.class);
+    thrown.expectMessage("The variable's name is mandatory.");
+
+    new Variable(" ", "value", true);
   }
 
   @Test
@@ -218,29 +214,26 @@ public class VariableTest {
 
   @Test
   public void secretStringNameNull() {
-    try {
-      new Variable(null, new SecretString().appendSecret("value"));
-    } catch (final IllegalArgumentException e) {
-      assertEquals("The variable's name is mandatory.", e.getMessage());
-    }
+    thrown.expect(IllegalArgumentException.class);
+    thrown.expectMessage("The variable's name is mandatory.");
+
+    new Variable(null, new SecretString().appendSecret("value"));
   }
 
   @Test
   public void secreStringtNameEmpty() {
-    try {
-      new Variable("", new SecretString().appendSecret("value"));
-    } catch (final IllegalArgumentException e) {
-      assertEquals("The variable's name is mandatory.", e.getMessage());
-    }
+    thrown.expect(IllegalArgumentException.class);
+    thrown.expectMessage("The variable's name is mandatory.");
+
+    new Variable("", new SecretString().appendSecret("value"));
   }
 
   @Test
   public void secretStringNameBlank() {
-    try {
-      new Variable(" ", new SecretString().appendSecret("value"));
-    } catch (final IllegalArgumentException e) {
-      assertEquals("The variable's name is mandatory.", e.getMessage());
-    }
+    thrown.expect(IllegalArgumentException.class);
+    thrown.expectMessage("The variable's name is mandatory.");
+
+    new Variable(" ", new SecretString().appendSecret("value"));
   }
 
   @Test
