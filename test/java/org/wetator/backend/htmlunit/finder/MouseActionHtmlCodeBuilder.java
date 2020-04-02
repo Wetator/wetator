@@ -150,16 +150,16 @@ public class MouseActionHtmlCodeBuilder {
     return add(ElementType.INPUT_TEXT, anId);
   }
 
-  public MouseActionHtmlCodeBuilder label(final String anId, final MouseActionHtmlCodeBuilder aContent) {
-    return label(anId, aContent.build());
+  public MouseActionHtmlCodeBuilder label(final String aForId, final MouseActionHtmlCodeBuilder aContent) {
+    return label(aForId, aContent.build());
   }
 
-  public MouseActionHtmlCodeBuilder label(final String anId, final String aContent) {
-    return label(anId).contain(aContent);
+  public MouseActionHtmlCodeBuilder label(final String aForId, final String aContent) {
+    return label(aForId).contain(aContent);
   }
 
-  public MouseActionHtmlCodeBuilder label(final String anId) {
-    return add(ElementType.LABEL, anId);
+  public MouseActionHtmlCodeBuilder label(final String aForId) {
+    return add(ElementType.LABEL, aForId);
   }
 
   public MouseActionHtmlCodeBuilder radio(final String anId) {

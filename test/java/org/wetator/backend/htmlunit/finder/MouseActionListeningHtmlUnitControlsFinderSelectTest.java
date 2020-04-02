@@ -27,6 +27,7 @@ import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.Expect
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.SortedEntryExpectation;
 
 import com.gargoylesoftware.htmlunit.html.HtmlBody;
+import com.gargoylesoftware.htmlunit.html.HtmlLabel;
 import com.gargoylesoftware.htmlunit.html.HtmlOption;
 import com.gargoylesoftware.htmlunit.html.HtmlSelect;
 
@@ -82,32 +83,40 @@ public class MouseActionListeningHtmlUnitControlsFinderSelectTest
       // 5
       { select("select", CONTENT).option("option", CONTENT),
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlSelect.class, "select"), // FIXME should find option with preference
+            new ExpectedControl(HtmlSelect.class, "select"),
             new ExpectedControl(HtmlOption.class, "select-option"))
+      },
+
+      // 6
+      { label("select", CONTENT).noListen().build() + select("select").option("option", CONTENT),
+        new SortedEntryExpectation(
+            new ExpectedControl(HtmlSelect.class, "select"),
+            new ExpectedControl(HtmlOption.class, "select-option"),
+            new ExpectedControl(HtmlLabel.class, "lbl-select"))
       },
 
       //+++++++++++++++++++++++++++++++++
       // one select, select not listening
 
-      // 6
+      // 7
       { CONTENT + select("select").noListen().option("option"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlBody.class))
       },
 
-      // 7
+      // 8
       { select("select", CONTENT).noListen().option("option", CONTENT),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlOption.class, "select-option"))
       },
 
-      // 8
+      // 9
       { select("select").noListen().option("option", CONTENT),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlOption.class, "select-option"))
       },
 
-      // 9
+      // 10
       { select("select").noListen().option("option") + CONTENT,
         new SortedEntryExpectation(
             new ExpectedControl(HtmlBody.class))
@@ -116,20 +125,20 @@ public class MouseActionListeningHtmlUnitControlsFinderSelectTest
       //+++++++++++++++++++++++++++++++++
       // one select, option not listening
 
-      // 10
+      // 11
       { CONTENT + select("select").option("option").noListen(),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlSelect.class, "select"),
             new ExpectedControl(HtmlBody.class))
       },
 
-      // 11
+      // 12
       { select("select").option("option", CONTENT).noListen(),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlOption.class, "select-option"))
       },
 
-      // 12
+      // 13
       { select("select").option("option").noListen() + CONTENT,
         new SortedEntryExpectation(
             new ExpectedControl(HtmlBody.class))
@@ -138,18 +147,18 @@ public class MouseActionListeningHtmlUnitControlsFinderSelectTest
       //++++++++++++++++++++++++++++++
       // one select, nothing listening
 
-      // 13
+      // 14
       { CONTENT + select("select").noListen().option("option").noListen(),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlBody.class))
       },
 
-      // 14
+      // 15
       { select("select").noListen().option("option", CONTENT).noListen(),
         null
       },
 
-      // 15
+      // 16
       { select("select").noListen().option("option").noListen() + CONTENT,
         new SortedEntryExpectation(
             new ExpectedControl(HtmlBody.class))
@@ -158,7 +167,7 @@ public class MouseActionListeningHtmlUnitControlsFinderSelectTest
       //+++++++++++++++++++
       // subsequent selects
 
-      // 16
+      // 17
       { CONTENT + select("select1").option("option") + CONTENT + select("select2").option("option"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlSelect.class, "select1"),
@@ -166,7 +175,7 @@ public class MouseActionListeningHtmlUnitControlsFinderSelectTest
             new ExpectedControl(HtmlBody.class))
       },
 
-      // 17
+      // 18
       { CONTENT + select("select1").option("option") + select("select2").option("option"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlSelect.class, "select1"),
@@ -174,7 +183,7 @@ public class MouseActionListeningHtmlUnitControlsFinderSelectTest
             new ExpectedControl(HtmlBody.class))
       },
 
-      // 18
+      // 19
       { CONTENT + select("select1").option("option") + "x" + select("select2").option("option"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlSelect.class, "select1"),
@@ -182,7 +191,7 @@ public class MouseActionListeningHtmlUnitControlsFinderSelectTest
             new ExpectedControl(HtmlSelect.class, "select2"))
       },
 
-      // 19
+      // 20
       { CONTENT + "x" + select("select1").option("option") + select("select2").option("option"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlSelect.class, "select1"),
@@ -190,7 +199,7 @@ public class MouseActionListeningHtmlUnitControlsFinderSelectTest
             new ExpectedControl(HtmlBody.class))
       },
 
-      // 20
+      // 21
       { CONTENT + "x" + select("select1").option("option") + CONTENT + select("select2").option("option"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlSelect.class, "select2"),
@@ -198,7 +207,7 @@ public class MouseActionListeningHtmlUnitControlsFinderSelectTest
             new ExpectedControl(HtmlBody.class))
       },
 
-      // 21
+      // 22
       { CONTENT + select("select1").option("option", CONTENT) + CONTENT + select("select2").option("option", CONTENT),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlOption.class, "select1-option"),
@@ -208,7 +217,7 @@ public class MouseActionListeningHtmlUnitControlsFinderSelectTest
             new ExpectedControl(HtmlBody.class))
       },
 
-      // 22
+      // 23
       { CONTENT + select("select1").option("option1").option("option2", CONTENT) + CONTENT + select("select2").option("option1", CONTENT).option("option2"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlOption.class, "select1-option2"),
