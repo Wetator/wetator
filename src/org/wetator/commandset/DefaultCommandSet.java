@@ -206,7 +206,6 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         throws CommandException, InvalidInputException {
       final WPath tmpWPath = new WPath(aCommand.getFirstParameterValue(aContext), aContext.getConfiguration());
 
-      final SecretString tmpValueParam = aCommand.getSecondParameterValue(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
 
       final IBrowser tmpBrowser = getBrowser(aContext);
@@ -252,6 +251,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
               "noSettableHtmlElmentFound");
         }
       }
+
+      final SecretString tmpValueParam = aCommand.getSecondParameterValue(aContext);
 
       tmpBrowser.markControls(tmpControl);
       tmpControl.setValue(aContext, tmpValueParam, aContext.getFile().getParentFile());
