@@ -23,7 +23,7 @@ pipeline {
             steps {
                 wrap([$class: 'Xvfb']) {
                     withAnt(installation: 'Ant 1.10.7', jdk: 'OpenJdk 1.8') {
-                        sh "ant /notests publish-local"
+                        sh "ant /notests /nometrics publish-local"
                     }
                 }
             }
