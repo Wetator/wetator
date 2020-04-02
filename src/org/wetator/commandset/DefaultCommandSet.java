@@ -206,10 +206,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         throws CommandException, InvalidInputException {
       final WPath tmpWPath = new WPath(aCommand.getFirstParameterValue(aContext), aContext.getConfiguration());
 
-      SecretString tmpValueParam = aCommand.getSecondParameterValue(aContext);
-      if (null == tmpValueParam) {
-        tmpValueParam = new SecretString("");
-      }
+      final SecretString tmpValueParam = aCommand.getSecondParameterValue(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
 
       final IBrowser tmpBrowser = getBrowser(aContext);
@@ -600,10 +597,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         throws CommandException, InvalidInputException {
       final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValue(aContext), aContext.getConfiguration());
 
-      SecretString tmpValueParam = aCommand.getSecondParameterValue(aContext);
-      if (null == tmpValueParam) {
-        tmpValueParam = new SecretString("");
-      }
+      final SecretString tmpValueParam = aCommand.getSecondParameterValue(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
 
       final IBrowser tmpBrowser = getBrowser(aContext);
