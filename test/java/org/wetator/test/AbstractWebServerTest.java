@@ -38,6 +38,9 @@ import org.eclipse.jetty.util.security.Constraint;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.wetator.commandset.IncubatorCommandSet;
+import org.wetator.commandset.SqlCommandSet;
+import org.wetator.commandset.TestCommandSet;
 import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.WetatorEngine;
 import org.wetator.exception.InvalidInputException;
@@ -156,8 +159,8 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
     tmpProperties.setProperty(WetatorConfiguration.PROPERTY_ACCEPT_LANGUAGE, "de-de,de;q=0.8,en-us;q=0.5,en;q=0.3");
 
     tmpProperties.setProperty(WetatorConfiguration.PROPERTY_XSL_TEMPLATES, "./xsl/run_report.xsl");
-    tmpProperties.setProperty(WetatorConfiguration.PROPERTY_COMMAND_SETS, "org.wetator.commandset.IncubatorCommandSet, "
-        + "org.wetator.commandset.SqlCommandSet, " + "org.wetator.commandset.TestCommandSet");
+    tmpProperties.setProperty(WetatorConfiguration.PROPERTY_COMMAND_SETS, IncubatorCommandSet.class.getName() + ", "
+        + SqlCommandSet.class.getName() + ", " + TestCommandSet.class.getName());
     tmpProperties.setProperty("wetator.db.connections", "wetdb, secondDb");
 
     setIfNotNull(tmpProperties, "wetator.proxyHost", System.getProperty("http.proxyHost"));

@@ -83,7 +83,7 @@ public class MouseActionListeningHtmlUnitControlsFinder extends IdentifierBasedH
       for (final HtmlElement tmpHtmlElement : htmlPageIndex.getAllVisibleHtmlElements()) {
         if (tmpHtmlElement instanceof HtmlBody) {
           final WeightedControlList tmpFoundControls = new WeightedControlList();
-          tmpFoundControls.add(new HtmlUnitUnspecificControl<HtmlBody>((HtmlBody) tmpHtmlElement),
+          tmpFoundControls.add(new HtmlUnitUnspecificControl<>((HtmlBody) tmpHtmlElement),
               WeightedControlList.FoundType.BY_ID, // by (pseudo) id
               0, // no deviation
               0, // no distance from page start
@@ -212,7 +212,7 @@ public class MouseActionListeningHtmlUnitControlsFinder extends IdentifierBasedH
 
     @Override
     protected IControl createControl(final MatchResult aMatch) {
-      return new HtmlUnitUnspecificControl<HtmlElement>(aMatch.getHtmlElement());
+      return new HtmlUnitUnspecificControl<>(aMatch.getHtmlElement());
     }
   }
 }

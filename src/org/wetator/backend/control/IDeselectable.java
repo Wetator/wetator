@@ -23,7 +23,7 @@ import org.wetator.exception.ActionException;
 /**
  * This interface marks all deselectable {@link IControl}s. All deselectable control
  * are also selectable.
- * 
+ *
  * @see ControlFeature#DESELECT
  * @author frank.danek
  */

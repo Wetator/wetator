@@ -260,7 +260,7 @@ public class HtmlElementUtilTest {
     final HtmlBody tmpBody = (HtmlBody) tmpHtmlPage.getBody();
 
     String tmpResult;
-    tmpResult = new HtmlUnitUnspecificControl<HtmlBody>(tmpBody).getDescribingText();
+    tmpResult = new HtmlUnitUnspecificControl<>(tmpBody).getDescribingText();
     assertEquals("[HtmlBody]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlBody(tmpBody);
@@ -279,7 +279,7 @@ public class HtmlElementUtilTest {
     final HtmlBody tmpBody = (HtmlBody) tmpHtmlPage.getBody();
 
     String tmpResult;
-    tmpResult = new HtmlUnitUnspecificControl<HtmlBody>(tmpBody).getDescribingText();
+    tmpResult = new HtmlUnitUnspecificControl<>(tmpBody).getDescribingText();
     assertEquals("[HtmlBody (id='tx')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlBody(tmpBody);
@@ -809,7 +809,7 @@ public class HtmlElementUtilTest {
     final HtmlHiddenInput tmpHtmlHiddenInput = (HtmlHiddenInput) tmpForm.getFirstChild();
 
     String tmpResult;
-    tmpResult = new HtmlUnitUnspecificControl<HtmlHiddenInput>(tmpHtmlHiddenInput).getDescribingText();
+    tmpResult = new HtmlUnitUnspecificControl<>(tmpHtmlHiddenInput).getDescribingText();
     assertEquals("[HtmlHiddenInput]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlHiddenInput(tmpHtmlHiddenInput);
@@ -832,7 +832,7 @@ public class HtmlElementUtilTest {
     final HtmlHiddenInput tmpHtmlHiddenInput = (HtmlHiddenInput) tmpForm.getFirstChild();
 
     String tmpResult;
-    tmpResult = new HtmlUnitUnspecificControl<HtmlHiddenInput>(tmpHtmlHiddenInput).getDescribingText();
+    tmpResult = new HtmlUnitUnspecificControl<>(tmpHtmlHiddenInput).getDescribingText();
     assertEquals("[HtmlHiddenInput (name='HiddenName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlHiddenInput(tmpHtmlHiddenInput);
@@ -855,7 +855,7 @@ public class HtmlElementUtilTest {
     final HtmlHiddenInput tmpHtmlHiddenInput = (HtmlHiddenInput) tmpForm.getFirstChild();
 
     String tmpResult;
-    tmpResult = new HtmlUnitUnspecificControl<HtmlHiddenInput>(tmpHtmlHiddenInput).getDescribingText();
+    tmpResult = new HtmlUnitUnspecificControl<>(tmpHtmlHiddenInput).getDescribingText();
     assertEquals("[HtmlHiddenInput (id='tx')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlHiddenInput(tmpHtmlHiddenInput);
@@ -878,7 +878,7 @@ public class HtmlElementUtilTest {
     final HtmlHiddenInput tmpHtmlHiddenInput = (HtmlHiddenInput) tmpForm.getFirstChild();
 
     String tmpResult;
-    tmpResult = new HtmlUnitUnspecificControl<HtmlHiddenInput>(tmpHtmlHiddenInput).getDescribingText();
+    tmpResult = new HtmlUnitUnspecificControl<>(tmpHtmlHiddenInput).getDescribingText();
     assertEquals("[HtmlHiddenInput (id='tx') (name='HiddenName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlHiddenInput(tmpHtmlHiddenInput);
@@ -1096,7 +1096,7 @@ public class HtmlElementUtilTest {
     final HtmlLabel tmpHtmlLabel = (HtmlLabel) tmpForm.getFirstChild();
 
     String tmpResult;
-    tmpResult = new HtmlUnitUnspecificControl<HtmlLabel>(tmpHtmlLabel).getDescribingText();
+    tmpResult = new HtmlUnitUnspecificControl<>(tmpHtmlLabel).getDescribingText();
     assertEquals("[HtmlLabel 'Label' (for='TextInputId')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlLabel(tmpHtmlLabel);
@@ -1120,7 +1120,7 @@ public class HtmlElementUtilTest {
     final HtmlLabel tmpHtmlLabel = (HtmlLabel) tmpForm.getFirstChild();
 
     String tmpResult;
-    tmpResult = new HtmlUnitUnspecificControl<HtmlLabel>(tmpHtmlLabel).getDescribingText();
+    tmpResult = new HtmlUnitUnspecificControl<>(tmpHtmlLabel).getDescribingText();
     assertEquals("[HtmlLabel 'Label' (name='LabelName') (for='TextInputId')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlLabel(tmpHtmlLabel);
@@ -1144,7 +1144,7 @@ public class HtmlElementUtilTest {
     final HtmlLabel tmpHtmlLabel = (HtmlLabel) tmpForm.getFirstChild();
 
     String tmpResult;
-    tmpResult = new HtmlUnitUnspecificControl<HtmlLabel>(tmpHtmlLabel).getDescribingText();
+    tmpResult = new HtmlUnitUnspecificControl<>(tmpHtmlLabel).getDescribingText();
     assertEquals("[HtmlLabel 'Label' (id='tx') (for='TextInputId')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlLabel(tmpHtmlLabel);
@@ -1168,7 +1168,7 @@ public class HtmlElementUtilTest {
     final HtmlLabel tmpHtmlLabel = (HtmlLabel) tmpForm.getFirstChild();
 
     String tmpResult;
-    tmpResult = new HtmlUnitUnspecificControl<HtmlLabel>(tmpHtmlLabel).getDescribingText();
+    tmpResult = new HtmlUnitUnspecificControl<>(tmpHtmlLabel).getDescribingText();
     assertEquals("[HtmlLabel 'Label' (id='tx') (name='LabelName') (for='TextInputId')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlLabel(tmpHtmlLabel);
@@ -1193,7 +1193,7 @@ public class HtmlElementUtilTest {
     final HtmlLabel tmpHtmlLabel = (HtmlLabel) tmpForm.getFirstChild();
 
     String tmpResult;
-    tmpResult = new HtmlUnitUnspecificControl<HtmlLabel>(tmpHtmlLabel).getDescribingText();
+    tmpResult = new HtmlUnitUnspecificControl<>(tmpHtmlLabel).getDescribingText();
     assertEquals("[HtmlLabel 'Label Text']", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlLabel(tmpHtmlLabel);
@@ -1218,7 +1218,7 @@ public class HtmlElementUtilTest {
     final HtmlLabel tmpHtmlLabel = (HtmlLabel) tmpForm.getFirstChild();
 
     String tmpResult;
-    tmpResult = new HtmlUnitUnspecificControl<HtmlLabel>(tmpHtmlLabel).getDescribingText();
+    tmpResult = new HtmlUnitUnspecificControl<>(tmpHtmlLabel).getDescribingText();
     assertEquals("[HtmlLabel 'Label Text' (name='LabelName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlLabel(tmpHtmlLabel);
@@ -1243,7 +1243,7 @@ public class HtmlElementUtilTest {
     final HtmlLabel tmpHtmlLabel = (HtmlLabel) tmpForm.getFirstChild();
 
     String tmpResult;
-    tmpResult = new HtmlUnitUnspecificControl<HtmlLabel>(tmpHtmlLabel).getDescribingText();
+    tmpResult = new HtmlUnitUnspecificControl<>(tmpHtmlLabel).getDescribingText();
     assertEquals("[HtmlLabel 'Label Text' (id='tx')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlLabel(tmpHtmlLabel);
@@ -1268,7 +1268,7 @@ public class HtmlElementUtilTest {
     final HtmlLabel tmpHtmlLabel = (HtmlLabel) tmpForm.getFirstChild();
 
     String tmpResult;
-    tmpResult = new HtmlUnitUnspecificControl<HtmlLabel>(tmpHtmlLabel).getDescribingText();
+    tmpResult = new HtmlUnitUnspecificControl<>(tmpHtmlLabel).getDescribingText();
     assertEquals("[HtmlLabel 'Label Text' (id='tx') (name='LabelName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlLabel(tmpHtmlLabel);
