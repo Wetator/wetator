@@ -561,6 +561,7 @@
                 </section>
             </manifest>
         </jar>
+    	<copy file="${dir.build}/${application.jar-basename}.jar" tofile="${dir.deploy}/${application.jar-basename}-${application.version}.jar"/>
 
         <!-- generate javadoc -->
         <delete file="${dir.build}/${application.jar-basename}-javadoc.jar"/>
@@ -577,6 +578,7 @@
             <fileset dir="${dir.build}/jdoc" >
             </fileset>
         </zip>
+    	<copy file="${dir.build}/${application.jar-basename}-javadoc.jar" tofile="${dir.deploy}/${application.jar-basename}-${application.version}-javadoc.jar"/>
 
         <!-- generate sources jar -->
         <zip destfile="${dir.build}/${application.jar-basename}-sources.jar">
