@@ -10,6 +10,9 @@ pipeline {
         timeout(time: 1, unit: 'HOURS')
         skipDefaultCheckout true
     }
+    tools {
+        jdk 'openjdk-1.8'
+    }
     stages {
         stage('checkout') {
             steps {
@@ -22,7 +25,7 @@ pipeline {
         stage('build') {
             steps {
                 wrap([$class: 'Xvfb']) {
-                    withAnt(installation: 'Ant 1.10.7', jdk: 'OpenJdk 1.8') {
+                    withAnt(installation: 'apache-ant-1.10.7') {
                         sh "ant /notests /nometrics publish-local"
                     }
                 }
