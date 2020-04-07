@@ -12,6 +12,7 @@ pipeline {
     }
     tools {
         jdk 'openjdk-1.8'
+        ant 'apache-ant-1.10.7'
     }
     stages {
         stage('checkout') {
@@ -25,9 +26,7 @@ pipeline {
         stage('build') {
             steps {
                 wrap([$class: 'Xvfb']) {
-                    withAnt(installation: 'apache-ant-1.10.7') {
-                        sh "ant publish-local"
-                    }
+                    sh "ant publish-local"
                 }
             }
         }
@@ -36,8 +35,8 @@ pipeline {
         always {
             junit allowEmptyResults: true, testResults: 'deploy/junit/*.xml'
             recordIssues enabledForFailure: true, sourceCodeEncoding: 'UTF-8', sourceDirectory: 'src', tools: [
-                checkStyle(pattern: 'deploy/checkstyle/*.xml', reportEncoding: 'UTF-8'),
-                spotBugs(pattern: 'deploy/spotbugs/*.xml', reportEncoding: 'UTF-8', useRankAsPriority: true),
+                checkStyle(pattern: 'deploy/checkstyle/checkstyle-report.xml', reportEncoding: 'UTF-8'),
+                spotBugs(pattern: 'deploy/spotbugs/spotbugs-report.xml', reportEncoding: 'UTF-8', useRankAsPriority: true),
                 pmdParser(pattern: 'deploy/pmd/pmd-report.xml', reportEncoding: 'UTF-8'),
                 cpd(pattern: 'deploy/pmd/cpd-report.xml', reportEncoding: 'UTF-8'),
                 java(),
