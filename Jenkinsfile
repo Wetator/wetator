@@ -4,7 +4,7 @@ pipeline {
         pollSCM 'H 5 * * *'
     }
     options {
-        buildDiscarder(logRotator(numToKeepStr: '50', artifactNumToKeepStr: '1'))
+        buildDiscarder(logRotator(numToKeepStr: '100', artifactNumToKeepStr: '1'))
         disableConcurrentBuilds()
         timestamps()
         timeout(time: 1, unit: 'HOURS')
@@ -26,7 +26,7 @@ pipeline {
             steps {
                 wrap([$class: 'Xvfb']) {
                     withAnt(installation: 'apache-ant-1.10.7') {
-                        sh "ant /notests /nometrics publish-local"
+                        sh "ant publish-local"
                     }
                 }
             }
@@ -46,7 +46,7 @@ pipeline {
             archiveArtifacts artifacts: 'deploy/wetator-*.zip, deploy/wetator-*.jar', allowEmptyArchive: true, fingerprint: true
             step([$class: 'Mailer',
                 notifyEveryUnstableBuild: true,
-                recipients: "frank.danek@gmail.com"])
+                recipients: "rbri@rbri.de, frank.danek@gmail.com, tobias.woerenkaemper@gmx.com"])
         }
     }
 }

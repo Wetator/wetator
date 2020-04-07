@@ -41,6 +41,7 @@ WETATOR
     - create folder tags/version_x_x_xx
     - copy trunk/wetator to the new folder
   * build the release
+    - provide your credential as ant call parameters -Dsonatype.username=???? -Dsonatype.passwd=???? -Dpgp.passphrase=???? -v  
     - ant clean
     - ant publish-sonatype-releases
   * test the release

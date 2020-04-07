@@ -79,7 +79,7 @@ public interface IBrowser {
   enum BrowserType {
     /** Firefox 68 ESR. */
     FIREFOX_68("Firefox68", "Firefox_68"),
-    /** Firefox ESR. */
+    /** Firefox. */
     FIREFOX("Firefox", "Firefox"),
     /** Internet Explorer 11. */
     INTERNET_EXPLORER("IE11", "IE_11"),
