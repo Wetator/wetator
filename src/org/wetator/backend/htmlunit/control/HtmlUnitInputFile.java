@@ -133,6 +133,7 @@ public class HtmlUnitInputFile extends HtmlUnitBaseControl<HtmlFileInput>
       if (StringUtils.isBlank(tmpValue)) {
         tmpHtmlFileInput.setValueAttribute("");
       } else {
+        // FIXME allow setting multiple files (if input file has multiple enabled)
         // now we have to determine the correct absolute file path
         File tmpFile = new File(tmpValue);
 
