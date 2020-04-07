@@ -18,7 +18,7 @@ pipeline {
             steps {
                 checkout([$class: 'SubversionSCM',
                     locations: [[remote: 'http://wetator.repositoryhosting.com/svn_public/wetator_wetator/trunk/wetator', local: '.', depthOption: 'infinity', ignoreExternalsOption: true, cancelProcessOnExternalsFail: true]],
-                    //quietOperation: true,
+                    quietOperation: true,
                     workspaceUpdater: [$class: 'CheckoutUpdater']])
             }
         }
