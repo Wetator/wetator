@@ -60,8 +60,6 @@ WETATOR-ANT
   * build the release
     - ant clean
     - ant publish-sonatype-releases
-  * replace wetator-snapshot.jar inside wetator-ant-task\deploy\wetator-ant_0_9_12.zip
-    with wetator.jar from wetator\build
   * test the release
     - ant test-release
   * go to https://oss.sonatype.org/index.html#stagingRepositories
