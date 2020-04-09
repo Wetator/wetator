@@ -137,7 +137,7 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void empty_TextBefore() throws IOException, InvalidInputException {
+  public void empty_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>myText</a>"
@@ -154,7 +154,7 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void full_TextBefore() throws IOException, InvalidInputException {
+  public void full_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>myText</a>"
@@ -172,7 +172,7 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void wildcardRight_TextBefore() throws IOException, InvalidInputException {
+  public void wildcardRight_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>myText</a>"
@@ -190,7 +190,7 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void wildcardLeft_TextBefore() throws IOException, InvalidInputException {
+  public void wildcardLeft_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>myText</a>"
@@ -208,7 +208,7 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void part_TextBefore() throws IOException, InvalidInputException {
+  public void part_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>myText</a>"
@@ -226,7 +226,7 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void full_WrongTextBefore() throws IOException, InvalidInputException {
+  public void full_wrongTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>myText</a>"
@@ -243,7 +243,7 @@ public class ByTextMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void full_NoTextBefore() throws IOException, InvalidInputException {
+  public void full_noTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='myId' href='snoopy.php'>myText</a>"

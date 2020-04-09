@@ -53,7 +53,7 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
   }
 
   @Test
-  public void isHtmlElementSupported_Not() throws IOException {
+  public void isHtmlElementSupported_not() throws IOException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"

@@ -130,7 +130,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byAltEmpty_TextBefore() throws IOException, InvalidInputException {
+  public void byAltEmpty_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>"
@@ -151,7 +151,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byAltFull_TextBefore() throws IOException, InvalidInputException {
+  public void byAltFull_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>"
@@ -173,7 +173,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byAltWildcardRight_TextBefore() throws IOException, InvalidInputException {
+  public void byAltWildcardRight_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>"
@@ -195,7 +195,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byAltWildcardLeft_TextBefore() throws IOException, InvalidInputException {
+  public void byAltWildcardLeft_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>"
@@ -217,7 +217,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byAltPart_TextBefore() throws IOException, InvalidInputException {
+  public void byAltPart_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>"
@@ -239,7 +239,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byAltFull_WrongTextBefore() throws IOException, InvalidInputException {
+  public void byAltFull_wrongTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>"
@@ -260,7 +260,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byAltFull_NoTextBefore() throws IOException, InvalidInputException {
+  public void byAltFull_noTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='myId' href='snoopy.php'>"
@@ -370,7 +370,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byNameEmpty_TextBefore() throws IOException, InvalidInputException {
+  public void byNameEmpty_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>"
@@ -391,7 +391,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byNameFull_TextBefore() throws IOException, InvalidInputException {
+  public void byNameFull_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>"
@@ -413,7 +413,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byNameWildcardRight_TextBefore() throws IOException, InvalidInputException {
+  public void byNameWildcardRight_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>"
@@ -435,7 +435,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byNameWildcardLeft_TextBefore() throws IOException, InvalidInputException {
+  public void byNameWildcardLeft_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>"
@@ -457,7 +457,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byNamePart_TextBefore() throws IOException, InvalidInputException {
+  public void byNamePart_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>"
@@ -478,7 +478,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byNameFull_WrongTextBefore() throws IOException, InvalidInputException {
+  public void byNameFull_wrongTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>"
@@ -499,7 +499,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byNameFull_NoTextBefore() throws IOException, InvalidInputException {
+  public void byNameFull_noTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='myId' href='snoopy.php'>"
@@ -628,7 +628,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void empty_TextBefore() throws IOException, InvalidInputException {
+  public void empty_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>"
@@ -649,7 +649,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byFileNameFull_TextBefore() throws IOException, InvalidInputException {
+  public void byFileNameFull_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>"
@@ -671,7 +671,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byFileNameWildcardRight_TextBefore() throws IOException, InvalidInputException {
+  public void byFileNameWildcardRight_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>"
@@ -693,7 +693,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byFileNameWildcardLeft_TextBefore() throws IOException, InvalidInputException {
+  public void byFileNameWildcardLeft_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>"
@@ -715,7 +715,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byFileNamePart_TextBefore() throws IOException, InvalidInputException {
+  public void byFileNamePart_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>"
@@ -736,7 +736,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byFileNameFull_WrongTextBefore() throws IOException, InvalidInputException {
+  public void byFileNameFull_wrongTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>"
@@ -757,7 +757,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byFileNameFull_NoTextBefore() throws IOException, InvalidInputException {
+  public void byFileNameFull_noTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='myId' href='snoopy.php'>"
@@ -868,7 +868,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byTitleEmpty_TextBefore() throws IOException, InvalidInputException {
+  public void byTitleEmpty_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>"
@@ -889,7 +889,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byTitleFull_TextBefore() throws IOException, InvalidInputException {
+  public void byTitleFull_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>"
@@ -911,7 +911,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byTitleWildcardRight_TextBefore() throws IOException, InvalidInputException {
+  public void byTitleWildcardRight_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>"
@@ -933,7 +933,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byTitleWildcardLeft_TextBefore() throws IOException, InvalidInputException {
+  public void byTitleWildcardLeft_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>"
@@ -955,7 +955,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byTitlePart_TextBefore() throws IOException, InvalidInputException {
+  public void byTitlePart_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>"
@@ -977,7 +977,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byTitleFull_WrongTextBefore() throws IOException, InvalidInputException {
+  public void byTitleFull_wrongTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>"
@@ -998,7 +998,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void byTitleFull_NoTextBefore() throws IOException, InvalidInputException {
+  public void byTitleFull_noTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='myId' href='snoopy.php'>"

@@ -99,7 +99,7 @@ public class HtmlUnitOptionIdentifierTest extends AbstractHtmlUnitControlIdentif
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<label id='labelId' for='myId'>LabelText</label>"
-        + "<input id='myId' value='value' type='text'>"
+        + "<input id='myId' type='text'>"
         + "</form>"
         + "</body></html>";
     // @formatter:on

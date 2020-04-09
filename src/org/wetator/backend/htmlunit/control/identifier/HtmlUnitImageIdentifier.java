@@ -16,7 +16,6 @@
 
 package org.wetator.backend.htmlunit.control.identifier;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.wetator.backend.WPath;
@@ -28,13 +27,12 @@ import org.wetator.backend.htmlunit.matcher.ByAriaLabelAttributeMatcher;
 import org.wetator.backend.htmlunit.matcher.ByIdMatcher;
 import org.wetator.backend.htmlunit.matcher.ByImageAltAttributeMatcher;
 import org.wetator.backend.htmlunit.matcher.ByImageSrcAttributeMatcher;
+import org.wetator.backend.htmlunit.matcher.ByLabelingTextBeforeAsTextMatcher;
 import org.wetator.backend.htmlunit.matcher.ByNameAttributeMatcher;
 import org.wetator.backend.htmlunit.matcher.ByTableCoordinatesMatcher;
 import org.wetator.backend.htmlunit.matcher.ByTitleAttributeMatcher;
-import org.wetator.backend.htmlunit.matcher.ByWholeTextBeforeMatcher;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.FindSpot;
-import org.wetator.util.SecretString;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlImage;
@@ -43,7 +41,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlImage;
  * The identifier for a {@link HtmlUnitImage}.<br>
  * It can be identified by:
  * <ul>
- * <li>the whole text before</li>
+ * <li>the (labeling) text before incl. 'wildcard at end' wpaths</li>
  * <li>its alt attribute</li>
  * <li>its src attribute</li>
  * <li>its title attribute</li>
@@ -80,14 +78,9 @@ public class HtmlUnitImageIdentifier extends AbstractMatcherBasedIdentifier {
       // normal matchers
       final SearchPattern tmpSearchPattern = aWPath.getLastNode().getSearchPattern();
 
-      // whole text before
-      final List<SecretString> tmpWholePath = new ArrayList<>(aWPath.getPathNodes());
-      tmpWholePath.add(aWPath.getLastNode());
-      final SearchPattern tmpWholePathSearchPattern = SearchPattern.createFromList(tmpWholePath);
-      aMatchers.add(
-          new ByWholeTextBeforeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpWholePathSearchPattern));
-
       // element specific
+      aMatchers.add(new ByLabelingTextBeforeAsTextMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot,
+          tmpSearchPattern, aWPath));
       aMatchers.add(new ByImageAltAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
       aMatchers.add(new ByImageSrcAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
       aMatchers.add(new ByTitleAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));

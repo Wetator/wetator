@@ -100,7 +100,7 @@ public class MouseActionListeningHtmlUnitControlsFinderButtonTest
       { button("out", CONTENT + image("in").noListen()),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlButton.class, "out"),
-            new ExpectedControl(HtmlImage.class, "in")) // FIXME why image here at all?
+            new ExpectedControl(HtmlImage.class, "in"))
       },
 
       // 8

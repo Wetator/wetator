@@ -44,7 +44,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<img id='myId' name='MyName' src='picture.png'>"
+        + "<img id='myId' name='myName' src='picture.png'>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
@@ -53,7 +53,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
   }
 
   @Test
-  public void isHtmlElementSupported_Not() throws IOException {
+  public void isHtmlElementSupported_not() throws IOException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
@@ -70,7 +70,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<img id='myId' name='MyName' src='picture.png'>"
+        + "<img id='myId' name='myName' src='picture.png'>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
@@ -79,7 +79,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlImage 'picture.png' (id='myId') (name='MyName')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
+        "[HtmlImage 'picture.png' (id='myId') (name='myName')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -88,16 +88,16 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<img id='myId' name='MyName' src='picture.png'>"
+        + "<img id='myId' name='myName' src='picture.png'>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "MyName", "myId");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "myName", "myId");
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlImage 'picture.png' (id='myId') (name='MyName')] found by: BY_NAME deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
+        "[HtmlImage 'picture.png' (id='myId') (name='myName')] found by: BY_NAME deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -106,7 +106,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<img id='myId' name='MyName' src='picture.png' alt='MyAlt'>"
+        + "<img id='myId' name='myName' src='picture.png' alt='MyAlt'>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
@@ -115,7 +115,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlImage 'picture.png' (id='myId') (name='MyName')] found by: BY_IMG_ALT_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
+        "[HtmlImage 'picture.png' (id='myId') (name='myName')] found by: BY_IMG_ALT_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -124,7 +124,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<img id='myId' name='MyName' src='picture.png' title='MyTitle'>"
+        + "<img id='myId' name='myName' src='picture.png' title='MyTitle'>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
@@ -133,7 +133,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlImage 'picture.png' (id='myId') (name='MyName')] found by: BY_TITLE_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
+        "[HtmlImage 'picture.png' (id='myId') (name='myName')] found by: BY_TITLE_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -142,7 +142,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<img id='myId' name='MyName' src='picture.png'>"
+        + "<img id='myId' name='myName' src='picture.png'>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
@@ -151,7 +151,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlImage 'picture.png' (id='myId') (name='MyName')] found by: BY_IMG_SRC_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
+        "[HtmlImage 'picture.png' (id='myId') (name='myName')] found by: BY_IMG_SRC_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -160,7 +160,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<img id='myId' name='MyName' src='picture.png' aria-label='myAria'>"
+        + "<img id='myId' name='myName' src='picture.png' aria-label='myAria'>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
@@ -169,7 +169,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlImage 'picture.png' (id='myId') (name='MyName')] found by: BY_ARIA_LABEL_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
+        "[HtmlImage 'picture.png' (id='myId') (name='myName')] found by: BY_ARIA_LABEL_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -178,61 +178,66 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<img id='MyName' name='MyName' src='MyName' alt='MyName' title='MyName' aria-label='MyName'>"
+        + "<img id='myName' name='myName' src='myName' alt='myName' title='myName' aria-label='myName'>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "MyName", "MyName");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "myName", "myName");
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlImage 'MyName' (id='MyName') (name='MyName')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
+        "[HtmlImage 'myName' (id='myName') (name='myName')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
   }
 
   @Test
-  public void byWholeTextBefore() throws IOException, InvalidInputException {
+  public void byLabelingTextBeforeAsText() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
+        + "<img id='otherId1' name='otherName1' src='picture.png'>"
         + "<p>Marker</p>"
-        + "<input id='otherId' name='otherName' type='submit'>"
-        + "<p>Some text ...</p>"
         + "<img id='myId' name='myName' src='picture.png'>"
+        + "<p>Some text ...</p>"
+        + "<img id='otherId2' name='otherName2' src='picture.png'>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "Marker", "myId");
-
-    assertEquals(1, tmpEntriesSorted.size());
-    assertEquals(
-        "[HtmlImage 'picture.png' (id='myId') (name='myName')] found by: BY_TEXT deviation: 14 distance: 20 start: 20 hierarchy: 0>1>3>4>10 index: 10",
-        tmpEntriesSorted.get(0).toString());
-  }
-
-  @Test
-  public void byWholeTextBefore_wildcardOnly() throws IOException, InvalidInputException {
-    // @formatter:off
-    final String tmpHtmlCode = "<html><body>"
-        + "<form action='test'>"
-        + "<p>Marker</p>"
-        + "<img id='myId' name='myName' src='picture.png'>"
-        + "<p>Some text ...</p>"
-        + "<img id='otherId' name='otherName' src='picture.png'>"
-        + "</form>"
-        + "</body></html>";
-    // @formatter:on
-
-    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "Marker > ", "myId", "otherId");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "Marker", "myId", "otherId1", "otherId2");
 
     assertEquals(2, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlImage 'picture.png' (id='myId') (name='myName')] found by: BY_TEXT deviation: 0 distance: 0 start: 6 hierarchy: 0>1>3>4>7 index: 7",
+        "[HtmlImage 'picture.png' (id='myId') (name='myName')] found by: BY_TEXT deviation: 0 distance: 0 start: 6 hierarchy: 0>1>3>4>8 index: 8",
         tmpEntriesSorted.get(0).toString());
     assertEquals(
-        "[HtmlImage 'picture.png' (id='otherId') (name='otherName')] found by: BY_TEXT deviation: 0 distance: 14 start: 20 hierarchy: 0>1>3>4>10 index: 10",
+        "[HtmlImage 'picture.png' (id='otherId2') (name='otherName2')] found by: BY_TEXT deviation: 14 distance: 0 start: 20 hierarchy: 0>1>3>4>11 index: 11",
+        tmpEntriesSorted.get(1).toString());
+  }
+
+  @Test
+  public void byLabelingTextBeforeAsText_wildcardOnly() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<img id='otherId1' name='otherName1' src='picture.png'>"
+        + "<p>Marker</p>"
+        + "<img id='myId' name='myName' src='picture.png'>"
+        + "<p>Some text ...</p>"
+        + "<img id='otherId2' name='otherName2' src='picture.png'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "Marker > ", "myId", "otherId1", "otherId2");
+
+    assertEquals(2, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlImage 'picture.png' (id='myId') (name='myName')] found by: BY_TEXT deviation: 0 distance: 0 start: 6 hierarchy: 0>1>3>4>8 index: 8",
+        tmpEntriesSorted.get(0).toString());
+    assertEquals(
+        "[HtmlImage 'picture.png' (id='otherId2') (name='otherName2')] found by: BY_TEXT deviation: 0 distance: 14 start: 20 hierarchy: 0>1>3>4>11 index: 11",
         tmpEntriesSorted.get(1).toString());
   }
 
@@ -278,18 +283,18 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<a id='myId' name='MyName' href='snoopy.php'>"
-        + "<img id='myInnerId' src='picture.png' name='MyImageName'>"
+        + "<a id='myId' name='myName' href='snoopy.php'>"
+        + "<img id='myInnerId' src='picture.png' name='myImageName'>"
         + "</a>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "MyImageName", "myInnerId");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "myImageName", "myInnerId");
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlImage 'picture.png' (id='myInnerId') (name='MyImageName')] found by: BY_NAME deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5>6 index: 6",
+        "[HtmlImage 'picture.png' (id='myInnerId') (name='myImageName')] found by: BY_NAME deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5>6 index: 6",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -298,8 +303,8 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<a id='myId' name='MyName' href='snoopy.php'>"
-        + "<img id='myInnerId' src='picture.png' name='MyImageName' alt='MyAlt'>"
+        + "<a id='myId' name='myName' href='snoopy.php'>"
+        + "<img id='myInnerId' src='picture.png' name='myImageName' alt='MyAlt'>"
         + "</a>"
         + "</form>"
         + "</body></html>";
@@ -309,7 +314,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlImage 'picture.png' (id='myInnerId') (name='MyImageName')] found by: BY_IMG_ALT_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5>6 index: 6",
+        "[HtmlImage 'picture.png' (id='myInnerId') (name='myImageName')] found by: BY_IMG_ALT_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5>6 index: 6",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -318,7 +323,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<a id='myId' name='MyName' href='snoopy.php'>"
+        + "<a id='myId' name='myName' href='snoopy.php'>"
         + "<img id='myInnerId' src='picture.png' title='MyImageTitle'>"
         + "</a>"
         + "</form>"
@@ -338,8 +343,8 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<a id='myId' name='MyName' href='snoopy.php'>"
-        + "<img id='myInnerId' src='picture.png' name='MyImageName' title='MyTitle'>"
+        + "<a id='myId' name='myName' href='snoopy.php'>"
+        + "<img id='myInnerId' src='picture.png' name='myImageName' title='MyTitle'>"
         + "</a>"
         + "</form>"
         + "</body></html>";
@@ -349,7 +354,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlImage 'picture.png' (id='myInnerId') (name='MyImageName')] found by: BY_IMG_SRC_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5>6 index: 6",
+        "[HtmlImage 'picture.png' (id='myInnerId') (name='myImageName')] found by: BY_IMG_SRC_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5>6 index: 6",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -358,8 +363,8 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<a id='myId' name='MyName' href='snoopy.php'>"
-        + "<img id='myInnerId' src='picture.png' name='MyImageName' aria-label='myAria'>"
+        + "<a id='myId' name='myName' href='snoopy.php'>"
+        + "<img id='myInnerId' src='picture.png' name='myImageName' aria-label='myAria'>"
         + "</a>"
         + "</form>"
         + "</body></html>";
@@ -369,7 +374,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlImage 'picture.png' (id='myInnerId') (name='MyImageName')] found by: BY_ARIA_LABEL_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5>6 index: 6",
+        "[HtmlImage 'picture.png' (id='myInnerId') (name='myImageName')] found by: BY_ARIA_LABEL_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5>6 index: 6",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -378,18 +383,18 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<button id='myId' type='button' name='MyName'>"
-        + "<img id='myInnerId' src='picture.png' name='MyImageName'>"
+        + "<button id='myId' type='button' name='myName'>"
+        + "<img id='myInnerId' src='picture.png' name='myImageName'>"
         + "</button>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "MyImageName", "myInnerId");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "myImageName", "myInnerId");
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlImage 'picture.png' (id='myInnerId') (name='MyImageName')] found by: BY_NAME deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5>6 index: 6",
+        "[HtmlImage 'picture.png' (id='myInnerId') (name='myImageName')] found by: BY_NAME deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5>6 index: 6",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -398,7 +403,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<button id='myId' type='button' name='MyName'>"
+        + "<button id='myId' type='button' name='myName'>"
         + "<img id='myInnerId' src='picture.png' alt='MyImageAlt'>"
         + "</button>"
         + "</form>"
@@ -418,7 +423,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<button id='myId' type='button' name='MyName'>"
+        + "<button id='myId' type='button' name='myName'>"
         + "<img id='myInnerId' src='picture.png' title='MyImageTitle'>"
         + "</button>"
         + "</form>"
@@ -438,7 +443,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<button id='myId' type='button' name='MyName'>"
+        + "<button id='myId' type='button' name='myName'>"
         + "<img id='myInnerId' src='picture.png' title='MyImageTitle'>"
         + "</button>"
         + "</form>"
@@ -458,8 +463,8 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<button id='myId' type='button' name='MyName'>"
-        + "<img id='myInnerId' src='picture.png' name='MyImageName' aria-label='myAria'>"
+        + "<button id='myId' type='button' name='myName'>"
+        + "<img id='myInnerId' src='picture.png' name='myImageName' aria-label='myAria'>"
         + "</button>"
         + "</form>"
         + "</body></html>";
@@ -469,7 +474,7 @@ public class HtmlUnitImageIdentifierTest extends AbstractHtmlUnitControlIdentifi
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlImage 'picture.png' (id='myInnerId') (name='MyImageName')] found by: BY_ARIA_LABEL_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5>6 index: 6",
+        "[HtmlImage 'picture.png' (id='myInnerId') (name='myImageName')] found by: BY_ARIA_LABEL_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5>6 index: 6",
         tmpEntriesSorted.get(0).toString());
   }
 }

@@ -187,8 +187,7 @@ public class MouseActionListeningHtmlUnitControlsFinderSelectTest
       { CONTENT + select("select1").option("option") + "x" + select("select2").option("option"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlSelect.class, "select1"),
-            new ExpectedControl(HtmlBody.class),
-            new ExpectedControl(HtmlSelect.class, "select2"))
+            new ExpectedControl(HtmlBody.class))
       },
 
       // 20

@@ -44,7 +44,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<input id='myId' value='value' type='checkbox'>"
+        + "<input id='myId' type='checkbox'>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
@@ -53,11 +53,11 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
   }
 
   @Test
-  public void isHtmlElementSupported_Not() throws IOException {
+  public void isHtmlElementSupported_not() throws IOException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<input id='myId' value='value' type='text'>"
+        + "<input id='myId' type='text'>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
@@ -66,12 +66,12 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
   }
 
   @Test
-  public void isHtmlElementSupported_HtmlLabel() throws IOException {
+  public void isHtmlElementSupported_htmlLabel() throws IOException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<label id='labelId' for='myId'>LabelText</label>"
-        + "<input id='myId' value='value' type='checkbox'>"
+        + "<input id='myId' type='checkbox'>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
@@ -80,12 +80,12 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
   }
 
   @Test
-  public void isHtmlElementSupported_HtmlLabel_Not() throws IOException {
+  public void isHtmlElementSupported_htmlLabel_not() throws IOException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<label id='labelId' for='myId'>LabelText</label>"
-        + "<input id='myId' value='value' type='text'>"
+        + "<input id='myId' type='text'>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
@@ -98,7 +98,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<input id='myId' name='myName' value='value' type='checkbox'>CheckBox"
+        + "<input id='myId' name='myName' type='checkbox'>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
@@ -116,7 +116,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<input id='myId' name='myName' value='value' type='checkbox'>CheckBox"
+        + "<input id='myId' name='myName' type='checkbox'>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
@@ -134,7 +134,7 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<input id='myId' name='myName' title='MyTitle' value='value' type='checkbox'>CheckBox"
+        + "<input id='myId' name='myName' title='MyTitle' type='checkbox'>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
@@ -152,154 +152,147 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<input id='myId1' name='myName1' value='value1' type='checkbox'>CheckBox1"
-        + "<input id='myId2' name='myName2' value='value2' type='checkbox'>CheckBox2"
-        + "</form>"
-        + "</body></html>";
-    // @formatter:on
-
-    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "CheckBox1", "myId1", "myId2");
-
-    assertEquals(2, tmpEntriesSorted.size());
-    assertEquals(
-        "[HtmlCheckBoxInput (id='myId1') (name='myName1')] found by: BY_LABELING_TEXT deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
-        tmpEntriesSorted.get(0).toString());
-    assertEquals(
-        "[HtmlCheckBoxInput (id='myId2') (name='myName2')] found by: BY_TEXT deviation: 0 distance: 9 start: 9 hierarchy: 0>1>3>4>7 index: 7",
-        tmpEntriesSorted.get(1).toString());
-  }
-
-  @Test
-  public void byHtmlLabel_Text() throws IOException, InvalidInputException {
-    // @formatter:off
-    final String tmpHtmlCode = "<html><body>"
-        + "<form action='test'>"
-        + "<label id='labelId1' for='myId1'>FirstLabelText</label>"
-        + "<input id='myId1' name='myName1' value='value1' type='checkbox'>CheckBox1"
-        + "<label id='labelId2' for='myId2'>SecondLabelText</label>"
-        + "<input id='myId2' name='myName2' value='value2' type='checkbox'>CheckBox2"
-        + "</form>"
-        + "</body></html>";
-    // @formatter:on
-
-    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "SecondLabelText", "labelId1", "labelId2");
-
-    assertEquals(1, tmpEntriesSorted.size());
-    assertEquals(
-        "[HtmlCheckBoxInput (id='myId2') (name='myName2')] found by: BY_LABEL_ELEMENT deviation: 0 distance: 24 start: 40 hierarchy: 0>1>3>4>11 index: 11",
-        tmpEntriesSorted.get(0).toString());
-  }
-
-  @Test
-  public void byHtmlLabel_Text_Invisible() throws IOException, InvalidInputException {
-    // @formatter:off
-    final String tmpHtmlCode = "<html><body>"
-        + "<form action='test'>"
-        + "<label id='labelId1' for='myId1'>FirstLabelText</label>"
-        + "<input id='myId1' name='myName1' value='value1' type='checkbox'>CheckBox1"
-        + "<label id='labelId2' for='myId2'>SecondLabelText</label>"
-        + "<input id='myId2' name='myName2' value='value2' type='checkbox' style='display: none;'>CheckBox2"
-        + "</form>"
-        + "</body></html>";
-    // @formatter:on
-
-    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "SecondLabelText", "labelId1", "labelId2");
-
-    assertEquals(1, tmpEntriesSorted.size());
-    assertEquals(
-        "[HtmlCheckBoxInput (id='myId2') (name='myName2')] by [HtmlLabel 'SecondLabelText' (id='labelId2') (for='myId2')] found by: BY_LABEL_ELEMENT deviation: 0 distance: 24 start: 40 hierarchy: 0>1>3>4>11 index: 11",
-        tmpEntriesSorted.get(0).toString());
-  }
-
-  @Test
-  public void byHtmlLabelChild_Text() throws IOException, InvalidInputException {
-    // @formatter:off
-    final String tmpHtmlCode = "<html><body>"
-        + "<form action='test'>"
-        + "<label id='labelId1'>FirstLabelText"
-        + "<input id='myId1' name='myName1' value='value1' type='checkbox'>CheckBox1"
-        + "</label>"
-        + "<label id='labelId2'>SecondLabelText"
-        + "<input id='myId2' name='myName2' value='value2' type='checkbox'>CheckBox2"
-        + "</label>"
-        + "</form>"
-        + "</body></html>";
-    // @formatter:on
-
-    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "SecondLabelText", "labelId1", "labelId2");
-
-    assertEquals(1, tmpEntriesSorted.size());
-    assertEquals(
-        "[HtmlCheckBoxInput (id='myId2') (name='myName2')] found by: BY_LABEL_ELEMENT deviation: 10 distance: 24 start: 40 hierarchy: 0>1>3>4>9>11 index: 11",
-        tmpEntriesSorted.get(0).toString());
-  }
-
-  @Test
-  public void byHtmlLabelChild_Text_Invisible() throws IOException, InvalidInputException {
-    // @formatter:off
-    final String tmpHtmlCode = "<html><body>"
-        + "<form action='test'>"
-        + "<label id='labelId1'>FirstLabelText"
-        + "<input id='myId1' name='myName1' value='value1' type='checkbox'>CheckBox1"
-        + "</label>"
-        + "<label id='labelId2'>SecondLabelText"
-        + "<input id='myId2' name='myName2' value='value2' type='checkbox' style='display: none;'>CheckBox2"
-        + "</label>"
-        + "</form>"
-        + "</body></html>";
-    // @formatter:on
-
-    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "SecondLabelText", "labelId1", "labelId2");
-
-    assertEquals(1, tmpEntriesSorted.size());
-    assertEquals(
-        "[HtmlCheckBoxInput (id='myId2') (name='myName2')] by [HtmlLabel 'SecondLabelTextuncheckedCheckBox2' (id='labelId2')] found by: BY_LABEL_ELEMENT deviation: 9 distance: 24 start: 40 hierarchy: 0>1>3>4>9>11 index: 11",
-        tmpEntriesSorted.get(0).toString());
-  }
-
-  @Test
-  public void byWholeTextBefore() throws IOException, InvalidInputException {
-    // @formatter:off
-    final String tmpHtmlCode = "<html><body>"
-        + "<form action='test'>"
-        + "<p>Marker</p>"
-        + "<input id='otherId' name='otherName' type='submit'>"
-        + "<p>Some text ...</p>"
         + "<input id='myId' name='myName' type='checkbox'>"
-        + "</form>"
-        + "</body></html>";
-    // @formatter:on
-
-    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "Marker", "myId");
-
-    assertEquals(1, tmpEntriesSorted.size());
-    assertEquals(
-        "[HtmlCheckBoxInput (id='myId') (name='myName')] found by: BY_TEXT deviation: 14 distance: 20 start: 20 hierarchy: 0>1>3>4>10 index: 10",
-        tmpEntriesSorted.get(0).toString());
-  }
-
-  @Test
-  public void byWholeTextBefore_wildcardOnly() throws IOException, InvalidInputException {
-    // @formatter:off
-    final String tmpHtmlCode = "<html><body>"
-        + "<form action='test'>"
         + "<p>Marker</p>"
-        + "<input id='myId' name='myName' type='checkbox'>"
-        + "<p>Some text ...</p>"
         + "<input id='otherId' name='otherName' type='checkbox'>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "Marker > ", "myId", "otherId");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "Marker", "myId", "otherId");
 
     assertEquals(2, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlCheckBoxInput (id='myId') (name='myName')] found by: BY_TEXT deviation: 0 distance: 0 start: 6 hierarchy: 0>1>3>4>7 index: 7",
+        "[HtmlCheckBoxInput (id='myId') (name='myName')] found by: BY_LABELING_TEXT deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
     assertEquals(
-        "[HtmlCheckBoxInput (id='otherId') (name='otherName')] found by: BY_TEXT deviation: 0 distance: 14 start: 20 hierarchy: 0>1>3>4>10 index: 10",
+        "[HtmlCheckBoxInput (id='otherId') (name='otherName')] found by: BY_TEXT deviation: 0 distance: 0 start: 6 hierarchy: 0>1>3>4>8 index: 8",
         tmpEntriesSorted.get(1).toString());
+  }
+
+  @Test
+  public void byHtmlLabel_text() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<label id='labelId' for='myId'>Marker</label>"
+        + "<input id='myId' name='myName' type='checkbox'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "Marker", "labelId");
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlCheckBoxInput (id='myId') (name='myName')] found by: BY_LABEL_ELEMENT deviation: 0 distance: 0 start: 6 hierarchy: 0>1>3>4>7 index: 7",
+        tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
+  public void byHtmlLabel_text_invisible() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<label id='labelId' for='myId'>Marker</label>"
+        + "<input id='myId' name='myName' type='checkbox' style='display: none;'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "Marker", "labelId");
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlCheckBoxInput (id='myId') (name='myName')] by [HtmlLabel 'Marker' (id='labelId') (for='myId')] found by: BY_LABEL_ELEMENT deviation: 0 distance: 0 start: 6 hierarchy: 0>1>3>4>7 index: 7",
+        tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
+  public void byHtmlLabelChild_text() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<label id='labelId'>Marker"
+        + "<input id='myId' name='myName' type='checkbox'>"
+        + "</label>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "Marker", "labelId");
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlCheckBoxInput (id='myId') (name='myName')] found by: BY_LABEL_ELEMENT deviation: 0 distance: 0 start: 6 hierarchy: 0>1>3>4>5>7 index: 7",
+        tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
+  public void byHtmlLabelChild_text_invisible() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<label id='labelId'>Marker"
+        + "<input id='myId' name='myName' type='checkbox' style='display: none;'>"
+        + "</label>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "Marker", "labelId");
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlCheckBoxInput (id='myId') (name='myName')] by [HtmlLabel 'Markerunchecked' (id='labelId')] found by: BY_LABEL_ELEMENT deviation: 0 distance: 0 start: 6 hierarchy: 0>1>3>4>5>7 index: 7",
+        tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
+  public void byLabelingTextBeforeAsText() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input id='otherId1' name='otherName1' type='checkbox'>"
+        + "<p>Marker</p>"
+        + "<input id='myId' name='myName' type='checkbox'>"
+        + "<p>Some text ...</p>"
+        + "<input id='otherId2' name='otherName2' type='checkbox'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "Marker", "myId", "otherId1", "otherId2");
+
+    assertEquals(2, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlCheckBoxInput (id='otherId1') (name='otherName1')] found by: BY_LABELING_TEXT deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
+        tmpEntriesSorted.get(0).toString());
+    assertEquals(
+        "[HtmlCheckBoxInput (id='myId') (name='myName')] found by: BY_TEXT deviation: 0 distance: 0 start: 6 hierarchy: 0>1>3>4>8 index: 8",
+        tmpEntriesSorted.get(1).toString());
+  }
+
+  @Test
+  public void byLabelingTextBeforeAsText_wildcardOnly() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input id='otherId1' name='otherName1' type='checkbox'>"
+        + "<p>Marker</p>"
+        + "<input id='myId' name='myName' type='checkbox'>"
+        + "<p>Some text ...</p>"
+        + "<input id='otherId2' name='otherName2' type='checkbox'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "Marker >", "myId", "otherId1", "otherId2");
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlCheckBoxInput (id='myId') (name='myName')] found by: BY_TEXT deviation: 0 distance: 0 start: 6 hierarchy: 0>1>3>4>8 index: 8",
+        tmpEntriesSorted.get(0).toString());
   }
 
   @Test

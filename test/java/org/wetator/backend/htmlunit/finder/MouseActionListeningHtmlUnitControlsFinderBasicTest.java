@@ -23,6 +23,7 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
@@ -64,6 +65,11 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
     extends AbstractMouseClickListeningHtmlUnitControlsFinderParameterizedTest {
 
   static {
+    setMouseActionInCreator();
+  }
+
+  @BeforeClass
+  public static void setMouseActionInCreator() {
     MouseActionHtmlCodeCreator.listenToAnyMouseAction();
   }
 

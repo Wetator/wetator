@@ -44,8 +44,8 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<select id='myId' size='2'>"
-        + "<option value='o_red'>red</option>"
+        + "<select id='myId'>"
+        + "<option>option</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
@@ -55,11 +55,11 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
   }
 
   @Test
-  public void isHtmlElementSupported_Not() throws IOException {
+  public void isHtmlElementSupported_not() throws IOException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<input id='myId' value='value' type='text'>"
+        + "<input id='myId' type='text'>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
@@ -68,13 +68,13 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
   }
 
   @Test
-  public void isHtmlElementSupported_HtmlLabel() throws IOException {
+  public void isHtmlElementSupported_htmlLabel() throws IOException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<label id='labelId' for='myId'>LabelText</label>"
-        + "<select id='myId' size='2'>"
-        + "<option value='o_red'>red</option>"
+        + "<select id='myId'>"
+        + "<option>option</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
@@ -84,12 +84,12 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
   }
 
   @Test
-  public void isHtmlElementSupported_HtmlLabel_Not() throws IOException {
+  public void isHtmlElementSupported_htmlLabel_not() throws IOException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<label id='labelId' for='myId'>LabelText</label>"
-        + "<input id='myId' value='value' type='text'>"
+        + "<input id='myId' type='text'>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
@@ -102,10 +102,8 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<select id='myId' name='myName' size='2'>"
-        + "<option id='optionId' value='o_value1'>option1</option>"
-        + "<option value='o_value2'>option2</option>"
-        + "<option value='o_value3'>option3</option>"
+        + "<select id='myId' name='myName'>"
+        + "<option>option</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
@@ -124,27 +122,18 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='myId1' name='myName1' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
-        + "</select>"
-        + "SecondSelectLabelText"
-        + "<select id='myId2' name='myName2' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "<select id='myId' name='myName'>"
+        + "<option>option</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "myName1", "myId1", "myId2");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "myName", "myId");
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlSelect (id='myId1') (name='myName1')] found by: BY_NAME deviation: 0 distance: 20 start: 20 hierarchy: 0>1>3>4>6 index: 6",
+        "[HtmlSelect (id='myId') (name='myName')] found by: BY_NAME deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -153,199 +142,135 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "FirstSelectLabelText"
-        + "<select id='myId1' name='myName1' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
+        + "<select id='otherId1' name='otherName1'>"
+        + "<option>option</option>"
         + "</select>"
-        + "SecondSelectLabelText"
-        + "<select id='myId2' name='myName2' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "<p>Marker</p>"
+        + "<select id='myId' name='myName'>"
+        + "<option>option</option>"
+        + "</select>"
+        + "<p>Some text ...</p>"
+        + "<select id='otherId2' name='otherName2'>"
+        + "<option>option</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "SecondSelectLabelText", "myId1", "myId2");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "Marker", "myId", "otherId1", "otherId2");
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlSelect (id='myId2') (name='myName2')] found by: BY_LABELING_TEXT deviation: 0 distance: 45 start: 66 hierarchy: 0>1>3>4>14 index: 14",
+        "[HtmlSelect (id='myId') (name='myName')] found by: BY_LABELING_TEXT deviation: 0 distance: 7 start: 13 hierarchy: 0>1>3>4>10 index: 10",
         tmpEntriesSorted.get(0).toString());
   }
 
   @Test
-  public void byHtmlLabel_Text() throws IOException, InvalidInputException {
+  public void byHtmlLabel_text() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<label id='labelId1' for='myId1'>FirstSelectLabelText</label>"
-        + "<select id='myId1' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
-        + "</select>"
-        + "<label id='labelId2' for='myId2'>SecondSelectLabelText</label>"
-        + "<select id='myId2' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "<label id='labelId' for='myId'>Marker</label>"
+        + "<select id='myId' name='myName'>"
+        + "<option>option</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "SecondSelectLabelText", "labelId1", "labelId2");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "Marker", "labelId");
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlSelect (id='myId2')] found by: BY_LABEL_ELEMENT deviation: 0 distance: 44 start: 66 hierarchy: 0>1>3>4>16 index: 16",
+        "[HtmlSelect (id='myId') (name='myName')] found by: BY_LABEL_ELEMENT deviation: 0 distance: 0 start: 6 hierarchy: 0>1>3>4>7 index: 7",
         tmpEntriesSorted.get(0).toString());
   }
 
   @Test
-  public void byHtmlLabel_Text_Invisible() throws IOException, InvalidInputException {
+  public void byHtmlLabel_text_invisible() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<label id='labelId1' for='myId1'>FirstSelectLabelText</label>"
-        + "<select id='myId1' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
-        + "</select>"
-        + "<label id='labelId2' for='myId2'>SecondSelectLabelText</label>"
-        + "<select id='myId2' size='2' style='display: none;'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "<label id='labelId' for='myId'>Marker</label>"
+        + "<select id='myId' name='myName' style='display: none;'>"
+        + "<option>option</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "SecondSelectLabelText", "labelId1", "labelId2");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "Marker", "labelId");
 
     assertEquals(0, tmpEntriesSorted.size());
   }
 
   @Test
-  public void byHtmlLabelChild_Text() throws IOException, InvalidInputException {
+  public void byHtmlLabelChild_text() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<label id='labelId1'>FirstSelectLabelText"
-        + "<select id='myId1' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
-        + "</select>"
-        + "</label>"
-        + "<label id='labelId2'>SecondSelectLabelText"
-        + "<select id='myId2' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "<label id='labelId'>Marker"
+        + "<select id='myId' name='myName'>"
+        + "<option>option</option>"
         + "</select>"
         + "</label>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "SecondSelectLabelText", "labelId1", "labelId2");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "Marker", "labelId");
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlSelect (id='myId2')] found by: BY_LABEL_ELEMENT deviation: 0 distance: 44 start: 66 hierarchy: 0>1>3>4>14>16 index: 16",
+        "[HtmlSelect (id='myId') (name='myName')] found by: BY_LABEL_ELEMENT deviation: 0 distance: 0 start: 6 hierarchy: 0>1>3>4>5>7 index: 7",
         tmpEntriesSorted.get(0).toString());
   }
 
   @Test
-  public void byHtmlLabelChild_Text_Invisible() throws IOException, InvalidInputException {
+  public void byHtmlLabelChild_text_invisible() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<label id='labelId1'>FirstSelectLabelText"
-        + "<select id='myId1' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
-        + "</select>"
-        + "</label>"
-        + "<label id='labelId2'>SecondSelectLabelText"
-        + "<select id='myId2' size='2' style='display: none;'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "<label id='labelId'>Marker"
+        + "<select id='myId' name='myName' style='display: none;'>"
+        + "<option>option</option>"
         + "</select>"
         + "</label>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "SecondSelectLabelText", "labelId1", "labelId2");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "Marker", "labelId");
 
     assertEquals(0, tmpEntriesSorted.size());
   }
 
   @Test
-  public void byWholeTextBefore() throws IOException, InvalidInputException {
+  public void byLabelingTextBeforeAsText_wildcardOnly() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
+        + "<select id='otherId1' name='otherName1'>"
+        + "<option>option</option>"
+        + "</select>"
         + "<p>Marker</p>"
-        + "<input id='otherId' name='otherName' type='submit'>"
+        + "<select id='myId' name='myName'>"
+        + "<option>option</option>"
+        + "</select>"
         + "<p>Some text ...</p>"
-        + "<select id='myId' name='myName' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
+        + "<select id='otherId2' name='otherName2'>"
+        + "<option>option</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "Marker", "myId");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "Marker > ", "myId", "otherId1", "otherId2");
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlSelect (id='myId') (name='myName')] found by: BY_TEXT deviation: 14 distance: 20 start: 20 hierarchy: 0>1>3>4>10 index: 10",
+        "[HtmlSelect (id='myId') (name='myName')] found by: BY_TEXT deviation: 0 distance: 0 start: 13 hierarchy: 0>1>3>4>10 index: 10",
         tmpEntriesSorted.get(0).toString());
-  }
-
-  @Test
-  public void byWholeTextBefore_wildcardOnly() throws IOException, InvalidInputException {
-    // @formatter:off
-    final String tmpHtmlCode = "<html><body>"
-        + "<form action='test'>"
-        + "<p>Marker</p>"
-        + "<select id='myId' name='myName' size='2'>"
-        + "<option id='1_1' value='o_value1'>option1</option>"
-        + "<option id='1_2' value='o_value2'>option2</option>"
-        + "<option id='1_3' value='o_value3'>option3</option>"
-        + "</select>"
-        + "<p>Some text ...</p>"
-        + "<select id='otherId' name='otherName' size='2'>"
-        + "<option id='2_1' value='o_value1'>option1</option>"
-        + "<option id='2_2' value='o_value2'>option2</option>"
-        + "<option id='2_3' value='o_value3'>option3</option>"
-        + "</select>"
-        + "</form>"
-        + "</body></html>";
-    // @formatter:on
-
-    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "Marker > ", "myId", "otherId");
-
-    assertEquals(2, tmpEntriesSorted.size());
-    assertEquals(
-        "[HtmlSelect (id='myId') (name='myName')] found by: BY_TEXT deviation: 0 distance: 0 start: 6 hierarchy: 0>1>3>4>7 index: 7",
-        tmpEntriesSorted.get(0).toString());
-    assertEquals(
-        "[HtmlSelect (id='otherId') (name='otherName')] found by: BY_TEXT deviation: 0 distance: 38 start: 44 hierarchy: 0>1>3>4>16 index: 16",
-        tmpEntriesSorted.get(1).toString());
   }
 
   @Test
@@ -363,28 +288,20 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
         + "      <tbody>"
         + "        <tr>"
         + "          <td id='cell_1_1'>row_1</td>"
-        + "          <td id='cell_1_2'><select id='myId_1_2' size='2'>"
-        + "            <option id='optionId' value='o_value1'>option1</option>"
-        + "            <option value='o_value2'>option2</option>"
-        + "            <option value='o_value3'>option3</option>"
+        + "          <td id='cell_1_2'><select id='myId_1_2'>"
+        + "            <option>option</option>"
         + "          </select></td>"
-        + "          <td id='cell_1_3'><select id='myId_1_3' size='2'>"
-        + "            <option id='optionId' value='o_value1'>option1</option>"
-        + "            <option value='o_value2'>option2</option>"
-        + "            <option value='o_value3'>option3</option>"
+        + "          <td id='cell_1_3'><select id='myId_1_3'>"
+        + "            <option>option</option>"
         + "          </select></td>"
         + "        </tr>"
         + "        <tr>"
         + "          <td id='cell_2_1'>row_2</td>"
-        + "          <td id='cell_2_2'><select id='myId_2_2' size='2'>"
-        + "            <option id='optionId' value='o_value1'>option1</option>"
-        + "            <option value='o_value2'>option2</option>"
-        + "            <option value='o_value3'>option3</option>"
+        + "          <td id='cell_2_2'><select id='myId_2_2'>"
+        + "            <option>option</option>"
         + "          </select></td>"
-        + "          <td id='cell_2_3'><select id='myId_2_3' size='2'>"
-        + "            <option id='optionId' value='o_value1'>option1</option>"
-        + "            <option value='o_value2'>option2</option>"
-        + "            <option value='o_value3'>option3</option>"
+        + "          <td id='cell_2_3'><select id='myId_2_3'>"
+        + "            <option>option</option>"
         + "          </select></td>"
         + "        </tr>"
         + "      </tbody>"
@@ -397,7 +314,7 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlSelect (id='myId_2_3')] found by: BY_TABLE_COORDINATE deviation: 0 distance: 110 start: 110 hierarchy: 0>1>3>5>22>48>62>63 index: 63",
+        "[HtmlSelect (id='myId_2_3')] found by: BY_TABLE_COORDINATE deviation: 0 distance: 59 start: 59 hierarchy: 0>1>3>5>22>40>50>51 index: 51",
         tmpEntriesSorted.get(0).toString());
   }
 }

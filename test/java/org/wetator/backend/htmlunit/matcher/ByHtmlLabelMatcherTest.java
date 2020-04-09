@@ -135,7 +135,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void empty_TextBefore() throws IOException, InvalidInputException {
+  public void empty_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<label id='otherLabelId' for='otherId'>myLabel</label>"
@@ -154,7 +154,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void full_TextBefore() throws IOException, InvalidInputException {
+  public void full_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<label id='otherLabelId' for='otherId'>myLabel</label>"
@@ -175,7 +175,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void wildcardRight_TextBefore() throws IOException, InvalidInputException {
+  public void wildcardRight_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<label id='otherLabelId' for='otherId'>myLabel</label>"
@@ -196,7 +196,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void wildcardLeft_TextBefore() throws IOException, InvalidInputException {
+  public void wildcardLeft_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<label id='otherLabelId' for='otherId'>myLabel</label>"
@@ -217,7 +217,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void part_TextBefore() throws IOException, InvalidInputException {
+  public void part_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<label id='otherLabelId' for='otherId'>myLabel</label>"
@@ -238,7 +238,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void full_WrongTextBefore() throws IOException, InvalidInputException {
+  public void full_wrongTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<label id='otherLabelId' for='otherId'>myLabel</label>"
@@ -257,7 +257,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void full_NoTextBefore() throws IOException, InvalidInputException {
+  public void full_noTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<label id='myLabelId' for='myId'>myLabel</label>"
@@ -273,7 +273,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void matchInvisibleNot() throws IOException, InvalidInputException {
+  public void matchInvisible_not() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<p>Some text .... </p>"
@@ -404,7 +404,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void childEmpty_TextBefore() throws IOException, InvalidInputException {
+  public void childEmpty_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<label id='otherLabelId'>myLabel"
@@ -425,7 +425,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void childFull_TextBefore() throws IOException, InvalidInputException {
+  public void childFull_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<label id='otherLabelId'>myLabel"
@@ -448,7 +448,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void childWildcardRight_TextBefore() throws IOException, InvalidInputException {
+  public void childWildcardRight_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<label id='otherLabelId'>myLabel"
@@ -471,7 +471,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void childWildcardLeft_TextBefore() throws IOException, InvalidInputException {
+  public void childWildcardLeft_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<label id='otherLabelId'>myLabel"
@@ -494,7 +494,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void childPart_TextBefore() throws IOException, InvalidInputException {
+  public void childPart_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<label id='otherLabelId'>myLabel"
@@ -517,7 +517,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void childFull_WrongTextBefore() throws IOException, InvalidInputException {
+  public void childFull_wrongTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<label id='otherLabelId'>myLabel"
@@ -538,7 +538,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void childFull_NoTextBefore() throws IOException, InvalidInputException {
+  public void childFull_noTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<label id='otherLabelId'>myLabel"
@@ -559,7 +559,7 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void childMatchInvisibleNot() throws IOException, InvalidInputException {
+  public void childMatchInvisible_not() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<label id='myLabelId'>myLabel"

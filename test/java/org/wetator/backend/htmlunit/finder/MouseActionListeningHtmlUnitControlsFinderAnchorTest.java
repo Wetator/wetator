@@ -100,7 +100,7 @@ public class MouseActionListeningHtmlUnitControlsFinderAnchorTest
       { a("out", CONTENT + image("in").noListen()),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlAnchor.class, "out"),
-            new ExpectedControl(HtmlImage.class, "in")) // FIXME why image here at all?
+            new ExpectedControl(HtmlImage.class, "in"))
       },
 
       // 8

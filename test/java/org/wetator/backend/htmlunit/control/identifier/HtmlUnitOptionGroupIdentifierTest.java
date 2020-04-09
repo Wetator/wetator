@@ -44,8 +44,8 @@ public class HtmlUnitOptionGroupIdentifierTest extends AbstractHtmlUnitControlId
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<select id='selectId' size='2'>"
-        + "<optgroup label='colors' id='myId'>"
+        + "<select id='selectId'>"
+        + "<optgroup id='myId' label='group'>"
         + "</select>"
         + "</form>"
         + "</body></html>";
@@ -55,12 +55,12 @@ public class HtmlUnitOptionGroupIdentifierTest extends AbstractHtmlUnitControlId
   }
 
   @Test
-  public void isHtmlElementSupported_Not() throws IOException {
+  public void isHtmlElementSupported_not() throws IOException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<select id='selectId' size='2'>"
-        + "<option id='myId' value='o_red'>red</option>"
+        + "<select id='selectId'>"
+        + "<option id='myId'>option</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
@@ -74,11 +74,9 @@ public class HtmlUnitOptionGroupIdentifierTest extends AbstractHtmlUnitControlId
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<select id='selectId' size='2'>"
-        + "<optgroup label='colors' id='myId'>"
-        + "<option value='o_red'>red</option>"
-        + "<option value='o_green'>green</option>"
-        + "<option value='o_blue'>blue</option>"
+        + "<select id='selectId'>"
+        + "<optgroup id='myId' label='group'>"
+        + "<option id='myId'>option</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
@@ -88,7 +86,7 @@ public class HtmlUnitOptionGroupIdentifierTest extends AbstractHtmlUnitControlId
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlOptionGroup 'colors' (id='myId') part of [HtmlSelect (id='selectId')]] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5>6 index: 6",
+        "[HtmlOptionGroup 'group' (id='myId') part of [HtmlSelect (id='selectId')]] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5>6 index: 6",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -97,21 +95,19 @@ public class HtmlUnitOptionGroupIdentifierTest extends AbstractHtmlUnitControlId
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<select id='selectId' size='2'>"
-        + "<optgroup label='colors' id='myId'>"
-        + "<option value='o_red'>red</option>"
-        + "<option value='o_green'>green</option>"
-        + "<option value='o_blue'>blue</option>"
+        + "<select id='selectId'>"
+        + "<optgroup id='myId' label='group'>"
+        + "<option id='myId'>option</option>"
         + "</select>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "colors", "myId");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "group", "myId");
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlOptionGroup 'colors' (id='myId') part of [HtmlSelect (id='selectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5>6 index: 6",
+        "[HtmlOptionGroup 'group' (id='myId') part of [HtmlSelect (id='selectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5>6 index: 6",
         tmpEntriesSorted.get(0).toString());
   }
 }

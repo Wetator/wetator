@@ -120,7 +120,7 @@ public class ByImageAltAttributeMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void empty_TextBefore() throws IOException, InvalidInputException {
+  public void empty_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<img id='otherId' src='picture.png' alt='myAlt'>"
@@ -137,7 +137,7 @@ public class ByImageAltAttributeMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void full_TextBefore() throws IOException, InvalidInputException {
+  public void full_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<img id='otherId' src='picture.png' alt='myAlt'>"
@@ -155,7 +155,7 @@ public class ByImageAltAttributeMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void wildcardRight_TextBefore() throws IOException, InvalidInputException {
+  public void wildcardRight_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<img id='otherId' src='picture.png' alt='myAlt'>"
@@ -173,7 +173,7 @@ public class ByImageAltAttributeMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void wildacardLeft_TextBefore() throws IOException, InvalidInputException {
+  public void wildacardLeft_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<img id='otherId' src='picture.png' alt='myAlt'>"
@@ -191,7 +191,7 @@ public class ByImageAltAttributeMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void part_TextBefore() throws IOException, InvalidInputException {
+  public void part_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<img id='otherId' src='picture.png' alt='myAlt'>"
@@ -209,7 +209,7 @@ public class ByImageAltAttributeMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void full_WrongTextBefore() throws IOException, InvalidInputException {
+  public void full_wrongTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<img id='otherId' src='picture.png' alt='myAlt'>"
@@ -226,7 +226,7 @@ public class ByImageAltAttributeMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void full_NoTextBefore() throws IOException, InvalidInputException {
+  public void full_noTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<img id='myId' src='picture.png' alt='myAlt'>"

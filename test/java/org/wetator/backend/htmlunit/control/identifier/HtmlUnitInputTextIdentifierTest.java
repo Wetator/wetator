@@ -44,7 +44,7 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<input id='myId' value='value' type='text'>"
+        + "<input id='myId' type='text'>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
@@ -53,11 +53,11 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
-  public void isHtmlElementSupported_Not() throws IOException {
+  public void isHtmlElementSupported_not() throws IOException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<input id='myId' value='value' type='password'>"
+        + "<input id='myId' type='password'>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
@@ -66,12 +66,12 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
-  public void isHtmlElementSupported_HtmlLabel() throws IOException {
+  public void isHtmlElementSupported_htmlLabel() throws IOException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<label id='labelId' for='myId'>LabelText</label>"
-        + "<input id='myId' value='value' type='text'>"
+        + "<input id='myId' type='text'>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
@@ -80,12 +80,12 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
-  public void isHtmlElementSupported_HtmlLabel_Not() throws IOException {
+  public void isHtmlElementSupported_htmlLabel_not() throws IOException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<label id='labelId' for='myId'>LabelText</label>"
-        + "<input id='myId' value='value' type='password'>"
+        + "<input id='myId' type='password'>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
@@ -152,14 +152,16 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<input id='otherId' name='otherName' type='text'>"
+        + "<input id='otherId1' name='otherName1' type='text'>"
         + "<p>Marker</p>"
         + "<input id='myId' name='myName' type='text'>"
+        + "<p>Some text ...</p>"
+        + "<input id='otherId2' name='otherName2' type='text'>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "Marker", "otherId", "myId");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "Marker", "myId", "otherId1", "otherId2");
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
@@ -186,120 +188,97 @@ public class HtmlUnitInputTextIdentifierTest extends AbstractHtmlUnitControlIden
   }
 
   @Test
-  public void byHtmlLabel_Text() throws IOException, InvalidInputException {
+  public void byHtmlLabel_text() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<label id='labelId' for='myId'>Label</label>"
+        + "<label id='labelId' for='myId'>Marker</label>"
         + "<input id='myId' name='myName' type='text'>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "Label", "labelId");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "Marker", "labelId");
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlTextInput (id='myId') (name='myName')] found by: BY_LABEL_ELEMENT deviation: 0 distance: 0 start: 5 hierarchy: 0>1>3>4>7 index: 7",
+        "[HtmlTextInput (id='myId') (name='myName')] found by: BY_LABEL_ELEMENT deviation: 0 distance: 0 start: 6 hierarchy: 0>1>3>4>7 index: 7",
         tmpEntriesSorted.get(0).toString());
   }
 
   @Test
-  public void byHtmlLabel_Text_Invisible() throws IOException, InvalidInputException {
+  public void byHtmlLabel_text_invisible() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<label id='labelId' for='myId'>Label</label>"
+        + "<label id='labelId' for='myId'>Marker</label>"
         + "<input id='myId' name='myName' type='text' style='display: none;'>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "Label", "labelId");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "Marker", "labelId");
 
     assertEquals(0, tmpEntriesSorted.size());
   }
 
   @Test
-  public void byHtmlLabelChild_Text() throws IOException, InvalidInputException {
+  public void byHtmlLabelChild_text() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<label id='labelId'>Label"
+        + "<label id='labelId'>Marker"
         + "<input id='myId' name='myName' type='text'>"
         + "</label>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "Label", "labelId");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "Marker", "labelId");
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlTextInput (id='myId') (name='myName')] found by: BY_LABEL_ELEMENT deviation: 0 distance: 0 start: 5 hierarchy: 0>1>3>4>5>7 index: 7",
+        "[HtmlTextInput (id='myId') (name='myName')] found by: BY_LABEL_ELEMENT deviation: 0 distance: 0 start: 6 hierarchy: 0>1>3>4>5>7 index: 7",
         tmpEntriesSorted.get(0).toString());
   }
 
   @Test
-  public void byHtmlLabelChild_Text_Invisible() throws IOException, InvalidInputException {
+  public void byHtmlLabelChild_text_invisible() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
-        + "<label id='labelId'>Label"
+        + "<label id='labelId'>Marker"
         + "<input id='myId' name='myName' type='text' style='display: none;'>"
         + "</label>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "Label", "labelId");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "Marker", "labelId");
 
     assertEquals(0, tmpEntriesSorted.size());
   }
 
   @Test
-  public void byWholeTextBefore() throws IOException, InvalidInputException {
+  public void byLabelingTextBeforeAsText_wildcardOnly() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
+        + "<input id='otherId1' name='otherName1' type='text'>"
         + "<p>Marker</p>"
-        + "<input id='otherId' name='otherName' type='submit'>"
-        + "<p>Some text ...</p>"
         + "<input id='myId' name='myName' type='text'>"
+        + "<p>Some text ...</p>"
+        + "<input id='otherId2' name='otherName2' type='text'>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
 
-    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "Marker", "myId");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "Marker > ", "myId", "otherId1", "otherId2");
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlTextInput (id='myId') (name='myName')] found by: BY_TEXT deviation: 14 distance: 20 start: 20 hierarchy: 0>1>3>4>10 index: 10",
+        "[HtmlTextInput (id='myId') (name='myName')] found by: BY_TEXT deviation: 0 distance: 0 start: 6 hierarchy: 0>1>3>4>8 index: 8",
         tmpEntriesSorted.get(0).toString());
-  }
-
-  @Test
-  public void byWholeTextBefore_wildcardOnly() throws IOException, InvalidInputException {
-    // @formatter:off
-    final String tmpHtmlCode = "<html><body>"
-        + "<form action='test'>"
-        + "<p>Marker</p>"
-        + "<input id='myId' name='myName' type='text'>"
-        + "<p>Some text ...</p>"
-        + "<input id='otherId' name='otherName' type='text'>"
-        + "</form>"
-        + "</body></html>";
-    // @formatter:on
-
-    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "Marker > ", "myId", "otherId");
-
-    assertEquals(2, tmpEntriesSorted.size());
-    assertEquals(
-        "[HtmlTextInput (id='myId') (name='myName')] found by: BY_TEXT deviation: 0 distance: 0 start: 6 hierarchy: 0>1>3>4>7 index: 7",
-        tmpEntriesSorted.get(0).toString());
-    assertEquals(
-        "[HtmlTextInput (id='otherId') (name='otherName')] found by: BY_TEXT deviation: 0 distance: 14 start: 20 hierarchy: 0>1>3>4>10 index: 10",
-        tmpEntriesSorted.get(1).toString());
   }
 
   @Test
