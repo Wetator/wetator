@@ -16,7 +16,7 @@
 
 package org.wetator.backend.htmlunit.finder;
 
-import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.CONTENT;
+import static org.wetator.backend.htmlunit.finder.HtmlCodeCreator.CONTENT;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -38,7 +38,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlDivision;
  *      hits lead to test cases in check sister test class
  */
 public class MouseActionListeningHtmlUnitControlsFinderContainerContentEqWPathTest
-    extends AbstractMouseClickListeningHtmlUnitControlsFinderParameterizedTest {
+    extends AbstractMouseActionListeningHtmlUnitControlsFinderParameterizedTest {
 
   @Parameters(name = "{index}: {0}")
   public static Collection<Object[]> provideParameters() {

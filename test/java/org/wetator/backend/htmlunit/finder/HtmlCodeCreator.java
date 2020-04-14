@@ -21,7 +21,7 @@ package org.wetator.backend.htmlunit.finder;
  *
  * @author tobwoerk
  */
-public abstract class MouseActionHtmlCodeCreator {
+public abstract class HtmlCodeCreator {
 
   public static final String CONTENT = "test";
 
@@ -31,9 +31,10 @@ public abstract class MouseActionHtmlCodeCreator {
   private static final String ON_MOUSE_OVER = "onmouseover=''";
   private static final String ON_ANY_MOUSE_ACTION = "onclick='' ondblclick='' oncontextmenu='' onmouseover=''";
 
-  private static final String ON_FOCUS = "onfocus=''";
+  // FIXME tab index
+  private static final String TAB_INDEX = "tabindex='123'";
 
-  private static String listeners;
+  private static String listeners = "";
 
   public static String pageStart() {
     return "<html><body>";
@@ -43,12 +44,14 @@ public abstract class MouseActionHtmlCodeCreator {
     return "</body></html>";
   }
 
-  static String a(final String anAnchorId, final String aContent) {
-    return "<a id='" + anAnchorId + "' href='#'>" + (aContent != null ? aContent : "") + "</a>";
+  static String a(final String anAnchorId, final String aContent, final boolean anIsListening) {
+    return "<a id='" + anAnchorId + "' href='#'" + (anIsListening ? ' ' + listeners : "") + '>'
+        + (aContent != null ? aContent : "") + "</a>";
   }
 
-  static String button(final String aButtonId, final String aContent) {
-    return "<button type='button' id='" + aButtonId + "'>" + (aContent != null ? aContent : "") + "</button>";
+  static String button(final String aButtonId, final String aContent, final boolean anIsListening) {
+    return "<button type='button' id='" + aButtonId + '\'' + (anIsListening ? ' ' + listeners : "") + '>'
+        + (aContent != null ? aContent : "") + (anIsListening ? ' ' + listeners : "") + "</button>";
   }
 
   static String checkbox(final String aCheckboxId, final boolean anIsListening) {
@@ -165,7 +168,7 @@ public abstract class MouseActionHtmlCodeCreator {
   }
 
   public static void resetListeners() {
-    listenToClick();
+    listeners = "";
   }
 
   public static void listenToClick() {
@@ -189,6 +192,6 @@ public abstract class MouseActionHtmlCodeCreator {
   }
 
   public static void listenToFocus() {
-    listeners = ON_FOCUS;
+    listeners = TAB_INDEX;
   }
 }

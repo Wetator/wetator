@@ -31,10 +31,10 @@ import com.gargoylesoftware.htmlunit.html.HtmlDivision;
  * @author tobwoerk
  */
 public class MouseActionListeningHtmlUnitControlsFinderPagePseudoWPathTest
-    extends AbstractMouseActionListeningHtmlUnitControlsFinderTest {
+    extends AbstractIdentifierBasedHtmlUnitControlsFinderTest {
 
   private static final String PAGE_WPATH = "$PAGE";
-  private static final MouseActionHtmlCodeBuilder HTML_PAGE = div(PAGE_WPATH, PAGE_WPATH);
+  private static final HtmlCodeBuilder HTML_PAGE = div(PAGE_WPATH, PAGE_WPATH);
   private static final SortedEntryExpectation EXPECTED = new SortedEntryExpectation(
       new ExpectedControl(HtmlDivision.class, "$PAGE"),
       // FIXME [UNKNOWN] remove div from expectation when unknown controls are supported by
@@ -51,28 +51,28 @@ public class MouseActionListeningHtmlUnitControlsFinderPagePseudoWPathTest
   @Test
   public void clickPage() throws Exception {
     mouseAction = MouseAction.CLICK;
-    MouseActionHtmlCodeCreator.listenToClick();
+    HtmlCodeCreator.listenToClick();
     checkFoundElements(HTML_PAGE, EXPECTED);
   }
 
   @Test
   public void clickDoublePage() throws Exception {
     mouseAction = MouseAction.CLICK_DOUBLE;
-    MouseActionHtmlCodeCreator.listenToClickDouble();
+    HtmlCodeCreator.listenToClickDouble();
     checkFoundElements(HTML_PAGE, EXPECTED);
   }
 
   @Test
   public void clickRightPage() throws Exception {
     mouseAction = MouseAction.CLICK_RIGHT;
-    MouseActionHtmlCodeCreator.listenToClickRight();
+    HtmlCodeCreator.listenToClickRight();
     checkFoundElements(HTML_PAGE, EXPECTED);
   }
 
   @Test
   public void mouseOverPage() throws Exception {
     mouseAction = MouseAction.MOUSE_OVER;
-    MouseActionHtmlCodeCreator.listenToMouseOver();
+    HtmlCodeCreator.listenToMouseOver();
     checkFoundElements(HTML_PAGE, EXPECTED);
   }
 
@@ -83,6 +83,6 @@ public class MouseActionListeningHtmlUnitControlsFinderPagePseudoWPathTest
 
   @AfterClass
   public static void resetListenersInCreator() {
-    MouseActionHtmlCodeCreator.resetListeners();
+    HtmlCodeCreator.resetListeners();
   }
 }

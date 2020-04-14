@@ -26,7 +26,7 @@ import java.util.List;
  *
  * @author tobwoerk
  */
-public final class MouseActionHtmlCodeTableBuilder {
+public final class HtmlCodeTableBuilder {
 
   private String tableId;
   private List<TableRow> rows = new ArrayList<>();
@@ -45,20 +45,20 @@ public final class MouseActionHtmlCodeTableBuilder {
     }
   }
 
-  private MouseActionHtmlCodeTableBuilder(final String aTableId) {
+  private HtmlCodeTableBuilder(final String aTableId) {
     tableId = aTableId;
   }
 
-  public static MouseActionHtmlCodeTableBuilder table(final String aTableId) {
-    return new MouseActionHtmlCodeTableBuilder(aTableId);
+  public static HtmlCodeTableBuilder table(final String aTableId) {
+    return new HtmlCodeTableBuilder(aTableId);
   }
 
-  public MouseActionHtmlCodeTableBuilder tr(final String aRowId, final int aColumnCount) {
+  public HtmlCodeTableBuilder tr(final String aRowId, final int aColumnCount) {
     rows.add(new TableRow(aRowId, aColumnCount));
     return this;
   }
 
-  public MouseActionHtmlCodeTableBuilder noListen() {
+  public HtmlCodeTableBuilder noListen() {
     if (rows.isEmpty()) {
       listenTable = false;
     } else {
@@ -68,12 +68,12 @@ public final class MouseActionHtmlCodeTableBuilder {
   }
 
   public String build() {
-    final StringBuilder tmpTableHtml = new StringBuilder(MouseActionHtmlCodeCreator.tableStart(tableId, listenTable));
+    final StringBuilder tmpTableHtml = new StringBuilder(HtmlCodeCreator.tableStart(tableId, listenTable));
     for (TableRow tmpRow : rows) {
-      tmpTableHtml.append(
-          MouseActionHtmlCodeCreator.tableRowWithCols(tableId, tmpRow.rowId, tmpRow.columnCount, tmpRow.listenRow));
+      tmpTableHtml
+          .append(HtmlCodeCreator.tableRowWithCols(tableId, tmpRow.rowId, tmpRow.columnCount, tmpRow.listenRow));
     }
-    tmpTableHtml.append(MouseActionHtmlCodeCreator.tableEnd());
+    tmpTableHtml.append(HtmlCodeCreator.tableEnd());
     return tmpTableHtml.toString();
   }
 

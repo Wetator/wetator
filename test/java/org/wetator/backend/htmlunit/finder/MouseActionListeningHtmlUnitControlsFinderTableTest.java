@@ -34,7 +34,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
  * @author tobwoerk
  */
 public class MouseActionListeningHtmlUnitControlsFinderTableTest
-    extends AbstractMouseActionListeningHtmlUnitControlsFinderTest {
+    extends AbstractIdentifierBasedHtmlUnitControlsFinderTest {
 
   @Override
   protected IdentifierBasedHtmlUnitControlsFinder createFinder() {
@@ -43,8 +43,10 @@ public class MouseActionListeningHtmlUnitControlsFinderTableTest
 
   @Test
   public void tableBig() throws Exception {
+    HtmlCodeCreator.listenToClick();
+
     // @formatter:off
-    final String tmpHtmlCode = MouseActionHtmlCodeCreator.pageStart()
+    final String tmpHtmlCode = HtmlCodeCreator.pageStart()
 
     + table("table")
         .tr("tr1", 2)
@@ -52,7 +54,7 @@ public class MouseActionListeningHtmlUnitControlsFinderTableTest
         .tr("tr3", 2)
         .tr("tr4", 1)
 
-    + MouseActionHtmlCodeCreator.pageEnd();
+    + HtmlCodeCreator.pageEnd();
     // @formatter:on
 
     // @formatter:off

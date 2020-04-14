@@ -28,7 +28,7 @@ import org.wetator.backend.control.IClickable;
  *
  * @author tobwoerk
  */
-public class MouseActionHtmlCodeBuilder {
+public class HtmlCodeBuilder {
 
   private List<Element> elements = new ArrayList<>();
 
@@ -62,133 +62,133 @@ public class MouseActionHtmlCodeBuilder {
     SPAN
   }
 
-  public MouseActionHtmlCodeBuilder a(final String anId, final MouseActionHtmlCodeBuilder aContent) {
+  public HtmlCodeBuilder a(final String anId, final HtmlCodeBuilder aContent) {
     return a(anId, aContent.build());
   }
 
-  public MouseActionHtmlCodeBuilder a(final String anId, final String aContent) {
+  public HtmlCodeBuilder a(final String anId, final String aContent) {
     return a(anId).contain(aContent);
   }
 
-  public MouseActionHtmlCodeBuilder a(final String anId) {
+  public HtmlCodeBuilder a(final String anId) {
     return add(ElementType.ANCHOR, anId);
   }
 
-  public MouseActionHtmlCodeBuilder button(final String anId, final MouseActionHtmlCodeBuilder aContent) {
+  public HtmlCodeBuilder button(final String anId, final HtmlCodeBuilder aContent) {
     return button(anId, aContent.build());
   }
 
-  public MouseActionHtmlCodeBuilder button(final String anId, final String aContent) {
+  public HtmlCodeBuilder button(final String anId, final String aContent) {
     return button(anId).contain(aContent);
   }
 
-  public MouseActionHtmlCodeBuilder button(final String anId) {
+  public HtmlCodeBuilder button(final String anId) {
     return add(ElementType.BUTTON, anId);
   }
 
-  public MouseActionHtmlCodeBuilder checkbox(final String anId) {
+  public HtmlCodeBuilder checkbox(final String anId) {
     return add(ElementType.CHECKBOX, anId);
   }
 
-  public MouseActionHtmlCodeBuilder div(final String anId, final MouseActionHtmlCodeBuilder aContent) {
+  public HtmlCodeBuilder div(final String anId, final HtmlCodeBuilder aContent) {
     return div(anId, aContent.build());
   }
 
-  public MouseActionHtmlCodeBuilder div(final String anId, final String aContent) {
+  public HtmlCodeBuilder div(final String anId, final String aContent) {
     return div(anId).contain(aContent);
   }
 
-  public MouseActionHtmlCodeBuilder div(final String anId) {
+  public HtmlCodeBuilder div(final String anId) {
     return add(ElementType.DIV, anId);
   }
 
-  public MouseActionHtmlCodeBuilder image(final String anId, final String anAltText) {
+  public HtmlCodeBuilder image(final String anId, final String anAltText) {
     return image(anId).contain(anAltText);
   }
 
-  public MouseActionHtmlCodeBuilder image(final String anId) {
+  public HtmlCodeBuilder image(final String anId) {
     return add(ElementType.IMAGE, anId);
   }
 
-  public MouseActionHtmlCodeBuilder inputButton(final String anId, final String aValue) {
+  public HtmlCodeBuilder inputButton(final String anId, final String aValue) {
     return inputButton(anId).contain(aValue);
   }
 
-  public MouseActionHtmlCodeBuilder inputButton(final String anId) {
+  public HtmlCodeBuilder inputButton(final String anId) {
     return add(ElementType.INPUT_BUTTON, anId);
   }
 
-  public MouseActionHtmlCodeBuilder inputImage(final String anId, final String anAltText) {
+  public HtmlCodeBuilder inputImage(final String anId, final String anAltText) {
     return add(ElementType.INPUT_IMAGE, anId).contain(anAltText);
   }
 
-  public MouseActionHtmlCodeBuilder inputImage(final String anId) {
+  public HtmlCodeBuilder inputImage(final String anId) {
     return add(ElementType.INPUT_IMAGE, anId);
   }
 
-  public MouseActionHtmlCodeBuilder inputReset(final String anId, final String aValue) {
+  public HtmlCodeBuilder inputReset(final String anId, final String aValue) {
     return inputReset(anId).contain(aValue);
   }
 
-  public MouseActionHtmlCodeBuilder inputReset(final String anId) {
+  public HtmlCodeBuilder inputReset(final String anId) {
     return add(ElementType.INPUT_RESET, anId);
   }
 
-  public MouseActionHtmlCodeBuilder inputSubmit(final String anId, final String aValue) {
+  public HtmlCodeBuilder inputSubmit(final String anId, final String aValue) {
     return inputSubmit(anId).contain(aValue);
   }
 
-  public MouseActionHtmlCodeBuilder inputSubmit(final String anId) {
+  public HtmlCodeBuilder inputSubmit(final String anId) {
     return add(ElementType.INPUT_SUBMIT, anId);
   }
 
-  public MouseActionHtmlCodeBuilder inputText(final String anId, final String aPlaceholder) {
+  public HtmlCodeBuilder inputText(final String anId, final String aPlaceholder) {
     return inputText(anId).contain(aPlaceholder);
   }
 
-  public MouseActionHtmlCodeBuilder inputText(final String anId) {
+  public HtmlCodeBuilder inputText(final String anId) {
     return add(ElementType.INPUT_TEXT, anId);
   }
 
-  public MouseActionHtmlCodeBuilder label(final String aForId, final MouseActionHtmlCodeBuilder aContent) {
+  public HtmlCodeBuilder label(final String aForId, final HtmlCodeBuilder aContent) {
     return label(aForId, aContent.build());
   }
 
-  public MouseActionHtmlCodeBuilder label(final String aForId, final String aContent) {
+  public HtmlCodeBuilder label(final String aForId, final String aContent) {
     return label(aForId).contain(aContent);
   }
 
-  public MouseActionHtmlCodeBuilder label(final String aForId) {
+  public HtmlCodeBuilder label(final String aForId) {
     return add(ElementType.LABEL, aForId);
   }
 
-  public MouseActionHtmlCodeBuilder radio(final String anId) {
+  public HtmlCodeBuilder radio(final String anId) {
     return add(ElementType.RADIO, anId);
   }
 
-  public MouseActionHtmlCodeBuilder span(final String anId, final MouseActionHtmlCodeBuilder aContent) {
+  public HtmlCodeBuilder span(final String anId, final HtmlCodeBuilder aContent) {
     return span(anId, aContent.build());
   }
 
-  public MouseActionHtmlCodeBuilder span(final String anId, final String aContent) {
+  public HtmlCodeBuilder span(final String anId, final String aContent) {
     return span(anId).contain(aContent);
   }
 
-  public MouseActionHtmlCodeBuilder span(final String anId) {
+  public HtmlCodeBuilder span(final String anId) {
     return add(ElementType.SPAN, anId);
   }
 
-  public MouseActionHtmlCodeBuilder noListen() {
+  public HtmlCodeBuilder noListen() {
     elements.get(elements.size() - 1).listen = false;
     return this;
   }
 
-  private MouseActionHtmlCodeBuilder add(final ElementType anElementType, final String anId) {
+  private HtmlCodeBuilder add(final ElementType anElementType, final String anId) {
     elements.add(new Element(anElementType, anId));
     return this;
   }
 
-  private MouseActionHtmlCodeBuilder contain(final String aContent) {
+  private HtmlCodeBuilder contain(final String aContent) {
     elements.get(elements.size() - 1).content = aContent;
     return this;
   }
@@ -199,55 +199,55 @@ public class MouseActionHtmlCodeBuilder {
     for (Element tmpElement : elements) {
       switch (tmpElement.elementType) {
         case ANCHOR:
-          tmpHtml.append(MouseActionHtmlCodeCreator.a(tmpElement.id, tmpElement.content));
+          tmpHtml.append(HtmlCodeCreator.a(tmpElement.id, tmpElement.content, tmpElement.listen));
           break;
         case BUTTON:
-          tmpHtml.append(MouseActionHtmlCodeCreator.button(tmpElement.id, tmpElement.content));
+          tmpHtml.append(HtmlCodeCreator.button(tmpElement.id, tmpElement.content, tmpElement.listen));
           break;
         case CHECKBOX:
-          tmpHtml.append(MouseActionHtmlCodeCreator.checkbox(tmpElement.id, tmpElement.listen));
+          tmpHtml.append(HtmlCodeCreator.checkbox(tmpElement.id, tmpElement.listen));
           break;
         case DIV:
-          tmpHtml.append(MouseActionHtmlCodeCreator.divStart(tmpElement.id, tmpElement.listen));
+          tmpHtml.append(HtmlCodeCreator.divStart(tmpElement.id, tmpElement.listen));
           if (tmpElement.content != null) {
             tmpHtml.append(tmpElement.content);
           }
-          tmpHtml.append(MouseActionHtmlCodeCreator.divEnd());
+          tmpHtml.append(HtmlCodeCreator.divEnd());
           break;
         case IMAGE:
-          tmpHtml.append(MouseActionHtmlCodeCreator.image(tmpElement.id, tmpElement.content, tmpElement.listen));
+          tmpHtml.append(HtmlCodeCreator.image(tmpElement.id, tmpElement.content, tmpElement.listen));
           break;
         case INPUT_BUTTON:
-          tmpHtml.append(MouseActionHtmlCodeCreator.inputButton(tmpElement.id, tmpElement.content, tmpElement.listen));
+          tmpHtml.append(HtmlCodeCreator.inputButton(tmpElement.id, tmpElement.content, tmpElement.listen));
           break;
         case INPUT_IMAGE:
-          tmpHtml.append(MouseActionHtmlCodeCreator.inputImage(tmpElement.id, tmpElement.content, tmpElement.listen));
+          tmpHtml.append(HtmlCodeCreator.inputImage(tmpElement.id, tmpElement.content, tmpElement.listen));
           break;
         case INPUT_RESET:
-          tmpHtml.append(MouseActionHtmlCodeCreator.inputReset(tmpElement.id, tmpElement.content, tmpElement.listen));
+          tmpHtml.append(HtmlCodeCreator.inputReset(tmpElement.id, tmpElement.content, tmpElement.listen));
           break;
         case INPUT_SUBMIT:
-          tmpHtml.append(MouseActionHtmlCodeCreator.inputSubmit(tmpElement.id, tmpElement.content, tmpElement.listen));
+          tmpHtml.append(HtmlCodeCreator.inputSubmit(tmpElement.id, tmpElement.content, tmpElement.listen));
           break;
         case INPUT_TEXT:
-          tmpHtml.append(MouseActionHtmlCodeCreator.inputText(tmpElement.id, tmpElement.content, tmpElement.listen));
+          tmpHtml.append(HtmlCodeCreator.inputText(tmpElement.id, tmpElement.content, tmpElement.listen));
           break;
         case LABEL:
-          tmpHtml.append(MouseActionHtmlCodeCreator.labelStart(tmpElement.id, tmpElement.listen));
+          tmpHtml.append(HtmlCodeCreator.labelStart(tmpElement.id, tmpElement.listen));
           if (tmpElement.content != null) {
             tmpHtml.append(tmpElement.content);
           }
-          tmpHtml.append(MouseActionHtmlCodeCreator.labelEnd());
+          tmpHtml.append(HtmlCodeCreator.labelEnd());
           break;
         case RADIO:
-          tmpHtml.append(MouseActionHtmlCodeCreator.radio(tmpElement.id, tmpElement.listen));
+          tmpHtml.append(HtmlCodeCreator.radio(tmpElement.id, tmpElement.listen));
           break;
         case SPAN:
-          tmpHtml.append(MouseActionHtmlCodeCreator.spanStart(tmpElement.id, tmpElement.listen));
+          tmpHtml.append(HtmlCodeCreator.spanStart(tmpElement.id, tmpElement.listen));
           if (tmpElement.content != null) {
             tmpHtml.append(tmpElement.content);
           }
-          tmpHtml.append(MouseActionHtmlCodeCreator.spanEnd());
+          tmpHtml.append(HtmlCodeCreator.spanEnd());
           break;
         default:
           throw new RuntimeException();

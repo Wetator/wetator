@@ -31,8 +31,8 @@ import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.Sorted
  * @author tobwoerk
  */
 @RunWith(Parameterized.class)
-public abstract class AbstractMouseClickListeningHtmlUnitControlsFinderParameterizedTest
-    extends AbstractMouseActionListeningHtmlUnitControlsFinderTest {
+public abstract class AbstractMouseActionListeningHtmlUnitControlsFinderParameterizedTest
+    extends AbstractIdentifierBasedHtmlUnitControlsFinderTest {
 
   @Parameter(0)
   public Object htmlCode;
@@ -43,7 +43,7 @@ public abstract class AbstractMouseClickListeningHtmlUnitControlsFinderParameter
 
   @BeforeClass
   public static void listenToClick() {
-    MouseActionHtmlCodeCreator.listenToClick();
+    HtmlCodeCreator.listenToClick();
   }
 
   public void setMouseAction(final MouseAction aMouseAction) {

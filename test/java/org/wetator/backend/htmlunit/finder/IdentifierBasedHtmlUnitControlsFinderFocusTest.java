@@ -21,16 +21,27 @@ import static org.wetator.backend.htmlunit.finder.HtmlCodeCreator.CONTENT;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
+import org.wetator.backend.ControlFeature;
 import org.wetator.backend.WPath;
-import org.wetator.backend.htmlunit.MouseAction;
 import org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitAnchorIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitButtonIdentifier;
+import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputButtonIdentifier;
+import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputCheckBoxIdentifier;
+import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputImageIdentifier;
+import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputRadioButtonIdentifier;
+import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputResetIdentifier;
+import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputSubmitIdentifier;
+import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputTextIdentifier;
+import org.wetator.backend.htmlunit.control.identifier.HtmlUnitSelectIdentifier;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.ExpectedControl;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.SortedEntryExpectation;
 
@@ -40,45 +51,45 @@ import com.gargoylesoftware.htmlunit.html.HtmlButton;
 import com.gargoylesoftware.htmlunit.html.HtmlButtonInput;
 import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
-import com.gargoylesoftware.htmlunit.html.HtmlImage;
 import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
 import com.gargoylesoftware.htmlunit.html.HtmlLabel;
-import com.gargoylesoftware.htmlunit.html.HtmlOption;
 import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
 import com.gargoylesoftware.htmlunit.html.HtmlResetInput;
 import com.gargoylesoftware.htmlunit.html.HtmlSelect;
 import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
-import com.gargoylesoftware.htmlunit.html.HtmlTable;
-import com.gargoylesoftware.htmlunit.html.HtmlTableBody;
 import com.gargoylesoftware.htmlunit.html.HtmlTableDataCell;
-import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 
 /**
- * Basic tests for element weighting during {@link MouseActionListeningHtmlUnitControlsFinder#find(WPath)}.
+ * Tests for element weighting during {@link IdentifierBasedHtmlUnitControlsFinder#find(WPath)} concerning
+ * {@link ControlFeature#FOCUS}.
  *
  * @author tobwoerk
  */
-public class MouseActionListeningHtmlUnitControlsFinderBasicTest
-    extends AbstractMouseActionListeningHtmlUnitControlsFinderParameterizedTest {
+@RunWith(Parameterized.class)
+public class IdentifierBasedHtmlUnitControlsFinderFocusTest extends AbstractIdentifierBasedHtmlUnitControlsFinderTest {
 
+  @Parameter(0)
+  public Object htmlCode;
+  @Parameter(1)
+  public SortedEntryExpectation expected;
   @Parameter(2)
-  public Class<? extends AbstractMatcherBasedIdentifier> identifier;
+  public Object identifiers;
 
   @BeforeClass
-  public static void listenToAnyMouseAction() {
-    HtmlCodeCreator.listenToAnyMouseAction();
+  public static void listenToFocus() {
+    HtmlCodeCreator.listenToFocus();
   }
 
   @Parameters(name = "{0}")
   public static Collection<Object[]> provideParameters() {
-    listenToAnyMouseAction();
+    listenToFocus();
 
     final Object[][] tmpData = new Object[][] { //
     // @formatter:off
-      //++++++++++
-      // clickable
+      //++++++++++++
+      // w/ tabindex
 
       { a("anchor-before").a("anchor", CONTENT).a("anchor-after"),
         new SortedEntryExpectation(
@@ -98,8 +109,8 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
             new ExpectedControl(HtmlCheckBoxInput.class, "checkbox-before"),
             new ExpectedControl(HtmlCheckBoxInput.class, "checkbox-after"),
             new ExpectedControl(HtmlBody.class),
-            new ExpectedControl(HtmlLabel.class, "lbl-checkbox-label")),
-        null
+            new ExpectedControl(HtmlLabel.class, "lbl-checkbox-label")), // FIXME [UNKNOWN] adjust as soon as included in MouseActionListeningHtmlUnitControlsFinder
+        HtmlUnitInputCheckBoxIdentifier.class
       },
 
       { div("div-before").div("div", CONTENT).div("div-after"),
@@ -111,38 +122,36 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
       { inputButton("inputButton-before").inputButton("inputButton", CONTENT).inputButton("inputButton-after"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlButtonInput.class, "inputButton")),
-        null
+        HtmlUnitInputButtonIdentifier.class
       },
 
       { inputImage("inputImg-before").inputImage("inputImg", CONTENT).inputImage("inputImg-after"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlImageInput.class, "inputImg")),
-        null
+        HtmlUnitInputImageIdentifier.class
       },
 
       { inputReset("inputReset-before").inputReset("inputReset", CONTENT).inputReset("inputReset-after"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlResetInput.class, "inputReset")),
-        null
+        HtmlUnitInputResetIdentifier.class
       },
 
       { inputSubmit("inputSubmit-before").inputSubmit("inputSubmit", CONTENT).inputSubmit("inputSubmit-after"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlSubmitInput.class, "inputSubmit")),
-        null
+        HtmlUnitInputSubmitIdentifier.class
       },
 
       { inputText("inputText-before").inputText("inputText", CONTENT).inputText("inputText-after"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlTextInput.class, "inputText"),
             new ExpectedControl(HtmlTextInput.class, "inputText-after")),
-        null
+        HtmlUnitInputTextIdentifier.class
       },
 
       { image("img-before").image("img", CONTENT).image("img-after"),
-        new SortedEntryExpectation(
-            new ExpectedControl(HtmlImage.class, "img"),
-            new ExpectedControl(HtmlImage.class, "img-after")),
+        null, // tabindex currently not supported
         null
       },
 
@@ -158,17 +167,17 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
             new ExpectedControl(HtmlRadioButtonInput.class, "radio-before"),
             new ExpectedControl(HtmlRadioButtonInput.class, "radio-after"),
             new ExpectedControl(HtmlBody.class),
-            new ExpectedControl(HtmlLabel.class, "lbl-radio-label")),
-        null
+            new ExpectedControl(HtmlLabel.class, "lbl-radio-label")), // FIXME [UNKNOWN] adjust as soon as included in MouseActionListeningHtmlUnitControlsFinder
+        HtmlUnitInputRadioButtonIdentifier.class
       },
 
       { select("select-before") + CONTENT + select("select").option("option-before").option("option", CONTENT).option("option-after") + select("select-after"),
+        // tabindex currently not supported
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlOption.class, "select-option"),
             new ExpectedControl(HtmlSelect.class, "select"),
             new ExpectedControl(HtmlSelect.class, "select-after"),
-            new ExpectedControl(HtmlBody.class)),
-        null
+            new ExpectedControl(HtmlBody.class)), // FIXME [UNKNOWN] adjust as soon as included in MouseActionListeningHtmlUnitControlsFinder
+        Arrays.asList(HtmlUnitSelectIdentifier.class)
       },
 
       { span("span-before").span("span", CONTENT).span("span-after"),
@@ -178,17 +187,15 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
       },
 
       { table("table-before") + CONTENT + table("table").tr("tr", 1) + table("table-after"),
+        // tabindex currently not supported
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlTableDataCell.class, "table-tr-td"),
-            new ExpectedControl(HtmlTableRow.class, "table-tr"),
-            new ExpectedControl(HtmlTableBody.class, "table-body"),
-            new ExpectedControl(HtmlTable.class, "table"),
-            new ExpectedControl(HtmlBody.class)),
+            new ExpectedControl(HtmlBody.class),
+            new ExpectedControl(HtmlTableDataCell.class, "table-tr-td")), // FIXME [UNKNOWN] adjust as soon as included in MouseActionListeningHtmlUnitControlsFinder
         null
       },
 
-      //++++++++++++++
-      // non-clickable
+      //+++++++++++++
+      // w/o tabindex
 
       { a("anchor-before").noListen().a("anchor", CONTENT).noListen().a("anchor-after").noListen(),
         new SortedEntryExpectation(
@@ -204,40 +211,49 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
 
       { checkbox("checkbox-before").noListen() + CONTENT + checkbox("checkbox-after").noListen().label("checkbox-label", CONTENT).noListen().checkbox("checkbox-label").noListen(),
         new SortedEntryExpectation(
+            new ExpectedControl(HtmlCheckBoxInput.class, "checkbox-label"),
+            new ExpectedControl(HtmlCheckBoxInput.class, "checkbox-before"),
+            new ExpectedControl(HtmlCheckBoxInput.class, "checkbox-after"),
             new ExpectedControl(HtmlBody.class),
             new ExpectedControl(HtmlLabel.class, "lbl-checkbox-label")), // FIXME [UNKNOWN] adjust as soon as included in MouseActionListeningHtmlUnitControlsFinder
-        null
+        HtmlUnitInputCheckBoxIdentifier.class
       },
 
       { div("div-before").noListen().div("div", CONTENT).noListen().div("div-after").noListen(),
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlDivision.class, "div")), // FIXME [UNKNOWN] adjust as soon as included in MouseActionListeningHtmlUnitControlsFinder
+            new ExpectedControl(HtmlDivision.class, "div")),
         null
       },
 
       { inputButton("inputButton-before").noListen().inputButton("inputButton", CONTENT).noListen().inputButton("inputButton-after").noListen(),
-        null,
-        null
+        new SortedEntryExpectation(
+            new ExpectedControl(HtmlButtonInput.class, "inputButton")),
+        HtmlUnitInputButtonIdentifier.class
       },
 
       { inputImage("inputImg-before").noListen().inputImage("inputImg", CONTENT).noListen().inputImage("inputImg-after").noListen(),
-        null,
-        null
+        new SortedEntryExpectation(
+            new ExpectedControl(HtmlImageInput.class, "inputImg")),
+        HtmlUnitInputImageIdentifier.class
       },
 
       { inputReset("inputReset-before").noListen().inputReset("inputReset", CONTENT).noListen().inputReset("inputReset-after").noListen(),
-        null,
-        null
+        new SortedEntryExpectation(
+            new ExpectedControl(HtmlResetInput.class, "inputReset")),
+        HtmlUnitInputResetIdentifier.class
       },
 
       { inputSubmit("inputSubmit-before").noListen().inputSubmit("inputSubmit", CONTENT).noListen().inputSubmit("inputSubmit-after").noListen(),
-        null,
-        null
+        new SortedEntryExpectation(
+            new ExpectedControl(HtmlSubmitInput.class, "inputSubmit")),
+        HtmlUnitInputSubmitIdentifier.class
       },
 
       { inputText("inputText-before").noListen().inputText("inputText", CONTENT).noListen().inputText("inputText-after").noListen(),
-        null,
-        null
+        new SortedEntryExpectation(
+            new ExpectedControl(HtmlTextInput.class, "inputText"),
+            new ExpectedControl(HtmlTextInput.class, "inputText-after")),
+        HtmlUnitInputTextIdentifier.class
       },
 
       { image("img-before").noListen().image("img", CONTENT).noListen().image("img-after").noListen(),
@@ -253,15 +269,20 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
 
       { radio("radio-before").noListen() + CONTENT + radio("radio-after").noListen().label("radio-label", CONTENT).noListen().radio("radio-label").noListen(),
         new SortedEntryExpectation(
+            new ExpectedControl(HtmlRadioButtonInput.class, "radio-label"),
+            new ExpectedControl(HtmlRadioButtonInput.class, "radio-before"),
+            new ExpectedControl(HtmlRadioButtonInput.class, "radio-after"),
             new ExpectedControl(HtmlBody.class),
             new ExpectedControl(HtmlLabel.class, "lbl-radio-label")), // FIXME [UNKNOWN] adjust as soon as included in MouseActionListeningHtmlUnitControlsFinder
-        null
+        HtmlUnitInputRadioButtonIdentifier.class
       },
 
       { select("select-before").noListen() + CONTENT + select("select").noListen().option("option-before").noListen().option("option", CONTENT).noListen().option("option-after").noListen() + select("select-after").noListen(),
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlBody.class)),
-        null
+            new ExpectedControl(HtmlSelect.class, "select"),
+            new ExpectedControl(HtmlSelect.class, "select-after"),
+            new ExpectedControl(HtmlBody.class)), // FIXME [UNKNOWN] adjust as soon as included in MouseActionListeningHtmlUnitControlsFinder
+        Arrays.asList(HtmlUnitSelectIdentifier.class)
       },
 
       { span("span-before").noListen().span("span", CONTENT).noListen().span("span-after").noListen(),
@@ -278,33 +299,29 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
       }
       // @formatter:on
     };
+
     return Arrays.asList(tmpData);
   }
 
   @Override
+  protected IdentifierBasedHtmlUnitControlsFinder createFinder() {
+    return new IdentifierBasedHtmlUnitControlsFinder(htmlPageIndex, null);
+  }
+
+  @Override
+  @SuppressWarnings("unchecked")
   protected void setup(final String anHtmlCode) throws IOException {
     super.setup(anHtmlCode);
 
-    if (identifier != null) {
-      addIdentifiers(identifier);
+    if (identifiers instanceof Class) {
+      addIdentifiers((Class<? extends AbstractMatcherBasedIdentifier>) identifiers);
+    } else if (identifiers != null) {
+      addIdentifiers((List<Class<? extends AbstractMatcherBasedIdentifier>>) identifiers);
     }
   }
 
   @Test
-  public void checkFoundElementsClickDouble() throws Exception {
-    setMouseAction(MouseAction.CLICK_DOUBLE);
-    checkFoundElements(htmlCode, expected);
-  }
-
-  @Test
-  public void checkFoundElementsClickRight() throws Exception {
-    setMouseAction(MouseAction.CLICK_RIGHT);
-    checkFoundElements(htmlCode, expected);
-  }
-
-  @Test
-  public void checkFoundElementsMouseOver() throws Exception {
-    setMouseAction(MouseAction.MOUSE_OVER);
+  public void checkFoundElementsFocus() throws Exception {
     checkFoundElements(htmlCode, expected);
   }
 }

@@ -16,7 +16,7 @@
 
 package org.wetator.backend.htmlunit.finder;
 
-import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.CONTENT;
+import static org.wetator.backend.htmlunit.finder.HtmlCodeCreator.CONTENT;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -46,7 +46,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlDivision;
  */
 @RunWith(Parameterized.class)
 public class MouseActionListeningHtmlUnitControlsFinderContainerSeparatorWPathTest
-    extends AbstractMouseActionListeningHtmlUnitControlsFinderTest {
+    extends AbstractIdentifierBasedHtmlUnitControlsFinderTest {
 
   private static final String SEP = WetatorConfiguration.DEFAULT_WPATH_SEPARATOR;
 
@@ -58,6 +58,7 @@ public class MouseActionListeningHtmlUnitControlsFinderContainerSeparatorWPathTe
   @Before
   public void setup() throws Exception {
     if (finder == null) {
+      HtmlCodeCreator.listenToClick();
       super.setup(CONTENT + "x" + div("out", "x" + CONTENT + "x" + div("in", "x" + CONTENT)));
     }
   }
@@ -69,6 +70,8 @@ public class MouseActionListeningHtmlUnitControlsFinderContainerSeparatorWPathTe
 
   @Parameters(name = "{index}: {1}")
   public static Collection<Object[]> provideParameters() {
+    HtmlCodeCreator.listenToClick();
+
     final Object[][] tmpData = new Object[][] { //
       // @formatter:off
       { new SortedEntryExpectation(

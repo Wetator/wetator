@@ -16,7 +16,7 @@
 
 package org.wetator.backend.htmlunit.finder;
 
-import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.CONTENT;
+import static org.wetator.backend.htmlunit.finder.HtmlCodeCreator.CONTENT;
 
 import java.io.File;
 import java.io.IOException;
@@ -56,11 +56,11 @@ import org.wetator.util.SecretString;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
- * Common ground for {@link MouseActionListeningHtmlUnitControlsFinder} tests.
+ * Common ground for {@link IdentifierBasedHtmlUnitControlsFinder} tests.
  *
  * @author tobwoerk
  */
-public abstract class AbstractMouseActionListeningHtmlUnitControlsFinderTest {
+public abstract class AbstractIdentifierBasedHtmlUnitControlsFinderTest {
 
   private WetatorConfiguration config;
   protected HtmlUnitControlRepository repository;
@@ -99,12 +99,12 @@ public abstract class AbstractMouseActionListeningHtmlUnitControlsFinderTest {
   }
 
   public void checkFoundElements(final Object anHtmlCode, final SortedEntryExpectation anExpected) throws Exception {
-    if (anHtmlCode instanceof MouseActionHtmlCodeBuilder) {
-      checkFoundElements(((MouseActionHtmlCodeBuilder) anHtmlCode).build(), anExpected);
-    } else if (anHtmlCode instanceof MouseActionHtmlCodeSelectBuilder) {
-      checkFoundElements(((MouseActionHtmlCodeSelectBuilder) anHtmlCode).build(), anExpected);
-    } else if (anHtmlCode instanceof MouseActionHtmlCodeTableBuilder) {
-      checkFoundElements(((MouseActionHtmlCodeTableBuilder) anHtmlCode).build(), anExpected);
+    if (anHtmlCode instanceof HtmlCodeBuilder) {
+      checkFoundElements(((HtmlCodeBuilder) anHtmlCode).build(), anExpected);
+    } else if (anHtmlCode instanceof HtmlCodeSelectBuilder) {
+      checkFoundElements(((HtmlCodeSelectBuilder) anHtmlCode).build(), anExpected);
+    } else if (anHtmlCode instanceof HtmlCodeTableBuilder) {
+      checkFoundElements(((HtmlCodeTableBuilder) anHtmlCode).build(), anExpected);
     } else if (anHtmlCode instanceof String) {
       checkFoundElements((String) anHtmlCode, anExpected);
     } else {
@@ -120,7 +120,7 @@ public abstract class AbstractMouseActionListeningHtmlUnitControlsFinderTest {
 
   protected void setup(final String anHtmlCode) throws IOException {
     final HtmlPage tmpHtmlPage = PageUtil
-        .constructHtmlPage(MouseActionHtmlCodeCreator.pageStart() + anHtmlCode + MouseActionHtmlCodeCreator.pageEnd());
+        .constructHtmlPage(HtmlCodeCreator.pageStart() + anHtmlCode + HtmlCodeCreator.pageEnd());
     htmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     finder = createFinder();
@@ -157,130 +157,130 @@ public abstract class AbstractMouseActionListeningHtmlUnitControlsFinderTest {
 
   @AfterClass
   public static void resetListenersInCreator() {
-    MouseActionHtmlCodeCreator.resetListeners();
+    HtmlCodeCreator.resetListeners();
   }
 
-  protected static MouseActionHtmlCodeBuilder a(final String anId, final MouseActionHtmlCodeBuilder aContent) {
+  protected static HtmlCodeBuilder a(final String anId, final HtmlCodeBuilder aContent) {
     return a(anId, aContent.build());
   }
 
-  protected static MouseActionHtmlCodeBuilder a(final String anId, final String aContent) {
-    return new MouseActionHtmlCodeBuilder().a(anId, aContent);
+  protected static HtmlCodeBuilder a(final String anId, final String aContent) {
+    return new HtmlCodeBuilder().a(anId, aContent);
   }
 
-  protected static MouseActionHtmlCodeBuilder a(final String anId) {
-    return new MouseActionHtmlCodeBuilder().a(anId);
+  protected static HtmlCodeBuilder a(final String anId) {
+    return new HtmlCodeBuilder().a(anId);
   }
 
-  protected static MouseActionHtmlCodeBuilder button(final String anId, final MouseActionHtmlCodeBuilder aContent) {
+  protected static HtmlCodeBuilder button(final String anId, final HtmlCodeBuilder aContent) {
     return button(anId, aContent.build());
   }
 
-  protected static MouseActionHtmlCodeBuilder button(final String anId, final String aContent) {
-    return new MouseActionHtmlCodeBuilder().button(anId, aContent);
+  protected static HtmlCodeBuilder button(final String anId, final String aContent) {
+    return new HtmlCodeBuilder().button(anId, aContent);
   }
 
-  protected static MouseActionHtmlCodeBuilder button(final String anId) {
-    return new MouseActionHtmlCodeBuilder().button(anId);
+  protected static HtmlCodeBuilder button(final String anId) {
+    return new HtmlCodeBuilder().button(anId);
   }
 
-  protected static MouseActionHtmlCodeBuilder checkbox(final String anId) {
-    return new MouseActionHtmlCodeBuilder().checkbox(anId);
+  protected static HtmlCodeBuilder checkbox(final String anId) {
+    return new HtmlCodeBuilder().checkbox(anId);
   }
 
-  protected static MouseActionHtmlCodeBuilder div(final String anId, final MouseActionHtmlCodeBuilder aContent) {
+  protected static HtmlCodeBuilder div(final String anId, final HtmlCodeBuilder aContent) {
     return div(anId, aContent.build());
   }
 
-  protected static MouseActionHtmlCodeBuilder div(final String anId, final String aContent) {
-    return new MouseActionHtmlCodeBuilder().div(anId, aContent);
+  protected static HtmlCodeBuilder div(final String anId, final String aContent) {
+    return new HtmlCodeBuilder().div(anId, aContent);
   }
 
-  protected static MouseActionHtmlCodeBuilder div(final String anId) {
-    return new MouseActionHtmlCodeBuilder().div(anId);
+  protected static HtmlCodeBuilder div(final String anId) {
+    return new HtmlCodeBuilder().div(anId);
   }
 
-  protected static MouseActionHtmlCodeBuilder image(final String anId, final String anAltText) {
-    return new MouseActionHtmlCodeBuilder().image(anId, anAltText);
+  protected static HtmlCodeBuilder image(final String anId, final String anAltText) {
+    return new HtmlCodeBuilder().image(anId, anAltText);
   }
 
-  protected static MouseActionHtmlCodeBuilder image(final String anId) {
-    return new MouseActionHtmlCodeBuilder().image(anId);
+  protected static HtmlCodeBuilder image(final String anId) {
+    return new HtmlCodeBuilder().image(anId);
   }
 
-  protected static MouseActionHtmlCodeBuilder inputButton(final String anId, final String aValue) {
-    return new MouseActionHtmlCodeBuilder().inputButton(anId, aValue);
+  protected static HtmlCodeBuilder inputButton(final String anId, final String aValue) {
+    return new HtmlCodeBuilder().inputButton(anId, aValue);
   }
 
-  protected static MouseActionHtmlCodeBuilder inputButton(final String anId) {
-    return new MouseActionHtmlCodeBuilder().inputButton(anId);
+  protected static HtmlCodeBuilder inputButton(final String anId) {
+    return new HtmlCodeBuilder().inputButton(anId);
   }
 
-  protected static MouseActionHtmlCodeBuilder inputImage(final String anId, final String anAltTetxValue) {
-    return new MouseActionHtmlCodeBuilder().inputImage(anId, anAltTetxValue);
+  protected static HtmlCodeBuilder inputImage(final String anId, final String anAltTetxValue) {
+    return new HtmlCodeBuilder().inputImage(anId, anAltTetxValue);
   }
 
-  protected static MouseActionHtmlCodeBuilder inputImage(final String anId) {
-    return new MouseActionHtmlCodeBuilder().inputImage(anId);
+  protected static HtmlCodeBuilder inputImage(final String anId) {
+    return new HtmlCodeBuilder().inputImage(anId);
   }
 
-  protected static MouseActionHtmlCodeBuilder inputReset(final String anId, final String aValue) {
-    return new MouseActionHtmlCodeBuilder().inputReset(anId, aValue);
+  protected static HtmlCodeBuilder inputReset(final String anId, final String aValue) {
+    return new HtmlCodeBuilder().inputReset(anId, aValue);
   }
 
-  protected static MouseActionHtmlCodeBuilder inputReset(final String anId) {
-    return new MouseActionHtmlCodeBuilder().inputReset(anId);
+  protected static HtmlCodeBuilder inputReset(final String anId) {
+    return new HtmlCodeBuilder().inputReset(anId);
   }
 
-  protected static MouseActionHtmlCodeBuilder inputSubmit(final String anId) {
-    return new MouseActionHtmlCodeBuilder().inputSubmit(anId);
+  protected static HtmlCodeBuilder inputSubmit(final String anId) {
+    return new HtmlCodeBuilder().inputSubmit(anId);
   }
 
-  protected static MouseActionHtmlCodeBuilder inputText(final String anId, final String aPlaceholder) {
-    return new MouseActionHtmlCodeBuilder().inputText(anId, aPlaceholder);
+  protected static HtmlCodeBuilder inputText(final String anId, final String aPlaceholder) {
+    return new HtmlCodeBuilder().inputText(anId, aPlaceholder);
   }
 
-  protected static MouseActionHtmlCodeBuilder inputText(final String anId) {
-    return new MouseActionHtmlCodeBuilder().inputText(anId);
+  protected static HtmlCodeBuilder inputText(final String anId) {
+    return new HtmlCodeBuilder().inputText(anId);
   }
 
-  protected static MouseActionHtmlCodeBuilder label(final String anId, final MouseActionHtmlCodeBuilder aContent) {
+  protected static HtmlCodeBuilder label(final String anId, final HtmlCodeBuilder aContent) {
     return label(anId, aContent.build());
   }
 
-  protected static MouseActionHtmlCodeBuilder label(final String aForId, final String aContent) {
-    return new MouseActionHtmlCodeBuilder().label(aForId, aContent);
+  protected static HtmlCodeBuilder label(final String aForId, final String aContent) {
+    return new HtmlCodeBuilder().label(aForId, aContent);
   }
 
-  protected static MouseActionHtmlCodeBuilder label(final String aForId) {
-    return new MouseActionHtmlCodeBuilder().label(aForId);
+  protected static HtmlCodeBuilder label(final String aForId) {
+    return new HtmlCodeBuilder().label(aForId);
   }
 
-  protected static MouseActionHtmlCodeBuilder radio(final String anId) {
-    return new MouseActionHtmlCodeBuilder().radio(anId);
+  protected static HtmlCodeBuilder radio(final String anId) {
+    return new HtmlCodeBuilder().radio(anId);
   }
 
-  protected static MouseActionHtmlCodeSelectBuilder select(final String anId, final String aName) {
-    return MouseActionHtmlCodeSelectBuilder.select(anId, aName);
+  protected static HtmlCodeSelectBuilder select(final String anId, final String aName) {
+    return HtmlCodeSelectBuilder.select(anId, aName);
   }
 
-  protected static MouseActionHtmlCodeSelectBuilder select(final String anId) {
-    return MouseActionHtmlCodeSelectBuilder.select(anId);
+  protected static HtmlCodeSelectBuilder select(final String anId) {
+    return HtmlCodeSelectBuilder.select(anId);
   }
 
-  protected static MouseActionHtmlCodeBuilder span(final String anId, final MouseActionHtmlCodeBuilder aContent) {
+  protected static HtmlCodeBuilder span(final String anId, final HtmlCodeBuilder aContent) {
     return span(anId, aContent.build());
   }
 
-  protected static MouseActionHtmlCodeBuilder span(final String anId, final String aContent) {
-    return new MouseActionHtmlCodeBuilder().span(anId, aContent);
+  protected static HtmlCodeBuilder span(final String anId, final String aContent) {
+    return new HtmlCodeBuilder().span(anId, aContent);
   }
 
-  protected static MouseActionHtmlCodeBuilder span(final String anId) {
-    return new MouseActionHtmlCodeBuilder().span(anId);
+  protected static HtmlCodeBuilder span(final String anId) {
+    return new HtmlCodeBuilder().span(anId);
   }
 
-  protected static MouseActionHtmlCodeTableBuilder table(final String anId) {
-    return MouseActionHtmlCodeTableBuilder.table(anId);
+  protected static HtmlCodeTableBuilder table(final String anId) {
+    return HtmlCodeTableBuilder.table(anId);
   }
 }

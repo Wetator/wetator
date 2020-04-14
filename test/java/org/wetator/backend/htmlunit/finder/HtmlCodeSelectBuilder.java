@@ -26,7 +26,7 @@ import java.util.List;
  *
  * @author tobwoerk
  */
-public final class MouseActionHtmlCodeSelectBuilder {
+public final class HtmlCodeSelectBuilder {
 
   private String selectId;
   private String name;
@@ -50,31 +50,31 @@ public final class MouseActionHtmlCodeSelectBuilder {
     }
   }
 
-  private MouseActionHtmlCodeSelectBuilder(final String aTableId) {
+  private HtmlCodeSelectBuilder(final String aTableId) {
     selectId = aTableId;
   }
 
-  public static MouseActionHtmlCodeSelectBuilder select(final String aSelectId) {
-    return new MouseActionHtmlCodeSelectBuilder(aSelectId);
+  public static HtmlCodeSelectBuilder select(final String aSelectId) {
+    return new HtmlCodeSelectBuilder(aSelectId);
   }
 
-  public static MouseActionHtmlCodeSelectBuilder select(final String aSelectId, final String aName) {
-    final MouseActionHtmlCodeSelectBuilder tmpBuilder = select(aSelectId);
+  public static HtmlCodeSelectBuilder select(final String aSelectId, final String aName) {
+    final HtmlCodeSelectBuilder tmpBuilder = select(aSelectId);
     tmpBuilder.name = aName;
     return tmpBuilder;
   }
 
-  public MouseActionHtmlCodeSelectBuilder option(final String anOptionId) {
+  public HtmlCodeSelectBuilder option(final String anOptionId) {
     options.add(new SelectOption(anOptionId));
     return this;
   }
 
-  public MouseActionHtmlCodeSelectBuilder option(final String anOptionId, final String aContent) {
+  public HtmlCodeSelectBuilder option(final String anOptionId, final String aContent) {
     options.add(new SelectOption(anOptionId, aContent));
     return this;
   }
 
-  public MouseActionHtmlCodeSelectBuilder noListen() {
+  public HtmlCodeSelectBuilder noListen() {
     if (options.isEmpty()) {
       listenSelect = false;
     } else {
@@ -84,13 +84,12 @@ public final class MouseActionHtmlCodeSelectBuilder {
   }
 
   public String build() {
-    final StringBuilder tmpSelectHtml = new StringBuilder(
-        MouseActionHtmlCodeCreator.selectStart(selectId, name, listenSelect));
+    final StringBuilder tmpSelectHtml = new StringBuilder(HtmlCodeCreator.selectStart(selectId, name, listenSelect));
     for (SelectOption tmpOption : options) {
-      tmpSelectHtml.append(MouseActionHtmlCodeCreator.selectOption(selectId, tmpOption.optionId, tmpOption.content,
-          tmpOption.listenOption));
+      tmpSelectHtml.append(
+          HtmlCodeCreator.selectOption(selectId, tmpOption.optionId, tmpOption.content, tmpOption.listenOption));
     }
-    tmpSelectHtml.append(MouseActionHtmlCodeCreator.selectEnd());
+    tmpSelectHtml.append(HtmlCodeCreator.selectEnd());
     return tmpSelectHtml.toString();
   }
 

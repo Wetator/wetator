@@ -311,14 +311,16 @@ test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitOptionGroupIde
 test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitOptionIdentifierTest.java -text svneol=unset#text/plain
 test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitSelectIdentifierTest.java -text svneol=unset#text/plain
 test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitTextAreaIdentifierTest.java -text svneol=unset#text/plain
-test/java/org/wetator/backend/htmlunit/finder/AbstractMouseActionListeningHtmlUnitControlsFinderTest.java -text
-test/java/org/wetator/backend/htmlunit/finder/AbstractMouseClickListeningHtmlUnitControlsFinderParameterizedTest.java -text
+test/java/org/wetator/backend/htmlunit/finder/AbstractIdentifierBasedHtmlUnitControlsFinderTest.java -text
+test/java/org/wetator/backend/htmlunit/finder/AbstractMouseActionListeningHtmlUnitControlsFinderParameterizedTest.java -text
+test/java/org/wetator/backend/htmlunit/finder/HtmlCodeBuilder.java -text
+test/java/org/wetator/backend/htmlunit/finder/HtmlCodeCreator.java -text
+test/java/org/wetator/backend/htmlunit/finder/HtmlCodeSelectBuilder.java -text
+test/java/org/wetator/backend/htmlunit/finder/HtmlCodeTableBuilder.java -text
 test/java/org/wetator/backend/htmlunit/finder/HtmlUnitUnspecificControlIdentifierTest.java -text
+test/java/org/wetator/backend/htmlunit/finder/IdentifierBasedHtmlUnitControlsFinderDisableTest.java -text
+test/java/org/wetator/backend/htmlunit/finder/IdentifierBasedHtmlUnitControlsFinderFocusTest.java -text
 test/java/org/wetator/backend/htmlunit/finder/IdentifierBasedHtmlUnitControlsFinderTest.java -text svneol=unset#text/plain
-test/java/org/wetator/backend/htmlunit/finder/MouseActionHtmlCodeBuilder.java -text
-test/java/org/wetator/backend/htmlunit/finder/MouseActionHtmlCodeCreator.java -text
-test/java/org/wetator/backend/htmlunit/finder/MouseActionHtmlCodeSelectBuilder.java -text
-test/java/org/wetator/backend/htmlunit/finder/MouseActionHtmlCodeTableBuilder.java -text
 test/java/org/wetator/backend/htmlunit/finder/MouseActionListeningHtmlUnitControlsFinderAnchorTest.java -text
 test/java/org/wetator/backend/htmlunit/finder/MouseActionListeningHtmlUnitControlsFinderBasicTest.java -text
 test/java/org/wetator/backend/htmlunit/finder/MouseActionListeningHtmlUnitControlsFinderButtonTest.java -text

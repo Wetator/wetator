@@ -16,7 +16,7 @@
 
 package org.wetator.backend.htmlunit.finder;
 
-import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.CONTENT;
+import static org.wetator.backend.htmlunit.finder.HtmlCodeCreator.CONTENT;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -39,7 +39,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlImage;
  * @author tobwoerk
  */
 public class MouseActionListeningHtmlUnitControlsFinderButtonTest
-    extends AbstractMouseClickListeningHtmlUnitControlsFinderParameterizedTest {
+    extends AbstractMouseActionListeningHtmlUnitControlsFinderParameterizedTest {
 
   @Parameters(name = "{index}: {0}")
   public static Collection<Object[]> provideParameters() {
