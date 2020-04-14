@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runners.Parameterized.Parameter;
@@ -64,25 +63,18 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 public class MouseActionListeningHtmlUnitControlsFinderBasicTest
     extends AbstractMouseClickListeningHtmlUnitControlsFinderParameterizedTest {
 
-  static {
-    setMouseActionInCreator();
-  }
-
-  @BeforeClass
-  public static void setMouseActionInCreator() {
-    MouseActionHtmlCodeCreator.listenToAnyMouseAction();
-  }
-
-  @AfterClass
-  public static void resetMouseActionInCreator() {
-    MouseActionHtmlCodeCreator.resetOnMouseAction();
-  }
-
   @Parameter(2)
   public Class<? extends AbstractMatcherBasedIdentifier> identifier;
 
+  @BeforeClass
+  public static void listenToAnyMouseAction() {
+    MouseActionHtmlCodeCreator.listenToAnyMouseAction();
+  }
+
   @Parameters(name = "{0}")
   public static Collection<Object[]> provideParameters() {
+    listenToAnyMouseAction();
+
     final Object[][] tmpData = new Object[][] { //
     // @formatter:off
       { a("anchor-before").a("anchor", CONTENT).a("anchor-after"),
@@ -92,7 +84,8 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
       },
 
       { button("button-before").button("button", CONTENT).button("button-after"),
-        new SortedEntryExpectation(new ExpectedControl(HtmlButton.class, "button")),
+        new SortedEntryExpectation(
+            new ExpectedControl(HtmlButton.class, "button")),
         HtmlUnitButtonIdentifier.class
       },
 

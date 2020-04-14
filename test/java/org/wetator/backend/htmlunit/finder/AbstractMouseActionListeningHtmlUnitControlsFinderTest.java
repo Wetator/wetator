@@ -20,8 +20,11 @@ import static org.wetator.backend.htmlunit.finder.MouseActionHtmlCodeCreator.CON
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Properties;
 
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
@@ -65,7 +68,8 @@ public abstract class AbstractMouseActionListeningHtmlUnitControlsFinderTest {
 
   protected MouseAction mouseAction;
 
-  protected MouseActionListeningHtmlUnitControlsFinder finder;
+  protected HtmlPageIndex htmlPageIndex;
+  protected IdentifierBasedHtmlUnitControlsFinder finder;
   // FIXME [UNKNOWN] remove as soon as included in MouseActionListeningHtmlUnitControlsFinder
   protected UnknownHtmlUnitControlsFinder finderUnknown;
 
@@ -120,21 +124,29 @@ public abstract class AbstractMouseActionListeningHtmlUnitControlsFinderTest {
   protected void setup(final String anHtmlCode) throws IOException {
     final HtmlPage tmpHtmlPage = PageUtil
         .constructHtmlPage(MouseActionHtmlCodeCreator.pageStart() + anHtmlCode + MouseActionHtmlCodeCreator.pageEnd());
-    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    htmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    finder = new MouseActionListeningHtmlUnitControlsFinder(tmpHtmlPageIndex, null, mouseAction, repository);
-    finderUnknown = new UnknownHtmlUnitControlsFinder(tmpHtmlPageIndex, repository);
+    finder = createFinder();
+    finderUnknown = new UnknownHtmlUnitControlsFinder(htmlPageIndex, repository);
+  }
+
+  protected IdentifierBasedHtmlUnitControlsFinder createFinder() {
+    return new MouseActionListeningHtmlUnitControlsFinder(htmlPageIndex, null, mouseAction, repository);
   }
 
   public void setMouseAction(final MouseAction aMouseAction) {
     mouseAction = aMouseAction;
   }
 
-  @SafeVarargs
-  protected final void addIdentifiers(final Class<? extends AbstractMatcherBasedIdentifier>... anIdentifiers) {
+  protected final void addIdentifiers(final List<Class<? extends AbstractMatcherBasedIdentifier>> anIdentifiers) {
     for (Class<? extends AbstractMatcherBasedIdentifier> tmpIdentifier : anIdentifiers) {
       finder.addIdentifier(tmpIdentifier);
     }
+  }
+
+  @SafeVarargs
+  protected final void addIdentifiers(final Class<? extends AbstractMatcherBasedIdentifier>... anIdentifiers) {
+    addIdentifiers(Arrays.asList(anIdentifiers));
   }
 
   protected final WeightedControlList find() throws InvalidInputException {
@@ -150,6 +162,11 @@ public abstract class AbstractMouseActionListeningHtmlUnitControlsFinderTest {
 
   protected final void assertion(final SortedEntryExpectation anExpected, final WeightedControlList anActual) {
     WeightedControlListEntryAssert.assertEntriesSorted(anExpected, anActual);
+  }
+
+  @AfterClass
+  public static void resetListenersInCreator() {
+    MouseActionHtmlCodeCreator.resetListeners();
   }
 
   protected static MouseActionHtmlCodeBuilder a(final String anId, final MouseActionHtmlCodeBuilder aContent) {

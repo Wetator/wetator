@@ -75,7 +75,7 @@ public class MouseActionListeningHtmlUnitControlsFinderPagePseudoWPathTest
   }
 
   @AfterClass
-  public static void resetMouseActionInCreator() {
-    MouseActionHtmlCodeCreator.resetOnMouseAction();
+  public static void resetListenersInCreator() {
+    MouseActionHtmlCodeCreator.resetListeners();
   }
 }

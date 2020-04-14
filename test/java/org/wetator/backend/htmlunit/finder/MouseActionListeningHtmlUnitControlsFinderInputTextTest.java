@@ -41,6 +41,8 @@ public class MouseActionListeningHtmlUnitControlsFinderInputTextTest
 
   @Parameters(name = "{index}: {0}")
   public static Collection<Object[]> provideParameters() {
+    listenToClick();
+
     final Object[][] tmpData = new Object[][] { //
     // @formatter:off
       //+++++++++++++++

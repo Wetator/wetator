@@ -16,6 +16,7 @@
 
 package org.wetator.backend.htmlunit.finder;
 
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -37,6 +38,11 @@ public abstract class AbstractMouseClickListeningHtmlUnitControlsFinderParameter
   public Object htmlCode;
   @Parameter(1)
   public SortedEntryExpectation expected;
+
+  @BeforeClass
+  public static void listenToClick() {
+    MouseActionHtmlCodeCreator.listenToClick();
+  }
 
   @Test
   public void checkFoundElementsClick() throws Exception {
