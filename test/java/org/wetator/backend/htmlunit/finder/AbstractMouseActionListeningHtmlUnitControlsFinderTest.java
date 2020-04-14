@@ -29,7 +29,6 @@ import org.junit.Before;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.htmlunit.HtmlUnitControlRepository;
-import org.wetator.backend.htmlunit.MouseAction;
 import org.wetator.backend.htmlunit.control.HtmlUnitAnchor;
 import org.wetator.backend.htmlunit.control.HtmlUnitButton;
 import org.wetator.backend.htmlunit.control.HtmlUnitImage;
@@ -64,9 +63,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 public abstract class AbstractMouseActionListeningHtmlUnitControlsFinderTest {
 
   private WetatorConfiguration config;
-  private HtmlUnitControlRepository repository;
-
-  protected MouseAction mouseAction;
+  protected HtmlUnitControlRepository repository;
 
   protected HtmlPageIndex htmlPageIndex;
   protected IdentifierBasedHtmlUnitControlsFinder finder;
@@ -130,13 +127,7 @@ public abstract class AbstractMouseActionListeningHtmlUnitControlsFinderTest {
     finderUnknown = new UnknownHtmlUnitControlsFinder(htmlPageIndex, repository);
   }
 
-  protected IdentifierBasedHtmlUnitControlsFinder createFinder() {
-    return new MouseActionListeningHtmlUnitControlsFinder(htmlPageIndex, null, mouseAction, repository);
-  }
-
-  public void setMouseAction(final MouseAction aMouseAction) {
-    mouseAction = aMouseAction;
-  }
+  protected abstract IdentifierBasedHtmlUnitControlsFinder createFinder();
 
   protected final void addIdentifiers(final List<Class<? extends AbstractMatcherBasedIdentifier>> anIdentifiers) {
     for (Class<? extends AbstractMatcherBasedIdentifier> tmpIdentifier : anIdentifiers) {

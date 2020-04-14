@@ -36,6 +36,11 @@ import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
 public class MouseActionListeningHtmlUnitControlsFinderTableTest
     extends AbstractMouseActionListeningHtmlUnitControlsFinderTest {
 
+  @Override
+  protected IdentifierBasedHtmlUnitControlsFinder createFinder() {
+    return new MouseActionListeningHtmlUnitControlsFinder(htmlPageIndex, null, MouseAction.CLICK, repository);
+  }
+
   @Test
   public void tableBig() throws Exception {
     // @formatter:off
@@ -69,7 +74,6 @@ public class MouseActionListeningHtmlUnitControlsFinderTableTest
     );
     // @formatter:on
 
-    setMouseAction(MouseAction.CLICK);
     checkFoundElements(tmpHtmlCode, tmpSortedEntryExpectation);
   }
 }

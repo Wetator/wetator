@@ -58,9 +58,13 @@ public class MouseActionListeningHtmlUnitControlsFinderContainerSeparatorWPathTe
   @Before
   public void setup() throws Exception {
     if (finder == null) {
-      setMouseAction(MouseAction.CLICK);
       super.setup(CONTENT + "x" + div("out", "x" + CONTENT + "x" + div("in", "x" + CONTENT)));
     }
+  }
+
+  @Override
+  protected IdentifierBasedHtmlUnitControlsFinder createFinder() {
+    return new MouseActionListeningHtmlUnitControlsFinder(htmlPageIndex, null, MouseAction.CLICK, repository);
   }
 
   @Parameters(name = "{index}: {1}")

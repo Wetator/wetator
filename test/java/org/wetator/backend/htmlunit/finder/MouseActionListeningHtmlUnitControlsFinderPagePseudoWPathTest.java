@@ -41,30 +41,37 @@ public class MouseActionListeningHtmlUnitControlsFinderPagePseudoWPathTest
       // MouseActionListeningHtmlUnitControlsFinder
       new ExpectedControl(HtmlBody.class));
 
+  private MouseAction mouseAction;
+
+  @Override
+  protected IdentifierBasedHtmlUnitControlsFinder createFinder() {
+    return new MouseActionListeningHtmlUnitControlsFinder(htmlPageIndex, null, mouseAction, repository);
+  }
+
   @Test
   public void clickPage() throws Exception {
-    setMouseAction(MouseAction.CLICK);
+    mouseAction = MouseAction.CLICK;
     MouseActionHtmlCodeCreator.listenToClick();
     checkFoundElements(HTML_PAGE, EXPECTED);
   }
 
   @Test
   public void clickDoublePage() throws Exception {
-    setMouseAction(MouseAction.CLICK_DOUBLE);
+    mouseAction = MouseAction.CLICK_DOUBLE;
     MouseActionHtmlCodeCreator.listenToClickDouble();
     checkFoundElements(HTML_PAGE, EXPECTED);
   }
 
   @Test
   public void clickRightPage() throws Exception {
-    setMouseAction(MouseAction.CLICK_RIGHT);
+    mouseAction = MouseAction.CLICK_RIGHT;
     MouseActionHtmlCodeCreator.listenToClickRight();
     checkFoundElements(HTML_PAGE, EXPECTED);
   }
 
   @Test
   public void mouseOverPage() throws Exception {
-    setMouseAction(MouseAction.MOUSE_OVER);
+    mouseAction = MouseAction.MOUSE_OVER;
     MouseActionHtmlCodeCreator.listenToMouseOver();
     checkFoundElements(HTML_PAGE, EXPECTED);
   }

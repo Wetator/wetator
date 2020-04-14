@@ -26,7 +26,7 @@ import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.Sorted
 
 /**
  * Common ground for parameterized {@link MouseActionListeningHtmlUnitControlsFinder} tests listening to
- * {@link MouseAction#CLICK}s.
+ * {@link MouseAction}s, {@link MouseAction#CLICK}s per default.
  *
  * @author tobwoerk
  */
@@ -39,9 +39,20 @@ public abstract class AbstractMouseClickListeningHtmlUnitControlsFinderParameter
   @Parameter(1)
   public SortedEntryExpectation expected;
 
+  private MouseAction mouseAction;
+
   @BeforeClass
   public static void listenToClick() {
     MouseActionHtmlCodeCreator.listenToClick();
+  }
+
+  public void setMouseAction(final MouseAction aMouseAction) {
+    mouseAction = aMouseAction;
+  }
+
+  @Override
+  protected IdentifierBasedHtmlUnitControlsFinder createFinder() {
+    return new MouseActionListeningHtmlUnitControlsFinder(htmlPageIndex, null, mouseAction, repository);
   }
 
   @Test
