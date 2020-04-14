@@ -23,7 +23,6 @@ import java.io.IOException;
 import java.util.Properties;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.htmlunit.HtmlUnitControlRepository;
@@ -69,15 +68,6 @@ public abstract class AbstractMouseActionListeningHtmlUnitControlsFinderTest {
   protected MouseActionListeningHtmlUnitControlsFinder finder;
   // FIXME [UNKNOWN] remove as soon as included in MouseActionListeningHtmlUnitControlsFinder
   protected UnknownHtmlUnitControlsFinder finderUnknown;
-
-  static {
-    setMouseActionInCreator();
-  }
-
-  @BeforeClass
-  public static void setMouseActionInCreator() {
-    MouseActionHtmlCodeCreator.resetOnMouseAction();
-  }
 
   @Before
   public void createWetatorConfiguration() {
