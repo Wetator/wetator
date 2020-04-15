@@ -28,9 +28,9 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
-import org.wetator.backend.ControlFeature;
 import org.wetator.backend.WPath;
-import org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier;
+import org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier;
+import org.wetator.backend.htmlunit.control.identifier.HtmlUnitAnchorIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitButtonIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputButtonIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputCheckBoxIdentifier;
@@ -44,30 +44,29 @@ import org.wetator.backend.htmlunit.control.identifier.HtmlUnitSelectIdentifier;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.ExpectedControl;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.SortedEntryExpectation;
 
+import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlBody;
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
 import com.gargoylesoftware.htmlunit.html.HtmlButtonInput;
 import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
-import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
 import com.gargoylesoftware.htmlunit.html.HtmlLabel;
 import com.gargoylesoftware.htmlunit.html.HtmlOption;
 import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
 import com.gargoylesoftware.htmlunit.html.HtmlResetInput;
 import com.gargoylesoftware.htmlunit.html.HtmlSelect;
-import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
-import com.gargoylesoftware.htmlunit.html.HtmlTableDataCell;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 
 /**
- * Tests for element weighting during {@link IdentifierBasedHtmlUnitControlsFinder#find(WPath)} concerning
- * {@link ControlFeature#DISABLE}.
+ * Tests for element weighting during {@link IdentifierBasedHtmlUnitControlsFinder#find(WPath)} with the use
+ * of control-specific identifiers.
  *
  * @author tobwoerk
+ * @see IdentifierBasedHtmlUnitControlsFinderWithoutIdentifierTest
  */
 @RunWith(Parameterized.class)
-public class IdentifierBasedHtmlUnitControlsFinderDisableTest
+public class IdentifierBasedHtmlUnitControlsFinderWithIdentifierTest
     extends AbstractIdentifierBasedHtmlUnitControlsFinderTest {
 
   @Parameter(0)
@@ -82,8 +81,9 @@ public class IdentifierBasedHtmlUnitControlsFinderDisableTest
     final Object[][] tmpData = new Object[][] { //
     // @formatter:off
       { a("anchor-before").a("anchor", CONTENT).a("anchor-after"),
-        null,
-        null
+        new SortedEntryExpectation(
+            new ExpectedControl(HtmlAnchor.class, "anchor")),
+        HtmlUnitAnchorIdentifier.class
       },
 
       { button("button-before").button("button", CONTENT).button("button-after"),
@@ -98,14 +98,8 @@ public class IdentifierBasedHtmlUnitControlsFinderDisableTest
             new ExpectedControl(HtmlCheckBoxInput.class, "checkbox-before"),
             new ExpectedControl(HtmlCheckBoxInput.class, "checkbox-after"),
             new ExpectedControl(HtmlBody.class),
-            new ExpectedControl(HtmlLabel.class, "lbl-checkbox-label")), // FIXME [UNKNOWN] adjust as soon as included in MouseActionListeningHtmlUnitControlsFinder
+            new ExpectedControl(HtmlLabel.class, "lbl-checkbox-label")),
         HtmlUnitInputCheckBoxIdentifier.class
-      },
-
-      { div("div-before").div("div", CONTENT).div("div-after"),
-        new SortedEntryExpectation(
-            new ExpectedControl(HtmlDivision.class, "div")), // FIXME [UNKNOWN] adjust as soon as included in MouseActionListeningHtmlUnitControlsFinder
-        null
       },
 
       { inputButton("inputButton-before").inputButton("inputButton", CONTENT).inputButton("inputButton-after"),
@@ -139,24 +133,13 @@ public class IdentifierBasedHtmlUnitControlsFinderDisableTest
         HtmlUnitInputTextIdentifier.class
       },
 
-      { image("img-before").image("img", CONTENT).image("img-after"),
-        null,
-        null
-      },
-
-      { label("before").label("main", CONTENT).label("after"),
-        new SortedEntryExpectation(
-            new ExpectedControl(HtmlLabel.class, "lbl-main")), // FIXME [UNKNOWN] adjust as soon as included in MouseActionListeningHtmlUnitControlsFinder
-        null
-      },
-
       { radio("radio-before") + CONTENT + radio("radio-after").label("radio-label", CONTENT).noListen().radio("radio-label"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlRadioButtonInput.class, "radio-label"),
             new ExpectedControl(HtmlRadioButtonInput.class, "radio-before"),
             new ExpectedControl(HtmlRadioButtonInput.class, "radio-after"),
             new ExpectedControl(HtmlBody.class),
-            new ExpectedControl(HtmlLabel.class, "lbl-radio-label")), // FIXME [UNKNOWN] adjust as soon as included in MouseActionListeningHtmlUnitControlsFinder
+            new ExpectedControl(HtmlLabel.class, "lbl-radio-label")),
         HtmlUnitInputRadioButtonIdentifier.class
       },
 
@@ -167,19 +150,6 @@ public class IdentifierBasedHtmlUnitControlsFinderDisableTest
             new ExpectedControl(HtmlSelect.class, "select-after"),
             new ExpectedControl(HtmlBody.class)),
         Arrays.asList(HtmlUnitSelectIdentifier.class, HtmlUnitOptionIdentifier.class)
-      },
-
-      { span("span-before").span("span", CONTENT).span("span-after"),
-        new SortedEntryExpectation(
-            new ExpectedControl(HtmlSpan.class, "span")), // FIXME [UNKNOWN] adjust as soon as included in MouseActionListeningHtmlUnitControlsFinder
-        null
-      },
-
-      { table("table-before") + CONTENT + table("table").tr("tr", 1) + table("table-after"),
-        new SortedEntryExpectation(
-            new ExpectedControl(HtmlBody.class),
-            new ExpectedControl(HtmlTableDataCell.class, "table-tr-td")), // FIXME [UNKNOWN] adjust as soon as included in MouseActionListeningHtmlUnitControlsFinder
-        null
       }
       // @formatter:on
     };
@@ -198,9 +168,9 @@ public class IdentifierBasedHtmlUnitControlsFinderDisableTest
     super.setup(anHtmlCode);
 
     if (identifiers instanceof Class) {
-      addIdentifiers((Class<? extends AbstractMatcherBasedIdentifier>) identifiers);
+      addIdentifiers((Class<? extends AbstractHtmlUnitControlIdentifier>) identifiers);
     } else if (identifiers != null) {
-      addIdentifiers((List<Class<? extends AbstractMatcherBasedIdentifier>>) identifiers);
+      addIdentifiers((List<Class<? extends AbstractHtmlUnitControlIdentifier>>) identifiers);
     }
   }
 

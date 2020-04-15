@@ -31,7 +31,6 @@ public abstract class HtmlCodeCreator {
   private static final String ON_MOUSE_OVER = "onmouseover=''";
   private static final String ON_ANY_MOUSE_ACTION = "onclick='' ondblclick='' oncontextmenu='' onmouseover=''";
 
-  // FIXME tab index
   private static final String TAB_INDEX = "tabindex='123'";
 
   private static String listeners = "";

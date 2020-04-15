@@ -209,13 +209,13 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
       { checkbox("checkbox-before").noListen() + CONTENT + checkbox("checkbox-after").noListen().label("checkbox-label", CONTENT).noListen().checkbox("checkbox-label").noListen(),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlBody.class),
-            new ExpectedControl(HtmlLabel.class, "lbl-checkbox-label")), // FIXME [UNKNOWN] adjust as soon as included in MouseActionListeningHtmlUnitControlsFinder
+            new ExpectedControl(HtmlLabel.class, "lbl-checkbox-label")),
         null
       },
 
       { div("div-before").noListen().div("div", CONTENT).noListen().div("div-after").noListen(),
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlDivision.class, "div")), // FIXME [UNKNOWN] adjust as soon as included in MouseActionListeningHtmlUnitControlsFinder
+            new ExpectedControl(HtmlDivision.class, "div")),
         null
       },
 
@@ -258,7 +258,7 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
       { radio("radio-before").noListen() + CONTENT + radio("radio-after").noListen().label("radio-label", CONTENT).noListen().radio("radio-label").noListen(),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlBody.class),
-            new ExpectedControl(HtmlLabel.class, "lbl-radio-label")), // FIXME [UNKNOWN] adjust as soon as included in MouseActionListeningHtmlUnitControlsFinder
+            new ExpectedControl(HtmlLabel.class, "lbl-radio-label")),
         null
       },
 
@@ -277,7 +277,7 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
       { table("table-before").noListen() + CONTENT + table("table").noListen().tr("tr", 1).noListen() + table("table-after").noListen(),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlBody.class),
-            new ExpectedControl(HtmlTableDataCell.class, "table-tr-td")), // FIXME [UNKNOWN] adjust as soon as included in MouseActionListeningHtmlUnitControlsFinder
+            new ExpectedControl(HtmlTableDataCell.class, "table-tr-td")),
         null
       }
       // @formatter:on

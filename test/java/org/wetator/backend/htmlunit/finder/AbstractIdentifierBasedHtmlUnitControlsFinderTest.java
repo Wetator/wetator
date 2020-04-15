@@ -45,7 +45,7 @@ import org.wetator.backend.htmlunit.control.HtmlUnitOption;
 import org.wetator.backend.htmlunit.control.HtmlUnitOptionGroup;
 import org.wetator.backend.htmlunit.control.HtmlUnitSelect;
 import org.wetator.backend.htmlunit.control.HtmlUnitTextArea;
-import org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier;
+import org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.SortedEntryExpectation;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
 import org.wetator.backend.htmlunit.util.PageUtil;
@@ -129,14 +129,14 @@ public abstract class AbstractIdentifierBasedHtmlUnitControlsFinderTest {
 
   protected abstract IdentifierBasedHtmlUnitControlsFinder createFinder();
 
-  protected final void addIdentifiers(final List<Class<? extends AbstractMatcherBasedIdentifier>> anIdentifiers) {
-    for (Class<? extends AbstractMatcherBasedIdentifier> tmpIdentifier : anIdentifiers) {
+  protected final void addIdentifiers(final List<Class<? extends AbstractHtmlUnitControlIdentifier>> anIdentifiers) {
+    for (Class<? extends AbstractHtmlUnitControlIdentifier> tmpIdentifier : anIdentifiers) {
       finder.addIdentifier(tmpIdentifier);
     }
   }
 
   @SafeVarargs
-  protected final void addIdentifiers(final Class<? extends AbstractMatcherBasedIdentifier>... anIdentifiers) {
+  protected final void addIdentifiers(final Class<? extends AbstractHtmlUnitControlIdentifier>... anIdentifiers) {
     addIdentifiers(Arrays.asList(anIdentifiers));
   }
 

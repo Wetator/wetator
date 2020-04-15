@@ -32,9 +32,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlSelect;
 
 /**
  * Tests for element weighting during {@link MouseActionListeningHtmlUnitControlsFinder#find(WPath)} on pages with
- * {@link HtmlSelect}s and their children, using a {@link WPath} with separator at the end.<br>
- * <br>
- * Keep test cases in sync with {@link MouseActionListeningHtmlUnitControlsFinderSelectTest}.
+ * {@link HtmlSelect}s and their children, using a {@link WPath} with separator at the end.
  *
  * @author tobwoerk
  * @see MouseActionListeningHtmlUnitControlsFinderSelectTest
