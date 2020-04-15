@@ -43,77 +43,91 @@ public abstract class HtmlCodeCreator {
     return "</body></html>";
   }
 
-  static String a(final String anAnchorId, final String aContent, final boolean anIsListening) {
-    return "<a id='" + anAnchorId + "' href='#'" + (anIsListening ? ' ' + listeners : "") + '>'
-        + (aContent != null ? aContent : "") + "</a>";
+  static String a(final String anAnchorId, final String aContent, final String aStyle, final boolean anIsListening) {
+    return "<a id='" + anAnchorId + "' href='#'" + (anIsListening ? ' ' + listeners : "")
+        + (aStyle != null ? " style='" + aStyle + "'" : "") + '>' + (aContent != null ? aContent : "") + "</a>";
   }
 
-  static String button(final String aButtonId, final String aContent, final boolean anIsListening) {
-    return "<button type='button' id='" + aButtonId + '\'' + (anIsListening ? ' ' + listeners : "") + '>'
-        + (aContent != null ? aContent : "") + (anIsListening ? ' ' + listeners : "") + "</button>";
+  static String button(final String aButtonId, final String aContent, final String aStyle,
+      final boolean anIsListening) {
+    return "<button type='button' id='" + aButtonId + '\'' + (anIsListening ? ' ' + listeners : "")
+        + (aStyle != null ? " style='" + aStyle + "'" : "") + '>' + (aContent != null ? aContent : "")
+        + (anIsListening ? ' ' + listeners : "") + "</button>";
   }
 
-  static String checkbox(final String aCheckboxId, final boolean anIsListening) {
-    return input("checkbox", aCheckboxId, anIsListening);
+  static String checkbox(final String aCheckboxId, final String aStyle, final boolean anIsListening) {
+    return input("checkbox", aCheckboxId, aStyle, anIsListening);
   }
 
-  static String divStart(final String aDivId, final boolean anIsListening) {
-    return "<div id='" + aDivId + '\'' + (anIsListening ? ' ' + listeners : "") + '>';
+  static String divStart(final String aDivId, final String aStyle, final boolean anIsListening) {
+    return "<div id='" + aDivId + '\'' + (anIsListening ? ' ' + listeners : "")
+        + (aStyle != null ? " style='" + aStyle + "'" : "") + '>';
   }
 
   static String divEnd() {
     return "</div>";
   }
 
-  static String inputButton(final String anInputID, final String aValue, final boolean anIsListening) {
-    return input("button", anInputID, anIsListening, aValue != null ? "value='" + aValue + '\'' : "");
+  static String inputButton(final String anInputID, final String aValue, final String aStyle,
+      final boolean anIsListening) {
+    return input("button", anInputID, anIsListening, aStyle, aValue != null ? "value='" + aValue + '\'' : "");
   }
 
-  static String inputImage(final String anInputID, final String anAltText, final boolean anIsListening) {
-    return input("image", anInputID, anIsListening,
+  static String inputImage(final String anInputID, final String anAltText, final String aStyle,
+      final boolean anIsListening) {
+    return input("image", anInputID, anIsListening, aStyle,
         (anAltText != null ? "alt='" + anAltText + "' " : "") + "src='pathtoimg'");
   }
 
-  static String inputReset(final String anInputID, final String aValue, final boolean anIsListening) {
-    return input("reset", anInputID, anIsListening, aValue != null ? "value='" + aValue + '\'' : "");
+  static String inputReset(final String anInputID, final String aValue, final String aStyle,
+      final boolean anIsListening) {
+    return input("reset", anInputID, anIsListening, aStyle, aValue != null ? "value='" + aValue + '\'' : "");
   }
 
-  static String inputSubmit(final String anInputID, final String aValue, final boolean anIsListening) {
-    return input("submit", anInputID, anIsListening, aValue != null ? "value='" + aValue + '\'' : "");
+  static String inputSubmit(final String anInputID, final String aValue, final String aStyle,
+      final boolean anIsListening) {
+    return input("submit", anInputID, anIsListening, aStyle, aValue != null ? "value='" + aValue + '\'' : "");
   }
 
-  static String inputText(final String anInputID, final String aPlaceholder, final boolean anIsListening) {
-    return input("text", anInputID, anIsListening, aPlaceholder != null ? "placeholder='" + aPlaceholder + '\'' : "");
+  static String inputText(final String anInputID, final String aPlaceholder, final String aStyle,
+      final boolean anIsListening) {
+    return input("text", anInputID, anIsListening, aStyle,
+        aPlaceholder != null ? "placeholder='" + aPlaceholder + '\'' : "");
   }
 
-  static String image(final String anImageId, final String anAltText, final boolean anIsListening) {
+  static String image(final String anImageId, final String anAltText, final String aStyle,
+      final boolean anIsListening) {
     return "<image id='" + anImageId + '\'' + (anAltText != null ? " alt='" + anAltText + '\'' : "")
-        + (anIsListening ? ' ' + listeners : "") + " src='pathtoimg' />";
+        + (anIsListening ? ' ' + listeners : "") + (aStyle != null ? " style='" + aStyle + "'" : "")
+        + " src='pathtoimg' />";
   }
 
-  static String labelStart(final String aFor, final boolean anIsListening) {
-    return "<label id='lbl-" + aFor + "' for='" + aFor + '\'' + (anIsListening ? ' ' + listeners : "") + '>';
+  static String labelStart(final String aFor, final String aStyle, final boolean anIsListening) {
+    return "<label id='lbl-" + aFor + "' for='" + aFor + '\'' + (anIsListening ? ' ' + listeners : "")
+        + (aStyle != null ? " style='" + aStyle + "'" : "") + '>';
   }
 
   static String labelEnd() {
     return "</label>";
   }
 
-  static String radio(final String aRadioId, final boolean anIsListening) {
-    return input("radio", aRadioId, anIsListening);
+  static String radio(final String aRadioId, final String aStyle, final boolean anIsListening) {
+    return input("radio", aRadioId, aStyle, anIsListening);
   }
 
-  static String spanStart(final String aSpanId, final boolean anIsListening) {
-    return "<span id='" + aSpanId + '\'' + (anIsListening ? ' ' + listeners : "") + '>';
+  static String spanStart(final String aSpanId, final String aStyle, final boolean anIsListening) {
+    return "<span id='" + aSpanId + '\'' + (anIsListening ? ' ' + listeners : "")
+        + (aStyle != null ? " style='" + aStyle + "'" : "") + '>';
   }
 
   static String spanEnd() {
     return "</span>";
   }
 
-  static String selectStart(final String aSelectId, final String aName, final boolean anIsListening) {
+  static String selectStart(final String aSelectId, final String aName, final String aStyle,
+      final boolean anIsListening) {
     return "<select id='" + aSelectId + '\'' + (aName != null ? " name='" + aName + '\'' : "")
-        + (anIsListening ? ' ' + listeners : "") + ">";
+        + (anIsListening ? ' ' + listeners : "") + (aStyle != null ? " style='" + aStyle + "'" : "") + ">";
   }
 
   static String selectEnd() {
@@ -121,15 +135,17 @@ public abstract class HtmlCodeCreator {
   }
 
   static String selectOption(final String aSelectId, final String anOptionId, final String aContent,
-      final boolean anIsListening) {
+      final String aStyle, final boolean anIsListening) {
     final String tmpOptionId = aSelectId + '-' + anOptionId;
-    return "<option id='" + tmpOptionId + '\'' + (anIsListening ? ' ' + listeners : "") + " value='" + tmpOptionId
-        + "-val'>" + (aContent != null ? aContent : "") + "</option>";
+    return "<option id='" + tmpOptionId + '\'' + (anIsListening ? ' ' + listeners : "")
+        + (aStyle != null ? " style='" + aStyle + "'" : "") + " value='" + tmpOptionId + "-val'>"
+        + (aContent != null ? aContent : "") + "</option>";
   }
 
-  static String tableStart(final String aTableId, final boolean anIsListening) {
-    return "<table id='" + aTableId + '\'' + (anIsListening ? ' ' + listeners : "") + "><tbody id='" + aTableId
-        + "-body'" + (anIsListening ? ' ' + listeners : "") + '>';
+  static String tableStart(final String aTableId, final String aStyle, final boolean anIsListening) {
+    return "<table id='" + aTableId + '\'' + (anIsListening ? ' ' + listeners : "")
+        + (aStyle != null ? " style='" + aStyle + "'" : "") + "><tbody id='" + aTableId + "-body'"
+        + (anIsListening ? ' ' + listeners : "") + '>';
   }
 
   static String tableEnd() {
@@ -156,14 +172,15 @@ public abstract class HtmlCodeCreator {
     return "</tr>";
   }
 
-  private static String input(final String aType, final String anInputID, final boolean anIsListening) {
-    return input(aType, anInputID, anIsListening, null);
+  private static String input(final String aType, final String anInputID, final String aStyle,
+      final boolean anIsListening) {
+    return input(aType, anInputID, anIsListening, aStyle, null);
   }
 
   private static String input(final String aType, final String anInputID, final boolean anIsListening,
-      final String anOptional) {
+      final String aStyle, final String anOptional) {
     return "<input type = '" + aType + "' id='" + anInputID + '\'' + (anIsListening ? ' ' + listeners : "")
-        + (anOptional != null ? ' ' + anOptional : "") + " />";
+        + (aStyle != null ? " style='" + aStyle + "'" : "") + (anOptional != null ? ' ' + anOptional : "") + " />";
   }
 
   public static void resetListeners() {

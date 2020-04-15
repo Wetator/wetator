@@ -56,6 +56,10 @@ public class IdentifierBasedHtmlUnitControlsFinderWithoutIdentifierTest
   public static Collection<Object[]> provideParameters() {
     final Object[][] tmpData = new Object[][] { //
     // @formatter:off
+      { "",
+        null
+      },
+
       { a("anchor-before").a("anchor", CONTENT).a("anchor-after"),
         null
       },

@@ -22,22 +22,24 @@ import java.util.List;
 /**
  * Builder for HTML code of table elements.<br>
  * <br>
- * Adds <code>onclick</code>-event listeners for all table elements per default. Use {@link #noListen()} to avoid.
+ * Adds listeners defined in {@link HtmlCodeCreator} for all table elements per default. Use {@link #noListen()} to
+ * avoid.
  *
  * @author tobwoerk
  */
 public final class HtmlCodeTableBuilder {
 
-  private String tableId;
+  private String id;
   private List<TableRow> rows = new ArrayList<>();
 
-  private boolean listenTable = true;
+  private String style;
+  private boolean listen = true;
 
   private class TableRow {
     private String rowId;
     private int columnCount;
 
-    private boolean listenRow = true;
+    private boolean rowListen = true;
 
     TableRow(final String aRowId, final int aColumnCount) {
       rowId = aRowId;
@@ -46,7 +48,7 @@ public final class HtmlCodeTableBuilder {
   }
 
   private HtmlCodeTableBuilder(final String aTableId) {
-    tableId = aTableId;
+    id = aTableId;
   }
 
   public static HtmlCodeTableBuilder table(final String aTableId) {
@@ -58,20 +60,24 @@ public final class HtmlCodeTableBuilder {
     return this;
   }
 
+  public HtmlCodeTableBuilder style(final String aStyle) {
+    style = aStyle;
+    return this;
+  }
+
   public HtmlCodeTableBuilder noListen() {
     if (rows.isEmpty()) {
-      listenTable = false;
+      listen = false;
     } else {
-      rows.get(rows.size() - 1).listenRow = false;
+      rows.get(rows.size() - 1).rowListen = false;
     }
     return this;
   }
 
   public String build() {
-    final StringBuilder tmpTableHtml = new StringBuilder(HtmlCodeCreator.tableStart(tableId, listenTable));
+    final StringBuilder tmpTableHtml = new StringBuilder(HtmlCodeCreator.tableStart(id, style, listen));
     for (TableRow tmpRow : rows) {
-      tmpTableHtml
-          .append(HtmlCodeCreator.tableRowWithCols(tableId, tmpRow.rowId, tmpRow.columnCount, tmpRow.listenRow));
+      tmpTableHtml.append(HtmlCodeCreator.tableRowWithCols(id, tmpRow.rowId, tmpRow.columnCount, tmpRow.rowListen));
     }
     tmpTableHtml.append(HtmlCodeCreator.tableEnd());
     return tmpTableHtml.toString();

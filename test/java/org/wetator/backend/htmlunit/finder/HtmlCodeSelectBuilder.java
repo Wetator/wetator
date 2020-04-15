@@ -22,23 +22,27 @@ import java.util.List;
 /**
  * Builder for HTML code of select elements.<br>
  * <br>
- * Adds <code>onclick</code>-event listeners for all select elements per default. Use {@link #noListen()} to avoid.
+ * Adds listeners defined in {@link HtmlCodeCreator} for all select elements per default. Use {@link #noListen()} to
+ * avoid.
  *
  * @author tobwoerk
  */
 public final class HtmlCodeSelectBuilder {
 
-  private String selectId;
+  private String id;
+  private String style;
   private String name;
   private List<SelectOption> options = new ArrayList<>();
+  private SelectOption currentOption;
 
-  private boolean listenSelect = true;
+  private boolean listen = true;
 
   private class SelectOption {
     private String optionId;
+    private String optionStyle;
     private String content;
 
-    private boolean listenOption = true;
+    private boolean optionListen = true;
 
     SelectOption(final String anOptionId) {
       optionId = anOptionId;
@@ -51,7 +55,7 @@ public final class HtmlCodeSelectBuilder {
   }
 
   private HtmlCodeSelectBuilder(final String aTableId) {
-    selectId = aTableId;
+    id = aTableId;
   }
 
   public static HtmlCodeSelectBuilder select(final String aSelectId) {
@@ -65,29 +69,40 @@ public final class HtmlCodeSelectBuilder {
   }
 
   public HtmlCodeSelectBuilder option(final String anOptionId) {
-    options.add(new SelectOption(anOptionId));
+    currentOption = new SelectOption(anOptionId);
+    options.add(currentOption);
     return this;
   }
 
   public HtmlCodeSelectBuilder option(final String anOptionId, final String aContent) {
-    options.add(new SelectOption(anOptionId, aContent));
+    currentOption = new SelectOption(anOptionId, aContent);
+    options.add(currentOption);
+    return this;
+  }
+
+  public HtmlCodeSelectBuilder style(final String aStyle) {
+    if (currentOption == null) {
+      style = aStyle;
+    } else {
+      currentOption.optionStyle = aStyle;
+    }
     return this;
   }
 
   public HtmlCodeSelectBuilder noListen() {
-    if (options.isEmpty()) {
-      listenSelect = false;
+    if (currentOption == null) {
+      listen = false;
     } else {
-      options.get(options.size() - 1).listenOption = false;
+      currentOption.optionListen = false;
     }
     return this;
   }
 
   public String build() {
-    final StringBuilder tmpSelectHtml = new StringBuilder(HtmlCodeCreator.selectStart(selectId, name, listenSelect));
+    final StringBuilder tmpSelectHtml = new StringBuilder(HtmlCodeCreator.selectStart(id, name, style, listen));
     for (SelectOption tmpOption : options) {
-      tmpSelectHtml.append(
-          HtmlCodeCreator.selectOption(selectId, tmpOption.optionId, tmpOption.content, tmpOption.listenOption));
+      tmpSelectHtml.append(HtmlCodeCreator.selectOption(id, tmpOption.optionId, tmpOption.content,
+          tmpOption.optionStyle, tmpOption.optionListen));
     }
     tmpSelectHtml.append(HtmlCodeCreator.selectEnd());
     return tmpSelectHtml.toString();

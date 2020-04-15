@@ -55,68 +55,8 @@ public class IdentifierBasedHtmlUnitControlsFinderTest {
     config = new WetatorConfiguration(new File("."), tmpProperties, null);
   }
 
-  @Test
-  public void empty() throws IOException, InvalidInputException {
-    // @formatter:off
-    final String tmpHtmlCode = "<html><body>"
-        + "</body></html>";
-    // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
-
-    final SecretString tmpSearch = new SecretString("Name");
-
-    final IdentifierBasedHtmlUnitControlsFinder tmpFinder = new IdentifierBasedHtmlUnitControlsFinder(tmpHtmlPageIndex,
-        null);
-    final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
-
-    assertEquals(0, tmpFound.getEntriesSorted().size());
-  }
-
-  @Test
-  public void visibilityHidden() throws IOException, InvalidInputException {
-    // @formatter:off
-    final String tmpHtmlCode = "<html><body>"
-        + "<form action='test'>"
-        + "<input id='myId' type='submit' value='ClickMe' style='visibility: hidden;'>"
-        + "</form>"
-        + "</body></html>";
-    // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
-
-    final SecretString tmpSearch = new SecretString("ClickMe");
-
-    final IdentifierBasedHtmlUnitControlsFinder tmpFinder = new IdentifierBasedHtmlUnitControlsFinder(tmpHtmlPageIndex,
-        null);
-    tmpFinder.addIdentifier(HtmlUnitInputSubmitIdentifier.class);
-    final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
-
-    assertEquals(0, tmpFound.getEntriesSorted().size());
-  }
-
-  @Test
-  public void displayNone() throws IOException, InvalidInputException {
-    // @formatter:off
-    final String tmpHtmlCode = "<html><body>"
-        + "<form action='test'>"
-        + "<input id='myId' type='submit' value='ClickMe' style='display: none;'>"
-        + "</form>"
-        + "</body></html>";
-    // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
-
-    final SecretString tmpSearch = new SecretString("ClickMe");
-
-    final IdentifierBasedHtmlUnitControlsFinder tmpFinder = new IdentifierBasedHtmlUnitControlsFinder(tmpHtmlPageIndex,
-        null);
-    tmpFinder.addIdentifier(HtmlUnitInputSubmitIdentifier.class);
-    final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
-
-    assertEquals(0, tmpFound.getEntriesSorted().size());
-  }
-
+  // FIXME @tobwoerk get rid of last test
+  
   @Test
   public void visible() throws IOException, InvalidInputException {
     // @formatter:off

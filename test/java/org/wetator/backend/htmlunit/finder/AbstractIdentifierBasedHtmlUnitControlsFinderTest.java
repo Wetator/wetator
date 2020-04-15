@@ -232,6 +232,10 @@ public abstract class AbstractIdentifierBasedHtmlUnitControlsFinderTest {
     return new HtmlCodeBuilder().inputReset(anId);
   }
 
+  protected static HtmlCodeBuilder inputSubmit(final String anId, final String aValue) {
+    return new HtmlCodeBuilder().inputSubmit(anId, aValue);
+  }
+
   protected static HtmlCodeBuilder inputSubmit(final String anId) {
     return new HtmlCodeBuilder().inputSubmit(anId);
   }

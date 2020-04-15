@@ -19,23 +19,26 @@ package org.wetator.backend.htmlunit.finder;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.wetator.backend.control.IClickable;
-
 /**
- * Builder for HTML code of clickable elements.<br>
+ * Builder for HTML code.<br>
  * <br>
- * Adds <code>onclick</code>-event listeners for non-{@link IClickable}s per default. Use {@link #noListen()} to avoid.
+ * Adds listeners defined in {@link HtmlCodeCreator} for all elements per default. Use {@link #noListen()} to
+ * avoid.
  *
  * @author tobwoerk
+ * @see HtmlCodeSelectBuilder
+ * @see HtmlCodeTableBuilder
  */
 public class HtmlCodeBuilder {
 
   private List<Element> elements = new ArrayList<>();
+  private Element currentElement;
 
   private class Element {
     private ElementType elementType;
 
     private String id;
+    private String style;
     private String content;
 
     private boolean listen = true;
@@ -179,17 +182,23 @@ public class HtmlCodeBuilder {
   }
 
   public HtmlCodeBuilder noListen() {
-    elements.get(elements.size() - 1).listen = false;
+    currentElement.listen = false;
+    return this;
+  }
+
+  public HtmlCodeBuilder style(final String aStyle) {
+    currentElement.style = aStyle;
     return this;
   }
 
   private HtmlCodeBuilder add(final ElementType anElementType, final String anId) {
-    elements.add(new Element(anElementType, anId));
+    currentElement = new Element(anElementType, anId);
+    elements.add(currentElement);
     return this;
   }
 
   private HtmlCodeBuilder contain(final String aContent) {
-    elements.get(elements.size() - 1).content = aContent;
+    currentElement.content = aContent;
     return this;
   }
 
@@ -199,51 +208,57 @@ public class HtmlCodeBuilder {
     for (Element tmpElement : elements) {
       switch (tmpElement.elementType) {
         case ANCHOR:
-          tmpHtml.append(HtmlCodeCreator.a(tmpElement.id, tmpElement.content, tmpElement.listen));
+          tmpHtml.append(HtmlCodeCreator.a(tmpElement.id, tmpElement.content, tmpElement.style, tmpElement.listen));
           break;
         case BUTTON:
-          tmpHtml.append(HtmlCodeCreator.button(tmpElement.id, tmpElement.content, tmpElement.listen));
+          tmpHtml
+              .append(HtmlCodeCreator.button(tmpElement.id, tmpElement.content, tmpElement.style, tmpElement.listen));
           break;
         case CHECKBOX:
-          tmpHtml.append(HtmlCodeCreator.checkbox(tmpElement.id, tmpElement.listen));
+          tmpHtml.append(HtmlCodeCreator.checkbox(tmpElement.id, tmpElement.style, tmpElement.listen));
           break;
         case DIV:
-          tmpHtml.append(HtmlCodeCreator.divStart(tmpElement.id, tmpElement.listen));
+          tmpHtml.append(HtmlCodeCreator.divStart(tmpElement.id, tmpElement.style, tmpElement.listen));
           if (tmpElement.content != null) {
             tmpHtml.append(tmpElement.content);
           }
           tmpHtml.append(HtmlCodeCreator.divEnd());
           break;
         case IMAGE:
-          tmpHtml.append(HtmlCodeCreator.image(tmpElement.id, tmpElement.content, tmpElement.listen));
+          tmpHtml.append(HtmlCodeCreator.image(tmpElement.id, tmpElement.content, tmpElement.style, tmpElement.listen));
           break;
         case INPUT_BUTTON:
-          tmpHtml.append(HtmlCodeCreator.inputButton(tmpElement.id, tmpElement.content, tmpElement.listen));
+          tmpHtml.append(
+              HtmlCodeCreator.inputButton(tmpElement.id, tmpElement.content, tmpElement.style, tmpElement.listen));
           break;
         case INPUT_IMAGE:
-          tmpHtml.append(HtmlCodeCreator.inputImage(tmpElement.id, tmpElement.content, tmpElement.listen));
+          tmpHtml.append(
+              HtmlCodeCreator.inputImage(tmpElement.id, tmpElement.content, tmpElement.style, tmpElement.listen));
           break;
         case INPUT_RESET:
-          tmpHtml.append(HtmlCodeCreator.inputReset(tmpElement.id, tmpElement.content, tmpElement.listen));
+          tmpHtml.append(
+              HtmlCodeCreator.inputReset(tmpElement.id, tmpElement.content, tmpElement.style, tmpElement.listen));
           break;
         case INPUT_SUBMIT:
-          tmpHtml.append(HtmlCodeCreator.inputSubmit(tmpElement.id, tmpElement.content, tmpElement.listen));
+          tmpHtml.append(
+              HtmlCodeCreator.inputSubmit(tmpElement.id, tmpElement.content, tmpElement.style, tmpElement.listen));
           break;
         case INPUT_TEXT:
-          tmpHtml.append(HtmlCodeCreator.inputText(tmpElement.id, tmpElement.content, tmpElement.listen));
+          tmpHtml.append(
+              HtmlCodeCreator.inputText(tmpElement.id, tmpElement.content, tmpElement.style, tmpElement.listen));
           break;
         case LABEL:
-          tmpHtml.append(HtmlCodeCreator.labelStart(tmpElement.id, tmpElement.listen));
+          tmpHtml.append(HtmlCodeCreator.labelStart(tmpElement.id, tmpElement.style, tmpElement.listen));
           if (tmpElement.content != null) {
             tmpHtml.append(tmpElement.content);
           }
           tmpHtml.append(HtmlCodeCreator.labelEnd());
           break;
         case RADIO:
-          tmpHtml.append(HtmlCodeCreator.radio(tmpElement.id, tmpElement.listen));
+          tmpHtml.append(HtmlCodeCreator.radio(tmpElement.id, tmpElement.style, tmpElement.listen));
           break;
         case SPAN:
-          tmpHtml.append(HtmlCodeCreator.spanStart(tmpElement.id, tmpElement.listen));
+          tmpHtml.append(HtmlCodeCreator.spanStart(tmpElement.id, tmpElement.style, tmpElement.listen));
           if (tmpElement.content != null) {
             tmpHtml.append(tmpElement.content);
           }
