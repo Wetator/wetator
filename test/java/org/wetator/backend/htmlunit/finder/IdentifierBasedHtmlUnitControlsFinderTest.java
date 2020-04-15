@@ -28,7 +28,6 @@ import org.junit.Test;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.WeightedControlList.Entry;
-import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputCheckBoxIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputSubmitIdentifier;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
 import org.wetator.backend.htmlunit.util.PageUtil;
@@ -75,11 +74,33 @@ public class IdentifierBasedHtmlUnitControlsFinderTest {
   }
 
   @Test
-  public void hidden() throws IOException, InvalidInputException {
+  public void visibilityHidden() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<form action='test'>"
         + "<input id='myId' type='submit' value='ClickMe' style='visibility: hidden;'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    final SecretString tmpSearch = new SecretString("ClickMe");
+
+    final IdentifierBasedHtmlUnitControlsFinder tmpFinder = new IdentifierBasedHtmlUnitControlsFinder(tmpHtmlPageIndex,
+        null);
+    tmpFinder.addIdentifier(HtmlUnitInputSubmitIdentifier.class);
+    final WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
+
+    assertEquals(0, tmpFound.getEntriesSorted().size());
+  }
+
+  @Test
+  public void displayNone() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input id='myId' type='submit' value='ClickMe' style='display: none;'>"
         + "</form>"
         + "</body></html>";
     // @formatter:on
@@ -117,46 +138,5 @@ public class IdentifierBasedHtmlUnitControlsFinderTest {
 
     final List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
     assertEquals(1, tmpEntriesSorted.size());
-  }
-
-  @Test
-  public void label_byTextAndTitle() throws IOException, InvalidInputException {
-    // @formatter:off
-    final String tmpHtmlCode = "<html><body>"
-        + "<input type='checkbox' name='check' id='myCheckbox' title='checker title'>"
-        + "<label for='myCheckbox'>checker</label>"
-        + "</body></html>";
-    // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
-
-    final IdentifierBasedHtmlUnitControlsFinder tmpFinder = new IdentifierBasedHtmlUnitControlsFinder(tmpHtmlPageIndex,
-        null);
-    tmpFinder.addIdentifier(HtmlUnitInputCheckBoxIdentifier.class);
-
-    SecretString tmpSearch = new SecretString("check");
-    WeightedControlList tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
-    List<Entry> tmpEntriesSorted = tmpFound.getEntriesSorted();
-    assertEquals(1, tmpEntriesSorted.size());
-    assertEquals(
-        "[HtmlCheckBoxInput (id='myCheckbox') (name='check')] found by: BY_NAME deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
-        tmpEntriesSorted.get(0).toString());
-
-    tmpSearch = new SecretString("checker title");
-    tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
-    tmpEntriesSorted = tmpFound.getEntriesSorted();
-    assertEquals(1, tmpEntriesSorted.size());
-    assertEquals(
-        "[HtmlCheckBoxInput (id='myCheckbox') (name='check')] found by: BY_TITLE_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
-        tmpEntriesSorted.get(0).toString());
-
-    tmpSearch = new SecretString("checker");
-    tmpFound = tmpFinder.find(new WPath(tmpSearch, config));
-
-    tmpEntriesSorted = tmpFound.getEntriesSorted();
-    assertEquals(1, tmpEntriesSorted.size());
-    assertEquals(
-        "[HtmlCheckBoxInput (id='myCheckbox') (name='check')] found by: BY_LABEL_ELEMENT deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
-        tmpEntriesSorted.get(0).toString());
   }
 }
