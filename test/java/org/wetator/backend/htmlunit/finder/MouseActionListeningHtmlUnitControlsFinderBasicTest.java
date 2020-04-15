@@ -31,6 +31,10 @@ import org.wetator.backend.htmlunit.MouseAction;
 import org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitAnchorIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitButtonIdentifier;
+import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputButtonIdentifier;
+import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputImageIdentifier;
+import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputResetIdentifier;
+import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputSubmitIdentifier;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.ExpectedControl;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.SortedEntryExpectation;
 
@@ -111,25 +115,25 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
       { inputButton("inputButton-before").inputButton("inputButton", CONTENT).inputButton("inputButton-after"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlButtonInput.class, "inputButton")),
-        null
+        HtmlUnitInputButtonIdentifier.class
       },
 
       { inputImage("inputImg-before").inputImage("inputImg", CONTENT).inputImage("inputImg-after"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlImageInput.class, "inputImg")),
-        null
+        HtmlUnitInputImageIdentifier.class
       },
 
       { inputReset("inputReset-before").inputReset("inputReset", CONTENT).inputReset("inputReset-after"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlResetInput.class, "inputReset")),
-        null
+        HtmlUnitInputResetIdentifier.class
       },
 
       { inputSubmit("inputSubmit-before").inputSubmit("inputSubmit", CONTENT).inputSubmit("inputSubmit-after"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlSubmitInput.class, "inputSubmit")),
-        null
+        HtmlUnitInputSubmitIdentifier.class
       },
 
       { inputText("inputText-before").inputText("inputText", CONTENT).inputText("inputText-after"),
