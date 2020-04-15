@@ -31,6 +31,7 @@ import org.wetator.exception.InvalidInputException;
 /**
  * @author rbri
  * @author frank.danek
+ * @author tobwoerk
  */
 public class HtmlUnitTextAreaIdentifierTest extends AbstractHtmlUnitControlIdentifierTest {
 
@@ -166,6 +167,24 @@ public class HtmlUnitTextAreaIdentifierTest extends AbstractHtmlUnitControlIdent
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlTextArea (id='myId') (name='myName')] found by: BY_LABELING_TEXT deviation: 0 distance: 0 start: 6 hierarchy: 0>1>3>4>8 index: 8",
+        tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
+  public void byPlaceholder() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<textarea id='myId' name='myName' cols='50' rows='1' placeholder='myPlaceholder'></textarea>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "myPlaceholder", "myId");
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlTextArea (id='myId') (name='myName')] found by: BY_PLACEHOLDER deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
   }
 

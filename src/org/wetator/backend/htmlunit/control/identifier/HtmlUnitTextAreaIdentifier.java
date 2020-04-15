@@ -28,6 +28,7 @@ import org.wetator.backend.htmlunit.matcher.ByIdMatcher;
 import org.wetator.backend.htmlunit.matcher.ByLabelingTextBeforeAsTextMatcher;
 import org.wetator.backend.htmlunit.matcher.ByLabelingTextBeforeMatcher;
 import org.wetator.backend.htmlunit.matcher.ByNameAttributeMatcher;
+import org.wetator.backend.htmlunit.matcher.ByPlaceholderAttributeMatcher;
 import org.wetator.backend.htmlunit.matcher.ByTableCoordinatesMatcher;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.FindSpot;
@@ -48,6 +49,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextArea;
  * </ul>
  *
  * @author frank.danek
+ * @author tobwoerk
  */
 public class HtmlUnitTextAreaIdentifier extends AbstractMatcherBasedIdentifier {
 
@@ -80,6 +82,8 @@ public class HtmlUnitTextAreaIdentifier extends AbstractMatcherBasedIdentifier {
             tmpSearchPattern, aWPath));
         aMatchers
             .add(new ByLabelingTextBeforeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
+        aMatchers
+            .add(new ByPlaceholderAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
 
         // default
         aMatchers.add(new ByNameAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
