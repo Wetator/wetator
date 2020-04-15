@@ -25,8 +25,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 
 /**
  * The base class for all identifiers.<br>
- * An identifier can be used to identify a {@link HtmlElement} as a {@link org.wetator.backend.control.IControl}
- * matching a specific {@link WPath}. To check if a {@link HtmlElement} is supported by an identifier at all, use
+ * An identifier can be used to identify an {@link HtmlElement} as an {@link org.wetator.backend.control.IControl}
+ * matching a specific {@link WPath}. To check if an {@link HtmlElement} is supported by an identifier at all, use
  * {@link #isHtmlElementSupported(HtmlElement)}.
  *
  * @author frank.danek
