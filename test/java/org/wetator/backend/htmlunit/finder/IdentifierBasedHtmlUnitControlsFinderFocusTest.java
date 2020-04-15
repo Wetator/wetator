@@ -41,6 +41,7 @@ import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputRadioButtonI
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputResetIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputSubmitIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputTextIdentifier;
+import org.wetator.backend.htmlunit.control.identifier.HtmlUnitOptionIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitSelectIdentifier;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.ExpectedControl;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.SortedEntryExpectation;
@@ -53,6 +54,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
 import com.gargoylesoftware.htmlunit.html.HtmlLabel;
+import com.gargoylesoftware.htmlunit.html.HtmlOption;
 import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
 import com.gargoylesoftware.htmlunit.html.HtmlResetInput;
 import com.gargoylesoftware.htmlunit.html.HtmlSelect;
@@ -174,10 +176,11 @@ public class IdentifierBasedHtmlUnitControlsFinderFocusTest extends AbstractIden
       { select("select-before") + CONTENT + select("select").option("option-before").option("option", CONTENT).option("option-after") + select("select-after"),
         // tabindex currently not supported
         new SortedEntryExpectation(
+            new ExpectedControl(HtmlOption.class, "select-option"),
             new ExpectedControl(HtmlSelect.class, "select"),
             new ExpectedControl(HtmlSelect.class, "select-after"),
-            new ExpectedControl(HtmlBody.class)), // FIXME [UNKNOWN] adjust as soon as included in MouseActionListeningHtmlUnitControlsFinder
-        Arrays.asList(HtmlUnitSelectIdentifier.class)
+            new ExpectedControl(HtmlBody.class)),
+        Arrays.asList(HtmlUnitSelectIdentifier.class, HtmlUnitOptionIdentifier.class)
       },
 
       { span("span-before").span("span", CONTENT).span("span-after"),
@@ -279,10 +282,11 @@ public class IdentifierBasedHtmlUnitControlsFinderFocusTest extends AbstractIden
 
       { select("select-before").noListen() + CONTENT + select("select").noListen().option("option-before").noListen().option("option", CONTENT).noListen().option("option-after").noListen() + select("select-after").noListen(),
         new SortedEntryExpectation(
+            new ExpectedControl(HtmlOption.class, "select-option"),
             new ExpectedControl(HtmlSelect.class, "select"),
             new ExpectedControl(HtmlSelect.class, "select-after"),
-            new ExpectedControl(HtmlBody.class)), // FIXME [UNKNOWN] adjust as soon as included in MouseActionListeningHtmlUnitControlsFinder
-        Arrays.asList(HtmlUnitSelectIdentifier.class)
+            new ExpectedControl(HtmlBody.class)),
+        Arrays.asList(HtmlUnitSelectIdentifier.class, HtmlUnitOptionIdentifier.class)
       },
 
       { span("span-before").noListen().span("span", CONTENT).noListen().span("span-after").noListen(),
