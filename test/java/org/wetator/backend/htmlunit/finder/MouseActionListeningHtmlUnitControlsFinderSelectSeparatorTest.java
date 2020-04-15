@@ -25,19 +25,21 @@ import org.junit.runners.Parameterized.Parameters;
 import org.wetator.backend.WPath;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.ExpectedControl;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.SortedEntryExpectation;
+import org.wetator.core.WetatorConfiguration;
 
-import com.gargoylesoftware.htmlunit.html.HtmlBody;
-import com.gargoylesoftware.htmlunit.html.HtmlLabel;
 import com.gargoylesoftware.htmlunit.html.HtmlOption;
 import com.gargoylesoftware.htmlunit.html.HtmlSelect;
 
 /**
  * Tests for element weighting during {@link MouseActionListeningHtmlUnitControlsFinder#find(WPath)} on pages with
- * {@link HtmlSelect}s and their children.
+ * {@link HtmlSelect}s and their children, using a {@link WPath} with separator at the end.<br>
+ * <br>
+ * Keep test cases in sync with {@link MouseActionListeningHtmlUnitControlsFinderSelectTest}.
  *
  * @author tobwoerk
+ * @see MouseActionListeningHtmlUnitControlsFinderSelectTest
  */
-public class MouseActionListeningHtmlUnitControlsFinderSelectTest
+public class MouseActionListeningHtmlUnitControlsFinderSelectSeparatorTest
     extends AbstractMouseActionListeningHtmlUnitControlsFinderParameterizedTest {
 
   @Parameters(name = "{index}: {0}")
@@ -52,49 +54,44 @@ public class MouseActionListeningHtmlUnitControlsFinderSelectTest
       // 0
       { CONTENT + select("select").option("option"),
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlSelect.class, "select"),
-            new ExpectedControl(HtmlBody.class))
+            new ExpectedControl(HtmlOption.class, "select-option"),
+            new ExpectedControl(HtmlSelect.class, "select"))
       },
 
       // 1
       { select("select", CONTENT).option("option"),
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlSelect.class, "select"))
+            new ExpectedControl(HtmlOption.class, "select-option"))
       },
 
       // 2
       { select("select").option("option", CONTENT),
-        new SortedEntryExpectation(
-            new ExpectedControl(HtmlOption.class, "select-option"))
+        null
       },
 
       // 3
       { select("select").option("option") + CONTENT,
-        new SortedEntryExpectation(
-            new ExpectedControl(HtmlBody.class))
+        null
       },
 
       // 4
       { CONTENT + select("select").option("option", CONTENT),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlOption.class, "select-option"),
-            new ExpectedControl(HtmlSelect.class, "select"),
-            new ExpectedControl(HtmlBody.class))
+            new ExpectedControl(HtmlSelect.class, "select"))
       },
 
       // 5
       { select("select", CONTENT).option("option", CONTENT),
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlSelect.class, "select"),
             new ExpectedControl(HtmlOption.class, "select-option"))
       },
 
       // 6
       { label("select", CONTENT).noListen().build() + select("select").option("option", CONTENT),
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlSelect.class, "select"),
             new ExpectedControl(HtmlOption.class, "select-option"),
-            new ExpectedControl(HtmlLabel.class, "lbl-select"))
+            new ExpectedControl(HtmlSelect.class, "select"))
       },
 
       //+++++++++++++++++++++++++++++++++
@@ -103,24 +100,23 @@ public class MouseActionListeningHtmlUnitControlsFinderSelectTest
       // 7
       { CONTENT + select("select").noListen().option("option"),
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlBody.class))
+            new ExpectedControl(HtmlOption.class, "select-option"))
       },
 
       // 8
       { select("select", CONTENT).noListen().option("option"),
-        null
-      },
-
-      // 9
-      { select("select").noListen().option("option", CONTENT),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlOption.class, "select-option"))
       },
 
+      // 9
+      { select("select").noListen().option("option", CONTENT),
+        null
+      },
+
       // 10
       { select("select").noListen().option("option") + CONTENT,
-        new SortedEntryExpectation(
-            new ExpectedControl(HtmlBody.class))
+        null
       },
 
       // 11
@@ -135,32 +131,29 @@ public class MouseActionListeningHtmlUnitControlsFinderSelectTest
       // 12
       { CONTENT + select("select").option("option").noListen(),
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlSelect.class, "select"),
-            new ExpectedControl(HtmlBody.class))
+            new ExpectedControl(HtmlOption.class, "select-option"),
+            new ExpectedControl(HtmlSelect.class, "select"))
       },
 
       // 13
       { select("select", CONTENT).option("option").noListen(),
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlSelect.class, "select"))
+            new ExpectedControl(HtmlOption.class, "select-option"))
       },
 
       // 14
       { select("select").option("option", CONTENT).noListen(),
-        new SortedEntryExpectation(
-            new ExpectedControl(HtmlOption.class, "select-option"))
+        null
       },
 
       // 15
       { select("select").option("option").noListen() + CONTENT,
-        new SortedEntryExpectation(
-            new ExpectedControl(HtmlBody.class))
+        null
       },
 
       // 16
       { select("select", CONTENT).option("option", CONTENT).noListen(),
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlSelect.class, "select"),
             new ExpectedControl(HtmlOption.class, "select-option"))
       },
 
@@ -169,8 +162,7 @@ public class MouseActionListeningHtmlUnitControlsFinderSelectTest
 
       // 17
       { CONTENT + select("select").noListen().option("option").noListen(),
-        new SortedEntryExpectation(
-            new ExpectedControl(HtmlBody.class))
+        null
       },
 
       // 18
@@ -185,8 +177,7 @@ public class MouseActionListeningHtmlUnitControlsFinderSelectTest
 
       // 20
       { select("select").noListen().option("option").noListen() + CONTENT,
-        new SortedEntryExpectation(
-            new ExpectedControl(HtmlBody.class))
+        null
       },
 
       // 21
@@ -200,40 +191,44 @@ public class MouseActionListeningHtmlUnitControlsFinderSelectTest
       // 22
       { CONTENT + select("select1").option("option") + CONTENT + select("select2").option("option"),
         new SortedEntryExpectation(
+            new ExpectedControl(HtmlOption.class, "select1-option"),
+            new ExpectedControl(HtmlOption.class, "select2-option"),
             new ExpectedControl(HtmlSelect.class, "select1"),
-            new ExpectedControl(HtmlSelect.class, "select2"),
-            new ExpectedControl(HtmlBody.class))
+            new ExpectedControl(HtmlSelect.class, "select2"))
       },
 
       // 23
       { CONTENT + select("select1").option("option") + select("select2").option("option"),
         new SortedEntryExpectation(
+            new ExpectedControl(HtmlOption.class, "select1-option"),
+            new ExpectedControl(HtmlOption.class, "select2-option"),
             new ExpectedControl(HtmlSelect.class, "select1"),
-            new ExpectedControl(HtmlSelect.class, "select2"),
-            new ExpectedControl(HtmlBody.class))
+            new ExpectedControl(HtmlSelect.class, "select2"))
       },
 
       // 24
       { CONTENT + select("select1").option("option") + "x" + select("select2").option("option"),
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlSelect.class, "select1"),
-            new ExpectedControl(HtmlBody.class))
+            new ExpectedControl(HtmlOption.class, "select1-option"),
+            new ExpectedControl(HtmlSelect.class, "select1"))
       },
 
       // 25
       { CONTENT + "x" + select("select1").option("option") + select("select2").option("option"),
         new SortedEntryExpectation(
+            new ExpectedControl(HtmlOption.class, "select1-option"),
+            new ExpectedControl(HtmlOption.class, "select2-option"),
             new ExpectedControl(HtmlSelect.class, "select1"),
-            new ExpectedControl(HtmlSelect.class, "select2"),
-            new ExpectedControl(HtmlBody.class))
+            new ExpectedControl(HtmlSelect.class, "select2"))
       },
 
       // 26
       { CONTENT + "x" + select("select1").option("option") + CONTENT + select("select2").option("option"),
         new SortedEntryExpectation(
+            new ExpectedControl(HtmlOption.class, "select2-option"),
+            new ExpectedControl(HtmlOption.class, "select1-option"),
             new ExpectedControl(HtmlSelect.class, "select2"),
-            new ExpectedControl(HtmlSelect.class, "select1"),
-            new ExpectedControl(HtmlBody.class))
+            new ExpectedControl(HtmlSelect.class, "select1"))
       },
 
       // 27
@@ -242,21 +237,26 @@ public class MouseActionListeningHtmlUnitControlsFinderSelectTest
             new ExpectedControl(HtmlOption.class, "select1-option"),
             new ExpectedControl(HtmlOption.class, "select2-option"),
             new ExpectedControl(HtmlSelect.class, "select1"),
-            new ExpectedControl(HtmlSelect.class, "select2"),
-            new ExpectedControl(HtmlBody.class))
+            new ExpectedControl(HtmlSelect.class, "select2"))
       },
 
       // 28
       { CONTENT + select("select1").option("option1").option("option2", CONTENT) + CONTENT + select("select2").option("option1", CONTENT).option("option2"),
         new SortedEntryExpectation(
+            new ExpectedControl(HtmlOption.class, "select1-option1"),
+            new ExpectedControl(HtmlOption.class, "select2-option2"),
             new ExpectedControl(HtmlOption.class, "select1-option2"),
             new ExpectedControl(HtmlOption.class, "select2-option1"),
             new ExpectedControl(HtmlSelect.class, "select1"),
-            new ExpectedControl(HtmlSelect.class, "select2"),
-            new ExpectedControl(HtmlBody.class))
+            new ExpectedControl(HtmlSelect.class, "select2"))
       }
       // @formatter:on
     };
     return Arrays.asList(tmpData);
+  }
+
+  @Override
+  protected String getWPath() {
+    return super.getWPath() + WetatorConfiguration.DEFAULT_WPATH_SEPARATOR;
   }
 }
