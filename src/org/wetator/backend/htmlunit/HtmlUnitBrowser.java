@@ -354,7 +354,11 @@ public final class HtmlUnitBrowser implements IBrowser {
     try {
       webClient.getPage(aUrl);
       waitForImmediateJobs();
-      // FIXME log info if redirected (current URL != given URL)?
+
+      if (!aUrl.equals(getCurrentPage().getUrl())) {
+        wetatorEngine.informListenersInfo("openUrlRedirected", aUrl.toExternalForm(),
+            getCurrentPage().getUrl().toExternalForm());
+      }
     } catch (final ScriptException e) {
       addFailure("javascriptError", new String[] { e.getMessage() }, e);
     } catch (final WrappedException e) {
@@ -1005,14 +1009,14 @@ public final class HtmlUnitBrowser implements IBrowser {
     }
 
     // handle animationFrames
-    final Window tmpWin = tmpPage.getEnclosingWindow().getTopWindow().getScriptableObject();
+    final Window tmpTopWindow = tmpPage.getEnclosingWindow().getTopWindow().getScriptableObject();
 
     // TODO replace the hard coded second
     final long tmpTimeout = Math.max(1000, tmpEndTime - System.currentTimeMillis());
     tmpEndTime = System.currentTimeMillis() + tmpTimeout;
-    int tmpPendingAnimationFrames = tmpWin.animateAnimationsFrames();
+    int tmpPendingAnimationFrames = tmpTopWindow.animateAnimationsFrames();
     while (tmpPendingAnimationFrames > 0 && System.currentTimeMillis() < tmpEndTime) {
-      tmpPendingAnimationFrames = tmpWin.animateAnimationsFrames();
+      tmpPendingAnimationFrames = tmpTopWindow.animateAnimationsFrames();
     }
 
     if (tmpPendingAnimationFrames > 0) {
