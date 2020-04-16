@@ -355,9 +355,10 @@ public final class HtmlUnitBrowser implements IBrowser {
       webClient.getPage(aUrl);
       waitForImmediateJobs();
 
-      if (!aUrl.equals(getCurrentPage().getUrl())) {
-        wetatorEngine.informListenersInfo("openUrlRedirected", aUrl.toExternalForm(),
-            getCurrentPage().getUrl().toExternalForm());
+      final String tmpRequestedUrl = aUrl.toExternalForm();
+      final String tmpCurrentUrl = getCurrentPage().getUrl().toExternalForm();
+      if (!tmpRequestedUrl.equals(tmpCurrentUrl)) {
+        wetatorEngine.informListenersInfo("openUrlRedirected", tmpRequestedUrl, tmpCurrentUrl);
       }
     } catch (final ScriptException e) {
       addFailure("javascriptError", new String[] { e.getMessage() }, e);
@@ -1009,14 +1010,14 @@ public final class HtmlUnitBrowser implements IBrowser {
     }
 
     // handle animationFrames
-    final Window tmpTopWindow = tmpPage.getEnclosingWindow().getTopWindow().getScriptableObject();
+    final Window tmpWin = tmpPage.getEnclosingWindow().getTopWindow().getScriptableObject();
 
     // TODO replace the hard coded second
     final long tmpTimeout = Math.max(1000, tmpEndTime - System.currentTimeMillis());
     tmpEndTime = System.currentTimeMillis() + tmpTimeout;
-    int tmpPendingAnimationFrames = tmpTopWindow.animateAnimationsFrames();
+    int tmpPendingAnimationFrames = tmpWin.animateAnimationsFrames();
     while (tmpPendingAnimationFrames > 0 && System.currentTimeMillis() < tmpEndTime) {
-      tmpPendingAnimationFrames = tmpTopWindow.animateAnimationsFrames();
+      tmpPendingAnimationFrames = tmpWin.animateAnimationsFrames();
     }
 
     if (tmpPendingAnimationFrames > 0) {
