@@ -41,7 +41,7 @@ pipeline {
                 cpd(pattern: 'deploy/pmd/cpd-report.xml', reportEncoding: 'UTF-8'),
                 java(),
                 javaDoc(),
-                taskScanner(includePattern: '**/*.java, **/*.xhtml, **/*.jsp, **/*.html, **/*.js, **/*.css, **/*.xml, **/*.wet, **/*.properties', highTags: 'FIXME, XXX', normalTags: 'TODO')]
+                taskScanner(highTags: 'FIXME, XXX', normalTags: 'TODO', includePattern: '**/*.java, **/*.xhtml, **/*.jsp, **/*.html, **/*.js, **/*.css, **/*.xml, **/*.wet, **/*.properties', excludePattern: 'test/webpage/js/**/*')]
             archiveArtifacts artifacts: 'deploy/wetator-*.zip, deploy/wetator-*.jar', allowEmptyArchive: true, fingerprint: true
             step([$class: 'Mailer',
                 notifyEveryUnstableBuild: true,
