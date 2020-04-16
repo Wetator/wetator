@@ -151,7 +151,7 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   public void assertSet() throws InvalidInputException {
     executeTestFile("assert_set.wet");
 
-    Assert.assertEquals(108, getSteps());
+    Assert.assertEquals(122, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
@@ -358,7 +358,7 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   public void setUpload() throws InvalidInputException {
     executeTestFile("set_upload.wet");
 
-    Assert.assertEquals(69, getSteps());
+    Assert.assertEquals(65, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
@@ -367,7 +367,7 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
   public void set() throws InvalidInputException {
     executeTestFile("set.wet");
 
-    Assert.assertEquals(265, getSteps());
+    Assert.assertEquals(212, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }

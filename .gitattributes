@@ -416,7 +416,6 @@ test/java/org/wetator/test/AbstractWebServerTest.java -text svneol=unset#text/pl
 test/java/org/wetator/test/JUnitProgressListener.java -text svneol=unset#text/plain
 test/java/org/wetator/test/jetty/ContentServlet.java -text
 test/java/org/wetator/test/jetty/HttpHeaderServlet.java -text svneol=unset#text/plain
-test/java/org/wetator/test/jetty/MultiPartFilter.java -text svneol=unset#text/plain
 test/java/org/wetator/test/jetty/RedirectServlet.java -text svneol=unset#text/plain
 test/java/org/wetator/test/jetty/SnoopyServlet.java -text svneol=unset#text/plain
 test/java/org/wetator/test/jetty/realm.properties -text
@@ -1045,6 +1044,7 @@ test/xml/js_anchor_inside_page.wet -text svneol=unset#text/plain
 test/xml/js_error.wet -text svneol=unset#text/plain
 test/xml/js_libs.wet -text svneol=unset#text/plain
 test/xml/misc_files/test_file.txt -text svneol=unset#text/plain
+test/xml/misc_files/test_file2.txt -text
 test/xml/modules/module.wet -text svneol=unset#text/plain
 test/xml/modules/module_calling_module.wet -text
 test/xml/modules/module_with_parameters.wet -text svneol=unset#text/plain

@@ -17,6 +17,10 @@
 package org.wetator.backend.htmlunit.control;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -34,6 +38,7 @@ import org.wetator.exception.BackendException;
 import org.wetator.i18n.Messages;
 import org.wetator.util.Assert;
 import org.wetator.util.SecretString;
+import org.wetator.util.StringUtil;
 
 import com.gargoylesoftware.htmlunit.ScriptException;
 import com.gargoylesoftware.htmlunit.html.DomElement;
@@ -133,26 +138,32 @@ public class HtmlUnitInputFile extends HtmlUnitBaseControl<HtmlFileInput>
       if (StringUtils.isBlank(tmpValue)) {
         tmpHtmlFileInput.setValueAttribute("");
       } else {
-        // FIXME allow setting multiple files (if input file has multiple enabled)
-        // now we have to determine the correct absolute file path
-        File tmpFile = new File(tmpValue);
+        final List<String> tmpFilenames = StringUtil.extractStrings(tmpValue, ",", '\\');
+        final List<File> tmpFiles = new ArrayList<>();
+        for (String tmpFilename : tmpFilenames) {
+          tmpFilename = tmpFilename.trim();
+          // now we have to determine the correct absolute file path
+          File tmpFile = new File(tmpFilename);
 
-        if (!tmpFile.isAbsolute() && null != aDirectory) {
-          // relative paths are relative to the location of the calling file
-          tmpFile = new File(aDirectory, tmpValue);
-        }
+          if (!tmpFile.isAbsolute() && null != aDirectory) {
+            // relative paths are relative to the location of the calling file
+            tmpFile = new File(aDirectory, tmpFilename);
+          }
 
-        // validate file
-        if (!tmpFile.exists()) {
-          final String tmpMessage = Messages.getMessage("fileNotFound",
-              FilenameUtils.normalize(tmpFile.getAbsolutePath()));
-          throw new ActionException(tmpMessage);
+          // validate file
+          if (!tmpFile.exists()) {
+            final String tmpMessage = Messages.getMessage("fileNotFound",
+                FilenameUtils.normalize(tmpFile.getAbsolutePath()));
+            throw new ActionException(tmpMessage);
+          }
+
+          tmpFiles.add(tmpFile);
         }
 
         // simulate events during file selection via file dialog
         tmpHtmlFileInput.mouseOut();
-        aWetatorContext.informListenersInfo("setFile", tmpFile.getAbsolutePath());
-        tmpHtmlFileInput.setValueAttribute(tmpFile.getAbsolutePath());
+        tmpFiles.forEach(f -> aWetatorContext.informListenersInfo("setFile", f.getAbsolutePath()));
+        tmpHtmlFileInput.setFiles(tmpFiles.toArray(new File[0]));
       }
 
       // wait for silence
@@ -177,6 +188,12 @@ public class HtmlUnitInputFile extends HtmlUnitBaseControl<HtmlFileInput>
   @Override
   public void assertValue(final WetatorContext aWetatorContext, final SecretString anExpectedValue)
       throws AssertionException {
-    Assert.assertEquals(anExpectedValue, getHtmlElement().getValueAttribute(), "expectedValueNotFound");
+    String tmpValue = "";
+
+    if (getHtmlElement().getFiles() != null && getHtmlElement().getFiles().length > 0) {
+      tmpValue = Arrays.stream(getHtmlElement().getFiles()).map(f -> f.getName()).collect(Collectors.joining(", "));
+    }
+
+    Assert.assertEquals(anExpectedValue, tmpValue, "expectedValueNotFound");
   }
 }
