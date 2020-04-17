@@ -38,6 +38,8 @@ public class HtmlCodeBuilder {
     private ElementType elementType;
 
     private String id;
+    private String alt;
+    private String value;
     private String style;
     private String content;
 
@@ -105,8 +107,8 @@ public class HtmlCodeBuilder {
     return add(ElementType.DIV, anId);
   }
 
-  public HtmlCodeBuilder image(final String anId, final String anAltText) {
-    return image(anId).contain(anAltText);
+  public HtmlCodeBuilder image(final String anId, final String anAlt) {
+    return image(anId).alt(anAlt);
   }
 
   public HtmlCodeBuilder image(final String anId) {
@@ -114,15 +116,15 @@ public class HtmlCodeBuilder {
   }
 
   public HtmlCodeBuilder inputButton(final String anId, final String aValue) {
-    return inputButton(anId).contain(aValue);
+    return inputButton(anId).value(aValue);
   }
 
   public HtmlCodeBuilder inputButton(final String anId) {
     return add(ElementType.INPUT_BUTTON, anId);
   }
 
-  public HtmlCodeBuilder inputImage(final String anId, final String anAltText) {
-    return add(ElementType.INPUT_IMAGE, anId).contain(anAltText);
+  public HtmlCodeBuilder inputImage(final String anId, final String anAlt) {
+    return add(ElementType.INPUT_IMAGE, anId).alt(anAlt);
   }
 
   public HtmlCodeBuilder inputImage(final String anId) {
@@ -130,7 +132,7 @@ public class HtmlCodeBuilder {
   }
 
   public HtmlCodeBuilder inputReset(final String anId, final String aValue) {
-    return inputReset(anId).contain(aValue);
+    return inputReset(anId).value(aValue);
   }
 
   public HtmlCodeBuilder inputReset(final String anId) {
@@ -138,7 +140,7 @@ public class HtmlCodeBuilder {
   }
 
   public HtmlCodeBuilder inputSubmit(final String anId, final String aValue) {
-    return inputSubmit(anId).contain(aValue);
+    return inputSubmit(anId).value(aValue);
   }
 
   public HtmlCodeBuilder inputSubmit(final String anId) {
@@ -197,6 +199,16 @@ public class HtmlCodeBuilder {
     return this;
   }
 
+  private HtmlCodeBuilder alt(final String anAlt) {
+    currentElement.alt = anAlt;
+    return this;
+  }
+
+  public HtmlCodeBuilder value(final String aValue) {
+    currentElement.value = aValue;
+    return this;
+  }
+
   private HtmlCodeBuilder contain(final String aContent) {
     currentElement.content = aContent;
     return this;
@@ -225,27 +237,27 @@ public class HtmlCodeBuilder {
           tmpHtml.append(HtmlCodeCreator.divEnd());
           break;
         case IMAGE:
-          tmpHtml.append(HtmlCodeCreator.image(tmpElement.id, tmpElement.content, tmpElement.style, tmpElement.listen));
+          tmpHtml.append(HtmlCodeCreator.image(tmpElement.id, tmpElement.alt, tmpElement.style, tmpElement.listen));
           break;
         case INPUT_BUTTON:
           tmpHtml.append(
-              HtmlCodeCreator.inputButton(tmpElement.id, tmpElement.content, tmpElement.style, tmpElement.listen));
+              HtmlCodeCreator.inputButton(tmpElement.id, tmpElement.value, tmpElement.style, tmpElement.listen));
           break;
         case INPUT_IMAGE:
-          tmpHtml.append(
-              HtmlCodeCreator.inputImage(tmpElement.id, tmpElement.content, tmpElement.style, tmpElement.listen));
+          tmpHtml
+              .append(HtmlCodeCreator.inputImage(tmpElement.id, tmpElement.alt, tmpElement.style, tmpElement.listen));
           break;
         case INPUT_RESET:
-          tmpHtml.append(
-              HtmlCodeCreator.inputReset(tmpElement.id, tmpElement.content, tmpElement.style, tmpElement.listen));
+          tmpHtml
+              .append(HtmlCodeCreator.inputReset(tmpElement.id, tmpElement.value, tmpElement.style, tmpElement.listen));
           break;
         case INPUT_SUBMIT:
           tmpHtml.append(
-              HtmlCodeCreator.inputSubmit(tmpElement.id, tmpElement.content, tmpElement.style, tmpElement.listen));
+              HtmlCodeCreator.inputSubmit(tmpElement.id, tmpElement.value, tmpElement.style, tmpElement.listen));
           break;
         case INPUT_TEXT:
-          tmpHtml.append(
-              HtmlCodeCreator.inputText(tmpElement.id, tmpElement.content, tmpElement.style, tmpElement.listen));
+          tmpHtml.append(HtmlCodeCreator.inputText(tmpElement.id, tmpElement.value, tmpElement.content,
+              tmpElement.style, tmpElement.listen));
           break;
         case LABEL:
           tmpHtml.append(HtmlCodeCreator.labelStart(tmpElement.id, tmpElement.style, tmpElement.listen));

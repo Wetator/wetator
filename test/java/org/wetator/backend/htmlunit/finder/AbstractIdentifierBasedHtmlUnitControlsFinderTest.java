@@ -200,8 +200,8 @@ public abstract class AbstractIdentifierBasedHtmlUnitControlsFinderTest {
     return new HtmlCodeBuilder().div(anId);
   }
 
-  protected static HtmlCodeBuilder image(final String anId, final String anAltText) {
-    return new HtmlCodeBuilder().image(anId, anAltText);
+  protected static HtmlCodeBuilder image(final String anId, final String anAlt) {
+    return new HtmlCodeBuilder().image(anId, anAlt);
   }
 
   protected static HtmlCodeBuilder image(final String anId) {

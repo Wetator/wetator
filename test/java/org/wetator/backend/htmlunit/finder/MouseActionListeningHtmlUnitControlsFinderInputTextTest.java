@@ -67,24 +67,29 @@ public class MouseActionListeningHtmlUnitControlsFinderInputTextTest
             new ExpectedControl(HtmlBody.class))
       },
 
+      // 3
+      { inputText("input").value(CONTENT),
+        null
+      },
+
       //+++++++++++++++++++
       // label + text input
 
-      // 3
+      // 4
       { label("input", CONTENT).noListen().inputText("input"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlTextInput.class, "input"),
             new ExpectedControl(HtmlLabel.class, "lbl-input"))
       },
 
-      // 4
+      // 5
       { label("input", CONTENT).inputText("input"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlLabel.class, "lbl-input"),
             new ExpectedControl(HtmlTextInput.class, "input"))
       },
 
-      // 5
+      // 6
       { inputText("input").label("input", CONTENT),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlTextInput.class, "input"),
@@ -94,7 +99,7 @@ public class MouseActionListeningHtmlUnitControlsFinderInputTextTest
       //+++++++++++++++++++++++
       // subsequent text inputs
 
-      // 6
+      // 7
       { CONTENT + inputText("input1") + CONTENT + inputText("input2"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlTextInput.class, "input1"),
@@ -102,7 +107,7 @@ public class MouseActionListeningHtmlUnitControlsFinderInputTextTest
             new ExpectedControl(HtmlBody.class))
       },
 
-      // 7
+      // 8
       { CONTENT + inputText("input1") + inputText("input2"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlTextInput.class, "input1"),
@@ -110,14 +115,14 @@ public class MouseActionListeningHtmlUnitControlsFinderInputTextTest
             new ExpectedControl(HtmlBody.class))
       },
 
-      // 8
+      // 9
       { CONTENT + inputText("input1") + "x" + inputText("input2"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlTextInput.class, "input1"),
             new ExpectedControl(HtmlBody.class))
       },
 
-      // 9
+      // 10
       { CONTENT + "x" + inputText("input1") + inputText("input2"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlTextInput.class, "input1"),
@@ -125,7 +130,7 @@ public class MouseActionListeningHtmlUnitControlsFinderInputTextTest
             new ExpectedControl(HtmlBody.class))
       },
 
-      // 10
+      // 11
       { CONTENT + "x" + inputText("input1") + CONTENT + inputText("input2"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlTextInput.class, "input2"),

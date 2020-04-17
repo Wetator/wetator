@@ -73,10 +73,10 @@ public abstract class HtmlCodeCreator {
     return input("button", anInputID, anIsListening, aStyle, aValue != null ? "value='" + aValue + '\'' : "");
   }
 
-  static String inputImage(final String anInputID, final String anAltText, final String aStyle,
+  static String inputImage(final String anInputID, final String anAlt, final String aStyle,
       final boolean anIsListening) {
     return input("image", anInputID, anIsListening, aStyle,
-        (anAltText != null ? "alt='" + anAltText + "' " : "") + "src='pathtoimg'");
+        (anAlt != null ? "alt='" + anAlt + "' " : "") + "src='pathtoimg'");
   }
 
   static String inputReset(final String anInputID, final String aValue, final String aStyle,
@@ -89,15 +89,16 @@ public abstract class HtmlCodeCreator {
     return input("submit", anInputID, anIsListening, aStyle, aValue != null ? "value='" + aValue + '\'' : "");
   }
 
-  static String inputText(final String anInputID, final String aPlaceholder, final String aStyle,
+  static String inputText(final String anInputID, final String aValue, final String aPlaceholder, final String aStyle,
       final boolean anIsListening) {
     return input("text", anInputID, anIsListening, aStyle,
-        aPlaceholder != null ? "placeholder='" + aPlaceholder + '\'' : "");
+        (aPlaceholder != null ? "placeholder='" + aPlaceholder + '\'' : "")
+            + (aValue != null ? (aPlaceholder != null ? ' ' : "") + "value='" + aValue + '\'' : ""));
   }
 
-  static String image(final String anImageId, final String anAltText, final String aStyle,
+  static String image(final String anImageId, final String anAlt, final String aStyle,
       final boolean anIsListening) {
-    return "<image id='" + anImageId + '\'' + (anAltText != null ? " alt='" + anAltText + '\'' : "")
+    return "<image id='" + anImageId + '\'' + (anAlt != null ? " alt='" + anAlt + '\'' : "")
         + (anIsListening ? ' ' + listeners : "") + (aStyle != null ? " style='" + aStyle + "'" : "")
         + " src='pathtoimg' />";
   }
