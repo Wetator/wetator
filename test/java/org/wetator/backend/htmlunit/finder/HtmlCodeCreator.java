@@ -16,6 +16,8 @@
 
 package org.wetator.backend.htmlunit.finder;
 
+import org.apache.commons.lang3.StringUtils;
+
 /**
  * Creator for HTML code of clickable elements.
  *
@@ -51,8 +53,7 @@ public abstract class HtmlCodeCreator {
   static String button(final String aButtonId, final String aContent, final String aStyle,
       final boolean anIsListening) {
     return "<button type='button' id='" + aButtonId + '\'' + (anIsListening ? ' ' + listeners : "")
-        + (aStyle != null ? " style='" + aStyle + "'" : "") + '>' + (aContent != null ? aContent : "")
-        + (anIsListening ? ' ' + listeners : "") + "</button>";
+        + (aStyle != null ? " style='" + aStyle + "'" : "") + '>' + (aContent != null ? aContent : "") + "</button>";
   }
 
   static String checkbox(final String aCheckboxId, final String aStyle, final boolean anIsListening) {
@@ -70,7 +71,7 @@ public abstract class HtmlCodeCreator {
 
   static String inputButton(final String anInputID, final String aValue, final String aStyle,
       final boolean anIsListening) {
-    return input("button", anInputID, anIsListening, aStyle, aValue != null ? "value='" + aValue + '\'' : "");
+    return input("button", anInputID, anIsListening, aStyle, aValue != null ? "value='" + aValue + '\'' : null);
   }
 
   static String inputImage(final String anInputID, final String anAlt, final String aStyle,
@@ -81,12 +82,12 @@ public abstract class HtmlCodeCreator {
 
   static String inputReset(final String anInputID, final String aValue, final String aStyle,
       final boolean anIsListening) {
-    return input("reset", anInputID, anIsListening, aStyle, aValue != null ? "value='" + aValue + '\'' : "");
+    return input("reset", anInputID, anIsListening, aStyle, aValue != null ? "value='" + aValue + '\'' : null);
   }
 
   static String inputSubmit(final String anInputID, final String aValue, final String aStyle,
       final boolean anIsListening) {
-    return input("submit", anInputID, anIsListening, aStyle, aValue != null ? "value='" + aValue + '\'' : "");
+    return input("submit", anInputID, anIsListening, aStyle, aValue != null ? "value='" + aValue + '\'' : null);
   }
 
   static String inputText(final String anInputID, final String aValue, final String aPlaceholder, final String aStyle,
@@ -96,8 +97,7 @@ public abstract class HtmlCodeCreator {
             + (aValue != null ? (aPlaceholder != null ? ' ' : "") + "value='" + aValue + '\'' : ""));
   }
 
-  static String image(final String anImageId, final String anAlt, final String aStyle,
-      final boolean anIsListening) {
+  static String image(final String anImageId, final String anAlt, final String aStyle, final boolean anIsListening) {
     return "<image id='" + anImageId + '\'' + (anAlt != null ? " alt='" + anAlt + '\'' : "")
         + (anIsListening ? ' ' + listeners : "") + (aStyle != null ? " style='" + aStyle + "'" : "")
         + " src='pathtoimg' />";
@@ -138,8 +138,8 @@ public abstract class HtmlCodeCreator {
   static String selectOption(final String aSelectId, final String anOptionId, final String aContent,
       final String aStyle, final boolean anIsListening) {
     final String tmpOptionId = aSelectId + '-' + anOptionId;
-    return "<option id='" + tmpOptionId + '\'' + (anIsListening ? ' ' + listeners : "")
-        + (aStyle != null ? " style='" + aStyle + "'" : "") + " value='" + tmpOptionId + "-val'>"
+    return "<option id='" + tmpOptionId + '\'' + " value='" + tmpOptionId + "-val' "
+        + (anIsListening ? ' ' + listeners : "") + (aStyle != null ? " style='" + aStyle + "'" : "") + "'>"
         + (aContent != null ? aContent : "") + "</option>";
   }
 
@@ -180,8 +180,9 @@ public abstract class HtmlCodeCreator {
 
   private static String input(final String aType, final String anInputID, final boolean anIsListening,
       final String aStyle, final String anOptional) {
-    return "<input type = '" + aType + "' id='" + anInputID + '\'' + (anIsListening ? ' ' + listeners : "")
-        + (aStyle != null ? " style='" + aStyle + "'" : "") + (anOptional != null ? ' ' + anOptional : "") + " />";
+    return "<input id='" + anInputID + "' type='" + aType + '\''
+        + (!StringUtils.isEmpty(anOptional) ? ' ' + anOptional : "") + (anIsListening ? ' ' + listeners : "")
+        + (aStyle != null ? " style='" + aStyle + "'" : "") + " />";
   }
 
   public static void resetListeners() {
