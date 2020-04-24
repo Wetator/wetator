@@ -86,13 +86,13 @@ public class IdentifierBasedHtmlUnitControlsFinderWithIdentifierTest
         HtmlUnitAnchorIdentifier.class
       },
 
-      { button("button-before").button("button", CONTENT).button("button-after"),
+      { button("button-value").value(CONTENT).button("button-before").button("button", CONTENT).button("button-after"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlButton.class, "button")),
         HtmlUnitButtonIdentifier.class
       },
 
-      { checkbox("checkbox-before") + CONTENT + checkbox("checkbox-after").label("checkbox-label", CONTENT).noListen().checkbox("checkbox-label"),
+      { checkbox("checkbox-value").value(CONTENT).checkbox("checkbox-before") + CONTENT + checkbox("checkbox-after").label("checkbox-label", CONTENT).noListen().checkbox("checkbox-label"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlCheckBoxInput.class, "checkbox-label"),
             new ExpectedControl(HtmlCheckBoxInput.class, "checkbox-before"),
@@ -102,8 +102,9 @@ public class IdentifierBasedHtmlUnitControlsFinderWithIdentifierTest
         HtmlUnitInputCheckBoxIdentifier.class
       },
 
-      { inputButton("inputButton-before").inputButton("inputButton", CONTENT).inputButton("inputButton-after"),
+      { inputButton("inputButton-value").value(CONTENT).inputButton("inputButton-before").inputButton("inputButton", CONTENT).inputButton("inputButton-after"),
         new SortedEntryExpectation(
+            new ExpectedControl(HtmlButtonInput.class, "inputButton-value"),
             new ExpectedControl(HtmlButtonInput.class, "inputButton")),
         HtmlUnitInputButtonIdentifier.class
       },
@@ -114,26 +115,29 @@ public class IdentifierBasedHtmlUnitControlsFinderWithIdentifierTest
         HtmlUnitInputImageIdentifier.class
       },
 
-      { inputReset("inputReset-before").inputReset("inputReset", CONTENT).inputReset("inputReset-after"),
+      { inputReset("inputReset-value").value(CONTENT).inputReset("inputReset-before").inputReset("inputReset", CONTENT).inputReset("inputReset-after"),
         new SortedEntryExpectation(
+            new ExpectedControl(HtmlResetInput.class, "inputReset-value"),
             new ExpectedControl(HtmlResetInput.class, "inputReset")),
         HtmlUnitInputResetIdentifier.class
       },
 
-      { inputSubmit("inputSubmit-before").inputSubmit("inputSubmit", CONTENT).inputSubmit("inputSubmit-after"),
+      { inputSubmit("inputSubmit-value").value(CONTENT).inputSubmit("inputSubmit-before").inputSubmit("inputSubmit", CONTENT).inputSubmit("inputSubmit-after"),
         new SortedEntryExpectation(
+            new ExpectedControl(HtmlSubmitInput.class, "inputSubmit-value"),
             new ExpectedControl(HtmlSubmitInput.class, "inputSubmit")),
         HtmlUnitInputSubmitIdentifier.class
       },
 
-      { inputText("inputText-before").inputText("inputText", CONTENT).inputText("inputText-after"),
+      { inputText("inputText-before").inputText("inputText-value").value(CONTENT).inputText("inputText-between").inputText("inputText", CONTENT).inputText("inputText-after"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlTextInput.class, "inputText"),
+            new ExpectedControl(HtmlTextInput.class, "inputText-between"), // FIXME inputText.value special desired?
             new ExpectedControl(HtmlTextInput.class, "inputText-after")),
         HtmlUnitInputTextIdentifier.class
       },
 
-      { radio("radio-before") + CONTENT + radio("radio-after").label("radio-label", CONTENT).noListen().radio("radio-label"),
+      { radio("radio-value").value(CONTENT).radio("radio-before") + CONTENT + radio("radio-after").label("radio-label", CONTENT).noListen().radio("radio-label"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlRadioButtonInput.class, "radio-label"),
             new ExpectedControl(HtmlRadioButtonInput.class, "radio-before"),
