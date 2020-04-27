@@ -319,7 +319,6 @@ test/java/org/wetator/backend/htmlunit/finder/HtmlCodeSelectBuilder.java -text
 test/java/org/wetator/backend/htmlunit/finder/HtmlCodeTableBuilder.java -text
 test/java/org/wetator/backend/htmlunit/finder/HtmlUnitUnspecificControlIdentifierTest.java -text
 test/java/org/wetator/backend/htmlunit/finder/IdentifierBasedHtmlUnitControlsFinderFocusTest.java -text
-test/java/org/wetator/backend/htmlunit/finder/IdentifierBasedHtmlUnitControlsFinderTest.java -text svneol=unset#text/plain
 test/java/org/wetator/backend/htmlunit/finder/IdentifierBasedHtmlUnitControlsFinderVisibilityTest.java -text
 test/java/org/wetator/backend/htmlunit/finder/IdentifierBasedHtmlUnitControlsFinderWithIdentifierTest.java -text
 test/java/org/wetator/backend/htmlunit/finder/IdentifierBasedHtmlUnitControlsFinderWithoutIdentifierTest.java -text
