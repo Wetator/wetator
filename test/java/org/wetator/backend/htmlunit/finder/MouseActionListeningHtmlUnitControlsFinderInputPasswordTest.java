@@ -95,6 +95,7 @@ public class MouseActionListeningHtmlUnitControlsFinderInputPasswordTest
 
       //++++++++++++++++++++++++++
       // password input with value
+
       // 6
       { inputPassword("input").value(CONTENT),
         null

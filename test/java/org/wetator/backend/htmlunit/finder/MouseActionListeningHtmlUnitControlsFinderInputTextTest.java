@@ -95,6 +95,7 @@ public class MouseActionListeningHtmlUnitControlsFinderInputTextTest
 
       //++++++++++++++++++++++
       // text input with value
+
       // 6
       { inputText("input").value(CONTENT),
         null

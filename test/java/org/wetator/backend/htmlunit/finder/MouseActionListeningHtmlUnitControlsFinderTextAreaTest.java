@@ -95,6 +95,7 @@ public class MouseActionListeningHtmlUnitControlsFinderTextAreaTest
 
       //+++++++++++++++++++++
       // text area with value
+
       // 6
       { textArea("textArea").value(CONTENT),
         null
