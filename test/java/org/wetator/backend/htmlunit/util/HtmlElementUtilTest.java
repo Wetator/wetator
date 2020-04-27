@@ -2453,19 +2453,4 @@ public class HtmlElementUtilTest {
     tmpElement = tmpHtmlPage.getElementById("img1");
     assertFalse(HtmlElementUtil.isBlock(tmpElement));
   }
-
-  @Test
-  public void isFormatElement() throws IOException {
-    // @formatter:off
-    final String tmpHtmlCode = "<html><body>"
-        + "<div>"
-        + "<b id='id1'>Wetator</b>"
-        + "</div>"
-        + "</body></html>";
-    // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-
-    final DomElement tmpElement = tmpHtmlPage.getElementById("id1");
-    assertTrue(HtmlElementUtil.isFormatElement(tmpElement));
-  }
 }

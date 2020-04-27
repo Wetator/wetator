@@ -124,8 +124,6 @@ public class HtmlPageIndex {
 
   private Map<MouseAction, Set<HtmlElement>> htmlElementsWithMouseActionListener;
 
-  private boolean lastOneWasHtmlElement;
-
   /**
    * The constructor.
    *
@@ -477,13 +475,6 @@ public class HtmlPageIndex {
           tmpMouseActions = getAvailableMouseActions(tmpHtmlElement, tmpMouseActions);
           tmpMouseActions.forEach(a -> htmlElementsWithMouseActionListener.get(a).add(tmpHtmlElement));
         }
-
-        if (HtmlElementUtil.isFormatElement(aDomNode) && lastOneWasHtmlElement) {
-          // IE suppresses whitespace between two elements
-          // e.g. <b>Hello</b> <i>World</i>
-          text.appendBlank();
-          textWithoutFormControls.appendBlank();
-        }
       }
 
       if (aDomNode instanceof HtmlHiddenInput || aDomNode instanceof HtmlApplet || aDomNode instanceof HtmlScript
@@ -553,7 +544,6 @@ public class HtmlPageIndex {
         }
       }
 
-      lastOneWasHtmlElement = tmpIsHtmlElement;
       if (tmpIsHtmlElement) {
         visibleHtmlElementsBottomUp.add((HtmlElement) aDomNode);
       }
@@ -747,17 +737,17 @@ public class HtmlPageIndex {
 
   private void appendHtmlInlineQuotation(final HtmlInlineQuotation anHtmlInlineQuotation, final String aHierarchy,
       final Set<MouseAction> aMouseActions) {
-    text.append(" \"");
-    textWithoutFormControls.append(" \"");
+    text.append("\"");
+    textWithoutFormControls.append("\"");
     parseChildren(anHtmlInlineQuotation, aHierarchy, aMouseActions);
-    text.append("\" ");
-    textWithoutFormControls.append("\" ");
+    text.append("\"");
+    textWithoutFormControls.append("\"");
   }
 
   private void appendHtmlInput(final HtmlInput anHtmlInput) {
     String tmpValue = anHtmlInput.getValueAttribute();
     if (StringUtils.isEmpty(tmpValue)) {
-      tmpValue = anHtmlInput.getAttribute("placeholder");
+      tmpValue = anHtmlInput.getPlaceholder();
     }
     text.append(tmpValue);
   }
@@ -875,7 +865,13 @@ public class HtmlPageIndex {
   private void appendHtmlTextArea(final HtmlTextArea anHtmlTextArea, final String aHierarchy,
       final Set<MouseAction> aMouseActions) {
     textWithoutFormControls.disableAppend();
+
+    final int tmpOldLength = text.length();
     parseChildren(anHtmlTextArea, aHierarchy, aMouseActions);
+    if (text.length() == tmpOldLength) {
+      text.append(anHtmlTextArea.getPlaceholder());
+    }
+
     textWithoutFormControls.enableAppend();
   }
 

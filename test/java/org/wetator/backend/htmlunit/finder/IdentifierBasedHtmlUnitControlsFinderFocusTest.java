@@ -205,9 +205,8 @@ public class IdentifierBasedHtmlUnitControlsFinderFocusTest extends AbstractIden
 
       { textArea("textArea-before").textArea("textArea", CONTENT).textArea("textArea-after"),
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlTextArea.class, "textArea")),
-            // FIXME textArea not in sync with inputText, desired?
-            // new ExpectedControl(HtmlTextArea.class, "textArea-after")),
+            new ExpectedControl(HtmlTextArea.class, "textArea"),
+            new ExpectedControl(HtmlTextArea.class, "textArea-after")),
         HtmlUnitTextAreaIdentifier.class
       },
       // @formatter:on

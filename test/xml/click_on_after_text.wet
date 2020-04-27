@@ -415,13 +415,13 @@
     <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
     <comment>javascript / text formated</comment>
-    <command><d:click-on><d:wpath>Click after this text &gt; Table Clickable formated text</d:wpath></d:click-on></command>
+    <command><d:click-on><d:wpath>Click after this text &gt; Table Clickableformated text</d:wpath></d:click-on></command>
     <command><d:assert-content><d:content>GET Parameters Key Value clickOnText AFTER_clickableTextFormatedTable POST</d:content></d:assert-content></command>
     <comment></comment>
     <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
     <comment>javascript / text formated</comment>
-    <command><d:click-on><d:wpath>Click after this formated text &gt; Table Clickable formated text</d:wpath></d:click-on></command>
+    <command><d:click-on><d:wpath>Click after this formated text &gt; Table Clickableformated text</d:wpath></d:click-on></command>
     <command><d:assert-content><d:content>GET Parameters Key Value clickOnText AFTER_clickableTextFormatedTable POST</d:content></d:assert-content></command>
     <comment></comment>
     <comment></comment>
@@ -441,13 +441,13 @@
     <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
     <comment>javascript / text span</comment>
-    <command><d:click-on><d:wpath>Click after this text &gt; Span Clickable formated text</d:wpath></d:click-on></command>
+    <command><d:click-on><d:wpath>Click after this text &gt; Span Clickableformated text</d:wpath></d:click-on></command>
     <command><d:assert-content><d:content>GET Parameters Key Value clickOnText AFTER_clickableTextFormatedSpan POST</d:content></d:assert-content></command>
     <comment></comment>
     <command><d:open-url><d:url>click_after.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Click After</d:title></d:assert-title></command>
     <comment>javascript / text span</comment>
-    <command><d:click-on><d:wpath>Click after this formated text &gt; Span Clickable formated text</d:wpath></d:click-on></command>
+    <command><d:click-on><d:wpath>Click after this formated text &gt; Span Clickableformated text</d:wpath></d:click-on></command>
     <command><d:assert-content><d:content>GET Parameters Key Value clickOnText AFTER_clickableTextFormatedSpan POST</d:content></d:assert-content></command>
     <comment></comment>
     <comment></comment>

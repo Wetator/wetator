@@ -220,11 +220,12 @@ public class HtmlPageIndexTest {
         + "before"
         + "<b>1</b><big>2</big><em>3</em><i>4</i><small>5</small>"
         + "<strong>6</strong><sub>7</sub><sup>8</sup><ins>9</ins><del>10</del>"
+        + "<b> 11</b><b>12 </b><b>13</b> <b>14</b>"
         + "after"
         + "</body></html>";
     // @formatter:on
 
-    getText("before1 2 3 4 5 6 7 8 9 10after", tmpHtmlCode);
+    getText("before12345678910 1112 13 14after", tmpHtmlCode);
   }
 
   @Test
@@ -237,7 +238,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    getText("before1 2 3 4 5 6 after", tmpHtmlCode);
+    getText("before12345 6 after", tmpHtmlCode);
   }
 
   @Test
@@ -250,7 +251,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    getText("before1 2 \"3\" 4 5after", tmpHtmlCode);
+    getText("before12\"3\"45after", tmpHtmlCode);
   }
 
   @Test
@@ -259,16 +260,50 @@ public class HtmlPageIndexTest {
     final String tmpHtmlCode = "<html><body>"
         + "before"
         + "<h1>Heading1</h1>"
+        + "<h1>Heading1</h1>"
+        + "<h1> Heading1</h1>"
+        + "<h1>Heading1 </h1>"
+        + " <h1>Heading1</h1>"
+        + "<h1>Heading1</h1> "
         + "<h2>Heading2</h2>"
+        + "<h2>Heading2</h2>"
+        + "<h2> Heading2</h2>"
+        + "<h2>Heading2 </h2>"
+        + " <h2>Heading2</h2>"
+        + "<h2>Heading2</h2> "
         + "<h3>Heading3</h3>"
+        + "<h3>Heading3</h3>"
+        + "<h3> Heading3</h3>"
+        + "<h3>Heading3 </h3>"
+        + " <h3>Heading3</h3>"
+        + "<h3>Heading3</h3> "
         + "<h4>Heading4</h4>"
+        + "<h4>Heading4</h4>"
+        + "<h4> Heading4</h4>"
+        + "<h4>Heading4 </h4>"
+        + " <h4>Heading4</h4>"
+        + "<h4>Heading4</h4> "
         + "<h5>Heading5</h5>"
+        + "<h5>Heading5</h5>"
+        + "<h5> Heading5</h5>"
+        + "<h5>Heading5 </h5>"
+        + " <h5>Heading5</h5>"
+        + "<h5>Heading5</h5> "
         + "<h6>Heading6</h6>"
+        + "<h6>Heading6</h6>"
+        + "<h6> Heading6</h6>"
+        + "<h6>Heading6 </h6>"
+        + " <h6>Heading6</h6>"
+        + "<h6>Heading6</h6> "
         + "after"
         + "</body></html>";
     // @formatter:on
 
-    getText("before Heading1 Heading2 Heading3 Heading4 Heading5 Heading6 after", tmpHtmlCode);
+    getText(
+        "before Heading1 Heading1 Heading1 Heading1 Heading1 Heading1 Heading2 Heading2 Heading2 Heading2 Heading2 Heading2 "
+            + "Heading3 Heading3 Heading3 Heading3 Heading3 Heading3 Heading4 Heading4 Heading4 Heading4 Heading4 Heading4 "
+            + "Heading5 Heading5 Heading5 Heading5 Heading5 Heading5 Heading6 Heading6 Heading6 Heading6 Heading6 Heading6 after",
+        tmpHtmlCode);
   }
 
   @Test
@@ -281,10 +316,10 @@ public class HtmlPageIndexTest {
         + "  <th>header1</th><th>header2</th>"
         + "</tr>"
         + "<tr>"
-        + "  <td>data1</td><td>data2</td>"
+        + "  <td>data1</td><td> data2</td>"
         + "</tr>"
         + "<tr>"
-        + "  <td>data3</td><td>data4</td>"
+        + "  <td>data3 </td><td>data4</td>"
         + "</tr>"
         + "<tr>"
         + "  <td colspan='2'>data5</td>"
@@ -310,14 +345,15 @@ public class HtmlPageIndexTest {
         + "before"
         + "<ol>"
         + "  <li>Line1"
-        + "  <li> Line2"
-        + "  <li>Line3 "
+        + "  <li>Line2"
+        + "  <li> Line3"
+        + "  <li>Line4 "
         + "</ol>"
         + "after"
         + "</body></html>";
     // @formatter:on
 
-    getText("before 1. Line1 2. Line2 3. Line3 after", tmpHtmlCode);
+    getText("before 1. Line1 2. Line2 3. Line3 4. Line4 after", tmpHtmlCode);
   }
 
   @Test
@@ -327,14 +363,41 @@ public class HtmlPageIndexTest {
         + "before"
         + "<ul>"
         + "  <li>Line1"
-        + "  <li> Line2"
-        + "  <li>Line3 "
+        + "  <li>Line2"
+        + "  <li> Line3"
+        + "  <li>Line4 "
         + "</ul>"
         + "after"
         + "</body></html>";
     // @formatter:on
 
-    getText("before Line1 Line2 Line3 after", tmpHtmlCode);
+    getText("before Line1 Line2 Line3 Line4 after", tmpHtmlCode);
+  }
+
+  @Test
+  public void getText_DefinitionList() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "before"
+        + "<dl>"
+        + "  <dt>Term 1</dt>"
+        + "  <dd>Definition 1</dd>"
+        + "  <dt>Term 2.1</dt>"
+        + "  <dt> Term 2.2</dt>"
+        + "  <dt>Term 2.3 </dt>"
+        + "  <dt>Term 2.4</dt>"
+        + "  <dd>Defintion 2.1</dd>"
+        + "  <dd> Defintion 2.2</dd>"
+        + "  <dd>Defintion 2.3 </dd>"
+        + "  <dd>Defintion 2.4</dd>"
+        + "</dl>"
+        + "after"
+        + "</body></html>";
+    // @formatter:on
+
+    getText(
+        "before Term 1 Definition 1 Term 2.1 Term 2.2 Term 2.3 Term 2.4 Defintion 2.1 Defintion 2.2 Defintion 2.3 Defintion 2.4 after",
+        tmpHtmlCode);
   }
 
   @Test
@@ -344,31 +407,14 @@ public class HtmlPageIndexTest {
         + "before"
         + "<img src='src.img'>"
         + "between"
-        + "<img src='src.img' alt='test image'>"
+        + "<img src='src.img' alt='test image1'>"
         + "between"
-        + "<img src='src.img' title='test image'>"
+        + "<img src='src.img' title='test image2'>"
         + "after"
         + "</body></html>";
     // @formatter:on
 
-    getText("before between test image between after", tmpHtmlCode);
-  }
-
-  @Test
-  public void getText_Select() throws IOException {
-    // @formatter:off
-    final String tmpHtmlCode = "<html><body>"
-        + "before"
-        + "<select>"
-        + "<option value='o_red'>red</option>"
-        + "<option value='o_green'>green</option>"
-        + "<option value='o_blue' selected>blue</option>"
-        + "</select>"
-        + "after"
-        + "</body></html>";
-    // @formatter:on
-
-    getText("before red green blue after", "before after", tmpHtmlCode);
+    getText("before between test image1 between after", tmpHtmlCode);
   }
 
   @Test
@@ -386,27 +432,120 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  public void getText_SelectWithOptgroup() throws IOException {
+  public void getText_SelectWithOptions() throws IOException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "before"
         + "<select>"
-        + "<option value='o_car'>car</option>"
-        + "<optgroup label='colors'>"
-        + "<option value='o_red'>red</option>"
-        + "<option value='o_green'>green</option>"
-        + "<option value='o_blue'>blue</option>"
-        + "</optgroup>"
-        + "<optgroup label='flowers'>"
-        + "<option value='o_sun_flower'>sun flower</option>"
-        + "</optgroup>"
-        + "<option value='o_boat'>boat</option>"
+        + "<option value='o_1'>color 1</option>"
+        + "<option value='o_2'>color 2</option>"
+        + "<option value='o_3' selected>color 3</option>"
+        + "<option value='o_4'> color 4</option>"
+        + "<option value='o_5'>color 5 </option>"
         + "</select>"
         + "after"
         + "</body></html>";
     // @formatter:on
 
-    getText("before car colors red green blue flowers sun flower boat after", "before after", tmpHtmlCode);
+    getText("before color 1 color 2 color 3 color 4 color 5 after", "before after", tmpHtmlCode);
+  }
+
+  @Test
+  public void getText_SelectWithOptgroup() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "before"
+        + "<select>"
+        + "<option value='o_1'>color 1</option>"
+        + "<optgroup label='group 1'>"
+        + "<option value='o_2'>color 2</option>"
+        + "</optgroup>"
+        + "<optgroup label=' group 2'>"
+        + "<option value='o_3'>color 3</option>"
+        + "</optgroup>"
+        + "<optgroup label='group 3'>"
+        + "<option value='o_4'>color 4</option>"
+        + "</optgroup>"
+        + "<option value='o_5'>color 5</option>"
+        + "</select>"
+        + "after"
+        + "</body></html>";
+    // @formatter:on
+
+    getText("before color 1 group 1 color 2 group 2 color 3 group 3 color 4 color 5 after", "before after",
+        tmpHtmlCode);
+  }
+
+  @Test
+  public void getText_InputText() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "before"
+        + "<input type='text' value=''>"
+        + "between"
+        + "<input type='text' value='v 2'>"
+        + "between"
+        + "<input type='text' value='v 3' placeholder='p 3'>"
+        + "between"
+        + "<input type='text' value='' placeholder='p 4'>"
+        + "after"
+        + "</body></html>";
+    // @formatter:on
+
+    getText("beforebetweenv 2betweenv 3betweenp 4after", "beforebetweenbetweenbetweenafter", tmpHtmlCode);
+  }
+
+  @Test
+  public void getText_InputPassword() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "before"
+        + "<input type='password' value=''>"
+        + "between"
+        + "<input type='password' value='v 2'>"
+        + "between"
+        + "<input type='password' value='v 3' placeholder='p 3'>"
+        + "between"
+        + "<input type='password' value='' placeholder='p 4'>"
+        + "after"
+        + "</body></html>";
+    // @formatter:on
+
+    getText("beforebetweenv 2betweenv 3betweenp 4after", "beforebetweenbetweenbetweenafter", tmpHtmlCode);
+  }
+
+  @Test
+  public void getText_InputFile() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "before"
+        + "<input type='file' value=''>"
+        + "between"
+        + "<input type='file' value='v 2'>"
+        + "after"
+        + "</body></html>";
+    // @formatter:on
+
+    getText("beforebetweenafter", "beforebetweenafter", tmpHtmlCode);
+  }
+
+  @Test
+  public void getText_TextArea() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "before"
+        + "<textarea></textarea>"
+        + "between"
+        + "<textarea>v 2</textarea>"
+        + "between"
+        + "<textarea placeholder='p 3'>v 3</textarea>"
+        + "between"
+        + "<textarea placeholder='p 4'></textarea>"
+        + "after"
+        + "</body></html>";
+    // @formatter:on
+
+    getText("beforebetweenv 2betweenv 3betweenp 4after", "beforebetweenbetweenbetweenafter", tmpHtmlCode);
   }
 
   @Test
@@ -416,14 +555,14 @@ public class HtmlPageIndexTest {
         + "before"
         + "<input type='image' src='src.img'>"
         + "between"
-        + "<input type='image' src='src.img' alt='test image'>"
+        + "<input type='image' src='src.img' alt='test image1'>"
         + "between"
-        + "<input type='image' src='src.img' title='test image'>"
+        + "<input type='image' src='src.img' title='test image2'>"
         + "after"
         + "</body></html>";
     // @formatter:on
 
-    getText("before between test image between after", "before between between after", tmpHtmlCode);
+    getText("before between test image1 between after", "before between between after", tmpHtmlCode);
   }
 
   @Test
