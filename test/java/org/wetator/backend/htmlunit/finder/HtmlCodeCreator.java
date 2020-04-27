@@ -83,7 +83,7 @@ public abstract class HtmlCodeCreator {
   static String inputPassword(final String anInputID, final String aValue, final String aPlaceholder,
       final String aStyle, final boolean anIsListening) {
     return input("password", anInputID, anIsListening, aStyle,
-        (aPlaceholder != null ? "placeholder='" + aPlaceholder + '\'' : "")
+        (aPlaceholder != null ? " placeholder='" + aPlaceholder + '\'' : "")
             + (aValue != null ? (aPlaceholder != null ? ' ' : "") + "value='" + aValue + '\'' : ""));
   }
 
@@ -100,7 +100,7 @@ public abstract class HtmlCodeCreator {
   static String inputText(final String anInputID, final String aValue, final String aPlaceholder, final String aStyle,
       final boolean anIsListening) {
     return input("text", anInputID, anIsListening, aStyle,
-        (aPlaceholder != null ? "placeholder='" + aPlaceholder + '\'' : "")
+        (aPlaceholder != null ? " placeholder='" + aPlaceholder + '\'' : "")
             + (aValue != null ? (aPlaceholder != null ? ' ' : "") + "value='" + aValue + '\'' : ""));
   }
 
@@ -182,7 +182,7 @@ public abstract class HtmlCodeCreator {
 
   static String textArea(final String aTextAreaID, final String aText, final String aPlaceholder, final String aStyle,
       final boolean anIsListening) {
-    return "<textarea id='" + aTextAreaID + '\'' + (aPlaceholder != null ? "placeholder='" + aPlaceholder + '\'' : "")
+    return "<textarea id='" + aTextAreaID + '\'' + (aPlaceholder != null ? " placeholder='" + aPlaceholder + '\'' : "")
         + (anIsListening ? ' ' + listeners : "") + (aStyle != null ? " style='" + aStyle + "'" : "") + '>'
         + (aText != null ? aText : "") + "</textarea>";
   }
