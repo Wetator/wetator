@@ -180,6 +180,13 @@ public abstract class HtmlCodeCreator {
     return "</tr>";
   }
 
+  static String textArea(final String aTextAreaID, final String aText, final String aPlaceholder, final String aStyle,
+      final boolean anIsListening) {
+    return "<textarea id='" + aTextAreaID + '\'' + (aPlaceholder != null ? "placeholder='" + aPlaceholder + '\'' : "")
+        + (anIsListening ? ' ' + listeners : "") + (aStyle != null ? " style='" + aStyle + "'" : "") + '>'
+        + (aText != null ? aText : "") + "</textarea>";
+  }
+
   private static String input(final String aType, final String anInputID, final String aStyle,
       final boolean anIsListening) {
     return input(aType, anInputID, anIsListening, aStyle, null);

@@ -99,7 +99,7 @@ public class IdentifierBasedHtmlUnitControlsFinderWithoutIdentifierTest
         null
       },
 
-      { inputPassword("inputPassword-before").inputPassword("inputPassword-value").value(CONTENT).inputPassword("inputPassword-between").inputPassword("inputPassword", CONTENT).inputPassword("inputPassword-after"),
+      { inputText("inputText-before").inputText("inputText-value").value(CONTENT).inputText("inputText-between").inputText("inputText", CONTENT).inputText("inputText-after"),
         null
       },
 
@@ -132,7 +132,11 @@ public class IdentifierBasedHtmlUnitControlsFinderWithoutIdentifierTest
         new SortedEntryExpectation(
             new ExpectedControl(HtmlBody.class),
             new ExpectedControl(HtmlTableDataCell.class, "table-tr-td"))
-      }
+      },
+
+      { textArea("textArea-before").textArea("textArea-value").value(CONTENT).textArea("textArea-between").textArea("textArea", CONTENT).textArea("textArea-after"),
+        null
+      },
       // @formatter:on
     };
 

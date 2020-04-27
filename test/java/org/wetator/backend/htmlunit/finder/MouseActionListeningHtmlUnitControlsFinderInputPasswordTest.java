@@ -28,17 +28,17 @@ import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.Sorted
 
 import com.gargoylesoftware.htmlunit.html.HtmlBody;
 import com.gargoylesoftware.htmlunit.html.HtmlLabel;
-import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
+import com.gargoylesoftware.htmlunit.html.HtmlPasswordInput;
 
 /**
  * Tests for element weighting during {@link MouseActionListeningHtmlUnitControlsFinder#find(WPath)} on pages with
- * {@link HtmlTextInput}s.
+ * {@link HtmlPasswordInput}s.
  *
  * @author tobwoerk
- * @see MouseActionListeningHtmlUnitControlsFinderInputPasswordTest
+ * @see MouseActionListeningHtmlUnitControlsFinderInputTextTest
  * @see MouseActionListeningHtmlUnitControlsFinderTextAreaTest
  */
-public class MouseActionListeningHtmlUnitControlsFinderInputTextTest
+public class MouseActionListeningHtmlUnitControlsFinderInputPasswordTest
     extends AbstractMouseActionListeningHtmlUnitControlsFinderParameterizedTest {
 
   @Parameters(name = "{index}: {0}")
@@ -47,104 +47,104 @@ public class MouseActionListeningHtmlUnitControlsFinderInputTextTest
 
     final Object[][] tmpData = new Object[][] { //
     // @formatter:off
-      //+++++++++++++++
-      // one text input
+      //+++++++++++++++++++
+      // one password input
 
       // 0
-      { CONTENT + inputText("input"),
+      { CONTENT + inputPassword("input"),
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlTextInput.class, "input"),
+            new ExpectedControl(HtmlPasswordInput.class, "input"),
             new ExpectedControl(HtmlBody.class))
       },
 
       // 1
-      { inputText("input", CONTENT),
+      { inputPassword("input", CONTENT),
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlTextInput.class, "input"))
+            new ExpectedControl(HtmlPasswordInput.class, "input"))
       },
 
       // 2
-      { inputText("input") + CONTENT,
+      { inputPassword("input") + CONTENT,
         new SortedEntryExpectation(
             new ExpectedControl(HtmlBody.class))
       },
 
-      //+++++++++++++++++++
-      // label + text input
+      //+++++++++++++++++++++++
+      // label + password input
 
       // 3
-      { label("input", CONTENT).noListen().inputText("input"),
+      { label("input", CONTENT).noListen().inputPassword("input"),
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlTextInput.class, "input"),
+            new ExpectedControl(HtmlPasswordInput.class, "input"),
             new ExpectedControl(HtmlLabel.class, "lbl-input"))
       },
 
       // 4
-      { label("input", CONTENT).inputText("input"),
+      { label("input", CONTENT).inputPassword("input"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlLabel.class, "lbl-input"),
-            new ExpectedControl(HtmlTextInput.class, "input"))
+            new ExpectedControl(HtmlPasswordInput.class, "input"))
       },
 
       // 5
-      { inputText("input").label("input", CONTENT),
+      { inputPassword("input").label("input", CONTENT),
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlTextInput.class, "input"),
+            new ExpectedControl(HtmlPasswordInput.class, "input"),
             new ExpectedControl(HtmlLabel.class, "lbl-input"))
       },
 
-      //++++++++++++++++++++++
-      // text input with value
+      //++++++++++++++++++++++++++
+      // password input with value
       // 6
-      { inputText("input").value(CONTENT),
+      { inputPassword("input").value(CONTENT),
         null
       },
 
       // 7
-      { inputText("input").value(CONTENT).inputText("input-after"), // FIXME inputText.value special desired?
+      { inputPassword("input").value(CONTENT).inputPassword("input-after"), // FIXME inputPasword.value special desired?
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlTextInput.class, "input-after"))
+            new ExpectedControl(HtmlPasswordInput.class, "input-after"))
       },
 
-      //+++++++++++++++++++++++
-      // subsequent text inputs
+      //+++++++++++++++++++++++++++
+      // subsequent password inputs
 
       // 8
-      { CONTENT + inputText("input1") + CONTENT + inputText("input2"),
+      { CONTENT + inputPassword("input1") + CONTENT + inputPassword("input2"),
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlTextInput.class, "input1"),
-            new ExpectedControl(HtmlTextInput.class, "input2"),
+            new ExpectedControl(HtmlPasswordInput.class, "input1"),
+            new ExpectedControl(HtmlPasswordInput.class, "input2"),
             new ExpectedControl(HtmlBody.class))
       },
 
       // 9
-      { CONTENT + inputText("input1") + inputText("input2"),
+      { CONTENT + inputPassword("input1") + inputPassword("input2"),
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlTextInput.class, "input1"),
-            new ExpectedControl(HtmlTextInput.class, "input2"),
+            new ExpectedControl(HtmlPasswordInput.class, "input1"),
+            new ExpectedControl(HtmlPasswordInput.class, "input2"),
             new ExpectedControl(HtmlBody.class))
       },
 
       // 10
-      { CONTENT + inputText("input1") + "x" + inputText("input2"),
+      { CONTENT + inputPassword("input1") + "x" + inputPassword("input2"),
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlTextInput.class, "input1"),
+            new ExpectedControl(HtmlPasswordInput.class, "input1"),
             new ExpectedControl(HtmlBody.class))
       },
 
       // 11
-      { CONTENT + "x" + inputText("input1") + inputText("input2"),
+      { CONTENT + "x" + inputPassword("input1") + inputPassword("input2"),
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlTextInput.class, "input1"),
-            new ExpectedControl(HtmlTextInput.class, "input2"),
+            new ExpectedControl(HtmlPasswordInput.class, "input1"),
+            new ExpectedControl(HtmlPasswordInput.class, "input2"),
             new ExpectedControl(HtmlBody.class))
       },
 
       // 12
-      { CONTENT + "x" + inputText("input1") + CONTENT + inputText("input2"),
+      { CONTENT + "x" + inputPassword("input1") + CONTENT + inputPassword("input2"),
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlTextInput.class, "input2"),
-            new ExpectedControl(HtmlTextInput.class, "input1"),
+            new ExpectedControl(HtmlPasswordInput.class, "input2"),
+            new ExpectedControl(HtmlPasswordInput.class, "input1"),
             new ExpectedControl(HtmlBody.class))
       }
       // @formatter:on

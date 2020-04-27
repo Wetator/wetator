@@ -42,6 +42,7 @@ import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputSubmitIdenti
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputTextIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitOptionIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitSelectIdentifier;
+import org.wetator.backend.htmlunit.control.identifier.HtmlUnitTextAreaIdentifier;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.ExpectedControl;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.SortedEntryExpectation;
 
@@ -154,6 +155,11 @@ public class IdentifierBasedHtmlUnitControlsFinderVisibilityTest
         new SortedEntryExpectation(
             new ExpectedControl(HtmlBody.class)),
         null
+      },
+
+      { textArea("dn", CONTENT).style(DISPLAY_NONE).textArea("vh", CONTENT).style(VISIBILITY_HIDDEN),
+        null,
+        HtmlUnitTextAreaIdentifier.class
       },
 
       //++++++++++++

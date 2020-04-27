@@ -329,12 +329,14 @@ test/java/org/wetator/backend/htmlunit/finder/MouseActionListeningHtmlUnitContro
 test/java/org/wetator/backend/htmlunit/finder/MouseActionListeningHtmlUnitControlsFinderContainerContentDiffWPathTest.java -text
 test/java/org/wetator/backend/htmlunit/finder/MouseActionListeningHtmlUnitControlsFinderContainerContentEqWPathTest.java -text
 test/java/org/wetator/backend/htmlunit/finder/MouseActionListeningHtmlUnitControlsFinderContainerSeparatorWPathTest.java -text
+test/java/org/wetator/backend/htmlunit/finder/MouseActionListeningHtmlUnitControlsFinderInputPasswordTest.java -text
 test/java/org/wetator/backend/htmlunit/finder/MouseActionListeningHtmlUnitControlsFinderInputTextTest.java -text
 test/java/org/wetator/backend/htmlunit/finder/MouseActionListeningHtmlUnitControlsFinderPagePseudoWPathTest.java -text
 test/java/org/wetator/backend/htmlunit/finder/MouseActionListeningHtmlUnitControlsFinderSelectSeparatorTest.java -text
 test/java/org/wetator/backend/htmlunit/finder/MouseActionListeningHtmlUnitControlsFinderSelectTest.java -text
 test/java/org/wetator/backend/htmlunit/finder/MouseActionListeningHtmlUnitControlsFinderTableTest.java -text
 test/java/org/wetator/backend/htmlunit/finder/MouseActionListeningHtmlUnitControlsFinderTest.java -text
+test/java/org/wetator/backend/htmlunit/finder/MouseActionListeningHtmlUnitControlsFinderTextAreaTest.java -text
 test/java/org/wetator/backend/htmlunit/finder/SettableHtmlUnitControlsFinderTest.java -text svneol=unset#text/plain
 test/java/org/wetator/backend/htmlunit/finder/UnknownHtmlUnitControlsFinderTest.java -text svneol=unset#text/plain
 test/java/org/wetator/backend/htmlunit/finder/WeightedControlListEntryAssert.java -text

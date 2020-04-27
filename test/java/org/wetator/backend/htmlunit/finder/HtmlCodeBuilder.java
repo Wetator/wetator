@@ -65,7 +65,8 @@ public class HtmlCodeBuilder {
     INPUT_TEXT,
     LABEL,
     RADIO,
-    SPAN
+    SPAN,
+    TEXT_AREA
   }
 
   public HtmlCodeBuilder a(final String anId, final HtmlCodeBuilder aContent) {
@@ -192,6 +193,14 @@ public class HtmlCodeBuilder {
     return add(ElementType.SPAN, anId);
   }
 
+  public HtmlCodeBuilder textArea(final String anId, final String aPlaceholder) {
+    return textArea(anId).contain(aPlaceholder);
+  }
+
+  public HtmlCodeBuilder textArea(final String anId) {
+    return add(ElementType.TEXT_AREA, anId);
+  }
+
   public HtmlCodeBuilder noListen() {
     currentElement.listen = false;
     return this;
@@ -288,6 +297,10 @@ public class HtmlCodeBuilder {
             tmpHtml.append(tmpElement.content);
           }
           tmpHtml.append(HtmlCodeCreator.spanEnd());
+          break;
+        case TEXT_AREA:
+          tmpHtml.append(HtmlCodeCreator.textArea(tmpElement.id, tmpElement.value, tmpElement.content, tmpElement.style,
+              tmpElement.listen));
           break;
         default:
           throw new RuntimeException();

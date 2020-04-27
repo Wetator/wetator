@@ -28,17 +28,17 @@ import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.Sorted
 
 import com.gargoylesoftware.htmlunit.html.HtmlBody;
 import com.gargoylesoftware.htmlunit.html.HtmlLabel;
-import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
+import com.gargoylesoftware.htmlunit.html.HtmlTextArea;
 
 /**
  * Tests for element weighting during {@link MouseActionListeningHtmlUnitControlsFinder#find(WPath)} on pages with
- * {@link HtmlTextInput}s.
+ * {@link HtmlTextArea}s.
  *
  * @author tobwoerk
+ * @see MouseActionListeningHtmlUnitControlsFinderInputTextTest
  * @see MouseActionListeningHtmlUnitControlsFinderInputPasswordTest
- * @see MouseActionListeningHtmlUnitControlsFinderTextAreaTest
  */
-public class MouseActionListeningHtmlUnitControlsFinderInputTextTest
+public class MouseActionListeningHtmlUnitControlsFinderTextAreaTest
     extends AbstractMouseActionListeningHtmlUnitControlsFinderParameterizedTest {
 
   @Parameters(name = "{index}: {0}")
@@ -47,104 +47,104 @@ public class MouseActionListeningHtmlUnitControlsFinderInputTextTest
 
     final Object[][] tmpData = new Object[][] { //
     // @formatter:off
-      //+++++++++++++++
-      // one text input
+      //++++++++++++++
+      // one text area
 
       // 0
-      { CONTENT + inputText("input"),
+      { CONTENT + textArea("textArea"),
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlTextInput.class, "input"),
+            new ExpectedControl(HtmlTextArea.class, "textArea"),
             new ExpectedControl(HtmlBody.class))
       },
 
       // 1
-      { inputText("input", CONTENT),
+      { textArea("textArea", CONTENT),
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlTextInput.class, "input"))
+            new ExpectedControl(HtmlTextArea.class, "textArea"))
       },
 
       // 2
-      { inputText("input") + CONTENT,
+      { textArea("textArea") + CONTENT,
         new SortedEntryExpectation(
             new ExpectedControl(HtmlBody.class))
       },
 
-      //+++++++++++++++++++
-      // label + text input
+      //++++++++++++++++++
+      // label + text area
 
       // 3
-      { label("input", CONTENT).noListen().inputText("input"),
+      { label("textArea", CONTENT).noListen().textArea("textArea"),
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlTextInput.class, "input"),
-            new ExpectedControl(HtmlLabel.class, "lbl-input"))
+            new ExpectedControl(HtmlTextArea.class, "textArea"),
+            new ExpectedControl(HtmlLabel.class, "lbl-textArea"))
       },
 
       // 4
-      { label("input", CONTENT).inputText("input"),
+      { label("textArea", CONTENT).textArea("textArea"),
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlLabel.class, "lbl-input"),
-            new ExpectedControl(HtmlTextInput.class, "input"))
+            new ExpectedControl(HtmlLabel.class, "lbl-textArea"),
+            new ExpectedControl(HtmlTextArea.class, "textArea"))
       },
 
       // 5
-      { inputText("input").label("input", CONTENT),
+      { textArea("textArea").label("textArea", CONTENT),
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlTextInput.class, "input"),
-            new ExpectedControl(HtmlLabel.class, "lbl-input"))
+            new ExpectedControl(HtmlTextArea.class, "textArea"),
+            new ExpectedControl(HtmlLabel.class, "lbl-textArea"))
       },
 
-      //++++++++++++++++++++++
-      // text input with value
+      //+++++++++++++++++++++
+      // text area with value
       // 6
-      { inputText("input").value(CONTENT),
+      { textArea("textArea").value(CONTENT),
         null
       },
 
       // 7
-      { inputText("input").value(CONTENT).inputText("input-after"), // FIXME inputText.value special desired?
+      { textArea("textArea").value(CONTENT).textArea("textArea-after"), // FIXME textArea.value special desired?
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlTextInput.class, "input-after"))
+            new ExpectedControl(HtmlTextArea.class, "textArea-after"))
       },
 
-      //+++++++++++++++++++++++
-      // subsequent text inputs
+      //++++++++++++++++++++++
+      // subsequent text areas
 
       // 8
-      { CONTENT + inputText("input1") + CONTENT + inputText("input2"),
+      { CONTENT + textArea("textArea1") + CONTENT + textArea("textArea2"),
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlTextInput.class, "input1"),
-            new ExpectedControl(HtmlTextInput.class, "input2"),
+            new ExpectedControl(HtmlTextArea.class, "textArea1"),
+            new ExpectedControl(HtmlTextArea.class, "textArea2"),
             new ExpectedControl(HtmlBody.class))
       },
 
       // 9
-      { CONTENT + inputText("input1") + inputText("input2"),
+      { CONTENT + textArea("textArea1") + textArea("textArea2"),
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlTextInput.class, "input1"),
-            new ExpectedControl(HtmlTextInput.class, "input2"),
+            new ExpectedControl(HtmlTextArea.class, "textArea1"),
+            new ExpectedControl(HtmlTextArea.class, "textArea2"),
             new ExpectedControl(HtmlBody.class))
       },
 
       // 10
-      { CONTENT + inputText("input1") + "x" + inputText("input2"),
+      { CONTENT + textArea("textArea1") + "x" + textArea("textArea2"),
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlTextInput.class, "input1"),
+            new ExpectedControl(HtmlTextArea.class, "textArea1"),
             new ExpectedControl(HtmlBody.class))
       },
 
       // 11
-      { CONTENT + "x" + inputText("input1") + inputText("input2"),
+      { CONTENT + "x" + textArea("textArea1") + textArea("textArea2"),
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlTextInput.class, "input1"),
-            new ExpectedControl(HtmlTextInput.class, "input2"),
+            new ExpectedControl(HtmlTextArea.class, "textArea1"),
+            new ExpectedControl(HtmlTextArea.class, "textArea2"),
             new ExpectedControl(HtmlBody.class))
       },
 
       // 12
-      { CONTENT + "x" + inputText("input1") + CONTENT + inputText("input2"),
+      { CONTENT + "x" + textArea("textArea1") + CONTENT + textArea("textArea2"),
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlTextInput.class, "input2"),
-            new ExpectedControl(HtmlTextInput.class, "input1"),
+            new ExpectedControl(HtmlTextArea.class, "textArea2"),
+            new ExpectedControl(HtmlTextArea.class, "textArea1"),
             new ExpectedControl(HtmlBody.class))
       }
       // @formatter:on

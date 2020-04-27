@@ -44,6 +44,7 @@ import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputSubmitIdenti
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputTextIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitOptionIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitSelectIdentifier;
+import org.wetator.backend.htmlunit.control.identifier.HtmlUnitTextAreaIdentifier;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.ExpectedControl;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.SortedEntryExpectation;
 
@@ -63,6 +64,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlSelect;
 import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 import com.gargoylesoftware.htmlunit.html.HtmlTableDataCell;
+import com.gargoylesoftware.htmlunit.html.HtmlTextArea;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 
 /**
@@ -199,7 +201,15 @@ public class IdentifierBasedHtmlUnitControlsFinderFocusTest extends AbstractIden
             new ExpectedControl(HtmlBody.class),
             new ExpectedControl(HtmlTableDataCell.class, "table-tr-td")),
         null
-      }
+      },
+
+      { textArea("textArea-before").textArea("textArea", CONTENT).textArea("textArea-after"),
+        new SortedEntryExpectation(
+            new ExpectedControl(HtmlTextArea.class, "textArea")),
+            // FIXME textArea not in sync with inputText, desired?
+            // new ExpectedControl(HtmlTextArea.class, "textArea-after")),
+        HtmlUnitTextAreaIdentifier.class
+      },
       // @formatter:on
     };
 

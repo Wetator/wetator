@@ -42,6 +42,7 @@ import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputSubmitIdenti
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputTextIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitOptionIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitSelectIdentifier;
+import org.wetator.backend.htmlunit.control.identifier.HtmlUnitTextAreaIdentifier;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.ExpectedControl;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.SortedEntryExpectation;
 
@@ -58,6 +59,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
 import com.gargoylesoftware.htmlunit.html.HtmlResetInput;
 import com.gargoylesoftware.htmlunit.html.HtmlSelect;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
+import com.gargoylesoftware.htmlunit.html.HtmlTextArea;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 
 /**
@@ -164,7 +166,15 @@ public class IdentifierBasedHtmlUnitControlsFinderWithIdentifierTest
             new ExpectedControl(HtmlSelect.class, "select-after"),
             new ExpectedControl(HtmlBody.class)),
         Arrays.asList(HtmlUnitSelectIdentifier.class, HtmlUnitOptionIdentifier.class)
-      }
+      },
+
+      { textArea("textArea-before").textArea("textArea-value").value(CONTENT).textArea("textArea-between").textArea("textArea", CONTENT).textArea("textArea-after"),
+        new SortedEntryExpectation(
+            new ExpectedControl(HtmlTextArea.class, "textArea"),
+            new ExpectedControl(HtmlTextArea.class, "textArea-between"), // FIXME textArea.value special desired?
+            new ExpectedControl(HtmlTextArea.class, "textArea-after")),
+        HtmlUnitTextAreaIdentifier.class
+      },
       // @formatter:on
     };
 

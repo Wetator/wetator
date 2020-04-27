@@ -32,8 +32,6 @@ import org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdent
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitAnchorIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitButtonIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputButtonIdentifier;
-import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputImageIdentifier;
-import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputPasswordIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputResetIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputSubmitIdentifier;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.ExpectedControl;
@@ -59,6 +57,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlTable;
 import com.gargoylesoftware.htmlunit.html.HtmlTableBody;
 import com.gargoylesoftware.htmlunit.html.HtmlTableDataCell;
 import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
+import com.gargoylesoftware.htmlunit.html.HtmlTextArea;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 
 /**
@@ -123,14 +122,14 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
       { inputImage("inputImg-before").inputImage("inputImg", CONTENT).inputImage("inputImg-after"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlImageInput.class, "inputImg")),
-        HtmlUnitInputImageIdentifier.class
+        null
       },
 
       { inputPassword("inputPassword-before").inputPassword("inputPassword", CONTENT).inputPassword("inputPassword-after"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlPasswordInput.class, "inputPassword"),
             new ExpectedControl(HtmlPasswordInput.class, "inputPassword-after")),
-        HtmlUnitInputPasswordIdentifier.class
+        null
       },
 
       { inputReset("inputReset-before").inputReset("inputReset", CONTENT).inputReset("inputReset-after"),
@@ -200,6 +199,14 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
         null
       },
 
+      { textArea("textArea-before").textArea("textArea", CONTENT).textArea("textArea-after"),
+        new SortedEntryExpectation(
+            new ExpectedControl(HtmlTextArea.class, "textArea")),
+            // FIXME textArea not in sync with inputText, desired?
+            // new ExpectedControl(HtmlTextArea.class, "textArea-after")),
+        null
+      },
+
       //++++++++++++++
       // non-clickable
 
@@ -229,8 +236,9 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
       },
 
       { inputButton("inputButton-before").noListen().inputButton("inputButton", CONTENT).noListen().inputButton("inputButton-after").noListen(),
-        null,
-        null
+        new SortedEntryExpectation(
+            new ExpectedControl(HtmlButtonInput.class, "inputButton")),
+        HtmlUnitInputButtonIdentifier.class
       },
 
       { inputImage("inputImg-before").noListen().inputImage("inputImg", CONTENT).noListen().inputImage("inputImg-after").noListen(),
@@ -238,14 +246,21 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
         null
       },
 
-      { inputReset("inputReset-before").noListen().inputReset("inputReset", CONTENT).noListen().inputReset("inputReset-after").noListen(),
+      { inputPassword("inputPassword-before").noListen().inputPassword("inputPassword", CONTENT).noListen().inputPassword("inputPassword-after").noListen(),
         null,
         null
       },
 
+      { inputReset("inputReset-before").noListen().inputReset("inputReset", CONTENT).noListen().inputReset("inputReset-after").noListen(),
+        new SortedEntryExpectation(
+            new ExpectedControl(HtmlResetInput.class, "inputReset")),
+        HtmlUnitInputResetIdentifier.class
+      },
+
       { inputSubmit("inputSubmit-before").noListen().inputSubmit("inputSubmit", CONTENT).noListen().inputSubmit("inputSubmit-after").noListen(),
-        null,
-        null
+        new SortedEntryExpectation(
+            new ExpectedControl(HtmlSubmitInput.class, "inputSubmit")),
+        HtmlUnitInputSubmitIdentifier.class
       },
 
       { inputText("inputText-before").noListen().inputText("inputText", CONTENT).noListen().inputText("inputText-after").noListen(),
@@ -288,7 +303,12 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
             new ExpectedControl(HtmlBody.class),
             new ExpectedControl(HtmlTableDataCell.class, "table-tr-td")),
         null
-      }
+      },
+
+      { textArea("textArea-before").noListen().textArea("textArea", CONTENT).noListen().textArea("textArea-after").noListen(),
+        null,
+        null
+      },
       // @formatter:on
     };
     return Arrays.asList(tmpData);

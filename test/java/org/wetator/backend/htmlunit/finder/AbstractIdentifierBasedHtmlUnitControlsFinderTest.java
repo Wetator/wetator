@@ -295,4 +295,12 @@ public abstract class AbstractIdentifierBasedHtmlUnitControlsFinderTest {
   protected static HtmlCodeTableBuilder table(final String anId) {
     return HtmlCodeTableBuilder.table(anId);
   }
+
+  protected static HtmlCodeBuilder textArea(final String anId, final String aPlaceholder) {
+    return new HtmlCodeBuilder().textArea(anId, aPlaceholder);
+  }
+
+  protected static HtmlCodeBuilder textArea(final String anId) {
+    return new HtmlCodeBuilder().textArea(anId);
+  }
 }
