@@ -87,6 +87,10 @@ public class IdentifierBasedHtmlUnitControlsFinderWithoutIdentifierTest
         null
       },
 
+      { inputPassword("inputPassword-before").inputPassword("inputPassword-value").value(CONTENT).inputPassword("inputPassword-between").inputPassword("inputPassword", CONTENT).inputPassword("inputPassword-after"),
+        null
+      },
+
       { inputReset("inputReset-value").value(CONTENT).inputReset("inputReset-before").inputReset("inputReset", CONTENT).inputReset("inputReset-after"),
         null
       },
@@ -95,7 +99,7 @@ public class IdentifierBasedHtmlUnitControlsFinderWithoutIdentifierTest
         null
       },
 
-      { inputText("inputText-before").inputText("inputText-value").value(CONTENT).inputText("inputText-between").inputText("inputText", CONTENT).inputText("inputText-after"),
+      { inputPassword("inputPassword-before").inputPassword("inputPassword-value").value(CONTENT).inputPassword("inputPassword-between").inputPassword("inputPassword", CONTENT).inputPassword("inputPassword-after"),
         null
       },
 

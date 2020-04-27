@@ -33,6 +33,7 @@ import org.wetator.backend.htmlunit.control.identifier.HtmlUnitAnchorIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitButtonIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputButtonIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputImageIdentifier;
+import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputPasswordIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputResetIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputSubmitIdentifier;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.ExpectedControl;
@@ -48,6 +49,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlImage;
 import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
 import com.gargoylesoftware.htmlunit.html.HtmlLabel;
 import com.gargoylesoftware.htmlunit.html.HtmlOption;
+import com.gargoylesoftware.htmlunit.html.HtmlPasswordInput;
 import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
 import com.gargoylesoftware.htmlunit.html.HtmlResetInput;
 import com.gargoylesoftware.htmlunit.html.HtmlSelect;
@@ -122,6 +124,13 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
         new SortedEntryExpectation(
             new ExpectedControl(HtmlImageInput.class, "inputImg")),
         HtmlUnitInputImageIdentifier.class
+      },
+
+      { inputPassword("inputPassword-before").inputPassword("inputPassword", CONTENT).inputPassword("inputPassword-after"),
+        new SortedEntryExpectation(
+            new ExpectedControl(HtmlPasswordInput.class, "inputPassword"),
+            new ExpectedControl(HtmlPasswordInput.class, "inputPassword-after")),
+        HtmlUnitInputPasswordIdentifier.class
       },
 
       { inputReset("inputReset-before").inputReset("inputReset", CONTENT).inputReset("inputReset-after"),

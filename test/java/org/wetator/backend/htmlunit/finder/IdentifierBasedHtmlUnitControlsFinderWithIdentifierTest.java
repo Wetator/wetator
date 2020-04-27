@@ -35,6 +35,7 @@ import org.wetator.backend.htmlunit.control.identifier.HtmlUnitButtonIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputButtonIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputCheckBoxIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputImageIdentifier;
+import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputPasswordIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputRadioButtonIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputResetIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputSubmitIdentifier;
@@ -52,6 +53,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
 import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
 import com.gargoylesoftware.htmlunit.html.HtmlLabel;
 import com.gargoylesoftware.htmlunit.html.HtmlOption;
+import com.gargoylesoftware.htmlunit.html.HtmlPasswordInput;
 import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
 import com.gargoylesoftware.htmlunit.html.HtmlResetInput;
 import com.gargoylesoftware.htmlunit.html.HtmlSelect;
@@ -113,6 +115,14 @@ public class IdentifierBasedHtmlUnitControlsFinderWithIdentifierTest
         new SortedEntryExpectation(
             new ExpectedControl(HtmlImageInput.class, "inputImg")),
         HtmlUnitInputImageIdentifier.class
+      },
+
+      { inputPassword("inputPassword-before").inputPassword("inputPassword-value").value(CONTENT).inputPassword("inputPassword-between").inputPassword("inputPassword", CONTENT).inputPassword("inputPassword-after"),
+        new SortedEntryExpectation(
+            new ExpectedControl(HtmlPasswordInput.class, "inputPassword"),
+            new ExpectedControl(HtmlPasswordInput.class, "inputPassword-between"), // FIXME inputPassword.value special desired?
+            new ExpectedControl(HtmlPasswordInput.class, "inputPassword-after")),
+        HtmlUnitInputPasswordIdentifier.class
       },
 
       { inputReset("inputReset-value").value(CONTENT).inputReset("inputReset-before").inputReset("inputReset", CONTENT).inputReset("inputReset-after"),

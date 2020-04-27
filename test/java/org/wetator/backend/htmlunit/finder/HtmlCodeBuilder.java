@@ -59,6 +59,7 @@ public class HtmlCodeBuilder {
     IMAGE,
     INPUT_BUTTON,
     INPUT_IMAGE,
+    INPUT_PASSWORD,
     INPUT_RESET,
     INPUT_SUBMIT,
     INPUT_TEXT,
@@ -129,6 +130,14 @@ public class HtmlCodeBuilder {
 
   public HtmlCodeBuilder inputImage(final String anId) {
     return add(ElementType.INPUT_IMAGE, anId);
+  }
+
+  public HtmlCodeBuilder inputPassword(final String anId, final String aPlaceholder) {
+    return inputPassword(anId).contain(aPlaceholder);
+  }
+
+  public HtmlCodeBuilder inputPassword(final String anId) {
+    return add(ElementType.INPUT_PASSWORD, anId);
   }
 
   public HtmlCodeBuilder inputReset(final String anId, final String aValue) {
@@ -246,6 +255,10 @@ public class HtmlCodeBuilder {
         case INPUT_IMAGE:
           tmpHtml
               .append(HtmlCodeCreator.inputImage(tmpElement.id, tmpElement.alt, tmpElement.style, tmpElement.listen));
+          break;
+        case INPUT_PASSWORD:
+          tmpHtml.append(HtmlCodeCreator.inputPassword(tmpElement.id, tmpElement.value, tmpElement.content,
+              tmpElement.style, tmpElement.listen));
           break;
         case INPUT_RESET:
           tmpHtml

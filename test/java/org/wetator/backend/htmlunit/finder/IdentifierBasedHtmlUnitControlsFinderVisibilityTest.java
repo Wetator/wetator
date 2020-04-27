@@ -35,6 +35,7 @@ import org.wetator.backend.htmlunit.control.identifier.HtmlUnitButtonIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputButtonIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputCheckBoxIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputImageIdentifier;
+import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputPasswordIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputRadioButtonIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputResetIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputSubmitIdentifier;
@@ -101,6 +102,11 @@ public class IdentifierBasedHtmlUnitControlsFinderVisibilityTest
       { inputImage("dn", CONTENT).style(DISPLAY_NONE).inputImage("vh", CONTENT).style(VISIBILITY_HIDDEN),
         null,
         HtmlUnitInputImageIdentifier.class
+      },
+
+      { inputPassword("dn", CONTENT).style(DISPLAY_NONE).inputPassword("vh", CONTENT).style(VISIBILITY_HIDDEN),
+        null,
+        HtmlUnitInputPasswordIdentifier.class
       },
 
       { inputReset("dn", CONTENT).style(DISPLAY_NONE).inputReset("vh", CONTENT).style(VISIBILITY_HIDDEN),

@@ -80,6 +80,13 @@ public abstract class HtmlCodeCreator {
         (anAlt != null ? "alt='" + anAlt + "' " : "") + "src='pathtoimg'");
   }
 
+  static String inputPassword(final String anInputID, final String aValue, final String aPlaceholder,
+      final String aStyle, final boolean anIsListening) {
+    return input("password", anInputID, anIsListening, aStyle,
+        (aPlaceholder != null ? "placeholder='" + aPlaceholder + '\'' : "")
+            + (aValue != null ? (aPlaceholder != null ? ' ' : "") + "value='" + aValue + '\'' : ""));
+  }
+
   static String inputReset(final String anInputID, final String aValue, final String aStyle,
       final boolean anIsListening) {
     return input("reset", anInputID, anIsListening, aStyle, aValue != null ? "value='" + aValue + '\'' : null);
