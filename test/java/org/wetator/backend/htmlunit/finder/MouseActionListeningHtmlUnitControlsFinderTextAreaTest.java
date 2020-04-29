@@ -35,6 +35,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextArea;
  * {@link HtmlTextArea}s.
  *
  * @author tobwoerk
+ * @see MouseActionListeningHtmlUnitControlsFinderInputFileTest
  * @see MouseActionListeningHtmlUnitControlsFinderInputTextTest
  * @see MouseActionListeningHtmlUnitControlsFinderInputPasswordTest
  */

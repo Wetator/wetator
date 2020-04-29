@@ -43,6 +43,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlButton;
 import com.gargoylesoftware.htmlunit.html.HtmlButtonInput;
 import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
 import com.gargoylesoftware.htmlunit.html.HtmlDivision;
+import com.gargoylesoftware.htmlunit.html.HtmlFileInput;
 import com.gargoylesoftware.htmlunit.html.HtmlImage;
 import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
 import com.gargoylesoftware.htmlunit.html.HtmlLabel;
@@ -117,6 +118,12 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
         new SortedEntryExpectation(
             new ExpectedControl(HtmlButtonInput.class, "inputButton")),
         HtmlUnitInputButtonIdentifier.class
+      },
+
+      { inputFile("inputFile-before").inputFile("inputFile", CONTENT).inputFile("inputFile-after"),
+        new SortedEntryExpectation(
+            new ExpectedControl(HtmlFileInput.class, "inputFile")),
+        null
       },
 
       { inputImage("inputImg-before").inputImage("inputImg", CONTENT).inputImage("inputImg-after"),
@@ -238,6 +245,11 @@ public class MouseActionListeningHtmlUnitControlsFinderBasicTest
         new SortedEntryExpectation(
             new ExpectedControl(HtmlButtonInput.class, "inputButton")),
         HtmlUnitInputButtonIdentifier.class
+      },
+
+      { inputFile("inputFile-before").noListen().inputFile("inputFile", CONTENT).noListen().inputFile("inputFile-after").noListen(),
+        null,
+        null
       },
 
       { inputImage("inputImg-before").noListen().inputImage("inputImg", CONTENT).noListen().inputImage("inputImg-after").noListen(),

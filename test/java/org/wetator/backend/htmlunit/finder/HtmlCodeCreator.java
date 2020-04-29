@@ -74,6 +74,12 @@ public abstract class HtmlCodeCreator {
     return input("button", anInputID, anIsListening, aStyle, aValue != null ? "value='" + aValue + '\'' : null);
   }
 
+  static String inputFile(final String anInputID, final String aName, final String aStyle, final boolean anIsMultiple,
+      final boolean anIsListening) {
+    return input("file", anInputID, anIsListening, aStyle,
+        (aName != null ? "name='" + aName + "' " : "") + (anIsMultiple ? " multiple" : ""));
+  }
+
   static String inputImage(final String anInputID, final String anAlt, final String aStyle,
       final boolean anIsListening) {
     return input("image", anInputID, anIsListening, aStyle,

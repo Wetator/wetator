@@ -34,6 +34,7 @@ import org.wetator.backend.htmlunit.control.identifier.HtmlUnitAnchorIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitButtonIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputButtonIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputCheckBoxIdentifier;
+import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputFileIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputImageIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputPasswordIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputRadioButtonIdentifier;
@@ -98,6 +99,11 @@ public class IdentifierBasedHtmlUnitControlsFinderVisibilityTest
       { inputButton("dn", CONTENT).style(DISPLAY_NONE).inputButton("vh", CONTENT).style(VISIBILITY_HIDDEN),
         null,
         HtmlUnitInputButtonIdentifier.class
+      },
+
+      { inputFile("dn", CONTENT).style(DISPLAY_NONE).inputFile("vh", CONTENT).style(VISIBILITY_HIDDEN),
+        null,
+        HtmlUnitInputFileIdentifier.class
       },
 
       { inputImage("dn", CONTENT).style(DISPLAY_NONE).inputImage("vh", CONTENT).style(VISIBILITY_HIDDEN),
@@ -170,7 +176,7 @@ public class IdentifierBasedHtmlUnitControlsFinderVisibilityTest
             new ExpectedControl(HtmlCheckBoxInput.class, "dn"),
             new ExpectedControl(HtmlCheckBoxInput.class, "vh"),
             new ExpectedControl(HtmlLabel.class, "lbl-dn"),
-            new ExpectedControl(HtmlLabel.class, "lbl-vh")), // FIXME label finds invisible controls?
+            new ExpectedControl(HtmlLabel.class, "lbl-vh")), // FIXME label finds invisible controls? -> show difference for radios, inputs
         HtmlUnitInputCheckBoxIdentifier.class
       },
 

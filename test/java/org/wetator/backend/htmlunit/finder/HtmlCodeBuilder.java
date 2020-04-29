@@ -39,6 +39,7 @@ public class HtmlCodeBuilder {
 
     private String id;
     private String alt;
+    private String name;
     private String value;
     private String style;
     private String content;
@@ -58,6 +59,7 @@ public class HtmlCodeBuilder {
     DIV,
     IMAGE,
     INPUT_BUTTON,
+    INPUT_FILE,
     INPUT_IMAGE,
     INPUT_PASSWORD,
     INPUT_RESET,
@@ -123,6 +125,14 @@ public class HtmlCodeBuilder {
 
   public HtmlCodeBuilder inputButton(final String anId) {
     return add(ElementType.INPUT_BUTTON, anId);
+  }
+
+  public HtmlCodeBuilder inputFile(final String anId, final String aName) {
+    return inputFile(anId).name(aName);
+  }
+
+  public HtmlCodeBuilder inputFile(final String anId) {
+    return add(ElementType.INPUT_FILE, anId);
   }
 
   public HtmlCodeBuilder inputImage(final String anId, final String anAlt) {
@@ -222,6 +232,11 @@ public class HtmlCodeBuilder {
     return this;
   }
 
+  private HtmlCodeBuilder name(final String aName) {
+    currentElement.name = aName;
+    return this;
+  }
+
   public HtmlCodeBuilder value(final String aValue) {
     currentElement.value = aValue;
     return this;
@@ -260,6 +275,10 @@ public class HtmlCodeBuilder {
         case INPUT_BUTTON:
           tmpHtml.append(
               HtmlCodeCreator.inputButton(tmpElement.id, tmpElement.value, tmpElement.style, tmpElement.listen));
+          break;
+        case INPUT_FILE:
+          tmpHtml.append(
+              HtmlCodeCreator.inputFile(tmpElement.id, tmpElement.name, tmpElement.style, false, tmpElement.listen));
           break;
         case INPUT_IMAGE:
           tmpHtml

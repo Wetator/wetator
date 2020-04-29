@@ -83,6 +83,10 @@ public class IdentifierBasedHtmlUnitControlsFinderWithoutIdentifierTest
         null
       },
 
+      { inputFile("inputFile-before").inputFile("inputFile", CONTENT).inputFile("inputFile-after"),
+        null
+      },
+
       { inputImage("inputImg-before").inputImage("inputImg", CONTENT).inputImage("inputImg-after"),
         null
       },

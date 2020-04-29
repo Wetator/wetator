@@ -34,6 +34,7 @@ import org.wetator.backend.htmlunit.control.identifier.HtmlUnitAnchorIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitButtonIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputButtonIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputCheckBoxIdentifier;
+import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputFileIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputImageIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputPasswordIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputRadioButtonIdentifier;
@@ -51,6 +52,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlBody;
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
 import com.gargoylesoftware.htmlunit.html.HtmlButtonInput;
 import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
+import com.gargoylesoftware.htmlunit.html.HtmlFileInput;
 import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
 import com.gargoylesoftware.htmlunit.html.HtmlLabel;
 import com.gargoylesoftware.htmlunit.html.HtmlOption;
@@ -111,6 +113,12 @@ public class IdentifierBasedHtmlUnitControlsFinderWithIdentifierTest
             new ExpectedControl(HtmlButtonInput.class, "inputButton-value"),
             new ExpectedControl(HtmlButtonInput.class, "inputButton")),
         HtmlUnitInputButtonIdentifier.class
+      },
+
+      { inputFile("inputFile-before").inputFile("inputFile", CONTENT).inputFile("inputFile-after"),
+        new SortedEntryExpectation(
+            new ExpectedControl(HtmlFileInput.class, "inputFile")),
+        HtmlUnitInputFileIdentifier.class
       },
 
       { inputImage("inputImg-before").inputImage("inputImg", CONTENT).inputImage("inputImg-after"),

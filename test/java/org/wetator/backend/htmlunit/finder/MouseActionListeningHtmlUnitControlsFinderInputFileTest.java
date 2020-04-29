@@ -27,19 +27,19 @@ import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.Expect
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.SortedEntryExpectation;
 
 import com.gargoylesoftware.htmlunit.html.HtmlBody;
+import com.gargoylesoftware.htmlunit.html.HtmlFileInput;
 import com.gargoylesoftware.htmlunit.html.HtmlLabel;
-import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 
 /**
  * Tests for element weighting during {@link MouseActionListeningHtmlUnitControlsFinder#find(WPath)} on pages with
- * {@link HtmlTextInput}s.
+ * {@link HtmlFileInput}s.
  *
  * @author tobwoerk
- * @see MouseActionListeningHtmlUnitControlsFinderInputFileTest
  * @see MouseActionListeningHtmlUnitControlsFinderInputPasswordTest
+ * @see MouseActionListeningHtmlUnitControlsFinderInputTextTest
  * @see MouseActionListeningHtmlUnitControlsFinderTextAreaTest
  */
-public class MouseActionListeningHtmlUnitControlsFinderInputTextTest
+public class MouseActionListeningHtmlUnitControlsFinderInputFileTest
     extends AbstractMouseActionListeningHtmlUnitControlsFinderParameterizedTest {
 
   @Parameters(name = "{index}: {0}")
@@ -49,104 +49,90 @@ public class MouseActionListeningHtmlUnitControlsFinderInputTextTest
     final Object[][] tmpData = new Object[][] { //
     // @formatter:off
       //+++++++++++++++
-      // one text input
+      // one file input
 
       // 0
-      { CONTENT + inputText("input"),
+      { CONTENT + inputFile("input"),
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlTextInput.class, "input"),
+            new ExpectedControl(HtmlFileInput.class, "input"),
             new ExpectedControl(HtmlBody.class))
       },
 
       // 1
-      { inputText("input", CONTENT),
+      { inputFile("input", CONTENT),
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlTextInput.class, "input"))
+            new ExpectedControl(HtmlFileInput.class, "input"))
       },
 
       // 2
-      { inputText("input") + CONTENT,
+      { inputFile("input") + CONTENT,
         new SortedEntryExpectation(
             new ExpectedControl(HtmlBody.class))
       },
 
       //+++++++++++++++++++
-      // label + text input
+      // label + file input
 
       // 3
-      { label("input", CONTENT).noListen().inputText("input"),
+      { label("input", CONTENT).noListen().inputFile("input"),
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlTextInput.class, "input"),
+            new ExpectedControl(HtmlFileInput.class, "input"),
             new ExpectedControl(HtmlLabel.class, "lbl-input"))
       },
 
       // 4
-      { label("input", CONTENT).inputText("input"),
+      { label("input", CONTENT).inputFile("input"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlLabel.class, "lbl-input"),
-            new ExpectedControl(HtmlTextInput.class, "input"))
+            new ExpectedControl(HtmlFileInput.class, "input"))
       },
 
       // 5
-      { inputText("input").label("input", CONTENT),
+      { inputFile("input").label("input", CONTENT),
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlTextInput.class, "input"),
+            new ExpectedControl(HtmlFileInput.class, "input"),
             new ExpectedControl(HtmlLabel.class, "lbl-input"))
       },
 
-      //++++++++++++++++++++++
-      // text input with value
+      //+++++++++++++++++++++++
+      // subsequent file inputs
 
       // 6
-      { inputText("input").value(CONTENT),
-        null
+      { CONTENT + inputFile("input1") + CONTENT + inputFile("input2"),
+        new SortedEntryExpectation(
+            new ExpectedControl(HtmlFileInput.class, "input1"),
+            new ExpectedControl(HtmlFileInput.class, "input2"),
+            new ExpectedControl(HtmlBody.class))
       },
 
       // 7
-      { inputText("input").value(CONTENT).inputText("input-after"), // FIXME inputText.value special desired?
+      { CONTENT + inputFile("input1") + inputFile("input2"),
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlTextInput.class, "input-after"))
+            new ExpectedControl(HtmlFileInput.class, "input1"),
+            new ExpectedControl(HtmlFileInput.class, "input2"),
+            new ExpectedControl(HtmlBody.class))
       },
 
-      //+++++++++++++++++++++++
-      // subsequent text inputs
-
       // 8
-      { CONTENT + inputText("input1") + CONTENT + inputText("input2"),
+      { CONTENT + inputFile("input1") + "x" + inputFile("input2"),
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlTextInput.class, "input1"),
-            new ExpectedControl(HtmlTextInput.class, "input2"),
+            new ExpectedControl(HtmlFileInput.class, "input1"),
             new ExpectedControl(HtmlBody.class))
       },
 
       // 9
-      { CONTENT + inputText("input1") + inputText("input2"),
+      { CONTENT + "x" + inputFile("input1") + inputFile("input2"),
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlTextInput.class, "input1"),
-            new ExpectedControl(HtmlTextInput.class, "input2"),
+            new ExpectedControl(HtmlFileInput.class, "input1"),
+            new ExpectedControl(HtmlFileInput.class, "input2"),
             new ExpectedControl(HtmlBody.class))
       },
 
       // 10
-      { CONTENT + inputText("input1") + "x" + inputText("input2"),
+      { CONTENT + "x" + inputFile("input1") + CONTENT + inputFile("input2"),
         new SortedEntryExpectation(
-            new ExpectedControl(HtmlTextInput.class, "input1"),
-            new ExpectedControl(HtmlBody.class))
-      },
-
-      // 11
-      { CONTENT + "x" + inputText("input1") + inputText("input2"),
-        new SortedEntryExpectation(
-            new ExpectedControl(HtmlTextInput.class, "input1"),
-            new ExpectedControl(HtmlTextInput.class, "input2"),
-            new ExpectedControl(HtmlBody.class))
-      },
-
-      // 12
-      { CONTENT + "x" + inputText("input1") + CONTENT + inputText("input2"),
-        new SortedEntryExpectation(
-            new ExpectedControl(HtmlTextInput.class, "input2"),
-            new ExpectedControl(HtmlTextInput.class, "input1"),
+            new ExpectedControl(HtmlFileInput.class, "input2"),
+            new ExpectedControl(HtmlFileInput.class, "input1"),
             new ExpectedControl(HtmlBody.class))
       }
       // @formatter:on

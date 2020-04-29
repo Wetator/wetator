@@ -35,6 +35,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPasswordInput;
  * {@link HtmlPasswordInput}s.
  *
  * @author tobwoerk
+ * @see MouseActionListeningHtmlUnitControlsFinderInputFileTest
  * @see MouseActionListeningHtmlUnitControlsFinderInputTextTest
  * @see MouseActionListeningHtmlUnitControlsFinderTextAreaTest
  */

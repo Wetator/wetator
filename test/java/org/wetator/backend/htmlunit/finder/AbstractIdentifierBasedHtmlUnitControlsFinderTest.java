@@ -216,6 +216,14 @@ public abstract class AbstractIdentifierBasedHtmlUnitControlsFinderTest {
     return new HtmlCodeBuilder().inputButton(anId);
   }
 
+  protected static HtmlCodeBuilder inputFile(final String anId, final String aName) {
+    return new HtmlCodeBuilder().inputFile(anId, aName);
+  }
+
+  protected static HtmlCodeBuilder inputFile(final String anId) {
+    return new HtmlCodeBuilder().inputFile(anId);
+  }
+
   protected static HtmlCodeBuilder inputImage(final String anId, final String anAltTetxValue) {
     return new HtmlCodeBuilder().inputImage(anId, anAltTetxValue);
   }
