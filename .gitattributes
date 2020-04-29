@@ -311,6 +311,7 @@ test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitOptionGroupIde
 test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitOptionIdentifierTest.java -text svneol=unset#text/plain
 test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitSelectIdentifierTest.java -text svneol=unset#text/plain
 test/java/org/wetator/backend/htmlunit/control/identifier/HtmlUnitTextAreaIdentifierTest.java -text svneol=unset#text/plain
+test/java/org/wetator/backend/htmlunit/control/identifier/MatcherBasedIdentifierTest.java -text
 test/java/org/wetator/backend/htmlunit/finder/AbstractIdentifierBasedHtmlUnitControlsFinderTest.java -text
 test/java/org/wetator/backend/htmlunit/finder/AbstractMouseActionListeningHtmlUnitControlsFinderParameterizedTest.java -text
 test/java/org/wetator/backend/htmlunit/finder/HtmlCodeBuilder.java -text

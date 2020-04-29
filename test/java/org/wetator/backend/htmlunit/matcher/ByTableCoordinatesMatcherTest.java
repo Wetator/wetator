@@ -84,6 +84,154 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
+  public void inTablePlain_textBefore_insideCell() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "    <table>"
+        + "      <thead>"
+        + "        <tr>"
+        + "          <th id='header_1'>header_1</th>"
+        + "          <th id='header_2'>header_2</th>"
+        + "          <th id='header_3'>header_3</th>"
+        + "        </tr>"
+        + "      </thead>"
+        + "      <tbody>"
+        + "        <tr>"
+        + "          <td id='cell_1_1'>row_1</td>"
+        + "          <td id='cell_1_2'><input type='text' id='InputText_1_2'/></td>"
+        + "          <td id='cell_1_3'><input type='text' id='InputText_1_3'/></td>"
+        + "        </tr>"
+        + "        <tr>"
+        + "          <td id='cell_2_1'>row_2</td>"
+        + "          <td id='cell_2_2'><input type='text' id='InputText_2_2'/></td>"
+        + "          <td id='cell_2_3'>Some text .... <input type='text' id='InputText_2_3'/></td>"
+        + "        </tr>"
+        + "      </tbody>"
+        + "    </table>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("Some text > [header_3; row_2]");
+
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3",
+        "InputText_2_2", "InputText_2_3");
+
+    assertEquals(0, tmpMatches.size());
+  }
+
+  @Test
+  public void inTablePlain_textBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "    <p>Some text .... </p>"
+        + "    <table>"
+        + "      <thead>"
+        + "        <tr>"
+        + "          <th id='header_1'>header_1</th>"
+        + "          <th id='header_2'>header_2</th>"
+        + "          <th id='header_3'>header_3</th>"
+        + "        </tr>"
+        + "      </thead>"
+        + "      <tbody>"
+        + "        <tr>"
+        + "          <td id='cell_1_1'>row_1</td>"
+        + "          <td id='cell_1_2'><input type='text' id='InputText_1_2'/></td>"
+        + "          <td id='cell_1_3'><input type='text' id='InputText_1_3'/></td>"
+        + "        </tr>"
+        + "        <tr>"
+        + "          <td id='cell_2_1'>row_2</td>"
+        + "          <td id='cell_2_2'><input type='text' id='InputText_2_2'/></td>"
+        + "          <td id='cell_2_3'><input type='text' id='InputText_2_3'/></td>"
+        + "        </tr>"
+        + "      </tbody>"
+        + "    </table>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("Some text > [header_3; row_2]");
+
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3",
+        "InputText_2_2", "InputText_2_3");
+
+    assertEquals(1, tmpMatches.size());
+
+    assertMatchEquals("InputText_2_3", FoundType.BY_TABLE_COORDINATE, 0, 44, 53, tmpMatches.get(0));
+  }
+
+  @Test
+  public void inTablePlain_wrongTextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "    <p>Some text .... </p>"
+        + "    <table>"
+        + "      <thead>"
+        + "        <tr>"
+        + "          <th id='header_1'>header_1</th>"
+        + "          <th id='header_2'>header_2</th>"
+        + "          <th id='header_3'>header_3</th>"
+        + "        </tr>"
+        + "      </thead>"
+        + "      <tbody>"
+        + "        <tr>"
+        + "          <td id='cell_1_1'>row_1</td>"
+        + "          <td id='cell_1_2'><input type='text' id='InputText_1_2'/></td>"
+        + "          <td id='cell_1_3'><input type='text' id='InputText_1_3'/></td>"
+        + "        </tr>"
+        + "        <tr>"
+        + "          <td id='cell_2_1'>row_2</td>"
+        + "          <td id='cell_2_2'><input type='text' id='InputText_2_2'/></td>"
+        + "          <td id='cell_2_3'><input type='text' id='InputText_2_3'/></td>"
+        + "        </tr>"
+        + "      </tbody>"
+        + "    </table>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("wrong text > [header_3; row_2]");
+
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3",
+        "InputText_2_2", "InputText_2_3");
+
+    assertEquals(0, tmpMatches.size());
+  }
+
+  @Test
+  public void inTablePlain_noTextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "    <table>"
+        + "      <thead>"
+        + "        <tr>"
+        + "          <th id='header_1'>header_1</th>"
+        + "          <th id='header_2'>header_2</th>"
+        + "          <th id='header_3'>header_3</th>"
+        + "        </tr>"
+        + "      </thead>"
+        + "      <tbody>"
+        + "        <tr>"
+        + "          <td id='cell_1_1'>row_1</td>"
+        + "          <td id='cell_1_2'><input type='text' id='InputText_1_2'/></td>"
+        + "          <td id='cell_1_3'><input type='text' id='InputText_1_3'/></td>"
+        + "        </tr>"
+        + "        <tr>"
+        + "          <td id='cell_2_1'>row_2</td>"
+        + "          <td id='cell_2_2'><input type='text' id='InputText_2_2'/></td>"
+        + "          <td id='cell_2_3'><input type='text' id='InputText_2_3'/></td>"
+        + "        </tr>"
+        + "      </tbody>"
+        + "    </table>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("wrong text > [header_3; row_2]");
+
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3",
+        "InputText_2_2", "InputText_2_3");
+
+    assertEquals(0, tmpMatches.size());
+  }
+
+  @Test
   public void inTableNestedX() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
@@ -573,18 +721,9 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
   }
 
   @Test
-  public void inMultipleTable() throws IOException, InvalidInputException {
+  public void inTableOnlyYWithPath() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "    <table>"
-        + "      <tbody>"
-        + "        <tr>"
-        + "          <td id='cell_o_1_1'>cell_o_1_1</td>"
-        + "          <td id='cell_o_1_2'>cell_o_1_2</td>"
-        + "        </tr>"
-        + "        <tr>"
-        + "          <td id='cell_o_2_1'>cell_o_2_1</td>"
-        + "          <td>"
         + "    <table>"
         + "      <thead>"
         + "        <tr>"
@@ -606,6 +745,78 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
         + "        </tr>"
         + "      </tbody>"
         + "    </table>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("header_3 > [; row_2]");
+
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3",
+        "InputText_2_2", "InputText_2_3");
+
+    assertEquals(2, tmpMatches.size());
+
+    assertMatchEquals("InputText_2_2", FoundType.BY_TABLE_COORDINATE, 0, 12, 38, tmpMatches.get(0));
+    assertMatchEquals("InputText_2_3", FoundType.BY_TABLE_COORDINATE, 0, 12, 38, tmpMatches.get(1));
+  }
+
+  @Test
+  public void inMultipleTable() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "    <table>"
+        + "      <tbody>"
+        + "        <tr>"
+        + "          <td id='cell_o_1_1'>cell_o_1_1</td>"
+        + "          <td id='cell_o_1_2'>cell_o_1_2</td>"
+        + "          <td id='cell_o_1_3'>cell_o_1_3</td>"
+        + "        </tr>"
+        + "        <tr>"
+        + "          <td id='cell_o_2_1'>cell_o_2_1</td>"
+        + "          <td>"
+        + "    <table>"
+        + "      <thead>"
+        + "        <tr>"
+        + "          <th id='header_1_1'>header_1</th>"
+        + "          <th id='header_1_2'>header_2</th>"
+        + "          <th id='header_1_3'>header_3</th>"
+        + "        </tr>"
+        + "      </thead>"
+        + "      <tbody>"
+        + "        <tr>"
+        + "          <td id='cell_1_1_1'>row_1</td>"
+        + "          <td id='cell_1_1_2'><input type='text' id='InputText_1_1_2'/></td>"
+        + "          <td id='cell_1_1_3'><input type='text' id='InputText_1_1_3'/></td>"
+        + "        </tr>"
+        + "        <tr>"
+        + "          <td id='cell_1_2_1'>row_2</td>"
+        + "          <td id='cell_1_2_2'><input type='text' id='InputText_1_2_2'/></td>"
+        + "          <td id='cell_1_2_3'><input type='text' id='InputText_1_2_3'/></td>"
+        + "        </tr>"
+        + "      </tbody>"
+        + "    </table>"
+        + "          </td>"
+        + "          <td>"
+        + "    <table>"
+        + "      <thead>"
+        + "        <tr>"
+        + "          <th id='header_2_1'>header_1</th>"
+        + "          <th id='header_2_2'>header_2</th>"
+        + "          <th id='header_2_3'>header_3</th>"
+        + "        </tr>"
+        + "      </thead>"
+        + "      <tbody>"
+        + "        <tr>"
+        + "          <td id='cell_2_1_1'>row_1</td>"
+        + "          <td id='cell_2_1_2'><input type='text' id='InputText_2_1_2'/></td>"
+        + "          <td id='cell_2_1_3'><input type='text' id='InputText_2_1_3'/></td>"
+        + "        </tr>"
+        + "        <tr>"
+        + "          <td id='cell_2_2_1'>row_2</td>"
+        + "          <td id='cell_2_2_2'><input type='text' id='InputText_2_2_2'/></td>"
+        + "          <td id='cell_2_2_3'><input type='text' id='InputText_2_2_3'/></td>"
+        + "        </tr>"
+        + "      </tbody>"
+        + "    </table>"
         + "          </td>"
         + "        </tr>"
         + "      </tbody>"
@@ -615,12 +826,182 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
 
     final SecretString tmpSearch = new SecretString("[cell_o_1_2; cell_o_2_1] > [header_3; row_2]");
 
-    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_2", "InputText_1_3",
-        "InputText_2_2", "InputText_2_3");
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_1_2", "InputText_1_1_3",
+        "InputText_1_2_2", "InputText_1_2_3", "InputText_2_1_2", "InputText_2_1_3", "InputText_2_2_2",
+        "InputText_2_2_3");
 
     assertEquals(1, tmpMatches.size());
 
-    assertMatchEquals("InputText_2_3", FoundType.BY_TABLE_COORDINATE, 0, 71, 71, tmpMatches.get(0));
+    assertMatchEquals("InputText_1_2_3", FoundType.BY_TABLE_COORDINATE, 0, 82, 82, tmpMatches.get(0));
+  }
+
+  @Test
+  public void inMultipleTable_textBeforeInnerTable() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "    <table>"
+        + "      <tbody>"
+        + "        <tr>"
+        + "          <td id='cell_o_1_1'>cell_o_1_1</td>"
+        + "          <td id='cell_o_1_2'>cell_o_1_2</td>"
+        + "          <td id='cell_o_1_3'>cell_o_1_3</td>"
+        + "        </tr>"
+        + "        <tr>"
+        + "          <td id='cell_o_2_1'>cell_o_2_1</td>"
+        + "          <td>"
+        + "    <table>"
+        + "      <thead>"
+        + "        <tr>"
+        + "          <th id='header_1_1'>header_1</th>"
+        + "          <th id='header_1_2'>header_2</th>"
+        + "          <th id='header_1_3'>header_3</th>"
+        + "        </tr>"
+        + "      </thead>"
+        + "      <tbody>"
+        + "        <tr>"
+        + "          <td id='cell_1_1_1'>row_1</td>"
+        + "          <td id='cell_1_1_2'><input type='text' id='InputText_1_1_2'/></td>"
+        + "          <td id='cell_1_1_3'><input type='text' id='InputText_1_1_3'/></td>"
+        + "        </tr>"
+        + "        <tr>"
+        + "          <td id='cell_1_2_1'>row_2</td>"
+        + "          <td id='cell_1_2_2'><input type='text' id='InputText_1_2_2'/></td>"
+        + "          <td id='cell_1_2_3'><input type='text' id='InputText_1_2_3'/></td>"
+        + "        </tr>"
+        + "      </tbody>"
+        + "    </table>"
+        + "          </td>"
+        + "          <td>Some text ...."
+        + "    <table>"
+        + "      <thead>"
+        + "        <tr>"
+        + "          <th id='header_2_1'>header_1</th>"
+        + "          <th id='header_2_2'>header_2</th>"
+        + "          <th id='header_2_3'>header_3</th>"
+        + "        </tr>"
+        + "      </thead>"
+        + "      <tbody>"
+        + "        <tr>"
+        + "          <td id='cell_2_1_1'>row_1</td>"
+        + "          <td id='cell_2_1_2'><input type='text' id='InputText_2_1_2'/></td>"
+        + "          <td id='cell_2_1_3'><input type='text' id='InputText_2_1_3'/></td>"
+        + "        </tr>"
+        + "        <tr>"
+        + "          <td id='cell_2_2_1'>row_2</td>"
+        + "          <td id='cell_2_2_2'><input type='text' id='InputText_2_2_2'/></td>"
+        + "          <td id='cell_2_2_3'><input type='text' id='InputText_2_2_3'/></td>"
+        + "        </tr>"
+        + "      </tbody>"
+        + "    </table>"
+        + "          </td>"
+        + "        </tr>"
+        + "      </tbody>"
+        + "    </table>"
+        + "</body></html>";
+    // @formatter:on
+
+    SecretString tmpSearch = new SecretString("[cell_o_1_2; cell_o_2_1] > Some text > [header_3; row_2]");
+
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_1_2", "InputText_1_1_3",
+        "InputText_1_2_2", "InputText_1_2_3", "InputText_2_1_2", "InputText_2_1_3", "InputText_2_2_2",
+        "InputText_2_2_3");
+
+    assertEquals(0, tmpMatches.size());
+
+    // as table cells are handled separately this wpath is equivalent to the wpath above
+    tmpSearch = new SecretString("Some text > [cell_o_1_2; cell_o_2_1] > [header_3; row_2]");
+
+    tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_1_2", "InputText_1_1_3", "InputText_1_2_2",
+        "InputText_1_2_3", "InputText_2_1_2", "InputText_2_1_3", "InputText_2_2_2", "InputText_2_2_3");
+
+    assertEquals(0, tmpMatches.size());
+  }
+
+  @Test
+  public void inMultipleTable_textBeforeOuterTable() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "    <p>Some text .... </p>"
+        + "    <table>"
+        + "      <tbody>"
+        + "        <tr>"
+        + "          <td id='cell_o_1_1'>cell_o_1_1</td>"
+        + "          <td id='cell_o_1_2'>cell_o_1_2</td>"
+        + "          <td id='cell_o_1_3'>cell_o_1_3</td>"
+        + "        </tr>"
+        + "        <tr>"
+        + "          <td id='cell_o_2_1'>cell_o_2_1</td>"
+        + "          <td>"
+        + "    <table>"
+        + "      <thead>"
+        + "        <tr>"
+        + "          <th id='header_1_1'>header_1</th>"
+        + "          <th id='header_1_2'>header_2</th>"
+        + "          <th id='header_1_3'>header_3</th>"
+        + "        </tr>"
+        + "      </thead>"
+        + "      <tbody>"
+        + "        <tr>"
+        + "          <td id='cell_1_1_1'>row_1</td>"
+        + "          <td id='cell_1_1_2'><input type='text' id='InputText_1_1_2'/></td>"
+        + "          <td id='cell_1_1_3'><input type='text' id='InputText_1_1_3'/></td>"
+        + "        </tr>"
+        + "        <tr>"
+        + "          <td id='cell_1_2_1'>row_2</td>"
+        + "          <td id='cell_1_2_2'><input type='text' id='InputText_1_2_2'/></td>"
+        + "          <td id='cell_1_2_3'><input type='text' id='InputText_1_2_3'/></td>"
+        + "        </tr>"
+        + "      </tbody>"
+        + "    </table>"
+        + "          </td>"
+        + "          <td>"
+        + "    <table>"
+        + "      <thead>"
+        + "        <tr>"
+        + "          <th id='header_2_1'>header_1</th>"
+        + "          <th id='header_2_2'>header_2</th>"
+        + "          <th id='header_2_3'>header_3</th>"
+        + "        </tr>"
+        + "      </thead>"
+        + "      <tbody>"
+        + "        <tr>"
+        + "          <td id='cell_2_1_1'>row_1</td>"
+        + "          <td id='cell_2_1_2'><input type='text' id='InputText_2_1_2'/></td>"
+        + "          <td id='cell_2_1_3'><input type='text' id='InputText_2_1_3'/></td>"
+        + "        </tr>"
+        + "        <tr>"
+        + "          <td id='cell_2_2_1'>row_2</td>"
+        + "          <td id='cell_2_2_2'><input type='text' id='InputText_2_2_2'/></td>"
+        + "          <td id='cell_2_2_3'><input type='text' id='InputText_2_2_3'/></td>"
+        + "        </tr>"
+        + "      </tbody>"
+        + "    </table>"
+        + "          </td>"
+        + "        </tr>"
+        + "      </tbody>"
+        + "    </table>"
+        + "</body></html>";
+    // @formatter:on
+
+    SecretString tmpSearch = new SecretString("Some text > [cell_o_1_2; cell_o_2_1] > [header_3; row_2]");
+
+    List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_1_2", "InputText_1_1_3",
+        "InputText_1_2_2", "InputText_1_2_3", "InputText_2_1_2", "InputText_2_1_3", "InputText_2_2_2",
+        "InputText_2_2_3");
+
+    assertEquals(1, tmpMatches.size());
+
+    assertMatchEquals("InputText_1_2_3", FoundType.BY_TABLE_COORDINATE, 0, 88, 97, tmpMatches.get(0));
+
+    // as table cells are handled separately this wpath is equivalent to the wpath above
+    tmpSearch = new SecretString("[cell_o_1_2; cell_o_2_1] > Some text > [header_3; row_2]");
+
+    tmpMatches = match(tmpHtmlCode, tmpSearch, "InputText_1_1_2", "InputText_1_1_3", "InputText_1_2_2",
+        "InputText_1_2_3", "InputText_2_1_2", "InputText_2_1_3", "InputText_2_2_2", "InputText_2_2_3");
+
+    assertEquals(1, tmpMatches.size());
+
+    assertMatchEquals("InputText_1_2_3", FoundType.BY_TABLE_COORDINATE, 0, 88, 97, tmpMatches.get(0));
   }
 
   @Test

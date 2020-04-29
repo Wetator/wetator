@@ -152,25 +152,25 @@ public class HtmlUnitInputButtonIdentifierTest extends AbstractHtmlUnitControlId
         + "      <tbody>"
         + "        <tr>"
         + "          <td id='cell_1_1'>row_1</td>"
-        + "          <td id='cell_1_2'><input type='button' id='InputButton_1_2' value='Click'/></td>"
-        + "          <td id='cell_1_3'><input type='button' id='InputButton_1_3' value='Click'/></td>"
+        + "          <td id='cell_1_2'><input type='button' id='myId_1_2' value='ClickMe'></td>"
+        + "          <td id='cell_1_3'><input type='button' id='myId_1_3' value='ClickMe'></td>"
         + "        </tr>"
         + "        <tr>"
         + "          <td id='cell_2_1'>row_2</td>"
-        + "          <td id='cell_2_2'><input type='button' id='InputButton_2_2' value='Click'/></td>"
-        + "          <td id='cell_2_3'><input type='button' id='InputButton_2_3' value='Click'/></td>"
+        + "          <td id='cell_2_2'><input type='button' id='myId_2_2' value='ClickMe'></td>"
+        + "          <td id='cell_2_3'><input type='button' id='myId_2_3' value='ClickMe'></td>"
         + "        </tr>"
         + "      </tbody>"
         + "    </table>"
         + "</body></html>";
     // @formatter:on
 
-    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "[header_3; row_2]", "InputButton_1_2",
-        "InputButton_1_3", "InputButton_2_2", "InputButton_2_3");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "[header_3; row_2]", "myId_1_2", "myId_1_3", "myId_2_2",
+        "myId_2_3");
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlButtonInput 'Click' (id='InputButton_2_3')] found by: BY_TABLE_COORDINATE deviation: 0 distance: 56 start: 56 hierarchy: 0>1>3>5>22>36>44>45 index: 45",
+        "[HtmlButtonInput 'ClickMe' (id='myId_2_3')] found by: BY_TABLE_COORDINATE deviation: 0 distance: 62 start: 62 hierarchy: 0>1>3>5>22>36>44>45 index: 45",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -189,25 +189,25 @@ public class HtmlUnitInputButtonIdentifierTest extends AbstractHtmlUnitControlId
         + "      <tbody>"
         + "        <tr>"
         + "          <td id='cell_1_1'>row_1</td>"
-        + "          <td id='cell_1_2'><input type='button' id='InputButton_1_2' value='Click'/></td>"
-        + "          <td id='cell_1_3'><input type='button' id='InputButton_1_3' value='Click'/></td>"
+        + "          <td id='cell_1_2'><input type='button' id='myId_1_2' value='ClickMe'></td>"
+        + "          <td id='cell_1_3'><input type='button' id='myId_1_3' value='ClickMe'></td>"
         + "        </tr>"
         + "        <tr>"
         + "          <td id='cell_2_1'>row_2</td>"
-        + "          <td id='cell_2_2'><input type='button' id='InputButton_2_2' value='Click'/></td>"
-        + "          <td id='cell_2_3'><input type='button' id='InputButton_2_3' value='Click'/></td>"
+        + "          <td id='cell_2_2'><input type='button' id='myId_2_2' value='ClickMe'></td>"
+        + "          <td id='cell_2_3'><input type='button' id='myId_2_3' value='ClickMe'></td>"
         + "        </tr>"
         + "      </tbody>"
         + "    </table>"
         + "</body></html>";
     // @formatter:on
 
-    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "[header_3; row_2] > Click", "InputButton_1_2",
-        "InputButton_1_3", "InputButton_2_2", "InputButton_2_3");
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "[header_3; row_2] > ClickMe", "myId_1_2", "myId_1_3",
+        "myId_2_2", "myId_2_3");
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlButtonInput 'Click' (id='InputButton_2_3')] found by: BY_LABEL deviation: 0 distance: 56 start: 56 hierarchy: 0>1>3>5>22>36>44>45 index: 45",
+        "[HtmlButtonInput 'ClickMe' (id='myId_2_3')] found by: BY_LABEL deviation: 0 distance: 62 start: 62 hierarchy: 0>1>3>5>22>36>44>45 index: 45",
         tmpEntriesSorted.get(0).toString());
   }
 }

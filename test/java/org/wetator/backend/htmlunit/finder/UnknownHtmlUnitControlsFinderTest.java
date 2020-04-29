@@ -1225,6 +1225,166 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
+  public void unknown_inTable_byId_textBefore_insideCell() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "      <thead>"
+        + "        <tr>"
+        + "          <th id='header_1'>header_1</th>"
+        + "          <th id='header_2'>header_2</th>"
+        + "          <th id='header_3'>header_3</th>"
+        + "        </tr>"
+        + "      </thead>"
+        + "      <tbody>"
+        + "        <tr>"
+        + "          <td id='cell_1_1'>row_1</td>"
+        + "          <td id='cell_1_2'><span id='id_1_2'>Text_1_2</span></td>"
+        + "          <td id='cell_1_3'><span id='id_1_3'>Text_1_3</span></td>"
+        + "        </tr>"
+        + "        <tr>"
+        + "          <td id='cell_2_1'>row_2</td>"
+        + "          <td id='cell_2_2'><span id='id_2_2'>Text_2_2</span></td>"
+        + "          <td id='cell_2_3'>Some text .... <span id='id_2_3'>Text_2_3</span></td>"
+        + "        </tr>"
+        + "      </tbody>"
+        + "    </table>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "[header_3; row_2] > Some text > id_2_3");
+
+    assertEquals(0, tmpEntriesSorted.size());
+
+    // as table cells are handled separately this wpath is equivalent to the wpath above
+    tmpEntriesSorted = find(tmpHtmlCode, "Some text > [header_3; row_2] > id_2_3");
+
+    assertEquals(0, tmpEntriesSorted.size());
+  }
+
+  @Test
+  public void unknown_inTable_byId_textBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "    <p>Some text .... </p>"
+        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "      <thead>"
+        + "        <tr>"
+        + "          <th id='header_1'>header_1</th>"
+        + "          <th id='header_2'>header_2</th>"
+        + "          <th id='header_3'>header_3</th>"
+        + "        </tr>"
+        + "      </thead>"
+        + "      <tbody>"
+        + "        <tr>"
+        + "          <td id='cell_1_1'>row_1</td>"
+        + "          <td id='cell_1_2'><span id='id_1_2'>Text_1_2</span></td>"
+        + "          <td id='cell_1_3'><span id='id_1_3'>Text_1_3</span></td>"
+        + "        </tr>"
+        + "        <tr>"
+        + "          <td id='cell_2_1'>row_2</td>"
+        + "          <td id='cell_2_2'><span id='id_2_2'>Text_2_2</span></td>"
+        + "          <td id='cell_2_3'><span id='id_2_3'>Text_2_3</span></td>"
+        + "        </tr>"
+        + "      </tbody>"
+        + "    </table>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "[header_3; row_2] > Some text > id_2_3");
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlSpan 'Text_2_3' (id='id_2_3')] found by: BY_ID deviation: 0 distance: 71 start: 80 hierarchy: 0>1>3>8>25>41>50>51 index: 51",
+        tmpEntriesSorted.get(0).toString());
+
+    // as table cells are handled separately this wpath is equivalent to the wpath above
+    tmpEntriesSorted = find(tmpHtmlCode, "Some text > [header_3; row_2] > id_2_3");
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlSpan 'Text_2_3' (id='id_2_3')] found by: BY_ID deviation: 0 distance: 71 start: 80 hierarchy: 0>1>3>8>25>41>50>51 index: 51",
+        tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
+  public void unknown_inTable_byId_wrongTextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "    <p>Some text .... </p>"
+        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "      <thead>"
+        + "        <tr>"
+        + "          <th id='header_1'>header_1</th>"
+        + "          <th id='header_2'>header_2</th>"
+        + "          <th id='header_3'>header_3</th>"
+        + "        </tr>"
+        + "      </thead>"
+        + "      <tbody>"
+        + "        <tr>"
+        + "          <td id='cell_1_1'>row_1</td>"
+        + "          <td id='cell_1_2'><span id='id_1_2'>Text_1_2</span></td>"
+        + "          <td id='cell_1_3'><span id='id_1_3'>Text_1_3</span></td>"
+        + "        </tr>"
+        + "        <tr>"
+        + "          <td id='cell_2_1'>row_2</td>"
+        + "          <td id='cell_2_2'><span id='id_2_2'>Text_2_2</span></td>"
+        + "          <td id='cell_2_3'><span id='id_2_3'>Text_2_3</span></td>"
+        + "        </tr>"
+        + "      </tbody>"
+        + "    </table>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "[header_3; row_2] > wrong text > id_2_3");
+
+    assertEquals(0, tmpEntriesSorted.size());
+
+    // as table cells are handled separately this wpath is equivalent to the wpath above
+    tmpEntriesSorted = find(tmpHtmlCode, "wrong text > [header_3; row_2] > id_2_3");
+
+    assertEquals(0, tmpEntriesSorted.size());
+  }
+
+  @Test
+  public void unknown_inTable_byId_noTextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "      <thead>"
+        + "        <tr>"
+        + "          <th id='header_1'>header_1</th>"
+        + "          <th id='header_2'>header_2</th>"
+        + "          <th id='header_3'>header_3</th>"
+        + "        </tr>"
+        + "      </thead>"
+        + "      <tbody>"
+        + "        <tr>"
+        + "          <td id='cell_1_1'>row_1</td>"
+        + "          <td id='cell_1_2'><span id='id_1_2'>Text_1_2</span></td>"
+        + "          <td id='cell_1_3'><span id='id_1_3'>Text_1_3</span></td>"
+        + "        </tr>"
+        + "        <tr>"
+        + "          <td id='cell_2_1'>row_2</td>"
+        + "          <td id='cell_2_2'><span id='id_2_2'>Text_2_2</span></td>"
+        + "          <td id='cell_2_3'><span id='id_2_3'>Text_2_3</span></td>"
+        + "        </tr>"
+        + "      </tbody>"
+        + "    </table>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "[header_3; row_2] > wrong text > id_2_3");
+
+    assertEquals(0, tmpEntriesSorted.size());
+
+    // as table cells are handled separately this wpath is equivalent to the wpath above
+    tmpEntriesSorted = find(tmpHtmlCode, "wrong text > [header_3; row_2] > id_2_3");
+
+    assertEquals(0, tmpEntriesSorted.size());
+  }
+
+  @Test
   public void unknown_inTable_byTitle() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
@@ -1260,6 +1420,172 @@ public class UnknownHtmlUnitControlsFinderTest {
         tmpEntriesSorted.get(0).toString());
 
     tmpEntriesSorted = find(tmpHtmlCode, "[header_2; row_2] > title_2_3");
+
+    assertEquals(0, tmpEntriesSorted.size());
+  }
+
+  @Test
+  public void unknown_inTable_byTitle_textBefore_insideCell() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "      <thead>"
+        + "        <tr>"
+        + "          <th id='header_1'>header_1</th>"
+        + "          <th id='header_2'>header_2</th>"
+        + "          <th id='header_3'>header_3</th>"
+        + "        </tr>"
+        + "      </thead>"
+        + "      <tbody>"
+        + "        <tr>"
+        + "          <td id='cell_1_1'>row_1</td>"
+        + "          <td id='cell_1_2'><span title='title_1_2'>Text_1_2</span></td>"
+        + "          <td id='cell_1_3'><span title='title_1_3'>Text_1_3</span></td>"
+        + "        </tr>"
+        + "        <tr>"
+        + "          <td id='cell_2_1'>row_2</td>"
+        + "          <td id='cell_2_2'><span title='title_2_2'>Text_2_2</span></td>"
+        + "          <td id='cell_2_3'>Some text .... <span title='title_2_3'>Text_2_3</span></td>"
+        + "        </tr>"
+        + "      </tbody>"
+        + "    </table>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "[header_3; row_2] > Some text > title_2_3");
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlSpan 'Text_2_3'] found by: BY_TITLE_TEXT deviation: 0 distance: 5 start: 80 hierarchy: 0>1>3>5>22>38>47>49 index: 49",
+        tmpEntriesSorted.get(0).toString());
+
+    // as table cells are handled separately this wpath is equivalent to the wpath above
+    tmpEntriesSorted = find(tmpHtmlCode, "Some text > [header_3; row_2] > title_2_3");
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlSpan 'Text_2_3'] found by: BY_TITLE_TEXT deviation: 0 distance: 5 start: 80 hierarchy: 0>1>3>5>22>38>47>49 index: 49",
+        tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
+  public void unknown_inTable_byTitle_textBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "    <p>Some text .... </p>"
+        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "      <thead>"
+        + "        <tr>"
+        + "          <th id='header_1'>header_1</th>"
+        + "          <th id='header_2'>header_2</th>"
+        + "          <th id='header_3'>header_3</th>"
+        + "        </tr>"
+        + "      </thead>"
+        + "      <tbody>"
+        + "        <tr>"
+        + "          <td id='cell_1_1'>row_1</td>"
+        + "          <td id='cell_1_2'><span title='title_1_2'>Text_1_2</span></td>"
+        + "          <td id='cell_1_3'><span title='title_1_3'>Text_1_3</span></td>"
+        + "        </tr>"
+        + "        <tr>"
+        + "          <td id='cell_2_1'>row_2</td>"
+        + "          <td id='cell_2_2'><span title='title_2_2'>Text_2_2</span></td>"
+        + "          <td id='cell_2_3'><span title='title_2_3'>Text_2_3</span></td>"
+        + "        </tr>"
+        + "      </tbody>"
+        + "    </table>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "[header_3; row_2] > Some text > title_2_3");
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlSpan 'Text_2_3'] found by: BY_TITLE_TEXT deviation: 0 distance: 71 start: 80 hierarchy: 0>1>3>8>25>41>50>51 index: 51",
+        tmpEntriesSorted.get(0).toString());
+
+    // as table cells are handled separately this wpath is equivalent to the wpath above
+    tmpEntriesSorted = find(tmpHtmlCode, "Some text > [header_3; row_2] > title_2_3");
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlSpan 'Text_2_3'] found by: BY_TITLE_TEXT deviation: 0 distance: 71 start: 80 hierarchy: 0>1>3>8>25>41>50>51 index: 51",
+        tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
+  public void unknown_inTable_byTitle_wrongTextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "    <p>Some text .... </p>"
+        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "      <thead>"
+        + "        <tr>"
+        + "          <th id='header_1'>header_1</th>"
+        + "          <th id='header_2'>header_2</th>"
+        + "          <th id='header_3'>header_3</th>"
+        + "        </tr>"
+        + "      </thead>"
+        + "      <tbody>"
+        + "        <tr>"
+        + "          <td id='cell_1_1'>row_1</td>"
+        + "          <td id='cell_1_2'><span title='title_1_2'>Text_1_2</span></td>"
+        + "          <td id='cell_1_3'><span title='title_1_3'>Text_1_3</span></td>"
+        + "        </tr>"
+        + "        <tr>"
+        + "          <td id='cell_2_1'>row_2</td>"
+        + "          <td id='cell_2_2'><span title='title_2_2'>Text_2_2</span></td>"
+        + "          <td id='cell_2_3'><span title='title_2_3'>Text_2_3</span></td>"
+        + "        </tr>"
+        + "      </tbody>"
+        + "    </table>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "[header_3; row_2] > wrong text > title_2_3");
+
+    assertEquals(0, tmpEntriesSorted.size());
+
+    // as table cells are handled separately this wpath is equivalent to the wpath above
+    tmpEntriesSorted = find(tmpHtmlCode, "wrong text > [header_3; row_2] > title_2_3");
+
+    assertEquals(0, tmpEntriesSorted.size());
+  }
+
+  @Test
+  public void unknown_inTable_byTitle_noTextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "      <thead>"
+        + "        <tr>"
+        + "          <th id='header_1'>header_1</th>"
+        + "          <th id='header_2'>header_2</th>"
+        + "          <th id='header_3'>header_3</th>"
+        + "        </tr>"
+        + "      </thead>"
+        + "      <tbody>"
+        + "        <tr>"
+        + "          <td id='cell_1_1'>row_1</td>"
+        + "          <td id='cell_1_2'><span title='title_1_2'>Text_1_2</span></td>"
+        + "          <td id='cell_1_3'><span title='title_1_3'>Text_1_3</span></td>"
+        + "        </tr>"
+        + "        <tr>"
+        + "          <td id='cell_2_1'>row_2</td>"
+        + "          <td id='cell_2_2'><span title='title_2_2'>Text_2_2</span></td>"
+        + "          <td id='cell_2_3'><span title='title_2_3'>Text_2_3</span></td>"
+        + "        </tr>"
+        + "      </tbody>"
+        + "    </table>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "[header_3; row_2] > wrong text > title_2_3");
+
+    assertEquals(0, tmpEntriesSorted.size());
+
+    // as table cells are handled separately this wpath is equivalent to the wpath above
+    tmpEntriesSorted = find(tmpHtmlCode, "Some text > [header_3; row_2] > title_2_3");
 
     assertEquals(0, tmpEntriesSorted.size());
   }
@@ -1305,6 +1631,172 @@ public class UnknownHtmlUnitControlsFinderTest {
   }
 
   @Test
+  public void unknown_inTable_byText_textBefore_insideCell() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "      <thead>"
+        + "        <tr>"
+        + "          <th id='header_1'>header_1</th>"
+        + "          <th id='header_2'>header_2</th>"
+        + "          <th id='header_3'>header_3</th>"
+        + "        </tr>"
+        + "      </thead>"
+        + "      <tbody>"
+        + "        <tr>"
+        + "          <td id='cell_1_1'>row_1</td>"
+        + "          <td id='cell_1_2'><span>Text_1_2</span></td>"
+        + "          <td id='cell_1_3'><span>Text_1_3</span></td>"
+        + "        </tr>"
+        + "        <tr>"
+        + "          <td id='cell_2_1'>row_2</td>"
+        + "          <td id='cell_2_2'><span>Text_2_2</span></td>"
+        + "          <td id='cell_2_3'>Some text .... <span>Text_2_3</span></td>"
+        + "        </tr>"
+        + "      </tbody>"
+        + "    </table>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "[header_3; row_2] > Some text > Text_2_3");
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlSpan 'Text_2_3'] found by: BY_TEXT deviation: 0 distance: 6 start: 80 hierarchy: 0>1>3>5>22>38>47>49 index: 49",
+        tmpEntriesSorted.get(0).toString());
+
+    // as table cells are handled separately this wpath is equivalent to the wpath above
+    tmpEntriesSorted = find(tmpHtmlCode, "Some text > [header_3; row_2] > Text_2_3");
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlSpan 'Text_2_3'] found by: BY_TEXT deviation: 0 distance: 6 start: 80 hierarchy: 0>1>3>5>22>38>47>49 index: 49",
+        tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
+  public void unknown_inTable_byText_textBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "    <p>Some text .... </p>"
+        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "      <thead>"
+        + "        <tr>"
+        + "          <th id='header_1'>header_1</th>"
+        + "          <th id='header_2'>header_2</th>"
+        + "          <th id='header_3'>header_3</th>"
+        + "        </tr>"
+        + "      </thead>"
+        + "      <tbody>"
+        + "        <tr>"
+        + "          <td id='cell_1_1'>row_1</td>"
+        + "          <td id='cell_1_2'><span>Text_1_2</span></td>"
+        + "          <td id='cell_1_3'><span>Text_1_3</span></td>"
+        + "        </tr>"
+        + "        <tr>"
+        + "          <td id='cell_2_1'>row_2</td>"
+        + "          <td id='cell_2_2'><span>Text_2_2</span></td>"
+        + "          <td id='cell_2_3'><span>Text_2_3</span></td>"
+        + "        </tr>"
+        + "      </tbody>"
+        + "    </table>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "[header_3; row_2] > Some text > Text_2_3");
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlSpan 'Text_2_3'] found by: BY_TEXT deviation: 0 distance: 72 start: 80 hierarchy: 0>1>3>8>25>41>50>51 index: 51",
+        tmpEntriesSorted.get(0).toString());
+
+    // as table cells are handled separately this wpath is equivalent to the wpath above
+    tmpEntriesSorted = find(tmpHtmlCode, "Some text > [header_3; row_2] > Text_2_3");
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlSpan 'Text_2_3'] found by: BY_TEXT deviation: 0 distance: 72 start: 80 hierarchy: 0>1>3>8>25>41>50>51 index: 51",
+        tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
+  public void unknown_inTable_byText_wrongTextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "    <p>Some text .... </p>"
+        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "      <thead>"
+        + "        <tr>"
+        + "          <th id='header_1'>header_1</th>"
+        + "          <th id='header_2'>header_2</th>"
+        + "          <th id='header_3'>header_3</th>"
+        + "        </tr>"
+        + "      </thead>"
+        + "      <tbody>"
+        + "        <tr>"
+        + "          <td id='cell_1_1'>row_1</td>"
+        + "          <td id='cell_1_2'><span>Text_1_2</span></td>"
+        + "          <td id='cell_1_3'><span>Text_1_3</span></td>"
+        + "        </tr>"
+        + "        <tr>"
+        + "          <td id='cell_2_1'>row_2</td>"
+        + "          <td id='cell_2_2'><span>Text_2_2</span></td>"
+        + "          <td id='cell_2_3'><span>Text_2_3</span></td>"
+        + "        </tr>"
+        + "      </tbody>"
+        + "    </table>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "[header_3; row_2] > wrong text > Text_2_3");
+
+    assertEquals(0, tmpEntriesSorted.size());
+
+    // as table cells are handled separately this wpath is equivalent to the wpath above
+    tmpEntriesSorted = find(tmpHtmlCode, "wrong text > [header_3; row_2] > Text_2_3");
+
+    assertEquals(0, tmpEntriesSorted.size());
+  }
+
+  @Test
+  public void unknown_inTable_byText_noTextBefore() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "      <thead>"
+        + "        <tr>"
+        + "          <th id='header_1'>header_1</th>"
+        + "          <th id='header_2'>header_2</th>"
+        + "          <th id='header_3'>header_3</th>"
+        + "        </tr>"
+        + "      </thead>"
+        + "      <tbody>"
+        + "        <tr>"
+        + "          <td id='cell_1_1'>row_1</td>"
+        + "          <td id='cell_1_2'><span>Text_1_2</span></td>"
+        + "          <td id='cell_1_3'><span>Text_1_3</span></td>"
+        + "        </tr>"
+        + "        <tr>"
+        + "          <td id='cell_2_1'>row_2</td>"
+        + "          <td id='cell_2_2'><span>Text_2_2</span></td>"
+        + "          <td id='cell_2_3'><span>Text_2_3</span></td>"
+        + "        </tr>"
+        + "      </tbody>"
+        + "    </table>"
+        + "</body></html>";
+    // @formatter:on
+
+    List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "[header_3; row_2] > wrong text > Text_2_3");
+
+    assertEquals(0, tmpEntriesSorted.size());
+
+    // as table cells are handled separately this wpath is equivalent to the wpath above
+    tmpEntriesSorted = find(tmpHtmlCode, "wrong text > [header_3; row_2] > Text_2_3");
+
+    assertEquals(0, tmpEntriesSorted.size());
+  }
+
+  @Test
   public void unknown_inTable_empty_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
@@ -1329,7 +1821,7 @@ public class UnknownHtmlUnitControlsFinderTest {
         + "        </tr>"
         + "      </tbody>"
         + "    </table>"
-        + "<p>Some text .... </p>"
+        + "    <p>Some text .... </p>"
         + "    <table border='0' cellspacing='20' cellpadding='30'>"
         + "      <thead>"
         + "        <tr>"
@@ -1358,7 +1850,7 @@ public class UnknownHtmlUnitControlsFinderTest {
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlSpan 'Text_2_3' (id='t2_id_2_3')] found by: BY_TEXT deviation: 8 distance: 71 start: 155 hierarchy: 0>1>3>56>73>89>98>99 index: 99",
+        "[HtmlSpan 'Text_2_3' (id='t2_id_2_3')] found by: BY_TEXT deviation: 8 distance: 71 start: 155 hierarchy: 0>1>3>57>74>90>99>100 index: 100",
         tmpEntriesSorted.get(0).toString());
 
     tmpEntriesSorted = find(tmpHtmlCode, "Wrong text > [header_2; row_2] >");

@@ -344,4 +344,41 @@ public class HtmlUnitButtonIdentifierTest extends AbstractHtmlUnitControlIdentif
         "[HtmlButton 'ClickMe' (id='myId_2_3')] found by: BY_TABLE_COORDINATE deviation: 0 distance: 62 start: 62 hierarchy: 0>1>3>5>22>38>47>48 index: 48",
         tmpEntriesSorted.get(0).toString());
   }
+
+  @Test
+  public void inTable() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "      <thead>"
+        + "        <tr>"
+        + "          <th id='header_1'>header_1</th>"
+        + "          <th id='header_2'>header_2</th>"
+        + "          <th id='header_3'>header_3</th>"
+        + "        </tr>"
+        + "      </thead>"
+        + "      <tbody>"
+        + "        <tr>"
+        + "          <td id='cell_1_1'>row_1</td>"
+        + "          <td id='cell_1_2'><button id='myId_1_2'>ClickMe</button></td>"
+        + "          <td id='cell_1_3'><button id='myId_1_3'>ClickMe</button></td>"
+        + "        </tr>"
+        + "        <tr>"
+        + "          <td id='cell_2_1'>row_2</td>"
+        + "          <td id='cell_2_2'><button id='myId_2_2'>ClickMe</button></td>"
+        + "          <td id='cell_2_3'><button id='myId_2_3'>ClickMe</button></td>"
+        + "        </tr>"
+        + "      </tbody>"
+        + "    </table>"
+        + "</body></html>";
+    // @formatter:on
+
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "[header_3; row_2] > ClickMe", "myId_1_2", "myId_1_3",
+        "myId_2_2", "myId_2_3");
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlButton 'ClickMe' (id='myId_2_3')] found by: BY_LABEL deviation: 0 distance: 62 start: 62 hierarchy: 0>1>3>5>22>38>47>48 index: 48",
+        tmpEntriesSorted.get(0).toString());
+  }
 }

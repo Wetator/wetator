@@ -331,4 +331,41 @@ public class HtmlUnitInputCheckBoxIdentifierTest extends AbstractHtmlUnitControl
         "[HtmlCheckBoxInput (id='myId_2_3')] found by: BY_TABLE_COORDINATE deviation: 0 distance: 38 start: 38 hierarchy: 0>1>3>5>22>36>44>45 index: 45",
         tmpEntriesSorted.get(0).toString());
   }
+
+  @Test
+  public void inTable() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "      <thead>"
+        + "        <tr>"
+        + "          <th id='header_1'>header_1</th>"
+        + "          <th id='header_2'>header_2</th>"
+        + "          <th id='header_3'>header_3</th>"
+        + "        </tr>"
+        + "      </thead>"
+        + "      <tbody>"
+        + "        <tr>"
+        + "          <td id='cell_1_1'>row_1</td>"
+        + "          <td id='cell_1_2'><input id='myId_1_2' type='checkbox'> Marker</td>"
+        + "          <td id='cell_1_3'><input id='myId_1_3' type='checkbox'> Marker</td>"
+        + "        </tr>"
+        + "        <tr>"
+        + "          <td id='cell_2_1'>row_2</td>"
+        + "          <td id='cell_2_2'><input id='myId_2_2' type='checkbox'> Marker</td>"
+        + "          <td id='cell_2_3'><input id='myId_2_3' type='checkbox'> Marker</td>"
+        + "        </tr>"
+        + "      </tbody>"
+        + "    </table>"
+        + "</body></html>";
+    // @formatter:on
+
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "[header_3; row_2] > Marker", "myId_1_2", "myId_1_3",
+        "myId_2_2", "myId_2_3");
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlCheckBoxInput (id='myId_2_3')] found by: BY_LABELING_TEXT deviation: 0 distance: 59 start: 59 hierarchy: 0>1>3>5>22>38>47>48 index: 48",
+        tmpEntriesSorted.get(0).toString());
+  }
 }

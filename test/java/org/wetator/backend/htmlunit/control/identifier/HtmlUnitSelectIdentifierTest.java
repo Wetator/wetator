@@ -317,4 +317,49 @@ public class HtmlUnitSelectIdentifierTest extends AbstractHtmlUnitControlIdentif
         "[HtmlSelect (id='myId_2_3')] found by: BY_TABLE_COORDINATE deviation: 0 distance: 59 start: 59 hierarchy: 0>1>3>5>22>40>50>51 index: 51",
         tmpEntriesSorted.get(0).toString());
   }
+
+  @Test
+  public void inTable() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "    <table border='0' cellspacing='20' cellpadding='30'>"
+        + "      <thead>"
+        + "        <tr>"
+        + "          <th id='header_1'>header_1</th>"
+        + "          <th id='header_2'>header_2</th>"
+        + "          <th id='header_3'>header_3</th>"
+        + "        </tr>"
+        + "      </thead>"
+        + "      <tbody>"
+        + "        <tr>"
+        + "          <td id='cell_1_1'>row_1</td>"
+        + "          <td id='cell_1_2'>Marker <select id='myId_1_2'>"
+        + "            <option>option</option>"
+        + "          </select></td>"
+        + "          <td id='cell_1_3'>Marker <select id='myId_1_3'>"
+        + "            <option>option</option>"
+        + "          </select></td>"
+        + "        </tr>"
+        + "        <tr>"
+        + "          <td id='cell_2_1'>row_2</td>"
+        + "          <td id='cell_2_2'>Marker <select id='myId_2_2'>"
+        + "            <option>option</option>"
+        + "          </select></td>"
+        + "          <td id='cell_2_3'>Marker <select id='myId_2_3'>"
+        + "            <option>option</option>"
+        + "          </select></td>"
+        + "        </tr>"
+        + "      </tbody>"
+        + "    </table>"
+        + "</body></html>";
+    // @formatter:on
+
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "[header_3; row_2] > Marker", "myId_1_2", "myId_1_3",
+        "myId_2_2", "myId_2_3");
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlSelect (id='myId_2_3')] found by: BY_LABELING_TEXT deviation: 0 distance: 81 start: 87 hierarchy: 0>1>3>5>22>42>53>55 index: 55",
+        tmpEntriesSorted.get(0).toString());
+  }
 }
