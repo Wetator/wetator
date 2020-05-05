@@ -48,9 +48,4 @@ public class HtmlUnitButton extends HtmlUnitBaseControl<HtmlButton>
   public String getDescribingText() {
     return HtmlElementUtil.getDescribingTextForHtmlButton(getHtmlElement());
   }
-
-  // @Override
-  // public boolean isDisabled(final WetatorContext aWetatorContext) {
-  // return getHtmlElement().isDisabled();
-  // }
 }
