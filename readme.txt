@@ -1,8 +1,8 @@
 HOW TO SETUP THE IDE
 ====================
 Currently we use
-    Eclipse 2020-03 (4.15.0)
-    Eclipse Checkstyle Plugin 8.29.0 (based on Checkstyle 8.29)
+    Eclipse 2020-06 (4.16.0)
+    Eclipse Checkstyle Plugin 8.35.0 (based on Checkstyle 8.35)
 as IDE. All other settings (code format, warnings, etc.) are stored with the project.
 
 
@@ -41,7 +41,7 @@ WETATOR
     - create folder tags/version_x_x_xx
     - copy trunk/wetator to the new folder
   * build the release
-    - provide your credential as ant call parameters -Dsonatype.username=???? -Dsonatype.passwd=???? -Dpgp.passphrase=???? -v  
+    - provide your credential as ant call parameters -Dsonatype.username=???? -Dsonatype.passwd=???? -Dpgp.passphrase=???? -v
     - ant clean
     - ant publish-sonatype-releases
   * test the release

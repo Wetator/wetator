@@ -362,7 +362,7 @@
          private target load-checkstyle
          =========================================== -->
     <target name="-load-checkstyle" depends="-load-ivy" unless="skip.metrics">
-        <ivy:cachepath organisation="com.puppycrawl.tools" module="checkstyle" revision="8.29" type="jar,bundle"
+        <ivy:cachepath organisation="com.puppycrawl.tools" module="checkstyle" revision="8.35" type="jar,bundle"
             pathid="taskdef-classpath-checkstyle" inline="true" transitive="true" log="download-only" />
         <taskdef resource="com/puppycrawl/tools/checkstyle/ant/checkstyle-ant-task.properties" classpathref="taskdef-classpath-checkstyle" />
     </target>
@@ -372,7 +372,7 @@
          private target load-spotbugs
          =========================================== -->
     <target name="-load-spotbugs" depends="-load-ivy" unless="skip.metrics">
-        <ivy:cachepath organisation="com.github.spotbugs" module="spotbugs-ant" revision="4.0.1" type="jar,bundle"
+        <ivy:cachepath organisation="com.github.spotbugs" module="spotbugs-ant" revision="4.1.2" type="jar,bundle"
             pathid="taskdef-classpath-spotbugs" inline="true" transitive="true" log="download-only" />
         <taskdef resource="edu/umd/cs/findbugs/anttask/tasks.properties" classpathref="taskdef-classpath-spotbugs" />
     </target>
@@ -382,7 +382,7 @@
          private target load-pmd
          =========================================== -->
     <target name="-load-pmd" depends="-load-ivy" unless="skip.metrics">
-        <ivy:cachepath organisation="net.sourceforge.pmd" module="pmd-java" revision="6.21.0" type="jar,bundle"
+        <ivy:cachepath organisation="net.sourceforge.pmd" module="pmd-java" revision="6.27.0" type="jar,bundle"
             pathid="taskdef-classpath-pmd" inline="true" transitive="true" log="download-only" />
         <taskdef name="cpd" classname="net.sourceforge.pmd.cpd.CPDTask" classpathref="taskdef-classpath-pmd" />
         <taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask" classpathref="taskdef-classpath-pmd" />

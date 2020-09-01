@@ -164,7 +164,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
 
-      long tmpWaitTime = 0;
+      final long tmpWaitTime;
       try {
         final BigDecimal tmpValue = new BigDecimal(tmpWaitTimeString.getValue());
         tmpWaitTime = tmpValue.longValueExact();

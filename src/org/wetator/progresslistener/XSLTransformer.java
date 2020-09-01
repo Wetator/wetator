@@ -183,7 +183,7 @@ public final class XSLTransformer {
         try (InputStream tmpIn = Files.newInputStream(tmpSourceFile.toPath());
             OutputStream tmpOut = Files.newOutputStream(tmpTargetFile.toPath())) {
           final byte[] tmpBuffer = new byte[1024];
-          int tmpBytes = 0;
+          int tmpBytes;
           while ((tmpBytes = tmpIn.read(tmpBuffer)) > -1) {
             tmpOut.write(tmpBuffer, 0, tmpBytes);
           }

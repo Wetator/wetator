@@ -776,8 +776,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
           throw new InvalidInputException(tmpMessage);
         }
 
-        Object tmpReceiver = null;
-        Object tmpResult = null;
+        final Object tmpReceiver;
+        final Object tmpResult;
         if (Modifier.isStatic(tmpMethod.getModifiers())) {
           tmpResult = MethodUtils.invokeStaticMethod(tmpClass, tmpMethod.getName(), tmpParams);
         } else {

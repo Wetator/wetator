@@ -1077,7 +1077,7 @@ public final class HtmlUnitBrowser implements IBrowser {
       // try with wait
       long tmpEndTime = System.currentTimeMillis() + tmpWaitTime;
 
-      Page tmpPage = null;
+      Page tmpPage;
 
       // only true if the user has specified a wait time
       while (System.currentTimeMillis() < tmpEndTime) {
@@ -1175,7 +1175,7 @@ public final class HtmlUnitBrowser implements IBrowser {
       // try with wait
       long tmpEndTime = System.currentTimeMillis() + tmpWaitTime;
 
-      Page tmpPage = null;
+      Page tmpPage;
 
       // only true if the user has specified a wait time
       while (System.currentTimeMillis() < tmpEndTime) {

@@ -43,7 +43,6 @@ This is a subset of PMD's 'Error Prone' ruleset.
     <rule ref="category/java/errorprone.xml/CloseResource" />
     <!-- not wanted <rule ref="category/java/errorprone.xml/CompareObjectsWithEquals" /> -->
     <!-- not wanted <rule ref="category/java/errorprone.xml/ConstructorCallsOverridableMethod" /> -->
-    <!-- not wanted <rule ref="category/java/errorprone.xml/DataflowAnomalyAnalysis" /> -->
     <rule ref="category/java/errorprone.xml/DetachedTestCase" />
     <rule ref="category/java/errorprone.xml/DoNotCallGarbageCollectionExplicitly" />
     <!-- not wanted <rule ref="category/java/errorprone.xml/DoNotCallSystemExit" /> -->

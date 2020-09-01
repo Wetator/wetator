@@ -139,7 +139,7 @@ public final class LegacyXMLScripter implements IScripter {
   }
 
   private List<Command> readCommands() throws InvalidInputException {
-    InputStream tmpInputStream = null;
+    final InputStream tmpInputStream;
     try {
       tmpInputStream = Files.newInputStream(file.toPath());
     } catch (final IOException e) {

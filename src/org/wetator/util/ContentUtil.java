@@ -95,8 +95,8 @@ public final class ContentUtil {
     final Reader tmpReader = new InputStreamReader(anInputStream, aCharset); // NOPMD
     final char[] tmpCharBuffer = new char[1024];
 
-    int tmpChars = 0;
-    boolean tmpContinue = false;
+    int tmpChars;
+    boolean tmpContinue;
     do {
       tmpChars = tmpReader.read(tmpCharBuffer);
       tmpResult.append(tmpCharBuffer, tmpChars);

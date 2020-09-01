@@ -67,7 +67,7 @@ public class HtmlUnitOptionInSelectIdentifier extends AbstractHtmlUnitControlIde
     }
 
     final SearchPattern tmpSearchPatternSelect;
-    SearchPattern tmpPathSearchPatternSelect = null;
+    final SearchPattern tmpPathSearchPatternSelect;
     FindSpot tmpPathSpotSelect = null;
     if (aWPath.getPathNodes().isEmpty()) {
       tmpSearchPatternSelect = SearchPattern.compile("");
