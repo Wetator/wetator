@@ -13,9 +13,9 @@
 	<classpathentry kind="lib" path="lib/bcprov-jdk15on-1.68.jar"/>
 	<classpathentry kind="lib" path="lib/byte-buddy-1.10.19.jar"/>
 	<classpathentry kind="lib" path="lib/byte-buddy-agent-1.10.19.jar"/>
-	<classpathentry kind="lib" path="lib/commons-codec-1.15.jar"/>
+	<classpathentry kind="lib" path="lib/commons-codec-1.13.jar"/>
 	<classpathentry kind="lib" path="lib/commons-collections4-4.4.jar"/>
-	<classpathentry kind="lib" path="lib/commons-compress-1.20.jar"/>
+	<classpathentry kind="lib" path="lib/commons-compress-1.19.jar"/>
 	<classpathentry kind="lib" path="lib/commons-io-2.8.0.jar" sourcepath="lib_src/commons-io-2.8.0-sources.jar"/>
 	<classpathentry kind="lib" path="lib/commons-lang3-3.11.jar"/>
 	<classpathentry kind="lib" path="lib/commons-logging-1.2.jar"/>
@@ -54,8 +54,9 @@
 	<classpathentry kind="lib" path="lib/neko-htmlunit-2.47.1.jar"/>
 	<classpathentry kind="lib" path="lib/objenesis-3.1.jar"/>
 	<classpathentry kind="lib" path="lib/pdfbox-2.0.22.jar"/>
-	<classpathentry kind="lib" path="lib/poi-5.0.0.jar"/>
-	<classpathentry kind="lib" path="lib/poi-ooxml-5.0.0.jar"/>
+	<classpathentry kind="lib" path="lib/poi-4.1.2.jar"/>
+	<classpathentry kind="lib" path="lib/poi-ooxml-4.1.2.jar"/>
+	<classpathentry kind="lib" path="lib/poi-ooxml-schemas-4.1.2.jar"/>
 	<classpathentry kind="lib" path="lib/relaxngDatatype-20020414.jar"/>
 	<classpathentry kind="lib" path="lib/salvation2-3.0.0.jar"/>
 	<classpathentry kind="lib" path="lib/serializer-2.7.2.jar"/>
@@ -68,8 +69,7 @@
 	<classpathentry kind="lib" path="lib/xalan-2.7.2.jar"/>
 	<classpathentry kind="lib" path="lib/xercesImpl-2.12.0.jar"/>
 	<classpathentry kind="lib" path="lib/xml-apis-1.4.01.jar"/>
-	<classpathentry kind="lib" path="lib/xmlbeans-4.0.0.jar"/>
+	<classpathentry kind="lib" path="lib/xmlbeans-3.1.0.jar"/>
 	<classpathentry kind="lib" path="lib/xsom-20140925.jar"/>
-	<classpathentry kind="lib" path="lib/poi-ooxml-lite-5.0.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

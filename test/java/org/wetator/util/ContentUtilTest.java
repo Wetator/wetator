@@ -273,8 +273,8 @@ public class ContentUtilTest {
           4000);
       org.junit.Assert.fail("InvalidFormatException expected");
     } catch (final InvalidFormatException | IOException e) {
-      org.junit.Assert.assertEquals("java.io.IOException: Can't open workbook - unsupported file type: PDF",
-          e.toString());
+      org.junit.Assert.assertEquals(
+          "java.io.IOException: Your InputStream was neither an OLE2 stream, nor an OOXML stream", e.toString());
     }
   }
 
@@ -285,8 +285,10 @@ public class ContentUtilTest {
           StandardCharsets.UTF_8, Locale.ENGLISH, 4000);
       org.junit.Assert.fail("IOException expected");
     } catch (final IOException e) {
-      org.junit.Assert.assertEquals("java.io.IOException: Can't convert the zipped xls 'wet_test.xls' into text "
-          + "(reason: java.io.IOException: Can't open workbook - unsupported file type: PDF).", e.toString());
+      org.junit.Assert.assertEquals(
+          "java.io.IOException: Can't convert the zipped xls 'wet_test.xls' into text "
+              + "(reason: java.io.IOException: Your InputStream was neither an OLE2 stream, nor an OOXML stream).",
+          e.toString());
     }
   }
 
@@ -371,8 +373,8 @@ public class ContentUtilTest {
           4000);
       org.junit.Assert.fail("InvalidFormatException expected");
     } catch (final InvalidFormatException | IOException e) {
-      org.junit.Assert.assertEquals("java.io.IOException: Can't open workbook - unsupported file type: PDF",
-          e.toString());
+      org.junit.Assert.assertEquals(
+          "java.io.IOException: Your InputStream was neither an OLE2 stream, nor an OOXML stream", e.toString());
     }
   }
 
@@ -383,8 +385,10 @@ public class ContentUtilTest {
           StandardCharsets.UTF_8, Locale.ENGLISH, 4000);
       org.junit.Assert.fail("IOException expected");
     } catch (final IOException e) {
-      org.junit.Assert.assertEquals("java.io.IOException: Can't convert the zipped xls 'wet_test.xlsx' into text "
-          + "(reason: java.io.IOException: Can't open workbook - unsupported file type: PDF).", e.toString());
+      org.junit.Assert.assertEquals(
+          "java.io.IOException: Can't convert the zipped xls 'wet_test.xlsx' into text "
+              + "(reason: java.io.IOException: Your InputStream was neither an OLE2 stream, nor an OOXML stream).",
+          e.toString());
     }
   }
 
