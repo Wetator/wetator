@@ -19,6 +19,7 @@ package org.wetator.backend.htmlunit.util;
 import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,9 +28,12 @@ import org.junit.Test;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.ElementNotFoundException;
+import com.gargoylesoftware.htmlunit.StringWebResponse;
 import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.WebWindow;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import com.gargoylesoftware.htmlunit.html.parser.HTMLParser;
 
 /**
  * @author rbri
@@ -554,38 +558,37 @@ public class HtmlPageIndexTest {
     // @formatter:on
 
     // FF
-    WebClient tmpWebClient = new WebClient(BrowserVersion.FIREFOX);
-    try {
-      final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-      final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.FIREFOX_78, tmpHtmlCode);
+    HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
-      assertEquals("before Object tag not supported after", tmpResult.getText());
-      assertEquals("before Object tag not supported after", tmpResult.getTextWithoutFormControls());
-    } finally {
-      tmpWebClient.close();
-    }
+    assertEquals("before Object tag not supported after", tmpResult.getText());
+    assertEquals("before Object tag not supported after", tmpResult.getTextWithoutFormControls());
 
     // IE without support
-    tmpWebClient = new WebClient(BrowserVersion.INTERNET_EXPLORER);
-    try {
-      final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-      final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode);
+    tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
-      assertEquals("before Object tag not supported after", tmpResult.getText());
-      assertEquals("before Object tag not supported after", tmpResult.getTextWithoutFormControls());
-    } finally {
-      tmpWebClient.close();
-    }
+    assertEquals("before Object tag not supported after", tmpResult.getText());
+    assertEquals("before Object tag not supported after", tmpResult.getTextWithoutFormControls());
 
     // IE with support
-    tmpWebClient = new WebClient(BrowserVersion.INTERNET_EXPLORER);
+    final WebClient tmpWebClient = new WebClient(BrowserVersion.INTERNET_EXPLORER);
     final Map<String, String> tmpActiveXObjectMap = new HashMap<>();
     tmpActiveXObjectMap.put(tmpClsid, "org.wetator.backend.htmlunit.util.HtmlPageIndexTest");
     tmpWebClient.setActiveXObjectMap(tmpActiveXObjectMap);
 
     try {
-      final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-      final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+      final HTMLParser tmpHtmlParser = tmpWebClient.getPageCreator().getHtmlParser();
+      final WebWindow tmpWebWindow = tmpWebClient.getCurrentWindow();
+
+      final StringWebResponse tmpWebResponse = new StringWebResponse(tmpHtmlCode,
+          new URL("http://www.wetator.org/test.html"));
+      tmpHtmlPage = new HtmlPage(tmpWebResponse, tmpWebWindow);
+      tmpWebWindow.setEnclosedPage(tmpHtmlPage);
+
+      tmpHtmlParser.parse(tmpWebResponse, tmpHtmlPage, true);
+
+      tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
       assertEquals("before after", tmpResult.getText());
       assertEquals("before after", tmpResult.getTextWithoutFormControls());
@@ -1579,38 +1582,37 @@ public class HtmlPageIndexTest {
     // @formatter:on
 
     // FF
-    WebClient tmpWebClient = new WebClient(BrowserVersion.FIREFOX);
-    try {
-      final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-      final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.FIREFOX_78, tmpHtmlCode);
+    HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
-      assertEquals("Object tag not supported", tmpResult.getAsText(tmpHtmlPage.getHtmlElementById("idObj")));
-      assertEquals("before", tmpResult.getTextBefore(tmpHtmlPage.getHtmlElementById("idObj")));
-    } finally {
-      tmpWebClient.close();
-    }
+    assertEquals("Object tag not supported", tmpResult.getAsText(tmpHtmlPage.getHtmlElementById("idObj")));
+    assertEquals("before", tmpResult.getTextBefore(tmpHtmlPage.getHtmlElementById("idObj")));
 
     // IE without support
-    tmpWebClient = new WebClient(BrowserVersion.INTERNET_EXPLORER);
-    try {
-      final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-      final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode);
+    tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
-      assertEquals("Object tag not supported", tmpResult.getAsText(tmpHtmlPage.getHtmlElementById("idObj")));
-      assertEquals("before", tmpResult.getTextBefore(tmpHtmlPage.getHtmlElementById("idObj")));
-    } finally {
-      tmpWebClient.close();
-    }
+    assertEquals("Object tag not supported", tmpResult.getAsText(tmpHtmlPage.getHtmlElementById("idObj")));
+    assertEquals("before", tmpResult.getTextBefore(tmpHtmlPage.getHtmlElementById("idObj")));
 
     // IE with support
-    tmpWebClient = new WebClient(BrowserVersion.INTERNET_EXPLORER);
+    final WebClient tmpWebClient = new WebClient(BrowserVersion.INTERNET_EXPLORER);
     final Map<String, String> tmpActiveXObjectMap = new HashMap<>();
     tmpActiveXObjectMap.put(tmpClsid, "org.wetator.backend.htmlunit.util.HtmlPageIndexTest");
     tmpWebClient.setActiveXObjectMap(tmpActiveXObjectMap);
 
     try {
-      final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-      final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+      final HTMLParser tmpHtmlParser = tmpWebClient.getPageCreator().getHtmlParser();
+      final WebWindow tmpWebWindow = tmpWebClient.getCurrentWindow();
+
+      final StringWebResponse tmpWebResponse = new StringWebResponse(tmpHtmlCode,
+          new URL("http://www.wetator.org/test.html"));
+      tmpHtmlPage = new HtmlPage(tmpWebResponse, tmpWebWindow);
+      tmpWebWindow.setEnclosedPage(tmpHtmlPage);
+
+      tmpHtmlParser.parse(tmpWebResponse, tmpHtmlPage, true);
+
+      tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
       assertEquals("", tmpResult.getAsText(tmpHtmlPage.getHtmlElementById("idObj")));
       assertEquals("before", tmpResult.getTextBefore(tmpHtmlPage.getHtmlElementById("idObj")));
