@@ -22,8 +22,10 @@ import java.net.URL;
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.StringWebResponse;
 import com.gargoylesoftware.htmlunit.WebClient;
+import com.gargoylesoftware.htmlunit.WebWindow;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.html.XHtmlPage;
+import com.gargoylesoftware.htmlunit.html.parser.HTMLParser;
 
 /**
  * Util class for page handling.
@@ -42,7 +44,7 @@ public final class PageUtil {
    */
   public static HtmlPage constructHtmlPage(final String anHtmlCode) throws IOException {
     // Take care: this has to be in sync with our default browser
-    return constructHtmlPage(BrowserVersion.FIREFOX_68, anHtmlCode);
+    return constructHtmlPage(BrowserVersion.FIREFOX_78, anHtmlCode);
   }
 
   /**
@@ -55,11 +57,18 @@ public final class PageUtil {
    */
   public static HtmlPage constructHtmlPage(final BrowserVersion aBrowserVersion, final String anHtmlCode)
       throws IOException {
-    final StringWebResponse tmpResponse = new StringWebResponse(anHtmlCode,
-        new URL("http://www.wetator.org/test.html"));
     final WebClient tmpWebClient = new WebClient(aBrowserVersion);
     try {
-      return tmpWebClient.getPageCreator().getHtmlParser().parseHtml(tmpResponse, tmpWebClient.getCurrentWindow());
+      final HTMLParser tmpHtmlParser = tmpWebClient.getPageCreator().getHtmlParser();
+      final WebWindow tmpWebWindow = tmpWebClient.getCurrentWindow();
+
+      final StringWebResponse tmpWebResponse = new StringWebResponse(anHtmlCode,
+          new URL("http://www.wetator.org/test.html"));
+      final HtmlPage tmpPage = new HtmlPage(tmpWebResponse, tmpWebWindow);
+      tmpWebWindow.setEnclosedPage(tmpPage);
+
+      tmpHtmlParser.parse(tmpWebResponse, tmpPage, true);
+      return tmpPage;
     } finally {
       tmpWebClient.close();
     }
@@ -86,11 +95,18 @@ public final class PageUtil {
    */
   public static XHtmlPage constructXHtmlPage(final BrowserVersion aBrowserVersion, final String anXHtmlCode)
       throws IOException {
-    final StringWebResponse tmpResponse = new StringWebResponse(anXHtmlCode,
-        new URL("http://www.wetator.org/test.xhtml"));
     final WebClient tmpWebClient = new WebClient(aBrowserVersion);
     try {
-      return tmpWebClient.getPageCreator().getHtmlParser().parseXHtml(tmpResponse, tmpWebClient.getCurrentWindow());
+      final HTMLParser tmpHtmlParser = tmpWebClient.getPageCreator().getHtmlParser();
+      final WebWindow tmpWebWindow = tmpWebClient.getCurrentWindow();
+
+      final StringWebResponse tmpWebResponse = new StringWebResponse(anXHtmlCode,
+          new URL("http://www.wetator.org/test.xhtml"));
+      final XHtmlPage tmpPage = new XHtmlPage(tmpWebResponse, tmpWebWindow);
+      tmpWebWindow.setEnclosedPage(tmpPage);
+
+      tmpHtmlParser.parse(tmpWebResponse, tmpPage, true);
+      return tmpPage;
     } finally {
       tmpWebClient.close();
     }
