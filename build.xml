@@ -279,7 +279,7 @@
                     <patternset refid="libPattern" />
                 </fileset>
             </classpath>
-        	<compilerarg value="-Xlint:deprecation"/>
+            <compilerarg value="-Xlint:deprecation"/>
         </javac>
 
         <!-- copy resources -->
