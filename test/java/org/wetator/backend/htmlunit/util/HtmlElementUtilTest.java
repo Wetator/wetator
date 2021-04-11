@@ -867,10 +867,10 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitInputImage(tmpHtmlImageInput).getDescribingText();
-    Assert.assertEquals("[HtmlImageInput 'ImageInput' (src='sample.src')]", tmpResult);
+    Assert.assertEquals("[HtmlImageInput 'ImageInput' (src='http://www.wetator.org/sample.src')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlImageInput(tmpHtmlImageInput);
-    Assert.assertEquals("[HtmlImageInput 'ImageInput' (src='sample.src')]", tmpResult);
+    Assert.assertEquals("[HtmlImageInput 'ImageInput' (src='http://www.wetator.org/sample.src')]", tmpResult);
   }
 
   @Test
@@ -890,10 +890,12 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitInputImage(tmpHtmlImageInput).getDescribingText();
-    Assert.assertEquals("[HtmlImageInput 'ImageInput' (src='sample.src') (name='ImageInputName')]", tmpResult);
+    Assert.assertEquals(
+        "[HtmlImageInput 'ImageInput' (src='http://www.wetator.org/sample.src') (name='ImageInputName')]", tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlImageInput(tmpHtmlImageInput);
-    Assert.assertEquals("[HtmlImageInput 'ImageInput' (src='sample.src') (name='ImageInputName')]", tmpResult);
+    Assert.assertEquals(
+        "[HtmlImageInput 'ImageInput' (src='http://www.wetator.org/sample.src') (name='ImageInputName')]", tmpResult);
   }
 
   @Test
@@ -913,10 +915,12 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitInputImage(tmpHtmlImageInput).getDescribingText();
-    Assert.assertEquals("[HtmlImageInput 'ImageInput' (src='sample.src') (id='ImageInputId')]", tmpResult);
+    Assert.assertEquals("[HtmlImageInput 'ImageInput' (src='http://www.wetator.org/sample.src') (id='ImageInputId')]",
+        tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlImageInput(tmpHtmlImageInput);
-    Assert.assertEquals("[HtmlImageInput 'ImageInput' (src='sample.src') (id='ImageInputId')]", tmpResult);
+    Assert.assertEquals("[HtmlImageInput 'ImageInput' (src='http://www.wetator.org/sample.src') (id='ImageInputId')]",
+        tmpResult);
   }
 
   @Test
@@ -936,11 +940,13 @@ public class HtmlElementUtilTest {
 
     String tmpResult;
     tmpResult = new HtmlUnitInputImage(tmpHtmlImageInput).getDescribingText();
-    Assert.assertEquals("[HtmlImageInput 'ImageInput' (src='sample.src') (id='ImageInputId') (name='ImageInputName')]",
+    Assert.assertEquals(
+        "[HtmlImageInput 'ImageInput' (src='http://www.wetator.org/sample.src') (id='ImageInputId') (name='ImageInputName')]",
         tmpResult);
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlImageInput(tmpHtmlImageInput);
-    Assert.assertEquals("[HtmlImageInput 'ImageInput' (src='sample.src') (id='ImageInputId') (name='ImageInputName')]",
+    Assert.assertEquals(
+        "[HtmlImageInput 'ImageInput' (src='http://www.wetator.org/sample.src') (id='ImageInputId') (name='ImageInputName')]",
         tmpResult);
   }
 
