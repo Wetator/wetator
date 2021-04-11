@@ -811,7 +811,7 @@ ENDLOCAL
         <mkdir dir="${dir.build}/test-release" />
 
         <!-- test the application -->
-        <unzip src="${dir.deploy}/${application.jar-basename}_${application.version}.zip" dest="${dir.build}/test-release/app" />
+        <unzip src="${dir.deploy}/${application.jar-basename}-${application.version}.zip" dest="${dir.build}/test-release/app" />
         <copy
             file="${basedir}/${dir.build}/test-release/app/samples/wetator_testform/wetator.config"
             todir="${basedir}/${dir.build}/test-release/app"
