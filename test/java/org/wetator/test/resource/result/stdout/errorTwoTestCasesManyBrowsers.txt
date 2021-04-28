@@ -3,7 +3,7 @@ Wetator local build
   OutputDir:  '##OUTPUT_DIR##'
   TestFiles: none
   TestCase: 'test1.wet' (1/0)
-    Firefox68
+    Firefox78
 java.lang.ClassNotFoundException: test error
 
     IE11
@@ -11,7 +11,7 @@ java.lang.ClassNotFoundException: test error
     CHROME
 
   TestCase: 'test2.wet' (2/0)
-    Firefox68
+    Firefox78
 
     IE11
 
