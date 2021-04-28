@@ -38,7 +38,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ BrowserType.FIREFOX_78 })
-  public void eventClickOnFF68() throws InvalidInputException {
+  public void eventClickOnFF78() throws InvalidInputException {
     executeTestFile("ff60/event_clickOn.wet");
 
     Assert.assertEquals(63, getSteps());
@@ -58,7 +58,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ BrowserType.FIREFOX_78 })
-  public void eventDeselectFF68() throws InvalidInputException {
+  public void eventDeselectFF78() throws InvalidInputException {
     executeTestFile("ff60/event_deselect.wet");
 
     Assert.assertEquals(18, getSteps());
@@ -78,7 +78,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ BrowserType.FIREFOX_78 })
-  public void eventMouseOverFF68() throws InvalidInputException {
+  public void eventMouseOverFF78() throws InvalidInputException {
     executeTestFile("ff60/event_mouseOver.wet");
 
     Assert.assertEquals(74, getSteps());
@@ -98,7 +98,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ BrowserType.FIREFOX_78 })
-  public void eventSelectFF68() throws InvalidInputException {
+  public void eventSelectFF78() throws InvalidInputException {
     executeTestFile("ff60/event_select.wet");
 
     Assert.assertEquals(18, getSteps());
@@ -118,7 +118,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
 
   @Test
   @Browsers({ BrowserType.FIREFOX_78 })
-  public void eventSetFF68() throws InvalidInputException {
+  public void eventSetFF78() throws InvalidInputException {
     executeTestFile("ff60/event_set.wet");
 
     Assert.assertEquals(27, getSteps());
