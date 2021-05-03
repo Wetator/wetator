@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2020 wetator.org
+ * Copyright (c) 2008-2021 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -77,8 +77,8 @@ public interface IBrowser {
    * Enum for the supported browser types.
    */
   enum BrowserType {
-    /** Firefox 68 ESR. */
-    FIREFOX_68("Firefox68", "Firefox_68"),
+    /** Firefox 78 ESR. */
+    FIREFOX_78("Firefox78", "Firefox_78"),
     /** Firefox. */
     FIREFOX("Firefox", "Firefox"),
     /** Internet Explorer 11. */

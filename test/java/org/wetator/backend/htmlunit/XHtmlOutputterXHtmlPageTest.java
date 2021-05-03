@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2020 wetator.org
+ * Copyright (c) 2008-2021 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -52,7 +52,7 @@ public class XHtmlOutputterXHtmlPageTest {
     tmpXHtmlOutputter.writeTo(tmpWriter);
     assertEquals(anExpected, new NormalizedString(tmpWriter.toString()).toString());
 
-    tmpXHtmlPage = PageUtil.constructXHtmlPage(BrowserVersion.FIREFOX_68, anXHtmlCode);
+    tmpXHtmlPage = PageUtil.constructXHtmlPage(BrowserVersion.FIREFOX_78, anXHtmlCode);
     tmpXHtmlOutputter = new XHtmlOutputter(tmpXHtmlPage, null);
     tmpWriter = new StringWriter();
     tmpXHtmlOutputter.writeTo(tmpWriter);

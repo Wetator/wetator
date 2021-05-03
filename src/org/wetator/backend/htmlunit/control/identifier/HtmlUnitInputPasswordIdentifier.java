@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2020 wetator.org
+ * Copyright (c) 2008-2021 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -56,7 +56,7 @@ public class HtmlUnitInputPasswordIdentifier extends AbstractMatcherBasedIdentif
   @Override
   public boolean isHtmlElementSupported(final HtmlElement aHtmlElement) {
     return aHtmlElement instanceof HtmlPasswordInput || aHtmlElement instanceof HtmlLabel
-        && ((HtmlLabel) aHtmlElement).getReferencedElement() instanceof HtmlPasswordInput;
+        && ((HtmlLabel) aHtmlElement).getLabeledElement() instanceof HtmlPasswordInput;
   }
 
   @Override

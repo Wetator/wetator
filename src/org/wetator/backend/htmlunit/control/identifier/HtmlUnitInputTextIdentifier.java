@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2020 wetator.org
+ * Copyright (c) 2008-2021 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -55,8 +55,8 @@ public class HtmlUnitInputTextIdentifier extends AbstractMatcherBasedIdentifier 
 
   @Override
   public boolean isHtmlElementSupported(final HtmlElement aHtmlElement) {
-    return aHtmlElement instanceof HtmlTextInput || aHtmlElement instanceof HtmlLabel
-        && ((HtmlLabel) aHtmlElement).getReferencedElement() instanceof HtmlTextInput;
+    return aHtmlElement instanceof HtmlTextInput
+        || aHtmlElement instanceof HtmlLabel && ((HtmlLabel) aHtmlElement).getLabeledElement() instanceof HtmlTextInput;
   }
 
   @Override

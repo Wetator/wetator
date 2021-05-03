@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2020 wetator.org
+ * Copyright (c) 2008-2021 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,7 +50,7 @@ public class XMLResultWriterTest extends AbstractProgressListenerTest {
     final TestCase tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
     writeGreenTestRun(tmpTestCase, IE11);
-    writeGreenTestRun(tmpTestCase, FF);
+    writeGreenTestRun(tmpTestCase, FF78);
     progressListener.testCaseEnd();
 
     progressListener.end(engine);

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2020 wetator.org
+ * Copyright (c) 2008-2021 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -146,7 +146,7 @@ public class WetatorConfiguration {
    * The property name to set the supported {@link BrowserType}s (by their {@link BrowserType#getSymbol()}).
    */
   public static final String PROPERTY_BROWSER_TYPE = PROPERTY_PREFIX + "browser";
-  private static final BrowserType DEFAULT_BROWSER_TYPE = BrowserType.FIREFOX_68;
+  private static final BrowserType DEFAULT_BROWSER_TYPE = BrowserType.FIREFOX_78;
   /**
    * The property name to define the supported ActiveX mocker.
    */

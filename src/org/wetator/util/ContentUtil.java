@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2020 wetator.org
+ * Copyright (c) 2008-2021 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -95,8 +95,8 @@ public final class ContentUtil {
     final Reader tmpReader = new InputStreamReader(anInputStream, aCharset); // NOPMD
     final char[] tmpCharBuffer = new char[1024];
 
-    int tmpChars = 0;
-    boolean tmpContinue = false;
+    int tmpChars;
+    boolean tmpContinue;
     do {
       tmpChars = tmpReader.read(tmpCharBuffer);
       tmpResult.append(tmpCharBuffer, tmpChars);

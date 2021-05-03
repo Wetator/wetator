@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2020 wetator.org
+ * Copyright (c) 2008-2021 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -183,7 +183,7 @@ public final class XSLTransformer {
         try (InputStream tmpIn = Files.newInputStream(tmpSourceFile.toPath());
             OutputStream tmpOut = Files.newOutputStream(tmpTargetFile.toPath())) {
           final byte[] tmpBuffer = new byte[1024];
-          int tmpBytes = 0;
+          int tmpBytes;
           while ((tmpBytes = tmpIn.read(tmpBuffer)) > -1) {
             tmpOut.write(tmpBuffer, 0, tmpBytes);
           }

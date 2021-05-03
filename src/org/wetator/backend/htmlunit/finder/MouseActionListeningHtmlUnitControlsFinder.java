@@ -131,7 +131,7 @@ public class MouseActionListeningHtmlUnitControlsFinder extends IdentifierBasedH
       // ... and for a label we also have to check it's labeled element for action listeners
       if (aHtmlElement instanceof HtmlLabel && controlRepository != null) {
         final HtmlLabel tmpHtmlLabel = (HtmlLabel) aHtmlElement;
-        final HtmlElement tmpLabeledElement = tmpHtmlLabel.getReferencedElement();
+        final HtmlElement tmpLabeledElement = tmpHtmlLabel.getLabeledElement();
 
         if (htmlPageIndex.hasMouseActionListener(mouseAction, tmpLabeledElement)) {
           final Class<? extends HtmlUnitBaseControl<?>> tmpControlClass = controlRepository

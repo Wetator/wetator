@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2020 wetator.org
+ * Copyright (c) 2008-2021 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -79,7 +79,7 @@ public class HtmlUnitInputImageIdentifierTest extends AbstractHtmlUnitControlIde
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlImageInput '' (src='picture.png') (id='myId') (name='myName')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
+        "[HtmlImageInput '' (src='http://www.wetator.org/picture.png') (id='myId') (name='myName')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -97,7 +97,7 @@ public class HtmlUnitInputImageIdentifierTest extends AbstractHtmlUnitControlIde
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlImageInput '' (src='picture.png') (id='myId') (name='myName')] found by: BY_NAME deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
+        "[HtmlImageInput '' (src='http://www.wetator.org/picture.png') (id='myId') (name='myName')] found by: BY_NAME deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -115,7 +115,7 @@ public class HtmlUnitInputImageIdentifierTest extends AbstractHtmlUnitControlIde
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlImageInput '' (src='picture.png') (id='myId') (name='myName')] found by: BY_IMG_ALT_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
+        "[HtmlImageInput '' (src='http://www.wetator.org/picture.png') (id='myId') (name='myName')] found by: BY_IMG_ALT_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -133,7 +133,7 @@ public class HtmlUnitInputImageIdentifierTest extends AbstractHtmlUnitControlIde
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlImageInput '' (src='picture.png') (id='myId') (name='myName')] found by: BY_TITLE_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
+        "[HtmlImageInput '' (src='http://www.wetator.org/picture.png') (id='myId') (name='myName')] found by: BY_TITLE_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -151,7 +151,7 @@ public class HtmlUnitInputImageIdentifierTest extends AbstractHtmlUnitControlIde
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlImageInput '' (src='picture.png') (id='myId') (name='myName')] found by: BY_IMG_SRC_ATTRIBUTE deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
+        "[HtmlImageInput '' (src='http://www.wetator.org/picture.png') (id='myId') (name='myName')] found by: BY_IMG_SRC_ATTRIBUTE deviation: 23 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -169,7 +169,7 @@ public class HtmlUnitInputImageIdentifierTest extends AbstractHtmlUnitControlIde
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlImageInput '' (src='myName') (id='myName') (name='myName')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
+        "[HtmlImageInput '' (src='http://www.wetator.org/myName') (id='myName') (name='myName')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -206,7 +206,7 @@ public class HtmlUnitInputImageIdentifierTest extends AbstractHtmlUnitControlIde
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlImageInput '' (src='picture.png') (id='myId_2_3')] found by: BY_TABLE_COORDINATE deviation: 0 distance: 38 start: 38 hierarchy: 0>1>3>5>22>36>44>45 index: 45",
+        "[HtmlImageInput '' (src='http://www.wetator.org/picture.png') (id='myId_2_3')] found by: BY_TABLE_COORDINATE deviation: 0 distance: 38 start: 38 hierarchy: 0>1>3>5>22>36>44>45 index: 45",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -243,7 +243,7 @@ public class HtmlUnitInputImageIdentifierTest extends AbstractHtmlUnitControlIde
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlImageInput '' (src='picture.png') (id='myId_2_3')] found by: BY_IMG_SRC_ATTRIBUTE deviation: 0 distance: 38 start: 38 hierarchy: 0>1>3>5>22>36>44>45 index: 45",
+        "[HtmlImageInput '' (src='http://www.wetator.org/picture.png') (id='myId_2_3')] found by: BY_IMG_SRC_ATTRIBUTE deviation: 23 distance: 38 start: 38 hierarchy: 0>1>3>5>22>36>44>45 index: 45",
         tmpEntriesSorted.get(0).toString());
   }
 }

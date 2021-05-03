@@ -80,6 +80,7 @@ This is a subset of PMD's 'Code Style' ruleset.
     <!-- not wanted <rule ref="category/java/codestyle.xml/ShortVariable" /> -->
     <!-- not wanted <rule ref="category/java/codestyle.xml/TooManyStaticImports" /> -->
     <rule ref="category/java/codestyle.xml/UnnecessaryAnnotationValueElement" />
+    <rule ref="category/java/codestyle.xml/UnnecessaryCast" />
     <rule ref="category/java/codestyle.xml/UnnecessaryConstructor" />
     <rule ref="category/java/codestyle.xml/UnnecessaryFullyQualifiedName" />
     <rule ref="category/java/codestyle.xml/UnnecessaryLocalBeforeReturn" />

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2020 wetator.org
+ * Copyright (c) 2008-2021 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -739,8 +739,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
           throw new InvalidInputException(tmpMessage);
         }
 
-        Object tmpReceiver = null;
-        Object tmpResult = null;
+        final Object tmpReceiver;
+        final Object tmpResult;
         if (Modifier.isStatic(tmpMethod.getModifiers())) {
           tmpResult = MethodUtils.invokeStaticMethod(tmpClass, tmpMethod.getName(), tmpParams);
         } else {

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2020 wetator.org
+ * Copyright (c) 2008-2021 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,8 +37,8 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   private static final String BASE_FOLDER = "test/xml/";
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_68 })
-  public void eventClickOnFF68() throws InvalidInputException {
+  @Browsers({ BrowserType.FIREFOX_78 })
+  public void eventClickOnFF78() throws InvalidInputException {
     executeTestFile("ff68/event_clickOn.wet");
 
     Assert.assertEquals(70, getSteps());
@@ -57,8 +57,8 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_68 })
-  public void eventDeselectFF68() throws InvalidInputException {
+  @Browsers({ BrowserType.FIREFOX_78 })
+  public void eventDeselectFF78() throws InvalidInputException {
     executeTestFile("ff68/event_deselect.wet");
 
     Assert.assertEquals(18, getSteps());
@@ -77,8 +77,8 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_68 })
-  public void eventMouseOverFF68() throws InvalidInputException {
+  @Browsers({ BrowserType.FIREFOX_78 })
+  public void eventMouseOverFF78() throws InvalidInputException {
     executeTestFile("ff68/event_mouseOver.wet");
 
     Assert.assertEquals(74, getSteps());
@@ -97,8 +97,8 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_68 })
-  public void eventSelectFF68() throws InvalidInputException {
+  @Browsers({ BrowserType.FIREFOX_78 })
+  public void eventSelectFF78() throws InvalidInputException {
     executeTestFile("ff68/event_select.wet");
 
     Assert.assertEquals(18, getSteps());
@@ -117,8 +117,8 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_68 })
-  public void eventSetFF68() throws InvalidInputException {
+  @Browsers({ BrowserType.FIREFOX_78 })
+  public void eventSetFF78() throws InvalidInputException {
     executeTestFile("ff68/event_set.wet");
 
     Assert.assertEquals(27, getSteps());

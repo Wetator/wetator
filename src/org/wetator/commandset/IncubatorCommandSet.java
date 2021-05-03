@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2020 wetator.org
+ * Copyright (c) 2008-2021 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -156,7 +156,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
       aCommand.checkNoUnusedSecondParameter(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
 
-      long tmpWaitTime = 0;
+      final long tmpWaitTime;
       try {
         final BigDecimal tmpValue = new BigDecimal(tmpWaitTimeString.getValue());
         tmpWaitTime = tmpValue.longValueExact();

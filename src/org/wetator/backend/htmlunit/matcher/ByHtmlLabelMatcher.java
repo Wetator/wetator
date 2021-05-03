@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2020 wetator.org
+ * Copyright (c) 2008-2021 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -99,7 +99,7 @@ public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
       final String tmpText = htmlPageIndex.getAsTextWithoutFormControls(tmpLabel);
       final int tmpDeviation = searchPattern.noOfSurroundingCharsIn(tmpText);
       if (tmpDeviation > -1) {
-        final HtmlElement tmpLabeledElement = tmpLabel.getReferencedElement();
+        final HtmlElement tmpLabeledElement = tmpLabel.getLabeledElement();
         if (tmpLabeledElement != null && clazz.isAssignableFrom(tmpLabeledElement.getClass())
             && (htmlPageIndex.isVisible(tmpLabeledElement) || matchInvisible)) {
           tmpNodeSpot = htmlPageIndex.getPosition(aHtmlElement);

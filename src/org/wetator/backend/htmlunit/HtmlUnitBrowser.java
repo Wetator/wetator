@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2020 wetator.org
+ * Copyright (c) 2008-2021 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -916,8 +916,8 @@ public final class HtmlUnitBrowser implements IBrowser {
   }
 
   private BrowserVersion determineBrowserVersionFor(final IBrowser.BrowserType aBrowserType) {
-    if (IBrowser.BrowserType.FIREFOX_68 == aBrowserType) {
-      return BrowserVersion.FIREFOX_68;
+    if (IBrowser.BrowserType.FIREFOX_78 == aBrowserType) {
+      return BrowserVersion.FIREFOX_78;
     }
     if (IBrowser.BrowserType.FIREFOX == aBrowserType) {
       return BrowserVersion.FIREFOX;
@@ -928,7 +928,7 @@ public final class HtmlUnitBrowser implements IBrowser {
     if (IBrowser.BrowserType.CHROME == aBrowserType) {
       return BrowserVersion.CHROME;
     }
-    return BrowserVersion.FIREFOX_68;
+    return BrowserVersion.FIREFOX_78;
   }
 
   /**
@@ -1081,7 +1081,7 @@ public final class HtmlUnitBrowser implements IBrowser {
       // try with wait
       long tmpEndTime = System.currentTimeMillis() + tmpWaitTime;
 
-      Page tmpPage = null;
+      Page tmpPage;
 
       // only true if the user has specified a wait time
       while (System.currentTimeMillis() < tmpEndTime) {
@@ -1179,7 +1179,7 @@ public final class HtmlUnitBrowser implements IBrowser {
       // try with wait
       long tmpEndTime = System.currentTimeMillis() + tmpWaitTime;
 
-      Page tmpPage = null;
+      Page tmpPage;
 
       // only true if the user has specified a wait time
       while (System.currentTimeMillis() < tmpEndTime) {

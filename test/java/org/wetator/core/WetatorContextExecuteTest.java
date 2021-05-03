@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2008-2020 wetator.org
+ * Copyright (c) 2008-2021 wetator.org
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,7 +49,7 @@ import org.wetator.exception.ResourceException;
  */
 public class WetatorContextExecuteTest {
 
-  private BrowserType browserType = BrowserType.FIREFOX_68;
+  private BrowserType browserType = BrowserType.FIREFOX_78;
 
   private File file1;
   private File file2;
