@@ -19,6 +19,7 @@ package org.wetator.core;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.InvocationTargetException;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
@@ -727,10 +728,11 @@ public class WetatorConfiguration {
 
           @SuppressWarnings("unchecked")
           final Class<? extends IScripter> tmpScripterClass = (Class<? extends IScripter>) tmpClass;
-          final IScripter tmpIScripter = tmpScripterClass.newInstance();
+          final IScripter tmpIScripter = tmpScripterClass.getDeclaredConstructor().newInstance();
           scripters.add(tmpIScripter);
           LOG.info("Configuration: Scripter '" + tmpScripterClassName + "' registered.");
-        } catch (final ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+        } catch (final ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException
+            | InvocationTargetException e) {
           if (LOG.isDebugEnabled()) {
             LOG.error("Configuration: Can't load scripter '" + tmpScripterClassName + "'.", e);
           } else {
@@ -775,10 +777,11 @@ public class WetatorConfiguration {
 
           @SuppressWarnings("unchecked")
           final Class<? extends ICommandSet> tmpCommandSetClass = (Class<? extends ICommandSet>) tmpClass;
-          final ICommandSet tmpCommandSet = tmpCommandSetClass.newInstance();
+          final ICommandSet tmpCommandSet = tmpCommandSetClass.getDeclaredConstructor().newInstance();
           commandSets.add(tmpCommandSet);
           LOG.info("Configuration: Command set '" + tmpCommandSetClassName + "' registered.");
-        } catch (final ClassNotFoundException | InstantiationException | IllegalAccessException e) {
+        } catch (final ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException
+            | InvocationTargetException e) {
           if (LOG.isDebugEnabled()) {
             LOG.error("Configuration: Can't load command set '" + tmpCommandSetClassName + "'.", e);
           } else {

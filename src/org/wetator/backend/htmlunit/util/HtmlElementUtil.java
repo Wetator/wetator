@@ -73,6 +73,7 @@ import net.sourceforge.htmlunit.corejs.javascript.ScriptableObject;
  * Helper methods to work with the HtmlElements page.
  *
  * @author rbri
+ * @author fdanek
  */
 public final class HtmlElementUtil {
 
@@ -97,7 +98,7 @@ public final class HtmlElementUtil {
       tmpBuilder.addPlain("'image: " + ((HtmlImage) anHtmlAnchor.getFirstChild()).getSrcAttribute() + "'");
     }
 
-    final String tmpText = anHtmlAnchor.asText();
+    final String tmpText = anHtmlAnchor.asNormalizedText();
     if (StringUtils.isNotEmpty(tmpText)) {
       tmpBuilder.addText(tmpText);
     }
@@ -119,7 +120,7 @@ public final class HtmlElementUtil {
       tmpBuilder.addPlain("'image: " + ((HtmlImage) anHtmlButton.getFirstChild()).getSrcAttribute() + "'");
     }
 
-    final String tmpText = anHtmlButton.asText();
+    final String tmpText = anHtmlButton.asNormalizedText();
     if (StringUtils.isNotEmpty(tmpText)) {
       tmpBuilder.addText(tmpText);
     } else if (StringUtils.isNotEmpty(anHtmlButton.getValueAttribute())) {
@@ -214,7 +215,7 @@ public final class HtmlElementUtil {
   public static String getDescribingTextForHtmlLabel(final HtmlLabel anHtmlLabel) {
     final DescribingTextBuilder tmpBuilder = DescribingTextBuilder.createCustom(anHtmlLabel);
 
-    final String tmpText = anHtmlLabel.asText();
+    final String tmpText = anHtmlLabel.asNormalizedText();
     if (StringUtils.isNotEmpty(tmpText)) {
       tmpBuilder.addText(tmpText);
     }
@@ -238,7 +239,7 @@ public final class HtmlElementUtil {
   public static String getDescribingTextForHtmlParagraph(final HtmlParagraph anHtmlParagraph) {
     final DescribingTextBuilder tmpBuilder = DescribingTextBuilder.createCustom(anHtmlParagraph);
 
-    final String tmpText = anHtmlParagraph.asText();
+    final String tmpText = anHtmlParagraph.asNormalizedText();
     if (StringUtils.isNotEmpty(tmpText)) {
       tmpBuilder.addText(tmpText);
     }
@@ -305,7 +306,7 @@ public final class HtmlElementUtil {
   public static String getDescribingTextForHtmlSpan(final HtmlSpan anHtmlSpan) {
     // @formatter:off
     return DescribingTextBuilder.createCustom(anHtmlSpan)
-        .addText(anHtmlSpan.asText())
+        .addText(anHtmlSpan.asNormalizedText())
         .addId().addName()
         .build();
     // @formatter:on
@@ -355,7 +356,7 @@ public final class HtmlElementUtil {
   public static String getDescribingTextForHtmlOption(final HtmlOption anHtmlOption) {
     // @formatter:off
     final DescribingTextBuilder tmpBuilder = DescribingTextBuilder.createCustom(anHtmlOption)
-        .addText(anHtmlOption.asText())
+        .addText(anHtmlOption.asNormalizedText())
         .addId().addName();
     // @formatter:on
 

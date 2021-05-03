@@ -158,7 +158,6 @@ public class MultiPartFilter implements Filter {
         maxRequestSize, fileOutputBuffer);
     final MultiPartFormInputStream tmpMultiPartInputStream = new MultiPartFormInputStream(tmpInputStream,
         tmpContentType, tmpConfig, tempDir);
-    tmpMultiPartInputStream.setDeleteOnExit(deleteFiles);
     aRequest.setAttribute(MULTIPART, tmpMultiPartInputStream);
 
     try {
