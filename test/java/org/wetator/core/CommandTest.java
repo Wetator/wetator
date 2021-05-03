@@ -18,6 +18,7 @@ package org.wetator.core;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
 import static org.mockito.ArgumentMatchers.anyString;
@@ -27,9 +28,7 @@ import static org.mockito.Mockito.when;
 import java.util.List;
 
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.wetator.exception.InvalidInputException;
 import org.wetator.util.SecretString;
 
@@ -38,9 +37,6 @@ import org.wetator.util.SecretString;
  * @author frank.danek
  */
 public class CommandTest {
-
-  @Rule
-  public ExpectedException thrown = ExpectedException.none();
 
   private WetatorContext context;
 
@@ -95,12 +91,11 @@ public class CommandTest {
 
   @Test
   public void getRequiredFirstParameterValue_null() throws Exception {
-    thrown.expect(InvalidInputException.class);
-    thrown.expectMessage("The command 'command' requires a first parameter.");
-
     final Command tmpCommand = new Command("command", false);
 
-    tmpCommand.getRequiredFirstParameterValue(context);
+    final Exception e = assertThrows(InvalidInputException.class,
+        () -> tmpCommand.getRequiredFirstParameterValue(context));
+    assertTrue(e.getMessage().contains("The command 'command' requires a first parameter."));
   }
 
   @Test
@@ -144,12 +139,11 @@ public class CommandTest {
 
   @Test
   public void getRequiredSecondParameterValue_null() throws Exception {
-    thrown.expect(InvalidInputException.class);
-    thrown.expectMessage("The command 'command' requires a second parameter.");
-
     final Command tmpCommand = new Command("command", false);
 
-    tmpCommand.getRequiredSecondParameterValue(context);
+    final Exception e = assertThrows(InvalidInputException.class,
+        () -> tmpCommand.getRequiredSecondParameterValue(context));
+    assertTrue(e.getMessage().contains("The command 'command' requires a second parameter."));
   }
 
   @Test
@@ -185,13 +179,13 @@ public class CommandTest {
 
   @Test
   public void getSecondParameterLongValue_noLong() throws Exception {
-    thrown.expect(InvalidInputException.class);
-    thrown.expectMessage("The command 'command' expects an integer parameter value 'param' as parameter 2.");
-
     final Command tmpCommand = new Command("command", false);
     tmpCommand.setSecondParameter(new Parameter("param"));
 
-    tmpCommand.getSecondParameterLongValue(context);
+    final Exception e = assertThrows(InvalidInputException.class,
+        () -> tmpCommand.getSecondParameterLongValue(context));
+    assertTrue(
+        e.getMessage().contains("The command 'command' expects an integer parameter value 'param' as parameter 2."));
   }
 
   @Test
@@ -240,12 +234,11 @@ public class CommandTest {
 
   @Test
   public void getRequiredSecondParameterValues_null() throws Exception {
-    thrown.expect(InvalidInputException.class);
-    thrown.expectMessage("The command 'command' requires a second parameter.");
-
     final Command tmpCommand = new Command("command", false);
 
-    assertEquals(0, tmpCommand.getRequiredSecondParameterValues(context).size());
+    final Exception e = assertThrows(InvalidInputException.class,
+        () -> tmpCommand.getRequiredSecondParameterValues(context));
+    assertTrue(e.getMessage().contains("The command 'command' requires a second parameter."));
   }
 
   @Test
@@ -286,24 +279,23 @@ public class CommandTest {
 
   @Test
   public void checkNoUnusedSecondParameter_empty() throws Exception {
-    thrown.expect(InvalidInputException.class);
-    thrown.expectMessage("The command 'command' does not use the value '' provided as parameter 2.");
-
     final Command tmpCommand = new Command("command", false);
     tmpCommand.setSecondParameter(new Parameter(""));
 
-    tmpCommand.checkNoUnusedSecondParameter(context);
+    final Exception e = assertThrows(InvalidInputException.class,
+        () -> tmpCommand.checkNoUnusedSecondParameter(context));
+    assertTrue(e.getMessage().contains("The command 'command' does not use the value '' provided as parameter 2."));
   }
 
   @Test
   public void checkNoUnusedSecondParameter() throws Exception {
-    thrown.expect(InvalidInputException.class);
-    thrown.expectMessage("The command 'command' does not use the value 'param' provided as parameter 2.");
-
     final Command tmpCommand = new Command("command", false);
     tmpCommand.setSecondParameter(new Parameter("param"));
 
-    tmpCommand.checkNoUnusedSecondParameter(context);
+    final Exception e = assertThrows(InvalidInputException.class,
+        () -> tmpCommand.checkNoUnusedSecondParameter(context));
+    assertTrue(
+        e.getMessage().contains("The command 'command' does not use the value 'param' provided as parameter 2."));
   }
 
   @Test
@@ -315,24 +307,23 @@ public class CommandTest {
 
   @Test
   public void checkNoUnusedThirdParameter_empty() throws Exception {
-    thrown.expect(InvalidInputException.class);
-    thrown.expectMessage("The command 'command' does not use the value '' provided as parameter 3.");
-
     final Command tmpCommand = new Command("command", false);
     tmpCommand.setThirdParameter(new Parameter(""));
 
-    tmpCommand.checkNoUnusedThirdParameter(context);
+    final Exception e = assertThrows(InvalidInputException.class,
+        () -> tmpCommand.checkNoUnusedThirdParameter(context));
+    assertTrue(e.getMessage().contains("The command 'command' does not use the value '' provided as parameter 3."));
   }
 
   @Test
   public void checkNoUnusedThirdParameter() throws Exception {
-    thrown.expect(InvalidInputException.class);
-    thrown.expectMessage("The command 'command' does not use the value 'param' provided as parameter 3.");
-
     final Command tmpCommand = new Command("command", false);
     tmpCommand.setThirdParameter(new Parameter("param"));
 
-    tmpCommand.checkNoUnusedThirdParameter(context);
+    final Exception e = assertThrows(InvalidInputException.class,
+        () -> tmpCommand.checkNoUnusedThirdParameter(context));
+    assertTrue(
+        e.getMessage().contains("The command 'command' does not use the value 'param' provided as parameter 3."));
   }
 
   @Test
