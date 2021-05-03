@@ -16,6 +16,7 @@
 
 package org.wetator.backend.htmlunit.finder;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -115,7 +116,7 @@ public class IdentifierBasedHtmlUnitControlsFinder extends AbstractHtmlUnitContr
   protected boolean identify(final Class<? extends AbstractHtmlUnitControlIdentifier> anIdentifierClass,
       final HtmlElement aHtmlElement, final WPath aWPath, final WeightedControlList aFoundControls) {
     try {
-      final AbstractHtmlUnitControlIdentifier tmpIdentifier = anIdentifierClass.newInstance();
+      final AbstractHtmlUnitControlIdentifier tmpIdentifier = anIdentifierClass.getDeclaredConstructor().newInstance();
       tmpIdentifier.initializeForAsynch(htmlPageIndex, aHtmlElement, aWPath, aFoundControls);
       if (tmpIdentifier.isHtmlElementSupported(aHtmlElement)) {
         execute(tmpIdentifier);
@@ -123,7 +124,7 @@ public class IdentifierBasedHtmlUnitControlsFinder extends AbstractHtmlUnitContr
       }
     } catch (final IllegalAccessException e) {
       throw new ImplementationException("Could not access identifier class '" + anIdentifierClass.getName() + "'.", e);
-    } catch (final InstantiationException e) {
+    } catch (final NoSuchMethodException | InstantiationException | InvocationTargetException e) {
       throw new ImplementationException(
           "Could not instantiate identifier for class '" + anIdentifierClass.getName() + "'.", e);
     }

@@ -744,12 +744,11 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         if (Modifier.isStatic(tmpMethod.getModifiers())) {
           tmpResult = MethodUtils.invokeStaticMethod(tmpClass, tmpMethod.getName(), tmpParams);
         } else {
-          tmpReceiver = tmpClass.newInstance();
+          tmpReceiver = tmpClass.getDeclaredConstructor().newInstance();
           tmpResult = MethodUtils.invokeMethod(tmpReceiver, tmpMethod.getName(), tmpParams);
         }
 
         // time to execute
-        // final Object tmpResult = tmpMethod.invoke(tmpReceiver, tmpParams);
         if (Void.TYPE != tmpMethod.getReturnType()) {
           if (null == tmpResult) {
             aContext.informListenersInfo("javaExecResult", "null");

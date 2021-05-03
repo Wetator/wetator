@@ -16,7 +16,6 @@
 
 package org.wetator.commandset;
 
-import java.applet.Applet;
 import java.io.InputStream;
 import java.math.BigDecimal;
 import java.net.URL;
@@ -265,7 +264,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
               aContext.informListenersInfo("assertApplet", tmpAppletNameValue);
               tmpAppletTested = true;
               try {
-                final Applet tmpApplet = tmpHtmlApplet.getApplet();
+                final java.applet.Applet tmpApplet = tmpHtmlApplet.getApplet();
                 tmpApplet.stop();
                 tmpApplet.destroy();
               } catch (final Exception e) {
