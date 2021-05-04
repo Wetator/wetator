@@ -817,7 +817,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         final String tmpMessage = Messages.getMessage("javaExecInvocationTarget", tmpClassName,
             tmpMethodLabel.toString(), tmpMethodParameters.toString(), e.getCause().toString());
         throw new CommandException(tmpMessage);
-      } catch (final InstantiationException e) {
+      } catch (final NoSuchMethodException | InstantiationException e) {
         aContext.informListenersWarn("stacktrace", ExceptionUtils.getStackTrace(e));
         if (null == e.getCause()) {
           final String tmpMessage = Messages.getMessage("javaExecInstantiation", tmpClassName,
@@ -827,10 +827,6 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         final String tmpMessage = Messages.getMessage("javaExecInstantiation", tmpClassName, tmpMethodLabel.toString(),
             tmpMethodParameters.toString(), e.getCause().toString());
         throw new CommandException(tmpMessage);
-      } catch (final NoSuchMethodException e) {
-        final String tmpMessage = Messages.getMessage("javaExecMethodNotFound", tmpClassName,
-            tmpMethodLabel.toString());
-        throw new InvalidInputException(tmpMessage);
       }
     }
   }
