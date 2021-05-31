@@ -58,7 +58,6 @@ This is a subset of PMD's 'Best Practices' ruleset.
     <rule ref="category/java/bestpractices.xml/SystemPrintln" />
     <rule ref="category/java/bestpractices.xml/UnusedAssignment" />
     <rule ref="category/java/bestpractices.xml/UnusedFormalParameter" />
-    <rule ref="category/java/bestpractices.xml/UnusedImports" />
     <rule ref="category/java/bestpractices.xml/UnusedLocalVariable" />
     <rule ref="category/java/bestpractices.xml/UnusedPrivateField" />
     <rule ref="category/java/bestpractices.xml/UnusedPrivateMethod" />

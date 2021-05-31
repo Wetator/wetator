@@ -29,8 +29,6 @@ This is a subset of PMD's 'Code Style' ruleset.
     <!-- not wanted <rule ref="category/java/codestyle.xml/ConfusingTernary" /> -->
     <rule ref="category/java/codestyle.xml/ControlStatementBraces" />
     <!-- not wanted <rule ref="category/java/codestyle.xml/DefaultPackage" /> -->
-    <rule ref="category/java/codestyle.xml/DontImportJavaLang" />
-    <rule ref="category/java/codestyle.xml/DuplicateImports" />
     <!-- not wanted <rule ref="category/java/codestyle.xml/EmptyMethodInAbstractClassShouldBeAbstract" /> -->
     <rule ref="category/java/codestyle.xml/ExtendsObject" />
     <rule ref="category/java/codestyle.xml/FieldDeclarationsShouldBeAtStartOfClass" />
@@ -83,6 +81,7 @@ This is a subset of PMD's 'Code Style' ruleset.
     <rule ref="category/java/codestyle.xml/UnnecessaryCast" />
     <rule ref="category/java/codestyle.xml/UnnecessaryConstructor" />
     <rule ref="category/java/codestyle.xml/UnnecessaryFullyQualifiedName" />
+    <rule ref="category/java/codestyle.xml/UnnecessaryImport" />
     <rule ref="category/java/codestyle.xml/UnnecessaryLocalBeforeReturn" />
     <rule ref="category/java/codestyle.xml/UnnecessaryModifier" />
     <rule ref="category/java/codestyle.xml/UnnecessaryReturn" />

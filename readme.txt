@@ -1,8 +1,8 @@
 HOW TO SETUP THE IDE
 ====================
 Currently we use
-    Eclipse 2020-06 (4.16.0)
-    Eclipse Checkstyle Plugin 8.35.0 (based on Checkstyle 8.35)
+    Eclipse 2021-03 (4.19.0)
+    Eclipse Checkstyle Plugin 8.42.0 (based on Checkstyle 8.42)
 as IDE. All other settings (code format, warnings, etc.) are stored with the project.
 
 

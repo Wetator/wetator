@@ -90,7 +90,7 @@
     <!-- Javadoc Comments -->
     <module name="InvalidJavadocPosition"/>
     <module name="JavadocMethod">
-      <property name="scope" value="package"/>
+      <property name="accessModifiers" value="package,public"/>
     </module>
     <module name="JavadocStyle">
       <property name="scope" value="package"/>
