@@ -125,7 +125,7 @@ public interface IBrowser {
 
       final String tmpSymbol = aSymbol.trim();
       BrowserType tmpFound = null;
-      for (BrowserType tmpBrowserType : values()) {
+      for (final BrowserType tmpBrowserType : values()) {
         if (tmpBrowserType.getSymbol().equalsIgnoreCase(tmpSymbol)) {
           tmpFound = tmpBrowserType;
           break;
