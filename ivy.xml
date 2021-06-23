@@ -54,7 +54,7 @@
         <dependency org="org.eclipse.jetty" name="jetty-servlet" rev="9.4.42.v20210604" conf="test" />
         <dependency org="org.eclipse.jetty" name="jetty-servlets" rev="9.4.42.v20210604" conf="test" />
         <dependency org="org.apache.logging.log4j" name="log4j-slf4j-impl" rev="2.14.1" conf="test,sources" />
-        <dependency org="org.hsqldb" name="hsqldb" rev="2.6.0" conf="test" />
+        <dependency org="org.hsqldb" name="hsqldb" rev="2.5.2" conf="test" />
 
         <!-- fix version of jetty as htmlunit may use a different version -->
         <override org="org.eclipse.jetty" module="*" rev="9.4.42.v20210604" />
