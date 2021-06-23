@@ -34,7 +34,7 @@
     <dependencies defaultconfmapping="sources->sources;test->default,provided;%->default" defaultconf="compile,sources">
         <dependency org="dk.brics" name="automaton" rev="1.12-1" />
         <dependency org="com.github.rjeschke" name="txtmark" rev="0.13" />
-        <dependency org="commons-io" name="commons-io" rev="2.8.0" />
+        <dependency org="commons-io" name="commons-io" rev="2.10.0" />
         <dependency org="org.apache.commons" name="commons-lang3" rev="3.12.0" />
         <dependency org="org.apache.commons" name="commons-text" rev="1.9" />
         <dependency org="net.sourceforge.htmlunit" name="htmlunit" rev="2.50.0" changing="true" />
@@ -42,24 +42,24 @@
         <dependency org="org.apache.logging.log4j" name="log4j-api" rev="2.14.1" />
         <dependency org="org.apache.logging.log4j" name="log4j-core" rev="2.14.1" />
         <dependency org="org.apache.logging.log4j" name="log4j-jcl" rev="2.14.1" />
-        <dependency org="org.apache.pdfbox" name="pdfbox" rev="2.0.23" />
-        <dependency org="org.bouncycastle" name="bcprov-jdk15on" rev="1.68" />
-        <dependency org="org.bouncycastle" name="bcmail-jdk15on" rev="1.68" />
+        <dependency org="org.apache.pdfbox" name="pdfbox" rev="2.0.24" />
+        <dependency org="org.bouncycastle" name="bcprov-jdk15on" rev="1.69" />
+        <dependency org="org.bouncycastle" name="bcmail-jdk15on" rev="1.69" />
         <dependency org="org.apache.poi" name="poi-ooxml" rev="4.1.2" />
         <dependency org="com.sun.xsom" name="xsom" rev="20140925" />
 
-        <dependency org="junit" name="junit" rev="4.13.1" transitive="true" conf="test,sources" />
-        <dependency org="org.mockito" name="mockito-core" rev="3.7.7" conf="test,sources" />
-        <dependency org="org.eclipse.jetty" name="jetty-server" rev="9.4.40.v20210413" conf="test" />
-        <dependency org="org.eclipse.jetty" name="jetty-servlet" rev="9.4.40.v20210413" conf="test" />
-        <dependency org="org.eclipse.jetty" name="jetty-servlets" rev="9.4.40.v20210413" conf="test" />
+        <dependency org="junit" name="junit" rev="4.13.2" transitive="true" conf="test,sources" />
+        <dependency org="org.mockito" name="mockito-core" rev="3.11.2" conf="test,sources" />
+        <dependency org="org.eclipse.jetty" name="jetty-server" rev="9.4.42.v20210604" conf="test" />
+        <dependency org="org.eclipse.jetty" name="jetty-servlet" rev="9.4.42.v20210604" conf="test" />
+        <dependency org="org.eclipse.jetty" name="jetty-servlets" rev="9.4.42.v20210604" conf="test" />
         <dependency org="org.apache.logging.log4j" name="log4j-slf4j-impl" rev="2.14.1" conf="test,sources" />
-        <dependency org="org.hsqldb" name="hsqldb" rev="2.5.1" conf="test" />
+        <dependency org="org.hsqldb" name="hsqldb" rev="2.6.0" conf="test" />
 
         <!-- fix version of jetty as htmlunit may use a different version -->
-        <override org="org.eclipse.jetty" module="*" rev="9.4.40.v20210413" />
-        <override org="org.eclipse.jetty.websocket" module="*" rev="9.4.40.v20210413" />
+        <override org="org.eclipse.jetty" module="*" rev="9.4.42.v20210604" />
+        <override org="org.eclipse.jetty.websocket" module="*" rev="9.4.42.v20210604" />
 
-        <override org="org.slf4j" module="*" rev="1.7.30" />
+        <override org="org.slf4j" module="*" rev="1.7.31" />
     </dependencies>
 </ivy-module>
