@@ -255,6 +255,41 @@ public class ByImageSrcAttributeMatcherTest extends AbstractMatcherTest {
     assertEquals(0, tmpMatches.size());
   }
 
+  @Test
+  public void inputImage() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<p>Some text .... </p>"
+        + "<input type='image' id='myId' src='picture.png'>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("picture.png");
+
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+
+    assertEquals(1, tmpMatches.size());
+    // FIXME [HTMLUNIT] in contrast to a 'normal' image the input image returns the FQDN as src
+    // -> clarify with HtmlUnit if this is an intended behavior
+    assertMatchEquals("myId", FoundType.BY_IMG_SRC_ATTRIBUTE, 23, 14, 14, tmpMatches.get(0));
+  }
+
+  @Test
+  public void otherControl() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<p>Some text .... </p>"
+        + "<input type='text' id='myId' src='picture.png'>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("picture.png");
+
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+
+    assertEquals(0, tmpMatches.size());
+  }
+
   @Override
   protected AbstractHtmlUnitElementMatcher createMatcher(final HtmlPageIndex aHtmlPageIndex,
       final SearchPattern aPathSearchPattern, final FindSpot aPathSpot, final SearchPattern aSearchPattern) {

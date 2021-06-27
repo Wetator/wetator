@@ -240,6 +240,39 @@ public class ByImageAltAttributeMatcherTest extends AbstractMatcherTest {
     assertEquals(0, tmpMatches.size());
   }
 
+  @Test
+  public void inputImage() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<p>Some text .... </p>"
+        + "<input type='image' id='myId' src='picture.png' alt='myAlt'>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("myAlt");
+
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+
+    assertEquals(1, tmpMatches.size());
+    assertMatchEquals("myId", FoundType.BY_IMG_ALT_ATTRIBUTE, 0, 14, 14, tmpMatches.get(0));
+  }
+
+  @Test
+  public void otherControl() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<p>Some text .... </p>"
+        + "<input type='text' id='myId' alt='myAlt'>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("myAlt");
+
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+
+    assertEquals(0, tmpMatches.size());
+  }
+
   @Override
   protected AbstractHtmlUnitElementMatcher createMatcher(final HtmlPageIndex aHtmlPageIndex,
       final SearchPattern aPathSearchPattern, final FindSpot aPathSpot, final SearchPattern aSearchPattern) {

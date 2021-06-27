@@ -596,6 +596,57 @@ public class ByHtmlLabelMatcherTest extends AbstractMatcherTest {
     assertLabelEquals("myLabelId", tmpMatches.get(0));
   }
 
+  @Test
+  public void noHtmlLabel() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<p>Some text .... </p>"
+        + "<span id='myLabelId'>myLabel</span>"
+        + "<input id='myId' type='text'>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("myLabel");
+
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myLabelId");
+
+    assertEquals(0, tmpMatches.size());
+  }
+
+  @Test
+  public void noControl() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<p>Some text .... </p>"
+        + "<label id='myLabelId'>myLabel</label>"
+        + "<input id='myId' type='file'>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("myLabel");
+
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myLabelId");
+
+    assertEquals(0, tmpMatches.size());
+  }
+
+  @Test
+  public void otherControl() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<p>Some text .... </p>"
+        + "<label id='myLabelId' for='myId'>myLabel</label>"
+        + "<input id='myId' type='file'>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("myLabel");
+
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myLabelId");
+
+    assertEquals(0, tmpMatches.size());
+  }
+
   @Override
   protected AbstractHtmlUnitElementMatcher createMatcher(final HtmlPageIndex aHtmlPageIndex,
       final SearchPattern aPathSearchPattern, final FindSpot aPathSpot, final SearchPattern aSearchPattern) {

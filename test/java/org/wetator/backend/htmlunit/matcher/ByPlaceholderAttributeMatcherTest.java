@@ -256,6 +256,39 @@ public class ByPlaceholderAttributeMatcherTest extends AbstractMatcherTest {
     assertEquals(0, tmpMatches.size());
   }
 
+  @Test
+  public void textArea() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<p>Some text .... </p>"
+        + "<textarea id='myId' placeholder='myPlaceholder'></textarea>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("myPlaceholder");
+
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+
+    assertEquals(1, tmpMatches.size());
+    assertMatchEquals("myId", FoundType.BY_PLACEHOLDER, 0, 14, 14, tmpMatches.get(0));
+  }
+
+  @Test
+  public void otherControl() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<p>Some text .... </p>"
+        + "<img id='myId' placeholder='myPlaceholder'>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("myPlaceholder");
+
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+
+    assertEquals(0, tmpMatches.size());
+  }
+
   @Override
   protected AbstractHtmlUnitElementMatcher createMatcher(final HtmlPageIndex aHtmlPageIndex,
       final SearchPattern aPathSearchPattern, final FindSpot aPathSpot, final SearchPattern aSearchPattern) {

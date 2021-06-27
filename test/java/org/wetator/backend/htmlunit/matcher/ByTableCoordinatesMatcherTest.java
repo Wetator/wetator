@@ -1334,6 +1334,42 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
     assertEquals(0, tmpMatches.size());
   }
 
+  @Test
+  public void otherControl() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "    <table>"
+        + "      <thead>"
+        + "        <tr>"
+        + "          <th id='header_1'>header_1</th>"
+        + "          <th id='header_2'>header_2</th>"
+        + "          <th id='header_3'>header_3</th>"
+        + "        </tr>"
+        + "      </thead>"
+        + "      <tbody>"
+        + "        <tr>"
+        + "          <td id='cell_1_1'>row_1</td>"
+        + "          <td id='cell_1_2'><input type='file' id='InputFile_1_2'/></td>"
+        + "          <td id='cell_1_3'><input type='file' id='InputFile_1_3'/></td>"
+        + "        </tr>"
+        + "        <tr>"
+        + "          <td id='cell_2_1'>row_2</td>"
+        + "          <td id='cell_2_2'><input type='file' id='InputFile_2_2'/></td>"
+        + "          <td id='cell_2_3'><input type='file' id='InputFile_2_3'/></td>"
+        + "        </tr>"
+        + "      </tbody>"
+        + "    </table>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("[header_3; row_2]");
+
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "InputFile_1_2", "InputFile_1_3",
+        "InputFile_2_2", "InputFile_2_3");
+
+    assertEquals(0, tmpMatches.size());
+  }
+
   @Override
   protected List<MatchResult> match(final String aHtmlCode, final SecretString aSearch,
       final String... anHtmlElementIds) throws IOException, InvalidInputException {
