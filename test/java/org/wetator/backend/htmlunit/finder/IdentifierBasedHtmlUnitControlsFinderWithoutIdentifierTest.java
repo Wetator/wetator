@@ -27,14 +27,7 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
 import org.wetator.backend.WPath;
-import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.ExpectedControl;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.SortedEntryExpectation;
-
-import com.gargoylesoftware.htmlunit.html.HtmlBody;
-import com.gargoylesoftware.htmlunit.html.HtmlDivision;
-import com.gargoylesoftware.htmlunit.html.HtmlLabel;
-import com.gargoylesoftware.htmlunit.html.HtmlSpan;
-import com.gargoylesoftware.htmlunit.html.HtmlTableDataCell;
 
 /**
  * Tests for element weighting during {@link IdentifierBasedHtmlUnitControlsFinder#find(WPath)} without control-specific
@@ -69,14 +62,11 @@ public class IdentifierBasedHtmlUnitControlsFinderWithoutIdentifierTest
       },
 
       { checkbox("checkbox-value").value(CONTENT).checkbox("checkbox-before") + CONTENT + checkbox("checkbox-after").label("checkbox-label", CONTENT).noListen().checkbox("checkbox-label"),
-        new SortedEntryExpectation(
-            new ExpectedControl(HtmlBody.class),
-            new ExpectedControl(HtmlLabel.class, "lbl-checkbox-label"))
+        null
       },
 
       { div("div-before").div("div", CONTENT).div("div-after"),
-        new SortedEntryExpectation(
-            new ExpectedControl(HtmlDivision.class, "div"))
+        null
       },
 
       { inputButton("inputButton-value").value(CONTENT).inputButton("inputButton-before").inputButton("inputButton", CONTENT).inputButton("inputButton-after"),
@@ -112,30 +102,23 @@ public class IdentifierBasedHtmlUnitControlsFinderWithoutIdentifierTest
       },
 
       { label("before").label("main", CONTENT).label("after"),
-        new SortedEntryExpectation(
-            new ExpectedControl(HtmlLabel.class, "lbl-main"))
+        null
       },
 
       { radio("radio-value").value(CONTENT).radio("radio-before") + CONTENT + radio("radio-after").label("radio-label", CONTENT).noListen().radio("radio-label"),
-        new SortedEntryExpectation(
-            new ExpectedControl(HtmlBody.class),
-            new ExpectedControl(HtmlLabel.class, "lbl-radio-label"))
+        null
       },
 
       { select("select-before") + CONTENT + select("select").option("option-before").option("option", CONTENT).option("option-after") + select("select-after"),
-        new SortedEntryExpectation(
-            new ExpectedControl(HtmlBody.class))
+        null
       },
 
       { span("span-before").span("span", CONTENT).span("span-after"),
-        new SortedEntryExpectation(
-            new ExpectedControl(HtmlSpan.class, "span"))
+        null
       },
 
       { table("table-before") + CONTENT + table("table").tr("tr", 1) + table("table-after"),
-        new SortedEntryExpectation(
-            new ExpectedControl(HtmlBody.class),
-            new ExpectedControl(HtmlTableDataCell.class, "table-tr-td"))
+        null
       },
 
       { textArea("textArea-before").textArea("textArea-value").value(CONTENT).textArea("textArea-between").textArea("textArea", CONTENT).textArea("textArea-after"),

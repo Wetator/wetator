@@ -48,13 +48,11 @@ import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.Expect
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.SortedEntryExpectation;
 
 import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
-import com.gargoylesoftware.htmlunit.html.HtmlBody;
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
 import com.gargoylesoftware.htmlunit.html.HtmlButtonInput;
 import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
 import com.gargoylesoftware.htmlunit.html.HtmlFileInput;
 import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
-import com.gargoylesoftware.htmlunit.html.HtmlLabel;
 import com.gargoylesoftware.htmlunit.html.HtmlOption;
 import com.gargoylesoftware.htmlunit.html.HtmlPasswordInput;
 import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
@@ -102,9 +100,7 @@ public class IdentifierBasedHtmlUnitControlsFinderWithIdentifierTest
         new SortedEntryExpectation(
             new ExpectedControl(HtmlCheckBoxInput.class, "checkbox-label"),
             new ExpectedControl(HtmlCheckBoxInput.class, "checkbox-before"),
-            new ExpectedControl(HtmlCheckBoxInput.class, "checkbox-after"),
-            new ExpectedControl(HtmlBody.class),
-            new ExpectedControl(HtmlLabel.class, "lbl-checkbox-label")),
+            new ExpectedControl(HtmlCheckBoxInput.class, "checkbox-after")),
         HtmlUnitInputCheckBoxIdentifier.class
       },
 
@@ -161,9 +157,7 @@ public class IdentifierBasedHtmlUnitControlsFinderWithIdentifierTest
         new SortedEntryExpectation(
             new ExpectedControl(HtmlRadioButtonInput.class, "radio-label"),
             new ExpectedControl(HtmlRadioButtonInput.class, "radio-before"),
-            new ExpectedControl(HtmlRadioButtonInput.class, "radio-after"),
-            new ExpectedControl(HtmlBody.class),
-            new ExpectedControl(HtmlLabel.class, "lbl-radio-label")),
+            new ExpectedControl(HtmlRadioButtonInput.class, "radio-after")),
         HtmlUnitInputRadioButtonIdentifier.class
       },
 
@@ -171,8 +165,7 @@ public class IdentifierBasedHtmlUnitControlsFinderWithIdentifierTest
         new SortedEntryExpectation(
             new ExpectedControl(HtmlOption.class, "select-option"),
             new ExpectedControl(HtmlSelect.class, "select"),
-            new ExpectedControl(HtmlSelect.class, "select-after"),
-            new ExpectedControl(HtmlBody.class)),
+            new ExpectedControl(HtmlSelect.class, "select-after")),
         Arrays.asList(HtmlUnitSelectIdentifier.class, HtmlUnitOptionIdentifier.class)
       },
 

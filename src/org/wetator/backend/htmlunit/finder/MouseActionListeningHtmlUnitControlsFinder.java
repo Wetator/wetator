@@ -21,6 +21,7 @@ import java.util.concurrent.ThreadPoolExecutor;
 
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
+import org.wetator.backend.WeightedControlList.FoundType;
 import org.wetator.backend.control.IClickable;
 import org.wetator.backend.control.IControl;
 import org.wetator.backend.htmlunit.HtmlUnitControlRepository;
@@ -56,6 +57,7 @@ public class MouseActionListeningHtmlUnitControlsFinder extends IdentifierBasedH
   private static final String PAGE_WPATH = "$PAGE";
 
   private MouseAction mouseAction;
+  private boolean supportUnknownControlsWithoutListener = true;
   private HtmlUnitControlRepository controlRepository;
 
   /**
@@ -94,10 +96,111 @@ public class MouseActionListeningHtmlUnitControlsFinder extends IdentifierBasedH
       }
     }
 
-    return super.find(aWPath);
+    // do the normal stuff
+    final WeightedControlList tmpFoundControls = super.find(aWPath);
 
     // FIXME [UNKNOWN] search for controls with matching text for click and mouse over
     // see pretty complex UnknownHtmlUnitControlsFinder
+    if (supportUnknownControlsWithoutListener) {
+      // as a last attempt we try to find the controls just by the text to support the 'you can click on anything' idea
+      // note: another part of this approach is placed at the end of identify()
+      if (aWPath.getLastNode() == null && aWPath.getTableCoordinates().isEmpty()) {
+        // we do not support this unspecific paths
+        return tmpFoundControls;
+      }
+
+      SearchPattern tmpPathSearchPattern = null;
+      FindSpot tmpPathSpot = null;
+      if (!aWPath.getPathNodes().isEmpty()) {
+        tmpPathSearchPattern = SearchPattern.createFromList(aWPath.getPathNodes());
+        tmpPathSpot = htmlPageIndex.firstOccurence(tmpPathSearchPattern);
+      }
+
+      if (tmpPathSpot == FindSpot.NOT_FOUND) {
+        return tmpFoundControls;
+      }
+
+      if (aWPath.getLastNode() == null || aWPath.getLastNode().isEmpty()) {
+        // wpath ends with empty node or contains only table coordinates
+        // => empty last node: we search for the first element after the given path
+        // => only table coordinates: we search for the first element inside the given coordinates
+        int tmpStartPos = 0;
+        if (tmpPathSpot != null) {
+          tmpStartPos = Math.max(0, tmpPathSpot.getEndPos());
+        }
+
+        for (final HtmlElement tmpHtmlElement : htmlPageIndex.getAllVisibleHtmlElementsBottomUp()) {
+          final FindSpot tmpNodeSpot = htmlPageIndex.getPosition(tmpHtmlElement);
+          if (tmpStartPos <= tmpNodeSpot.getStartPos()
+              && (controlRepository == null || controlRepository.getForHtmlElement(tmpHtmlElement) == null)
+              && (aWPath.getTableCoordinates().isEmpty() || ByTableCoordinatesMatcher.isHtmlElementInTableCoordinates(
+                  tmpHtmlElement, aWPath.getTableCoordinatesReversed(), htmlPageIndex, null))) {
+
+            final String tmpTextBefore = htmlPageIndex.getTextBefore(tmpHtmlElement);
+            final int tmpDeviation = htmlPageIndex.getAsText(tmpHtmlElement).length();
+
+            final int tmpDistance;
+            if (tmpPathSearchPattern != null) {
+              tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastShortestOccurenceIn(tmpTextBefore);
+            } else {
+              tmpDistance = tmpTextBefore.length();
+            }
+
+            tmpFoundControls.add(new HtmlUnitUnspecificControl<>(tmpHtmlElement), FoundType.BY_TEXT, tmpDeviation,
+                tmpDistance, tmpNodeSpot.getStartPos(), htmlPageIndex.getHierarchy(tmpHtmlElement),
+                htmlPageIndex.getIndex(tmpHtmlElement));
+
+            break;
+          }
+        }
+        return tmpFoundControls;
+      }
+
+      final SearchPattern tmpSearchPattern = aWPath.getLastNode().getSearchPattern();
+
+      // search by text
+      int tmpStartPos = 0;
+      if (tmpPathSpot != null) {
+        tmpStartPos = Math.max(0, tmpPathSpot.getEndPos());
+      }
+      FindSpot tmpHitSpot = htmlPageIndex.firstOccurence(tmpSearchPattern, tmpStartPos);
+      while (tmpHitSpot != FindSpot.NOT_FOUND && tmpHitSpot.getEndPos() > -1) {
+        // found a hit
+
+        // find the first element that surrounds this
+        for (final HtmlElement tmpHtmlElement : htmlPageIndex.getAllVisibleHtmlElementsBottomUp()) {
+          final FindSpot tmpNodeSpot = htmlPageIndex.getPosition(tmpHtmlElement);
+          if (tmpNodeSpot.getStartPos() <= tmpHitSpot.getStartPos()
+              && tmpHitSpot.getEndPos() <= tmpNodeSpot.getEndPos()) {
+            // found one
+            if ((controlRepository == null || controlRepository.getForHtmlElement(tmpHtmlElement) == null)
+                && (aWPath.getTableCoordinates().isEmpty() || ByTableCoordinatesMatcher.isHtmlElementInTableCoordinates(
+                    tmpHtmlElement, aWPath.getTableCoordinatesReversed(), htmlPageIndex, null))) {
+
+              String tmpTextBefore = htmlPageIndex.getTextBeforeIncludingMyself(tmpHtmlElement);
+              final FindSpot tmpLastOccurence = tmpSearchPattern.lastOccurenceIn(tmpTextBefore);
+              final int tmpDeviation = tmpTextBefore.length() - tmpLastOccurence.getEndPos();
+
+              tmpTextBefore = tmpTextBefore.substring(0, tmpLastOccurence.getStartPos());
+              final int tmpDistance;
+              if (tmpPathSearchPattern != null) {
+                tmpDistance = tmpPathSearchPattern.noOfCharsAfterLastShortestOccurenceIn(tmpTextBefore);
+              } else {
+                tmpDistance = tmpTextBefore.length();
+              }
+
+              tmpFoundControls.add(new HtmlUnitUnspecificControl<>(tmpHtmlElement), FoundType.BY_TEXT, tmpDeviation,
+                  tmpDistance, tmpNodeSpot.getStartPos(), htmlPageIndex.getHierarchy(tmpHtmlElement),
+                  htmlPageIndex.getIndex(tmpHtmlElement));
+            }
+            break;
+          }
+        }
+
+        tmpHitSpot = htmlPageIndex.firstOccurence(tmpSearchPattern, tmpHitSpot.getStartPos() + 1);
+      }
+    }
+    return tmpFoundControls;
   }
 
   @Override
@@ -150,8 +253,63 @@ public class MouseActionListeningHtmlUnitControlsFinder extends IdentifierBasedH
 
     // FIXME [UNKNOWN] add unknown controls without action listener for click and mouse over
     // see pretty complex UnknownHtmlUnitControlsFinder
+    if (!tmpSupported && supportUnknownControlsWithoutListener && aWPath.getLastNode() != null
+        && !aWPath.getLastNode().isEmpty()
+        && (controlRepository == null || controlRepository.getForHtmlElement(aHtmlElement) == null)) {
+      // ok, still not identified (neither the normal way nor via action listener) -> give it a last try just by id or
+      // title (as some kind of visible text) to support the 'you can click on anything' idea
+      // note: the 'by text' part is covered within find()!
+      // we only support specific paths in this case
+      SearchPattern tmpPathSearchPattern = null;
+      FindSpot tmpPathSpot = null;
+      if (!aWPath.getPathNodes().isEmpty()) {
+        tmpPathSearchPattern = SearchPattern.createFromList(aWPath.getPathNodes());
+        tmpPathSpot = htmlPageIndex.firstOccurence(tmpPathSearchPattern);
+      }
+
+      if (tmpPathSpot != FindSpot.NOT_FOUND) {
+        final SearchPattern tmpSearchPattern = aWPath.getLastNode().getSearchPattern();
+
+        // search by id / title
+        final ByIdMatcher tmpIdMatcher = new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot,
+            tmpSearchPattern);
+        final ByTitleAttributeMatcher tmpTitleMatcher = new ByTitleAttributeMatcher(htmlPageIndex, tmpPathSearchPattern,
+            tmpPathSpot, tmpSearchPattern);
+        // id
+        List<MatchResult> tmpMatches = tmpIdMatcher.matches(aHtmlElement);
+        for (final MatchResult tmpMatch : tmpMatches) {
+          if (aWPath.getTableCoordinates().isEmpty() || ByTableCoordinatesMatcher.isHtmlElementInTableCoordinates(
+              tmpMatch.getHtmlElement(), aWPath.getTableCoordinatesReversed(), htmlPageIndex, tmpPathSpot)) {
+            aFoundControls.add(new HtmlUnitUnspecificControl<>(tmpMatch.getHtmlElement()), tmpMatch.getFoundType(),
+                tmpMatch.getDeviation(), tmpMatch.getDistance(), tmpMatch.getStart(),
+                htmlPageIndex.getHierarchy(tmpMatch.getHtmlElement()),
+                htmlPageIndex.getIndex(tmpMatch.getHtmlElement()));
+          }
+        }
+
+        // title
+        tmpMatches = tmpTitleMatcher.matches(aHtmlElement);
+        for (final MatchResult tmpMatch : tmpMatches) {
+          if (aWPath.getTableCoordinates().isEmpty() || ByTableCoordinatesMatcher.isHtmlElementInTableCoordinates(
+              tmpMatch.getHtmlElement(), aWPath.getTableCoordinatesReversed(), htmlPageIndex, null)) {
+            aFoundControls.add(new HtmlUnitUnspecificControl<>(tmpMatch.getHtmlElement()), FoundType.BY_TITLE_TEXT,
+                tmpMatch.getDeviation(), tmpMatch.getDistance(), tmpMatch.getStart(),
+                htmlPageIndex.getHierarchy(tmpMatch.getHtmlElement()),
+                htmlPageIndex.getIndex(tmpMatch.getHtmlElement()));
+          }
+        }
+      }
+    }
 
     return tmpSupported;
+  }
+
+  /**
+   * @param aSupportUnknownControlsWithoutListener <code>true</code> if unknown controls without action listeners
+   *        should be supported as well
+   */
+  public void setSupportUnknownControlsWithoutListener(final boolean aSupportUnknownControlsWithoutListener) {
+    supportUnknownControlsWithoutListener = aSupportUnknownControlsWithoutListener;
   }
 
   /**

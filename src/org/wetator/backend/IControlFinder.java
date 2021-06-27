@@ -45,12 +45,4 @@ public interface IControlFinder {
    * @return a {@link WeightedControlList}
    */
   WeightedControlList findControls(ControlFeature aFeature, WPath aWPath);
-
-  /**
-   * Return a list of all controls for the given {@link WPath}.
-   *
-   * @param aWPath the {@link WPath} describing the controls
-   * @return a {@link WeightedControlList}
-   */
-  WeightedControlList getAllControlsForText(WPath aWPath);
 }

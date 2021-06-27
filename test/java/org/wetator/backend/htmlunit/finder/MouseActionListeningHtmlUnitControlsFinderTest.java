@@ -427,6 +427,274 @@ public class MouseActionListeningHtmlUnitControlsFinderTest {
   }
 
   @Test
+  public void noListener_knownControl_byId() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<input type='text' id='myId' />"
+        + "</body></html>";
+    // @formatter:on
+
+    // for click
+    List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "myId", MouseAction.CLICK);
+
+    assertEquals(0, tmpEntriesSorted.size());
+
+    // for click double
+    tmpEntriesSorted = find(tmpHtmlCode, "myId", MouseAction.CLICK_DOUBLE);
+
+    assertEquals(0, tmpEntriesSorted.size());
+
+    // for click right
+    tmpEntriesSorted = find(tmpHtmlCode, "myId", MouseAction.CLICK_RIGHT);
+
+    assertEquals(0, tmpEntriesSorted.size());
+
+    // for mouse over
+    tmpEntriesSorted = find(tmpHtmlCode, "myId", MouseAction.MOUSE_OVER);
+
+    assertEquals(0, tmpEntriesSorted.size());
+  }
+
+  @Test
+  public void noListener_knownControl_byTitle() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<input type='text' id='myId' title='myTitle' />"
+        + "</body></html>";
+    // @formatter:on
+
+    // for click
+    List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "myTitle", MouseAction.CLICK);
+
+    assertEquals(0, tmpEntriesSorted.size());
+
+    // for click double
+    tmpEntriesSorted = find(tmpHtmlCode, "myTitle", MouseAction.CLICK_DOUBLE);
+
+    assertEquals(0, tmpEntriesSorted.size());
+
+    // for click right
+    tmpEntriesSorted = find(tmpHtmlCode, "myTitle", MouseAction.CLICK_RIGHT);
+
+    assertEquals(0, tmpEntriesSorted.size());
+
+    // for mouse over
+    tmpEntriesSorted = find(tmpHtmlCode, "myTitle", MouseAction.MOUSE_OVER);
+
+    assertEquals(0, tmpEntriesSorted.size());
+  }
+
+  @Test
+  public void noListener_unknownControl_notSupported_byId() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<span id='myId'>some text</span>"
+        + "</body></html>";
+    // @formatter:on
+
+    // for click
+    List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "myId", MouseAction.CLICK);
+
+    assertEquals(0, tmpEntriesSorted.size());
+
+    // for click double
+    tmpEntriesSorted = find(tmpHtmlCode, "myId", MouseAction.CLICK_DOUBLE);
+
+    assertEquals(0, tmpEntriesSorted.size());
+
+    // for click right
+    tmpEntriesSorted = find(tmpHtmlCode, "myId", MouseAction.CLICK_RIGHT);
+
+    assertEquals(0, tmpEntriesSorted.size());
+
+    // for mouse over
+    tmpEntriesSorted = find(tmpHtmlCode, "myId", MouseAction.MOUSE_OVER);
+
+    assertEquals(0, tmpEntriesSorted.size());
+  }
+
+  @Test
+  public void noListener_unknownControl_notSupported_byTitle() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<span id='myId' title='myTitle'>some text</span>"
+        + "</body></html>";
+    // @formatter:on
+
+    // for click
+    List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "myTitle", MouseAction.CLICK);
+
+    assertEquals(0, tmpEntriesSorted.size());
+
+    // for click double
+    tmpEntriesSorted = find(tmpHtmlCode, "myTitle", MouseAction.CLICK_DOUBLE);
+
+    assertEquals(0, tmpEntriesSorted.size());
+
+    // for click right
+    tmpEntriesSorted = find(tmpHtmlCode, "myTitle", MouseAction.CLICK_RIGHT);
+
+    assertEquals(0, tmpEntriesSorted.size());
+
+    // for mouse over
+    tmpEntriesSorted = find(tmpHtmlCode, "myTitle", MouseAction.MOUSE_OVER);
+
+    assertEquals(0, tmpEntriesSorted.size());
+  }
+
+  @Test
+  public void noListener_unknownControl_notSupported_byText() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<span id='myId'>some text</span>"
+        + "</body></html>";
+    // @formatter:on
+
+    // for click
+    List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "some text", MouseAction.CLICK);
+
+    assertEquals(0, tmpEntriesSorted.size());
+
+    // for click double
+    tmpEntriesSorted = find(tmpHtmlCode, "some text", MouseAction.CLICK_DOUBLE);
+
+    assertEquals(0, tmpEntriesSorted.size());
+
+    // for click right
+    tmpEntriesSorted = find(tmpHtmlCode, "some text", MouseAction.CLICK_RIGHT);
+
+    assertEquals(0, tmpEntriesSorted.size());
+
+    // for mouse over
+    tmpEntriesSorted = find(tmpHtmlCode, "some text", MouseAction.MOUSE_OVER);
+
+    assertEquals(0, tmpEntriesSorted.size());
+  }
+
+  @Test
+  public void noListener_unknownControl_supported_byId() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<span id='myId'>some text</span>"
+        + "</body></html>";
+    // @formatter:on
+
+    // for click
+    List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "myId", MouseAction.CLICK, true);
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlSpan 'some text' (id='myId')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
+        tmpEntriesSorted.get(0).toString());
+
+    // for click double
+    tmpEntriesSorted = find(tmpHtmlCode, "myId", MouseAction.CLICK_DOUBLE, true);
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlSpan 'some text' (id='myId')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
+        tmpEntriesSorted.get(0).toString());
+
+    // for click right
+    tmpEntriesSorted = find(tmpHtmlCode, "myId", MouseAction.CLICK_RIGHT, true);
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlSpan 'some text' (id='myId')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
+        tmpEntriesSorted.get(0).toString());
+
+    // for mouse over
+    tmpEntriesSorted = find(tmpHtmlCode, "myId", MouseAction.MOUSE_OVER, true);
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlSpan 'some text' (id='myId')] found by: BY_ID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
+        tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
+  public void noListener_unknownControl_supported_byTitle() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<span id='myId' title='myTitle'>some text</span>"
+        + "</body></html>";
+    // @formatter:on
+
+    // for click
+    List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "myTitle", MouseAction.CLICK, true);
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlSpan 'some text' (id='myId')] found by: BY_TITLE_TEXT deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
+        tmpEntriesSorted.get(0).toString());
+
+    // for click double
+    tmpEntriesSorted = find(tmpHtmlCode, "myTitle", MouseAction.CLICK_DOUBLE, true);
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlSpan 'some text' (id='myId')] found by: BY_TITLE_TEXT deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
+        tmpEntriesSorted.get(0).toString());
+
+    // for click right
+    tmpEntriesSorted = find(tmpHtmlCode, "myTitle", MouseAction.CLICK_RIGHT, true);
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlSpan 'some text' (id='myId')] found by: BY_TITLE_TEXT deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
+        tmpEntriesSorted.get(0).toString());
+
+    // for mouse over
+    tmpEntriesSorted = find(tmpHtmlCode, "myTitle", MouseAction.MOUSE_OVER, true);
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlSpan 'some text' (id='myId')] found by: BY_TITLE_TEXT deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
+        tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
+  public void noListener_unknownControl_supported_byText() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<span id='myId'>some text</span>"
+        + "</body></html>";
+    // @formatter:on
+
+    // for click
+    List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "some text", MouseAction.CLICK, true);
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlSpan 'some text' (id='myId')] found by: BY_TEXT deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
+        tmpEntriesSorted.get(0).toString());
+
+    // for click double
+    tmpEntriesSorted = find(tmpHtmlCode, "some text", MouseAction.CLICK_DOUBLE, true);
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlSpan 'some text' (id='myId')] found by: BY_TEXT deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
+        tmpEntriesSorted.get(0).toString());
+
+    // for click right
+    tmpEntriesSorted = find(tmpHtmlCode, "some text", MouseAction.CLICK_RIGHT, true);
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlSpan 'some text' (id='myId')] found by: BY_TEXT deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
+        tmpEntriesSorted.get(0).toString());
+
+    // for mouse over
+    tmpEntriesSorted = find(tmpHtmlCode, "some text", MouseAction.MOUSE_OVER, true);
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlSpan 'some text' (id='myId')] found by: BY_TEXT deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4 index: 4",
+        tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
   public void page_click() throws Exception {
     // @formatter:off
     final String tmpHtmlCode = "<html><body id='myId'>"
@@ -491,14 +759,23 @@ public class MouseActionListeningHtmlUnitControlsFinderTest {
 
   @SafeVarargs
   private final List<Entry> find(final String aHtmlCode, final String aWPath, final MouseAction aMouseAction,
-      final Class<? extends AbstractHtmlUnitControlIdentifier>... aIdentifiers)
+      final Class<? extends AbstractHtmlUnitControlIdentifier>... anIdentifiers)
+      throws IOException, InvalidInputException {
+    return find(aHtmlCode, aWPath, aMouseAction, false, anIdentifiers);
+  }
+
+  @SafeVarargs
+  private final List<Entry> find(final String aHtmlCode, final String aWPath, final MouseAction aMouseAction,
+      final boolean aSupportUnknownControlsWithoutListener,
+      final Class<? extends AbstractHtmlUnitControlIdentifier>... anIdentifiers)
       throws IOException, InvalidInputException {
     final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(aHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     final MouseActionListeningHtmlUnitControlsFinder tmpFinder = new MouseActionListeningHtmlUnitControlsFinder(
         tmpHtmlPageIndex, null, aMouseAction, repository);
-    for (Class<? extends AbstractHtmlUnitControlIdentifier> tmpIdentifier : aIdentifiers) {
+    tmpFinder.setSupportUnknownControlsWithoutListener(aSupportUnknownControlsWithoutListener);
+    for (Class<? extends AbstractHtmlUnitControlIdentifier> tmpIdentifier : anIdentifiers) {
       tmpFinder.addIdentifier(tmpIdentifier);
     }
     final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString(aWPath), config));

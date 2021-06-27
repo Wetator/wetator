@@ -23,7 +23,6 @@ import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.Expect
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.SortedEntryExpectation;
 
 import com.gargoylesoftware.htmlunit.html.HtmlBody;
-import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 
 /**
  * Tests for the '$PAGE' pseudo WPath.
@@ -36,9 +35,6 @@ public class MouseActionListeningHtmlUnitControlsFinderPagePseudoWPathTest
   private static final String PAGE_WPATH = "$PAGE";
   private static final HtmlCodeBuilder HTML_PAGE = div(PAGE_WPATH, PAGE_WPATH);
   private static final SortedEntryExpectation EXPECTED = new SortedEntryExpectation(
-      new ExpectedControl(HtmlDivision.class, "$PAGE"),
-      // FIXME [UNKNOWN] remove div from expectation when unknown controls are supported by
-      // MouseActionListeningHtmlUnitControlsFinder
       new ExpectedControl(HtmlBody.class));
 
   private MouseAction mouseAction;

@@ -50,22 +50,17 @@ import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.Expect
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.SortedEntryExpectation;
 
 import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
-import com.gargoylesoftware.htmlunit.html.HtmlBody;
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
 import com.gargoylesoftware.htmlunit.html.HtmlButtonInput;
 import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
-import com.gargoylesoftware.htmlunit.html.HtmlDivision;
 import com.gargoylesoftware.htmlunit.html.HtmlFileInput;
 import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
-import com.gargoylesoftware.htmlunit.html.HtmlLabel;
 import com.gargoylesoftware.htmlunit.html.HtmlOption;
 import com.gargoylesoftware.htmlunit.html.HtmlPasswordInput;
 import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
 import com.gargoylesoftware.htmlunit.html.HtmlResetInput;
 import com.gargoylesoftware.htmlunit.html.HtmlSelect;
-import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
-import com.gargoylesoftware.htmlunit.html.HtmlTableDataCell;
 import com.gargoylesoftware.htmlunit.html.HtmlTextArea;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 
@@ -112,15 +107,12 @@ public class IdentifierBasedHtmlUnitControlsFinderFocusTest extends AbstractIden
         new SortedEntryExpectation(
             new ExpectedControl(HtmlCheckBoxInput.class, "checkbox-label"),
             new ExpectedControl(HtmlCheckBoxInput.class, "checkbox-before"),
-            new ExpectedControl(HtmlCheckBoxInput.class, "checkbox-after"),
-            new ExpectedControl(HtmlBody.class),
-            new ExpectedControl(HtmlLabel.class, "lbl-checkbox-label")),
+            new ExpectedControl(HtmlCheckBoxInput.class, "checkbox-after")),
         HtmlUnitInputCheckBoxIdentifier.class
       },
 
       { div("div-before").div("div", CONTENT).div("div-after"),
-        new SortedEntryExpectation(
-            new ExpectedControl(HtmlDivision.class, "div")),
+        null,
         null
       },
 
@@ -174,8 +166,7 @@ public class IdentifierBasedHtmlUnitControlsFinderFocusTest extends AbstractIden
       },
 
       { label("before").label("main", CONTENT).label("after"),
-        new SortedEntryExpectation(
-            new ExpectedControl(HtmlLabel.class, "lbl-main")),
+        null,
         null
       },
 
@@ -183,9 +174,7 @@ public class IdentifierBasedHtmlUnitControlsFinderFocusTest extends AbstractIden
         new SortedEntryExpectation(
             new ExpectedControl(HtmlRadioButtonInput.class, "radio-label"),
             new ExpectedControl(HtmlRadioButtonInput.class, "radio-before"),
-            new ExpectedControl(HtmlRadioButtonInput.class, "radio-after"),
-            new ExpectedControl(HtmlBody.class),
-            new ExpectedControl(HtmlLabel.class, "lbl-radio-label")),
+            new ExpectedControl(HtmlRadioButtonInput.class, "radio-after")),
         HtmlUnitInputRadioButtonIdentifier.class
       },
 
@@ -193,21 +182,17 @@ public class IdentifierBasedHtmlUnitControlsFinderFocusTest extends AbstractIden
         new SortedEntryExpectation(
             new ExpectedControl(HtmlOption.class, "select-option"),
             new ExpectedControl(HtmlSelect.class, "select"),
-            new ExpectedControl(HtmlSelect.class, "select-after"),
-            new ExpectedControl(HtmlBody.class)),
+            new ExpectedControl(HtmlSelect.class, "select-after")),
         Arrays.asList(HtmlUnitSelectIdentifier.class, HtmlUnitOptionIdentifier.class)
       },
 
       { span("span-before").span("span", CONTENT).span("span-after"),
-        new SortedEntryExpectation(
-            new ExpectedControl(HtmlSpan.class, "span")),
+        null,
         null
       },
 
       { table("table-before") + CONTENT + table("table").tr("tr", 1) + table("table-after"),
-        new SortedEntryExpectation(
-            new ExpectedControl(HtmlBody.class),
-            new ExpectedControl(HtmlTableDataCell.class, "table-tr-td")),
+        null,
         null
       },
 

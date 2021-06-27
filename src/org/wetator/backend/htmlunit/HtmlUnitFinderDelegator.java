@@ -31,7 +31,6 @@ import org.wetator.backend.htmlunit.finder.AbstractHtmlUnitControlsFinder;
 import org.wetator.backend.htmlunit.finder.IdentifierBasedHtmlUnitControlsFinder;
 import org.wetator.backend.htmlunit.finder.MouseActionListeningHtmlUnitControlsFinder;
 import org.wetator.backend.htmlunit.finder.SettableHtmlUnitControlsFinder;
-import org.wetator.backend.htmlunit.finder.UnknownHtmlUnitControlsFinder;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
 
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -52,8 +51,6 @@ public class HtmlUnitFinderDelegator implements IControlFinder {
   private static ThreadPoolExecutor threadPool;
 
   private Map<ControlFeature, AbstractHtmlUnitControlsFinder> finders = new HashMap<>();
-
-  private AbstractHtmlUnitControlsFinder forTextFinder;
 
   /**
    * Our simple impl of a ThreadFactory (decorator) to be able to name
@@ -136,8 +133,6 @@ public class HtmlUnitFinderDelegator implements IControlFinder {
     finders.put(ControlFeature.DISABLE, new IdentifierBasedHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool));
     finders.put(ControlFeature.FOCUS, new IdentifierBasedHtmlUnitControlsFinder(htmlPageIndex, tmpThreadPool));
 
-    forTextFinder = new UnknownHtmlUnitControlsFinder(htmlPageIndex, aControlRepository);
-
     if (aControlRepository != null) {
       finders.entrySet().stream().filter(e -> e.getValue() instanceof IdentifierBasedHtmlUnitControlsFinder)
           .forEach(e -> ((IdentifierBasedHtmlUnitControlsFinder) e.getValue())
@@ -148,10 +143,5 @@ public class HtmlUnitFinderDelegator implements IControlFinder {
   @Override
   public WeightedControlList findControls(final ControlFeature aFeature, final WPath aWPath) {
     return finders.get(aFeature).find(aWPath);
-  }
-
-  @Override
-  public WeightedControlList getAllControlsForText(final WPath aWPath) {
-    return forTextFinder.find(aWPath);
   }
 }

@@ -277,9 +277,6 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       final WeightedControlList tmpFoundElements = tmpControlFinder.findControls(ControlFeature.CLICK, tmpWPath);
 
-      // FIXME [UNKNOWN] remove when supported by MouseActionListeningHtmlUnitControlsFinder
-      tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
-
       final IControl tmpControl = getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
           "noClickableHtmlElmentFound");
 
@@ -306,9 +303,6 @@ public final class DefaultCommandSet extends AbstractCommandSet {
 
       final WeightedControlList tmpFoundElements = tmpControlFinder.findControls(ControlFeature.CLICK_DOUBLE, tmpWPath);
 
-      // FIXME [UNKNOWN] remove when supported by MouseActionListeningHtmlUnitControlsFinder
-      tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
-
       final IControl tmpControl = getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
           "no2ClickableHtmlElmentFound");
 
@@ -334,9 +328,6 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final IControlFinder tmpControlFinder = getControlFinder(tmpBrowser);
 
       final WeightedControlList tmpFoundElements = tmpControlFinder.findControls(ControlFeature.CLICK_DOUBLE, tmpWPath);
-
-      // FIXME [UNKNOWN] remove when supported by MouseActionListeningHtmlUnitControlsFinder
-      tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
 
       final IControl tmpControl = getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
           "noRClickableHtmlElmentFound");
@@ -415,9 +406,6 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final IControlFinder tmpControlFinder = getControlFinder(tmpBrowser);
 
       final WeightedControlList tmpFoundElements = tmpControlFinder.findControls(ControlFeature.MOUSE_OVER, tmpWPath);
-
-      // FIXME [UNKNOWN] remove when supported by MouseActionListeningHtmlUnitControlsFinder
-      tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
 
       final IControl tmpControl = getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
           "noHtmlElementFound");

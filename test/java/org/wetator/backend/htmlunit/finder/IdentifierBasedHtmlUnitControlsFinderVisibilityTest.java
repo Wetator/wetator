@@ -47,9 +47,7 @@ import org.wetator.backend.htmlunit.control.identifier.HtmlUnitTextAreaIdentifie
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.ExpectedControl;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.SortedEntryExpectation;
 
-import com.gargoylesoftware.htmlunit.html.HtmlBody;
 import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
-import com.gargoylesoftware.htmlunit.html.HtmlLabel;
 
 /**
  * Tests for {@link IdentifierBasedHtmlUnitControlsFinder#find(WPath)} respecting CSS styles defining element
@@ -86,8 +84,7 @@ public class IdentifierBasedHtmlUnitControlsFinderVisibilityTest
       },
 
       { CONTENT + checkbox("dn").style(DISPLAY_NONE).checkbox("vh").style(VISIBILITY_HIDDEN),
-        new SortedEntryExpectation(
-            new ExpectedControl(HtmlBody.class)),
+        null,
         HtmlUnitInputCheckBoxIdentifier.class
       },
 
@@ -142,8 +139,7 @@ public class IdentifierBasedHtmlUnitControlsFinderVisibilityTest
       },
 
       { CONTENT + radio("dn").style(DISPLAY_NONE).radio("vh").style(VISIBILITY_HIDDEN),
-        new SortedEntryExpectation(
-            new ExpectedControl(HtmlBody.class)),
+        null,
         HtmlUnitInputRadioButtonIdentifier.class
       },
 
@@ -158,8 +154,7 @@ public class IdentifierBasedHtmlUnitControlsFinderVisibilityTest
       },
 
       { CONTENT + table("dn").style(DISPLAY_NONE) + table("vh").style(VISIBILITY_HIDDEN),
-        new SortedEntryExpectation(
-            new ExpectedControl(HtmlBody.class)),
+        null,
         null
       },
 
@@ -174,9 +169,7 @@ public class IdentifierBasedHtmlUnitControlsFinderVisibilityTest
       { label("dn", CONTENT).noListen().checkbox("dn").style(DISPLAY_NONE).label("vh", CONTENT).noListen().checkbox("vh").style(VISIBILITY_HIDDEN),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlCheckBoxInput.class, "dn"),
-            new ExpectedControl(HtmlCheckBoxInput.class, "vh"),
-            new ExpectedControl(HtmlLabel.class, "lbl-dn"),
-            new ExpectedControl(HtmlLabel.class, "lbl-vh")), // FIXME label finds invisible controls? -> show difference for radios, inputs
+            new ExpectedControl(HtmlCheckBoxInput.class, "vh")), // FIXME label finds invisible controls? -> show difference for radios, inputs
         HtmlUnitInputCheckBoxIdentifier.class
       },
 

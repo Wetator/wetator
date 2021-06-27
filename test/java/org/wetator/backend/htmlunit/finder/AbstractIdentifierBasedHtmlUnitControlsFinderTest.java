@@ -67,8 +67,6 @@ public abstract class AbstractIdentifierBasedHtmlUnitControlsFinderTest {
 
   protected HtmlPageIndex htmlPageIndex;
   protected IdentifierBasedHtmlUnitControlsFinder finder;
-  // FIXME [UNKNOWN] remove as soon as included in MouseActionListeningHtmlUnitControlsFinder
-  protected UnknownHtmlUnitControlsFinder finderUnknown;
 
   @Before
   public void createWetatorConfiguration() {
@@ -124,7 +122,6 @@ public abstract class AbstractIdentifierBasedHtmlUnitControlsFinderTest {
     htmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     finder = createFinder();
-    finderUnknown = new UnknownHtmlUnitControlsFinder(htmlPageIndex, repository);
   }
 
   protected abstract IdentifierBasedHtmlUnitControlsFinder createFinder();
@@ -142,9 +139,7 @@ public abstract class AbstractIdentifierBasedHtmlUnitControlsFinderTest {
 
   protected final WeightedControlList find() throws InvalidInputException {
     final WPath tmpWPath = new WPath(new SecretString(getWPath()), config);
-    final WeightedControlList tmpList = finder.find(tmpWPath);
-    tmpList.addAll(finderUnknown.find(tmpWPath));
-    return tmpList;
+    return finder.find(tmpWPath);
   }
 
   protected String getWPath() {
