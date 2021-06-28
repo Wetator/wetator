@@ -217,9 +217,8 @@ public final class Command {
       final BigDecimal tmpValue = new BigDecimal(tmpSecondValue.getValue());
       return Long.valueOf(tmpValue.longValueExact());
     } catch (final NumberFormatException | ArithmeticException e) {
-      invalidInput("integerParameterExpected", getName(), tmpSecondParameter.getValue(aContext).toString(), "2");
+      throw invalidInput("integerParameterExpected", getName(), tmpSecondParameter.getValue(aContext).toString(), "2");
     }
-    return null;
   }
 
   /**
@@ -269,7 +268,7 @@ public final class Command {
     final Parameter tmpSecondParameter = getSecondParameter();
 
     if (null == tmpSecondParameter) {
-      invalidInput("emptySecondParameter", getName());
+      throw invalidInput("emptySecondParameter", getName());
     }
 
     return getSecondParameterValues(aContext);
@@ -286,7 +285,7 @@ public final class Command {
   private SecretString getRequiredParameterValue(final Parameter aParameter, final WetatorContext aContext,
       final String anErrorMessageKey) throws InvalidInputException {
     if (null == aParameter) {
-      invalidInput(anErrorMessageKey, getName());
+      throw invalidInput(anErrorMessageKey, getName());
     }
 
     return getParameterValue(aParameter, aContext);
@@ -315,12 +314,12 @@ public final class Command {
   private void checkNoUnusedParameter(final Parameter aParameter, final WetatorContext aContext,
       final String aParameterIndex) throws InvalidInputException {
     if (null != aParameter) {
-      invalidInput("unusedParameter", getName(), aParameter.getValue(aContext).toString(), aParameterIndex);
+      throw invalidInput("unusedParameter", getName(), aParameter.getValue(aContext).toString(), aParameterIndex);
     }
   }
 
-  private static void invalidInput(final String aMessageKey, final Object... aParameters) throws InvalidInputException {
+  private static InvalidInputException invalidInput(final String aMessageKey, final Object... aParameters) {
     final String tmpMessage = Messages.getMessage(aMessageKey, aParameters);
-    throw new InvalidInputException(tmpMessage);
+    return new InvalidInputException(tmpMessage);
   }
 }

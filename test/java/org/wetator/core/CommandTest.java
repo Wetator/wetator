@@ -67,6 +67,14 @@ public class CommandTest {
   }
 
   @Test
+  public void getLineNo() throws Exception {
+    final Command tmpCommand = new Command("command", false);
+    tmpCommand.setLineNo(10);
+
+    assertEquals(10, tmpCommand.getLineNo());
+  }
+
+  @Test
   public void getFirstParameterValue_null() throws Exception {
     final Command tmpCommand = new Command("command", false);
 
