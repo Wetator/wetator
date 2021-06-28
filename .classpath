@@ -59,6 +59,7 @@
 	<classpathentry kind="lib" path="lib/poi-4.1.2.jar"/>
 	<classpathentry kind="lib" path="lib/poi-ooxml-4.1.2.jar"/>
 	<classpathentry kind="lib" path="lib/poi-ooxml-schemas-4.1.2.jar"/>
+    <classpathentry kind="lib" path="lib/poi-scratchpad-4.1.2.jar"/>
 	<classpathentry kind="lib" path="lib/relaxngDatatype-20020414.jar"/>
 	<classpathentry kind="lib" path="lib/salvation2-3.0.0.jar"/>
 	<classpathentry kind="lib" path="lib/serializer-2.7.2.jar"/>

@@ -38,9 +38,12 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentInformation;
 import org.apache.pdfbox.pdmodel.encryption.AccessPermission;
 import org.apache.pdfbox.text.PDFTextStripper;
-import org.apache.poi.UnsupportedFileFormatException;
+import org.apache.poi.extractor.POITextExtractor;
+import org.apache.poi.hwpf.extractor.WordExtractor;
 import org.apache.poi.ooxml.POIXMLException;
+import org.apache.poi.ooxml.extractor.ExtractorFactory;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
 import org.apache.poi.ss.formula.eval.NotImplementedException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DataFormatter;
@@ -50,7 +53,7 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
-import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.xmlbeans.XmlException;
 import org.wetator.backend.IBrowser.ContentType;
 import org.wetator.backend.htmlunit.util.ContentTypeUtil;
 
@@ -66,11 +69,11 @@ public final class ContentUtil {
   private static final String MORE = " ...";
 
   /**
-   * Converts a text document to string.
+   * Converts a text document into a (normalized) string.
    *
    * @param aContent the input
    * @param aMaxLength the maximum length
-   * @return the normalizes content string
+   * @return the normalized content string
    */
   public static String getTxtContentAsString(final String aContent, final int aMaxLength) {
     final NormalizedString tmpResult = new NormalizedString(aContent);
@@ -81,24 +84,27 @@ public final class ContentUtil {
   }
 
   /**
-   * Converts an InputStream into a normalized string.
+   * Converts a text document from an {@link InputStream} into a (normalized) string.
    *
    * @param anInputStream the input
    * @param aCharset the input stream encoding
    * @param aMaxLength the maximum length
-   * @return the normalizes content string
-   * @throws IOException in case of error
+   * @return the normalized content string
+   * @throws IOException in case of errors
    */
   public static String getTxtContentAsString(final InputStream anInputStream, final Charset aCharset,
       final int aMaxLength) throws IOException {
+    if (anInputStream == null) {
+      return "";
+    }
+
     final NormalizedString tmpResult = new NormalizedString();
     final Reader tmpReader = new InputStreamReader(anInputStream, aCharset); // NOPMD
     final char[] tmpCharBuffer = new char[1024];
 
-    int tmpChars;
     boolean tmpContinue;
     do {
-      tmpChars = tmpReader.read(tmpCharBuffer);
+      final int tmpChars = tmpReader.read(tmpCharBuffer);
       tmpResult.append(tmpCharBuffer, tmpChars);
       tmpContinue = tmpChars > 0 && tmpResult.length() <= aMaxLength;
     } while (tmpContinue);
@@ -109,17 +115,19 @@ public final class ContentUtil {
   }
 
   /**
-   * Converts a pdf document to string.
+   * Retrieves the content of a PDF document as a (normalized) string.
    *
    * @param anInputStream the input
    * @param aMaxLength the maximum length
-   * @return the normalizes content string
-   * @throws IOException in case of io errors
+   * @return the normalized content string
+   * @throws IOException in case of errors
    */
   public static String getPdfContentAsString(final InputStream anInputStream, final int aMaxLength) throws IOException {
-    final PDDocument tmpDocument;
-    tmpDocument = PDDocument.load(anInputStream);
-    try {
+    if (anInputStream == null) {
+      return "";
+    }
+
+    try (PDDocument tmpDocument = PDDocument.load(anInputStream)) {
       final AccessPermission tmpPermissions = tmpDocument.getCurrentAccessPermission();
       if (!tmpPermissions.canExtractContent()) {
         throw new IOException("Content extraction forbidden for the given PDF document.");
@@ -132,141 +140,88 @@ public final class ContentUtil {
         return tmpResult.substring(0, aMaxLength) + MORE;
       }
       return tmpResult.toString();
-    } finally {
-      tmpDocument.close();
     }
   }
 
   /**
-   * Retrieves a pdf document title from the metadata.
+   * Retrieves the title of (the metadata of) a PDF document as a (normalized) string.
    *
    * @param anInputStream the input
-   * @return the normalizes title string
-   * @throws IOException in case of io errors
+   * @return the normalized title string
+   * @throws IOException in case of errors
    */
   public static String getPdfTitleAsString(final InputStream anInputStream) throws IOException {
-    final PDDocument tmpDocument;
-    tmpDocument = PDDocument.load(anInputStream);
-    try {
+    if (anInputStream == null) {
+      return "";
+    }
+
+    try (PDDocument tmpDocument = PDDocument.load(anInputStream)) {
       final PDDocumentInformation tmpInfo = tmpDocument.getDocumentInformation();
       if (null != tmpInfo) {
         final NormalizedString tmpResult = new NormalizedString(tmpInfo.getTitle());
         return tmpResult.toString();
       }
       return "";
-    } finally {
-      tmpDocument.close();
     }
   }
 
   /**
-   * Converts a rtf document into a normalized string.
+   * Retrieves the content of an RTF document as a (normalized) string.
    *
    * @param anInputStream the input
    * @param aMaxLength the maximum length
-   * @return the normalizes content string
-   * @throws IOException in case of io errors
+   * @return the normalized content string
+   * @throws IOException in case of errors
    * @throws BadLocationException if parsing goes wrong
    */
   public static String getRtfContentAsString(final InputStream anInputStream, final int aMaxLength)
       throws IOException, BadLocationException {
+    if (anInputStream == null) {
+      return "";
+    }
+
     final RTFEditorKit tmpRtfEditorKit = new RTFEditorKit();
     final Document tmpDocument = tmpRtfEditorKit.createDefaultDocument();
     tmpRtfEditorKit.read(anInputStream, tmpDocument, 0);
     // don't get the whole document
-    final int tmpLength = Math.min(tmpDocument.getLength(), aMaxLength);
-    final NormalizedString tmpResult = new NormalizedString(tmpDocument.getText(0, tmpLength));
-    if (tmpDocument.getLength() > aMaxLength) {
+    int tmpLength = Math.min(tmpDocument.getLength(), aMaxLength);
+    NormalizedString tmpResult = new NormalizedString(tmpDocument.getText(0, tmpLength));
+    while (tmpResult.length() <= aMaxLength && tmpLength < tmpDocument.getLength()) {
+      tmpResult.append(tmpDocument.getText(tmpLength, 1));
+      tmpLength++;
+    }
+    if (tmpResult.length() > aMaxLength) {
+      tmpResult = new NormalizedString(tmpResult.substring(0, tmpResult.length() - 1));
+    }
+    if (tmpDocument.getLength() > tmpLength) {
       tmpResult.append(MORE);
     }
     return tmpResult.toString();
   }
 
   /**
-   * Converts an InputStream into a normalized string.
-   *
-   * @param anInputStream the input
-   * @param aCharset the input stream encoding
-   * @param aXlsLocale the locale used for xls formating
-   * @param aMaxLength the maximum length
-   * @return the normalizes content string
-   * @throws IOException in case of error
-   */
-  public static String getZipContentAsString(final InputStream anInputStream, final Charset aCharset,
-      final Locale aXlsLocale, final int aMaxLength) throws IOException {
-    final NormalizedString tmpResult = new NormalizedString();
-    final ZipInputStream tmpZipInput = new ZipInputStream(anInputStream); // NOPMD
-
-    ZipEntry tmpZipEntry = tmpZipInput.getNextEntry();
-    while (null != tmpZipEntry) {
-      tmpResult.append("[");
-      tmpResult.append(tmpZipEntry.getName());
-      tmpResult.append("] ");
-
-      final ContentType tmpType = ContentTypeUtil.getContentTypeForFileName(tmpZipEntry.getName());
-      if (ContentType.PDF == tmpType) {
-        try {
-          tmpResult.append(getPdfContentAsString(new CloseIgnoringInputStream(tmpZipInput), aMaxLength));
-        } catch (final IOException e) {
-          throw new IOException(
-              "Can't convert the zipped pdf '" + tmpZipEntry.getName() + "' into text (reason: " + e.toString() + ").");
-        }
-      } else if (ContentType.XLS == tmpType || ContentType.XLSX == tmpType) {
-        try {
-          tmpResult.append(getExcelContentAsString(new CloseIgnoringInputStream(tmpZipInput), aXlsLocale, aMaxLength));
-        } catch (final IOException | InvalidFormatException e) {
-          throw new IOException(
-              "Can't convert the zipped xls '" + tmpZipEntry.getName() + "' into text (reason: " + e.toString() + ").");
-        }
-      } else if (ContentType.DOCX == tmpType) {
-        try {
-          tmpResult.append(getWordContentAsString(new CloseIgnoringInputStream(tmpZipInput), aMaxLength));
-        } catch (final IOException | InvalidFormatException e) {
-          throw new IOException(
-              "Can't convert the zipped doc '" + tmpZipEntry.getName() + "' into text (reason: " + e.toString() + ").");
-        }
-      } else if (ContentType.RTF == tmpType) {
-        try {
-          tmpResult.append(getRtfContentAsString(new CloseIgnoringInputStream(tmpZipInput), aMaxLength));
-        } catch (final IOException | BadLocationException e) {
-          throw new IOException(
-              "Can't convert the zipped rtf '" + tmpZipEntry.getName() + "' into text (reason: " + e.toString() + ").");
-        }
-      } else {
-        try {
-          tmpResult.append(getTxtContentAsString(new CloseIgnoringInputStream(tmpZipInput), aCharset, aMaxLength));
-        } catch (final IOException e) {
-          throw new IOException("Can't convert the zipped content '" + tmpZipEntry.getName() + "' into text (reason: "
-              + e.toString() + ").");
-        }
-      }
-
-      tmpZipEntry = tmpZipInput.getNextEntry();
-      if (null != tmpZipEntry) {
-        tmpResult.append(" ");
-      }
-    }
-
-    return tmpResult.toString();
-  }
-
-  /**
-   * Converts an Word document into a normalized string.
+   * Retrieves the content of a Word document as a (normalized) string.
    *
    * @param anInputStream the input
    * @param aMaxLength the maximum length
-   * @return the normalizes content string
-   * @throws IOException in case of io errors
+   * @return the normalized content string
+   * @throws IOException in case of errors
    * @throws InvalidFormatException in case of file has not the expected format
    */
   public static String getWordContentAsString(final InputStream anInputStream, final int aMaxLength)
       throws IOException, InvalidFormatException {
-    NormalizedString tmpResult = new NormalizedString();
+    if (anInputStream == null) {
+      return "";
+    }
 
-    // TODO support old word format
-    try (XWPFDocument tmpDocument = new XWPFDocument(anInputStream);
-        XWPFWordExtractor tmpExtractor = new XWPFWordExtractor(tmpDocument)) {
-      tmpResult.append(tmpExtractor.getText());
+    try (POITextExtractor tmpExtractor = ExtractorFactory.createExtractor(anInputStream)) {
+      // the ExtractorFactory supports all file formats included in POI
+      // but here we only want to support docx and doc -> we have to check ourself
+      if (!(tmpExtractor instanceof XWPFWordExtractor || tmpExtractor instanceof WordExtractor)) {
+        throw new InvalidFormatException("Your InputStream was not a Word document");
+      }
+
+      NormalizedString tmpResult = new NormalizedString(tmpExtractor.getText());
 
       if (tmpResult.length() <= aMaxLength) {
         return tmpResult.toString();
@@ -275,7 +230,7 @@ public final class ContentUtil {
       tmpResult = new NormalizedString(tmpResult.substring(0, aMaxLength));
       tmpResult.append(MORE);
       return tmpResult.toString();
-    } catch (final POIXMLException | UnsupportedFileFormatException e) {
+    } catch (final IllegalArgumentException | OpenXML4JException | XmlException e) {
       if (e.getCause() instanceof InvalidFormatException) {
         throw (InvalidFormatException) e.getCause();
       }
@@ -286,17 +241,21 @@ public final class ContentUtil {
   }
 
   /**
-   * Converts an Excel document into a normalized string.
+   * Retrieves the content of an Excel document as a (normalized) string.
    *
    * @param anInputStream the input
-   * @param aLocale the locale for formating
+   * @param aLocale the locale for formatting
    * @param aMaxLength the maximum length
-   * @return the normalizes content string
-   * @throws IOException in case of io errors
+   * @return the normalized content string
+   * @throws IOException in case of errors
    * @throws InvalidFormatException in case of file has not the expected format
    */
   public static String getExcelContentAsString(final InputStream anInputStream, final Locale aLocale,
       final int aMaxLength) throws IOException, InvalidFormatException {
+    if (anInputStream == null) {
+      return "";
+    }
+
     final NormalizedString tmpResult = new NormalizedString();
 
     try (Workbook tmpWorkbook = WorkbookFactory.create(anInputStream)) {
@@ -333,23 +292,30 @@ public final class ContentUtil {
           }
         }
       }
+    } catch (final IllegalArgumentException | POIXMLException e) {
+      if (e.getCause() instanceof InvalidFormatException) {
+        throw (InvalidFormatException) e.getCause();
+      }
+      final InvalidFormatException tmpEx = new InvalidFormatException(e.getMessage());
+      tmpEx.initCause(e);
+      throw tmpEx;
     }
     return tmpResult.toString();
   }
 
   /**
-   * Reads the content of an excel cell and converts it into the string
-   * visible in the excel sheet.
+   * Reads the content of an Excel cell and converts it into the string
+   * visible in the Excel sheet.
    *
    * @param aRow the row
-   * @param aColumnsNo the column
-   * @param aFormulaEvaluator the formula Evaluator
-   * @param aLocale used for parsing and formating
-   * @return the display string
+   * @param aColumnNo the column
+   * @param aFormulaEvaluator the {@link FormulaEvaluator}
+   * @param aLocale used for parsing and formatting
+   * @return the displayed string
    */
-  public static String readCellContentAsString(final Row aRow, final int aColumnsNo,
+  public static String readCellContentAsString(final Row aRow, final int aColumnNo,
       final FormulaEvaluator aFormulaEvaluator, final Locale aLocale) {
-    final Cell tmpCell = aRow.getCell(aColumnsNo);
+    final Cell tmpCell = aRow.getCell(aColumnNo);
     if (null == tmpCell) {
       return null;
     }
@@ -360,9 +326,7 @@ public final class ContentUtil {
     } catch (final NotImplementedException e) {
       final StringBuilder tmpMsg = new StringBuilder(e.getMessage());
       if (null != e.getCause()) {
-        tmpMsg.append(" (");
-        tmpMsg.append(e.getCause().toString());
-        tmpMsg.append(')');
+        tmpMsg.append(" (").append(e.getCause().toString()).append(')');
       }
       LOG.error(tmpMsg.toString());
       return tmpDataFormatter.formatCellValue(tmpCell, null);
@@ -370,10 +334,79 @@ public final class ContentUtil {
   }
 
   /**
+   * Retrieves the content of a ZIP file as a (normalized) string.
+   *
+   * @param anInputStream the input
+   * @param aCharset the input stream encoding
+   * @param anExcelLocale the locale used for Excel formating (if a content is an Excel document)
+   * @param aMaxLength the maximum length of each files content
+   * @return the normalized content string
+   * @throws IOException in case of error
+   */
+  public static String getZipContentAsString(final InputStream anInputStream, final Charset aCharset,
+      final Locale anExcelLocale, final int aMaxLength) throws IOException {
+    final NormalizedString tmpResult = new NormalizedString();
+    final ZipInputStream tmpZipInput = new ZipInputStream(anInputStream); // NOPMD
+
+    ZipEntry tmpZipEntry = tmpZipInput.getNextEntry();
+    while (null != tmpZipEntry) {
+      tmpResult.append("[");
+      tmpResult.append(tmpZipEntry.getName());
+      tmpResult.append("] ");
+
+      final ContentType tmpType = ContentTypeUtil.getContentTypeForFileName(tmpZipEntry.getName());
+      if (ContentType.PDF == tmpType) {
+        try {
+          tmpResult.append(getPdfContentAsString(new CloseIgnoringInputStream(tmpZipInput), aMaxLength));
+        } catch (final IOException e) {
+          throw new IOException(
+              "Can't convert the zipped pdf '" + tmpZipEntry.getName() + "' into text (reason: " + e.toString() + ").");
+        }
+      } else if (ContentType.XLS == tmpType || ContentType.XLSX == tmpType) {
+        try {
+          tmpResult
+              .append(getExcelContentAsString(new CloseIgnoringInputStream(tmpZipInput), anExcelLocale, aMaxLength));
+        } catch (final IOException | InvalidFormatException e) {
+          throw new IOException(
+              "Can't convert the zipped xls '" + tmpZipEntry.getName() + "' into text (reason: " + e.toString() + ").");
+        }
+      } else if (ContentType.DOC == tmpType || ContentType.DOCX == tmpType) {
+        try {
+          tmpResult.append(getWordContentAsString(new CloseIgnoringInputStream(tmpZipInput), aMaxLength));
+        } catch (final IOException | InvalidFormatException e) {
+          throw new IOException(
+              "Can't convert the zipped doc '" + tmpZipEntry.getName() + "' into text (reason: " + e.toString() + ").");
+        }
+      } else if (ContentType.RTF == tmpType) {
+        try {
+          tmpResult.append(getRtfContentAsString(new CloseIgnoringInputStream(tmpZipInput), aMaxLength));
+        } catch (final IOException | BadLocationException e) {
+          throw new IOException(
+              "Can't convert the zipped rtf '" + tmpZipEntry.getName() + "' into text (reason: " + e.toString() + ").");
+        }
+      } else {
+        try {
+          tmpResult.append(getTxtContentAsString(new CloseIgnoringInputStream(tmpZipInput), aCharset, aMaxLength));
+        } catch (final IOException e) {
+          throw new IOException("Can't convert the zipped content '" + tmpZipEntry.getName() + "' into text (reason: "
+              + e.toString() + ").");
+        }
+      }
+
+      tmpZipEntry = tmpZipInput.getNextEntry();
+      if (null != tmpZipEntry) {
+        tmpResult.append(" ");
+      }
+    }
+
+    return tmpResult.toString();
+  }
+
+  /**
    * Tests if the text is 'readable'.
    *
    * @param aText the input
-   * @return true, if the input contains enough characters
+   * @return <code>true</code>, if the input contains enough characters
    */
   public static boolean isTxt(final String aText) {
     int tmpCharCount = 0;
@@ -387,11 +420,12 @@ public final class ContentUtil {
   }
 
   /**
-   * This tries to determine the locale based on the 'accept-language' header. <br>
-   * If the submitted locale is unknown (ISO639) then this returns null. <br>
+   * This tries to determine the locale based on the 'accept-language' header.<br>
+   * If the submitted locale is unknown (ISO639) then this returns <code>null</code>.<br>
+   * <b>Warning!</b> Currently ignores the given weights (if any).
    *
    * @param anAcceptLanguageHeader the header value
-   * @return the locale or null if the provided information is not parsable
+   * @return the {@link Locale} or <code>null</code> if the provided information is not parsable
    */
   public static Locale determineLocaleFromRequestHeader(final String anAcceptLanguageHeader) {
     if (null == anAcceptLanguageHeader) {

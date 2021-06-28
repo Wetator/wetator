@@ -551,9 +551,15 @@ test/webpage/click_on.html -text
 test/webpage/click_on_table.html -text svneol=unset#text/plain
 test/webpage/download/can_not_extract_content.pdf -text
 test/webpage/download/download.txt -text
+test/webpage/download/empty.doc -text
+test/webpage/download/empty.docx -text
+test/webpage/download/empty.rtf -text
+test/webpage/download/empty.xls -text
+test/webpage/download/empty.xlsx -text
 test/webpage/download/not_editable.pdf -text
 test/webpage/download/unknown_content_type.bin -text
 test/webpage/download/wet_test.csv -text
+test/webpage/download/wet_test.doc -text
 test/webpage/download/wet_test.docx -text
 test/webpage/download/wet_test.json -text
 test/webpage/download/wet_test.pdf -text
@@ -561,6 +567,8 @@ test/webpage/download/wet_test.rtf -text
 test/webpage/download/wet_test.xls -text
 test/webpage/download/wet_test.xlsx -text
 test/webpage/download/wet_test_csv.xls -text
+test/webpage/download/wet_test_doc.zip -text
+test/webpage/download/wet_test_doc_error.zip -text
 test/webpage/download/wet_test_docx.zip -text
 test/webpage/download/wet_test_docx_error.zip -text
 test/webpage/download/wet_test_error.docx -text
