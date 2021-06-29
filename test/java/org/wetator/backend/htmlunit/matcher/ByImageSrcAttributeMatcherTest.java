@@ -269,9 +269,7 @@ public class ByImageSrcAttributeMatcherTest extends AbstractMatcherTest {
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
     assertEquals(1, tmpMatches.size());
-    // FIXME [HTMLUNIT] in contrast to a 'normal' image the input image returns the FQDN as src
-    // -> clarify with HtmlUnit if this is an intended behavior
-    assertMatchEquals("myId", FoundType.BY_IMG_SRC_ATTRIBUTE, 23, 14, 14, tmpMatches.get(0));
+    assertMatchEquals("myId", FoundType.BY_IMG_SRC_ATTRIBUTE, 0, 14, 14, tmpMatches.get(0));
   }
 
   @Test
