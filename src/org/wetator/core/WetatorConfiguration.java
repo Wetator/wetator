@@ -175,6 +175,23 @@ public class WetatorConfiguration {
    */
   public static final String PROPERTY_NTLM_DOMAIN = PROPERTY_PREFIX + "ntlmDomain";
 
+  // ClientCertificateKeyStore
+  /**
+   * The property name to set the ClientCertificateKeyStore url.
+   */
+  public static final String PROPERTY_CLIENT_CERTIFICATE_KEY_STORE_URL = PROPERTY_PREFIX
+      + "clientCertificateKeyStoreUrl";
+  /**
+   * The property name to set the ClientCertificateKeyStore type.
+   */
+  public static final String PROPERTY_CLIENT_CERTIFICATE_KEY_STORE_TYPE = PROPERTY_PREFIX
+      + "clientCertificateKeyStoreType";
+  /**
+   * The property name to set the ClientCertificateKeyStore password.
+   */
+  public static final String PROPERTY_CLIENT_CERTIFICATE_KEY_STORE_PASSWORD = PROPERTY_PREFIX
+      + "clientCertificateKeyStorePassword";
+
   // proxy
   /**
    * The property name to set the proxy host the browser uses.
@@ -244,6 +261,10 @@ public class WetatorConfiguration {
   private Set<String> proxyHostsToBypass;
   private SecretString proxyUser;
   private SecretString proxyPassword;
+
+  private String clientCertificateKeyStoreUrl;
+  private String clientCertificateKeyStoreType;
+  private SecretString clientCertificateKeyStorePassword;
 
   private Set<SearchPattern> jsJobFilterPatterns;
   private boolean jsDebugger;
@@ -589,6 +610,22 @@ public class WetatorConfiguration {
       tmpValue = tmpProperties.getProperty(PROPERTY_NTLM_DOMAIN, "");
       tmpProperties.remove(PROPERTY_NTLM_DOMAIN);
       ntlmDomain = new SecretString(tmpValue);
+    }
+
+    // NTLM
+    tmpValue = tmpProperties.getProperty(PROPERTY_CLIENT_CERTIFICATE_KEY_STORE_URL, "");
+    tmpProperties.remove(PROPERTY_CLIENT_CERTIFICATE_KEY_STORE_URL);
+    if (StringUtils.isNotEmpty(tmpValue)) {
+      clientCertificateKeyStoreUrl = tmpValue;
+
+      // read the rest only if needed
+      tmpValue = tmpProperties.getProperty(PROPERTY_CLIENT_CERTIFICATE_KEY_STORE_TYPE, "");
+      tmpProperties.remove(PROPERTY_CLIENT_CERTIFICATE_KEY_STORE_TYPE);
+      clientCertificateKeyStoreType = tmpValue;
+
+      tmpValue = tmpProperties.getProperty(PROPERTY_CLIENT_CERTIFICATE_KEY_STORE_PASSWORD, null);
+      tmpProperties.remove(PROPERTY_CLIENT_CERTIFICATE_KEY_STORE_PASSWORD);
+      clientCertificateKeyStorePassword = new SecretString().appendSecret(tmpValue);
     }
 
     // xslTemplates
@@ -1020,6 +1057,27 @@ public class WetatorConfiguration {
    */
   public SecretString getNtlmDomain() {
     return ntlmDomain;
+  }
+
+  /**
+   * @return the configured clientCertificateKeyStoreUrl
+   */
+  public String getClientCertificateKeyStoreUrl() {
+    return clientCertificateKeyStoreUrl;
+  }
+
+  /**
+   * @return the configured clientCertificateKeyStoreType
+   */
+  public String getClientCertificateKeyStoreType() {
+    return clientCertificateKeyStoreType;
+  }
+
+  /**
+   * @return the configured clientCertificateKeyStorePassword
+   */
+  public SecretString getClientCertificateKeyStorePassword() {
+    return clientCertificateKeyStorePassword;
   }
 
   /**

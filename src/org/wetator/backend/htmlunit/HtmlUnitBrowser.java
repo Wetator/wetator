@@ -165,9 +165,9 @@ public final class HtmlUnitBrowser implements IBrowser {
         tmpBrowserVersion.registerUploadMimeType(tmpMapping.getKey(), tmpMapping.getValue());
       }
 
-      final ResponseStore tmpStrore = new ResponseStore(tmpConfiguration.getOutputDir(), tmpBrowserType.getLabel(),
+      final ResponseStore tmpStore = new ResponseStore(tmpConfiguration.getOutputDir(), tmpBrowserType.getLabel(),
           true);
-      responseStores.put(tmpBrowserVersion, tmpStrore);
+      responseStores.put(tmpBrowserVersion, tmpStore);
     }
 
     // add the default controls
@@ -321,6 +321,26 @@ public final class HtmlUnitBrowser implements IBrowser {
 
     // trust all SSL-certificates
     webClient.getOptions().setUseInsecureSSL(true);
+
+    // use client certificate key store
+    final String tmpClientCertKeyStoreUrl = tmpConfiguration.getClientCertificateKeyStoreUrl();
+    if (StringUtils.isNotEmpty(tmpHost)) {
+      final String tmpClientCertKeyStoreType = tmpConfiguration.getClientCertificateKeyStoreType();
+      final SecretString tmpClientCertKeyStorePassword = tmpConfiguration.getClientCertificateKeyStorePassword();
+
+      LOG.info("ClientCertificateKeyStore configured");
+      LOG.info("    URL:      " + tmpClientCertKeyStoreUrl);
+      LOG.info("    Type:     " + tmpClientCertKeyStoreType);
+      LOG.info("    Password: " + tmpClientCertKeyStorePassword);
+
+      try {
+        final URL tmpKeyStoreURL = new URL(tmpClientCertKeyStoreUrl);
+        webClient.getOptions().setSSLClientCertificate(tmpKeyStoreURL, tmpClientCertKeyStorePassword.getValue(),
+            tmpClientCertKeyStoreType);
+      } catch (final Exception e) {
+        LOG.error("Failed to use configured ClientCertificateKeyStore.", e.getCause());
+      }
+    }
 
     // set the timeout
     webClient.getOptions().setTimeout(tmpConfiguration.getHttpTimeoutInSeconds() * 1000);
