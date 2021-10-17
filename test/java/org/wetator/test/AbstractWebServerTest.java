@@ -127,6 +127,7 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
 
     final ConstraintSecurityHandler tmpSecurityHandler = new ConstraintSecurityHandler();
     tmpSecurityHandler.setLoginService(tmpLoginService);
+    tmpSecurityHandler.setAuthMethod(Constraint.__BASIC_AUTH);
     tmpSecurityHandler.addConstraintMapping(tmpConstraintMapping);
 
     tmpContextHandler.setSecurityHandler(tmpSecurityHandler);
