@@ -17,10 +17,10 @@ pipeline {
     stages {
         stage('checkout') {
             steps {
-                checkout([$class: 'SubversionSCM',
-                    locations: [[remote: 'http://wetator.repositoryhosting.com/svn_public/wetator_wetator/branches/event_controlfinder/wetator', local: '.', depthOption: 'infinity', ignoreExternalsOption: true, cancelProcessOnExternalsFail: true]],
-                    quietOperation: true,
-                    workspaceUpdater: [$class: 'CheckoutUpdater']])
+                checkout([$class: 'GitSCM',
+                    branches: [[name: '*/event_controlfinder']],
+                    extensions: [],
+                    userRemoteConfigs: [[url: 'https://github.com/Wetator/wetator.git']]])
             }
         }
         stage('build') {
