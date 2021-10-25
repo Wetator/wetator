@@ -7,14 +7,30 @@
     xsi:schemaLocation='http://www.wetator.org/xsd/test-case test-case-1.0.0.xsd http://www.wetator.org/xsd/default-command-set default-command-set-1.0.0.xsd http://www.wetator.org/xsd/test-command-set test-command-set-1.0.0.xsd'
     version='1.0.0'>
     <comment>valid certificate</comment>
-    <command><d:open-url><d:url>https://twitter.com/</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Twitter</d:title></d:assert-title></command>
+    <command><d:open-url><d:url>https://wetator.org/</d:url></d:open-url></command>
+    <command><d:assert-title><d:title>WETATOR / Smart Web Application Testing</d:title></d:assert-title></command>
     <comment></comment>
     <comment>expired certificate</comment>
-    <command><d:open-url><d:url>https://testssl-expire-r2i2.disig.sk/index.en.html</d:url></d:open-url></command>
-    <command><d:assert-content><d:content>You have joined a web site whose SSL certificate is valid.</d:content></d:assert-content></command>
+    <command><d:open-url><d:url>https://expired.badssl.com/</d:url></d:open-url></command>
+    <command><d:assert-content><d:content>expired. badssl.com</d:content></d:assert-content></command>
     <comment></comment>
-    <comment>issuer unknown certificate</comment>
-    <command><d:open-url><d:url>https://expired.identrustssl.com/</d:url></d:open-url></command>
-    <command><d:assert-content><d:content>Your browser should provide a notice about the status of this page.</d:content></d:assert-content></command>
+    <comment>wrong host certificate</comment>
+    <command><d:open-url><d:url>https://wrong.host.badssl.com/</d:url></d:open-url></command>
+    <command><d:assert-content><d:content>wrong.host. badssl.com</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment>wrong host certificate</comment>
+    <command><d:open-url><d:url>https://self-signed.badssl.com/</d:url></d:open-url></command>
+    <command><d:assert-content><d:content>self-signed. badssl.com</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment>wrong host certificate</comment>
+    <command><d:open-url><d:url>https://untrusted-root.badssl.com/</d:url></d:open-url></command>
+    <command><d:assert-content><d:content>untrusted-root. badssl.com</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment>revoked certificate</comment>
+    <command><d:open-url><d:url>https://revoked.badssl.com/</d:url></d:open-url></command>
+    <command><d:assert-content><d:content>revoked. badssl.com</d:content></d:assert-content></command>
+    <comment></comment>
+    <comment>pinning-test certificate</comment>
+    <command><d:open-url><d:url>https://pinning-test.badssl.com/</d:url></d:open-url></command>
+    <command><d:assert-content><d:content>pinning-test. badssl.com</d:content></d:assert-content></command>
 </test-case>
