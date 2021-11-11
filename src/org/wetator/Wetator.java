@@ -27,7 +27,6 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.wetator.core.IProgressListener;
 import org.wetator.core.WetatorEngine;
 import org.wetator.gui.DialogUtil;
 import org.wetator.progresslistener.StdOutProgressListener;
@@ -74,7 +73,7 @@ public final class Wetator {
       LOG.info("    Debug log file: " + FilenameUtils.normalize(tmpDebugLogFile.getAbsolutePath()));
     }
 
-    final IProgressListener tmpProgressListener = new StdOutProgressListener();
+    final StdOutProgressListener tmpProgressListener = new StdOutProgressListener();
 
     try {
       final WetatorEngine tmpWetatorEngine = new WetatorEngine();
@@ -139,6 +138,13 @@ public final class Wetator {
         tmpWetatorEngine.shutdown();
       }
       // SearchPattern.dumpStatistics();
+
+      int tmpExitCode = 0;
+      if (tmpProgressListener.getTestCountError() > 0 || tmpProgressListener.getTestCountFailure() > 0) {
+        tmpExitCode = 1;
+      }
+      System.exit(tmpExitCode);
+
     } catch (final Throwable e) {
       System.out.println("Wetator execution failed: " + e.getMessage()); // NOPMD
       LOG.fatal("Wetator execution failed:", e);
@@ -146,7 +152,6 @@ public final class Wetator {
       // System.exit is needed because we have started swing
       System.exit(1);
     }
-    System.exit(0);
   }
 
   /**
