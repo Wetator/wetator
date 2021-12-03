@@ -37,9 +37,6 @@ HOW TO RELEASE
 WETATOR
   * force jenkins build and check for success
   * adjust version info in file build-properties.xml and commit
-  * create svn tag
-    - create folder tags/version_x_x_xx
-    - copy trunk/wetator to the new folder
   * build the release
     - provide your credential as ant call parameters -Dsonatype.username=???? -Dsonatype.passwd=???? -Dpgp.passphrase=???? -v
     - ant clean
@@ -49,14 +46,15 @@ WETATOR
   * go to https://oss.sonatype.org/index.html#stagingRepositories
       close the repository
       release the repository
+  * create github tag
+    - go to https://github.com/Wetator/wetator/releases
+    - create new release
 
 WETATOR-ANT
   * change ivy.xml to point to the latest wetator release
   * force resolve-dependencies and adjust classpath of the eclipse project and commit
   * force jenkins build and check for success
   * adjust version info in file build-properties.xml and commit
-  * create svn tag
-    - copy trunk/wetator-ant-task to the new folder
   * build the release
     - ant clean
     - ant publish-sonatype-releases
@@ -65,6 +63,9 @@ WETATOR-ANT
   * go to https://oss.sonatype.org/index.html#stagingRepositories
       close the repository
       release the repository
+  * create github tag
+    - go to https://github.com/Wetator/wetator-ant-task/releases
+    - create new release
 
   * update website
     - download page
