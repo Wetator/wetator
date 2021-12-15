@@ -37,8 +37,8 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   private static final String BASE_FOLDER = "test/xml/";
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_78 })
-  public void eventClickOnFF78() throws InvalidInputException {
+  @Browsers({ BrowserType.FIREFOX_ESR })
+  public void eventClickOnFFESR() throws InvalidInputException {
     executeTestFile("ff60/event_clickOn.wet");
 
     Assert.assertEquals(63, getSteps());
@@ -57,8 +57,8 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_78 })
-  public void eventDeselectFF78() throws InvalidInputException {
+  @Browsers({ BrowserType.FIREFOX_ESR })
+  public void eventDeselectFFESR() throws InvalidInputException {
     executeTestFile("ff60/event_deselect.wet");
 
     Assert.assertEquals(18, getSteps());
@@ -77,8 +77,8 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_78 })
-  public void eventMouseOverFF78() throws InvalidInputException {
+  @Browsers({ BrowserType.FIREFOX_ESR })
+  public void eventMouseOverFFESR() throws InvalidInputException {
     executeTestFile("ff60/event_mouseOver.wet");
 
     Assert.assertEquals(74, getSteps());
@@ -97,8 +97,8 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_78 })
-  public void eventSelectFF78() throws InvalidInputException {
+  @Browsers({ BrowserType.FIREFOX_ESR })
+  public void eventSelectFFESR() throws InvalidInputException {
     executeTestFile("ff60/event_select.wet");
 
     Assert.assertEquals(18, getSteps());
@@ -117,8 +117,8 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_78 })
-  public void eventSetFF78() throws InvalidInputException {
+  @Browsers({ BrowserType.FIREFOX_ESR })
+  public void eventSetFFESR() throws InvalidInputException {
     executeTestFile("ff60/event_set.wet");
 
     Assert.assertEquals(27, getSteps());

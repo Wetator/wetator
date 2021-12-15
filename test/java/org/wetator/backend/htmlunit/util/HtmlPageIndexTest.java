@@ -85,7 +85,7 @@ public class HtmlPageIndexTest {
     assertEquals("getText[IE]", anExpectedIE, tmpResult.getText());
     assertEquals("getTextWithoutFormControls[IE]", anExpectedWithoutFC, tmpResult.getTextWithoutFormControls());
 
-    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.FIREFOX_78, anHtmlCode);
+    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.FIREFOX_ESR, anHtmlCode);
     tmpResult = new HtmlPageIndex(tmpHtmlPage);
     assertEquals("getText[FF]", anExpectedFF, tmpResult.getText());
     assertEquals("getTextWithoutFormControls[FF]", anExpectedWithoutFC, tmpResult.getTextWithoutFormControls());
@@ -558,7 +558,7 @@ public class HtmlPageIndexTest {
     // @formatter:on
 
     // FF
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.FIREFOX_78, tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.FIREFOX_ESR, tmpHtmlCode);
     HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
     assertEquals("before Object tag not supported after", tmpResult.getText());
@@ -1582,7 +1582,7 @@ public class HtmlPageIndexTest {
     // @formatter:on
 
     // FF
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.FIREFOX_78, tmpHtmlCode);
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.FIREFOX_ESR, tmpHtmlCode);
     HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
     assertEquals("Object tag not supported", tmpResult.getAsText(tmpHtmlPage.getHtmlElementById("idObj")));
