@@ -208,7 +208,7 @@ public class ContentUtilTest {
     tmpExpected.append(" currency 4,33 €");
     tmpExpected.append(" percent 3%");
     tmpExpected.append(" date 7/14/11");
-    tmpExpected.append(" date (formated) 14-Jul-11");
+    tmpExpected.append(" date (formated) 14-Juli-11");
     tmpExpected.append(" formula 124,70");
 
     final String tmpContent = ContentUtil
@@ -258,7 +258,7 @@ public class ContentUtilTest {
     tmpExpected.append(" currency 4,33 €");
     tmpExpected.append(" percent 3%");
     tmpExpected.append(" date 7/14/11");
-    tmpExpected.append(" date (formated) 14-Jul-11");
+    tmpExpected.append(" date (formated) 14-Juli-11");
     tmpExpected.append(" formula 124,70");
 
     final String tmpContent = ContentUtil.getZipContentAsString(
@@ -308,7 +308,7 @@ public class ContentUtilTest {
     tmpExpected.append(" currency 4,33 €");
     tmpExpected.append(" percent 3%");
     tmpExpected.append(" date 7/14/11");
-    tmpExpected.append(" date (formated) 14-Jul-11");
+    tmpExpected.append(" date (formated) 14-Juli-11");
     tmpExpected.append(" formula 124,70");
 
     final String tmpContent = ContentUtil
@@ -358,7 +358,7 @@ public class ContentUtilTest {
     tmpExpected.append(" currency 4,33 €");
     tmpExpected.append(" percent 3%");
     tmpExpected.append(" date 7/14/11");
-    tmpExpected.append(" date (formated) 14-Jul-11");
+    tmpExpected.append(" date (formated) 14-Juli-11");
     tmpExpected.append(" formula 124,70");
 
     final String tmpContent = ContentUtil.getZipContentAsString(
@@ -477,7 +477,7 @@ public class ContentUtilTest {
     tmpExpected.append(" currency 4,33 €");
     tmpExpected.append(" percent 3%");
     tmpExpected.append(" date 7/14/11");
-    tmpExpected.append(" date (formated) 14-Jul-11");
+    tmpExpected.append(" date (formated) 14-Juli-11");
     tmpExpected.append(" formula 124,70");
 
     tmpExpected.append(" ");

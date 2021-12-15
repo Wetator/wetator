@@ -48,15 +48,15 @@
 	<classpathentry kind="lib" path="lib/jetty-webapp-9.4.44.v20210927.jar"/>
 	<classpathentry kind="lib" path="lib/jetty-xml-9.4.44.v20210927.jar"/>
 	<classpathentry kind="lib" path="lib/junit-4.13.2.jar"/>
-	<classpathentry kind="lib" path="lib/log4j-api-2.15.0.jar"/>
-	<classpathentry kind="lib" path="lib/log4j-core-2.15.0.jar" sourcepath="lib_src/log4j-core-2.15.0-sources.jar"/>
-	<classpathentry kind="lib" path="lib/log4j-jcl-2.15.0.jar"/>
-	<classpathentry kind="lib" path="lib/log4j-slf4j-impl-2.15.0.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-api-2.16.0.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-core-2.16.0.jar" sourcepath="lib_src/log4j-core-2.16.0-sources.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-jcl-2.16.0.jar"/>
+	<classpathentry kind="lib" path="lib/log4j-slf4j-impl-2.16.0.jar"/>
 	<classpathentry kind="lib" path="lib/mockito-core-3.11.2.jar"/>
 	<classpathentry kind="lib" path="lib/neko-htmlunit-2.56.0.jar"/>
 	<classpathentry kind="lib" path="lib/objenesis-3.2.jar"/>
 	<classpathentry kind="lib" path="lib/pdfbox-2.0.24.jar"/>
-	<classpathentry kind="lib" path="lib/poi-4.1.2.jar" sourcepath="C:/Users/ronald/.m2/repository/org/apache/poi/poi/4.1.2/poi-4.1.2-sources.jar"/>
+	<classpathentry kind="lib" path="lib/poi-4.1.2.jar"/>
 	<classpathentry kind="lib" path="lib/poi-ooxml-4.1.2.jar"/>
 	<classpathentry kind="lib" path="lib/poi-ooxml-schemas-4.1.2.jar"/>
 	<classpathentry kind="lib" path="lib/relaxngDatatype-20020414.jar"/>
