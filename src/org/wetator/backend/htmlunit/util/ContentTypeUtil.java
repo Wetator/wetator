@@ -33,6 +33,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
  * Utility class for content type handling.
  *
  * @author rbri
+ * @author frank.danek
  */
 public final class ContentTypeUtil {
   private static final Map<String, ContentType> CONTENT_TYPES = new HashMap<>();
@@ -53,6 +54,7 @@ public final class ContentTypeUtil {
     define(ContentType.XLSX, "xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
 
     // Word
+    define(ContentType.DOC, "doc", "application/msword");
     define(ContentType.DOCX, "docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
 
     // RTF
@@ -174,29 +176,29 @@ public final class ContentTypeUtil {
       return null;
     }
 
-    final String tmpDisp = aWebResponse.getResponseHeaderValue("Content-Disposition");
-    if (StringUtils.isBlank(tmpDisp)) {
+    final String tmpDisposition = aWebResponse.getResponseHeaderValue("Content-Disposition");
+    if (StringUtils.isBlank(tmpDisposition)) {
       return null;
     }
 
-    int tmpStart = tmpDisp.indexOf("filename=");
+    int tmpStart = tmpDisposition.indexOf("filename=");
     if (tmpStart == -1) {
       return null;
     }
     tmpStart += "filename=".length();
-    if (tmpStart >= tmpDisp.length()) {
+    if (tmpStart >= tmpDisposition.length()) {
       return null;
     }
 
-    int tmpEnd = tmpDisp.indexOf(';', tmpStart);
+    int tmpEnd = tmpDisposition.indexOf(';', tmpStart);
     if (tmpEnd == -1) {
-      tmpEnd = tmpDisp.length();
+      tmpEnd = tmpDisposition.length();
     }
-    if (tmpDisp.charAt(tmpStart) == '"' && tmpDisp.charAt(tmpEnd - 1) == '"') {
+    if (tmpDisposition.charAt(tmpStart) == '"' && tmpDisposition.charAt(tmpEnd - 1) == '"') {
       tmpStart++;
       tmpEnd--;
     }
-    return tmpDisp.substring(tmpStart, tmpEnd);
+    return tmpDisposition.substring(tmpStart, tmpEnd);
   }
 
   /**
