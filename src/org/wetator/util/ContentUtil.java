@@ -299,8 +299,7 @@ public final class ContentUtil {
       final int aMaxLength) throws IOException, InvalidFormatException {
     final NormalizedString tmpResult = new NormalizedString();
 
-    final Workbook tmpWorkbook = WorkbookFactory.create(anInputStream);
-    try {
+    try (Workbook tmpWorkbook = WorkbookFactory.create(anInputStream)) {
       final FormulaEvaluator tmpFormulaEvaluator = tmpWorkbook.getCreationHelper().createFormulaEvaluator();
 
       Locale tmpLocale = aLocale;
@@ -334,8 +333,6 @@ public final class ContentUtil {
           }
         }
       }
-    } finally {
-      tmpWorkbook.close();
     }
     return tmpResult.toString();
   }
