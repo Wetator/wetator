@@ -170,7 +170,10 @@ public class ExcelScripterTest {
     tmpCommand = tmpCommands.get(tmpPos);
     Assert.assertFalse(tmpCommand.isComment());
     Assert.assertEquals("assert-title", tmpCommand.getName());
-    Assert.assertEquals("1-Apr.-99", tmpCommand.getFirstParameter().getValue());
+
+    // different JDK's
+    final String tmpValue = tmpCommand.getFirstParameter().getValue();
+    Assert.assertTrue(tmpValue, "1-Apr.-99".equals(tmpValue) || "1-Apr-99".equals(tmpValue));
     Assert.assertNull(tmpCommand.getSecondParameter());
 
     tmpPos++;
