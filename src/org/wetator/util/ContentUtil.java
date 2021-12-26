@@ -38,10 +38,10 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentInformation;
 import org.apache.pdfbox.pdmodel.encryption.AccessPermission;
 import org.apache.pdfbox.text.PDFTextStripper;
+import org.apache.poi.extractor.ExtractorFactory;
 import org.apache.poi.extractor.POITextExtractor;
 import org.apache.poi.hwpf.extractor.WordExtractor;
 import org.apache.poi.ooxml.POIXMLException;
-import org.apache.poi.ooxml.extractor.ExtractorFactory;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
 import org.apache.poi.ss.formula.eval.NotImplementedException;
@@ -53,7 +53,6 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
-import org.apache.xmlbeans.XmlException;
 import org.wetator.backend.IBrowser.ContentType;
 import org.wetator.backend.htmlunit.util.ContentTypeUtil;
 
@@ -230,7 +229,7 @@ public final class ContentUtil {
       tmpResult = new NormalizedString(tmpResult.substring(0, aMaxLength));
       tmpResult.append(MORE);
       return tmpResult.toString();
-    } catch (final IllegalArgumentException | OpenXML4JException | XmlException e) {
+    } catch (final IllegalArgumentException | OpenXML4JException e) {
       if (e.getCause() instanceof InvalidFormatException) {
         throw (InvalidFormatException) e.getCause();
       }

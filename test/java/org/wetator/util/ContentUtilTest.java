@@ -356,11 +356,11 @@ public class ContentUtilTest {
   public void getWordContentAsString_error() throws IOException {
     try {
       ContentUtil.getWordContentAsString(new FileInputStream("test/webpage/download/wet_test.rtf"), 4000);
-      fail("InvalidFormatException expected");
+      fail("IOException expected");
+    } catch (final IOException e) {
+      assertEquals("java.io.IOException: Can't create extractor - unsupported file type: RTF", e.toString());
     } catch (final InvalidFormatException e) {
-      assertEquals(
-          "org.apache.poi.openxml4j.exceptions.InvalidFormatException: Your InputStream was neither an OLE2 stream, nor an OOXML stream, found type: RTF",
-          e.toString());
+      fail("IOException expected");
     }
 
     try {
@@ -384,10 +384,10 @@ public class ContentUtilTest {
     try {
       ContentUtil.getWordContentAsString(new FileInputStream("test/webpage/download/wet_test.pdf"), 4000);
       fail("InvalidFormatException expected");
+    } catch (final IOException e) {
+      assertEquals("java.io.IOException: Can't create extractor - unsupported file type: PDF", e.toString());
     } catch (final InvalidFormatException e) {
-      assertEquals(
-          "org.apache.poi.openxml4j.exceptions.InvalidFormatException: Your InputStream was neither an OLE2 stream, nor an OOXML stream, found type: PDF",
-          e.toString());
+      fail("IOException expected");
     }
   }
 
@@ -655,8 +655,7 @@ public class ContentUtilTest {
           4000);
       fail("InvalidFormatException expected");
     } catch (final InvalidFormatException | IOException e) {
-      assertEquals("java.io.IOException: Your InputStream was neither an OLE2 stream, nor an OOXML stream",
-          e.toString());
+      assertEquals("java.io.IOException: Can't open workbook - unsupported file type: PDF", e.toString());
     }
   }
 
@@ -739,8 +738,7 @@ public class ContentUtilTest {
       fail("IOException expected");
     } catch (final IOException e) {
       assertEquals("java.io.IOException: Can't convert the zipped doc 'wet_test.doc' into text "
-          + "(reason: org.apache.poi.openxml4j.exceptions.InvalidFormatException: Your InputStream was neither an OLE2 stream, nor an OOXML stream, found type: PDF).",
-          e.toString());
+          + "(reason: java.io.IOException: Can't create extractor - unsupported file type: PDF).", e.toString());
     }
   }
 
@@ -766,8 +764,7 @@ public class ContentUtilTest {
       fail("IOException expected");
     } catch (final IOException e) {
       assertEquals("java.io.IOException: Can't convert the zipped doc 'wet_test.docx' into text "
-          + "(reason: org.apache.poi.openxml4j.exceptions.InvalidFormatException: Your InputStream was neither an OLE2 stream, nor an OOXML stream, found type: PDF).",
-          e.toString());
+          + "(reason: java.io.IOException: Can't create extractor - unsupported file type: PDF).", e.toString());
     }
   }
 
@@ -811,10 +808,8 @@ public class ContentUtilTest {
           StandardCharsets.UTF_8, Locale.ENGLISH, 4000);
       fail("IOException expected");
     } catch (final IOException e) {
-      assertEquals(
-          "java.io.IOException: Can't convert the zipped xls 'wet_test.xls' into text "
-              + "(reason: java.io.IOException: Your InputStream was neither an OLE2 stream, nor an OOXML stream).",
-          e.toString());
+      assertEquals("java.io.IOException: Can't convert the zipped xls 'wet_test.xls' into text "
+          + "(reason: java.io.IOException: Can't open workbook - unsupported file type: PDF).", e.toString());
     }
   }
 
@@ -858,10 +853,8 @@ public class ContentUtilTest {
           StandardCharsets.UTF_8, Locale.ENGLISH, 4000);
       fail("IOException expected");
     } catch (final IOException e) {
-      assertEquals(
-          "java.io.IOException: Can't convert the zipped xls 'wet_test.xlsx' into text "
-              + "(reason: java.io.IOException: Your InputStream was neither an OLE2 stream, nor an OOXML stream).",
-          e.toString());
+      assertEquals("java.io.IOException: Can't convert the zipped xls 'wet_test.xlsx' into text "
+          + "(reason: java.io.IOException: Can't open workbook - unsupported file type: PDF).", e.toString());
     }
   }
 
