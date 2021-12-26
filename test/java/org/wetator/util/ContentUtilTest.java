@@ -782,6 +782,39 @@ public class ContentUtilTest {
         .append(" String plain text")
         .append(" String(int) 4711")
         .append(" int 123")
+        .append(" float 14.3")
+        .append(" float (rounded) 1.70")
+        .append(" currency 4.33 €")
+        .append(" percent 3%")
+        .append(" date 7/14/11")
+        .append(" date (formated) 14-Jul-11")
+        .append(" formula 124.70");
+    // @formatter:on
+
+    final String tmpContent = ContentUtil.getZipContentAsString(
+        new FileInputStream("test/webpage/download/wet_test_xls.zip"), StandardCharsets.UTF_8, Locale.ENGLISH, 4000);
+
+    // different JDK's
+    final String tmpExpectedVariant1 = tmpExpected.toString();
+    final String tmpExpectedVariant2 = tmpExpectedVariant1.replace(" date (formated) 14-Jul-11",
+        " date (formated) 14-July-11");
+    assertTrue(tmpContent, tmpContent.equals(tmpExpectedVariant1) || tmpContent.equals(tmpExpectedVariant2));
+  }
+
+  @Test
+  public void getZipContentAsString_xls_de() throws IOException {
+    final StringBuilder tmpExpected = new StringBuilder()
+    // @formatter:off
+        .append("[wet_test.xls]")
+        .append(" ")
+        .append("[Tab1] Wetator Page 1")
+        .append(" ")
+        .append("[Tab2] Wetator Test Page2 Web application testing is fun")
+        .append(" ")
+        .append("[Data Test]")
+        .append(" String plain text")
+        .append(" String(int) 4711")
+        .append(" int 123")
         .append(" float 14,3")
         .append(" float (rounded) 1,70")
         .append(" currency 4,33 €")
@@ -827,6 +860,39 @@ public class ContentUtilTest {
         .append(" String plain text")
         .append(" String(int) 4711")
         .append(" int 123")
+        .append(" float 14.3")
+        .append(" float (rounded) 1.70")
+        .append(" currency 4.33 €")
+        .append(" percent 3%")
+        .append(" date 7/14/11")
+        .append(" date (formated) 14-Jul-11")
+        .append(" formula 124.70");
+    // @formatter:on
+
+    final String tmpContent = ContentUtil.getZipContentAsString(
+        new FileInputStream("test/webpage/download/wet_test_xlsx.zip"), StandardCharsets.UTF_8, Locale.ENGLISH, 4000);
+
+    // different JDK's
+    final String tmpExpectedVariant1 = tmpExpected.toString();
+    final String tmpExpectedVariant2 = tmpExpectedVariant1.replace(" date (formated) 14-Jul-11",
+        " date (formated) 14-July-11");
+    assertTrue(tmpContent, tmpContent.equals(tmpExpectedVariant1) || tmpContent.equals(tmpExpectedVariant2));
+  }
+
+  @Test
+  public void getZipContentAsString_xlsx_de() throws IOException {
+    final StringBuilder tmpExpected = new StringBuilder()
+    // @formatter:off
+        .append("[wet_test.xlsx]")
+        .append(" ")
+        .append("[Tab1] Wetator Page 1")
+        .append(" ")
+        .append("[Tab2] Wetator Test Page2 Web application testing is fun")
+        .append(" ")
+        .append("[Data Test]")
+        .append(" String plain text")
+        .append(" String(int) 4711")
+        .append(" int 123")
         .append(" float 14,3")
         .append(" float (rounded) 1,70")
         .append(" currency 4,33 €")
@@ -860,6 +926,56 @@ public class ContentUtilTest {
 
   @Test
   public void getZipContentAsString_mixed() throws IOException {
+    final StringBuilder tmpExpected = new StringBuilder()
+    // @formatter:off
+        .append("[wet_test.csv]")
+        .append(" ")
+        .append("Col1, Col2 text1, text2")
+
+        .append(" ")
+        .append("[wet_test.pdf]")
+        .append(" ")
+        .append("This is the content of a simple PDF file.")
+        .append(" ")
+        .append("This file is used to test WeT.")
+
+        .append(" ")
+        .append("[wet_test.xls]")
+        .append(" ")
+        .append("[Tab1] Wetator Page 1")
+        .append(" ")
+        .append("[Tab2] Wetator Test Page2 Web application testing is fun")
+        .append(" ")
+        .append("[Data Test]")
+        .append(" String plain text")
+        .append(" String(int) 4711")
+        .append(" int 123")
+        .append(" float 14.3")
+        .append(" float (rounded) 1.70")
+        .append(" currency 4.33 €")
+        .append(" percent 3%")
+        .append(" date 7/14/11")
+        .append(" date (formated) 14-Jul-11")
+        .append(" formula 124.70")
+
+        .append(" ")
+        .append("[wet_test.xml]")
+        .append(" ")
+        .append("<?xml version=\"1.0\"?> <wetator> <Test>Simple xml content</Test> </wetator>");
+    // @formatter:on
+
+    final String tmpContent = ContentUtil.getZipContentAsString(
+        new FileInputStream("test/webpage/download/wet_test_mix.zip"), StandardCharsets.UTF_8, Locale.ENGLISH, 4000);
+
+    // different JDK's
+    final String tmpExpectedVariant1 = tmpExpected.toString();
+    final String tmpExpectedVariant2 = tmpExpectedVariant1.replace(" date (formated) 14-Jul-11",
+        " date (formated) 14-July-11");
+    assertTrue(tmpContent, tmpContent.equals(tmpExpectedVariant1) || tmpContent.equals(tmpExpectedVariant2));
+  }
+
+  @Test
+  public void getZipContentAsString_mixed_de() throws IOException {
     final StringBuilder tmpExpected = new StringBuilder()
     // @formatter:off
         .append("[wet_test.csv]")
@@ -935,7 +1051,7 @@ public class ContentUtilTest {
     // @formatter:on
 
     final String tmpContent = ContentUtil.getZipContentAsString(
-        new FileInputStream("test/webpage/download/wet_test_mix.zip"), StandardCharsets.UTF_8, Locale.GERMANY, 23);
+        new FileInputStream("test/webpage/download/wet_test_mix.zip"), StandardCharsets.UTF_8, Locale.ENGLISH, 23);
     assertEquals(tmpExpected.toString(), tmpContent);
   }
 
@@ -964,7 +1080,7 @@ public class ContentUtilTest {
     // @formatter:on
 
     final String tmpContent = ContentUtil.getZipContentAsString(
-        new FileInputStream("test/webpage/download/wet_test_mix.zip"), StandardCharsets.UTF_8, Locale.GERMANY, 10);
+        new FileInputStream("test/webpage/download/wet_test_mix.zip"), StandardCharsets.UTF_8, Locale.ENGLISH, 10);
     assertEquals(tmpExpected.toString(), tmpContent);
   }
 
