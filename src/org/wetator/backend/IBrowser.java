@@ -79,8 +79,8 @@ public interface IBrowser {
    * Enum for the supported browser types.
    */
   enum BrowserType {
-    /** Firefox 78 ESR. */
-    FIREFOX_78("Firefox78", "Firefox_78"),
+    /** Firefox ESR. */
+    FIREFOX_ESR("FirefoxESR", "Firefox_ESR"),
     /** Firefox. */
     FIREFOX("Firefox", "Firefox"),
     /** Internet Explorer 11. */

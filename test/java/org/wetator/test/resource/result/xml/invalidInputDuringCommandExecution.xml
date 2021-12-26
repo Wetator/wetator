@@ -163,7 +163,7 @@
         </command>
       </testfile>
     </testrun>
-    <testrun id="115" browser="Firefox78">
+    <testrun id="115" browser="FirefoxESR">
       <ignored id="116"/>
     </testrun>
   </testcase>

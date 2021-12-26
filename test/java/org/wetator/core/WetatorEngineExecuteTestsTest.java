@@ -63,7 +63,7 @@ public class WetatorEngineExecuteTestsTest {
    * The setting.
    * <ul>
    * <li>2 TestCases</li>
-   * <li>2 Browsers (IE11, FF68)</li>
+   * <li>2 Browsers (IE11, FF_ESR)</li>
    * </ul>
    */
   @Before
@@ -74,7 +74,7 @@ public class WetatorEngineExecuteTestsTest {
     configuration = mock(WetatorConfiguration.class);
 
     browserType1 = BrowserType.INTERNET_EXPLORER;
-    browserType2 = BrowserType.FIREFOX_78;
+    browserType2 = BrowserType.FIREFOX_ESR;
 
     browser = mock(IBrowser.class);
 
