@@ -232,7 +232,12 @@ public class ContentUtilTest {
 
     final String tmpContent = ContentUtil
         .getExcelContentAsString(new FileInputStream("test/webpage/download/wet_test.xls"), Locale.GERMAN, 4000);
-    assertEquals(tmpExpected.toString(), tmpContent);
+
+    // different JDK's
+    final String tmpExpectedVariant1 = tmpExpected.toString();
+    final String tmpExpectedVariant2 = tmpExpectedVariant1.replace(" date (formated) 14-Jul-11",
+        " date (formated) 14-Juli-11");
+    assertTrue(tmpContent, tmpContent.equals(tmpExpectedVariant1) || tmpContent.equals(tmpExpectedVariant2));
   }
 
   @Test
@@ -286,7 +291,12 @@ public class ContentUtilTest {
 
     final String tmpContent = ContentUtil.getZipContentAsString(
         new FileInputStream("test/webpage/download/wet_test_xls.zip"), StandardCharsets.UTF_8, Locale.GERMAN, 4000);
-    assertEquals(tmpExpected.toString(), tmpContent);
+
+    // different JDK's
+    final String tmpExpectedVariant1 = tmpExpected.toString();
+    final String tmpExpectedVariant2 = tmpExpectedVariant1.replace(" date (formated) 14-Jul-11",
+        " date (formated) 14-Juli-11");
+    assertTrue(tmpContent, tmpContent.equals(tmpExpectedVariant1) || tmpContent.equals(tmpExpectedVariant2));
   }
 
   @Test
@@ -338,7 +348,12 @@ public class ContentUtilTest {
 
     final String tmpContent = ContentUtil
         .getExcelContentAsString(new FileInputStream("test/webpage/download/wet_test.xlsx"), Locale.GERMAN, 4000);
-    assertEquals(tmpExpected.toString(), tmpContent);
+
+    // different JDK's
+    final String tmpExpectedVariant1 = tmpExpected.toString();
+    final String tmpExpectedVariant2 = tmpExpectedVariant1.replace(" date (formated) 14-Jul-11",
+        " date (formated) 14-Juli-11");
+    assertTrue(tmpContent, tmpContent.equals(tmpExpectedVariant1) || tmpContent.equals(tmpExpectedVariant2));
   }
 
   @Test
@@ -392,7 +407,12 @@ public class ContentUtilTest {
 
     final String tmpContent = ContentUtil.getZipContentAsString(
         new FileInputStream("test/webpage/download/wet_test_xlsx.zip"), StandardCharsets.UTF_8, Locale.GERMAN, 4000);
-    assertEquals(tmpExpected.toString(), tmpContent);
+
+    // different JDK's
+    final String tmpExpectedVariant1 = tmpExpected.toString();
+    final String tmpExpectedVariant2 = tmpExpectedVariant1.replace(" date (formated) 14-Jul-11",
+        " date (formated) 14-Juli-11");
+    assertTrue(tmpContent, tmpContent.equals(tmpExpectedVariant1) || tmpContent.equals(tmpExpectedVariant2));
   }
 
   @Test
@@ -522,7 +542,12 @@ public class ContentUtilTest {
 
     final String tmpContent = ContentUtil.getZipContentAsString(
         new FileInputStream("test/webpage/download/wet_test_mix.zip"), StandardCharsets.UTF_8, Locale.GERMAN, 4000);
-    assertEquals(tmpExpected.toString(), tmpContent);
+
+    // different JDK's
+    final String tmpExpectedVariant1 = tmpExpected.toString();
+    final String tmpExpectedVariant2 = tmpExpectedVariant1.replace(" date (formated) 14-Jul-11",
+        " date (formated) 14-Juli-11");
+    assertTrue(tmpContent, tmpContent.equals(tmpExpectedVariant1) || tmpContent.equals(tmpExpectedVariant2));
   }
 
   @Test
