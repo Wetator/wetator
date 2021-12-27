@@ -26,6 +26,7 @@ import org.wetator.backend.htmlunit.control.HtmlUnitButton;
 import org.wetator.backend.htmlunit.control.HtmlUnitImage;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputButton;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputCheckBox;
+import org.wetator.backend.htmlunit.control.HtmlUnitInputEmail;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputFile;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputImage;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputPassword;
@@ -46,6 +47,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlButton;
 import com.gargoylesoftware.htmlunit.html.HtmlButtonInput;
 import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlEmailInput;
 import com.gargoylesoftware.htmlunit.html.HtmlFileInput;
 import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlHiddenInput;
@@ -696,6 +698,98 @@ public class HtmlElementUtilTest {
 
     final String tmpResult = tmpHtmlUnitInputCheckBox.getDescribingText();
     Assert.assertEquals("[HtmlCheckBoxInput] by [HtmlLabel 'unchecked' (id='LabelId')]", tmpResult);
+  }
+
+  @Test
+  public void getDescribingTextFor_HtmlEmailInput() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input type='email' value='admin@wetator.org'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+
+    final HtmlEmailInput tmpHtmlEmailInput = (HtmlEmailInput) tmpForm.getFirstChild();
+
+    String tmpResult;
+    tmpResult = new HtmlUnitInputEmail(tmpHtmlEmailInput).getDescribingText();
+    Assert.assertEquals("[HtmlEmailInput]", tmpResult);
+
+    tmpResult = HtmlElementUtil.getDescribingTextForHtmlEmailInput(tmpHtmlEmailInput);
+    Assert.assertEquals("[HtmlEmailInput]", tmpResult);
+  }
+
+  @Test
+  public void getDescribingTextFor_HtmlEmailInput_Name() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input name='EmailName' type='email' value='admin@wetator.org'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+
+    final HtmlEmailInput tmpHtmlEmailInput = (HtmlEmailInput) tmpForm.getFirstChild();
+
+    String tmpResult;
+    tmpResult = new HtmlUnitInputEmail(tmpHtmlEmailInput).getDescribingText();
+    Assert.assertEquals("[HtmlEmailInput (name='EmailName')]", tmpResult);
+
+    tmpResult = HtmlElementUtil.getDescribingTextForHtmlEmailInput(tmpHtmlEmailInput);
+    Assert.assertEquals("[HtmlEmailInput (name='EmailName')]", tmpResult);
+  }
+
+  @Test
+  public void getDescribingTextFor_HtmlEmailInput_Id() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input id='tx' type='email' value='admin@wetator.org'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+
+    final HtmlEmailInput tmpHtmlEmailInput = (HtmlEmailInput) tmpForm.getFirstChild();
+
+    String tmpResult;
+    tmpResult = new HtmlUnitInputEmail(tmpHtmlEmailInput).getDescribingText();
+    Assert.assertEquals("[HtmlEmailInput (id='tx')]", tmpResult);
+
+    tmpResult = HtmlElementUtil.getDescribingTextForHtmlEmailInput(tmpHtmlEmailInput);
+    Assert.assertEquals("[HtmlEmailInput (id='tx')]", tmpResult);
+  }
+
+  @Test
+  public void getDescribingTextFor_HtmlEmailInput_Name_Id() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input id='tx' name='EmailName' type='email' value='@admin@wetator.org'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+
+    final HtmlEmailInput tmpHtmlEmailInput = (HtmlEmailInput) tmpForm.getFirstChild();
+
+    String tmpResult;
+    tmpResult = new HtmlUnitInputEmail(tmpHtmlEmailInput).getDescribingText();
+    Assert.assertEquals("[HtmlEmailInput (id='tx') (name='EmailName')]", tmpResult);
+
+    tmpResult = HtmlElementUtil.getDescribingTextForHtmlEmailInput(tmpHtmlEmailInput);
+    Assert.assertEquals("[HtmlEmailInput (id='tx') (name='EmailName')]", tmpResult);
   }
 
   @Test

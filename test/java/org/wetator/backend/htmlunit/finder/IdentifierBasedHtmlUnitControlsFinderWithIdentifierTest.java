@@ -34,6 +34,7 @@ import org.wetator.backend.htmlunit.control.identifier.HtmlUnitAnchorIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitButtonIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputButtonIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputCheckBoxIdentifier;
+import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputEmailIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputFileIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputImageIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputPasswordIdentifier;
@@ -51,6 +52,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
 import com.gargoylesoftware.htmlunit.html.HtmlButtonInput;
 import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
+import com.gargoylesoftware.htmlunit.html.HtmlEmailInput;
 import com.gargoylesoftware.htmlunit.html.HtmlFileInput;
 import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
 import com.gargoylesoftware.htmlunit.html.HtmlOption;
@@ -67,6 +69,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
  * of control-specific identifiers.
  *
  * @author tobwoerk
+ * @author rbri
+ *
  * @see IdentifierBasedHtmlUnitControlsFinderWithoutIdentifierTest
  */
 @RunWith(Parameterized.class)
@@ -109,6 +113,14 @@ public class IdentifierBasedHtmlUnitControlsFinderWithIdentifierTest
             new ExpectedControl(HtmlButtonInput.class, "inputButton-value"),
             new ExpectedControl(HtmlButtonInput.class, "inputButton")),
         HtmlUnitInputButtonIdentifier.class
+      },
+
+      { inputEmail("inputEmail-before").inputEmail("inputEmail-value").value(CONTENT).inputEmail("inputEmail-between").inputEmail("inputEmail", CONTENT).inputEmail("inputEmail-after"),
+        new SortedEntryExpectation(
+            new ExpectedControl(HtmlEmailInput.class, "inputEmail"),
+            new ExpectedControl(HtmlEmailInput.class, "inputEmail-between"), // FIXME inputText.value special desired?
+            new ExpectedControl(HtmlEmailInput.class, "inputEmail-after")),
+        HtmlUnitInputEmailIdentifier.class
       },
 
       { inputFile("inputFile-before").inputFile("inputFile", CONTENT).inputFile("inputFile-after"),

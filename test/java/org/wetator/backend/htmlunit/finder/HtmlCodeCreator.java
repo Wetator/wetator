@@ -22,6 +22,7 @@ import org.apache.commons.lang3.StringUtils;
  * Creator for HTML code of clickable elements.
  *
  * @author tobwoerk
+ * @author rbri
  */
 public abstract class HtmlCodeCreator {
 
@@ -106,6 +107,13 @@ public abstract class HtmlCodeCreator {
   static String inputText(final String anInputID, final String aValue, final String aPlaceholder, final String aStyle,
       final boolean anIsListening) {
     return input("text", anInputID, anIsListening, aStyle,
+        (aPlaceholder != null ? " placeholder='" + aPlaceholder + '\'' : "")
+            + (aValue != null ? (aPlaceholder != null ? ' ' : "") + "value='" + aValue + '\'' : ""));
+  }
+
+  static String inputEmail(final String anInputID, final String aValue, final String aPlaceholder, final String aStyle,
+      final boolean anIsListening) {
+    return input("email", anInputID, anIsListening, aStyle,
         (aPlaceholder != null ? " placeholder='" + aPlaceholder + '\'' : "")
             + (aValue != null ? (aPlaceholder != null ? ' ' : "") + "value='" + aValue + '\'' : ""));
   }

@@ -34,6 +34,7 @@ import org.wetator.backend.htmlunit.control.identifier.HtmlUnitAnchorIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitButtonIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputButtonIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputCheckBoxIdentifier;
+import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputEmailIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputFileIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputImageIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputPasswordIdentifier;
@@ -54,6 +55,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
  * visibility.
  *
  * @author tobwoerk
+ * @author rbri
  */
 @RunWith(Parameterized.class)
 public class IdentifierBasedHtmlUnitControlsFinderVisibilityTest
@@ -96,6 +98,11 @@ public class IdentifierBasedHtmlUnitControlsFinderVisibilityTest
       { inputButton("dn", CONTENT).style(DISPLAY_NONE).inputButton("vh", CONTENT).style(VISIBILITY_HIDDEN),
         null,
         HtmlUnitInputButtonIdentifier.class
+      },
+
+      { inputEmail("dn", CONTENT).style(DISPLAY_NONE).inputEmail("vh", CONTENT).style(VISIBILITY_HIDDEN),
+        null,
+        HtmlUnitInputEmailIdentifier.class
       },
 
       { inputFile("dn", CONTENT).style(DISPLAY_NONE).inputFile("vh", CONTENT).style(VISIBILITY_HIDDEN),

@@ -36,6 +36,7 @@ import org.wetator.backend.htmlunit.control.identifier.HtmlUnitAnchorIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitButtonIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputButtonIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputCheckBoxIdentifier;
+import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputEmailIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputFileIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputImageIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputPasswordIdentifier;
@@ -53,6 +54,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
 import com.gargoylesoftware.htmlunit.html.HtmlButtonInput;
 import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
+import com.gargoylesoftware.htmlunit.html.HtmlEmailInput;
 import com.gargoylesoftware.htmlunit.html.HtmlFileInput;
 import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
 import com.gargoylesoftware.htmlunit.html.HtmlOption;
@@ -69,6 +71,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
  * {@link ControlFeature#FOCUS} showing that the use of <code>tabindex</code> currently makes no difference.
  *
  * @author tobwoerk
+ * @author rbri
  */
 @RunWith(Parameterized.class)
 public class IdentifierBasedHtmlUnitControlsFinderFocusTest extends AbstractIdentifierBasedHtmlUnitControlsFinderTest {
@@ -120,6 +123,13 @@ public class IdentifierBasedHtmlUnitControlsFinderFocusTest extends AbstractIden
         new SortedEntryExpectation(
             new ExpectedControl(HtmlButtonInput.class, "inputButton")),
         HtmlUnitInputButtonIdentifier.class
+      },
+
+      { inputEmail("inputEmail-before").inputEmail("inputEmail", CONTENT).inputEmail("inputEmail-after"),
+        new SortedEntryExpectation(
+            new ExpectedControl(HtmlEmailInput.class, "inputEmail"),
+            new ExpectedControl(HtmlEmailInput.class, "inputEmail-after")),
+        HtmlUnitInputEmailIdentifier.class
       },
 
       { inputFile("inputFile-before").inputFile("inputFile", CONTENT).inputFile("inputFile-after"),

@@ -30,6 +30,7 @@ import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.WeightedControlList.Entry;
 import org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier;
+import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputEmailIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputFileIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputPasswordIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputTextIdentifier;
@@ -67,6 +68,25 @@ public class SettableHtmlUnitControlsFinderTest {
     final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "");
 
     assertEquals(0, tmpEntriesSorted.size());
+  }
+
+  @Test
+  public void inputEmail() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input id='otherId' type='email' value='SetMe'>"
+        + "<input id='myId' type='email' value='SetMe'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    final List<Entry> tmpEntriesSorted = find(tmpHtmlCode, "myId", HtmlUnitInputEmailIdentifier.class);
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlEmailInput (id='myId')] found by: BY_ID deviation: 0 distance: 5 start: 5 hierarchy: 0>1>3>4>6 index: 6",
+        tmpEntriesSorted.get(0).toString());
   }
 
   @Test

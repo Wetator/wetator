@@ -26,6 +26,8 @@ import java.util.List;
  * avoid.
  *
  * @author tobwoerk
+ * @author rbri
+ *
  * @see HtmlCodeSelectBuilder
  * @see HtmlCodeTableBuilder
  */
@@ -59,6 +61,7 @@ public class HtmlCodeBuilder {
     DIV,
     IMAGE,
     INPUT_BUTTON,
+    INPUT_EMAIL,
     INPUT_FILE,
     INPUT_IMAGE,
     INPUT_PASSWORD,
@@ -175,6 +178,14 @@ public class HtmlCodeBuilder {
     return add(ElementType.INPUT_TEXT, anId);
   }
 
+  public HtmlCodeBuilder inputEmail(final String anId, final String aPlaceholder) {
+    return inputEmail(anId).contain(aPlaceholder);
+  }
+
+  public HtmlCodeBuilder inputEmail(final String anId) {
+    return add(ElementType.INPUT_EMAIL, anId);
+  }
+
   public HtmlCodeBuilder label(final String aForId, final HtmlCodeBuilder aContent) {
     return label(aForId, aContent.build());
   }
@@ -275,6 +286,10 @@ public class HtmlCodeBuilder {
         case INPUT_BUTTON:
           tmpHtml.append(
               HtmlCodeCreator.inputButton(tmpElement.id, tmpElement.value, tmpElement.style, tmpElement.listen));
+          break;
+        case INPUT_EMAIL:
+          tmpHtml.append(HtmlCodeCreator.inputEmail(tmpElement.id, tmpElement.value, tmpElement.content,
+              tmpElement.style, tmpElement.listen));
           break;
         case INPUT_FILE:
           tmpHtml.append(

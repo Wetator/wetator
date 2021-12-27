@@ -34,6 +34,7 @@ import org.wetator.backend.htmlunit.control.HtmlUnitButton;
 import org.wetator.backend.htmlunit.control.HtmlUnitImage;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputButton;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputCheckBox;
+import org.wetator.backend.htmlunit.control.HtmlUnitInputEmail;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputFile;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputImage;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputPassword;
@@ -59,6 +60,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
  * Common ground for {@link IdentifierBasedHtmlUnitControlsFinder} tests.
  *
  * @author tobwoerk
+ * @author rbri
  */
 public abstract class AbstractIdentifierBasedHtmlUnitControlsFinderTest {
 
@@ -83,6 +85,7 @@ public abstract class AbstractIdentifierBasedHtmlUnitControlsFinderTest {
     repository.add(HtmlUnitImage.class);
     repository.add(HtmlUnitInputButton.class);
     repository.add(HtmlUnitInputCheckBox.class);
+    repository.add(HtmlUnitInputEmail.class);
     repository.add(HtmlUnitInputFile.class);
     repository.add(HtmlUnitInputImage.class);
     repository.add(HtmlUnitInputPassword.class);
@@ -257,6 +260,14 @@ public abstract class AbstractIdentifierBasedHtmlUnitControlsFinderTest {
 
   protected static HtmlCodeBuilder inputText(final String anId) {
     return new HtmlCodeBuilder().inputText(anId);
+  }
+
+  protected static HtmlCodeBuilder inputEmail(final String anId, final String aPlaceholder) {
+    return new HtmlCodeBuilder().inputEmail(anId, aPlaceholder);
+  }
+
+  protected static HtmlCodeBuilder inputEmail(final String anId) {
+    return new HtmlCodeBuilder().inputEmail(anId);
   }
 
   protected static HtmlCodeBuilder label(final String anId, final HtmlCodeBuilder aContent) {
