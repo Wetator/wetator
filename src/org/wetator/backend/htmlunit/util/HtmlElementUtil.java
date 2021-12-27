@@ -25,6 +25,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlBody;
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
 import com.gargoylesoftware.htmlunit.html.HtmlButtonInput;
 import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
+import com.gargoylesoftware.htmlunit.html.HtmlEmailInput;
 import com.gargoylesoftware.htmlunit.html.HtmlFileInput;
 import com.gargoylesoftware.htmlunit.html.HtmlHiddenInput;
 import com.gargoylesoftware.htmlunit.html.HtmlImage;
@@ -42,6 +43,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 import com.gargoylesoftware.htmlunit.html.HtmlTextArea;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
+import com.gargoylesoftware.htmlunit.html.HtmlUrlInput;
 import com.gargoylesoftware.htmlunit.javascript.host.css.CSSStyleDeclaration;
 import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLElement;
 import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLLinkElement;
@@ -325,6 +327,26 @@ public final class HtmlElementUtil {
    */
   public static String getDescribingTextForHtmlTextArea(final HtmlTextArea anHtmlTextArea) {
     return DescribingTextBuilder.createDefault(anHtmlTextArea).build();
+  }
+
+  /**
+   * Generates a describing text for the {@link HtmlEmailInput}.
+   *
+   * @param anHtmlEmailInput the control
+   * @return the describing text
+   */
+  public static String getDescribingTextForHtmlEmailInput(final HtmlEmailInput anHtmlEmailInput) {
+    return DescribingTextBuilder.createDefault(anHtmlEmailInput).build();
+  }
+
+  /**
+   * Generates a describing text for the {@link HtmlUrlInput}.
+   *
+   * @param anHtmlUrlInput the control
+   * @return the describing text
+   */
+  public static String getDescribingTextForHtmlUrlInput(final HtmlUrlInput anHtmlUrlInput) {
+    return DescribingTextBuilder.createDefault(anHtmlUrlInput).build();
   }
 
   /**

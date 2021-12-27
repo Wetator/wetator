@@ -45,6 +45,7 @@ import org.wetator.backend.htmlunit.control.HtmlUnitButton;
 import org.wetator.backend.htmlunit.control.HtmlUnitImage;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputButton;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputCheckBox;
+import org.wetator.backend.htmlunit.control.HtmlUnitInputEmail;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputFile;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputImage;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputPassword;
@@ -175,6 +176,7 @@ public final class HtmlUnitBrowser implements IBrowser {
     controlRepository.add(HtmlUnitImage.class);
     controlRepository.add(HtmlUnitInputButton.class);
     controlRepository.add(HtmlUnitInputCheckBox.class);
+    controlRepository.add(HtmlUnitInputEmail.class);
     controlRepository.add(HtmlUnitInputFile.class);
     controlRepository.add(HtmlUnitInputImage.class);
     controlRepository.add(HtmlUnitInputPassword.class);
