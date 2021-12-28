@@ -450,7 +450,7 @@ public final class XHtmlOutputter {
 
       final URL tmpBaseUrl = htmlPage.getWebResponse().getWebRequest().getUrl();
 
-      final Map<String, DomAttr> tmpAttributes = tmpDomElement.getAttributesMap();
+      final Map<String, DomAttr> tmpAttributes = new HashMap<>(tmpDomElement.getAttributesMap());
 
       // some HtmlUnitControls are special
       if (tmpIsHtmlOption && ((HtmlOption) tmpDomElement).isSelected()) {
