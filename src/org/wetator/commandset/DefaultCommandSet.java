@@ -40,6 +40,7 @@ import org.wetator.backend.control.IDeselectable;
 import org.wetator.backend.control.IDisableable;
 import org.wetator.backend.control.ISelectable;
 import org.wetator.backend.control.ISettable;
+import org.wetator.backend.htmlunit.HtmlUnitBrowser;
 import org.wetator.core.Command;
 import org.wetator.core.ForceExecution;
 import org.wetator.core.ICommandImplementation;
@@ -81,7 +82,9 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     registerCommand("set", new CommandSet());
     registerCommand("select", new CommandSelect());
     registerCommand("deselect", new CommandDeselect());
+
     registerCommand("mouse-over", new CommandMouseOver());
+    registerCommand("confirm-next", new CommandConfirmNext());
 
     registerCommand("assert-title", new CommandAssertTitle());
     registerCommand("assert-content", new CommandAssertContent());
@@ -651,6 +654,34 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       tmpBrowser.markControls(tmpControl);
       final boolean tmpIsSelected = tmpControl.isSelected(aContext);
       Assert.assertFalse(tmpIsSelected, "elementNotDeselected", tmpControl.getDescribingText());
+    }
+  }
+
+  /**
+   * Command 'confirm-next'.
+   */
+  public final class CommandConfirmNext implements ICommandImplementation {
+    @Override
+    public void execute(final WetatorContext aContext, final Command aCommand)
+        throws CommandException, InvalidInputException {
+      final SecretString tmpButton = aCommand.getRequiredFirstParameterValue(aContext);
+      if (!"ok".equalsIgnoreCase(tmpButton.getValue()) && !"cancel".equalsIgnoreCase(tmpButton.getValue())) {
+        final String tmpMessage = Messages.getMessage("confirmationOkOrCancel", tmpButton.toString());
+        throw new InvalidInputException(tmpMessage);
+      }
+
+      final ContentPattern tmpPattern = new ContentPattern(aCommand.getRequiredSecondParameterValue(aContext));
+
+      final IBrowser tmpBrowser = getBrowser(aContext);
+      if (tmpBrowser instanceof HtmlUnitBrowser) {
+        final HtmlUnitBrowser tmpHtmlUnitBrowser = (HtmlUnitBrowser) tmpBrowser;
+
+        if ("ok".equalsIgnoreCase(tmpButton.getValue())) {
+          tmpHtmlUnitBrowser.chooseOkOnNextConfirmFor(tmpPattern);
+        } else {
+          tmpHtmlUnitBrowser.chooseCancelOnNextConfirmFor(tmpPattern);
+        }
+      }
     }
   }
 

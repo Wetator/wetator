@@ -20,8 +20,10 @@ import java.io.File;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.exception.InvalidInputException;
 import org.wetator.test.AbstractWebServerTest;
+import org.wetator.test.junit.BrowserRunner.Browsers;
 
 /**
  * @author frank.danek
@@ -377,6 +379,16 @@ public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
     executeTestFile("use_module.wet");
 
     Assert.assertEquals(13, getSteps());
+    Assert.assertEquals(0, getFailures());
+    Assert.assertEquals(0, getErrors());
+  }
+
+  @Test
+  @Browsers({ BrowserType.FIREFOX_ESR })
+  public void confirm() throws InvalidInputException {
+    executeTestFile("confirm.xml");
+
+    Assert.assertEquals(20, getSteps());
     Assert.assertEquals(0, getFailures());
     Assert.assertEquals(0, getErrors());
   }
