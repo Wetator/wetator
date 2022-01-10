@@ -1,0 +1,29 @@
+open-url           || /
+assert-title       || </> htmx - Examples
+
+click-on           || Delete Row
+assert-title       || </> htmx - high power tools for html
+assert-content     || Delete Row
+assert-content     || Demo
+assert-content     || Name Email Status
+assert-content     || Joe Smith joe@smith.org Active DELETE
+assert-content     || Angie MacDowell angie@macdowell.org Active DELETE
+assert-content     || Fuqua Tarkenton fuqua@tarkenton.org Active DELETE
+assert-content     || Kim Yee kim@yee.org Inactive DELETE
+assert-content     || Name Email Status, Joe Smith, Angie MacDowell, Fuqua Tarkenton, Kim Yee
+
+# this uses a confirm dialog and per default Wetator presses the OK button
+click-on           || Angie MacDowell > DELETE
+assert-content     || Joe Smith joe@smith.org Active DELETE
+assert-content     || Fuqua Tarkenton fuqua@tarkenton.org Active DELETE
+assert-content     || Kim Yee kim@yee.org Inactive DELETE
+assert-content     || Name Email Status, Joe Smith, ~Angie MacDowell, Fuqua Tarkenton, Kim Yee
+
+# test case for cancel confirmation
+# for the moment you have to include the incubator command set
+confirm-next       || Cancel || Are you sure?
+click-on           || kim@yee.org > DELETE
+assert-content     || Joe Smith joe@smith.org Active DELETE
+assert-content     || Fuqua Tarkenton fuqua@tarkenton.org Active DELETE
+assert-content     || Kim Yee kim@yee.org Inactive DELETE
+assert-content     || Name Email Status, Joe Smith, ~Angie MacDowell, Fuqua Tarkenton, Kim Yee

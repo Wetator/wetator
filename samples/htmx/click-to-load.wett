@@ -1,0 +1,16 @@
+open-url           || /
+assert-title       || </> htmx - Examples
+
+click-on           || Click To Load
+assert-title       || </> htmx - high power tools for html
+assert-content     || Click To Load
+assert-content     || Demo
+assert-content     || Name Email ID
+assert-content     || Agent Smith void10@null.org
+# make sure there is no other agent between #19 and the button
+assert-content     || Agent Smith void19@null.org, ~Agent Smith, LOAD MORE AGENTS
+
+click-on           || LOAD MORE AGENTS
+assert-content     || Agent Smith void10@null.org
+assert-content     || Agent Smith void20@null.org
+assert-content     || Agent Smith void29@null.org, ~Agent Smith, LOAD MORE AGENTS

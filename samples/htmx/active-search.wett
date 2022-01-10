@@ -1,0 +1,11 @@
+open-url           || /
+assert-title       || </> htmx - Examples
+
+click-on           || Progress Bar
+assert-title       || </> htmx - high power tools for html
+assert-content     || Progress Bar
+assert-content     || Demo Start Progress START JOB
+
+click-on           || START JOB
+assert-content     || Demo Running
+assert-content     || Demo Complete RESTART JOB     || 10

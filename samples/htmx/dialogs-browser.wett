@@ -1,0 +1,8 @@
+open-url           || /
+assert-title       || </> htmx - Examples
+
+click-on           || Dialogs - Browser
+assert-title       || </> htmx - high power tools for html
+assert-content     || Demo
+
+click-on           || PROMPT SUBMISSION

@@ -1,0 +1,20 @@
+open-url           || /
+assert-title       || </> htmx - Examples
+
+click-on           || Value Select
+assert-title       || </> htmx - high power tools for html
+assert-content     || Cascading Selects
+#assert-content    || Demo
+#assert-content    || Pick A Make/Model
+#assert-content    || Make Audi Toyota BMW
+#assert-content    || Model A1 A3 A6
+#assert-selected   || Audi
+#assert-selected   || A1
+
+select             || Toyota
+assert-content     || Model Landcruiser Tacoma Yaris
+assert-selected    || Landcruiser
+
+#select            || Audi
+#assert-content    || Model A1 A4 A6
+#assert-selected   || A1

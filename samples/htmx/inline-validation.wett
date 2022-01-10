@@ -1,0 +1,25 @@
+open-url           || /
+assert-title       || </> htmx - Examples
+
+click-on           || Inline Validation
+assert-title       || </> htmx - high power tools for html
+assert-content     || Inline Validation
+assert-content     || Demo
+assert-content     || Signup Form, Enter an email into the input below and on tab out it will be validated. Only "test@test.com" will pass.
+assert-content     || Email Address
+assert-content     || First Name
+assert-content     || Last Name
+
+# make sure the field are initially empty
+assert-set         || Email Address  ||
+assert-set         || First Name     ||
+assert-set         || Last Name      ||
+
+set                || Email Address  || www.wetator.org
+# move the focus
+set                || First Name     || rbri
+assert-content     || Please enter a valid email address
+
+set                || Email Address  || test@test.com
+set                || First Name     || rbri
+assert-content     || Signup Form, ~Please enter a valid email address

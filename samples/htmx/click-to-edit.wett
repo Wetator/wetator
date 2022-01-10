@@ -1,18 +1,19 @@
-open-url       || https://htmx.org/examples/
-assert-title   || </> htmx - Examples
+open-url           || /
+assert-title       || </> htmx - Examples
 
-click-on       || Click To Edit
-assert-title   || </> htmx - high power tools for html
-assert-content || Demo
-assert-content || First Name : Joe
-assert-content || Last Name : Blow
-assert-content || Email Address : joe@blow.com
+click-on           || Click To Edit
+assert-title       || </> htmx - high power tools for html
+assert-content     || Click To Edit
+assert-content     || Demo
+assert-content     || First Name : Joe
+assert-content     || Last Name : Blow
+assert-content     || Email Address : joe@blow.com
 
-click-on       || CLICK TO EDIT
-set            || First Name || Tina
-set            || Last Name || Tester
-set            || Email Address || tina@wetator.org
-click-on       || SUBMIT
-assert-content || First Name : Tina
-assert-content || Last Name : Tester
-assert-content || Email Address : tina@wetator.org
+click-on           || CLICK TO EDIT
+set                || First Name || Tina
+set                || Last Name || Tester
+set                || Email Address || tina@wetator.org
+click-on           || SUBMIT
+assert-content     || First Name : Tina
+assert-content     || Last Name : Tester
+assert-content     || Email Address : tina@wetator.org

@@ -1,0 +1,14 @@
+open-url           || /
+assert-title       || </> htmx - Examples
+
+click-on           || Active Search
+assert-title       || </> htmx - high power tools for html
+assert-content     || Active Search
+assert-content     || Demo
+assert-content     || First Name Last Name Email
+
+set                || Begin Typing To Search Users || spe
+assert-content     || First Name Last Name Email, Jonah Cherry, Katelyn Koch, Cassady Farrell, Ralph Doyle
+
+set                || Begin Typing To Search Users || sped
+assert-content     || First Name Last Name Email, Jonah Cherry, ~Katelyn Koch, ~Cassady Farrell, ~Ralph Doyle
