@@ -23,9 +23,11 @@ import java.lang.reflect.Field;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.apache.commons.io.output.FileWriterWithEncoding;
 import org.apache.commons.lang3.StringUtils;
@@ -462,9 +464,19 @@ public final class XHtmlOutputter {
         output.print(" checked=\"checked\"");
       }
 
+      // fixed order for readability and testability
+      final List<String> tmpSortedAttributeNames = tmpAttributes.keySet().stream().map(k -> k.toLowerCase(Locale.ROOT))
+          .sorted().collect(Collectors.toList());
+      if (tmpSortedAttributeNames.remove("name")) {
+        tmpSortedAttributeNames.add(0, "name");
+      }
+      if (tmpSortedAttributeNames.remove("id")) {
+        tmpSortedAttributeNames.add(0, "id");
+      }
+
       boolean tmpStyleDefined = false;
-      for (final DomAttr tmpAttribute : tmpAttributes.values()) {
-        final String tmpAttributeName = tmpAttribute.getNodeName().toLowerCase(Locale.ROOT);
+      for (final String tmpAttributeName : tmpSortedAttributeNames) {
+        final DomAttr tmpAttribute = tmpAttributes.get(tmpAttributeName);
 
         if (!IGNORED_ATTRIBUTES.contains(tmpAttributeName)) {
 

@@ -48,7 +48,7 @@ public class XHtmlOutputterHtmlPageTest {
       + "<head> " + "<script src='../../resources/jquery-1.10.2.min.js'></script> "
       + "<script src='../../resources/jquery.color-2.1.2.min.js'></script> "
       + "<script src='../../resources/wetator_report.js'></script> "
-      + "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=ISO-8859-1\"/></head><body style=\"display: block\">";
+      + "<meta content=\"text/html; charset=ISO-8859-1\" http-equiv=\"Content-Type\"/></head><body style=\"display: block\">";
   private static final String EXPECTED_TRAILING = "<script> highlight(); </script> </body> </html>";
 
   private void testXHtmlOutput(final String anExpected, final String anHtmlCode) throws IOException {
@@ -278,8 +278,8 @@ public class XHtmlOutputterHtmlPageTest {
     String tmpExpected =
         EXPECTED_LEADING
           + " <form style=\"display: block\" onsubmit=\"return false;\"> "
-            + "<input id=\"tst\" type=\"radio\" name=\"gender\" value=\"male\" style=\"display: inline-block\"/> Male "
-            + "<input checked=\"checked\" type=\"radio\" name=\"gender\" value=\"female\" style=\"display: inline-block\"/> Female "
+            + "<input id=\"tst\" name=\"gender\" type=\"radio\" value=\"male\" style=\"display: inline-block\"/> Male "
+            + "<input checked=\"checked\" name=\"gender\" type=\"radio\" value=\"female\" style=\"display: inline-block\"/> Female "
           + "</form> "
         + EXPECTED_TRAILING;
     // @formatter:on
@@ -296,8 +296,8 @@ public class XHtmlOutputterHtmlPageTest {
     tmpExpected =
         EXPECTED_LEADING
           + " <form style=\"display: block\" onsubmit=\"return false;\"> "
-            + "<input checked=\"checked\" id=\"tst\" type=\"radio\" name=\"gender\" value=\"male\" style=\"display: inline-block\"/> Male "
-            + "<input type=\"radio\" name=\"gender\" value=\"female\" style=\"display: inline-block\"/> Female "
+            + "<input checked=\"checked\" id=\"tst\" name=\"gender\" type=\"radio\" value=\"male\" style=\"display: inline-block\"/> Male "
+            + "<input name=\"gender\" type=\"radio\" value=\"female\" style=\"display: inline-block\"/> Female "
           + "</form> "
         + EXPECTED_TRAILING;
     // @formatter:on
@@ -324,7 +324,7 @@ public class XHtmlOutputterHtmlPageTest {
     String tmpExpected =
         EXPECTED_LEADING
           + " <form style=\"display: block\" onsubmit=\"return false;\"> "
-            + "<input type=\"text\" name=\"input\" value=\"1234\" style=\"display: inline-block\"/> "
+            + "<input name=\"input\" type=\"text\" value=\"1234\" style=\"display: inline-block\"/> "
           + "</form> "
         + EXPECTED_TRAILING;
     // @formatter:on
@@ -351,7 +351,7 @@ public class XHtmlOutputterHtmlPageTest {
     tmpExpected =
         EXPECTED_LEADING
           + " <form style=\"display: block\" onsubmit=\"return false;\"> "
-            + "<input id=\"tst\" type=\"text\" name=\"input\" value=\"1234\" style=\"display: inline-block\"/> "
+            + "<input id=\"tst\" name=\"input\" type=\"text\" value=\"1234\" style=\"display: inline-block\"/> "
           + "</form> "
         + EXPECTED_TRAILING;
     // @formatter:on
@@ -378,7 +378,7 @@ public class XHtmlOutputterHtmlPageTest {
     String tmpExpected =
         EXPECTED_LEADING
           + " <form style=\"display: block\" onsubmit=\"return false;\"> "
-            + "<input type=\"password\" name=\"secret\" value=\"****\" style=\"display: inline-block\"/> "
+            + "<input name=\"secret\" type=\"password\" value=\"****\" style=\"display: inline-block\"/> "
           + "</form> "
         + EXPECTED_TRAILING;
     // @formatter:on
@@ -405,7 +405,7 @@ public class XHtmlOutputterHtmlPageTest {
     tmpExpected =
         EXPECTED_LEADING
           + " <form style=\"display: block\" onsubmit=\"return false;\"> "
-            + "<input id=\"tst\" type=\"password\" name=\"secret\" value=\"****\" style=\"display: inline-block\"/> "
+            + "<input id=\"tst\" name=\"secret\" type=\"password\" value=\"****\" style=\"display: inline-block\"/> "
           + "</form> "
         + EXPECTED_TRAILING;
     // @formatter:on
