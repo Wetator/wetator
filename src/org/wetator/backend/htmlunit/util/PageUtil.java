@@ -67,7 +67,7 @@ public final class PageUtil {
       final HtmlPage tmpPage = new HtmlPage(tmpWebResponse, tmpWebWindow);
       tmpWebWindow.setEnclosedPage(tmpPage);
 
-      tmpHtmlParser.parse(tmpWebResponse, tmpPage, true);
+      tmpHtmlParser.parse(tmpWebResponse, tmpPage, true, false);
       return tmpPage;
     } finally {
       tmpWebClient.close();
@@ -105,7 +105,7 @@ public final class PageUtil {
       final XHtmlPage tmpPage = new XHtmlPage(tmpWebResponse, tmpWebWindow);
       tmpWebWindow.setEnclosedPage(tmpPage);
 
-      tmpHtmlParser.parse(tmpWebResponse, tmpPage, true);
+      tmpHtmlParser.parse(tmpWebResponse, tmpPage, true, false);
       return tmpPage;
     } finally {
       tmpWebClient.close();

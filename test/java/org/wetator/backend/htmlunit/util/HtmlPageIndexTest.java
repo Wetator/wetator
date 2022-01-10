@@ -729,7 +729,7 @@ public class HtmlPageIndexTest {
       tmpHtmlPage = new HtmlPage(tmpWebResponse, tmpWebWindow);
       tmpWebWindow.setEnclosedPage(tmpHtmlPage);
 
-      tmpHtmlParser.parse(tmpWebResponse, tmpHtmlPage, true);
+      tmpHtmlParser.parse(tmpWebResponse, tmpHtmlPage, true, false);
 
       tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
@@ -2302,7 +2302,7 @@ public class HtmlPageIndexTest {
       tmpHtmlPage = new HtmlPage(tmpWebResponse, tmpWebWindow);
       tmpWebWindow.setEnclosedPage(tmpHtmlPage);
 
-      tmpHtmlParser.parse(tmpWebResponse, tmpHtmlPage, true);
+      tmpHtmlParser.parse(tmpWebResponse, tmpHtmlPage, true, false);
 
       tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
