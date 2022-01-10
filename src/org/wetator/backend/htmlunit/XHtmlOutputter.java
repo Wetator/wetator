@@ -328,7 +328,7 @@ public final class XHtmlOutputter {
     } else if (aDomNode instanceof HtmlUnknownElement) {
       output.print('<');
       output.print(((HtmlUnknownElement) aDomNode).getQualifiedName());
-      writeAttributes(aDomNode, aContext);
+      writeAttributes(aDomNode);
       output.println(">");
     } else if (aDomNode instanceof DomElement) {
       if (aDomNode instanceof HtmlPreformattedText) {
@@ -337,7 +337,7 @@ public final class XHtmlOutputter {
 
       output.print('<');
       output.print(determineTag(aDomNode));
-      writeAttributes(aDomNode, aContext);
+      writeAttributes(aDomNode);
 
       if (aDomNode instanceof HtmlForm) {
         // disable form submit
@@ -439,10 +439,9 @@ public final class XHtmlOutputter {
    * Writes the attributes of the tag.
    *
    * @param aDomNode the node to work on
-   * @param aContext the context of this process
    * @throws IOException in case of error
    */
-  private void writeAttributes(final DomNode aDomNode, final Context aContext) throws IOException {
+  private void writeAttributes(final DomNode aDomNode) throws IOException {
     if (aDomNode instanceof DomElement) {
       final DomElement tmpDomElement = (DomElement) aDomNode;
 
