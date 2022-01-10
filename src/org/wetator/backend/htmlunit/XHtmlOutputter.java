@@ -287,6 +287,7 @@ public final class XHtmlOutputter {
    * Helper rot writing subnodes.
    *
    * @param aDomNode the parent node
+   * @param aContext the context of this process
    * @throws IOException in case of error
    */
   private void writeSubNodes(final DomNode aDomNode, final Context aContext) throws IOException {
@@ -317,6 +318,7 @@ public final class XHtmlOutputter {
    * Writes the opening part of the tag.
    *
    * @param aDomNode the node to work on
+   * @param aContext the context of this process
    * @throws IOException in case of error
    */
   private void writeStartTag(final DomNode aDomNode, final Context aContext) throws IOException {
@@ -393,6 +395,7 @@ public final class XHtmlOutputter {
    * Writes the closing part of the tag.
    *
    * @param aDomNode the node to work on
+   * @param aContext the context of this process
    * @throws IOException in case of error
    */
   private void writeEndTag(final DomNode aDomNode, final Context aContext) throws IOException {
@@ -428,7 +431,6 @@ public final class XHtmlOutputter {
           output.print(">");
         }
       }
-
     }
     // ignore the unsupported ones because they are reported form the start tag handler
   }
@@ -437,6 +439,7 @@ public final class XHtmlOutputter {
    * Writes the attributes of the tag.
    *
    * @param aDomNode the node to work on
+   * @param aContext the context of this process
    * @throws IOException in case of error
    */
   private void writeAttributes(final DomNode aDomNode, final Context aContext) throws IOException {

@@ -40,10 +40,18 @@ public class XHtmlOutputterXHtmlPageTest {
       + "<html xmlns=\"http://www.w3.org/1999/xhtml\">\n";
   private static final String TRAILING = "\n</html>\n";
 
+  // @formatter:off
   private static final String EXPECTED_LEADING = "<?xml version=\"1.0\" encoding=\"UTF-8\"?> "
       + "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"> "
-      + "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\"> <!-- Browser URL: http://www.wetator.org/test.xhtml --> ";
-  private static final String EXPECTED_TRAILING = " </html>";
+      + "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\"> <!-- Browser URL: http://www.wetator.org/test.xhtml --> "
+      + "<head> "
+      + "<script src='../../resources/jquery-1.10.2.min.js'></script> "
+      + "<script src='../../resources/jquery.color-2.1.2.min.js'></script> "
+      + "<script src='../../resources/wetator_report.js'></script> "
+      + "</head>";
+  // @formatter:n
+
+      private static final String EXPECTED_TRAILING = " </html>";
 
   private void testXHtmlOutput(final String anExpected, final String anXHtmlCode) throws IOException {
     XHtmlPage tmpXHtmlPage = PageUtil.constructXHtmlPage(BrowserVersion.INTERNET_EXPLORER, anXHtmlCode);
@@ -71,11 +79,8 @@ public class XHtmlOutputterXHtmlPageTest {
   public void testSimpleWithJavascript() throws IOException {
     final String tmpXHtmlCode = LEADING + "<body><h1>Test</h1>"
         + "<script type=\"text/javascript\">alert('WETATOR');</script></body>" + TRAILING;
-    final String tmpExpected = EXPECTED_LEADING + "<head> "
-        + "<script src='../../resources/jquery-1.10.2.min.js'></script> "
-        + "<script src='../../resources/jquery.color-2.1.2.min.js'></script> "
-        + "<script src='../../resources/wetator_report.js'></script> "
-        + "</head><body style=\"display: block\"> <h1 style=\"display: block\">Test</h1> <script> highlight(); </script> </body>"
+    final String tmpExpected = EXPECTED_LEADING
+        + "<body style=\"display: block\"> <h1 style=\"display: block\">Test</h1> <script> highlight(); </script> </body>"
         + EXPECTED_TRAILING;
     testXHtmlOutput(tmpExpected, tmpXHtmlCode);
   }
@@ -83,11 +88,8 @@ public class XHtmlOutputterXHtmlPageTest {
   @Test
   public void specialChars() throws IOException {
     final String tmpHtmlCode = LEADING + "<h1>1&#160;2</h1>" + TRAILING;
-    final String tmpExpected = EXPECTED_LEADING + "<head> "
-        + "<script src='../../resources/jquery-1.10.2.min.js'></script> "
-        + "<script src='../../resources/jquery.color-2.1.2.min.js'></script> "
-        + "<script src='../../resources/wetator_report.js'></script> "
-        + "</head><body style=\"display: block\"> <h1 style=\"display: block\">1&#160;2</h1> <script> highlight(); </script> </body>"
+    final String tmpExpected = EXPECTED_LEADING
+        + "<body style=\"display: block\"> <h1 style=\"display: block\">1&#160;2</h1> <script> highlight(); </script> </body>"
         + EXPECTED_TRAILING;
     testXHtmlOutput(tmpExpected, tmpHtmlCode);
   }
@@ -112,11 +114,6 @@ public class XHtmlOutputterXHtmlPageTest {
     // @formatter:off
     String tmpExpected =
             EXPECTED_LEADING
-            + "<head> "
-              + "<script src='../../resources/jquery-1.10.2.min.js'></script> "
-              + "<script src='../../resources/jquery.color-2.1.2.min.js'></script> "
-              + "<script src='../../resources/wetator_report.js'></script> "
-            + "</head>"
             + "<body style=\"display: block\"> "
               + "<select style=\"display: inline-block\"> "
                 + "<option id=\"tst\">opt1</option> "
@@ -138,11 +135,6 @@ public class XHtmlOutputterXHtmlPageTest {
     // @formatter:off
     tmpExpected =
             EXPECTED_LEADING
-            + "<head> "
-              + "<script src='../../resources/jquery-1.10.2.min.js'></script> "
-              + "<script src='../../resources/jquery.color-2.1.2.min.js'></script> "
-              + "<script src='../../resources/wetator_report.js'></script> "
-            + "</head>"
             + "<body style=\"display: block\"> "
               + "<select style=\"display: inline-block\"> "
                 + "<option selected=\"selected\" id=\"tst\">opt1</option> "
@@ -175,11 +167,6 @@ public class XHtmlOutputterXHtmlPageTest {
     // @formatter:off
     String tmpExpected =
         EXPECTED_LEADING
-        + "<head> "
-          + "<script src='../../resources/jquery-1.10.2.min.js'></script> "
-          + "<script src='../../resources/jquery.color-2.1.2.min.js'></script> "
-          + "<script src='../../resources/wetator_report.js'></script> "
-        + "</head>"
         + "<body style=\"display: block\"> "
           + "<form style=\"display: block\" onsubmit=\"return false;\"> "
             + "<input id=\"tst\" type=\"radio\" name=\"gender\" value=\"male\" style=\"display: inline-block\"/> Male "
@@ -201,11 +188,6 @@ public class XHtmlOutputterXHtmlPageTest {
     // @formatter:off
     tmpExpected =
         EXPECTED_LEADING
-        + "<head> "
-          + "<script src='../../resources/jquery-1.10.2.min.js'></script> "
-          + "<script src='../../resources/jquery.color-2.1.2.min.js'></script> "
-          + "<script src='../../resources/wetator_report.js'></script> "
-        + "</head>"
         + "<body style=\"display: block\"> "
           + "<form style=\"display: block\" onsubmit=\"return false;\"> "
             + "<input checked=\"checked\" id=\"tst\" name=\"gender\" type=\"radio\" value=\"male\" style=\"display: inline-block\"/> Male "
