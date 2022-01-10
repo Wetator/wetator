@@ -17,6 +17,7 @@
 package org.wetator.backend.htmlunit;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.io.StringWriter;
@@ -410,5 +411,43 @@ public class XHtmlOutputterHtmlPageTest {
         + EXPECTED_TRAILING;
     // @formatter:on
     assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
+  }
+
+  @Test
+  public void pre() throws IOException {
+    // @formatter:off
+    String tmpHtmlCode =
+            LEADING
+              + " <pre>some text</pre>"
+            + TRAILING;
+    // @formatter:on
+
+    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode);
+    XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
+    StringWriter tmpWriter = new StringWriter();
+    tmpXHtmlOutputter.writeTo(tmpWriter);
+
+    String tmpExpected = "    <pre style=\"display: block\">some text</pre>";
+    assertTrue(tmpWriter.toString().contains(tmpExpected));
+
+    // @formatter:off
+    tmpHtmlCode =
+        LEADING
+          + " <pre><span>some</span> tex<b>t</b></pre>"
+        + TRAILING;
+    // @formatter:on
+
+    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode);
+    tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
+    tmpWriter = new StringWriter();
+    tmpXHtmlOutputter.writeTo(tmpWriter);
+
+    // @formatter:off
+    tmpExpected = "    <pre style=\"display: block\">"
+          + "<span style=\"display: inline\">some</span>"
+          + " tex<b style=\"display: inline\">t</b>"
+          + "</pre>";
+    // @formatter:on
+    assertTrue(tmpWriter.toString().contains(tmpExpected));
   }
 }

@@ -276,7 +276,7 @@ public final class XHtmlOutputter {
       output.println(
           "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">");
 
-      writeSubNodes(htmlPage);
+      writeSubNodes(htmlPage, new Context());
     } finally {
       // this closes the writer also
       output.close();
@@ -289,7 +289,7 @@ public final class XHtmlOutputter {
    * @param aDomNode the parent node
    * @throws IOException in case of error
    */
-  private void writeSubNodes(final DomNode aDomNode) throws IOException {
+  private void writeSubNodes(final DomNode aDomNode, final Context aContext) throws IOException {
     DomNode tmpChild = aDomNode.getFirstChild();
 
     while (null != tmpChild) {
@@ -299,13 +299,13 @@ public final class XHtmlOutputter {
           && !(tmpChild instanceof DomComment) && !(tmpChild instanceof HtmlBase)) {
 
         if (tmpChild instanceof HtmlCanvas) {
-          writeCanvasImage((HtmlCanvas) tmpChild);
+          writeCanvasImage((HtmlCanvas) tmpChild, aContext);
         } else {
-          writeStartTag(tmpChild);
+          writeStartTag(tmpChild, aContext);
           output.indent();
-          writeSubNodes(tmpChild);
+          writeSubNodes(tmpChild, aContext);
           output.unindent();
-          writeEndTag(tmpChild);
+          writeEndTag(tmpChild, aContext);
         }
       }
 
@@ -319,19 +319,23 @@ public final class XHtmlOutputter {
    * @param aDomNode the node to work on
    * @throws IOException in case of error
    */
-  private void writeStartTag(final DomNode aDomNode) throws IOException {
+  private void writeStartTag(final DomNode aDomNode, final Context aContext) throws IOException {
     if (aDomNode instanceof HtmlHtml) {
       output.println("<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">");
       output.print("<!-- Browser URL: ").print(htmlPage.getUrl().toExternalForm()).println(" -->");
     } else if (aDomNode instanceof HtmlUnknownElement) {
       output.print('<');
       output.print(((HtmlUnknownElement) aDomNode).getQualifiedName());
-      writeAttributes(aDomNode);
+      writeAttributes(aDomNode, aContext);
       output.println(">");
     } else if (aDomNode instanceof DomElement) {
+      if (aDomNode instanceof HtmlPreformattedText) {
+        aContext.insidePre++;
+      }
+
       output.print('<');
       output.print(determineTag(aDomNode));
-      writeAttributes(aDomNode);
+      writeAttributes(aDomNode, aContext);
 
       if (aDomNode instanceof HtmlForm) {
         // disable form submit
@@ -340,12 +344,12 @@ public final class XHtmlOutputter {
 
       if (EMPTY_TAGS.contains(aDomNode.getClass().getName())) {
         output.print('/');
-        if (HtmlElementUtil.isBlock(aDomNode)) {
+        if (HtmlElementUtil.isBlock(aDomNode) && aContext.insidePre == 0) {
           output.println(">");
         } else {
           output.print(">");
         }
-      } else if (SINGLE_LINE_TAGS.contains(aDomNode.getClass().getName())) {
+      } else if (SINGLE_LINE_TAGS.contains(aDomNode.getClass().getName()) || aContext.insidePre > 0) {
         output.print(">");
       } else {
         output.println(">");
@@ -374,7 +378,7 @@ public final class XHtmlOutputter {
 
           output.println(tmpText);
           output.unindent();
-        } else if (SINGLE_LINE_TAGS.contains(tmpParentNode.getClass().getName())) {
+        } else if (SINGLE_LINE_TAGS.contains(tmpParentNode.getClass().getName()) || aContext.insidePre > 0) {
           output.print(xmlUtil.normalizeBodyValue(tmpText));
         } else {
           output.println(xmlUtil.normalizeBodyValue(tmpText));
@@ -391,7 +395,7 @@ public final class XHtmlOutputter {
    * @param aDomNode the node to work on
    * @throws IOException in case of error
    */
-  private void writeEndTag(final DomNode aDomNode) throws IOException {
+  private void writeEndTag(final DomNode aDomNode, final Context aContext) throws IOException {
     if (aDomNode instanceof HtmlHtml) {
       output.println("</html>");
     } else if (aDomNode instanceof HtmlUnknownElement) {
@@ -410,16 +414,21 @@ public final class XHtmlOutputter {
         output.unindent();
       }
 
+      if (aDomNode instanceof HtmlPreformattedText) {
+        aContext.insidePre--;
+      }
+
       if (!EMPTY_TAGS.contains(aDomNode.getClass().getName())) {
         output.print("</");
         output.print(determineTag(aDomNode));
 
-        if (HtmlElementUtil.isBlock(aDomNode)) {
+        if (HtmlElementUtil.isBlock(aDomNode) && aContext.insidePre == 0) {
           output.println(">");
         } else {
           output.print(">");
         }
       }
+
     }
     // ignore the unsupported ones because they are reported form the start tag handler
   }
@@ -430,7 +439,7 @@ public final class XHtmlOutputter {
    * @param aDomNode the node to work on
    * @throws IOException in case of error
    */
-  private void writeAttributes(final DomNode aDomNode) throws IOException {
+  private void writeAttributes(final DomNode aDomNode, final Context aContext) throws IOException {
     if (aDomNode instanceof DomElement) {
       final DomElement tmpDomElement = (DomElement) aDomNode;
 
@@ -645,13 +654,13 @@ public final class XHtmlOutputter {
     return aDomNode.getClass().getName();
   }
 
-  private void writeCanvasImage(final HtmlCanvas aCanvas) throws IOException {
+  private void writeCanvasImage(final HtmlCanvas aCanvas, final Context aContext) throws IOException {
     output.print("<!-- ");
-    writeStartTag(aCanvas);
+    writeStartTag(aCanvas, aContext);
     output.indent();
-    writeSubNodes(aCanvas);
+    writeSubNodes(aCanvas, aContext);
     output.unindent();
-    writeEndTag(aCanvas);
+    writeEndTag(aCanvas, aContext);
     output.println("-->");
 
     final HTMLCanvasElement tmpCanvas = aCanvas.getScriptableObject();
@@ -673,4 +682,7 @@ public final class XHtmlOutputter {
     output.print("'>");
   }
 
+  private static final class Context {
+    private int insidePre;
+  }
 }
