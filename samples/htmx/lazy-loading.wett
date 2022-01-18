@@ -6,6 +6,7 @@ assert-title       || </> htmx - high power tools for html
 assert-content     || Lazy Loading
 assert-content     || Demo
 
-# TODO alt tag needed
-# assert-content   || Demo, ~tokyo.png
-# assert-content   || Demo, tokyo.png || 30
+
+# alt tag use for image content
+assert-content     || Demo, ~Tokyo Climate
+assert-content     || Demo, Tokyo Climate || 30
