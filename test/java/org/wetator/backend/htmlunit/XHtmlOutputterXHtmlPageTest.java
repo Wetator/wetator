@@ -61,8 +61,15 @@ public class XHtmlOutputterXHtmlPageTest {
   @Test
   public void testSimple() throws IOException {
     final String tmpXHtmlCode = LEADING + TRAILING;
+    // @formatter:off
     final String tmpExpected = EXPECTED_LEADING
+        + "<head> "
+          + "<script src='../../resources/jquery-1.10.2.min.js'></script> "
+          + "<script src='../../resources/jquery.color-2.1.2.min.js'></script> "
+          + "<script src='../../resources/wetator_report.js'></script> "
+        + "</head>"
         + "<body style=\"display: block\"> <script> highlight(); </script> </body>" + EXPECTED_TRAILING;
+    // @formatter:on
     testXHtmlOutput(tmpExpected, tmpXHtmlCode);
   }
 
