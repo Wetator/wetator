@@ -45,8 +45,8 @@ import org.wetator.backend.htmlunit.control.HtmlUnitButton;
 import org.wetator.backend.htmlunit.control.HtmlUnitImage;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputButton;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputCheckBox;
+import org.wetator.backend.htmlunit.control.HtmlUnitInputEmail;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputFile;
-import org.wetator.backend.htmlunit.control.HtmlUnitInputHidden;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputImage;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputPassword;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputRadioButton;
@@ -176,8 +176,8 @@ public final class HtmlUnitBrowser implements IBrowser {
     controlRepository.add(HtmlUnitImage.class);
     controlRepository.add(HtmlUnitInputButton.class);
     controlRepository.add(HtmlUnitInputCheckBox.class);
+    controlRepository.add(HtmlUnitInputEmail.class);
     controlRepository.add(HtmlUnitInputFile.class);
-    controlRepository.add(HtmlUnitInputHidden.class);
     controlRepository.add(HtmlUnitInputImage.class);
     controlRepository.add(HtmlUnitInputPassword.class);
     controlRepository.add(HtmlUnitInputRadioButton.class);
@@ -376,6 +376,12 @@ public final class HtmlUnitBrowser implements IBrowser {
     try {
       webClient.getPage(aUrl);
       waitForImmediateJobs();
+
+      final String tmpRequestedUrl = aUrl.toExternalForm();
+      final String tmpCurrentUrl = getCurrentPage().getUrl().toExternalForm();
+      if (!tmpRequestedUrl.equals(tmpCurrentUrl)) {
+        wetatorEngine.informListenersInfo("openUrlRedirected", tmpRequestedUrl, tmpCurrentUrl);
+      }
     } catch (final ScriptException e) {
       addFailure("javascriptError", new String[] { e.getMessage() }, e);
     } catch (final WrappedException e) {

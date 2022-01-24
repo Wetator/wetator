@@ -17,6 +17,8 @@
 package org.wetator.backend.htmlunit.util;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 import java.net.URL;
@@ -25,6 +27,8 @@ import java.util.Map;
 
 import org.junit.Ignore;
 import org.junit.Test;
+import org.wetator.backend.htmlunit.MouseAction;
+import org.wetator.util.FindSpot;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.ElementNotFoundException;
@@ -218,11 +222,12 @@ public class HtmlPageIndexTest {
         + "before"
         + "<b>1</b><big>2</big><em>3</em><i>4</i><small>5</small>"
         + "<strong>6</strong><sub>7</sub><sup>8</sup><ins>9</ins><del>10</del>"
+        + "<b> 11</b><b>12 </b><b>13</b> <b>14</b>"
         + "after"
         + "</body></html>";
     // @formatter:on
 
-    getText("before1 2 3 4 5 6 7 8 9 10after", tmpHtmlCode);
+    getText("before12345678910 1112 13 14after", tmpHtmlCode);
   }
 
   @Test
@@ -235,7 +240,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    getText("before1 2 3 4 5 6 after", tmpHtmlCode);
+    getText("before12345 6 after", tmpHtmlCode);
   }
 
   @Test
@@ -248,7 +253,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    getText("before1 2 \"3\" 4 5after", tmpHtmlCode);
+    getText("before12\"3\"45after", tmpHtmlCode);
   }
 
   @Test
@@ -257,16 +262,50 @@ public class HtmlPageIndexTest {
     final String tmpHtmlCode = "<html><body>"
         + "before"
         + "<h1>Heading1</h1>"
+        + "<h1>Heading1</h1>"
+        + "<h1> Heading1</h1>"
+        + "<h1>Heading1 </h1>"
+        + " <h1>Heading1</h1>"
+        + "<h1>Heading1</h1> "
         + "<h2>Heading2</h2>"
+        + "<h2>Heading2</h2>"
+        + "<h2> Heading2</h2>"
+        + "<h2>Heading2 </h2>"
+        + " <h2>Heading2</h2>"
+        + "<h2>Heading2</h2> "
         + "<h3>Heading3</h3>"
+        + "<h3>Heading3</h3>"
+        + "<h3> Heading3</h3>"
+        + "<h3>Heading3 </h3>"
+        + " <h3>Heading3</h3>"
+        + "<h3>Heading3</h3> "
         + "<h4>Heading4</h4>"
+        + "<h4>Heading4</h4>"
+        + "<h4> Heading4</h4>"
+        + "<h4>Heading4 </h4>"
+        + " <h4>Heading4</h4>"
+        + "<h4>Heading4</h4> "
         + "<h5>Heading5</h5>"
+        + "<h5>Heading5</h5>"
+        + "<h5> Heading5</h5>"
+        + "<h5>Heading5 </h5>"
+        + " <h5>Heading5</h5>"
+        + "<h5>Heading5</h5> "
         + "<h6>Heading6</h6>"
+        + "<h6>Heading6</h6>"
+        + "<h6> Heading6</h6>"
+        + "<h6>Heading6 </h6>"
+        + " <h6>Heading6</h6>"
+        + "<h6>Heading6</h6> "
         + "after"
         + "</body></html>";
     // @formatter:on
 
-    getText("before Heading1 Heading2 Heading3 Heading4 Heading5 Heading6 after", tmpHtmlCode);
+    getText(
+        "before Heading1 Heading1 Heading1 Heading1 Heading1 Heading1 Heading2 Heading2 Heading2 Heading2 Heading2 Heading2 "
+            + "Heading3 Heading3 Heading3 Heading3 Heading3 Heading3 Heading4 Heading4 Heading4 Heading4 Heading4 Heading4 "
+            + "Heading5 Heading5 Heading5 Heading5 Heading5 Heading5 Heading6 Heading6 Heading6 Heading6 Heading6 Heading6 after",
+        tmpHtmlCode);
   }
 
   @Test
@@ -279,10 +318,10 @@ public class HtmlPageIndexTest {
         + "  <th>header1</th><th>header2</th>"
         + "</tr>"
         + "<tr>"
-        + "  <td>data1</td><td>data2</td>"
+        + "  <td>data1</td><td> data2</td>"
         + "</tr>"
         + "<tr>"
-        + "  <td>data3</td><td>data4</td>"
+        + "  <td>data3 </td><td>data4</td>"
         + "</tr>"
         + "<tr>"
         + "  <td colspan='2'>data5</td>"
@@ -308,14 +347,15 @@ public class HtmlPageIndexTest {
         + "before"
         + "<ol>"
         + "  <li>Line1"
-        + "  <li> Line2"
-        + "  <li>Line3 "
+        + "  <li>Line2"
+        + "  <li> Line3"
+        + "  <li>Line4 "
         + "</ol>"
         + "after"
         + "</body></html>";
     // @formatter:on
 
-    getText("before 1. Line1 2. Line2 3. Line3 after", tmpHtmlCode);
+    getText("before 1. Line1 2. Line2 3. Line3 4. Line4 after", tmpHtmlCode);
   }
 
   @Test
@@ -325,14 +365,41 @@ public class HtmlPageIndexTest {
         + "before"
         + "<ul>"
         + "  <li>Line1"
-        + "  <li> Line2"
-        + "  <li>Line3 "
+        + "  <li>Line2"
+        + "  <li> Line3"
+        + "  <li>Line4 "
         + "</ul>"
         + "after"
         + "</body></html>";
     // @formatter:on
 
-    getText("before Line1 Line2 Line3 after", tmpHtmlCode);
+    getText("before Line1 Line2 Line3 Line4 after", tmpHtmlCode);
+  }
+
+  @Test
+  public void getText_DefinitionList() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "before"
+        + "<dl>"
+        + "  <dt>Term 1</dt>"
+        + "  <dd>Definition 1</dd>"
+        + "  <dt>Term 2.1</dt>"
+        + "  <dt> Term 2.2</dt>"
+        + "  <dt>Term 2.3 </dt>"
+        + "  <dt>Term 2.4</dt>"
+        + "  <dd>Defintion 2.1</dd>"
+        + "  <dd> Defintion 2.2</dd>"
+        + "  <dd>Defintion 2.3 </dd>"
+        + "  <dd>Defintion 2.4</dd>"
+        + "</dl>"
+        + "after"
+        + "</body></html>";
+    // @formatter:on
+
+    getText(
+        "before Term 1 Definition 1 Term 2.1 Term 2.2 Term 2.3 Term 2.4 Defintion 2.1 Defintion 2.2 Defintion 2.3 Defintion 2.4 after",
+        tmpHtmlCode);
   }
 
   @Test
@@ -342,31 +409,14 @@ public class HtmlPageIndexTest {
         + "before"
         + "<img src='src.img'>"
         + "between"
-        + "<img src='src.img' alt='test image'>"
+        + "<img src='src.img' alt='test image1'>"
         + "between"
-        + "<img src='src.img' title='test image'>"
+        + "<img src='src.img' title='test image2'>"
         + "after"
         + "</body></html>";
     // @formatter:on
 
-    getText("before between test image between after", tmpHtmlCode);
-  }
-
-  @Test
-  public void getText_Select() throws IOException {
-    // @formatter:off
-    final String tmpHtmlCode = "<html><body>"
-        + "before"
-        + "<select>"
-        + "<option value='o_red'>red</option>"
-        + "<option value='o_green'>green</option>"
-        + "<option value='o_blue' selected>blue</option>"
-        + "</select>"
-        + "after"
-        + "</body></html>";
-    // @formatter:on
-
-    getText("before red green blue after", "before after", tmpHtmlCode);
+    getText("before between test image1 between after", tmpHtmlCode);
   }
 
   @Test
@@ -384,27 +434,120 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  public void getText_SelectWithOptgroup() throws IOException {
+  public void getText_SelectWithOptions() throws IOException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "before"
         + "<select>"
-        + "<option value='o_car'>car</option>"
-        + "<optgroup label='colors'>"
-        + "<option value='o_red'>red</option>"
-        + "<option value='o_green'>green</option>"
-        + "<option value='o_blue'>blue</option>"
-        + "</optgroup>"
-        + "<optgroup label='flowers'>"
-        + "<option value='o_sun_flower'>sun flower</option>"
-        + "</optgroup>"
-        + "<option value='o_boat'>boat</option>"
+        + "<option value='o_1'>color 1</option>"
+        + "<option value='o_2'>color 2</option>"
+        + "<option value='o_3' selected>color 3</option>"
+        + "<option value='o_4'> color 4</option>"
+        + "<option value='o_5'>color 5 </option>"
         + "</select>"
         + "after"
         + "</body></html>";
     // @formatter:on
 
-    getText("before car colors red green blue flowers sun flower boat after", "before after", tmpHtmlCode);
+    getText("before color 1 color 2 color 3 color 4 color 5 after", "before after", tmpHtmlCode);
+  }
+
+  @Test
+  public void getText_SelectWithOptgroup() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "before"
+        + "<select>"
+        + "<option value='o_1'>color 1</option>"
+        + "<optgroup label='group 1'>"
+        + "<option value='o_2'>color 2</option>"
+        + "</optgroup>"
+        + "<optgroup label=' group 2'>"
+        + "<option value='o_3'>color 3</option>"
+        + "</optgroup>"
+        + "<optgroup label='group 3'>"
+        + "<option value='o_4'>color 4</option>"
+        + "</optgroup>"
+        + "<option value='o_5'>color 5</option>"
+        + "</select>"
+        + "after"
+        + "</body></html>";
+    // @formatter:on
+
+    getText("before color 1 group 1 color 2 group 2 color 3 group 3 color 4 color 5 after", "before after",
+        tmpHtmlCode);
+  }
+
+  @Test
+  public void getText_InputText() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "before"
+        + "<input type='text' value=''>"
+        + "between"
+        + "<input type='text' value='v 2'>"
+        + "between"
+        + "<input type='text' value='v 3' placeholder='p 3'>"
+        + "between"
+        + "<input type='text' value='' placeholder='p 4'>"
+        + "after"
+        + "</body></html>";
+    // @formatter:on
+
+    getText("beforebetweenv 2betweenv 3betweenp 4after", "beforebetweenbetweenbetweenafter", tmpHtmlCode);
+  }
+
+  @Test
+  public void getText_InputPassword() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "before"
+        + "<input type='password' value=''>"
+        + "between"
+        + "<input type='password' value='v 2'>"
+        + "between"
+        + "<input type='password' value='v 3' placeholder='p 3'>"
+        + "between"
+        + "<input type='password' value='' placeholder='p 4'>"
+        + "after"
+        + "</body></html>";
+    // @formatter:on
+
+    getText("beforebetweenv 2betweenv 3betweenp 4after", "beforebetweenbetweenbetweenafter", tmpHtmlCode);
+  }
+
+  @Test
+  public void getText_InputFile() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "before"
+        + "<input type='file' value=''>"
+        + "between"
+        + "<input type='file' value='v 2'>"
+        + "after"
+        + "</body></html>";
+    // @formatter:on
+
+    getText("beforebetweenafter", "beforebetweenafter", tmpHtmlCode);
+  }
+
+  @Test
+  public void getText_TextArea() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "before"
+        + "<textarea></textarea>"
+        + "between"
+        + "<textarea>v 2</textarea>"
+        + "between"
+        + "<textarea placeholder='p 3'>v 3</textarea>"
+        + "between"
+        + "<textarea placeholder='p 4'></textarea>"
+        + "after"
+        + "</body></html>";
+    // @formatter:on
+
+    getText("beforebetweenv 2betweenv 3betweenp 4after", "beforebetweenbetweenbetweenafter", tmpHtmlCode);
   }
 
   @Test
@@ -414,14 +557,14 @@ public class HtmlPageIndexTest {
         + "before"
         + "<input type='image' src='src.img'>"
         + "between"
-        + "<input type='image' src='src.img' alt='test image'>"
+        + "<input type='image' src='src.img' alt='test image1'>"
         + "between"
-        + "<input type='image' src='src.img' title='test image'>"
+        + "<input type='image' src='src.img' title='test image2'>"
         + "after"
         + "</body></html>";
     // @formatter:on
 
-    getText("before between test image between after", "before between between after", tmpHtmlCode);
+    getText("before between test image1 between after", "before between between after", tmpHtmlCode);
   }
 
   @Test
@@ -1181,6 +1324,555 @@ public class HtmlPageIndexTest {
     getIndex(5, tmpHtmlCode);
   }
 
+  private void getPosition(final int aStartPos, final int anEndPos, final String anHtmlCode) throws Exception {
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(anHtmlCode);
+    final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+
+    assertFindSpot(aStartPos, anEndPos, tmpResult.getPosition((HtmlElement) tmpHtmlPage.getElementById("myID")));
+  }
+
+  private void assertFindSpot(final int aStartPos, final int anEndPos, final FindSpot aFindSpot) {
+    assertEquals(new FindSpot(aStartPos, anEndPos), aFindSpot);
+  }
+
+  @Test
+  public void getPosition_EmptyPage() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><head></head><body>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+
+    assertFindSpot(0, 0, tmpResult.getPosition((HtmlElement) tmpHtmlPage.getElementsByTagName("html").get(0)));
+    assertFindSpot(0, 0, tmpResult.getPosition((HtmlElement) tmpHtmlPage.getElementsByTagName("head").get(0)));
+    assertFindSpot(0, 0, tmpResult.getPosition((HtmlElement) tmpHtmlPage.getElementsByTagName("body").get(0)));
+  }
+
+  @Test
+  public void getPosition_EmptyPageNoHead() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+
+    assertFindSpot(0, 0, tmpResult.getPosition((HtmlElement) tmpHtmlPage.getElementsByTagName("html").get(0)));
+    assertFindSpot(0, 0, tmpResult.getPosition((HtmlElement) tmpHtmlPage.getElementsByTagName("head").get(0)));
+    assertFindSpot(0, 0, tmpResult.getPosition((HtmlElement) tmpHtmlPage.getElementsByTagName("body").get(0)));
+  }
+
+  @Test
+  public void getPosition_Single() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div id='myID'></div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getPosition(0, 0, tmpHtmlCode);
+  }
+
+  @Test
+  public void getPosition_Single_WithText() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div id='myID'>text</div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getPosition(0, 4, tmpHtmlCode);
+  }
+
+  @Test
+  public void getPosition_AfterText() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "before"
+        + "<div id='myID'></div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getPosition(6, 6, tmpHtmlCode);
+  }
+
+  @Test
+  public void getPosition_AfterElement() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div></div>"
+        + "<div id='myID'></div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getPosition(0, 0, tmpHtmlCode);
+  }
+
+  @Test
+  public void getPosition_AfterElementWithText() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div>text</div>"
+        + "<div id='myID'></div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getPosition(4, 4, tmpHtmlCode);
+  }
+
+  @Test
+  public void getPosition_AfterComment() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<!-- comment -->"
+        + "<div id='myID'></div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getPosition(0, 0, tmpHtmlCode);
+  }
+
+  @Test
+  public void getPosition_InsideElement() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div>"
+        + "<div id='myID'></div>"
+        + "</div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getPosition(0, 0, tmpHtmlCode);
+  }
+
+  @Test
+  public void getPosition_InsideElementAfterText() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div>"
+        + "before"
+        + "<div id='myID'></div>"
+        + "</div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getPosition(6, 6, tmpHtmlCode);
+  }
+
+  @Test
+  public void getPosition_InsideElementAfterElement() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div>"
+        + "<div></div>"
+        + "<div id='myID'></div>"
+        + "</div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getPosition(0, 0, tmpHtmlCode);
+  }
+
+  @Test
+  public void getPosition_InsideElementAfterElementWithText() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div>"
+        + "<div>text</div>"
+        + "<div id='myID'></div>"
+        + "</div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getPosition(4, 4, tmpHtmlCode);
+  }
+
+  @Test
+  public void getPosition_CSSDisplayNone() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div id='myID' style='display: none;'></div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getPosition(0, 0, tmpHtmlCode);
+  }
+
+  @Test
+  public void getPosition_CSSDisplayNone_WithText() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div id='myID' style='display: none;'>text</div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getPosition(0, 0, tmpHtmlCode);
+  }
+
+  @Test
+  public void getPosition_AfterCSSDisplayNone() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div style='display: none;'></div>"
+        + "<div id='myID'></div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getPosition(0, 0, tmpHtmlCode);
+  }
+
+  @Test
+  public void getPosition_AfterCSSDisplayNoneWithText() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div style='display: none;'>text</div>"
+        + "<div id='myID'></div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getPosition(0, 0, tmpHtmlCode);
+  }
+
+  @Test
+  @Ignore("add not-displayed children of not-displayed elements to the index?")
+  // TODO add not-displayed children of not-displayed elements to the index?
+  public void getPosition_InsideCSSDisplayNone() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div style='display: none;'>"
+        + "<div id='myID'></div>"
+        + "</div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getPosition(0, 0, tmpHtmlCode);
+  }
+
+  @Test
+  public void getPosition_CSSVisibilityHidden() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div id='myID' style='visibility: hidden;'></div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getPosition(0, 0, tmpHtmlCode);
+  }
+
+  @Test
+  public void getPosition_CSSVisibilityHidden_WithText() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div id='myID' style='visibility: hidden;'>text</div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getPosition(0, 0, tmpHtmlCode);
+  }
+
+  @Test
+  public void getPosition_AfterCSSVisibilityHidden() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div style='visibility: hidden;'></div>"
+        + "<div id='myID'></div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getPosition(0, 0, tmpHtmlCode);
+  }
+
+  @Test
+  public void getPosition_AfterCSSVisibilityHiddenWithText() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div style='visibility: hidden;'>text</div>"
+        + "<div id='myID'></div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getPosition(0, 0, tmpHtmlCode);
+  }
+
+  @Test
+  @Ignore("add hidden children of hidden elements to the index?")
+  // TODO add hidden children of hidden elements to the index?
+  public void getPosition_InsideCSSVisibilityHidden() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div style='visibility: hidden;'>"
+        + "<div id='myID'></div>"
+        + "</div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getPosition(0, 0, tmpHtmlCode);
+  }
+
+  @Test
+  @Ignore("add hidden children of hidden elements to the index?")
+  // TODO add hidden children of hidden elements to the index?
+  public void getPosition_InsideCSSVisibilityHidden_WithText() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div style='visibility: hidden;'>"
+        + "<div id='myID'>text</div>"
+        + "</div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getPosition(0, 0, tmpHtmlCode);
+  }
+
+  @Test
+  @Ignore("handling of visibility:hidden is currently broken")
+  // TODO handling of visibility:hidden is currently broken
+  public void getPosition_InsideCSSVisibilityHiddenButVisible() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div style='visibility: hidden;'>"
+        + "<div id='myID' style='visibility: visible;'></div>"
+        + "</div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getPosition(0, 0, tmpHtmlCode);
+  }
+
+  @Test
+  @Ignore("handling of visibility:hidden is currently broken")
+  // TODO handling of visibility:hidden is currently broken
+  public void getPosition_InsideCSSVisibilityHiddenButVisible_WithText() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div style='visibility: hidden;'>"
+        + "<div id='myID' style='visibility: visible;'>text</div>"
+        + "</div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getPosition(0, 0, tmpHtmlCode);
+  }
+
+  private void getHierarchy(final String anExpected, final String anHtmlCode) throws Exception {
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(anHtmlCode);
+    final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+
+    assertEquals(anExpected, tmpResult.getHierarchy((HtmlElement) tmpHtmlPage.getElementById("myID")));
+  }
+
+  @Test
+  public void getHierarchy_EmptyPage() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><head></head><body>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+
+    assertEquals("0>1", tmpResult.getHierarchy((HtmlElement) tmpHtmlPage.getElementsByTagName("html").get(0)));
+    assertEquals("0>1>2", tmpResult.getHierarchy((HtmlElement) tmpHtmlPage.getElementsByTagName("head").get(0)));
+    assertEquals("0>1>3", tmpResult.getHierarchy((HtmlElement) tmpHtmlPage.getElementsByTagName("body").get(0)));
+  }
+
+  @Test
+  public void getHierarchy_EmptyPageNoHead() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+
+    assertEquals("0>1", tmpResult.getHierarchy((HtmlElement) tmpHtmlPage.getElementsByTagName("html").get(0)));
+    assertEquals("0>1>2", tmpResult.getHierarchy((HtmlElement) tmpHtmlPage.getElementsByTagName("head").get(0)));
+    assertEquals("0>1>3", tmpResult.getHierarchy((HtmlElement) tmpHtmlPage.getElementsByTagName("body").get(0)));
+  }
+
+  @Test
+  public void getHierarchy_Single() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div id='myID'></div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getHierarchy("0>1>3>4", tmpHtmlCode);
+  }
+
+  @Test
+  public void getHierarchy_AfterText() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "before"
+        + "<div id='myID'></div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getHierarchy("0>1>3>5", tmpHtmlCode);
+  }
+
+  @Test
+  public void getHierarchy_AfterElement() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div></div>"
+        + "<div id='myID'></div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getHierarchy("0>1>3>5", tmpHtmlCode);
+  }
+
+  @Test
+  public void getHierarchy_AfterComment() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<!-- comment -->"
+        + "<div id='myID'></div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getHierarchy("0>1>3>5", tmpHtmlCode);
+  }
+
+  @Test
+  public void getHierarchy_InsideElement() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div>"
+        + "<div id='myID'></div>"
+        + "</div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getHierarchy("0>1>3>4>5", tmpHtmlCode);
+  }
+
+  @Test
+  public void getHierarchy_InsideElementAfterText() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div>"
+        + "before"
+        + "<div id='myID'></div>"
+        + "</div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getHierarchy("0>1>3>4>6", tmpHtmlCode);
+  }
+
+  @Test
+  public void getHierarchy_InsideElementAfterElement() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div>"
+        + "<div></div>"
+        + "<div id='myID'></div>"
+        + "</div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getHierarchy("0>1>3>4>6", tmpHtmlCode);
+  }
+
+  @Test
+  public void getHierarchy_CSSDisplayNone() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div id='myID' style='display: none;'></div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getHierarchy("0>1>3>4", tmpHtmlCode);
+  }
+
+  @Test
+  public void getHierarchy_AfterCSSDisplayNone() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div style='display: none;'></div>"
+        + "<div id='myID'></div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getHierarchy("0>1>3>5", tmpHtmlCode);
+  }
+
+  @Test
+  @Ignore("add not-displayed children of not-displayed elements to the index?")
+  // TODO add not-displayed children of not-displayed elements to the index?
+  public void getHierarchy_InsideCSSDisplayNone() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div style='display: none;'>"
+        + "<div id='myID'></div>"
+        + "</div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getHierarchy("0>1>3>4>5", tmpHtmlCode);
+  }
+
+  @Test
+  public void getHierarchy_CSSVisibilityHidden() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div id='myID' style='visibility: hidden;'></div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getHierarchy("0>1>3>4", tmpHtmlCode);
+  }
+
+  @Test
+  public void getHierarchy_AfterCSSVisibilityHidden() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div style='visibility: hidden;'></div>"
+        + "<div id='myID'></div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getHierarchy("0>1>3>5", tmpHtmlCode);
+  }
+
+  @Test
+  @Ignore("add hidden children of hidden elements to the index?")
+  // TODO add hidden children of hidden elements to the index?
+  public void getHierarchy_InsideCSSVisibilityHidden() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div style='visibility: hidden;'>"
+        + "<div id='myID'></div>"
+        + "</div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getHierarchy("0>1>3>4>5", tmpHtmlCode);
+  }
+
+  @Test
+  @Ignore("handling of visibility:hidden is currently broken")
+  // TODO handling of visibility:hidden is currently broken
+  public void getHierarchy_InsideCSSVisibilityHiddenButVisible() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<div style='visibility: hidden;'>"
+        + "<div id='myID' style='visibility: visible;'></div>"
+        + "</div>"
+        + "</body></html>";
+    // @formatter:on
+
+    getHierarchy("0>1>3>4>5", tmpHtmlCode);
+  }
+
   @Test
   public void getLabelingTextBefore_None() throws IOException {
     // @formatter:off
@@ -1619,5 +2311,412 @@ public class HtmlPageIndexTest {
     } finally {
       tmpWebClient.close();
     }
+  }
+
+  @Test
+  public void hasMouseActionListener_not() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<span id='myId'>some text</span>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    assertFalse(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK, tmpHtmlPage.getHtmlElementById("myId")));
+  }
+
+  @Test
+  public void hasMouseActionListener_byOnEvent() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<span id='myId' onclick='alert(\"clicked\");'>some text</span>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    assertTrue(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK, tmpHtmlPage.getHtmlElementById("myId")));
+  }
+
+  @Test
+  public void hasMouseActionListener_byAddEventListener() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<span id='myId'>some text</span>"
+        + "<script>"
+        + "document.getElementById('myId').addEventListener('click', function() { alert('clicked'); });"
+        + "</script>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    assertTrue(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK, tmpHtmlPage.getHtmlElementById("myId")));
+  }
+
+  @Test
+  public void hasMouseActionListener_byJSOnEvent() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<span id='myId'>some text</span>"
+        + "<script>"
+        + "document.getElementById('myId').onclick = function() { alert('clicked'); };"
+        + "</script>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    assertTrue(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK, tmpHtmlPage.getHtmlElementById("myId")));
+  }
+
+  @Test
+  public void hasMouseActionListener_child_actionFromParent() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<span onclick='alert(\"clicked\");'><span id='myId'>some text</span></span>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    assertTrue(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK, tmpHtmlPage.getHtmlElementById("myId")));
+  }
+
+  @Test
+  public void hasMouseActionListener_child_actionFromSelfAndParent() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<span onclick='alert(\"clicked\");'><span id='myId' onmouseover='alert(\"clicked\");'>some text</span></span>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    assertTrue(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK, tmpHtmlPage.getHtmlElementById("myId")));
+    assertTrue(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.MOUSE_OVER, tmpHtmlPage.getHtmlElementById("myId")));
+  }
+
+  @Test
+  public void hasMouseActionListener_child_multipleActionsFromParents() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<span onclick='alert(\"clicked\");'><span onmouseover='alert(\"clicked\");'><span id='myId'>some text</span></span></span>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    assertTrue(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK, tmpHtmlPage.getHtmlElementById("myId")));
+    assertTrue(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.MOUSE_OVER, tmpHtmlPage.getHtmlElementById("myId")));
+  }
+
+  @Test
+  public void hasMouseActionListener_child_noActionFromHtml() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html onclick='alert(\"clicked\");'><body>"
+        + "<span id='myId'>some text</span>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    assertFalse(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK, tmpHtmlPage.getHtmlElementById("myId")));
+  }
+
+  @Test
+  public void hasMouseActionListener_child_noActionFromBody() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body onclick='alert(\"clicked\");'>"
+        + "<span id='myId'>some text</span>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    assertFalse(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK, tmpHtmlPage.getHtmlElementById("myId")));
+  }
+
+  @Test
+  public void hasMouseActionListener_click_onClick() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<span id='myId' onclick='alert(\"clicked\");'>some text</span>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    assertTrue(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK, tmpHtmlPage.getHtmlElementById("myId")));
+  }
+
+  @Test
+  public void hasMouseActionListener_click_onMouseDown() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<span id='myId' onmousedown='alert(\"clicked\");'>some text</span>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    assertTrue(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK, tmpHtmlPage.getHtmlElementById("myId")));
+  }
+
+  @Test
+  public void hasMouseActionListener_click_onMouseUp() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<span id='myId' onmouseup='alert(\"clicked\");'>some text</span>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    assertTrue(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK, tmpHtmlPage.getHtmlElementById("myId")));
+  }
+
+  @Test
+  public void hasMouseActionListener_click_button() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<button id='myId'>some text</button>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    assertFalse(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK, tmpHtmlPage.getHtmlElementById("myId")));
+  }
+
+  @Test
+  public void hasMouseActionListener_click_button_child() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<button><span id='myId'>some text</span></button>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    assertTrue(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK, tmpHtmlPage.getHtmlElementById("myId")));
+  }
+
+  @Test
+  public void hasMouseActionListener_click_anchor() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<a id='myId'>some text</a>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    assertFalse(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK, tmpHtmlPage.getHtmlElementById("myId")));
+  }
+
+  @Test
+  public void hasMouseActionListener_click_anchor_child() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<a><span id='myId'>some text</span></a>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    assertFalse(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK, tmpHtmlPage.getHtmlElementById("myId")));
+  }
+
+  @Test
+  public void hasMouseActionListener_click_anchorWithHref() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<a id='myId' href='#'>some text</a>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    assertFalse(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK, tmpHtmlPage.getHtmlElementById("myId")));
+  }
+
+  @Test
+  public void hasMouseActionListener_click_anchorWithHref_child() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<a href='#'><span id='myId'>some text</span></a>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    assertTrue(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK, tmpHtmlPage.getHtmlElementById("myId")));
+  }
+
+  @Test
+  public void hasMouseActionListener_clickDouble_onDblClick() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<span id='myId' ondblclick='alert(\"clicked\");'>some text</span>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    assertTrue(
+        tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK_DOUBLE, tmpHtmlPage.getHtmlElementById("myId")));
+  }
+
+  @Test
+  public void hasMouseActionListener_clickDouble_onClick() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<span id='myId' onclick='alert(\"clicked\");'>some text</span>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    assertTrue(
+        tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK_DOUBLE, tmpHtmlPage.getHtmlElementById("myId")));
+  }
+
+  @Test
+  public void hasMouseActionListener_clickDouble_onMouseDown() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<span id='myId' onmousedown='alert(\"clicked\");'>some text</span>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    assertTrue(
+        tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK_DOUBLE, tmpHtmlPage.getHtmlElementById("myId")));
+  }
+
+  @Test
+  public void hasMouseActionListener_clickDouble_onMouseUp() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<span id='myId' onmouseup='alert(\"clicked\");'>some text</span>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    assertTrue(
+        tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK_DOUBLE, tmpHtmlPage.getHtmlElementById("myId")));
+  }
+
+  @Test
+  public void hasMouseActionListener_clickRight_onContextMenu() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<span id='myId' oncontextmenu='alert(\"clicked\");'>some text</span>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    assertTrue(
+        tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK_RIGHT, tmpHtmlPage.getHtmlElementById("myId")));
+  }
+
+  @Test
+  public void hasMouseActionListener_clickRight_onMouseDown() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<span id='myId' onmousedown='alert(\"clicked\");'>some text</span>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    assertTrue(
+        tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK_RIGHT, tmpHtmlPage.getHtmlElementById("myId")));
+  }
+
+  @Test
+  public void hasMouseActionListener_clickRight_onMouseUp() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<span id='myId' onmouseup='alert(\"clicked\");'>some text</span>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    assertTrue(
+        tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK_RIGHT, tmpHtmlPage.getHtmlElementById("myId")));
+  }
+
+  @Test
+  public void hasMouseActionListener_mouseOver_onMouseOver() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<span id='myId' onmouseover='alert(\"clicked\");'>some text</span>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    assertTrue(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.MOUSE_OVER, tmpHtmlPage.getHtmlElementById("myId")));
+  }
+
+  @Test
+  public void hasMouseActionListener_mouseOver_onMouseMove() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<span id='myId' onmousemove='alert(\"clicked\");'>some text</span>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    assertTrue(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.MOUSE_OVER, tmpHtmlPage.getHtmlElementById("myId")));
+  }
+
+  @Test
+  public void hasMouseActionListener_mouseOver_onMouseOut() throws Exception {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<span id='myId' onmouseout='alert(\"clicked\");'>some text</span>"
+        + "</body></html>";
+    // @formatter:on
+
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+
+    assertTrue(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.MOUSE_OVER, tmpHtmlPage.getHtmlElementById("myId")));
   }
 }

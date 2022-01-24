@@ -44,7 +44,8 @@ import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
  */
 @ForHtmlElement(HtmlRadioButtonInput.class)
 @IdentifiedBy(HtmlUnitInputRadioButtonIdentifier.class)
-public class HtmlUnitInputRadioButton extends HtmlUnitBaseControl<HtmlRadioButtonInput> implements ISelectable {
+public class HtmlUnitInputRadioButton extends HtmlUnitBaseControl<HtmlRadioButtonInput>
+    implements ISelectable, IHtmlUnitDisableable<HtmlRadioButtonInput>, IHtmlUnitFocusable<HtmlRadioButtonInput> {
 
   private static final Logger LOG = LogManager.getLogger(HtmlUnitInputRadioButton.class);
 
@@ -120,21 +121,7 @@ public class HtmlUnitInputRadioButton extends HtmlUnitBaseControl<HtmlRadioButto
 
   @Override
   public boolean isSelected(final WetatorContext aWetatorContext) {
-    final HtmlRadioButtonInput tmpHtmlRadioButtonInput = getHtmlElement();
-
-    return tmpHtmlRadioButtonInput.isChecked();
-  }
-
-  @Override
-  public boolean isDisabled(final WetatorContext aWetatorContext) {
-    final HtmlRadioButtonInput tmpHtmlRadioButtonInput = getHtmlElement();
-
-    return tmpHtmlRadioButtonInput.isDisabled();
-  }
-
-  @Override
-  public boolean canReceiveFocus(final WetatorContext aWetatorContext) {
-    return !isDisabled(aWetatorContext);
+    return getHtmlElement().isChecked();
   }
 
   /**

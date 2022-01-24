@@ -51,7 +51,8 @@ import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
  */
 @ForHtmlElement(HtmlPasswordInput.class)
 @IdentifiedBy(HtmlUnitInputPasswordIdentifier.class)
-public class HtmlUnitInputPassword extends HtmlUnitBaseControl<HtmlPasswordInput> implements ISettable {
+public class HtmlUnitInputPassword extends HtmlUnitBaseControl<HtmlPasswordInput>
+    implements ISettable, IHtmlUnitDisableable<HtmlPasswordInput>, IHtmlUnitFocusable<HtmlPasswordInput> {
 
   /**
    * The constructor.
@@ -173,10 +174,5 @@ public class HtmlUnitInputPassword extends HtmlUnitBaseControl<HtmlPasswordInput
     final HtmlPasswordInput tmpHtmlPasswordInput = getHtmlElement();
 
     return tmpHtmlPasswordInput.isDisabled() || tmpHtmlPasswordInput.isReadOnly();
-  }
-
-  @Override
-  public boolean canReceiveFocus(final WetatorContext aWetatorContext) {
-    return !isDisabled(aWetatorContext);
   }
 }

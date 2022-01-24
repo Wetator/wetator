@@ -17,10 +17,9 @@
 package org.wetator.test;
 
 import java.io.File;
-import java.util.EnumSet;
 import java.util.Properties;
 
-import javax.servlet.DispatcherType;
+import javax.servlet.MultipartConfigElement;
 
 import org.eclipse.jetty.security.ConstraintMapping;
 import org.eclipse.jetty.security.ConstraintSecurityHandler;
@@ -31,20 +30,21 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.DefaultHandler;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.server.handler.ResourceHandler;
-import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.eclipse.jetty.util.security.Constraint;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.wetator.commandset.IncubatorCommandSet;
+import org.wetator.commandset.SqlCommandSet;
+import org.wetator.commandset.TestCommandSet;
 import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.WetatorEngine;
 import org.wetator.exception.InvalidInputException;
 import org.wetator.progresslistener.StdOutProgressListener;
 import org.wetator.test.jetty.ContentServlet;
 import org.wetator.test.jetty.HttpHeaderServlet;
-import org.wetator.test.jetty.MultiPartFilter;
 import org.wetator.test.jetty.RedirectServlet;
 import org.wetator.test.jetty.SnoopyServlet;
 
@@ -85,12 +85,6 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
     tmpResourceHandler.setResourceBase(DEFAULT_DOCUMENT_ROOT);
     tmpResourceHandler.setRedirectWelcome(true); // see https://github.com/eclipse/jetty.project/issues/1856
 
-    // final MimeTypes tmpMimeTypes = new MimeTypes();
-    // tmpMimeTypes.addMimeMapping("json", "application/json");
-    // tmpMimeTypes.addMimeMapping("xlsx", "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-    // tmpMimeTypes.addMimeMapping("docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
-    // tmpResourceHandler.setMimeTypes(tmpMimeTypes);
-
     // servlets
     final ServletContextHandler tmpContextHandler = new ServletContextHandler();
     tmpContextHandler.setContextPath("/");
@@ -100,13 +94,8 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
     tmpContextHandler.addServlet(new ServletHolder(new RedirectServlet()), "/redirect_js.php");
     tmpContextHandler.addServlet(new ServletHolder(new RedirectServlet()), "/redirect_meta.php");
     tmpContextHandler.addServlet(new ServletHolder(new ContentServlet()), "/create_excel");
-    tmpContextHandler.addServlet(new ServletHolder(new SnoopyServlet()), "/snoopy.php");
-    tmpContextHandler.addServlet(new ServletHolder(new SnoopyServlet()), "/snoopyAuth.php");
-
-    final FilterHolder tmpFilterHolder = new FilterHolder(new MultiPartFilter());
-    tmpFilterHolder.setInitParameter("deleteFiles", "true");
-    final EnumSet<DispatcherType> tmpDispatcherTypes = EnumSet.allOf(DispatcherType.class);
-    tmpContextHandler.addFilter(tmpFilterHolder, "/snoopy.php", tmpDispatcherTypes);
+    tmpContextHandler.addServlet(addMultipartConfig(new ServletHolder(new SnoopyServlet())), "/snoopy.php");
+    tmpContextHandler.addServlet(addMultipartConfig(new ServletHolder(new SnoopyServlet())), "/snoopyAuth.php");
 
     final HandlerList tmpHandlers = new HandlerList();
     tmpHandlers.setHandlers(new Handler[] { tmpResourceHandler, tmpContextHandler, new DefaultHandler() });
@@ -144,6 +133,15 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
         "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
   }
 
+  private static ServletHolder addMultipartConfig(final ServletHolder aServletHolder) {
+    final File tmpTempDir = new File(System.getProperty("java.io.tmpdir"));
+    final MultipartConfigElement tmpMultipartConfig = new MultipartConfigElement(tmpTempDir.getAbsolutePath(),
+        1024 * 1024 * 50, -1L, 1024 * 1024);
+
+    aServletHolder.getRegistration().setMultipartConfig(tmpMultipartConfig);
+    return aServletHolder;
+  }
+
   /**
    * Creates a Wetator engine and configures it.
    */
@@ -157,8 +155,8 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
     tmpProperties.setProperty(WetatorConfiguration.PROPERTY_ACCEPT_LANGUAGE, "de-de,de;q=0.8,en-us;q=0.5,en;q=0.3");
 
     tmpProperties.setProperty(WetatorConfiguration.PROPERTY_XSL_TEMPLATES, "./xsl/run_report.xsl");
-    tmpProperties.setProperty(WetatorConfiguration.PROPERTY_COMMAND_SETS, "org.wetator.commandset.IncubatorCommandSet, "
-        + "org.wetator.commandset.SqlCommandSet, " + "org.wetator.commandset.TestCommandSet");
+    tmpProperties.setProperty(WetatorConfiguration.PROPERTY_COMMAND_SETS, IncubatorCommandSet.class.getName() + ", "
+        + SqlCommandSet.class.getName() + ", " + TestCommandSet.class.getName());
     tmpProperties.setProperty("wetator.db.connections", "wetdb, secondDb");
 
     setIfNotNull(tmpProperties, "wetator.proxyHost", System.getProperty("http.proxyHost"));

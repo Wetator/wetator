@@ -17,7 +17,7 @@
 
       <tr valign='top' bgcolor='eeeeee'>
         <td>
-        <!-- left column -->
+        <!-- column 1 -->
 
           <h3>AssertSet Text Input</h3>
           <h4>by element</h4>
@@ -93,7 +93,7 @@
                 <form action="snoopy.php">
                   <table border='0'>
                     <tr>
-                      <td><input type="text" id="inputTextId_Placeholder" name="inputText_Label" placeholder="InputText Placeholder"></td>
+                      <td><input type="text" id="inputTextId_Placeholder" name="inputText_Placeholder" placeholder="InputText Placeholder"></td>
                     </tr>
                   </table>
                 </form>
@@ -206,10 +206,31 @@
 
           </table>
 
-        <!-- end left column -->
+          <h4>disabled</h4>
+
+          <table border='0'>
+
+            <tr>
+              <td>Disabled InputText</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td><input type="text" name="inputText_Disabled" value="inputTextDisabledValue" disabled></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+          </table>
+
+        <!-- end column 1 -->
         </td>
         <td>
-        <!-- middle column -->
+        <!-- column 2 -->
 
           <h3>Set Password Input</h3>
           <h4>by element</h4>
@@ -286,7 +307,7 @@
                 <form action="snoopy.php">
                   <table border='0'>
                     <tr>
-                      <td><input type="password" id="inputPasswordId_Placeholder" name="inputPassword_Label" placeholder="InputPassword Placeholder"></td>
+                      <td><input type="password" id="inputPasswordId_Placeholder" name="inputPassword_Placeholder" placeholder="InputPassword Placeholder"></td>
                     </tr>
                   </table>
                 </form>
@@ -399,10 +420,31 @@
 
           </table>
 
-        <!-- end middle column -->
+          <h4>disabled</h4>
+
+          <table border='0'>
+
+            <tr>
+              <td>Disabled InputPassword</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td><input type="password" name="inputPassword_Disabled" value="inputPasswordDisabledValue" disabled></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+          </table>
+
+        <!-- end column 2 -->
         </td>
         <td>
-        <!-- right column -->
+        <!-- column 3 -->
 
           <h3>Set TextArea Input</h3>
           <h4>by element</h4>
@@ -464,6 +506,21 @@
                     <tr>
                       <td><label for="textAreaId_Label">TextArea Label</label></td>
                       <td><textarea id="textAreaId_Label" name="textArea_Label" cols="50" rows="1">textAreaLabelValue</textarea></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>TextArea identified by placeholder</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td><input type="text" id="textAreaId_Placeholder" name="textAreaId_Placeholder" placeholder="TextArea Placeholder"></td>
                     </tr>
                   </table>
                 </form>
@@ -576,7 +633,247 @@
 
           </table>
 
-        <!-- end right column -->
+          <h4>disabled</h4>
+
+          <table border='0'>
+
+            <tr>
+              <td>Disabled TextArea</td>
+            </tr>
+            <tr>
+              <td>
+                <form action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td><textarea name="textArea_Disabled" cols="50" rows="1" disabled>textAreaDisabledValue</textarea></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+          </table>
+
+        <!-- end column 3 -->
+        </td>
+        <td>
+        <!-- column 4 -->
+
+          <h3>AssertSet File Input</h3>
+          <h4>by element</h4>
+
+          <table border='0'>
+
+            <tr>
+              <td>InputFile with name</td>
+            </tr>
+            <tr>
+              <td>
+                <form enctype="multipart/form-data" action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td><input type="file" name="inputFile_Name" value="inputFileNameValue"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>Empty InputFile with name</td>
+            </tr>
+            <tr>
+              <td>
+                <form enctype="multipart/form-data" action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td><input type="file" name="emptyInputFile_Name" ></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>InputFile with id</td>
+            </tr>
+            <tr>
+              <td>
+                <form enctype="multipart/form-data" action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td><input type="file" id="inputFile_Id" name="inputFileId_Name" value="inputFileIdValue"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>InputFile identified by label</td>
+            </tr>
+            <tr>
+              <td>
+                <form enctype="multipart/form-data" action="snoopy.php">
+                  <table border='0'>
+                    <tr>
+                      <td><label for="inputFileId_Label">InputFile Label</label></td>
+                      <td><input type="file" id="inputFileId_Label" name="inputFile_Label" value="inputFileLabelValue"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+          </table>
+
+          <h4>by layout</h4>
+
+          <table border='0'>
+
+            <tr>
+              <td>directly before</td>
+            </tr>
+            <tr>
+              <td>
+                <form enctype="multipart/form-data" action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td>InputFile LayoutLabel before<input type="file" name="inputFile_LayoutBefore" value="inputFileLayoutBeforeValue"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>directly before formated</td>
+            </tr>
+            <tr>
+              <td>
+                <form enctype="multipart/form-data" action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td>InputFile Layout<font color='red'>Label</font> <b>befor</b>e formated<input type="file" name="inputFile_LayoutBeforeFormated" value="inputFileLayoutBeforeFormatedValue"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>separate element at top</td>
+            </tr>
+            <tr>
+              <td>
+                <form enctype="multipart/form-data" action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td>InputFile LayoutLabel at top</td>
+                    </tr>
+                    <tr>
+                      <td><input type="file" name="inputFile_LayoutTop" value="inputFileLayoutTopValue"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>separate element at top formated</td>
+            </tr>
+            <tr>
+              <td>
+                <form enctype="multipart/form-data" action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td>InputFile Layout<font color='red'>Label</font> at <b>to</b>p formated</td>
+                    </tr>
+                    <tr>
+                      <td><input type="file" name="inputFile_LayoutTopFormated"  value="inputFileLayoutTopFormatedValue"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>separate element at left</td>
+            </tr>
+            <tr>
+              <td>
+                <form enctype="multipart/form-data" action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td>InputFile LayoutLabel at left</td>
+                      <td><input type="file" name="inputFile_LayoutLeft" value="inputFileLayoutLeftValue"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>separate element at left formated</td>
+            </tr>
+            <tr>
+              <td>
+                <form enctype="multipart/form-data" action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td>InputFile Layout<font color='red'>Label</font> at <b>lef</b>t formated</td>
+                      <td><input type="file" name="inputFile_LayoutLeftFormated" value="inputFileLayoutLeftFormatedValue"></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+          </table>
+
+          <h4>disabled</h4>
+
+          <table border='0'>
+
+            <tr>
+              <td>Disabled InputFile</td>
+            </tr>
+            <tr>
+              <td>
+                <form enctype="multipart/form-data" action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td><input type="file" name="inputFile_Disabled" value="inputFileDisabledValue" disabled></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+          </table>
+
+          <h4>multiple</h4>
+
+          <table border='0'>
+
+            <tr>
+              <td>InputFile for multiple files</td>
+            </tr>
+            <tr>
+              <td>
+                <form enctype="multipart/form-data" action="snoopy.php">
+                  <table border='1' cellspacing='0' cellpadding='4'>
+                    <tr>
+                      <td><input type="file" name="inputFile_Multiple" value="inputFileMultipleValue" multiple></td>
+                    </tr>
+                  </table>
+                </form>
+              </td>
+            </tr>
+
+          </table>
+
+        <!-- end column 4 -->
         </td>
       </tr>
     </table>

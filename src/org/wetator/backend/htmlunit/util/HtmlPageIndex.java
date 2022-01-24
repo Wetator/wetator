@@ -16,7 +16,9 @@
 
 package org.wetator.backend.htmlunit.util;
 
+import java.util.EnumSet;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
@@ -29,6 +31,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.WordUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.wetator.backend.htmlunit.MouseAction;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.FindSpot;
 import org.wetator.util.NormalizedString;
@@ -37,8 +40,10 @@ import com.gargoylesoftware.htmlunit.ElementNotFoundException;
 import com.gargoylesoftware.htmlunit.Page;
 import com.gargoylesoftware.htmlunit.css.StyleAttributes.Definition;
 import com.gargoylesoftware.htmlunit.html.DomComment;
+import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.DomNode;
 import com.gargoylesoftware.htmlunit.html.DomText;
+import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 import com.gargoylesoftware.htmlunit.html.HtmlApplet;
 import com.gargoylesoftware.htmlunit.html.HtmlBody;
 import com.gargoylesoftware.htmlunit.html.HtmlBreak;
@@ -51,6 +56,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlForm;
 import com.gargoylesoftware.htmlunit.html.HtmlFrame;
 import com.gargoylesoftware.htmlunit.html.HtmlHead;
 import com.gargoylesoftware.htmlunit.html.HtmlHiddenInput;
+import com.gargoylesoftware.htmlunit.html.HtmlHtml;
 import com.gargoylesoftware.htmlunit.html.HtmlImage;
 import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
 import com.gargoylesoftware.htmlunit.html.HtmlInlineFrame;
@@ -76,6 +82,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlTitle;
 import com.gargoylesoftware.htmlunit.html.SubmittableElement;
 import com.gargoylesoftware.htmlunit.javascript.host.css.CSSStyleDeclaration;
 import com.gargoylesoftware.htmlunit.javascript.host.css.ComputedCSSStyleDeclaration;
+import com.gargoylesoftware.htmlunit.javascript.host.event.MouseEvent;
 import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLElement;
 import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLObjectElement;
 
@@ -91,6 +98,17 @@ import net.sourceforge.htmlunit.corejs.javascript.ScriptableObject;
 public class HtmlPageIndex {
   private static final Logger LOG = LogManager.getLogger(HtmlPageIndex.class);
 
+  private static final String HIERARCHY_DELIMITER = ">";
+
+  private static final String EVENT_NAME_CLICK = "on" + MouseEvent.TYPE_CLICK;
+  private static final String EVENT_NAME_DBL_CLICK = "on" + MouseEvent.TYPE_DBL_CLICK;
+  private static final String EVENT_NAME_CONTEXT_MENU = "on" + MouseEvent.TYPE_CONTEXT_MENU;
+  private static final String EVENT_NAME_MOUSE_DOWN = "on" + MouseEvent.TYPE_MOUSE_DOWN;
+  private static final String EVENT_NAME_MOUSE_UP = "on" + MouseEvent.TYPE_MOUSE_UP;
+  private static final String EVENT_NAME_MOUSE_OVER = "on" + MouseEvent.TYPE_MOUSE_OVER;
+  private static final String EVENT_NAME_MOUSE_MOVE = "on" + MouseEvent.TYPE_MOUSE_MOVE;
+  private static final String EVENT_NAME_MOUSE_OUT = "on" + MouseEvent.TYPE_MOUSE_OUT;
+
   private HtmlPage htmlPage;
 
   private NormalizedString text;
@@ -102,7 +120,9 @@ public class HtmlPageIndex {
   private Set<HtmlElement> visibleHtmlElementsBottomUp;
   private Set<HtmlElement> visibleHtmlElements;
 
-  private boolean lastOneWasHtmlElement;
+  private Map<DomNode, String> hierarchies;
+
+  private Map<MouseAction, Set<HtmlElement>> htmlElementsWithMouseActionListener;
 
   /**
    * The constructor.
@@ -122,7 +142,14 @@ public class HtmlPageIndex {
     visibleHtmlElementsBottomUp = new LinkedHashSet<>();
     visibleHtmlElements = new LinkedHashSet<>();
 
-    parseDomNode(aHtmlPage);
+    hierarchies = new HashMap<>(256);
+
+    htmlElementsWithMouseActionListener = new HashMap<>();
+    for (final MouseAction tmpMouseAction : MouseAction.values()) {
+      htmlElementsWithMouseActionListener.put(tmpMouseAction, new HashSet<HtmlElement>());
+    }
+
+    parseDomNode(aHtmlPage, null, EnumSet.noneOf(MouseAction.class));
   }
 
   /**
@@ -207,6 +234,21 @@ public class HtmlPageIndex {
     final FindSpot tmpResult = positions.get(anHtmlElement);
     if (null == tmpResult) {
       LOG.error("No position found for HtmlElement: " + anHtmlElement.toString());
+      dumpToLog();
+    }
+    return tmpResult;
+  }
+
+  /**
+   * Returns the hierarchy of the given element.
+   *
+   * @param anHtmlElement the element
+   * @return the position
+   */
+  public String getHierarchy(final HtmlElement anHtmlElement) {
+    final String tmpResult = hierarchies.get(anHtmlElement);
+    if (null == tmpResult) {
+      LOG.error("No hierarchy found for HtmlElement: " + anHtmlElement.toString());
       dumpToLog();
     }
     return tmpResult;
@@ -384,7 +426,19 @@ public class HtmlPageIndex {
     return textWithoutFormControls.substring(tmpFindSpot.getStartPos(), tmpFindSpot.getEndPos());
   }
 
-  private void parseDomNode(final DomNode aDomNode) {
+  /**
+   * Returns <code>true</code> if the given element has an event listener for the given {@link MouseAction}.
+   *
+   * @param aMouseAction the mouse action to check
+   * @param anHtmlElement the element to check
+   * @return <code>true</code> if the given element has an event listener for the given {@link MouseAction}
+   */
+  public boolean hasMouseActionListener(final MouseAction aMouseAction, final HtmlElement anHtmlElement) {
+    return htmlElementsWithMouseActionListener.get(aMouseAction).contains(anHtmlElement);
+  }
+
+  private void parseDomNode(final DomNode aDomNode, final String aParentHierarchy,
+      final Set<MouseAction> aParentMouseActions) {
     if (null == aDomNode) {
       return;
     }
@@ -399,16 +453,27 @@ public class HtmlPageIndex {
     tmpFindSpotWFC.setStartPos(textWithoutFormControls.length());
     positionsWithoutFormControls.put(aDomNode, tmpFindSpotWFC);
 
+    final String tmpHierarchy;
+    if (aParentHierarchy == null) {
+      tmpHierarchy = String.valueOf(nodes.indexOf(aDomNode));
+    } else {
+      tmpHierarchy = aParentHierarchy + HIERARCHY_DELIMITER + nodes.indexOf(aDomNode);
+    }
+    hierarchies.put(aDomNode, tmpHierarchy);
+
+    Set<MouseAction> tmpMouseActions = aParentMouseActions;
+
     if (isDisplayed(aDomNode)) {
       final boolean tmpIsHtmlElement = aDomNode instanceof HtmlElement;
       if (tmpIsHtmlElement) {
-        visibleHtmlElements.add((HtmlElement) aDomNode);
+        final HtmlElement tmpHtmlElement = (HtmlElement) aDomNode;
+        visibleHtmlElements.add(tmpHtmlElement);
 
-        if (HtmlElementUtil.isFormatElement(aDomNode) && lastOneWasHtmlElement) {
-          // IE suppresses whitespace between two elements
-          // e.g. <b>Hello</b> <i>World</i>
-          text.appendBlank();
-          textWithoutFormControls.appendBlank();
+        if (!(tmpHtmlElement instanceof HtmlHtml || tmpHtmlElement instanceof HtmlBody)) {
+          // we exclude HtmlHtml and HtmlBody from action scanning because otherwise all elements on the page would be
+          // e.g. clickable (there are some js libs that add such event listeners to html or body)
+          tmpMouseActions = getAvailableMouseActions(tmpHtmlElement, tmpMouseActions);
+          tmpMouseActions.forEach(a -> htmlElementsWithMouseActionListener.get(a).add(tmpHtmlElement));
         }
       }
 
@@ -418,61 +483,67 @@ public class HtmlPageIndex {
         // nothing
       } else if (aDomNode instanceof DomText) {
         appendDomText((DomText) aDomNode);
-      } else if (aDomNode instanceof HtmlInlineFrame) {
-        appendHtmlInlineFrame((HtmlInlineFrame) aDomNode);
-      } else if (aDomNode instanceof HtmlFrame) {
-        appendHtmlFrame((HtmlFrame) aDomNode);
       } else if (aDomNode instanceof HtmlBreak) {
         text.appendBlank();
         textWithoutFormControls.appendBlank();
-      } else if (aDomNode instanceof HtmlImage) {
-        appendHtmlImage((HtmlImage) aDomNode);
-      } else if (aDomNode instanceof HtmlSelect) {
-        appendHtmlSelect((HtmlSelect) aDomNode);
-      } else if (aDomNode instanceof HtmlOptionGroup) {
-        appendHtmlOptionGroup((HtmlOptionGroup) aDomNode);
-      } else if (aDomNode instanceof HtmlLegend) {
-        appendHtmlLegend((HtmlLegend) aDomNode);
-      } else if (aDomNode instanceof HtmlLabel) {
-        appendHtmlLabel((HtmlLabel) aDomNode);
-      } else if (aDomNode instanceof HtmlSubmitInput) {
-        appendHtmlSubmitInput((HtmlSubmitInput) aDomNode);
-      } else if (aDomNode instanceof HtmlResetInput) {
-        appendHtmlResetInput((HtmlResetInput) aDomNode);
       } else if (aDomNode instanceof HtmlButtonInput) {
         appendHtmlButtonInput((HtmlButtonInput) aDomNode);
       } else if (aDomNode instanceof HtmlCheckBoxInput) {
-        appendHtmlCheckBoxInput((HtmlCheckBoxInput) aDomNode);
-      } else if (aDomNode instanceof HtmlRadioButtonInput) {
-        appendHtmlRadioButtonInput((HtmlRadioButtonInput) aDomNode);
+        appendHtmlCheckBoxInput((HtmlCheckBoxInput) aDomNode, tmpHierarchy, tmpMouseActions);
       } else if (aDomNode instanceof HtmlImageInput) {
         appendHtmlImageInput((HtmlImageInput) aDomNode);
+      } else if (aDomNode instanceof HtmlRadioButtonInput) {
+        appendHtmlRadioButtonInput((HtmlRadioButtonInput) aDomNode, tmpHierarchy, tmpMouseActions);
+      } else if (aDomNode instanceof HtmlResetInput) {
+        appendHtmlResetInput((HtmlResetInput) aDomNode);
+      } else if (aDomNode instanceof HtmlSubmitInput) {
+        appendHtmlSubmitInput((HtmlSubmitInput) aDomNode);
       } else if (aDomNode instanceof HtmlInput) {
         appendHtmlInput((HtmlInput) aDomNode);
-      } else if (aDomNode instanceof HtmlTextArea) {
-        appendHtmlTextArea((HtmlTextArea) aDomNode);
       } else if (aDomNode instanceof HtmlButton) {
-        appendHtmlButton((HtmlButton) aDomNode);
-      } else if (aDomNode instanceof HtmlOrderedList) {
-        appendHtmlOrderedList((HtmlOrderedList) aDomNode);
-      } else if (aDomNode instanceof HtmlObject) {
-        appendHtmlHtmlObject((HtmlObject) aDomNode);
+        appendHtmlButton((HtmlButton) aDomNode, tmpHierarchy, tmpMouseActions);
+      } else if (aDomNode instanceof HtmlFrame) {
+        appendHtmlFrame((HtmlFrame) aDomNode, tmpHierarchy);
+      } else if (aDomNode instanceof HtmlImage) {
+        appendHtmlImage((HtmlImage) aDomNode);
+      } else if (aDomNode instanceof HtmlInlineFrame) {
+        appendHtmlInlineFrame((HtmlInlineFrame) aDomNode, tmpHierarchy);
       } else if (aDomNode instanceof HtmlInlineQuotation) {
-        appendHtmlInlineQuotation((HtmlInlineQuotation) aDomNode);
+        appendHtmlInlineQuotation((HtmlInlineQuotation) aDomNode, tmpHierarchy, tmpMouseActions);
+      } else if (aDomNode instanceof HtmlLabel) {
+        appendHtmlLabel((HtmlLabel) aDomNode, tmpHierarchy, tmpMouseActions);
+      } else if (aDomNode instanceof HtmlLegend) {
+        appendHtmlLegend((HtmlLegend) aDomNode, tmpHierarchy, tmpMouseActions);
+      } else if (aDomNode instanceof HtmlObject) {
+        appendHtmlObject((HtmlObject) aDomNode, tmpHierarchy, tmpMouseActions);
+      } else if (aDomNode instanceof HtmlOptionGroup) {
+        appendHtmlOptionGroup((HtmlOptionGroup) aDomNode);
+      } else if (aDomNode instanceof HtmlOrderedList) {
+        appendHtmlOrderedList((HtmlOrderedList) aDomNode, tmpHierarchy, tmpMouseActions);
+      } else if (aDomNode instanceof HtmlSelect) {
+        appendHtmlSelect((HtmlSelect) aDomNode, tmpHierarchy, tmpMouseActions);
+      } else if (aDomNode instanceof HtmlTextArea) {
+        appendHtmlTextArea((HtmlTextArea) aDomNode, tmpHierarchy, tmpMouseActions);
       } else {
+        if (aDomNode instanceof HtmlAnchor
+            && DomElement.ATTRIBUTE_NOT_DEFINED != ((HtmlAnchor) aDomNode).getHrefAttribute()
+            && !tmpMouseActions.contains(MouseAction.CLICK)) {
+          // the content of an anchor with href should also be marked as 'clickable'
+          tmpMouseActions = copyAndAdd(tmpMouseActions, MouseAction.CLICK);
+        }
+
         final boolean tmpIsBlock = HtmlElementUtil.isBlock(aDomNode);
         if (tmpIsBlock) {
           text.appendBlank();
           textWithoutFormControls.appendBlank();
         }
-        parseChildren(aDomNode);
+        parseChildren(aDomNode, tmpHierarchy, tmpMouseActions);
         if (tmpIsBlock) {
           text.appendBlank();
           textWithoutFormControls.appendBlank();
         }
       }
 
-      lastOneWasHtmlElement = tmpIsHtmlElement;
       if (tmpIsHtmlElement) {
         visibleHtmlElementsBottomUp.add((HtmlElement) aDomNode);
       }
@@ -510,9 +581,59 @@ public class HtmlPageIndex {
     return true;
   }
 
-  private void parseChildren(final DomNode aNode) {
+  private Set<MouseAction> getAvailableMouseActions(final HtmlElement aHtmlElement,
+      final Set<MouseAction> aParentMouseActions) {
+    Set<MouseAction> tmpMouseActions = aParentMouseActions;
+
+    // FIXME [CSS MOUSE OVER] add support for CSS :hover pseudo class for mouse over
+
+    // click: click, mousedown, mouseup
+    // click-double: click, dblclick, mousedown, mouseup
+    // click-right: contextmenu, mousedown, mouseup
+    // mouse-over: mouseover, mousemove, mouseout
+    if (!aParentMouseActions
+        .containsAll(EnumSet.of(MouseAction.CLICK, MouseAction.CLICK_DOUBLE, MouseAction.CLICK_RIGHT))
+        && (aHtmlElement.hasEventHandlers(EVENT_NAME_MOUSE_DOWN)
+            || aHtmlElement.hasEventHandlers(EVENT_NAME_MOUSE_UP))) {
+      tmpMouseActions = copyAndAdd(tmpMouseActions, MouseAction.CLICK, MouseAction.CLICK_DOUBLE,
+          MouseAction.CLICK_RIGHT);
+    } else {
+      if (!aParentMouseActions.containsAll(EnumSet.of(MouseAction.CLICK, MouseAction.CLICK_DOUBLE))
+          && aHtmlElement.hasEventHandlers(EVENT_NAME_CLICK)) {
+        tmpMouseActions = copyAndAdd(tmpMouseActions, MouseAction.CLICK, MouseAction.CLICK_DOUBLE);
+      } else if (!aParentMouseActions.contains(MouseAction.CLICK_DOUBLE)
+          && aHtmlElement.hasEventHandlers(EVENT_NAME_DBL_CLICK)) {
+        tmpMouseActions = copyAndAdd(tmpMouseActions, MouseAction.CLICK_DOUBLE);
+      }
+
+      if (!aParentMouseActions.contains(MouseAction.CLICK_RIGHT)
+          && aHtmlElement.hasEventHandlers(EVENT_NAME_CONTEXT_MENU)) {
+        tmpMouseActions = copyAndAdd(tmpMouseActions, MouseAction.CLICK_RIGHT);
+      }
+    }
+
+    if (!aParentMouseActions.contains(MouseAction.MOUSE_OVER)
+        && (aHtmlElement.hasEventHandlers(EVENT_NAME_MOUSE_OVER) || aHtmlElement.hasEventHandlers(EVENT_NAME_MOUSE_MOVE)
+            || aHtmlElement.hasEventHandlers(EVENT_NAME_MOUSE_OUT))) {
+      // mouseenter and mouseleave are currently not supported by HtmlUnit
+      tmpMouseActions = copyAndAdd(tmpMouseActions, MouseAction.MOUSE_OVER);
+    }
+
+    return tmpMouseActions;
+  }
+
+  private Set<MouseAction> copyAndAdd(final Set<MouseAction> aCurrentMouseActions,
+      final MouseAction... aNewMouseActions) {
+    final Set<MouseAction> tmpMouseActions = EnumSet.copyOf(aCurrentMouseActions);
+    for (final MouseAction tmpNewMouseAction : aNewMouseActions) {
+      tmpMouseActions.add(tmpNewMouseAction);
+    }
+    return tmpMouseActions;
+  }
+
+  private void parseChildren(final DomNode aNode, final String aHierarchy, final Set<MouseAction> aMouseActions) {
     for (final DomNode tmpChild : aNode.getChildren()) {
-      parseDomNode(tmpChild);
+      parseDomNode(tmpChild, aHierarchy, aMouseActions);
     }
   }
 
@@ -549,39 +670,45 @@ public class HtmlPageIndex {
     textWithoutFormControls.append(tmpTxt);
   }
 
-  private void appendHtmlInlineFrame(final HtmlInlineFrame anHtmlInlineFrame) {
-    final Page tmpPage = anHtmlInlineFrame.getEnclosedPage();
-    if (tmpPage instanceof HtmlPage) {
-      parseDomNode((HtmlPage) tmpPage);
+  private void appendHtmlButton(final HtmlButton anHtmlButton, final String aHierarchy,
+      final Set<MouseAction> aMouseActions) {
+    Set<MouseAction> tmpMouseActions = aMouseActions;
+    if (!tmpMouseActions.contains(MouseAction.CLICK)) {
+      // the content of a button should also be marked as 'clickable'
+      tmpMouseActions = copyAndAdd(tmpMouseActions, MouseAction.CLICK);
     }
-  }
 
-  private void appendHtmlFrame(final HtmlFrame anHtmlFrame) {
-    final Page tmpPage = anHtmlFrame.getEnclosedPage();
-    if (tmpPage instanceof HtmlPage) {
-      parseDomNode((HtmlPage) tmpPage);
-    }
-  }
-
-  private void appendHtmlImageInput(final HtmlImageInput anHtmlImageInput) {
     text.appendBlank();
     textWithoutFormControls.appendBlank();
-    text.append(anHtmlImageInput.getAltAttribute());
+    textWithoutFormControls.disableAppend();
+    parseChildren(anHtmlButton, aHierarchy, tmpMouseActions);
+    textWithoutFormControls.enableAppend();
+    text.appendBlank();
+    textWithoutFormControls.appendBlank();
+  }
+
+  private void appendHtmlButtonInput(final HtmlButtonInput anHtmlButtonInput) {
+    text.appendBlank();
+    textWithoutFormControls.appendBlank();
+    text.append(anHtmlButtonInput.getValueAttribute());
     text.appendBlank();
   }
 
-  private void appendHtmlInput(final HtmlInput anHtmlInput) {
-    String tmpValue = anHtmlInput.getValueAttribute();
-    if (StringUtils.isEmpty(tmpValue)) {
-      tmpValue = anHtmlInput.getAttribute("placeholder");
-    }
-    text.append(tmpValue);
+  private void appendHtmlCheckBoxInput(final HtmlCheckBoxInput anHtmlCheckBoxInput, final String aHierarchy,
+      final Set<MouseAction> aMouseActions) {
+    textWithoutFormControls.disableAppend();
+    parseChildren(anHtmlCheckBoxInput, aHierarchy, aMouseActions);
+    textWithoutFormControls.enableAppend();
+    text.appendBlank();
+    textWithoutFormControls.appendBlank();
   }
 
-  private void appendHtmlTextArea(final HtmlTextArea anHtmlTextArea) {
-    textWithoutFormControls.disableAppend();
-    parseChildren(anHtmlTextArea);
-    textWithoutFormControls.enableAppend();
+  private void appendHtmlFrame(final HtmlFrame anHtmlFrame, final String aHierarchy) {
+    final Page tmpPage = anHtmlFrame.getEnclosedPage();
+    if (tmpPage instanceof HtmlPage) {
+      // events are not propagated through the frame 'border' -> start with fresh mouse actions
+      parseDomNode((HtmlPage) tmpPage, aHierarchy, EnumSet.noneOf(MouseAction.class));
+    }
   }
 
   private void appendHtmlImage(final HtmlImage anHtmlImage) {
@@ -593,10 +720,67 @@ public class HtmlPageIndex {
     textWithoutFormControls.appendBlank();
   }
 
-  private void appendHtmlLegend(final HtmlLegend anHtmlLegend) {
-    parseChildren(anHtmlLegend);
+  private void appendHtmlImageInput(final HtmlImageInput anHtmlImageInput) {
     text.appendBlank();
     textWithoutFormControls.appendBlank();
+    text.append(anHtmlImageInput.getAltAttribute());
+    text.appendBlank();
+  }
+
+  private void appendHtmlInlineFrame(final HtmlInlineFrame anHtmlInlineFrame, final String aHierarchy) {
+    final Page tmpPage = anHtmlInlineFrame.getEnclosedPage();
+    if (tmpPage instanceof HtmlPage) {
+      // events are not propagated through the iframe 'border' -> start with fresh mouse actions
+      parseDomNode((HtmlPage) tmpPage, aHierarchy, EnumSet.noneOf(MouseAction.class));
+    }
+  }
+
+  private void appendHtmlInlineQuotation(final HtmlInlineQuotation anHtmlInlineQuotation, final String aHierarchy,
+      final Set<MouseAction> aMouseActions) {
+    text.append("\"");
+    textWithoutFormControls.append("\"");
+    parseChildren(anHtmlInlineQuotation, aHierarchy, aMouseActions);
+    text.append("\"");
+    textWithoutFormControls.append("\"");
+  }
+
+  private void appendHtmlInput(final HtmlInput anHtmlInput) {
+    String tmpValue = anHtmlInput.getValueAttribute();
+    if (StringUtils.isEmpty(tmpValue)) {
+      tmpValue = anHtmlInput.getPlaceholder();
+    }
+    text.append(tmpValue);
+  }
+
+  private void appendHtmlLabel(final HtmlLabel anHtmlLabel, final String aHierarchy,
+      final Set<MouseAction> aMouseActions) {
+    text.appendBlank();
+    textWithoutFormControls.appendBlank();
+    parseChildren(anHtmlLabel, aHierarchy, aMouseActions);
+    text.appendBlank();
+    textWithoutFormControls.appendBlank();
+  }
+
+  private void appendHtmlLegend(final HtmlLegend anHtmlLegend, final String aHierarchy,
+      final Set<MouseAction> aMouseActions) {
+    parseChildren(anHtmlLegend, aHierarchy, aMouseActions);
+    text.appendBlank();
+    textWithoutFormControls.appendBlank();
+  }
+
+  private void appendHtmlObject(final HtmlObject anHtmlObject, final String aHierarchy,
+      final Set<MouseAction> aMouseActions) {
+    text.append(" ");
+    textWithoutFormControls.append(" ");
+
+    // process childs only if the control is not supported
+    final HTMLObjectElement tmpJsObject = anHtmlObject.getScriptableObject();
+    if (null == tmpJsObject || null == tmpJsObject.unwrap()) {
+      parseChildren(anHtmlObject, aHierarchy, aMouseActions);
+    }
+
+    text.append(" ");
+    textWithoutFormControls.append(" ");
   }
 
   private void appendHtmlOptionGroup(final HtmlOptionGroup anHtmlOptionGroup) {
@@ -604,81 +788,13 @@ public class HtmlPageIndex {
     text.append(tmpLabel);
   }
 
-  private void appendHtmlButton(final HtmlButton anHtmlButton) {
-    text.appendBlank();
-    textWithoutFormControls.appendBlank();
-    textWithoutFormControls.disableAppend();
-    parseChildren(anHtmlButton);
-    textWithoutFormControls.enableAppend();
-    text.appendBlank();
-    textWithoutFormControls.appendBlank();
-  }
-
-  private void appendHtmlSubmitInput(final HtmlSubmitInput anHtmlSubmitInput) {
-    text.appendBlank();
-    textWithoutFormControls.appendBlank();
-    text.append(anHtmlSubmitInput.getValueAttribute());
-    text.appendBlank();
-  }
-
-  private void appendHtmlResetInput(final HtmlResetInput anHtmlResetInput) {
-    text.appendBlank();
-    textWithoutFormControls.appendBlank();
-    text.append(anHtmlResetInput.getValueAttribute());
-    text.appendBlank();
-  }
-
-  private void appendHtmlButtonInput(final HtmlButtonInput anHtmlButtonInput) {
-    text.appendBlank();
-    textWithoutFormControls.appendBlank();
-    text.append(anHtmlButtonInput.getValueAttribute());
-    text.appendBlank();
-  }
-
-  private void appendHtmlCheckBoxInput(final HtmlCheckBoxInput anHtmlCheckBoxInput) {
-    textWithoutFormControls.disableAppend();
-    parseChildren(anHtmlCheckBoxInput);
-    textWithoutFormControls.enableAppend();
-    text.appendBlank();
-    textWithoutFormControls.appendBlank();
-  }
-
-  private void appendHtmlLabel(final HtmlLabel anHtmlLabel) {
-    text.appendBlank();
-    textWithoutFormControls.appendBlank();
-    parseChildren(anHtmlLabel);
-    text.appendBlank();
-    textWithoutFormControls.appendBlank();
-  }
-
-  private void appendHtmlRadioButtonInput(final HtmlRadioButtonInput anHtmlRadioButtonInput) {
-    textWithoutFormControls.disableAppend();
-    parseChildren(anHtmlRadioButtonInput);
-    textWithoutFormControls.enableAppend();
-    text.appendBlank();
-    textWithoutFormControls.appendBlank();
-  }
-
-  private void appendHtmlSelect(final HtmlSelect anHtmlSelect) {
-    textWithoutFormControls.disableAppend();
-    for (final DomNode tmpItem : anHtmlSelect.getHtmlElementDescendants()) {
-      if (tmpItem instanceof HtmlOption || tmpItem instanceof HtmlOptionGroup) {
-        text.appendBlank();
-        textWithoutFormControls.appendBlank();
-        parseDomNode(tmpItem);
-      }
-    }
-    textWithoutFormControls.enableAppend();
-    text.appendBlank();
-    textWithoutFormControls.appendBlank();
-  }
-
   /**
    * Appends a &lt;ol&gt; taking care to numerate it.
    *
    * @param anHtmlOrderedList the OL element
    */
-  private void appendHtmlOrderedList(final HtmlOrderedList anHtmlOrderedList) {
+  private void appendHtmlOrderedList(final HtmlOrderedList anHtmlOrderedList, final String aHierarchy,
+      final Set<MouseAction> aMouseActions) {
     text.appendBlank();
     textWithoutFormControls.appendBlank();
 
@@ -694,40 +810,69 @@ public class HtmlPageIndex {
         textWithoutFormControls.append(String.valueOf(i++));
         textWithoutFormControls.append(". ");
 
-        parseDomNode(tmpItem);
+        parseDomNode(tmpItem, aHierarchy, aMouseActions);
         final FindSpot tmpFindSpot = positions.get(tmpItem);
         tmpFindSpot.setStartPos(tmpStartPos);
 
         final FindSpot tmpFindSpotWFC = positionsWithoutFormControls.get(tmpItem);
         tmpFindSpotWFC.setStartPos(tmpStartPosWFC);
       } else {
-        parseDomNode(tmpItem);
+        parseDomNode(tmpItem, aHierarchy, aMouseActions);
       }
     }
     text.appendBlank();
     textWithoutFormControls.appendBlank();
   }
 
-  private void appendHtmlHtmlObject(final HtmlObject anHtmlObject) {
-    text.append(" ");
-    textWithoutFormControls.append(" ");
-
-    // process childs only if the control is not supported
-    final HTMLObjectElement tmpJsObject = anHtmlObject.getScriptableObject();
-    if (null == tmpJsObject || null == tmpJsObject.unwrap()) {
-      parseChildren(anHtmlObject);
-    }
-
-    text.append(" ");
-    textWithoutFormControls.append(" ");
+  private void appendHtmlRadioButtonInput(final HtmlRadioButtonInput anHtmlRadioButtonInput, final String aHierarchy,
+      final Set<MouseAction> aMouseActions) {
+    textWithoutFormControls.disableAppend();
+    parseChildren(anHtmlRadioButtonInput, aHierarchy, aMouseActions);
+    textWithoutFormControls.enableAppend();
+    text.appendBlank();
+    textWithoutFormControls.appendBlank();
   }
 
-  private void appendHtmlInlineQuotation(final HtmlInlineQuotation anHtmlInlineQuotation) {
-    text.append(" \"");
-    textWithoutFormControls.append(" \"");
-    parseChildren(anHtmlInlineQuotation);
-    text.append("\" ");
-    textWithoutFormControls.append("\" ");
+  private void appendHtmlResetInput(final HtmlResetInput anHtmlResetInput) {
+    text.appendBlank();
+    textWithoutFormControls.appendBlank();
+    text.append(anHtmlResetInput.getValueAttribute());
+    text.appendBlank();
+  }
+
+  private void appendHtmlSelect(final HtmlSelect anHtmlSelect, final String aHierarchy,
+      final Set<MouseAction> aMouseActions) {
+    textWithoutFormControls.disableAppend();
+    for (final DomNode tmpItem : anHtmlSelect.getHtmlElementDescendants()) {
+      if (tmpItem instanceof HtmlOption || tmpItem instanceof HtmlOptionGroup) {
+        text.appendBlank();
+        textWithoutFormControls.appendBlank();
+        parseDomNode(tmpItem, aHierarchy, aMouseActions);
+      }
+    }
+    textWithoutFormControls.enableAppend();
+    text.appendBlank();
+    textWithoutFormControls.appendBlank();
+  }
+
+  private void appendHtmlSubmitInput(final HtmlSubmitInput anHtmlSubmitInput) {
+    text.appendBlank();
+    textWithoutFormControls.appendBlank();
+    text.append(anHtmlSubmitInput.getValueAttribute());
+    text.appendBlank();
+  }
+
+  private void appendHtmlTextArea(final HtmlTextArea anHtmlTextArea, final String aHierarchy,
+      final Set<MouseAction> aMouseActions) {
+    textWithoutFormControls.disableAppend();
+
+    final int tmpOldLength = text.length();
+    parseChildren(anHtmlTextArea, aHierarchy, aMouseActions);
+    if (text.length() == tmpOldLength) {
+      text.append(anHtmlTextArea.getPlaceholder());
+    }
+
+    textWithoutFormControls.enableAppend();
   }
 
   /**

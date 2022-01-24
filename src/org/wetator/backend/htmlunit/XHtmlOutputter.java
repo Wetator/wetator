@@ -23,9 +23,11 @@ import java.lang.reflect.Field;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.apache.commons.io.output.FileWriterWithEncoding;
 import org.apache.commons.lang3.StringUtils;
@@ -274,7 +276,7 @@ public final class XHtmlOutputter {
       output.println(
           "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">");
 
-      writeSubNodes(htmlPage);
+      writeSubNodes(htmlPage, new Context());
     } finally {
       // this closes the writer also
       output.close();
@@ -285,9 +287,10 @@ public final class XHtmlOutputter {
    * Helper rot writing subnodes.
    *
    * @param aDomNode the parent node
+   * @param aContext the context of this process
    * @throws IOException in case of error
    */
-  private void writeSubNodes(final DomNode aDomNode) throws IOException {
+  private void writeSubNodes(final DomNode aDomNode, final Context aContext) throws IOException {
     DomNode tmpChild = aDomNode.getFirstChild();
 
     while (null != tmpChild) {
@@ -297,13 +300,13 @@ public final class XHtmlOutputter {
           && !(tmpChild instanceof DomComment) && !(tmpChild instanceof HtmlBase)) {
 
         if (tmpChild instanceof HtmlCanvas) {
-          writeCanvasImage((HtmlCanvas) tmpChild);
+          writeCanvasImage((HtmlCanvas) tmpChild, aContext);
         } else {
-          writeStartTag(tmpChild);
+          writeStartTag(tmpChild, aContext);
           output.indent();
-          writeSubNodes(tmpChild);
+          writeSubNodes(tmpChild, aContext);
           output.unindent();
-          writeEndTag(tmpChild);
+          writeEndTag(tmpChild, aContext);
         }
       }
 
@@ -315,9 +318,10 @@ public final class XHtmlOutputter {
    * Writes the opening part of the tag.
    *
    * @param aDomNode the node to work on
+   * @param aContext the context of this process
    * @throws IOException in case of error
    */
-  private void writeStartTag(final DomNode aDomNode) throws IOException {
+  private void writeStartTag(final DomNode aDomNode, final Context aContext) throws IOException {
     if (aDomNode instanceof HtmlHtml) {
       output.println("<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\">");
       output.print("<!-- Browser URL: ").print(htmlPage.getUrl().toExternalForm()).println(" -->");
@@ -327,6 +331,10 @@ public final class XHtmlOutputter {
       writeAttributes(aDomNode);
       output.println(">");
     } else if (aDomNode instanceof DomElement) {
+      if (aDomNode instanceof HtmlPreformattedText) {
+        aContext.insidePre++;
+      }
+
       output.print('<');
       output.print(determineTag(aDomNode));
       writeAttributes(aDomNode);
@@ -338,12 +346,12 @@ public final class XHtmlOutputter {
 
       if (EMPTY_TAGS.contains(aDomNode.getClass().getName())) {
         output.print('/');
-        if (HtmlElementUtil.isBlock(aDomNode)) {
+        if (HtmlElementUtil.isBlock(aDomNode) && aContext.insidePre == 0) {
           output.println(">");
         } else {
           output.print(">");
         }
-      } else if (SINGLE_LINE_TAGS.contains(aDomNode.getClass().getName())) {
+      } else if (SINGLE_LINE_TAGS.contains(aDomNode.getClass().getName()) || aContext.insidePre > 0) {
         output.print(">");
       } else {
         output.println(">");
@@ -372,7 +380,7 @@ public final class XHtmlOutputter {
 
           output.println(tmpText);
           output.unindent();
-        } else if (SINGLE_LINE_TAGS.contains(tmpParentNode.getClass().getName())) {
+        } else if (SINGLE_LINE_TAGS.contains(tmpParentNode.getClass().getName()) || aContext.insidePre > 0) {
           output.print(xmlUtil.normalizeBodyValue(tmpText));
         } else {
           output.println(xmlUtil.normalizeBodyValue(tmpText));
@@ -387,9 +395,10 @@ public final class XHtmlOutputter {
    * Writes the closing part of the tag.
    *
    * @param aDomNode the node to work on
+   * @param aContext the context of this process
    * @throws IOException in case of error
    */
-  private void writeEndTag(final DomNode aDomNode) throws IOException {
+  private void writeEndTag(final DomNode aDomNode, final Context aContext) throws IOException {
     if (aDomNode instanceof HtmlHtml) {
       output.println("</html>");
     } else if (aDomNode instanceof HtmlUnknownElement) {
@@ -408,11 +417,15 @@ public final class XHtmlOutputter {
         output.unindent();
       }
 
+      if (aDomNode instanceof HtmlPreformattedText) {
+        aContext.insidePre--;
+      }
+
       if (!EMPTY_TAGS.contains(aDomNode.getClass().getName())) {
         output.print("</");
         output.print(determineTag(aDomNode));
 
-        if (HtmlElementUtil.isBlock(aDomNode)) {
+        if (HtmlElementUtil.isBlock(aDomNode) && aContext.insidePre == 0) {
           output.println(">");
         } else {
           output.print(">");
@@ -450,7 +463,7 @@ public final class XHtmlOutputter {
 
       final URL tmpBaseUrl = htmlPage.getWebResponse().getWebRequest().getUrl();
 
-      final Map<String, DomAttr> tmpAttributes = tmpDomElement.getAttributesMap();
+      final Map<String, DomAttr> tmpAttributes = new HashMap<>(tmpDomElement.getAttributesMap());
 
       // some HtmlUnitControls are special
       if (tmpIsHtmlOption && ((HtmlOption) tmpDomElement).isSelected()) {
@@ -462,9 +475,19 @@ public final class XHtmlOutputter {
         output.print(" checked=\"checked\"");
       }
 
+      // fixed order for readability and testability
+      final List<String> tmpSortedAttributeNames = tmpAttributes.keySet().stream().map(k -> k.toLowerCase(Locale.ROOT))
+          .sorted().collect(Collectors.toList());
+      if (tmpSortedAttributeNames.remove("name")) {
+        tmpSortedAttributeNames.add(0, "name");
+      }
+      if (tmpSortedAttributeNames.remove("id")) {
+        tmpSortedAttributeNames.add(0, "id");
+      }
+
       boolean tmpStyleDefined = false;
-      for (final DomAttr tmpAttribute : tmpAttributes.values()) {
-        final String tmpAttributeName = tmpAttribute.getNodeName().toLowerCase(Locale.ROOT);
+      for (final String tmpAttributeName : tmpSortedAttributeNames) {
+        final DomAttr tmpAttribute = tmpAttributes.get(tmpAttributeName);
 
         if (!IGNORED_ATTRIBUTES.contains(tmpAttributeName)) {
 
@@ -633,13 +656,13 @@ public final class XHtmlOutputter {
     return aDomNode.getClass().getName();
   }
 
-  private void writeCanvasImage(final HtmlCanvas aCanvas) throws IOException {
+  private void writeCanvasImage(final HtmlCanvas aCanvas, final Context aContext) throws IOException {
     output.print("<!-- ");
-    writeStartTag(aCanvas);
+    writeStartTag(aCanvas, aContext);
     output.indent();
-    writeSubNodes(aCanvas);
+    writeSubNodes(aCanvas, aContext);
     output.unindent();
-    writeEndTag(aCanvas);
+    writeEndTag(aCanvas, aContext);
     output.println("-->");
 
     final HTMLCanvasElement tmpCanvas = aCanvas.getScriptableObject();
@@ -661,4 +684,7 @@ public final class XHtmlOutputter {
     output.print("'>");
   }
 
+  private static final class Context {
+    private int insidePre;
+  }
 }

@@ -30,14 +30,17 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.lang3.reflect.MethodUtils;
+import org.wetator.backend.ControlFeature;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.IControlFinder;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.control.IControl;
 import org.wetator.backend.control.IDeselectable;
+import org.wetator.backend.control.IDisableable;
 import org.wetator.backend.control.ISelectable;
 import org.wetator.backend.control.ISettable;
+import org.wetator.backend.htmlunit.HtmlUnitBrowser;
 import org.wetator.core.Command;
 import org.wetator.core.ForceExecution;
 import org.wetator.core.ICommandImplementation;
@@ -79,7 +82,9 @@ public final class DefaultCommandSet extends AbstractCommandSet {
     registerCommand("set", new CommandSet());
     registerCommand("select", new CommandSelect());
     registerCommand("deselect", new CommandDeselect());
+
     registerCommand("mouse-over", new CommandMouseOver());
+    registerCommand("confirm-next", new CommandConfirmNext());
 
     registerCommand("assert-title", new CommandAssertTitle());
     registerCommand("assert-content", new CommandAssertContent());
@@ -204,10 +209,6 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         throws CommandException, InvalidInputException {
       final WPath tmpWPath = new WPath(aCommand.getFirstParameterValue(aContext), aContext.getConfiguration());
 
-      SecretString tmpValueParam = aCommand.getSecondParameterValue(aContext);
-      if (null == tmpValueParam) {
-        tmpValueParam = new SecretString("");
-      }
       aCommand.checkNoUnusedThirdParameter(aContext);
 
       final IBrowser tmpBrowser = getBrowser(aContext);
@@ -232,14 +233,13 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       if (tmpControl == null) {
         final IControlFinder tmpControlFinder = getControlFinder(tmpBrowser);
 
-        // TextInputs / PasswordInputs / TextAreas / FileInputs
-        final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
+        final WeightedControlList tmpFoundElements = tmpControlFinder.findControls(ControlFeature.SET, tmpWPath);
 
         if (tmpWPath.isEmpty()) {
           // if the wpath is empty use the first 'usable' field on the page
           for (final WeightedControlList.Entry tmpEntry : tmpFoundElements.getEntriesSorted()) {
             tmpControl = (ISettable) tmpEntry.getControl();
-            if (!tmpControl.isDisabled(aContext)) {
+            if (!(tmpControl instanceof IDisableable && ((IDisableable) tmpControl).isDisabled(aContext))) {
               break;
             }
           }
@@ -254,6 +254,8 @@ public final class DefaultCommandSet extends AbstractCommandSet {
               "noSettableHtmlElmentFound");
         }
       }
+
+      final SecretString tmpValueParam = aCommand.getSecondParameterValue(aContext);
 
       tmpBrowser.markControls(tmpControl);
       tmpControl.setValue(aContext, tmpValueParam, aContext.getFile().getParentFile());
@@ -276,11 +278,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final IBrowser tmpBrowser = getBrowser(aContext);
       final IControlFinder tmpControlFinder = getControlFinder(tmpBrowser);
 
-      // Buttons / Link / Image
-      final WeightedControlList tmpFoundElements = tmpControlFinder.getAllClickables(tmpWPath);
-
-      // Text
-      tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
+      final WeightedControlList tmpFoundElements = tmpControlFinder.findControls(ControlFeature.CLICK, tmpWPath);
 
       final IControl tmpControl = getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
           "noClickableHtmlElmentFound");
@@ -306,11 +304,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final IBrowser tmpBrowser = getBrowser(aContext);
       final IControlFinder tmpControlFinder = getControlFinder(tmpBrowser);
 
-      final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
-      tmpFoundElements.addAll(tmpControlFinder.getAllSelectables(tmpWPath));
-      tmpFoundElements.addAll(tmpControlFinder.getAllClickables(tmpWPath));
-      tmpFoundElements.addAll(tmpControlFinder.getAllOtherControls(tmpWPath));
-      tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
+      final WeightedControlList tmpFoundElements = tmpControlFinder.findControls(ControlFeature.CLICK_DOUBLE, tmpWPath);
 
       final IControl tmpControl = getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
           "no2ClickableHtmlElmentFound");
@@ -336,11 +330,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final IBrowser tmpBrowser = getBrowser(aContext);
       final IControlFinder tmpControlFinder = getControlFinder(tmpBrowser);
 
-      final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
-      tmpFoundElements.addAll(tmpControlFinder.getAllSelectables(tmpWPath));
-      tmpFoundElements.addAll(tmpControlFinder.getAllClickables(tmpWPath));
-      tmpFoundElements.addAll(tmpControlFinder.getAllOtherControls(tmpWPath));
-      tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
+      final WeightedControlList tmpFoundElements = tmpControlFinder.findControls(ControlFeature.CLICK_DOUBLE, tmpWPath);
 
       final IControl tmpControl = getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
           "noRClickableHtmlElmentFound");
@@ -366,8 +356,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final IBrowser tmpBrowser = getBrowser(aContext);
       final IControlFinder tmpControlFinder = getControlFinder(tmpBrowser);
 
-      // (Select)Options / Checkboxes / Radiobuttons
-      final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpWPath);
+      final WeightedControlList tmpFoundElements = tmpControlFinder.findControls(ControlFeature.SELECT, tmpWPath);
 
       final ISelectable tmpControl = (ISelectable) getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
           "noSelectableHtmlElmentFound");
@@ -393,8 +382,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final IBrowser tmpBrowser = getBrowser(aContext);
       final IControlFinder tmpControlFinder = getControlFinder(tmpBrowser);
 
-      // (Select)Options / Checkboxes
-      final WeightedControlList tmpFoundElements = tmpControlFinder.getAllDeselectables(tmpWPath);
+      final WeightedControlList tmpFoundElements = tmpControlFinder.findControls(ControlFeature.DESELECT, tmpWPath);
 
       final IDeselectable tmpControl = (IDeselectable) getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements,
           tmpWPath, "noDeselectableHtmlElmentFound");
@@ -420,15 +408,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final IBrowser tmpBrowser = getBrowser(aContext);
       final IControlFinder tmpControlFinder = getControlFinder(tmpBrowser);
 
-      final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
-      tmpFoundElements.addAll(tmpControlFinder.getAllSelectables(tmpWPath));
-      tmpFoundElements.addAll(tmpControlFinder.getAllClickables(tmpWPath));
-
-      // search for special elements
-      // e.g. selects by label, name, id
-      tmpFoundElements.addAll(tmpControlFinder.getAllOtherControls(tmpWPath));
-
-      tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
+      final WeightedControlList tmpFoundElements = tmpControlFinder.findControls(ControlFeature.MOUSE_OVER, tmpWPath);
 
       final IControl tmpControl = getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
           "noHtmlElementFound");
@@ -563,20 +543,10 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final IBrowser tmpBrowser = getBrowser(aContext);
       final IControlFinder tmpControlFinder = getControlFinder(tmpBrowser);
 
-      // TextInputs / PasswordInputs / TextAreas / FileInputs
-      final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
-      tmpFoundElements.addAll(tmpControlFinder.getAllSelectables(tmpWPath));
-      tmpFoundElements.addAll(tmpControlFinder.getAllClickables(tmpWPath));
+      final WeightedControlList tmpFoundElements = tmpControlFinder.findControls(ControlFeature.DISABLE, tmpWPath);
 
-      // search for special elements
-      // e.g. selects by label, name, id
-      tmpFoundElements.addAll(tmpControlFinder.getAllOtherControls(tmpWPath));
-
-      // clickable Text
-      tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
-
-      final IControl tmpControl = getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
-          "noHtmlElementFound");
+      final IDisableable tmpControl = (IDisableable) getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements,
+          tmpWPath, "noHtmlElementFound");
 
       tmpBrowser.markControls(tmpControl);
       final boolean tmpIsDisabled = tmpControl.isDisabled(aContext);
@@ -599,20 +569,10 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final IBrowser tmpBrowser = getBrowser(aContext);
       final IControlFinder tmpControlFinder = getControlFinder(tmpBrowser);
 
-      // TextInputs / PasswordInputs / TextAreas / FileInputs
-      final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
-      tmpFoundElements.addAll(tmpControlFinder.getAllSelectables(tmpWPath));
-      tmpFoundElements.addAll(tmpControlFinder.getAllClickables(tmpWPath));
+      final WeightedControlList tmpFoundElements = tmpControlFinder.findControls(ControlFeature.DISABLE, tmpWPath);
 
-      // search for special elements
-      // e.g. selects by label, name, id
-      tmpFoundElements.addAll(tmpControlFinder.getAllOtherControls(tmpWPath));
-
-      // clickable Text
-      tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
-
-      final IControl tmpControl = getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
-          "noHtmlElementFound");
+      final IDisableable tmpControl = (IDisableable) getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements,
+          tmpWPath, "noHtmlElementFound");
 
       tmpBrowser.markControls(tmpControl);
       final boolean tmpIsDisabled = tmpControl.isDisabled(aContext);
@@ -629,17 +589,13 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         throws CommandException, InvalidInputException {
       final WPath tmpWPath = new WPath(aCommand.getRequiredFirstParameterValue(aContext), aContext.getConfiguration());
 
-      SecretString tmpValueParam = aCommand.getSecondParameterValue(aContext);
-      if (null == tmpValueParam) {
-        tmpValueParam = new SecretString("");
-      }
+      final SecretString tmpValueParam = aCommand.getSecondParameterValue(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
 
       final IBrowser tmpBrowser = getBrowser(aContext);
       final IControlFinder tmpControlFinder = getControlFinder(tmpBrowser);
 
-      // TextInputs / PasswordInputs / TextAreas / FileInputs
-      final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
+      final WeightedControlList tmpFoundElements = tmpControlFinder.findControls(ControlFeature.SET, tmpWPath);
 
       final ISettable tmpControl = (ISettable) getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
           "noSettableHtmlElmentFound");
@@ -664,8 +620,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final IBrowser tmpBrowser = getBrowser(aContext);
       final IControlFinder tmpControlFinder = getControlFinder(tmpBrowser);
 
-      // (Select)Options / Checkboxes / Radiobuttons
-      final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpWPath);
+      final WeightedControlList tmpFoundElements = tmpControlFinder.findControls(ControlFeature.SELECT, tmpWPath);
 
       final ISelectable tmpControl = (ISelectable) getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
           "noSelectableHtmlElmentFound");
@@ -691,8 +646,7 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       final IBrowser tmpBrowser = getBrowser(aContext);
       final IControlFinder tmpControlFinder = getControlFinder(tmpBrowser);
 
-      // (Select)Options / Checkboxes / Radiobuttons
-      final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSelectables(tmpWPath);
+      final WeightedControlList tmpFoundElements = tmpControlFinder.findControls(ControlFeature.SELECT, tmpWPath);
 
       final ISelectable tmpControl = (ISelectable) getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
           "noDeselectableHtmlElmentFound");
@@ -700,6 +654,34 @@ public final class DefaultCommandSet extends AbstractCommandSet {
       tmpBrowser.markControls(tmpControl);
       final boolean tmpIsSelected = tmpControl.isSelected(aContext);
       Assert.assertFalse(tmpIsSelected, "elementNotDeselected", tmpControl.getDescribingText());
+    }
+  }
+
+  /**
+   * Command 'confirm-next'.
+   */
+  public final class CommandConfirmNext implements ICommandImplementation {
+    @Override
+    public void execute(final WetatorContext aContext, final Command aCommand)
+        throws CommandException, InvalidInputException {
+      final SecretString tmpButton = aCommand.getRequiredFirstParameterValue(aContext);
+      if (!"ok".equalsIgnoreCase(tmpButton.getValue()) && !"cancel".equalsIgnoreCase(tmpButton.getValue())) {
+        final String tmpMessage = Messages.getMessage("confirmationOkOrCancel", tmpButton.toString());
+        throw new InvalidInputException(tmpMessage);
+      }
+
+      final ContentPattern tmpPattern = new ContentPattern(aCommand.getRequiredSecondParameterValue(aContext));
+
+      final IBrowser tmpBrowser = getBrowser(aContext);
+      if (tmpBrowser instanceof HtmlUnitBrowser) {
+        final HtmlUnitBrowser tmpHtmlUnitBrowser = (HtmlUnitBrowser) tmpBrowser;
+
+        if ("ok".equalsIgnoreCase(tmpButton.getValue())) {
+          tmpHtmlUnitBrowser.chooseOkOnNextConfirmFor(tmpPattern);
+        } else {
+          tmpHtmlUnitBrowser.chooseCancelOnNextConfirmFor(tmpPattern);
+        }
+      }
     }
   }
 

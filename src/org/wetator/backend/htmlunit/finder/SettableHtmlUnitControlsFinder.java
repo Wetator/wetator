@@ -68,25 +68,29 @@ public class SettableHtmlUnitControlsFinder extends IdentifierBasedHtmlUnitContr
           tmpFoundControls.add(new HtmlUnitInputText((HtmlTextInput) tmpHtmlElement),
               WeightedControlList.FoundType.BY_ID, 0, // no deviation
               htmlPageIndex.getTextBefore(tmpHtmlElement).length(), // distance from page start
-              htmlPageIndex.getPosition(tmpHtmlElement).getStartPos(), htmlPageIndex.getIndex(tmpHtmlElement));
+              htmlPageIndex.getPosition(tmpHtmlElement).getStartPos(), htmlPageIndex.getHierarchy(tmpHtmlElement),
+              htmlPageIndex.getIndex(tmpHtmlElement));
         }
         if (tmpHtmlElement instanceof HtmlPasswordInput) {
           tmpFoundControls.add(new HtmlUnitInputPassword((HtmlPasswordInput) tmpHtmlElement),
               WeightedControlList.FoundType.BY_ID, 0, // no deviation
               htmlPageIndex.getTextBefore(tmpHtmlElement).length(), // distance from page start
-              htmlPageIndex.getPosition(tmpHtmlElement).getStartPos(), htmlPageIndex.getIndex(tmpHtmlElement));
+              htmlPageIndex.getPosition(tmpHtmlElement).getStartPos(), htmlPageIndex.getHierarchy(tmpHtmlElement),
+              htmlPageIndex.getIndex(tmpHtmlElement));
         }
         if (tmpHtmlElement instanceof HtmlTextArea) {
           tmpFoundControls.add(new HtmlUnitTextArea((HtmlTextArea) tmpHtmlElement), WeightedControlList.FoundType.BY_ID,
               0, // no deviation
               htmlPageIndex.getTextBefore(tmpHtmlElement).length(), // distance from page start
-              htmlPageIndex.getPosition(tmpHtmlElement).getStartPos(), htmlPageIndex.getIndex(tmpHtmlElement));
+              htmlPageIndex.getPosition(tmpHtmlElement).getStartPos(), htmlPageIndex.getHierarchy(tmpHtmlElement),
+              htmlPageIndex.getIndex(tmpHtmlElement));
         }
         if (tmpHtmlElement instanceof HtmlFileInput) {
           tmpFoundControls.add(new HtmlUnitInputFile((HtmlFileInput) tmpHtmlElement),
               WeightedControlList.FoundType.BY_ID, 0, // no deviation
               htmlPageIndex.getTextBefore(tmpHtmlElement).length(), // distance from page start
-              htmlPageIndex.getPosition(tmpHtmlElement).getStartPos(), htmlPageIndex.getIndex(tmpHtmlElement));
+              htmlPageIndex.getPosition(tmpHtmlElement).getStartPos(), htmlPageIndex.getHierarchy(tmpHtmlElement),
+              htmlPageIndex.getIndex(tmpHtmlElement));
         }
       }
       return tmpFoundControls;

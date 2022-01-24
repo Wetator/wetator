@@ -829,6 +829,36 @@ public class WetatorContextExecuteTest {
   /**
    * Test for the context.<br>
    * <br>
+   * Assertion: A comment should not be executed.
+   */
+  @Test
+  public void comment() throws InvalidInputException {
+    // setup
+    final Command tmpComment = new Command("comment", true);
+    when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(tmpComment));
+
+    // run
+    final WetatorContext tmpContext = new WetatorContext(engine, file1.getName(), file1, browserType);
+    Assert.assertTrue(tmpContext.execute());
+
+    // assert
+    final InOrder tmpInOrder = inOrder(engine);
+    tmpInOrder.verify(engine).informListenersTestFileStart(file1.getAbsolutePath());
+    tmpInOrder.verify(engine).informListenersExecuteCommandStart(tmpContext, tmpComment);
+    tmpInOrder.verify(engine).informListenersExecuteCommandEnd();
+    tmpInOrder.verify(engine).informListenersTestFileEnd();
+
+    verify(browser, never()).checkAndResetFailures();
+    verify(engine, never()).informListenersExecuteCommandSuccess();
+    verify(engine, never()).informListenersExecuteCommandIgnored();
+    verify(engine, never()).informListenersExecuteCommandFailure(isA(AssertionException.class));
+    verify(engine, never()).informListenersExecuteCommandError(isA(Throwable.class));
+    verify(engine, never()).informListenersError(isA(Throwable.class));
+  }
+
+  /**
+   * Test for the context.<br>
+   * <br>
    * Assertion: If there was a {@link ResourceException} reading the commands, no commands (can and) should be executed.
    */
   @Test

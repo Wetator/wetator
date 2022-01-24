@@ -21,7 +21,6 @@ import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputResetIdentifier;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
-import org.wetator.core.WetatorContext;
 
 import com.gargoylesoftware.htmlunit.html.HtmlResetInput;
 
@@ -34,7 +33,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlResetInput;
  */
 @ForHtmlElement(HtmlResetInput.class)
 @IdentifiedBy(HtmlUnitInputResetIdentifier.class)
-public class HtmlUnitInputReset extends HtmlUnitBaseControl<HtmlResetInput> implements IClickable {
+public class HtmlUnitInputReset extends HtmlUnitBaseControl<HtmlResetInput>
+    implements IClickable, IHtmlUnitDisableable<HtmlResetInput>, IHtmlUnitFocusable<HtmlResetInput> {
 
   /**
    * The constructor.
@@ -48,17 +48,5 @@ public class HtmlUnitInputReset extends HtmlUnitBaseControl<HtmlResetInput> impl
   @Override
   public String getDescribingText() {
     return HtmlElementUtil.getDescribingTextForHtmlResetInput(getHtmlElement());
-  }
-
-  @Override
-  public boolean isDisabled(final WetatorContext aWetatorContext) {
-    final HtmlResetInput tmpHtmlResetInput = getHtmlElement();
-
-    return tmpHtmlResetInput.isDisabled();
-  }
-
-  @Override
-  public boolean canReceiveFocus(final WetatorContext aWetatorContext) {
-    return !isDisabled(aWetatorContext);
   }
 }

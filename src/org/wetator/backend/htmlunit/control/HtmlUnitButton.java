@@ -21,7 +21,6 @@ import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitButtonIdentifier;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
-import org.wetator.core.WetatorContext;
 
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
 
@@ -33,7 +32,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlButton;
  */
 @ForHtmlElement(HtmlButton.class)
 @IdentifiedBy(HtmlUnitButtonIdentifier.class)
-public class HtmlUnitButton extends HtmlUnitBaseControl<HtmlButton> implements IClickable {
+public class HtmlUnitButton extends HtmlUnitBaseControl<HtmlButton>
+    implements IClickable, IHtmlUnitDisableable<HtmlButton>, IHtmlUnitFocusable<HtmlButton> {
 
   /**
    * The constructor.
@@ -47,17 +47,5 @@ public class HtmlUnitButton extends HtmlUnitBaseControl<HtmlButton> implements I
   @Override
   public String getDescribingText() {
     return HtmlElementUtil.getDescribingTextForHtmlButton(getHtmlElement());
-  }
-
-  @Override
-  public boolean isDisabled(final WetatorContext aWetatorContext) {
-    final HtmlButton tmpHtmlButton = getHtmlElement();
-
-    return tmpHtmlButton.isDisabled();
-  }
-
-  @Override
-  public boolean canReceiveFocus(final WetatorContext aWetatorContext) {
-    return !isDisabled(aWetatorContext);
   }
 }

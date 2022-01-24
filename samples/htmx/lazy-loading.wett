@@ -1,0 +1,12 @@
+open-url           || /
+assert-title       || </> htmx - Examples
+
+click-on           || Lazy Loading
+assert-title       || </> htmx - high power tools for html
+assert-content     || Lazy Loading
+assert-content     || Demo
+
+
+# alt tag use for image content
+assert-content     || Demo, ~Tokyo Climate
+assert-content     || Demo, Tokyo Climate || 30

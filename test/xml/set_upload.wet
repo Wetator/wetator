@@ -8,105 +8,83 @@
     version='1.0.0'>
     <command><d:open-url><d:url>set_upload.html</d:url></d:open-url></command>
     <command><d:assert-title><d:title>Wetator / Set Upload</d:title></d:assert-title></command>
-    <comment>FileInput with name</comment>
+    <comment>not found</comment>
+    <command><tst:assert-fail><tst:command-and-message>Set, No settable HTML element found for 'unknown'.</tst:command-and-message><tst:parameter1>unknown</tst:parameter1></tst:assert-fail></command>
+    <comment></comment>
+    <comment>=== InputFile ===</comment>
+    <comment>InputFile with name</comment>
+    <command><d:open-url><d:url>set_upload.html</d:url></d:open-url></command>
     <command><d:set><d:wpath>inputFile_Name</d:wpath><d:value>misc_files/test_file.txt</d:value></d:set></command>
     <command><d:click-on><d:wpath>InputFileNameTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters, Key, Value, InputFileNameTest, OK</d:content></d:assert-content></command>
-    <command><d:assert-content><d:content>File Upload, Upload Control, Values, inputFile_Name, name, test_file.txt, SampleData Content from ....</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
+    <command><d:assert-content><d:content>POST Parameters, InputFileNameTest, File Upload</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>File Upload, inputFile_Name name test_file.txt size 27 SampleData Content from ...., Headers</d:content></d:assert-content></command>
+    <comment>InputFile with id</comment>
     <command><d:open-url><d:url>set_upload.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set Upload</d:title></d:assert-title></command>
-    <comment>FileInput with id</comment>
     <command><d:set><d:wpath>inputFile_Id</d:wpath><d:value>misc_files/test_file.txt</d:value></d:set></command>
     <command><d:click-on><d:wpath>InputFileIdTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters, Key, Value, InputFileIdTest, OK</d:content></d:assert-content></command>
-    <command><d:assert-content><d:content>File Upload, Upload Control, Values, inputFileId_Name, name, test_file.txt, SampleData Content from ....</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
+    <command><d:assert-content><d:content>POST Parameters, InputFileIdTest, File Upload</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>File Upload, inputFileId_Name name test_file.txt size 27 SampleData Content from ...., Headers</d:content></d:assert-content></command>
+    <comment>InputFile with name and default</comment>
     <command><d:open-url><d:url>set_upload.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set Upload</d:title></d:assert-title></command>
-    <comment>FileInput with name and default</comment>
     <command><d:set><d:wpath>inputFile_Name_Value</d:wpath><d:value>misc_files/test_file.txt</d:value></d:set></command>
     <command><d:click-on><d:wpath>InputFileNameValueTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters, Key, Value, InputFileNameValueTest, OK</d:content></d:assert-content></command>
-    <command><d:assert-content><d:content>File Upload, Upload Control, Values, inputFile_Name_Value, name, test_file.txt, SampleData Content from ....</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
+    <command><d:assert-content><d:content>POST Parameters, InputFileNameValueTest, File Upload</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>File Upload, inputFile_Name_Value name test_file.txt size 27 SampleData Content from ...., Headers</d:content></d:assert-content></command>
+    <comment>InputFile with name and default; try to cleanup</comment>
     <command><d:open-url><d:url>set_upload.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set Upload</d:title></d:assert-title></command>
-    <comment>FileInput with name and default; try to cleanup</comment>
     <command><d:set><d:wpath>inputFile_Name_Value</d:wpath></d:set></command>
     <command><d:click-on><d:wpath>InputFileNameValueTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters, Key, Value, InputFileNameValueTest, OK</d:content></d:assert-content></command>
-    <command><d:assert-content><d:content>File Upload, Upload Control, Values, inputFile_Name_Value, name, size, 0</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
+    <command><d:assert-content><d:content>POST Parameters, InputFileNameValueTest, File Upload</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>File Upload, inputFile_Name_Value name size 0, Headers</d:content></d:assert-content></command>
+    <comment>InputFile identified by label</comment>
     <command><d:open-url><d:url>set_upload.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set Upload</d:title></d:assert-title></command>
-    <comment>FileInput identified by label</comment>
     <command><d:set><d:wpath>InputFile Label</d:wpath><d:value>misc_files/test_file.txt</d:value></d:set></command>
     <command><d:click-on><d:wpath>InputFileLabelTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters, Key, Value, InputFileLabelTest, OK</d:content></d:assert-content></command>
-    <command><d:assert-content><d:content>File Upload, Upload Control, Values, inputFile_Label, name, test_file.txt, SampleData Content from ....</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
+    <command><d:assert-content><d:content>POST Parameters, InputFileLabelTest, File Upload</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>File Upload, inputFile_Label name test_file.txt size 27 SampleData Content from ...., Headers</d:content></d:assert-content></command>
+    <comment>InputFile identified by layout directly before</comment>
     <command><d:open-url><d:url>set_upload.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set Upload</d:title></d:assert-title></command>
-    <comment>FileInput identified by layout directly before</comment>
     <command><d:set><d:wpath>InputFile LayoutLabel before</d:wpath><d:value>misc_files/test_file.txt</d:value></d:set></command>
     <command><d:click-on><d:wpath>InputFileLayoutBeforeTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters, Key, Value, InputFileLayoutBeforeTest, OK</d:content></d:assert-content></command>
-    <command><d:assert-content><d:content>File Upload, Upload Control, Values, inputFile_LayoutBefore, name, test_file.txt, SampleData Content from ....</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
+    <command><d:assert-content><d:content>POST Parameters, InputFileLayoutBeforeTest, File Upload</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>File Upload, inputFile_LayoutBefore name test_file.txt size 27 SampleData Content from ...., Headers</d:content></d:assert-content></command>
+    <comment>InputFile identified by layout directly before formated</comment>
     <command><d:open-url><d:url>set_upload.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set Upload</d:title></d:assert-title></command>
-    <comment>FileInput identified by layout directly before formated</comment>
     <command><d:set><d:wpath>InputFile LayoutLabel before formated</d:wpath><d:value>misc_files/test_file.txt</d:value></d:set></command>
     <command><d:click-on><d:wpath>InputFileLayoutBeforeFormatedTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters, Key, Value, InputFileLayoutBeforeFormatedTest, OK</d:content></d:assert-content></command>
-    <command><d:assert-content><d:content>File Upload, Upload Control, Values, inputFile_LayoutBeforeFormated, name, test_file.txt, SampleData Content from ....</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
+    <command><d:assert-content><d:content>POST Parameters, InputFileLayoutBeforeFormatedTest, File Upload</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>File Upload, inputFile_LayoutBeforeFormated name test_file.txt size 27 SampleData Content from ...., Headers</d:content></d:assert-content></command>
+    <comment>InputFile identified by layout at top</comment>
     <command><d:open-url><d:url>set_upload.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set Upload</d:title></d:assert-title></command>
-    <comment>FileInput identified by layout at top</comment>
     <command><d:set><d:wpath>InputFile LayoutLabel at top</d:wpath><d:value>misc_files/test_file.txt</d:value></d:set></command>
     <command><d:click-on><d:wpath>InputFileLayoutTopTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters, Key, Value, InputFileLayoutTopTest, OK</d:content></d:assert-content></command>
-    <command><d:assert-content><d:content>File Upload, Upload Control, Values, inputFile_LayoutTop, name, test_file.txt, SampleData Content from ....</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
+    <command><d:assert-content><d:content>POST Parameters, InputFileLayoutTopTest, File Upload</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>File Upload, inputFile_LayoutTop name test_file.txt size 27 SampleData Content from ...., Headers</d:content></d:assert-content></command>
+    <comment>InputFile identified by layout at top formated</comment>
     <command><d:open-url><d:url>set_upload.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set Upload</d:title></d:assert-title></command>
-    <comment>FileInput identified by layout at top formated</comment>
     <command><d:set><d:wpath>InputFile LayoutLabel at top formated</d:wpath><d:value>misc_files/test_file.txt</d:value></d:set></command>
     <command><d:click-on><d:wpath>InputFileLayoutTopFormatedTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters, Key, Value, InputFileLayoutTopFormatedTest, OK</d:content></d:assert-content></command>
-    <command><d:assert-content><d:content>File Upload, Upload Control, Values, inputFile_LayoutTopFormated, name, test_file.txt, SampleData Content from ....</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
+    <command><d:assert-content><d:content>POST Parameters, InputFileLayoutTopFormatedTest, File Upload</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>File Upload, inputFile_LayoutTopFormated name test_file.txt size 27 SampleData Content from ...., Headers</d:content></d:assert-content></command>
+    <comment>InputFile identified by layout at left</comment>
     <command><d:open-url><d:url>set_upload.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set Upload</d:title></d:assert-title></command>
-    <comment>FileInput identified by layout at left</comment>
     <command><d:set><d:wpath>InputFile LayoutLabel at left</d:wpath><d:value>misc_files/test_file.txt</d:value></d:set></command>
     <command><d:click-on><d:wpath>InputFileLayoutLeftTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters, Key, Value, InputFileLayoutLeftTest, OK</d:content></d:assert-content></command>
-    <command><d:assert-content><d:content>File Upload, Upload Control, Values, inputFile_LayoutLeft, name, test_file.txt, SampleData Content from ....</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
+    <command><d:assert-content><d:content>POST Parameters, InputFileLayoutLeftTest, File Upload</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>File Upload, inputFile_LayoutLeft name test_file.txt size 27 SampleData Content from ...., Headers</d:content></d:assert-content></command>
+    <comment>InputFile identified by layout at left formated</comment>
     <command><d:open-url><d:url>set_upload.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set Upload</d:title></d:assert-title></command>
-    <comment>FileInput identified by layout at left formated</comment>
     <command><d:set><d:wpath>InputFile LayoutLabel at left formated</d:wpath><d:value>misc_files/test_file.txt</d:value></d:set></command>
     <command><d:click-on><d:wpath>InputFileLayoutLeftFormatedTest</d:wpath></d:click-on></command>
-    <command><d:assert-content><d:content>GET Parameters, Key, Value, InputFileLayoutLeftFormatedTest, OK</d:content></d:assert-content></command>
-    <command><d:assert-content><d:content>File Upload, Upload Control, Values, inputFile_LayoutLeftFormated, name, test_file.txt, SampleData Content from ....</d:content></d:assert-content></command>
-    <comment></comment>
-    <comment></comment>
+    <command><d:assert-content><d:content>POST Parameters, InputFileLayoutLeftFormatedTest, File Upload</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>File Upload, inputFile_LayoutLeftFormated name test_file.txt size 27 SampleData Content from ...., Headers</d:content></d:assert-content></command>
+    <comment>disabled InputFile</comment>
     <command><d:open-url><d:url>set_upload.html</d:url></d:open-url></command>
-    <command><d:assert-title><d:title>Wetator / Set Upload</d:title></d:assert-title></command>
-    <comment>FileInput identified by layout at left formated</comment>
-    <command><tst:assert-fail><tst:command-and-message>Set, The HTML element [HtmlFileInput (name='inputFile_Disabled')] is disabled. Setting a value is not possible.</tst:command-and-message><tst:parameter1>Disabled FileInput</tst:parameter1></tst:assert-fail></command>
+    <command><tst:assert-fail><tst:command-and-message>Set, The HTML element [HtmlFileInput (name='inputFile_Disabled')] is disabled. Setting a value is not possible.</tst:command-and-message><tst:parameter1>Disabled InputFile</tst:parameter1></tst:assert-fail></command>
+    <comment>InputFile for multiple files</comment>
+    <command><d:open-url><d:url>set_upload.html</d:url></d:open-url></command>
+    <command><d:set><d:wpath>inputFile_Multiple</d:wpath><d:value>misc_files/test_file.txt, misc_files/test_file2.txt</d:value></d:set></command>
+    <command><d:click-on><d:wpath>InputFileMultipleTest</d:wpath></d:click-on></command>
+    <command><d:assert-content><d:content>POST Parameters, InputFileMultipleTest, File Upload</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>File Upload, inputFile_Multiple name test_file.txt size 27 SampleData Content from ...., inputFile_Multiple name test_file2.txt size 28 SampleData Content from ...., Headers</d:content></d:assert-content></command>
 </test-case>

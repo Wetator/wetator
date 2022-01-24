@@ -1,0 +1,15 @@
+open-url           || /
+assert-title       || </> htmx - Examples
+
+click-on           || Dialogs - Custom
+assert-title       || </> htmx - high power tools for html
+assert-content     || Custom Modal Dialogs
+# the dialog is at the end of the content (see the check after the next click-on)
+assert-content     || Custom Stylesheet, ~This is the modal content.
+
+click-on           || Open a Modal
+assert-content     || Custom Stylesheet, Modal Dialog, This is the modal content. You can put anything here, like text, or a form, or an image., Close
+
+click-on           || Close
+assert-content     || Custom Stylesheet, ~This is the modal content.
+

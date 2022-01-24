@@ -24,17 +24,18 @@ import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.wetator.backend.ControlFeature;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.IControlFinder;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.control.IControl;
+import org.wetator.backend.control.IFocusable;
 import org.wetator.backend.control.KeySequence;
 import org.wetator.backend.htmlunit.HtmlUnitBrowser;
 import org.wetator.core.Command;
 import org.wetator.core.ICommandImplementation;
 import org.wetator.core.WetatorContext;
-import org.wetator.core.searchpattern.ContentPattern;
 import org.wetator.exception.ActionException;
 import org.wetator.exception.AssertionException;
 import org.wetator.exception.BackendException;
@@ -70,8 +71,6 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
 
     registerCommand("type", new CommandType());
 
-    registerCommand("confirm-next", new CommandConfirmNext());
-
     // still there to solve some strange situations
     registerCommand("wait", new CommandWait());
   }
@@ -91,19 +90,9 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
       final IBrowser tmpBrowser = getBrowser(aContext);
       final IControlFinder tmpControlFinder = getControlFinder(tmpBrowser);
 
-      // TextInputs / PasswordInputs / TextAreas / FileInputs
-      final WeightedControlList tmpFoundElements = tmpControlFinder.getAllSettables(tmpWPath);
-      tmpFoundElements.addAll(tmpControlFinder.getAllSelectables(tmpWPath));
-      tmpFoundElements.addAll(tmpControlFinder.getAllClickables(tmpWPath));
+      final WeightedControlList tmpFoundElements = tmpControlFinder.findControls(ControlFeature.FOCUS, tmpWPath);
 
-      // search for special elements
-      // e.g. selects by label, name, id
-      tmpFoundElements.addAll(tmpControlFinder.getAllOtherControls(tmpWPath));
-
-      // clickable Text
-      tmpFoundElements.addAll(tmpControlFinder.getAllControlsForText(tmpWPath));
-
-      final IControl tmpControl = getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
+      final IFocusable tmpControl = (IFocusable) getFirstRequiredHtmlElementFrom(aContext, tmpFoundElements, tmpWPath,
           "noHtmlElementFound");
 
       tmpBrowser.markControls(tmpControl);
@@ -209,34 +198,6 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
       } catch (final BackendException e) {
         final String tmpMessage = Messages.getMessage("commandBackendError", e.getMessage());
         throw new AssertionException(tmpMessage, e);
-      }
-    }
-  }
-
-  /**
-   * Command 'confirm-next'.
-   */
-  public final class CommandConfirmNext implements ICommandImplementation {
-    @Override
-    public void execute(final WetatorContext aContext, final Command aCommand)
-        throws CommandException, InvalidInputException {
-      final SecretString tmpButton = aCommand.getRequiredFirstParameterValue(aContext);
-      if (!"ok".equalsIgnoreCase(tmpButton.getValue()) && !"cancel".equalsIgnoreCase(tmpButton.getValue())) {
-        final String tmpMessage = Messages.getMessage("confirmationOkOrCancel", tmpButton.toString());
-        throw new InvalidInputException(tmpMessage);
-      }
-
-      final ContentPattern tmpPattern = new ContentPattern(aCommand.getRequiredSecondParameterValue(aContext));
-
-      final IBrowser tmpBrowser = getBrowser(aContext);
-      if (tmpBrowser instanceof HtmlUnitBrowser) {
-        final HtmlUnitBrowser tmpHtmlUnitBrowser = (HtmlUnitBrowser) tmpBrowser;
-
-        if ("ok".equalsIgnoreCase(tmpButton.getValue())) {
-          tmpHtmlUnitBrowser.chooseOkOnNextConfirmFor(tmpPattern);
-        } else {
-          tmpHtmlUnitBrowser.chooseCancelOnNextConfirmFor(tmpPattern);
-        }
       }
     }
   }

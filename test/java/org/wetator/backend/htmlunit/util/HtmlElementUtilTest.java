@@ -26,6 +26,7 @@ import org.wetator.backend.htmlunit.control.HtmlUnitButton;
 import org.wetator.backend.htmlunit.control.HtmlUnitImage;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputButton;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputCheckBox;
+import org.wetator.backend.htmlunit.control.HtmlUnitInputEmail;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputFile;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputImage;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputPassword;
@@ -41,12 +42,15 @@ import org.wetator.backend.htmlunit.control.HtmlUnitUnspecificControl;
 
 import com.gargoylesoftware.htmlunit.html.DomElement;
 import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
+import com.gargoylesoftware.htmlunit.html.HtmlBody;
 import com.gargoylesoftware.htmlunit.html.HtmlButton;
 import com.gargoylesoftware.htmlunit.html.HtmlButtonInput;
 import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import com.gargoylesoftware.htmlunit.html.HtmlEmailInput;
 import com.gargoylesoftware.htmlunit.html.HtmlFileInput;
 import com.gargoylesoftware.htmlunit.html.HtmlForm;
+import com.gargoylesoftware.htmlunit.html.HtmlHiddenInput;
 import com.gargoylesoftware.htmlunit.html.HtmlImage;
 import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
 import com.gargoylesoftware.htmlunit.html.HtmlLabel;
@@ -241,6 +245,44 @@ public class HtmlElementUtilTest {
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlAnchor(tmpHtmlAnchor);
     Assert.assertEquals("[HtmlAnchor 'AnchorText' (id='AnchorId') (name='AnchorName')]", tmpResult);
+  }
+
+  @Test
+  public void getDescribingTextFor_HtmlBody() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "some text"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    final HtmlBody tmpBody = (HtmlBody) tmpHtmlPage.getBody();
+
+    String tmpResult;
+    tmpResult = new HtmlUnitUnspecificControl<>(tmpBody).getDescribingText();
+    Assert.assertEquals("[HtmlBody]", tmpResult);
+
+    tmpResult = HtmlElementUtil.getDescribingTextForHtmlBody(tmpBody);
+    Assert.assertEquals("[HtmlBody]", tmpResult);
+  }
+
+  @Test
+  public void getDescribingTextFor_HtmlBody_Id() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body id='tx'>"
+        + "some text"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    final HtmlBody tmpBody = (HtmlBody) tmpHtmlPage.getBody();
+
+    String tmpResult;
+    tmpResult = new HtmlUnitUnspecificControl<>(tmpBody).getDescribingText();
+    Assert.assertEquals("[HtmlBody (id='tx')]", tmpResult);
+
+    tmpResult = HtmlElementUtil.getDescribingTextForHtmlBody(tmpBody);
+    Assert.assertEquals("[HtmlBody (id='tx')]", tmpResult);
   }
 
   @Test
@@ -659,6 +701,98 @@ public class HtmlElementUtilTest {
   }
 
   @Test
+  public void getDescribingTextFor_HtmlEmailInput() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input type='email' value='admin@wetator.org'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+
+    final HtmlEmailInput tmpHtmlEmailInput = (HtmlEmailInput) tmpForm.getFirstChild();
+
+    String tmpResult;
+    tmpResult = new HtmlUnitInputEmail(tmpHtmlEmailInput).getDescribingText();
+    Assert.assertEquals("[HtmlEmailInput]", tmpResult);
+
+    tmpResult = HtmlElementUtil.getDescribingTextForHtmlEmailInput(tmpHtmlEmailInput);
+    Assert.assertEquals("[HtmlEmailInput]", tmpResult);
+  }
+
+  @Test
+  public void getDescribingTextFor_HtmlEmailInput_Name() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input name='EmailName' type='email' value='admin@wetator.org'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+
+    final HtmlEmailInput tmpHtmlEmailInput = (HtmlEmailInput) tmpForm.getFirstChild();
+
+    String tmpResult;
+    tmpResult = new HtmlUnitInputEmail(tmpHtmlEmailInput).getDescribingText();
+    Assert.assertEquals("[HtmlEmailInput (name='EmailName')]", tmpResult);
+
+    tmpResult = HtmlElementUtil.getDescribingTextForHtmlEmailInput(tmpHtmlEmailInput);
+    Assert.assertEquals("[HtmlEmailInput (name='EmailName')]", tmpResult);
+  }
+
+  @Test
+  public void getDescribingTextFor_HtmlEmailInput_Id() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input id='tx' type='email' value='admin@wetator.org'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+
+    final HtmlEmailInput tmpHtmlEmailInput = (HtmlEmailInput) tmpForm.getFirstChild();
+
+    String tmpResult;
+    tmpResult = new HtmlUnitInputEmail(tmpHtmlEmailInput).getDescribingText();
+    Assert.assertEquals("[HtmlEmailInput (id='tx')]", tmpResult);
+
+    tmpResult = HtmlElementUtil.getDescribingTextForHtmlEmailInput(tmpHtmlEmailInput);
+    Assert.assertEquals("[HtmlEmailInput (id='tx')]", tmpResult);
+  }
+
+  @Test
+  public void getDescribingTextFor_HtmlEmailInput_Name_Id() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input id='tx' name='EmailName' type='email' value='@admin@wetator.org'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+
+    final HtmlEmailInput tmpHtmlEmailInput = (HtmlEmailInput) tmpForm.getFirstChild();
+
+    String tmpResult;
+    tmpResult = new HtmlUnitInputEmail(tmpHtmlEmailInput).getDescribingText();
+    Assert.assertEquals("[HtmlEmailInput (id='tx') (name='EmailName')]", tmpResult);
+
+    tmpResult = HtmlElementUtil.getDescribingTextForHtmlEmailInput(tmpHtmlEmailInput);
+    Assert.assertEquals("[HtmlEmailInput (id='tx') (name='EmailName')]", tmpResult);
+  }
+
+  @Test
   public void getDescribingTextFor_HtmlFileInput() throws IOException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
@@ -748,6 +882,98 @@ public class HtmlElementUtilTest {
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlFileInput(tmpHtmlFileInput);
     Assert.assertEquals("[HtmlFileInput (id='FileInputId') (name='FileInputName')]", tmpResult);
+  }
+
+  @Test
+  public void getDescribingTextFor_HtmlHiddenInput() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input type='hidden' value='Hidden'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+
+    final HtmlHiddenInput tmpHtmlHiddenInput = (HtmlHiddenInput) tmpForm.getFirstChild();
+
+    String tmpResult;
+    tmpResult = new HtmlUnitUnspecificControl<>(tmpHtmlHiddenInput).getDescribingText();
+    Assert.assertEquals("[HtmlHiddenInput]", tmpResult);
+
+    tmpResult = HtmlElementUtil.getDescribingTextForHtmlHiddenInput(tmpHtmlHiddenInput);
+    Assert.assertEquals("[HtmlHiddenInput]", tmpResult);
+  }
+
+  @Test
+  public void getDescribingTextFor_HtmlHiddenInput_Name() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input name='HiddenName' type='hidden' value='Hidden'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+
+    final HtmlHiddenInput tmpHtmlHiddenInput = (HtmlHiddenInput) tmpForm.getFirstChild();
+
+    String tmpResult;
+    tmpResult = new HtmlUnitUnspecificControl<>(tmpHtmlHiddenInput).getDescribingText();
+    Assert.assertEquals("[HtmlHiddenInput (name='HiddenName')]", tmpResult);
+
+    tmpResult = HtmlElementUtil.getDescribingTextForHtmlHiddenInput(tmpHtmlHiddenInput);
+    Assert.assertEquals("[HtmlHiddenInput (name='HiddenName')]", tmpResult);
+  }
+
+  @Test
+  public void getDescribingTextFor_HtmlHiddenInput_Id() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input id='tx' type='hidden' value='Hidden'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+
+    final HtmlHiddenInput tmpHtmlHiddenInput = (HtmlHiddenInput) tmpForm.getFirstChild();
+
+    String tmpResult;
+    tmpResult = new HtmlUnitUnspecificControl<>(tmpHtmlHiddenInput).getDescribingText();
+    Assert.assertEquals("[HtmlHiddenInput (id='tx')]", tmpResult);
+
+    tmpResult = HtmlElementUtil.getDescribingTextForHtmlHiddenInput(tmpHtmlHiddenInput);
+    Assert.assertEquals("[HtmlHiddenInput (id='tx')]", tmpResult);
+  }
+
+  @Test
+  public void getDescribingTextFor_HtmlHiddenInput_Name_Id() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input id='tx' name='HiddenName' type='hidden' value='Hidden'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+
+    final HtmlHiddenInput tmpHtmlHiddenInput = (HtmlHiddenInput) tmpForm.getFirstChild();
+
+    String tmpResult;
+    tmpResult = new HtmlUnitUnspecificControl<>(tmpHtmlHiddenInput).getDescribingText();
+    Assert.assertEquals("[HtmlHiddenInput (id='tx') (name='HiddenName')]", tmpResult);
+
+    tmpResult = HtmlElementUtil.getDescribingTextForHtmlHiddenInput(tmpHtmlHiddenInput);
+    Assert.assertEquals("[HtmlHiddenInput (id='tx') (name='HiddenName')]", tmpResult);
   }
 
   @Test
@@ -942,6 +1168,202 @@ public class HtmlElementUtilTest {
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlImageInput(tmpHtmlImageInput);
     Assert.assertEquals("[HtmlImageInput 'ImageInput' (src='sample.src') (id='ImageInputId') (name='ImageInputName')]",
         tmpResult);
+  }
+
+  @Test
+  public void getDescribingTextFor_HtmlLabel() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<label for='TextInputId'>Label</label>"
+        + "<input type='text' id='TextInputId' value='Text'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+
+    final HtmlLabel tmpHtmlLabel = (HtmlLabel) tmpForm.getFirstChild();
+
+    String tmpResult;
+    tmpResult = new HtmlUnitUnspecificControl<>(tmpHtmlLabel).getDescribingText();
+    Assert.assertEquals("[HtmlLabel 'Label' (for='TextInputId')]", tmpResult);
+
+    tmpResult = HtmlElementUtil.getDescribingTextForHtmlLabel(tmpHtmlLabel);
+    Assert.assertEquals("[HtmlLabel 'Label' (for='TextInputId')]", tmpResult);
+  }
+
+  @Test
+  public void getDescribingTextFor_HtmlLabel_Name() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<label name='LabelName' for='TextInputId'>Label</label>"
+        + "<input type='text' id='TextInputId' value='Text'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+
+    final HtmlLabel tmpHtmlLabel = (HtmlLabel) tmpForm.getFirstChild();
+
+    String tmpResult;
+    tmpResult = new HtmlUnitUnspecificControl<>(tmpHtmlLabel).getDescribingText();
+    Assert.assertEquals("[HtmlLabel 'Label' (name='LabelName') (for='TextInputId')]", tmpResult);
+
+    tmpResult = HtmlElementUtil.getDescribingTextForHtmlLabel(tmpHtmlLabel);
+    Assert.assertEquals("[HtmlLabel 'Label' (name='LabelName') (for='TextInputId')]", tmpResult);
+  }
+
+  @Test
+  public void getDescribingTextFor_HtmlLabel_Id() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<label id='tx' for='TextInputId'>Label</label>"
+        + "<input type='text' id='TextInputId' value='Text'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+
+    final HtmlLabel tmpHtmlLabel = (HtmlLabel) tmpForm.getFirstChild();
+
+    String tmpResult;
+    tmpResult = new HtmlUnitUnspecificControl<>(tmpHtmlLabel).getDescribingText();
+    Assert.assertEquals("[HtmlLabel 'Label' (id='tx') (for='TextInputId')]", tmpResult);
+
+    tmpResult = HtmlElementUtil.getDescribingTextForHtmlLabel(tmpHtmlLabel);
+    Assert.assertEquals("[HtmlLabel 'Label' (id='tx') (for='TextInputId')]", tmpResult);
+  }
+
+  @Test
+  public void getDescribingTextFor_HtmlLabel_Name_Id() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<label id='tx' name='LabelName' for='TextInputId'>Label</label>"
+        + "<input type='text' id='TextInputId' value='Text'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+
+    final HtmlLabel tmpHtmlLabel = (HtmlLabel) tmpForm.getFirstChild();
+
+    String tmpResult;
+    tmpResult = new HtmlUnitUnspecificControl<>(tmpHtmlLabel).getDescribingText();
+    Assert.assertEquals("[HtmlLabel 'Label' (id='tx') (name='LabelName') (for='TextInputId')]", tmpResult);
+
+    tmpResult = HtmlElementUtil.getDescribingTextForHtmlLabel(tmpHtmlLabel);
+    Assert.assertEquals("[HtmlLabel 'Label' (id='tx') (name='LabelName') (for='TextInputId')]", tmpResult);
+  }
+
+  @Test
+  public void getDescribingTextFor_HtmlLabel_withChild() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<label>Label "
+        + "<input type='text' id='TextInputId' value='Text'>"
+        + "</label>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+
+    final HtmlLabel tmpHtmlLabel = (HtmlLabel) tmpForm.getFirstChild();
+
+    String tmpResult;
+    tmpResult = new HtmlUnitUnspecificControl<>(tmpHtmlLabel).getDescribingText();
+    Assert.assertEquals("[HtmlLabel 'Label Text']", tmpResult);
+
+    tmpResult = HtmlElementUtil.getDescribingTextForHtmlLabel(tmpHtmlLabel);
+    Assert.assertEquals("[HtmlLabel 'Label Text']", tmpResult);
+  }
+
+  @Test
+  public void getDescribingTextFor_HtmlLabel_withChild_Name() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<label name='LabelName'>Label "
+        + "<input type='text' id='TextInputId' value='Text'>"
+        + "</label>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+
+    final HtmlLabel tmpHtmlLabel = (HtmlLabel) tmpForm.getFirstChild();
+
+    String tmpResult;
+    tmpResult = new HtmlUnitUnspecificControl<>(tmpHtmlLabel).getDescribingText();
+    Assert.assertEquals("[HtmlLabel 'Label Text' (name='LabelName')]", tmpResult);
+
+    tmpResult = HtmlElementUtil.getDescribingTextForHtmlLabel(tmpHtmlLabel);
+    Assert.assertEquals("[HtmlLabel 'Label Text' (name='LabelName')]", tmpResult);
+  }
+
+  @Test
+  public void getDescribingTextFor_HtmlLabel_withChild_Id() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<label id='tx'>Label "
+        + "<input type='text' id='TextInputId' value='Text'>"
+        + "</label>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+
+    final HtmlLabel tmpHtmlLabel = (HtmlLabel) tmpForm.getFirstChild();
+
+    String tmpResult;
+    tmpResult = new HtmlUnitUnspecificControl<>(tmpHtmlLabel).getDescribingText();
+    Assert.assertEquals("[HtmlLabel 'Label Text' (id='tx')]", tmpResult);
+
+    tmpResult = HtmlElementUtil.getDescribingTextForHtmlLabel(tmpHtmlLabel);
+    Assert.assertEquals("[HtmlLabel 'Label Text' (id='tx')]", tmpResult);
+  }
+
+  @Test
+  public void getDescribingTextFor_HtmlLabel_withChild_Name_Id() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<label id='tx' name='LabelName'>Label "
+        + "<input type='text' id='TextInputId' value='Text'>"
+        + "</label>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+
+    final HtmlLabel tmpHtmlLabel = (HtmlLabel) tmpForm.getFirstChild();
+
+    String tmpResult;
+    tmpResult = new HtmlUnitUnspecificControl<>(tmpHtmlLabel).getDescribingText();
+    Assert.assertEquals("[HtmlLabel 'Label Text' (id='tx') (name='LabelName')]", tmpResult);
+
+    tmpResult = HtmlElementUtil.getDescribingTextForHtmlLabel(tmpHtmlLabel);
+    Assert.assertEquals("[HtmlLabel 'Label Text' (id='tx') (name='LabelName')]", tmpResult);
   }
 
   @Test
@@ -2123,20 +2545,5 @@ public class HtmlElementUtilTest {
 
     tmpElement = tmpHtmlPage.getElementById("img1");
     Assert.assertFalse(HtmlElementUtil.isBlock(tmpElement));
-  }
-
-  @Test
-  public void isFormatElement() throws IOException {
-    // @formatter:off
-    final String tmpHtmlCode = "<html><body>"
-        + "<div>"
-        + "<b id='id1'>Wetator</b>"
-        + "</div>"
-        + "</body></html>";
-    // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
-
-    final DomElement tmpElement = tmpHtmlPage.getElementById("id1");
-    Assert.assertTrue(HtmlElementUtil.isFormatElement(tmpElement));
   }
 }

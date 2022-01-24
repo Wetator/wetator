@@ -76,6 +76,8 @@ public class HtmlUnitButtonIdentifier extends AbstractMatcherBasedIdentifier {
       // normal matchers
       final SearchPattern tmpSearchPattern = aWPath.getLastNode().getSearchPattern();
       // now check for the including image
+      // (this is needed to be able to check for enabled/disabled depending on an inner image
+      // for click, etc. we do not need this as all inner elements become clickable as well)
       aMatchers.add(new ByInnerImageMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
 
       aMatchers.add(new ByTextMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));

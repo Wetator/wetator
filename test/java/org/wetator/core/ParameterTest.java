@@ -16,14 +16,13 @@
 
 package org.wetator.core;
 
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
 import org.wetator.util.SecretString;
 
 /**
@@ -36,12 +35,8 @@ public class ParameterTest {
   @Before
   public void setupMocks() {
     context = mock(WetatorContext.class);
-    when(context.replaceVariables(anyString())).thenAnswer(new Answer<SecretString>() {
-      @Override
-      public SecretString answer(final InvocationOnMock anInvocation) throws Throwable {
-        final Object[] tmpArgs = anInvocation.getArguments();
-        return new SecretString((String) tmpArgs[0]);
-      }
+    when(context.replaceVariables(anyString())).thenAnswer(anInvocation -> {
+      return new SecretString((String) anInvocation.getArguments()[0]);
     });
   }
 

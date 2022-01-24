@@ -33,7 +33,6 @@ import org.wetator.backend.htmlunit.util.ExceptionUtil;
 import org.wetator.core.WetatorContext;
 import org.wetator.exception.ActionException;
 import org.wetator.exception.BackendException;
-import org.wetator.exception.UnsupportedOperationException;
 import org.wetator.i18n.Messages;
 import org.wetator.util.CssUtil;
 
@@ -52,11 +51,11 @@ import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 /**
  * This is the base implementation of a {@link IControl} using HtmlUnit as backend.
  *
- * @param <T> the type of the {@link HtmlElement}.
+ * @param <T> the type of the {@link HtmlElement}
  * @author rbri
  * @author frank.danek
  */
-public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements IControl {
+public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements IHtmlUnitControl<T> {
 
   private static final Logger LOG = LogManager.getLogger(HtmlUnitBaseControl.class);
 
@@ -81,10 +80,8 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
     return false;
   }
 
-  /**
-   * @return the backing {@link HtmlElement} from HtmlUnit
-   */
-  protected T getHtmlElement() {
+  @Override
+  public T getHtmlElement() {
     return htmlElement;
   }
 
@@ -92,21 +89,8 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
   public void click(final WetatorContext aWetatorContext) throws ActionException {
     mouseOver(aWetatorContext);
 
-    final HtmlElement tmpHtmlElement = getHtmlElement();
-
-    if (canReceiveFocus(aWetatorContext)) {
-      try {
-        tmpHtmlElement.focus();
-      } catch (final ScriptException e) {
-        aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
-      } catch (final WrappedException e) {
-        final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
-        aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
-            tmpScriptException);
-      }
-    }
-
     try {
+      final HtmlElement tmpHtmlElement = getHtmlElement();
       if (LOG.isDebugEnabled()) {
         LOG.debug("Click - HtmlUnitBaseControl<T>.click() '" + tmpHtmlElement + "'");
       }
@@ -141,21 +125,8 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
   public void clickDouble(final WetatorContext aWetatorContext) throws ActionException {
     mouseOver(aWetatorContext);
 
-    final HtmlElement tmpHtmlElement = getHtmlElement();
-
-    if (canReceiveFocus(aWetatorContext)) {
-      try {
-        tmpHtmlElement.focus();
-      } catch (final ScriptException e) {
-        aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
-      } catch (final WrappedException e) {
-        final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
-        aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
-            tmpScriptException);
-      }
-    }
-
     try {
+      final HtmlElement tmpHtmlElement = getHtmlElement();
       if (LOG.isDebugEnabled()) {
         LOG.debug("ClickDouble - HtmlUnitBaseControl<T>.clickDouble() '" + tmpHtmlElement + "'");
       }
@@ -190,21 +161,8 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
   public void clickRight(final WetatorContext aWetatorContext) throws ActionException {
     mouseOver(aWetatorContext);
 
-    final HtmlElement tmpHtmlElement = getHtmlElement();
-
-    if (canReceiveFocus(aWetatorContext)) {
-      try {
-        tmpHtmlElement.focus();
-      } catch (final ScriptException e) {
-        aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { e.getMessage() }, e);
-      } catch (final WrappedException e) {
-        final Exception tmpScriptException = ExceptionUtil.getScriptExceptionCauseIfPossible(e);
-        aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
-            tmpScriptException);
-      }
-    }
-
     try {
+      final HtmlElement tmpHtmlElement = getHtmlElement();
       if (LOG.isDebugEnabled()) {
         LOG.debug("ClickRight - HtmlUnitBaseControl<T>.clickRight() '" + tmpHtmlElement + "'");
       }
@@ -316,25 +274,6 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
     }
   }
 
-  @Override
-  public boolean isDisabled(final WetatorContext aWetatorContext) {
-    final String tmpMessage = Messages.getMessage("disabledCheckNotSupported", getDescribingText());
-    throw new UnsupportedOperationException(tmpMessage);
-  }
-
-  @Override
-  public boolean canReceiveFocus(final WetatorContext aWetatorContext) {
-    return false;
-  }
-
-  @Override
-  public boolean hasFocus(final WetatorContext aWetatorContext) {
-    final HtmlElement tmpHtmlElement = getHtmlElement();
-
-    final HtmlPage tmpHtmlPage = (HtmlPage) tmpHtmlElement.getPage();
-    return tmpHtmlElement.equals(tmpHtmlPage.getFocusedElement());
-  }
-
   /**
    * Wait until the 'immediate' JavaScript jobs are finished.
    * Additionally this informs all context listeners if not all jobs
@@ -415,6 +354,19 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
     return tmpHtmlElementId;
   }
 
+  private int childIndex(final HtmlElement aParent, final HtmlElement aChild) {
+    int tmpRes = 1;
+    for (final DomElement tmpDomElement : aParent.getChildElements()) {
+      if (tmpDomElement == aChild) {
+        return tmpRes;
+      }
+      if (aChild.getTagName().equalsIgnoreCase(tmpDomElement.getTagName())) {
+        tmpRes++;
+      }
+    }
+    return -1;
+  }
+
   /**
    * Returns true if the control is part of the given page.
    *
@@ -438,19 +390,6 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements ICon
     }
 
     return false;
-  }
-
-  private int childIndex(final HtmlElement aParent, final HtmlElement aChild) {
-    int tmpRes = 1;
-    for (final DomElement tmpDomElement : aParent.getChildElements()) {
-      if (tmpDomElement == aChild) {
-        return tmpRes;
-      }
-      if (aChild.getTagName().equalsIgnoreCase(tmpDomElement.getTagName())) {
-        tmpRes++;
-      }
-    }
-    return -1;
   }
 
   /**

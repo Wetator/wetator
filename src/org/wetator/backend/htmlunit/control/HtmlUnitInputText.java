@@ -51,7 +51,8 @@ import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
  */
 @ForHtmlElement(HtmlTextInput.class)
 @IdentifiedBy(HtmlUnitInputTextIdentifier.class)
-public class HtmlUnitInputText extends HtmlUnitBaseControl<HtmlTextInput> implements ISettable {
+public class HtmlUnitInputText extends HtmlUnitBaseControl<HtmlTextInput>
+    implements ISettable, IHtmlUnitDisableable<HtmlTextInput>, IHtmlUnitFocusable<HtmlTextInput> {
 
   /**
    * The constructor.
@@ -179,10 +180,5 @@ public class HtmlUnitInputText extends HtmlUnitBaseControl<HtmlTextInput> implem
     final HtmlTextInput tmpHtmlTextInput = getHtmlElement();
 
     return tmpHtmlTextInput.isDisabled() || tmpHtmlTextInput.isReadOnly();
-  }
-
-  @Override
-  public boolean canReceiveFocus(final WetatorContext aWetatorContext) {
-    return !isDisabled(aWetatorContext);
   }
 }

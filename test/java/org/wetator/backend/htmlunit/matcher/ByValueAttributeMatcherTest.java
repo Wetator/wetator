@@ -16,10 +16,11 @@
 
 package org.wetator.backend.htmlunit.matcher;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.IOException;
 import java.util.List;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.wetator.backend.WeightedControlList.FoundType;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
@@ -47,7 +48,7 @@ public class ByValueAttributeMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Test
@@ -63,7 +64,7 @@ public class ByValueAttributeMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL, 0, 14, 14, tmpMatches.get(0));
   }
 
@@ -80,7 +81,7 @@ public class ByValueAttributeMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL, 0, 14, 14, tmpMatches.get(0));
   }
 
@@ -97,7 +98,7 @@ public class ByValueAttributeMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL, 0, 14, 14, tmpMatches.get(0));
   }
 
@@ -114,12 +115,12 @@ public class ByValueAttributeMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL, 2, 14, 14, tmpMatches.get(0));
   }
 
   @Test
-  public void empty_TextBefore() throws IOException, InvalidInputException {
+  public void empty_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<input id='otherId' type='button' value='myValue'>"
@@ -132,11 +133,11 @@ public class ByValueAttributeMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Test
-  public void full_TextBefore() throws IOException, InvalidInputException {
+  public void full_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<input id='otherId' type='button' value='myValue'>"
@@ -149,12 +150,12 @@ public class ByValueAttributeMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL, 0, 5, 22, tmpMatches.get(0));
   }
 
   @Test
-  public void wildcardRight_TextBefore() throws IOException, InvalidInputException {
+  public void wildcardRight_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<input id='otherId' type='button' value='myValue'>"
@@ -167,12 +168,12 @@ public class ByValueAttributeMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL, 0, 5, 22, tmpMatches.get(0));
   }
 
   @Test
-  public void wildcardLeft_TextBefore() throws IOException, InvalidInputException {
+  public void wildcardLeft_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<input id='otherId' type='button' value='myValue'>"
@@ -185,12 +186,12 @@ public class ByValueAttributeMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL, 0, 5, 22, tmpMatches.get(0));
   }
 
   @Test
-  public void part_TextBefore() throws IOException, InvalidInputException {
+  public void part_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<input id='otherId' type='button' value='myValue'>"
@@ -203,12 +204,12 @@ public class ByValueAttributeMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABEL, 2, 5, 22, tmpMatches.get(0));
   }
 
   @Test
-  public void full_WrongTextBefore() throws IOException, InvalidInputException {
+  public void full_wrongTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<input id='otherId' type='button' value='myValue'>"
@@ -221,11 +222,11 @@ public class ByValueAttributeMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Test
-  public void full_NoTextBefore() throws IOException, InvalidInputException {
+  public void full_noTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<input id='myId' type='button' value='myValue'>"
@@ -236,7 +237,7 @@ public class ByValueAttributeMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Override

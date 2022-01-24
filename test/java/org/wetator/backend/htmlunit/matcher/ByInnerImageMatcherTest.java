@@ -16,10 +16,11 @@
 
 package org.wetator.backend.htmlunit.matcher;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.IOException;
 import java.util.List;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.wetator.backend.WeightedControlList.FoundType;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
@@ -49,7 +50,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Test
@@ -67,7 +68,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_INNER_IMG_ALT_ATTRIBUTE, 0, 14, 14, tmpMatches.get(0));
   }
 
@@ -86,7 +87,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_INNER_IMG_ALT_ATTRIBUTE, 0, 14, 14, tmpMatches.get(0));
   }
 
@@ -105,7 +106,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_INNER_IMG_ALT_ATTRIBUTE, 0, 14, 14, tmpMatches.get(0));
   }
 
@@ -124,12 +125,12 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_INNER_IMG_ALT_ATTRIBUTE, 2, 14, 14, tmpMatches.get(0));
   }
 
   @Test
-  public void byAltEmpty_TextBefore() throws IOException, InvalidInputException {
+  public void byAltEmpty_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>"
@@ -146,11 +147,11 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Test
-  public void byAltFull_TextBefore() throws IOException, InvalidInputException {
+  public void byAltFull_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>"
@@ -167,12 +168,12 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_INNER_IMG_ALT_ATTRIBUTE, 0, 5, 20, tmpMatches.get(0));
   }
 
   @Test
-  public void byAltWildcardRight_TextBefore() throws IOException, InvalidInputException {
+  public void byAltWildcardRight_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>"
@@ -189,12 +190,12 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_INNER_IMG_ALT_ATTRIBUTE, 0, 5, 20, tmpMatches.get(0));
   }
 
   @Test
-  public void byAltWildcardLeft_TextBefore() throws IOException, InvalidInputException {
+  public void byAltWildcardLeft_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>"
@@ -211,12 +212,12 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_INNER_IMG_ALT_ATTRIBUTE, 0, 5, 20, tmpMatches.get(0));
   }
 
   @Test
-  public void byAltPart_TextBefore() throws IOException, InvalidInputException {
+  public void byAltPart_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>"
@@ -233,12 +234,12 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_INNER_IMG_ALT_ATTRIBUTE, 2, 5, 20, tmpMatches.get(0));
   }
 
   @Test
-  public void byAltFull_WrongTextBefore() throws IOException, InvalidInputException {
+  public void byAltFull_wrongTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>"
@@ -255,11 +256,11 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Test
-  public void byAltFull_NoTextBefore() throws IOException, InvalidInputException {
+  public void byAltFull_noTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='myId' href='snoopy.php'>"
@@ -272,7 +273,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Test
@@ -290,7 +291,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Test
@@ -308,8 +309,8 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
-    Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_INNER_NAME, 0, 14, 14, tmpMatches.get(0));
+    assertEquals(1, tmpMatches.size());
+    assertMatchEquals("myId", FoundType.BY_INNER_IMG_NAME, 0, 14, 14, tmpMatches.get(0));
   }
 
   @Test
@@ -327,8 +328,8 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
-    Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_INNER_NAME, 0, 14, 14, tmpMatches.get(0));
+    assertEquals(1, tmpMatches.size());
+    assertMatchEquals("myId", FoundType.BY_INNER_IMG_NAME, 0, 14, 14, tmpMatches.get(0));
   }
 
   @Test
@@ -346,8 +347,8 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
-    Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_INNER_NAME, 0, 14, 14, tmpMatches.get(0));
+    assertEquals(1, tmpMatches.size());
+    assertMatchEquals("myId", FoundType.BY_INNER_IMG_NAME, 0, 14, 14, tmpMatches.get(0));
   }
 
   @Test
@@ -365,11 +366,11 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Test
-  public void byNameEmpty_TextBefore() throws IOException, InvalidInputException {
+  public void byNameEmpty_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>"
@@ -386,11 +387,11 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Test
-  public void byNameFull_TextBefore() throws IOException, InvalidInputException {
+  public void byNameFull_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>"
@@ -407,12 +408,12 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
-    Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_INNER_NAME, 0, 5, 14, tmpMatches.get(0));
+    assertEquals(1, tmpMatches.size());
+    assertMatchEquals("myId", FoundType.BY_INNER_IMG_NAME, 0, 5, 14, tmpMatches.get(0));
   }
 
   @Test
-  public void byNameWildcardRight_TextBefore() throws IOException, InvalidInputException {
+  public void byNameWildcardRight_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>"
@@ -429,12 +430,12 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
-    Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_INNER_NAME, 0, 5, 14, tmpMatches.get(0));
+    assertEquals(1, tmpMatches.size());
+    assertMatchEquals("myId", FoundType.BY_INNER_IMG_NAME, 0, 5, 14, tmpMatches.get(0));
   }
 
   @Test
-  public void byNameWildcardLeft_TextBefore() throws IOException, InvalidInputException {
+  public void byNameWildcardLeft_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>"
@@ -451,12 +452,12 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
-    Assert.assertEquals(1, tmpMatches.size());
-    assertMatchEquals("myId", FoundType.BY_INNER_NAME, 0, 5, 14, tmpMatches.get(0));
+    assertEquals(1, tmpMatches.size());
+    assertMatchEquals("myId", FoundType.BY_INNER_IMG_NAME, 0, 5, 14, tmpMatches.get(0));
   }
 
   @Test
-  public void byNamePart_TextBefore() throws IOException, InvalidInputException {
+  public void byNamePart_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>"
@@ -473,11 +474,11 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Test
-  public void byNameFull_WrongTextBefore() throws IOException, InvalidInputException {
+  public void byNameFull_wrongTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>"
@@ -494,11 +495,11 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Test
-  public void byNameFull_NoTextBefore() throws IOException, InvalidInputException {
+  public void byNameFull_noTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='myId' href='snoopy.php'>"
@@ -511,7 +512,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Test
@@ -529,7 +530,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Test
@@ -547,7 +548,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_INNER_IMG_SRC_ATTRIBUTE, 0, 14, 14, tmpMatches.get(0));
   }
 
@@ -566,7 +567,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_INNER_IMG_SRC_ATTRIBUTE, 0, 14, 14, tmpMatches.get(0));
   }
 
@@ -585,7 +586,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_INNER_IMG_SRC_ATTRIBUTE, 0, 14, 14, tmpMatches.get(0));
   }
 
@@ -604,7 +605,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Test
@@ -622,12 +623,12 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_INNER_IMG_SRC_ATTRIBUTE, 4, 14, 14, tmpMatches.get(0));
   }
 
   @Test
-  public void empty_TextBefore() throws IOException, InvalidInputException {
+  public void empty_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>"
@@ -644,11 +645,11 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Test
-  public void byFileNameFull_TextBefore() throws IOException, InvalidInputException {
+  public void byFileNameFull_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>"
@@ -665,12 +666,12 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_INNER_IMG_SRC_ATTRIBUTE, 0, 5, 14, tmpMatches.get(0));
   }
 
   @Test
-  public void byFileNameWildcardRight_TextBefore() throws IOException, InvalidInputException {
+  public void byFileNameWildcardRight_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>"
@@ -687,12 +688,12 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_INNER_IMG_SRC_ATTRIBUTE, 0, 5, 14, tmpMatches.get(0));
   }
 
   @Test
-  public void byFileNameWildcardLeft_TextBefore() throws IOException, InvalidInputException {
+  public void byFileNameWildcardLeft_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>"
@@ -709,12 +710,12 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_INNER_IMG_SRC_ATTRIBUTE, 0, 5, 14, tmpMatches.get(0));
   }
 
   @Test
-  public void byFileNamePart_TextBefore() throws IOException, InvalidInputException {
+  public void byFileNamePart_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>"
@@ -731,11 +732,11 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Test
-  public void byFileNameFull_WrongTextBefore() throws IOException, InvalidInputException {
+  public void byFileNameFull_wrongTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>"
@@ -752,11 +753,11 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Test
-  public void byFileNameFull_NoTextBefore() throws IOException, InvalidInputException {
+  public void byFileNameFull_noTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='myId' href='snoopy.php'>"
@@ -769,7 +770,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Test
@@ -787,7 +788,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Test
@@ -805,7 +806,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_INNER_IMG_TITLE_ATTRIBUTE, 0, 14, 14, tmpMatches.get(0));
   }
 
@@ -824,7 +825,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_INNER_IMG_TITLE_ATTRIBUTE, 0, 14, 14, tmpMatches.get(0));
   }
 
@@ -843,7 +844,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_INNER_IMG_TITLE_ATTRIBUTE, 0, 14, 14, tmpMatches.get(0));
   }
 
@@ -862,12 +863,12 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_INNER_IMG_TITLE_ATTRIBUTE, 2, 14, 14, tmpMatches.get(0));
   }
 
   @Test
-  public void byTitleEmpty_TextBefore() throws IOException, InvalidInputException {
+  public void byTitleEmpty_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>"
@@ -884,11 +885,11 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Test
-  public void byTitleFull_TextBefore() throws IOException, InvalidInputException {
+  public void byTitleFull_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>"
@@ -905,12 +906,12 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_INNER_IMG_TITLE_ATTRIBUTE, 0, 5, 14, tmpMatches.get(0));
   }
 
   @Test
-  public void byTitleWildcardRight_TextBefore() throws IOException, InvalidInputException {
+  public void byTitleWildcardRight_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>"
@@ -927,12 +928,12 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_INNER_IMG_TITLE_ATTRIBUTE, 0, 5, 14, tmpMatches.get(0));
   }
 
   @Test
-  public void byTitleWildcardLeft_TextBefore() throws IOException, InvalidInputException {
+  public void byTitleWildcardLeft_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>"
@@ -949,12 +950,12 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_INNER_IMG_TITLE_ATTRIBUTE, 0, 5, 14, tmpMatches.get(0));
   }
 
   @Test
-  public void byTitlePart_TextBefore() throws IOException, InvalidInputException {
+  public void byTitlePart_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>"
@@ -971,12 +972,12 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_INNER_IMG_TITLE_ATTRIBUTE, 2, 5, 14, tmpMatches.get(0));
   }
 
   @Test
-  public void byTitleFull_WrongTextBefore() throws IOException, InvalidInputException {
+  public void byTitleFull_wrongTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='otherId' href='snoopy.php'>"
@@ -993,11 +994,11 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Test
-  public void byTitleFull_NoTextBefore() throws IOException, InvalidInputException {
+  public void byTitleFull_noTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<a id='myId' href='snoopy.php'>"
@@ -1010,7 +1011,7 @@ public class ByInnerImageMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Override

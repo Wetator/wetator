@@ -23,7 +23,6 @@ import org.wetator.backend.control.IDeselectable;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitOptionIdentifier;
-import org.wetator.backend.htmlunit.control.identifier.HtmlUnitOptionInSelectIdentifier;
 import org.wetator.backend.htmlunit.util.ExceptionUtil;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
 import org.wetator.core.WetatorContext;
@@ -47,8 +46,9 @@ import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
  * @author frank.danek
  */
 @ForHtmlElement(HtmlOption.class)
-@IdentifiedBy({ HtmlUnitOptionInSelectIdentifier.class, HtmlUnitOptionIdentifier.class })
-public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements IDeselectable {
+@IdentifiedBy({ HtmlUnitOptionIdentifier.class })
+public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption>
+    implements IDeselectable, IHtmlUnitDisableable<HtmlOption>, IHtmlUnitFocusable<HtmlOption> {
 
   private static final Logger LOG = LogManager.getLogger(HtmlUnitOption.class);
 
@@ -108,9 +108,7 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements I
 
   @Override
   public boolean isSelected(final WetatorContext aWetatorContext) {
-    final HtmlOption tmpHtmlOption = getHtmlElement();
-
-    return tmpHtmlOption.isSelected();
+    return getHtmlElement().isSelected();
   }
 
   @Override
@@ -238,10 +236,5 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption> implements I
     final HtmlOption tmpHtmlOption = getHtmlElement();
     final HtmlSelect tmpHtmlSelect = tmpHtmlOption.getEnclosingSelect();
     return getUniqueSelector(tmpHtmlSelect);
-  }
-
-  @Override
-  public boolean canReceiveFocus(final WetatorContext aWetatorContext) {
-    return !isDisabled(aWetatorContext);
   }
 }

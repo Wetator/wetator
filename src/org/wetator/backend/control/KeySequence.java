@@ -19,11 +19,19 @@ package org.wetator.backend.control;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
- * Abstraction for a sequence of keystrokes.
+ * Abstraction for a sequence of keystrokes.<br>
+ * Supports special {@link Key}s using {@link #pressKey(Key)} or {@link #parse(String)} with the following mappings:
+ * <dl>
+ * <dt>[ENTER]
+ * <dd>the return key
+ * </dl>
+ * Use '\' to escape the special keys, e.g. "\\[ENTER]".
  *
  * @author rbri
+ * @author frank.danek
  */
 public class KeySequence {
   private List<Key> keys = new ArrayList<>();
@@ -66,13 +74,16 @@ public class KeySequence {
   public static KeySequence parse(final String aKeySequenceString) {
     final KeySequence tmpSequence = new KeySequence();
 
+    if (aKeySequenceString == null) {
+      return tmpSequence;
+    }
     for (int i = 0; i < aKeySequenceString.length(); i++) {
       final char tmpChar = aKeySequenceString.charAt(i);
 
       if (tmpChar == '\\') {
         i++;
         if (i == aKeySequenceString.length()) {
-          throw new IllegalArgumentException("Invalid escape at pos " + --i);
+          throw new IllegalArgumentException("Invalid escape at pos " + --i + ".");
         }
         tmpSequence.type(aKeySequenceString.charAt(i));
       } else if (tmpChar == '[') {
@@ -85,7 +96,7 @@ public class KeySequence {
         if ("ENTER".equals(tmpKeyName)) {
           tmpSequence.pressKey(Key.KEY_RETURN);
         } else {
-          throw new IllegalArgumentException("Unsupported key '" + tmpKeyName + "'");
+          throw new IllegalArgumentException("Unsupported key '" + tmpKeyName + "'.");
         }
         i = tmpEndPos;
       } else {
@@ -118,5 +129,10 @@ public class KeySequence {
    */
   public List<Key> getKeys() {
     return Collections.unmodifiableList(keys);
+  }
+
+  @Override
+  public String toString() {
+    return keys.stream().map(k -> String.valueOf(k.getChar())).collect(Collectors.joining());
   }
 }

@@ -1,0 +1,26 @@
+open-url           || /
+assert-title       || </> htmx - Examples
+
+click-on           || Tabs (Using Hyperscript)
+assert-title       || </> htmx - high power tools for html
+assert-content     || Tabs (Using Hyperscript)
+assert-content     || Demo, Tab 1, Tab 2, Tab 3 
+
+assert-content     || Demo, Tab 1, Tab 2, Tab 3, Commodo normcore truffaut
+assert-content     || Demo, Tab 1, Tab 2, Tab 3, ~Kitsch fanny pack
+assert-content     || Demo, Tab 1, Tab 2, Tab 3, ~Aute chia marfa
+
+click-on           || Tab 2
+assert-content     || Demo, Tab 1, Tab 2, Tab 3, ~Commodo normcore truffaut
+assert-content     || Demo, Tab 1, Tab 2, Tab 3, Kitsch fanny pack
+assert-content     || Demo, Tab 1, Tab 2, Tab 3, ~Aute chia marfa
+
+click-on           || Tab 3
+assert-content     || Demo, Tab 1, Tab 2, Tab 3, ~Commodo normcore truffaut
+assert-content     || Demo, Tab 1, Tab 2, Tab 3, ~Kitsch fanny pack
+assert-content     || Demo, Tab 1, Tab 2, Tab 3, Aute chia marfa
+
+click-on           || Tab 1
+assert-content     || Demo, Tab 1, Tab 2, Tab 3, Commodo normcore truffaut
+assert-content     || Demo, Tab 1, Tab 2, Tab 3, ~Kitsch fanny pack
+assert-content     || Demo, Tab 1, Tab 2, Tab 3, ~Aute chia marfa

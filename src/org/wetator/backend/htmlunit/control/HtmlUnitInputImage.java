@@ -21,7 +21,6 @@ import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputImageIdentifier;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
-import org.wetator.core.WetatorContext;
 
 import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
 
@@ -34,7 +33,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
  */
 @ForHtmlElement(HtmlImageInput.class)
 @IdentifiedBy(HtmlUnitInputImageIdentifier.class)
-public class HtmlUnitInputImage extends HtmlUnitBaseControl<HtmlImageInput> implements IClickable {
+public class HtmlUnitInputImage extends HtmlUnitBaseControl<HtmlImageInput>
+    implements IClickable, IHtmlUnitDisableable<HtmlImageInput>, IHtmlUnitFocusable<HtmlImageInput> {
 
   /**
    * The constructor.
@@ -48,12 +48,5 @@ public class HtmlUnitInputImage extends HtmlUnitBaseControl<HtmlImageInput> impl
   @Override
   public String getDescribingText() {
     return HtmlElementUtil.getDescribingTextForHtmlImageInput(getHtmlElement());
-  }
-
-  @Override
-  public boolean isDisabled(final WetatorContext aWetatorContext) {
-    final HtmlImageInput tmpHtmlImageInput = getHtmlElement();
-
-    return tmpHtmlImageInput.isDisabled();
   }
 }

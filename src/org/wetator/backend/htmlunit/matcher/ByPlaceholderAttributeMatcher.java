@@ -24,6 +24,7 @@ import org.wetator.util.FindSpot;
 
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlInput;
+import com.gargoylesoftware.htmlunit.html.HtmlTextArea;
 
 /**
  * This matcher checks if the attribute 'placeholder' of the given element matches the criteria.
@@ -49,11 +50,16 @@ public class ByPlaceholderAttributeMatcher extends AbstractByAttributeMatcher {
   }
 
   @Override
-  protected String getAttributeValue(final HtmlElement aHtmlElement) {
-    if (aHtmlElement instanceof HtmlInput) {
-      final String tmpValue = ((HtmlInput) aHtmlElement).getValueAttribute();
+  protected String getAttributeValue(final HtmlElement anHtmlElement) {
+    if (anHtmlElement instanceof HtmlInput) {
+      final String tmpValue = ((HtmlInput) anHtmlElement).getValueAttribute();
       if (StringUtils.isEmpty(tmpValue)) {
-        return aHtmlElement.getAttribute("placeholder");
+        return anHtmlElement.getAttribute("placeholder");
+      }
+    } else if (anHtmlElement instanceof HtmlTextArea) {
+      final String tmpText = ((HtmlTextArea) anHtmlElement).getText();
+      if (StringUtils.isEmpty(tmpText)) {
+        return anHtmlElement.getAttribute("placeholder");
       }
     }
     return null;

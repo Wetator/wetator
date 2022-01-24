@@ -16,13 +16,14 @@
 
 package org.wetator.backend.htmlunit.matcher;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import org.junit.Assert;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList.FoundType;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
@@ -77,10 +78,10 @@ public abstract class AbstractMatcherTest {
   protected static void assertMatchEquals(final String anExpectedId, final FoundType anExpectedFoundType,
       final int anExpectedDeviation, final int anExpectedDistance, final int anExpectedStart,
       final MatchResult anActualMatch) {
-    Assert.assertEquals("htmlElement.id", anExpectedId, anActualMatch.getHtmlElement().getId());
-    Assert.assertEquals("foundType", anExpectedFoundType, anActualMatch.getFoundType());
-    Assert.assertEquals("deviation", anExpectedDeviation, anActualMatch.getDeviation());
-    Assert.assertEquals("distance", anExpectedDistance, anActualMatch.getDistance());
-    Assert.assertEquals("start", anExpectedStart, anActualMatch.getStart());
+    assertEquals("htmlElement.id", anExpectedId, anActualMatch.getHtmlElement().getId());
+    assertEquals("foundType", anExpectedFoundType, anActualMatch.getFoundType());
+    assertEquals("deviation", anExpectedDeviation, anActualMatch.getDeviation());
+    assertEquals("distance", anExpectedDistance, anActualMatch.getDistance());
+    assertEquals("start", anExpectedStart, anActualMatch.getStart());
   }
 }

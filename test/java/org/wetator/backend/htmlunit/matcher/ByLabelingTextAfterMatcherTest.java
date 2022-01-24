@@ -16,10 +16,11 @@
 
 package org.wetator.backend.htmlunit.matcher;
 
+import static org.junit.Assert.assertEquals;
+
 import java.io.IOException;
 import java.util.List;
 
-import org.junit.Assert;
 import org.junit.Test;
 import org.wetator.backend.WeightedControlList.FoundType;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
@@ -40,7 +41,7 @@ public class ByLabelingTextAfterMatcherTest extends AbstractMatcherTest {
     final String tmpHtmlCode = "<html><body>"
         + "<p>Some text .... </p>"
         + "<input id='otherId1' type='checkbox'>"
-        + "<input id='myId' type='checkbox'>CheckBox"
+        + "<input id='myId' type='checkbox'>Marker"
         + "<input id='otherId2' type='checkbox'>"
         + "</body></html>";
     // @formatter:on
@@ -49,7 +50,43 @@ public class ByLabelingTextAfterMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId1", "otherId2");
 
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
+  }
+
+  @Test
+  public void notLabelingText_before() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<p>Some text .... </p>"
+        + "<input id='otherId1' type='checkbox'>Marker"
+        + "<input id='myId' type='checkbox'>"
+        + "<input id='otherId2' type='checkbox'>"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("Marker");
+
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+
+    assertEquals(0, tmpMatches.size());
+  }
+
+  @Test
+  public void notLabelingText_after() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<p>Some text .... </p>"
+        + "<input id='otherId1' type='checkbox'>"
+        + "<input id='myId' type='checkbox'>"
+        + "<input id='otherId2' type='checkbox'>Marker"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("Marker");
+
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
+
+    assertEquals(0, tmpMatches.size());
   }
 
   @Test
@@ -58,16 +95,16 @@ public class ByLabelingTextAfterMatcherTest extends AbstractMatcherTest {
     final String tmpHtmlCode = "<html><body>"
         + "<p>Some text .... </p>"
         + "<input id='otherId1' type='checkbox'>"
-        + "<input id='myId' type='checkbox'>CheckBox"
+        + "<input id='myId' type='checkbox'>Marker"
         + "<input id='otherId2' type='checkbox'>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("CheckBox");
+    final SecretString tmpSearch = new SecretString("Marker");
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId1", "otherId2");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABELING_TEXT, 0, 14, 14, tmpMatches.get(0));
   }
 
@@ -77,16 +114,16 @@ public class ByLabelingTextAfterMatcherTest extends AbstractMatcherTest {
     final String tmpHtmlCode = "<html><body>"
         + "<p>Some text .... </p>"
         + "<input id='otherId1' type='checkbox'>"
-        + "<input id='myId' type='checkbox'>CheckBox"
+        + "<input id='myId' type='checkbox'>Marker"
         + "<input id='otherId2' type='checkbox'>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("CheckB*");
+    final SecretString tmpSearch = new SecretString("Mark*");
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId1", "otherId2");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABELING_TEXT, 0, 14, 14, tmpMatches.get(0));
   }
 
@@ -96,16 +133,16 @@ public class ByLabelingTextAfterMatcherTest extends AbstractMatcherTest {
     final String tmpHtmlCode = "<html><body>"
         + "<p>Some text .... </p>"
         + "<input id='otherId1' type='checkbox'>"
-        + "<input id='myId' type='checkbox'>CheckBox"
+        + "<input id='myId' type='checkbox'>Marker"
         + "<input id='otherId2' type='checkbox'>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("*eckBox");
+    final SecretString tmpSearch = new SecretString("*rker");
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId1", "otherId2");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABELING_TEXT, 0, 14, 14, tmpMatches.get(0));
   }
 
@@ -115,26 +152,26 @@ public class ByLabelingTextAfterMatcherTest extends AbstractMatcherTest {
     final String tmpHtmlCode = "<html><body>"
         + "<p>Some text .... </p>"
         + "<input id='otherId1' type='checkbox'>"
-        + "<input id='myId' type='checkbox'>CheckBox"
+        + "<input id='myId' type='checkbox'>Marker"
         + "<input id='otherId2' type='checkbox'>"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("heckBo");
+    final SecretString tmpSearch = new SecretString("arke");
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId1", "otherId2");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABELING_TEXT, 2, 14, 14, tmpMatches.get(0));
   }
 
   @Test
-  public void empty_TextBefore() throws IOException, InvalidInputException {
+  public void empty_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<input id='otherId' type='checkbox'>"
         + "<p>Some text .... </p>"
-        + "<input id='myId' type='checkbox'>CheckBox"
+        + "<input id='myId' type='checkbox'>Marker"
         + "</body></html>";
     // @formatter:on
 
@@ -142,111 +179,130 @@ public class ByLabelingTextAfterMatcherTest extends AbstractMatcherTest {
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Test
-  public void full_TextBefore() throws IOException, InvalidInputException {
+  public void full_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<input id='otherId' type='checkbox'>"
         + "<p>Some text .... </p>"
-        + "<input id='myId' type='checkbox'>CheckBox"
+        + "<input id='myId' type='checkbox'>Marker"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("Some text > CheckBox");
+    final SecretString tmpSearch = new SecretString("Some text > Marker");
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABELING_TEXT, 0, 5, 14, tmpMatches.get(0));
   }
 
   @Test
-  public void wildcardRight_TextBefore() throws IOException, InvalidInputException {
+  public void full_textBefore_insideLabel() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<input id='otherId' type='checkbox'>"
+        + "<p>Some</p>"
+        + "<input id='myId' type='checkbox'>"
+        + "<p>text ....</p>"
+        + "Marker"
+        + "</body></html>";
+    // @formatter:on
+
+    final SecretString tmpSearch = new SecretString("Some text > Marker");
+
+    final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
+
+    assertEquals(0, tmpMatches.size());
+  }
+
+  @Test
+  public void wildcardRight_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<input id='otherId' type='checkbox'>"
         + "<p>Some text .... </p>"
-        + "<input id='myId' type='checkbox'>CheckBox"
+        + "<input id='myId' type='checkbox'>Marker"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("Some text > CheckB*");
+    final SecretString tmpSearch = new SecretString("Some text > Mark*");
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABELING_TEXT, 0, 5, 14, tmpMatches.get(0));
   }
 
   @Test
-  public void wildcardLeft_TextBefore() throws IOException, InvalidInputException {
+  public void wildcardLeft_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<input id='otherId' type='checkbox'>"
         + "<p>Some text .... </p>"
-        + "<input id='myId' type='checkbox'>CheckBox"
+        + "<input id='myId' type='checkbox'>Marker"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("Some text > *eckBox");
+    final SecretString tmpSearch = new SecretString("Some text > *rker");
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABELING_TEXT, 0, 5, 14, tmpMatches.get(0));
   }
 
   @Test
-  public void part_TextBefore() throws IOException, InvalidInputException {
+  public void part_textBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<input id='otherId' type='checkbox'>"
         + "<p>Some text .... </p>"
-        + "<input id='myId' type='checkbox'>CheckBox"
+        + "<input id='myId' type='checkbox'>Marker"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("Some text > heckBo");
+    final SecretString tmpSearch = new SecretString("Some text > arke");
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
-    Assert.assertEquals(1, tmpMatches.size());
+    assertEquals(1, tmpMatches.size());
     assertMatchEquals("myId", FoundType.BY_LABELING_TEXT, 2, 5, 14, tmpMatches.get(0));
   }
 
   @Test
-  public void full_WrongTextBefore() throws IOException, InvalidInputException {
+  public void full_wrongTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
         + "<input id='otherId' type='checkbox'>"
         + "<p>Some text .... </p>"
-        + "<input id='myId' type='checkbox'>CheckBox"
+        + "<input id='myId' type='checkbox'>Marker"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("wrong text > CheckBox");
+    final SecretString tmpSearch = new SecretString("wrong text > Marker");
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId", "otherId");
 
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Test
-  public void full_NoTextBefore() throws IOException, InvalidInputException {
+  public void full_noTextBefore() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
-        + "<input id='myId' type='checkbox'>CheckBox"
+        + "<input id='myId' type='checkbox'>Marker"
         + "</body></html>";
     // @formatter:on
 
-    final SecretString tmpSearch = new SecretString("wrong text > CheckBox");
+    final SecretString tmpSearch = new SecretString("wrong text > Marker");
 
     final List<MatchResult> tmpMatches = match(tmpHtmlCode, tmpSearch, "myId");
 
-    Assert.assertEquals(0, tmpMatches.size());
+    assertEquals(0, tmpMatches.size());
   }
 
   @Override

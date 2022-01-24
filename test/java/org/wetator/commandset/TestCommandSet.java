@@ -70,7 +70,6 @@ public final class TestCommandSet extends AbstractCommandSet {
       try {
         aContext.determineAndExecuteCommandImpl(tmpCommand);
       } catch (final Exception e) {
-        // TODO distinguish between failure and error?
         tmpException = e;
       }
 

@@ -45,6 +45,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
  * @author rbri
  * @author frank.danek
  */
+// FIXME [UNKNOWN] remove me when done
 public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinder {
 
   private HtmlUnitControlRepository controlRepository;
@@ -83,6 +84,7 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
     }
 
     if (aWPath.getLastNode() == null || aWPath.getLastNode().isEmpty()) {
+      // wpath ends with empty node or contains only table coordinates
       int tmpStartPos = 0;
       if (tmpPathSpot != null) {
         tmpStartPos = Math.max(0, tmpPathSpot.getEndPos());
@@ -106,7 +108,8 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
           }
 
           tmpFoundControls.add(new HtmlUnitUnspecificControl<>(tmpHtmlElement), FoundType.BY_TEXT, tmpDeviation,
-              tmpDistance, tmpNodeSpot.getStartPos(), htmlPageIndex.getIndex(tmpHtmlElement));
+              tmpDistance, tmpNodeSpot.getStartPos(), htmlPageIndex.getHierarchy(tmpHtmlElement),
+              htmlPageIndex.getIndex(tmpHtmlElement));
 
           break;
         }
@@ -116,7 +119,7 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
 
     final SearchPattern tmpSearchPattern = aWPath.getLastNode().getSearchPattern();
 
-    // search with id / title
+    // search by id / title
     final ByIdMatcher tmpIdMatcher = new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot,
         tmpSearchPattern);
     final ByTitleAttributeMatcher tmpTitleMatcher = new ByTitleAttributeMatcher(htmlPageIndex, tmpPathSearchPattern,
@@ -130,6 +133,7 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
               tmpMatch.getHtmlElement(), aWPath.getTableCoordinatesReversed(), htmlPageIndex, tmpPathSpot)) {
             tmpFoundControls.add(new HtmlUnitUnspecificControl<>(tmpMatch.getHtmlElement()), tmpMatch.getFoundType(),
                 tmpMatch.getDeviation(), tmpMatch.getDistance(), tmpMatch.getStart(),
+                htmlPageIndex.getHierarchy(tmpMatch.getHtmlElement()),
                 htmlPageIndex.getIndex(tmpMatch.getHtmlElement()));
           }
         }
@@ -141,12 +145,14 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
               tmpMatch.getHtmlElement(), aWPath.getTableCoordinatesReversed(), htmlPageIndex, null)) {
             tmpFoundControls.add(new HtmlUnitUnspecificControl<>(tmpMatch.getHtmlElement()), FoundType.BY_TITLE_TEXT,
                 tmpMatch.getDeviation(), tmpMatch.getDistance(), tmpMatch.getStart(),
+                htmlPageIndex.getHierarchy(tmpMatch.getHtmlElement()),
                 htmlPageIndex.getIndex(tmpMatch.getHtmlElement()));
           }
         }
       }
     }
 
+    // search by text
     int tmpStartPos = 0;
     if (tmpPathSpot != null) {
       tmpStartPos = Math.max(0, tmpPathSpot.getEndPos());
@@ -178,7 +184,8 @@ public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinde
             }
 
             tmpFoundControls.add(new HtmlUnitUnspecificControl<>(tmpHtmlElement), FoundType.BY_TEXT, tmpDeviation,
-                tmpDistance, tmpNodeSpot.getStartPos(), htmlPageIndex.getIndex(tmpHtmlElement));
+                tmpDistance, tmpNodeSpot.getStartPos(), htmlPageIndex.getHierarchy(tmpHtmlElement),
+                htmlPageIndex.getIndex(tmpHtmlElement));
           }
           break;
         }

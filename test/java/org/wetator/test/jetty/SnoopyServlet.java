@@ -16,19 +16,23 @@
 
 package org.wetator.test.jetty;
 
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.nio.charset.StandardCharsets;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.StringTokenizer;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 /**
  * @author frank.danek
@@ -135,69 +139,43 @@ public class SnoopyServlet extends HttpServlet {
       aResponse.getWriter().println("<th>Values</th>");
       aResponse.getWriter().println("</tr>");
 
-      for (String tmpFileParameterName : tmpFileParameterNames) {
+      final Collection<Part> tmpParts = aRequest.getParts().stream()
+          .filter(p -> tmpFileParameterNames.contains(p.getName()))
+          .sorted((p1, p2) -> p1.getName().compareTo(p2.getName())).collect(Collectors.toList());
+      for (Part tmpPart : tmpParts) {
         aResponse.getWriter().println("<tr>");
         aResponse.getWriter().println("<td>");
-        aResponse.getWriter().println(tmpFileParameterName);
+        aResponse.getWriter().println(tmpPart.getName());
         aResponse.getWriter().println("</td>");
         aResponse.getWriter().println("<td>");
         aResponse.getWriter().println("<table border='0' cellpadding='3' cellspacing='0'>");
         aResponse.getWriter().println("<tr>");
         aResponse.getWriter().println("<td>name</td>");
         aResponse.getWriter().println("<td>");
-        aResponse.getWriter().println(aRequest.getParameter(tmpFileParameterName));
+        aResponse.getWriter().println(tmpPart.getSubmittedFileName());
         aResponse.getWriter().println("</td>");
         aResponse.getWriter().println("</tr>");
-        final Object tmpAttribute = aRequest.getAttribute(tmpFileParameterName);
-        if (tmpAttribute instanceof File) {
-          final File tmpFile = (File) tmpAttribute;
-          aResponse.getWriter().println("<tr>");
-          aResponse.getWriter().println("<td>tmp_name</td>");
-          aResponse.getWriter().println("<td>");
-          aResponse.getWriter().println(tmpFile.getAbsolutePath());
-          aResponse.getWriter().println("</td>");
-          aResponse.getWriter().println("</tr>");
-          aResponse.getWriter().println("<tr>");
-          aResponse.getWriter().println("<td>size</td>");
-          aResponse.getWriter().println("<td>");
-          aResponse.getWriter().println(tmpFile.length());
-          aResponse.getWriter().println("</td>");
-          aResponse.getWriter().println("</tr>");
-          final char[] tmpBuffer = new char[13];
-          final FileReader tmpReader = new FileReader(tmpFile);
-          try {
-            tmpReader.read(tmpBuffer);
-          } finally {
-            tmpReader.close();
-          }
-          final String tmpValue = new String(tmpBuffer);
-          if (!tmpValue.isEmpty()) {
-            aResponse.getWriter().println("<tr>");
-            aResponse.getWriter().println("<td>SampleData</td>");
-            aResponse.getWriter().println("<td>");
-            aResponse.getWriter().println(tmpValue + "....");
-            aResponse.getWriter().println("</td>");
-            aResponse.getWriter().println("</tr>");
-          }
-        } else if (tmpAttribute instanceof byte[]) {
-          final byte[] tmpBytes = (byte[]) tmpAttribute;
-          aResponse.getWriter().println("<tr>");
-          aResponse.getWriter().println("<td>size</td>");
-          aResponse.getWriter().println("<td>");
-          aResponse.getWriter().println(tmpBytes.length);
-          aResponse.getWriter().println("</td>");
-          aResponse.getWriter().println("</tr>");
-          String tmpValue = new String(tmpBytes);
-          tmpValue = tmpValue.substring(0, Math.min(13, tmpValue.length()));
-          if (!tmpValue.isEmpty()) {
-            aResponse.getWriter().println("<tr>");
-            aResponse.getWriter().println("<td>SampleData</td>");
-            aResponse.getWriter().println("<td>");
-            aResponse.getWriter().println(tmpValue + "....");
-            aResponse.getWriter().println("</td>");
-            aResponse.getWriter().println("</tr>");
-          }
+        aResponse.getWriter().println("<tr>");
+        aResponse.getWriter().println("<td>size</td>");
+        aResponse.getWriter().println("<td>");
+        aResponse.getWriter().println(tmpPart.getSize());
+        aResponse.getWriter().println("</td>");
+        aResponse.getWriter().println("</tr>");
+
+        final char[] tmpBuffer = new char[13];
+        try (Reader tmpReader = new InputStreamReader(tmpPart.getInputStream(), StandardCharsets.UTF_8)) {
+          tmpReader.read(tmpBuffer);
         }
+        final String tmpValue = new String(tmpBuffer);
+        if (!tmpValue.isEmpty()) {
+          aResponse.getWriter().println("<tr>");
+          aResponse.getWriter().println("<td>SampleData</td>");
+          aResponse.getWriter().println("<td>");
+          aResponse.getWriter().println(tmpValue + (tmpPart.getSize() > 13 ? "...." : ""));
+          aResponse.getWriter().println("</td>");
+          aResponse.getWriter().println("</tr>");
+        }
+
         aResponse.getWriter().println("</table>");
         aResponse.getWriter().println("</td>");
         aResponse.getWriter().println("</tr>");
@@ -267,16 +245,17 @@ public class SnoopyServlet extends HttpServlet {
     return tmpParamNames;
   }
 
-  private Set<String> determineFileParameterNames(final HttpServletRequest aRequest) {
+  private Set<String> determineFileParameterNames(final HttpServletRequest aRequest)
+      throws IOException, ServletException {
     final Set<String> tmpFileParameterNames = new HashSet<>();
 
-    final List<String> tmpParameterNames = Collections.list(aRequest.getParameterNames());
-    for (String tmpName : tmpParameterNames) {
-      final Object tmpAttribute = aRequest.getAttribute(tmpName);
-      if (tmpAttribute != null) {
-        if (tmpAttribute instanceof File || tmpAttribute instanceof byte[]) {
-          tmpFileParameterNames.add(tmpName);
-        }
+    if (aRequest.getContentType() != null && aRequest.getContentType().startsWith("multipart/form-data")) {
+      final List<String> tmpParameterNames = Collections.list(aRequest.getParameterNames());
+
+      final Collection<Part> tmpParts = aRequest.getParts();
+      if (tmpParts != null) {
+        tmpParts.stream().filter(p -> !tmpParameterNames.contains(p.getName())).map(p -> p.getName())
+            .forEach(tmpFileParameterNames::add);
       }
     }
 

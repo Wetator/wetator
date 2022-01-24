@@ -20,7 +20,6 @@ import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitSelectIdentifier;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
-import org.wetator.core.WetatorContext;
 
 import com.gargoylesoftware.htmlunit.html.HtmlSelect;
 
@@ -32,7 +31,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlSelect;
  */
 @ForHtmlElement(HtmlSelect.class)
 @IdentifiedBy(HtmlUnitSelectIdentifier.class)
-public class HtmlUnitSelect extends HtmlUnitBaseControl<HtmlSelect> {
+public class HtmlUnitSelect extends HtmlUnitBaseControl<HtmlSelect>
+    implements IHtmlUnitDisableable<HtmlSelect>, IHtmlUnitFocusable<HtmlSelect> {
 
   /**
    * The constructor.
@@ -46,17 +46,5 @@ public class HtmlUnitSelect extends HtmlUnitBaseControl<HtmlSelect> {
   @Override
   public String getDescribingText() {
     return HtmlElementUtil.getDescribingTextForHtmlSelect(getHtmlElement());
-  }
-
-  @Override
-  public boolean isDisabled(final WetatorContext aWetatorContext) {
-    final HtmlSelect tmpHtmlSelect = getHtmlElement();
-
-    return tmpHtmlSelect.isDisabled();
-  }
-
-  @Override
-  public boolean canReceiveFocus(final WetatorContext aWetatorContext) {
-    return !isDisabled(aWetatorContext);
   }
 }

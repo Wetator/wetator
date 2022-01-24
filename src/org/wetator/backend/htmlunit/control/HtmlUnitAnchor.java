@@ -21,7 +21,6 @@ import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitAnchorIdentifier;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
-import org.wetator.core.WetatorContext;
 
 import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
 
@@ -33,7 +32,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
  */
 @ForHtmlElement(HtmlAnchor.class)
 @IdentifiedBy(HtmlUnitAnchorIdentifier.class)
-public class HtmlUnitAnchor extends HtmlUnitBaseControl<HtmlAnchor> implements IClickable {
+public class HtmlUnitAnchor extends HtmlUnitBaseControl<HtmlAnchor>
+    implements IClickable, IHtmlUnitFocusable<HtmlAnchor> {
 
   /**
    * The constructor.
@@ -47,10 +47,5 @@ public class HtmlUnitAnchor extends HtmlUnitBaseControl<HtmlAnchor> implements I
   @Override
   public String getDescribingText() {
     return HtmlElementUtil.getDescribingTextForHtmlAnchor(getHtmlElement());
-  }
-
-  @Override
-  public boolean canReceiveFocus(final WetatorContext aWetatorContext) {
-    return true;
   }
 }

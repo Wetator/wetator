@@ -1,0 +1,32 @@
+open-url           || /
+assert-title       || </> htmx - Examples
+
+click-on           || Bulk Update
+assert-title       || </> htmx - high power tools for html
+assert-content     || Bulk Update
+assert-content     || Demo
+assert-content     || Select Rows And Activate Or Deactivate Below
+assert-content     || Joe Smith joe@smith.org Active
+assert-content     || Angie MacDowell angie@macdowell.org Active
+assert-content     || Fuqua Tarkenton fuqua@tarkenton.org Active
+assert-content     || Kim Yee kim@yee.org Inactive
+
+select             || Joe Smith
+select             || Fuqua Tarkenton
+select             || Kim Yee
+
+click-on           || ACTIVATE
+assert-content     || Joe Smith joe@smith.org Active
+assert-content     || Angie MacDowell angie@macdowell.org Active
+assert-content     || Fuqua Tarkenton fuqua@tarkenton.org Active
+assert-content     || Kim Yee kim@yee.org Active
+
+select             || Joe Smith
+select             || Fuqua Tarkenton
+select             || Kim Yee
+
+click-on           || DEACTIVATE
+assert-content     || Joe Smith joe@smith.org Inactive
+assert-content     || Angie MacDowell angie@macdowell.org Active
+assert-content     || Fuqua Tarkenton fuqua@tarkenton.org Inactive
+assert-content     || Kim Yee kim@yee.org Inactive

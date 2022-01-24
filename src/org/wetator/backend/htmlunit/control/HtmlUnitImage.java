@@ -16,7 +16,6 @@
 
 package org.wetator.backend.htmlunit.control;
 
-import org.wetator.backend.control.IClickable;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitImageIdentifier;
@@ -32,7 +31,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlImage;
  */
 @ForHtmlElement(HtmlImage.class)
 @IdentifiedBy(HtmlUnitImageIdentifier.class)
-public class HtmlUnitImage extends HtmlUnitBaseControl<HtmlImage> implements IClickable {
+public class HtmlUnitImage extends HtmlUnitBaseControl<HtmlImage> {
 
   /**
    * The constructor.

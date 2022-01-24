@@ -33,7 +33,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlSelect;
  */
 @ForHtmlElement(HtmlOptionGroup.class)
 @IdentifiedBy(HtmlUnitOptionGroupIdentifier.class)
-public class HtmlUnitOptionGroup extends HtmlUnitBaseControl<HtmlOptionGroup> {
+public class HtmlUnitOptionGroup extends HtmlUnitBaseControl<HtmlOptionGroup>
+    implements IHtmlUnitDisableable<HtmlOptionGroup>, IHtmlUnitFocusable<HtmlOptionGroup> {
 
   /**
    * The constructor.
@@ -62,10 +63,5 @@ public class HtmlUnitOptionGroup extends HtmlUnitBaseControl<HtmlOptionGroup> {
     final HtmlOptionGroup tmpHtmlOptionGroup = getHtmlElement();
     final HtmlSelect tmpHtmlSelect = tmpHtmlOptionGroup.getEnclosingSelect();
     return getUniqueSelector(tmpHtmlSelect);
-  }
-
-  @Override
-  public boolean canReceiveFocus(final WetatorContext aWetatorContext) {
-    return !isDisabled(aWetatorContext);
   }
 }
