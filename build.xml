@@ -646,7 +646,7 @@
 REM ---------------------------------------------------------
 REM Simple Wetator start script
 REM
-REM  requires JAVA 1.6 or higher installed
+REM  requires JAVA 1.8 or higher installed
 REM ---------------------------------------------------------
 
 SETLOCAL
@@ -725,12 +725,67 @@ ENDLOCAL
             <include name="wetator.bat" />
         </fixcrlf>
 
+        <echo file="${dir.build}/wetator.sh" append="false">@echo off
+#!/bin/bash
+
+# ---------------------------------------------------------
+# Simple Wetator start script
+#
+#  requires JAVA 1.8 or higher installed
+# ---------------------------------------------------------
+
+# ---------------------------------------------------------
+# additional java opts
+# ---------------------------------------------------------
+# WETATOR_JAVA_OPT=$WETATOR_JAVA_OPT "-Xmx512m"
+
+
+# ---------------------------------------------------------
+# additional jar files to be added to the classpath
+#
+# you can simply add jar files by puting them into the
+# lib folder
+# if you like to reference other jar files you have to add
+# them here (separated by ;)
+# ---------------------------------------------------------
+# WETATOR_ADDITIONAL_LIBS=c:\orcale\jdbc\ojdbc8.jar
+
+
+WETATOR_HOME=.
+WETATOR_LIB=$WETATOR_HOME/lib
+WETATOR_MAIN_CLASS=org.wetator.Wetator
+JAVA_EXE=java
+
+# start command for Wetator
+CMD="$JAVA_EXE $WETATOR_JAVA_OPT -cp \".:$WETATOR_LIB/*:$WETATOR_ADDITIONAL_LIBS\" $WETATOR_MAIN_CLASS $*"
+
+echo "Starting Wetator"
+
+echo $CMD
+eval $CMD
+</echo>
+
+        <fixcrlf srcdir="${dir.build}" eol="lf" >
+            <include name="wetator.sh" />
+        </fixcrlf>
+
+    	<mkdir dir="${dir.build}/logs"/>
+    	
+    	<!-- patch config -->
+        <copy file="${dir.src}/wetator.config" tofile="${dir.build}/wetator.config"/>
+    	<replace file="${dir.build}/wetator.config" token="wetator.outputDir=../logs" value="wetator.outputDir=./logs"/>
+        <replace file="${dir.build}/wetator.config" token="wetator.xslTemplates=../xsl/run_report.xsl" value="wetator.xslTemplates=./xsl/run_report.xsl"/>
+
         <zip destfile="${dir.deploy}/${application.jar-basename}-${application.version}.zip">
             <fileset dir="${dir.build}" >
                 <include name="wetator.bat" />
             </fileset>
 
-            <zipfileset dir="${dir.build}" prefix="lib" >
+        	<zipfileset dir="${dir.build}" includes="wetator.sh" filemode="755" />
+
+        	<zipfileset dir="${dir.build}/logs" fullpath="logs"/>
+        	
+        	<zipfileset dir="${dir.build}" prefix="lib" >
                 <include name="${application.jar-basename}.jar"/>
             </zipfileset>
 
@@ -753,6 +808,18 @@ ENDLOCAL
 
         	<zipfileset dir="${dir.src}" prefix="templates">
                 <include name="wetator.config" />
+                <include name="js_filter.cfg" />
+            </zipfileset>
+
+            <zipfileset dir="${dir.templates}">
+                <include name="empty.wet" />
+            </zipfileset>
+
+            <zipfileset dir="${dir.build}">
+                <include name="wetator.config" />
+            </zipfileset>
+
+        	<zipfileset dir="${dir.src}">
                 <include name="js_filter.cfg" />
             </zipfileset>
         </zip>
