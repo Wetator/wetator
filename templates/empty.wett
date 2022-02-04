@@ -1,0 +1,4 @@
+# sample wetator test script
+
+open-url           || /
+assert-title       || WETATOR / Smart Web Application Testing
