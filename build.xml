@@ -769,23 +769,24 @@ eval $CMD
             <include name="wetator.sh" />
         </fixcrlf>
 
-    	<mkdir dir="${dir.build}/logs"/>
-    	
-    	<!-- patch config -->
+        <mkdir dir="${dir.build}/logs"/>
+
+        <!-- patch config -->
         <copy file="${dir.src}/wetator.config" tofile="${dir.build}/wetator.config"/>
-    	<replace file="${dir.build}/wetator.config" token="wetator.outputDir=../logs" value="wetator.outputDir=./logs"/>
+        <replace file="${dir.build}/wetator.config" token="wetator.outputDir=../logs" value="wetator.outputDir=./logs"/>
         <replace file="${dir.build}/wetator.config" token="wetator.xslTemplates=../xsl/run_report.xsl" value="wetator.xslTemplates=./xsl/run_report.xsl"/>
+        <copy file="${dir.templates}/empty.wett" tofile="${dir.build}/sample.wett"/>
 
         <zip destfile="${dir.deploy}/${application.jar-basename}-${application.version}.zip">
             <fileset dir="${dir.build}" >
                 <include name="wetator.bat" />
             </fileset>
 
-        	<zipfileset dir="${dir.build}" includes="wetator.sh" filemode="755" />
+            <zipfileset dir="${dir.build}" includes="wetator.sh" filemode="755" />
 
-        	<zipfileset dir="${dir.build}/logs" fullpath="logs"/>
-        	
-        	<zipfileset dir="${dir.build}" prefix="lib" >
+            <zipfileset dir="${dir.build}/logs" fullpath="logs"/>
+
+            <zipfileset dir="${dir.build}" prefix="lib" >
                 <include name="${application.jar-basename}.jar"/>
             </zipfileset>
 
@@ -811,11 +812,8 @@ eval $CMD
                 <include name="js_filter.cfg" />
             </zipfileset>
 
-            <zipfileset dir="${dir.templates}">
-                <include name="empty.wet" />
-            </zipfileset>
-
             <zipfileset dir="${dir.build}">
+                <include name="sample.wett" />
                 <include name="wetator.config" />
             </zipfileset>
 
