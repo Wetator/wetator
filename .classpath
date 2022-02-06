@@ -56,10 +56,10 @@
 	<classpathentry kind="lib" path="lib/neko-htmlunit-2.58.0.jar"/>
 	<classpathentry kind="lib" path="lib/objenesis-3.2.jar"/>
 	<classpathentry kind="lib" path="lib/pdfbox-2.0.24.jar"/>
-	<classpathentry kind="lib" path="lib/poi-5.1.0.jar"/>
-	<classpathentry kind="lib" path="lib/poi-ooxml-5.1.0.jar"/>
-	<classpathentry kind="lib" path="lib/poi-ooxml-lite-5.1.0.jar"/>
-	<classpathentry kind="lib" path="lib/poi-scratchpad-5.1.0.jar"/>
+	<classpathentry kind="lib" path="lib/poi-5.2.0.jar"/>
+	<classpathentry kind="lib" path="lib/poi-ooxml-5.2.0.jar"/>
+	<classpathentry kind="lib" path="lib/poi-ooxml-lite-5.2.0.jar"/>
+	<classpathentry kind="lib" path="lib/poi-scratchpad-5.2.0.jar"/>
 	<classpathentry kind="lib" path="lib/relaxngDatatype-20020414.jar"/>
 	<classpathentry kind="lib" path="lib/salvation2-3.0.0.jar"/>
 	<classpathentry kind="lib" path="lib/serializer-2.7.2.jar"/>
@@ -72,7 +72,7 @@
 	<classpathentry kind="lib" path="lib/xalan-2.7.2.jar"/>
 	<classpathentry kind="lib" path="lib/xercesImpl-2.12.2.jar"/>
 	<classpathentry kind="lib" path="lib/xml-apis-1.4.01.jar"/>
-	<classpathentry kind="lib" path="lib/xmlbeans-5.0.2.jar"/>
+	<classpathentry kind="lib" path="lib/xmlbeans-5.0.3.jar"/>
 	<classpathentry kind="lib" path="lib/xsom-20140925.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
