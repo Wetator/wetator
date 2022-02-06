@@ -34,6 +34,7 @@ import org.wetator.backend.htmlunit.control.HtmlUnitInputRadioButton;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputReset;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputSubmit;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputText;
+import org.wetator.backend.htmlunit.control.HtmlUnitInputUrl;
 import org.wetator.backend.htmlunit.control.HtmlUnitOption;
 import org.wetator.backend.htmlunit.control.HtmlUnitOptionGroup;
 import org.wetator.backend.htmlunit.control.HtmlUnitSelect;
@@ -66,6 +67,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 import com.gargoylesoftware.htmlunit.html.HtmlTextArea;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
+import com.gargoylesoftware.htmlunit.html.HtmlUrlInput;
 
 /**
  * @author rbri
@@ -790,6 +792,98 @@ public class HtmlElementUtilTest {
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlEmailInput(tmpHtmlEmailInput);
     Assert.assertEquals("[HtmlEmailInput (id='tx') (name='EmailName')]", tmpResult);
+  }
+
+  @Test
+  public void getDescribingTextFor_HtmlUrlInput() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input type='url' value='admin@wetator.org'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+
+    final HtmlUrlInput tmpHtmlUrlInput = (HtmlUrlInput) tmpForm.getFirstChild();
+
+    String tmpResult;
+    tmpResult = new HtmlUnitInputUrl(tmpHtmlUrlInput).getDescribingText();
+    Assert.assertEquals("[HtmlUrlInput]", tmpResult);
+
+    tmpResult = HtmlElementUtil.getDescribingTextForHtmlUrlInput(tmpHtmlUrlInput);
+    Assert.assertEquals("[HtmlUrlInput]", tmpResult);
+  }
+
+  @Test
+  public void getDescribingTextFor_HtmlUrlInput_Name() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input name='UrlName' type='url' value='admin@wetator.org'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+
+    final HtmlUrlInput tmpHtmlUrlInput = (HtmlUrlInput) tmpForm.getFirstChild();
+
+    String tmpResult;
+    tmpResult = new HtmlUnitInputUrl(tmpHtmlUrlInput).getDescribingText();
+    Assert.assertEquals("[HtmlUrlInput (name='UrlName')]", tmpResult);
+
+    tmpResult = HtmlElementUtil.getDescribingTextForHtmlUrlInput(tmpHtmlUrlInput);
+    Assert.assertEquals("[HtmlUrlInput (name='UrlName')]", tmpResult);
+  }
+
+  @Test
+  public void getDescribingTextFor_HtmlUrlInput_Id() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input id='tx' type='url' value='admin@wetator.org'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+
+    final HtmlUrlInput tmpHtmlUrlInput = (HtmlUrlInput) tmpForm.getFirstChild();
+
+    String tmpResult;
+    tmpResult = new HtmlUnitInputUrl(tmpHtmlUrlInput).getDescribingText();
+    Assert.assertEquals("[HtmlUrlInput (id='tx')]", tmpResult);
+
+    tmpResult = HtmlElementUtil.getDescribingTextForHtmlUrlInput(tmpHtmlUrlInput);
+    Assert.assertEquals("[HtmlUrlInput (id='tx')]", tmpResult);
+  }
+
+  @Test
+  public void getDescribingTextFor_HtmlUrlInput_Name_Id() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input id='tx' name='UrlName' type='url' value='@admin@wetator.org'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+
+    final HtmlUrlInput tmpHtmlUrlInput = (HtmlUrlInput) tmpForm.getFirstChild();
+
+    String tmpResult;
+    tmpResult = new HtmlUnitInputUrl(tmpHtmlUrlInput).getDescribingText();
+    Assert.assertEquals("[HtmlUrlInput (id='tx') (name='UrlName')]", tmpResult);
+
+    tmpResult = HtmlElementUtil.getDescribingTextForHtmlUrlInput(tmpHtmlUrlInput);
+    Assert.assertEquals("[HtmlUrlInput (id='tx') (name='UrlName')]", tmpResult);
   }
 
   @Test
