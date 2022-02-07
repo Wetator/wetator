@@ -22,7 +22,6 @@ import static org.junit.Assert.assertTrue;
 import java.io.IOException;
 import java.io.StringWriter;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.wetator.backend.htmlunit.util.PageUtil;
 import org.wetator.util.NormalizedString;
@@ -66,7 +65,21 @@ public class XHtmlOutputterHtmlPageTest {
     tmpXHtmlOutputter.writeTo(tmpWriter);
     assertEquals(tmpBrowser.getApplicationName(), anExpected, new NormalizedString(tmpWriter.toString()).toString());
 
+    tmpBrowser = BrowserVersion.FIREFOX;
+    tmpHtmlPage = PageUtil.constructHtmlPage(tmpBrowser, anHtmlCode);
+    tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
+    tmpWriter = new StringWriter();
+    tmpXHtmlOutputter.writeTo(tmpWriter);
+    assertEquals(tmpBrowser.getApplicationName(), anExpected, new NormalizedString(tmpWriter.toString()).toString());
+
     tmpBrowser = BrowserVersion.FIREFOX_ESR;
+    tmpHtmlPage = PageUtil.constructHtmlPage(tmpBrowser, anHtmlCode);
+    tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
+    tmpWriter = new StringWriter();
+    tmpXHtmlOutputter.writeTo(tmpWriter);
+    assertEquals(tmpBrowser.getApplicationName(), anExpected, new NormalizedString(tmpWriter.toString()).toString());
+
+    tmpBrowser = BrowserVersion.CHROME;
     tmpHtmlPage = PageUtil.constructHtmlPage(tmpBrowser, anHtmlCode);
     tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
     tmpWriter = new StringWriter();
@@ -139,15 +152,14 @@ public class XHtmlOutputterHtmlPageTest {
   }
 
   @Test
-  @Ignore
   public void computerOutput() throws IOException {
-    // TODO different Results in IE and FF
-
     final String tmpHtmlCode = LEADING + "<p>"
         + "<code>1</code> <kbd>2</kbd> <samp>3</samp> <tt>4</tt> <var>5</var> <pre>6</pre>" + "</p>" + TRAILING;
-    final String tmpExpected = EXPECTED_LEADING + " <p>"
-        + "<code>1</code> <kbd>2</kbd> <samp>3</samp> <tt>4</tt> <var>5</var> <pre>6</pre>" + "</p> "
-        + EXPECTED_TRAILING;
+    final String tmpExpected = EXPECTED_LEADING + " <p style=\"display: block\">"
+        + "<code style=\"display: inline\">1</code> <kbd style=\"display: inline\">2</kbd> "
+        + "<samp style=\"display: inline\">3</samp> <tt style=\"display: inline\">4</tt> "
+        + "<var style=\"display: inline\">5</var> </p> <pre style=\"display: block\">6</pre> "
+        + "<p style=\"display: block\"></p> " + EXPECTED_TRAILING;
     testXHtmlOutput(tmpExpected, tmpHtmlCode);
   }
 
@@ -174,14 +186,14 @@ public class XHtmlOutputterHtmlPageTest {
   }
 
   @Test
-  @Ignore
   public void mix2() throws IOException {
-    // TODO different Results in IE and FF
-
     final String tmpHtmlCode = LEADING + "<table><tr>"
         + "<td>Table C<font color='red'>lickable</font> <b>forma<i>ted</i> t</b>ext</td>" + "</tr></table>" + TRAILING;
-    final String tmpExpected = EXPECTED_LEADING + " <table> <tbody align=\"left\"> <tr> "
-        + "<td> Table C <font color=\"red\">lickable</font> <b>forma<i>ted</i> t</b>ext </td> "
+    final String tmpExpected = EXPECTED_LEADING + " <table style=\"display: table\"> "
+        + "<tbody style=\"display: table-row-group\"> <tr style=\"display: table-row\"> "
+        + "<td style=\"display: table-cell\"> Table C "
+        + "<font color=\"red\" style=\"display: inline\">lickable</font> "
+        + "<b style=\"display: inline\">forma<i style=\"display: inline\">ted</i> t</b>ext </td> "
         + "</tr> </tbody> </table> " + EXPECTED_TRAILING;
     testXHtmlOutput(tmpExpected, tmpHtmlCode);
   }
