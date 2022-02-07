@@ -33,6 +33,7 @@ import org.wetator.backend.htmlunit.control.HtmlUnitInputPassword;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputRadioButton;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputReset;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputSubmit;
+import org.wetator.backend.htmlunit.control.HtmlUnitInputTel;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputText;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputUrl;
 import org.wetator.backend.htmlunit.control.HtmlUnitOption;
@@ -65,6 +66,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlResetInput;
 import com.gargoylesoftware.htmlunit.html.HtmlSelect;
 import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
+import com.gargoylesoftware.htmlunit.html.HtmlTelInput;
 import com.gargoylesoftware.htmlunit.html.HtmlTextArea;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 import com.gargoylesoftware.htmlunit.html.HtmlUrlInput;
@@ -792,6 +794,98 @@ public class HtmlElementUtilTest {
 
     tmpResult = HtmlElementUtil.getDescribingTextForHtmlEmailInput(tmpHtmlEmailInput);
     Assert.assertEquals("[HtmlEmailInput (id='tx') (name='EmailName')]", tmpResult);
+  }
+
+  @Test
+  public void getDescribingTextFor_HtmlTelInput() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input type='tel' value='admin@wetator.org'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+
+    final HtmlTelInput tmpHtmlTelInput = (HtmlTelInput) tmpForm.getFirstChild();
+
+    String tmpResult;
+    tmpResult = new HtmlUnitInputTel(tmpHtmlTelInput).getDescribingText();
+    Assert.assertEquals("[HtmlTelInput]", tmpResult);
+
+    tmpResult = HtmlElementUtil.getDescribingTextForHtmlTelInput(tmpHtmlTelInput);
+    Assert.assertEquals("[HtmlTelInput]", tmpResult);
+  }
+
+  @Test
+  public void getDescribingTextFor_HtmlTelInput_Name() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input name='TelName' type='tel' value='admin@wetator.org'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+
+    final HtmlTelInput tmpHtmlTelInput = (HtmlTelInput) tmpForm.getFirstChild();
+
+    String tmpResult;
+    tmpResult = new HtmlUnitInputTel(tmpHtmlTelInput).getDescribingText();
+    Assert.assertEquals("[HtmlTelInput (name='TelName')]", tmpResult);
+
+    tmpResult = HtmlElementUtil.getDescribingTextForHtmlTelInput(tmpHtmlTelInput);
+    Assert.assertEquals("[HtmlTelInput (name='TelName')]", tmpResult);
+  }
+
+  @Test
+  public void getDescribingTextFor_HtmlTelInput_Id() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input id='tx' type='tel' value='admin@wetator.org'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+
+    final HtmlTelInput tmpHtmlTelInput = (HtmlTelInput) tmpForm.getFirstChild();
+
+    String tmpResult;
+    tmpResult = new HtmlUnitInputTel(tmpHtmlTelInput).getDescribingText();
+    Assert.assertEquals("[HtmlTelInput (id='tx')]", tmpResult);
+
+    tmpResult = HtmlElementUtil.getDescribingTextForHtmlTelInput(tmpHtmlTelInput);
+    Assert.assertEquals("[HtmlTelInput (id='tx')]", tmpResult);
+  }
+
+  @Test
+  public void getDescribingTextFor_HtmlTelInput_Name_Id() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input id='tx' name='TelName' type='tel' value='@admin@wetator.org'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+
+    final HtmlTelInput tmpHtmlTelInput = (HtmlTelInput) tmpForm.getFirstChild();
+
+    String tmpResult;
+    tmpResult = new HtmlUnitInputTel(tmpHtmlTelInput).getDescribingText();
+    Assert.assertEquals("[HtmlTelInput (id='tx') (name='TelName')]", tmpResult);
+
+    tmpResult = HtmlElementUtil.getDescribingTextForHtmlTelInput(tmpHtmlTelInput);
+    Assert.assertEquals("[HtmlTelInput (id='tx') (name='TelName')]", tmpResult);
   }
 
   @Test

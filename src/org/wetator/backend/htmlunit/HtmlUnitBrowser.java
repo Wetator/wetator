@@ -52,6 +52,7 @@ import org.wetator.backend.htmlunit.control.HtmlUnitInputPassword;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputRadioButton;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputReset;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputSubmit;
+import org.wetator.backend.htmlunit.control.HtmlUnitInputTel;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputText;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputUrl;
 import org.wetator.backend.htmlunit.control.HtmlUnitOption;
@@ -184,6 +185,7 @@ public final class HtmlUnitBrowser implements IBrowser {
     controlRepository.add(HtmlUnitInputRadioButton.class);
     controlRepository.add(HtmlUnitInputReset.class);
     controlRepository.add(HtmlUnitInputSubmit.class);
+    controlRepository.add(HtmlUnitInputTel.class);
     controlRepository.add(HtmlUnitInputText.class);
     controlRepository.add(HtmlUnitInputUrl.class);
     controlRepository.add(HtmlUnitOption.class);

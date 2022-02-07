@@ -41,6 +41,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlResetInput;
 import com.gargoylesoftware.htmlunit.html.HtmlSelect;
 import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
+import com.gargoylesoftware.htmlunit.html.HtmlTelInput;
 import com.gargoylesoftware.htmlunit.html.HtmlTextArea;
 import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
 import com.gargoylesoftware.htmlunit.html.HtmlUrlInput;
@@ -337,6 +338,16 @@ public final class HtmlElementUtil {
    */
   public static String getDescribingTextForHtmlEmailInput(final HtmlEmailInput anHtmlEmailInput) {
     return DescribingTextBuilder.createDefault(anHtmlEmailInput).build();
+  }
+
+  /**
+   * Generates a describing text for the {@link HtmlTelInput}.
+   *
+   * @param anHtmlTelInput the control
+   * @return the describing text
+   */
+  public static String getDescribingTextForHtmlTelInput(final HtmlTelInput anHtmlTelInput) {
+    return DescribingTextBuilder.createDefault(anHtmlTelInput).build();
   }
 
   /**
