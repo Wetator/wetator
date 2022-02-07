@@ -74,14 +74,12 @@ import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
 import com.gargoylesoftware.htmlunit.html.HtmlResetInput;
 import com.gargoylesoftware.htmlunit.html.HtmlScript;
 import com.gargoylesoftware.htmlunit.html.HtmlSelect;
-import com.gargoylesoftware.htmlunit.html.HtmlSpan;
 import com.gargoylesoftware.htmlunit.html.HtmlStyle;
 import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
 import com.gargoylesoftware.htmlunit.html.HtmlTextArea;
 import com.gargoylesoftware.htmlunit.html.HtmlTitle;
 import com.gargoylesoftware.htmlunit.html.SubmittableElement;
 import com.gargoylesoftware.htmlunit.javascript.host.css.CSSStyleDeclaration;
-import com.gargoylesoftware.htmlunit.javascript.host.css.ComputedCSSStyleDeclaration;
 import com.gargoylesoftware.htmlunit.javascript.host.event.MouseEvent;
 import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLElement;
 import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLObjectElement;
@@ -149,7 +147,7 @@ public class HtmlPageIndex {
       htmlElementsWithMouseActionListener.put(tmpMouseAction, new HashSet<HtmlElement>());
     }
 
-    parseDomNode(aHtmlPage, null, EnumSet.noneOf(MouseAction.class), true);
+    parseDomNode(aHtmlPage, null, EnumSet.noneOf(MouseAction.class));
   }
 
   /**
@@ -438,7 +436,7 @@ public class HtmlPageIndex {
   }
 
   private void parseDomNode(final DomNode aDomNode, final String aParentHierarchy,
-      final Set<MouseAction> aParentMouseActions, final boolean aParentIsDisplayedFlag) {
+      final Set<MouseAction> aParentMouseActions) {
     if (null == aDomNode) {
       return;
     }
@@ -463,7 +461,7 @@ public class HtmlPageIndex {
 
     Set<MouseAction> tmpMouseActions = aParentMouseActions;
 
-    if (isDisplayed(aDomNode)) {
+    if (aDomNode.isDisplayed()) {
       final boolean tmpIsHtmlElement = aDomNode instanceof HtmlElement;
       if (tmpIsHtmlElement) {
         final HtmlElement tmpHtmlElement = (HtmlElement) aDomNode;
@@ -482,9 +480,7 @@ public class HtmlPageIndex {
           || aDomNode instanceof HtmlHead || aDomNode instanceof HtmlTitle) { // NOPMD
         // nothing
       } else if (aDomNode instanceof DomText) {
-        if (aParentIsDisplayedFlag) {
-          appendDomText((DomText) aDomNode);
-        }
+        appendDomText((DomText) aDomNode);
       } else if (aDomNode instanceof HtmlBreak) {
         text.appendBlank();
         textWithoutFormControls.appendBlank();
@@ -539,7 +535,7 @@ public class HtmlPageIndex {
           text.appendBlank();
           textWithoutFormControls.appendBlank();
         }
-        parseChildren(aDomNode, tmpHierarchy, tmpMouseActions, true);
+        parseChildren(aDomNode, tmpHierarchy, tmpMouseActions);
         if (tmpIsBlock) {
           text.appendBlank();
           textWithoutFormControls.appendBlank();
@@ -551,7 +547,7 @@ public class HtmlPageIndex {
       }
     } else {
       // the node is not visible but maybe a child node
-      parseChildren(aDomNode, tmpHierarchy, tmpMouseActions, false);
+      parseChildren(aDomNode, tmpHierarchy, tmpMouseActions);
     }
 
     // mark end position of the DOM node
@@ -560,31 +556,6 @@ public class HtmlPageIndex {
 
     tmpFindSpotWFC = positionsWithoutFormControls.get(aDomNode);
     tmpFindSpotWFC.setEndPos(textWithoutFormControls.length());
-  }
-
-  private boolean isDisplayed(final DomNode aDomNode) {
-    if (!aDomNode.isDisplayed()) {
-      return false;
-    }
-
-    // RichFaces uses this to hide some entry fields
-    // for performance do this check only for span elements at the moment
-    if (aDomNode instanceof HtmlSpan) {
-      final ScriptableObject tmpScriptableObject = ((HtmlElement) aDomNode).getScriptableObject();
-      if (tmpScriptableObject instanceof HTMLElement) {
-        final HTMLElement tmpHtmlElement = (HTMLElement) tmpScriptableObject;
-        final ComputedCSSStyleDeclaration tmpStyle = tmpHtmlElement.getWindow().getComputedStyle(tmpHtmlElement, null);
-        final String tmpPosition = tmpStyle.getStyleAttribute(Definition.POSITION);
-
-        if ("absolute".equalsIgnoreCase(tmpPosition)) {
-          final String tmpClip = tmpStyle.getStyleAttribute(Definition.CLIP);
-          if ("rect(0px, 0px, 1px, 1px)".equals(tmpClip)) {
-            return false;
-          }
-        }
-      }
-    }
-    return true;
   }
 
   private Set<MouseAction> getAvailableMouseActions(final HtmlElement aHtmlElement,
@@ -637,10 +608,9 @@ public class HtmlPageIndex {
     return tmpMouseActions;
   }
 
-  private void parseChildren(final DomNode aNode, final String aHierarchy, final Set<MouseAction> aMouseActions,
-      final boolean aParentIsDisplayedFlag) {
+  private void parseChildren(final DomNode aNode, final String aHierarchy, final Set<MouseAction> aMouseActions) {
     for (final DomNode tmpChild : aNode.getChildren()) {
-      parseDomNode(tmpChild, aHierarchy, aMouseActions, aParentIsDisplayedFlag);
+      parseDomNode(tmpChild, aHierarchy, aMouseActions);
     }
   }
 
@@ -688,7 +658,7 @@ public class HtmlPageIndex {
     text.appendBlank();
     textWithoutFormControls.appendBlank();
     textWithoutFormControls.disableAppend();
-    parseChildren(anHtmlButton, aHierarchy, tmpMouseActions, true);
+    parseChildren(anHtmlButton, aHierarchy, tmpMouseActions);
     textWithoutFormControls.enableAppend();
     text.appendBlank();
     textWithoutFormControls.appendBlank();
@@ -704,7 +674,7 @@ public class HtmlPageIndex {
   private void appendHtmlCheckBoxInput(final HtmlCheckBoxInput anHtmlCheckBoxInput, final String aHierarchy,
       final Set<MouseAction> aMouseActions) {
     textWithoutFormControls.disableAppend();
-    parseChildren(anHtmlCheckBoxInput, aHierarchy, aMouseActions, true);
+    parseChildren(anHtmlCheckBoxInput, aHierarchy, aMouseActions);
     textWithoutFormControls.enableAppend();
     text.appendBlank();
     textWithoutFormControls.appendBlank();
@@ -714,7 +684,7 @@ public class HtmlPageIndex {
     final Page tmpPage = anHtmlFrame.getEnclosedPage();
     if (tmpPage instanceof HtmlPage) {
       // events are not propagated through the frame 'border' -> start with fresh mouse actions
-      parseDomNode((HtmlPage) tmpPage, aHierarchy, EnumSet.noneOf(MouseAction.class), true);
+      parseDomNode((HtmlPage) tmpPage, aHierarchy, EnumSet.noneOf(MouseAction.class));
     }
   }
 
@@ -738,7 +708,7 @@ public class HtmlPageIndex {
     final Page tmpPage = anHtmlInlineFrame.getEnclosedPage();
     if (tmpPage instanceof HtmlPage) {
       // events are not propagated through the iframe 'border' -> start with fresh mouse actions
-      parseDomNode((HtmlPage) tmpPage, aHierarchy, EnumSet.noneOf(MouseAction.class), true);
+      parseDomNode((HtmlPage) tmpPage, aHierarchy, EnumSet.noneOf(MouseAction.class));
     }
   }
 
@@ -746,7 +716,7 @@ public class HtmlPageIndex {
       final Set<MouseAction> aMouseActions) {
     text.append("\"");
     textWithoutFormControls.append("\"");
-    parseChildren(anHtmlInlineQuotation, aHierarchy, aMouseActions, true);
+    parseChildren(anHtmlInlineQuotation, aHierarchy, aMouseActions);
     text.append("\"");
     textWithoutFormControls.append("\"");
   }
@@ -763,14 +733,14 @@ public class HtmlPageIndex {
       final Set<MouseAction> aMouseActions) {
     text.appendBlank();
     textWithoutFormControls.appendBlank();
-    parseChildren(anHtmlLabel, aHierarchy, aMouseActions, true);
+    parseChildren(anHtmlLabel, aHierarchy, aMouseActions);
     text.appendBlank();
     textWithoutFormControls.appendBlank();
   }
 
   private void appendHtmlLegend(final HtmlLegend anHtmlLegend, final String aHierarchy,
       final Set<MouseAction> aMouseActions) {
-    parseChildren(anHtmlLegend, aHierarchy, aMouseActions, true);
+    parseChildren(anHtmlLegend, aHierarchy, aMouseActions);
     text.appendBlank();
     textWithoutFormControls.appendBlank();
   }
@@ -783,7 +753,7 @@ public class HtmlPageIndex {
     // process childs only if the control is not supported
     final HTMLObjectElement tmpJsObject = anHtmlObject.getScriptableObject();
     if (null == tmpJsObject || null == tmpJsObject.unwrap()) {
-      parseChildren(anHtmlObject, aHierarchy, aMouseActions, true);
+      parseChildren(anHtmlObject, aHierarchy, aMouseActions);
     }
 
     text.append(" ");
@@ -817,14 +787,14 @@ public class HtmlPageIndex {
         textWithoutFormControls.append(String.valueOf(i++));
         textWithoutFormControls.append(". ");
 
-        parseDomNode(tmpItem, aHierarchy, aMouseActions, true);
+        parseDomNode(tmpItem, aHierarchy, aMouseActions);
         final FindSpot tmpFindSpot = positions.get(tmpItem);
         tmpFindSpot.setStartPos(tmpStartPos);
 
         final FindSpot tmpFindSpotWFC = positionsWithoutFormControls.get(tmpItem);
         tmpFindSpotWFC.setStartPos(tmpStartPosWFC);
       } else {
-        parseDomNode(tmpItem, aHierarchy, aMouseActions, true);
+        parseDomNode(tmpItem, aHierarchy, aMouseActions);
       }
     }
     text.appendBlank();
@@ -834,7 +804,7 @@ public class HtmlPageIndex {
   private void appendHtmlRadioButtonInput(final HtmlRadioButtonInput anHtmlRadioButtonInput, final String aHierarchy,
       final Set<MouseAction> aMouseActions) {
     textWithoutFormControls.disableAppend();
-    parseChildren(anHtmlRadioButtonInput, aHierarchy, aMouseActions, true);
+    parseChildren(anHtmlRadioButtonInput, aHierarchy, aMouseActions);
     textWithoutFormControls.enableAppend();
     text.appendBlank();
     textWithoutFormControls.appendBlank();
@@ -854,7 +824,7 @@ public class HtmlPageIndex {
       if (tmpItem instanceof HtmlOption || tmpItem instanceof HtmlOptionGroup) {
         text.appendBlank();
         textWithoutFormControls.appendBlank();
-        parseDomNode(tmpItem, aHierarchy, aMouseActions, true);
+        parseDomNode(tmpItem, aHierarchy, aMouseActions);
       }
     }
     textWithoutFormControls.enableAppend();
@@ -874,7 +844,7 @@ public class HtmlPageIndex {
     textWithoutFormControls.disableAppend();
 
     final int tmpOldLength = text.length();
-    parseChildren(anHtmlTextArea, aHierarchy, aMouseActions, true);
+    parseChildren(anHtmlTextArea, aHierarchy, aMouseActions);
     if (text.length() == tmpOldLength) {
       text.append(anHtmlTextArea.getPlaceholder());
     }

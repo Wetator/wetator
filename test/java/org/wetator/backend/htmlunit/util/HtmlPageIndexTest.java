@@ -885,22 +885,6 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  public void getText_CSSClipRichFaces() throws IOException {
-    // @formatter:off
-    final String tmpHtmlCode = "<html><body>"
-        + "<style type='text/css'> .line { position: absolute; clip: rect(0px, 0px, 1px, 1px); } </style>"
-        + "before"
-        + "<div class='line'>Division 1</div>"
-        + "between"
-        + "<span class='line'>Span 1</span>"
-        + "after"
-        + "</body></html>";
-    // @formatter:on
-
-    getText("before Division 1 betweenafter", tmpHtmlCode);
-  }
-
-  @Test
   public void getText_CSSTextTransform() throws IOException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
