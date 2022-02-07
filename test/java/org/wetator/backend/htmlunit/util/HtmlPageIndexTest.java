@@ -25,7 +25,6 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.wetator.backend.htmlunit.MouseAction;
 import org.wetator.util.FindSpot;
@@ -89,7 +88,17 @@ public class HtmlPageIndexTest {
     assertEquals("getText[IE]", anExpectedIE, tmpResult.getText());
     assertEquals("getTextWithoutFormControls[IE]", anExpectedWithoutFC, tmpResult.getTextWithoutFormControls());
 
+    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.FIREFOX, anHtmlCode);
+    tmpResult = new HtmlPageIndex(tmpHtmlPage);
+    assertEquals("getText[FF]", anExpectedFF, tmpResult.getText());
+    assertEquals("getTextWithoutFormControls[FF]", anExpectedWithoutFC, tmpResult.getTextWithoutFormControls());
+
     tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.FIREFOX_ESR, anHtmlCode);
+    tmpResult = new HtmlPageIndex(tmpHtmlPage);
+    assertEquals("getText[FF]", anExpectedFF, tmpResult.getText());
+    assertEquals("getTextWithoutFormControls[FF]", anExpectedWithoutFC, tmpResult.getTextWithoutFormControls());
+
+    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.CHROME, anHtmlCode);
     tmpResult = new HtmlPageIndex(tmpHtmlPage);
     assertEquals("getText[FF]", anExpectedFF, tmpResult.getText());
     assertEquals("getTextWithoutFormControls[FF]", anExpectedWithoutFC, tmpResult.getTextWithoutFormControls());
@@ -836,8 +845,6 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  @Ignore("handling of visibility:hidden is currently broken")
-  // TODO handling of visibility:hidden is currently broken
   public void getText_CSSVisibilityHidden() throws IOException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
@@ -845,7 +852,7 @@ public class HtmlPageIndexTest {
         + "before"
         + "<div class='line'>Division 1</div>"
         + "between"
-        + "<div class='line'><span>DSpan 1</span></div>"
+        + "<div class='line'>D<span>Span 1</span>d</div>"
         + "between"
         + "<div class='line'><span style='visibility: visible;'>DSpan 2</span></div>"
         + "between"
@@ -853,12 +860,12 @@ public class HtmlPageIndexTest {
         + "between"
         + "<span class='line'><div>SDivision 1</div></span>"
         + "between"
-        + "<span class='line'><div style='visibility: visible;'>SDivision 2</div></span>"
+        + "<span class='line'>S<div style='visibility: visible;'>Division 2</div>s</span>"
         + "after"
         + "</body></html>";
     // @formatter:on
 
-    getText("beforebetweenbetweenDSpan 2betweenbetweenbetweenSDivision 2after", tmpHtmlCode);
+    getText("beforebetweenbetweenDSpan 2betweenbetweenbetween Division 2 after", tmpHtmlCode);
   }
 
   @Test
@@ -1257,8 +1264,6 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  @Ignore("add not-displayed children of not-displayed elements to the index?")
-  // TODO add not-displayed children of not-displayed elements to the index?
   public void getIndex_InsideCSSDisplayNone() throws Exception {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
@@ -1295,8 +1300,6 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  @Ignore("add hidden children of hidden elements to the index?")
-  // TODO add hidden children of hidden elements to the index?
   public void getIndex_InsideCSSVisibilityHidden() throws Exception {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
@@ -1310,8 +1313,6 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  @Ignore("handling of visibility:hidden is currently broken")
-  // TODO handling of visibility:hidden is currently broken
   public void getIndex_InsideCSSVisibilityHiddenButVisible() throws Exception {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
@@ -1537,8 +1538,6 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  @Ignore("add not-displayed children of not-displayed elements to the index?")
-  // TODO add not-displayed children of not-displayed elements to the index?
   public void getPosition_InsideCSSDisplayNone() throws Exception {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
@@ -1598,8 +1597,6 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  @Ignore("add hidden children of hidden elements to the index?")
-  // TODO add hidden children of hidden elements to the index?
   public void getPosition_InsideCSSVisibilityHidden() throws Exception {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
@@ -1613,8 +1610,6 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  @Ignore("add hidden children of hidden elements to the index?")
-  // TODO add hidden children of hidden elements to the index?
   public void getPosition_InsideCSSVisibilityHidden_WithText() throws Exception {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
@@ -1628,8 +1623,6 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  @Ignore("handling of visibility:hidden is currently broken")
-  // TODO handling of visibility:hidden is currently broken
   public void getPosition_InsideCSSVisibilityHiddenButVisible() throws Exception {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
@@ -1643,8 +1636,6 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  @Ignore("handling of visibility:hidden is currently broken")
-  // TODO handling of visibility:hidden is currently broken
   public void getPosition_InsideCSSVisibilityHiddenButVisible_WithText() throws Exception {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
@@ -1654,7 +1645,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    getPosition(0, 0, tmpHtmlCode);
+    getPosition(0, 4, tmpHtmlCode);
   }
 
   private void getHierarchy(final String anExpected, final String anHtmlCode) throws Exception {
@@ -1806,8 +1797,6 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  @Ignore("add not-displayed children of not-displayed elements to the index?")
-  // TODO add not-displayed children of not-displayed elements to the index?
   public void getHierarchy_InsideCSSDisplayNone() throws Exception {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
@@ -1844,8 +1833,6 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  @Ignore("add hidden children of hidden elements to the index?")
-  // TODO add hidden children of hidden elements to the index?
   public void getHierarchy_InsideCSSVisibilityHidden() throws Exception {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
@@ -1859,8 +1846,6 @@ public class HtmlPageIndexTest {
   }
 
   @Test
-  @Ignore("handling of visibility:hidden is currently broken")
-  // TODO handling of visibility:hidden is currently broken
   public void getHierarchy_InsideCSSVisibilityHiddenButVisible() throws Exception {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
