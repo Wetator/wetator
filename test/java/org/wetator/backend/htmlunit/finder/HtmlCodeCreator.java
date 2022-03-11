@@ -111,9 +111,23 @@ public abstract class HtmlCodeCreator {
             + (aValue != null ? (aPlaceholder != null ? ' ' : "") + "value='" + aValue + '\'' : ""));
   }
 
+  static String inputNumber(final String anInputID, final String aValue, final String aPlaceholder, final String aStyle,
+      final boolean anIsListening) {
+    return input("number", anInputID, anIsListening, aStyle,
+        (aPlaceholder != null ? " placeholder='" + aPlaceholder + '\'' : "")
+            + (aValue != null ? (aPlaceholder != null ? ' ' : "") + "value='" + aValue + '\'' : ""));
+  }
+
   static String inputEmail(final String anInputID, final String aValue, final String aPlaceholder, final String aStyle,
       final boolean anIsListening) {
     return input("email", anInputID, anIsListening, aStyle,
+        (aPlaceholder != null ? " placeholder='" + aPlaceholder + '\'' : "")
+            + (aValue != null ? (aPlaceholder != null ? ' ' : "") + "value='" + aValue + '\'' : ""));
+  }
+
+  static String inputUrl(final String anInputID, final String aValue, final String aPlaceholder, final String aStyle,
+      final boolean anIsListening) {
+    return input("url", anInputID, anIsListening, aStyle,
         (aPlaceholder != null ? " placeholder='" + aPlaceholder + '\'' : "")
             + (aValue != null ? (aPlaceholder != null ? ' ' : "") + "value='" + aValue + '\'' : ""));
   }

@@ -27,7 +27,6 @@ import java.util.List;
  *
  * @author tobwoerk
  * @author rbri
- *
  * @see HtmlCodeSelectBuilder
  * @see HtmlCodeTableBuilder
  */
@@ -64,10 +63,12 @@ public class HtmlCodeBuilder {
     INPUT_EMAIL,
     INPUT_FILE,
     INPUT_IMAGE,
+    INPUT_NUMBER,
     INPUT_PASSWORD,
     INPUT_RESET,
     INPUT_SUBMIT,
     INPUT_TEXT,
+    INPUT_URL,
     LABEL,
     RADIO,
     SPAN,
@@ -178,12 +179,28 @@ public class HtmlCodeBuilder {
     return add(ElementType.INPUT_TEXT, anId);
   }
 
+  public HtmlCodeBuilder inputNumber(final String anId, final String aPlaceholder) {
+    return inputNumber(anId).contain(aPlaceholder);
+  }
+
+  public HtmlCodeBuilder inputNumber(final String anId) {
+    return add(ElementType.INPUT_NUMBER, anId);
+  }
+
   public HtmlCodeBuilder inputEmail(final String anId, final String aPlaceholder) {
     return inputEmail(anId).contain(aPlaceholder);
   }
 
   public HtmlCodeBuilder inputEmail(final String anId) {
     return add(ElementType.INPUT_EMAIL, anId);
+  }
+
+  public HtmlCodeBuilder inputUrl(final String anId, final String aPlaceholder) {
+    return inputUrl(anId).contain(aPlaceholder);
+  }
+
+  public HtmlCodeBuilder inputUrl(final String anId) {
+    return add(ElementType.INPUT_URL, anId);
   }
 
   public HtmlCodeBuilder label(final String aForId, final HtmlCodeBuilder aContent) {
@@ -299,6 +316,10 @@ public class HtmlCodeBuilder {
           tmpHtml
               .append(HtmlCodeCreator.inputImage(tmpElement.id, tmpElement.alt, tmpElement.style, tmpElement.listen));
           break;
+        case INPUT_NUMBER:
+          tmpHtml.append(HtmlCodeCreator.inputNumber(tmpElement.id, tmpElement.value, tmpElement.content,
+              tmpElement.style, tmpElement.listen));
+          break;
         case INPUT_PASSWORD:
           tmpHtml.append(HtmlCodeCreator.inputPassword(tmpElement.id, tmpElement.value, tmpElement.content,
               tmpElement.style, tmpElement.listen));
@@ -314,6 +335,10 @@ public class HtmlCodeBuilder {
         case INPUT_TEXT:
           tmpHtml.append(HtmlCodeCreator.inputText(tmpElement.id, tmpElement.value, tmpElement.content,
               tmpElement.style, tmpElement.listen));
+          break;
+        case INPUT_URL:
+          tmpHtml.append(HtmlCodeCreator.inputUrl(tmpElement.id, tmpElement.value, tmpElement.content, tmpElement.style,
+              tmpElement.listen));
           break;
         case LABEL:
           tmpHtml.append(HtmlCodeCreator.labelStart(tmpElement.id, tmpElement.style, tmpElement.listen));

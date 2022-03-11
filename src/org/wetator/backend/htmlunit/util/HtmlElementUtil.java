@@ -31,6 +31,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlHiddenInput;
 import com.gargoylesoftware.htmlunit.html.HtmlImage;
 import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
 import com.gargoylesoftware.htmlunit.html.HtmlLabel;
+import com.gargoylesoftware.htmlunit.html.HtmlNumberInput;
 import com.gargoylesoftware.htmlunit.html.HtmlOption;
 import com.gargoylesoftware.htmlunit.html.HtmlOptionGroup;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -338,6 +339,16 @@ public final class HtmlElementUtil {
    */
   public static String getDescribingTextForHtmlEmailInput(final HtmlEmailInput anHtmlEmailInput) {
     return DescribingTextBuilder.createDefault(anHtmlEmailInput).build();
+  }
+
+  /**
+   * Generates a describing text for the {@link HtmlNumberInput}.
+   *
+   * @param anHtmlNumberInput the control
+   * @return the describing text
+   */
+  public static String getDescribingTextForHtmlNumberInput(final HtmlNumberInput anHtmlNumberInput) {
+    return DescribingTextBuilder.createDefault(anHtmlNumberInput).build();
   }
 
   /**

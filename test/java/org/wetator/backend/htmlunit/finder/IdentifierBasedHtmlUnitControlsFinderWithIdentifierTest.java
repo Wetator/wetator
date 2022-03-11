@@ -37,6 +37,7 @@ import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputCheckBoxIden
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputEmailIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputFileIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputImageIdentifier;
+import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputNumberIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputPasswordIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputRadioButtonIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputResetIdentifier;
@@ -55,6 +56,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
 import com.gargoylesoftware.htmlunit.html.HtmlEmailInput;
 import com.gargoylesoftware.htmlunit.html.HtmlFileInput;
 import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
+import com.gargoylesoftware.htmlunit.html.HtmlNumberInput;
 import com.gargoylesoftware.htmlunit.html.HtmlOption;
 import com.gargoylesoftware.htmlunit.html.HtmlPasswordInput;
 import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
@@ -70,7 +72,6 @@ import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
  *
  * @author tobwoerk
  * @author rbri
- *
  * @see IdentifierBasedHtmlUnitControlsFinderWithoutIdentifierTest
  */
 @RunWith(Parameterized.class)
@@ -115,10 +116,17 @@ public class IdentifierBasedHtmlUnitControlsFinderWithIdentifierTest
         HtmlUnitInputButtonIdentifier.class
       },
 
+      { inputNumber("inputNumber-before").inputNumber("inputNumber-value").value(CONTENT).inputNumber("inputNumber-between").inputNumber("inputNumber", CONTENT).inputNumber("inputNumber-after"),
+        new SortedEntryExpectation(
+            new ExpectedControl(HtmlNumberInput.class, "inputNumber"),
+            new ExpectedControl(HtmlNumberInput.class, "inputNumber-after")),
+        HtmlUnitInputNumberIdentifier.class
+      },
+
       { inputEmail("inputEmail-before").inputEmail("inputEmail-value").value(CONTENT).inputEmail("inputEmail-between").inputEmail("inputEmail", CONTENT).inputEmail("inputEmail-after"),
         new SortedEntryExpectation(
             new ExpectedControl(HtmlEmailInput.class, "inputEmail"),
-            new ExpectedControl(HtmlEmailInput.class, "inputEmail-between"), // FIXME inputText.value special desired?
+            new ExpectedControl(HtmlEmailInput.class, "inputEmail-between"), // FIXME inputEmail.value special desired?
             new ExpectedControl(HtmlEmailInput.class, "inputEmail-after")),
         HtmlUnitInputEmailIdentifier.class
       },

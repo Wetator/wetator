@@ -37,11 +37,13 @@ import org.wetator.backend.htmlunit.control.HtmlUnitInputCheckBox;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputEmail;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputFile;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputImage;
+import org.wetator.backend.htmlunit.control.HtmlUnitInputNumber;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputPassword;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputRadioButton;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputReset;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputSubmit;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputText;
+import org.wetator.backend.htmlunit.control.HtmlUnitInputUrl;
 import org.wetator.backend.htmlunit.control.HtmlUnitOption;
 import org.wetator.backend.htmlunit.control.HtmlUnitOptionGroup;
 import org.wetator.backend.htmlunit.control.HtmlUnitSelect;
@@ -88,11 +90,13 @@ public abstract class AbstractIdentifierBasedHtmlUnitControlsFinderTest {
     repository.add(HtmlUnitInputEmail.class);
     repository.add(HtmlUnitInputFile.class);
     repository.add(HtmlUnitInputImage.class);
+    repository.add(HtmlUnitInputNumber.class);
     repository.add(HtmlUnitInputPassword.class);
     repository.add(HtmlUnitInputRadioButton.class);
     repository.add(HtmlUnitInputReset.class);
     repository.add(HtmlUnitInputSubmit.class);
     repository.add(HtmlUnitInputText.class);
+    repository.add(HtmlUnitInputUrl.class);
     repository.add(HtmlUnitOption.class);
     repository.add(HtmlUnitOptionGroup.class);
     repository.add(HtmlUnitSelect.class);
@@ -262,12 +266,28 @@ public abstract class AbstractIdentifierBasedHtmlUnitControlsFinderTest {
     return new HtmlCodeBuilder().inputText(anId);
   }
 
+  protected static HtmlCodeBuilder inputNumber(final String anId, final String aPlaceholder) {
+    return new HtmlCodeBuilder().inputNumber(anId, aPlaceholder);
+  }
+
+  protected static HtmlCodeBuilder inputNumber(final String anId) {
+    return new HtmlCodeBuilder().inputNumber(anId);
+  }
+
   protected static HtmlCodeBuilder inputEmail(final String anId, final String aPlaceholder) {
     return new HtmlCodeBuilder().inputEmail(anId, aPlaceholder);
   }
 
   protected static HtmlCodeBuilder inputEmail(final String anId) {
     return new HtmlCodeBuilder().inputEmail(anId);
+  }
+
+  protected static HtmlCodeBuilder inputUrl(final String anId, final String aPlaceholder) {
+    return new HtmlCodeBuilder().inputUrl(anId, aPlaceholder);
+  }
+
+  protected static HtmlCodeBuilder inputUrl(final String anId) {
+    return new HtmlCodeBuilder().inputUrl(anId);
   }
 
   protected static HtmlCodeBuilder label(final String anId, final HtmlCodeBuilder aContent) {

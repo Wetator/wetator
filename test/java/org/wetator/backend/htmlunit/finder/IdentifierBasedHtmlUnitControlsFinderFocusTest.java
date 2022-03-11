@@ -39,6 +39,7 @@ import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputCheckBoxIden
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputEmailIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputFileIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputImageIdentifier;
+import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputNumberIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputPasswordIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputRadioButtonIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputResetIdentifier;
@@ -57,6 +58,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
 import com.gargoylesoftware.htmlunit.html.HtmlEmailInput;
 import com.gargoylesoftware.htmlunit.html.HtmlFileInput;
 import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
+import com.gargoylesoftware.htmlunit.html.HtmlNumberInput;
 import com.gargoylesoftware.htmlunit.html.HtmlOption;
 import com.gargoylesoftware.htmlunit.html.HtmlPasswordInput;
 import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
@@ -123,6 +125,13 @@ public class IdentifierBasedHtmlUnitControlsFinderFocusTest extends AbstractIden
         new SortedEntryExpectation(
             new ExpectedControl(HtmlButtonInput.class, "inputButton")),
         HtmlUnitInputButtonIdentifier.class
+      },
+
+      { inputNumber("inputNumber-before").inputNumber("inputNumber", CONTENT).inputNumber("inputNumber-after"),
+        new SortedEntryExpectation(
+            new ExpectedControl(HtmlNumberInput.class, "inputNumber"),
+            new ExpectedControl(HtmlNumberInput.class, "inputNumber-after")),
+        HtmlUnitInputNumberIdentifier.class
       },
 
       { inputEmail("inputEmail-before").inputEmail("inputEmail", CONTENT).inputEmail("inputEmail-after"),

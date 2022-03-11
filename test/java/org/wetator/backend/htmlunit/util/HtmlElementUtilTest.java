@@ -29,6 +29,7 @@ import org.wetator.backend.htmlunit.control.HtmlUnitInputCheckBox;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputEmail;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputFile;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputImage;
+import org.wetator.backend.htmlunit.control.HtmlUnitInputNumber;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputPassword;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputRadioButton;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputReset;
@@ -56,6 +57,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlHiddenInput;
 import com.gargoylesoftware.htmlunit.html.HtmlImage;
 import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
 import com.gargoylesoftware.htmlunit.html.HtmlLabel;
+import com.gargoylesoftware.htmlunit.html.HtmlNumberInput;
 import com.gargoylesoftware.htmlunit.html.HtmlOption;
 import com.gargoylesoftware.htmlunit.html.HtmlOptionGroup;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
@@ -702,6 +704,98 @@ public class HtmlElementUtilTest {
 
     final String tmpResult = tmpHtmlUnitInputCheckBox.getDescribingText();
     Assert.assertEquals("[HtmlCheckBoxInput] by [HtmlLabel 'unchecked' (id='LabelId')]", tmpResult);
+  }
+
+  @Test
+  public void getDescribingTextFor_HtmlNumberInput() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input type='number' value='42'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+
+    final HtmlNumberInput tmpHtmlNumberInput = (HtmlNumberInput) tmpForm.getFirstChild();
+
+    String tmpResult;
+    tmpResult = new HtmlUnitInputNumber(tmpHtmlNumberInput).getDescribingText();
+    Assert.assertEquals("[HtmlNumberInput]", tmpResult);
+
+    tmpResult = HtmlElementUtil.getDescribingTextForHtmlNumberInput(tmpHtmlNumberInput);
+    Assert.assertEquals("[HtmlNumberInput]", tmpResult);
+  }
+
+  @Test
+  public void getDescribingTextFor_HtmlNumberInput_Name() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input name='NumberName' type='number' value='42'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+
+    final HtmlNumberInput tmpHtmlNumberInput = (HtmlNumberInput) tmpForm.getFirstChild();
+
+    String tmpResult;
+    tmpResult = new HtmlUnitInputNumber(tmpHtmlNumberInput).getDescribingText();
+    Assert.assertEquals("[HtmlNumberInput (name='NumberName')]", tmpResult);
+
+    tmpResult = HtmlElementUtil.getDescribingTextForHtmlNumberInput(tmpHtmlNumberInput);
+    Assert.assertEquals("[HtmlNumberInput (name='NumberName')]", tmpResult);
+  }
+
+  @Test
+  public void getDescribingTextFor_HtmlNumberInput_Id() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input id='tx' type='number' value='42'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+
+    final HtmlNumberInput tmpHtmlNumberInput = (HtmlNumberInput) tmpForm.getFirstChild();
+
+    String tmpResult;
+    tmpResult = new HtmlUnitInputNumber(tmpHtmlNumberInput).getDescribingText();
+    Assert.assertEquals("[HtmlNumberInput (id='tx')]", tmpResult);
+
+    tmpResult = HtmlElementUtil.getDescribingTextForHtmlNumberInput(tmpHtmlNumberInput);
+    Assert.assertEquals("[HtmlNumberInput (id='tx')]", tmpResult);
+  }
+
+  @Test
+  public void getDescribingTextFor_HtmlNumberInput_Name_Id() throws IOException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<input id='tx' name='NumberName' type='number' value='42'>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+
+    final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
+
+    final HtmlNumberInput tmpHtmlNumberInput = (HtmlNumberInput) tmpForm.getFirstChild();
+
+    String tmpResult;
+    tmpResult = new HtmlUnitInputNumber(tmpHtmlNumberInput).getDescribingText();
+    Assert.assertEquals("[HtmlNumberInput (id='tx') (name='NumberName')]", tmpResult);
+
+    tmpResult = HtmlElementUtil.getDescribingTextForHtmlNumberInput(tmpHtmlNumberInput);
+    Assert.assertEquals("[HtmlNumberInput (id='tx') (name='NumberName')]", tmpResult);
   }
 
   @Test
