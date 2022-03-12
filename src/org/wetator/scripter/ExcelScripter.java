@@ -31,10 +31,11 @@ import org.apache.commons.lang3.LocaleUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.poi.hssf.usermodel.HSSFRow;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.FormulaEvaluator;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.wetator.core.Command;
 import org.wetator.core.IScripter;
 import org.wetator.core.Parameter;
@@ -56,7 +57,8 @@ public final class ExcelScripter implements IScripter {
   private static final String PROPERTY_PREFIX = WetatorConfiguration.PROPERTY_PREFIX + "scripter.excel.";
   private static final String PROPERTY_LOCALE = PROPERTY_PREFIX + "locale";
 
-  private static final String EXCEL_FILE_EXTENSION = ".xls";
+  private static final String EXCEL_FILE_EXTENSION_XLS = ".xls";
+  private static final String EXCEL_FILE_EXTENSION_XLSX = ".xlsx";
   private static final int COMMENT_COLUMN_NO = 0;
   private static final int COMMAND_NAME_COLUMN_NO = 1;
   private static final int FIRST_PARAM_COLUMN_NO = 2;
@@ -87,9 +89,10 @@ public final class ExcelScripter implements IScripter {
   public IScripter.IsSupportedResult isSupported(final File aFile) {
     // first check the file extension
     final String tmpFileName = aFile.getName().toLowerCase(Locale.ROOT);
-    if (!tmpFileName.endsWith(EXCEL_FILE_EXTENSION)) {
-      return new IScripter.IsSupportedResult("File '" + aFile.getName()
-          + "' not supported by ExcelScripter. Extension is not '" + EXCEL_FILE_EXTENSION + "'.");
+    if (!tmpFileName.endsWith(EXCEL_FILE_EXTENSION_XLS) && !tmpFileName.endsWith(EXCEL_FILE_EXTENSION_XLSX)) {
+      return new IScripter.IsSupportedResult(
+          "File '" + aFile.getName() + "' not supported by ExcelScripter. Extension is not '" + EXCEL_FILE_EXTENSION_XLS
+              + "' or '" + EXCEL_FILE_EXTENSION_XLSX + "'.");
     }
 
     // second check the file accessibility
@@ -116,8 +119,7 @@ public final class ExcelScripter implements IScripter {
     final List<Command> tmpResult = new LinkedList<>();
 
     try (InputStream tmpInputStream = Files.newInputStream(file.toPath())) {
-      final HSSFWorkbook tmpWorkbook = new HSSFWorkbook(tmpInputStream);
-      try {
+      try (Workbook tmpWorkbook = WorkbookFactory.create(tmpInputStream)) {
         int tmpSheetNo = -1;
         for (int i = 0; i < tmpWorkbook.getNumberOfSheets(); i++) {
           final String tmpSheetName = tmpWorkbook.getSheetName(i);
@@ -132,11 +134,11 @@ public final class ExcelScripter implements IScripter {
               "No test sheet found in file '" + FilenameUtils.normalize(file.getAbsolutePath()) + "'.");
         }
 
-        final HSSFSheet tmpSheet = tmpWorkbook.getSheetAt(tmpSheetNo);
+        final Sheet tmpSheet = tmpWorkbook.getSheetAt(tmpSheetNo);
         final FormulaEvaluator tmpFormulaEvaluator = tmpWorkbook.getCreationHelper().createFormulaEvaluator();
 
         for (int tmpLine = 0; tmpLine <= tmpSheet.getLastRowNum(); tmpLine++) {
-          final HSSFRow tmpRow;
+          final Row tmpRow;
           final String tmpCommentString;
           final boolean tmpCommentFlag;
           String tmpCommandName;
@@ -185,8 +187,6 @@ public final class ExcelScripter implements IScripter {
             }
           }
         }
-      } finally {
-        tmpWorkbook.close();
       }
 
       return tmpResult;
@@ -199,7 +199,7 @@ public final class ExcelScripter implements IScripter {
     }
   }
 
-  private Parameter readCellContentAsParameter(final HSSFRow aRow, final int aColumnsNo,
+  private Parameter readCellContentAsParameter(final Row aRow, final int aColumnsNo,
       final FormulaEvaluator aFormulaEvaluator) {
     final String tmpContent;
 
