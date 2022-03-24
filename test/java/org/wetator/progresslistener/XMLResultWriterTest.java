@@ -97,6 +97,10 @@ public class XMLResultWriterTest extends AbstractProgressListenerTest {
     tmpResult = replaceElementContent(tmpResult, "executionTime", "##EXECUTION_TIME##");
     // replace stacktraces
     tmpResult = replaceLines(tmpResult, "<details id=\"##ID##\">[^\\n]*", "</details>", null, "##DETAILS##");
+
+    // remove surfire settings line
+    tmpResult = tmpResult.replaceAll("(?m)^\\s*.*key=\"surefire.test.class.path\".*(?:\\r?\\n)?", "");
+
     return tmpResult;
   }
 
