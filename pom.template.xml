@@ -62,13 +62,13 @@
     </developers>
 
     <scm>
-        <connection>scm:svn:http://wetator.repositoryhosting.com/svn_public/wetator_wetator/trunk/wetator</connection>
-        <developerConnection>scm:svn:https://wetator.repositoryhosting.com/svn/wetator_wetator/trunk/wetator</developerConnection>
-        <url>http://wetator.repositoryhosting.com/svn_public/wetator_wetator</url>
+        <connection>scm:git:https://github.com/Wetator/wetator</connection>
+        <developerConnection>scm:git:https://github.com/Wetator/wetator</developerConnection>
+        <url>https://github.com/Wetator/wetator</url>
     </scm>
     <issueManagement>
-        <system>trac</system>
-        <url>https://wetator.repositoryhosting.com/trac/wetator_wetator/report/1</url>
+        <system>GitHub</system>
+        <url>https://github.com/Wetator/wetator/issues/</url>
     </issueManagement>
     <ciManagement>
         <system>jenkins</system>
