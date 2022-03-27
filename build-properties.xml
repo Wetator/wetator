@@ -24,6 +24,7 @@
     <lib-src>lib_src</lib-src>
     <ant-lib>ant_lib</ant-lib>
     <build>build</build>
+    <scripts>scripts</scripts>
     <xsl>xsl</xsl>
     <webpages>webpages</webpages>
     <deploy>deploy</deploy>
