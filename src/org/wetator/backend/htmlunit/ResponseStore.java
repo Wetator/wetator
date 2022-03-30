@@ -26,7 +26,9 @@ import java.net.URLDecoder;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.text.SimpleDateFormat;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
@@ -115,7 +117,10 @@ public final class ResponseStore {
 
     try {
       FileUtils.forceMkdir(storeDir);
-      FileUtils.cleanDirectory(storeDir);
+
+      // FileUtils.cleanDirectory(storeDir);
+      Files.walk(storeDir.toPath()).sorted(Comparator.reverseOrder()).map(Path::toFile).forEach(File::delete);
+
     } catch (final IOException e) {
       LOG.error("IO exception for dir: " + FilenameUtils.normalize(storeDir.getAbsolutePath()), e);
     }
