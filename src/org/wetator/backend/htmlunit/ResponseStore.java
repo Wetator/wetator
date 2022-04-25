@@ -115,9 +115,23 @@ public final class ResponseStore {
 
     try {
       FileUtils.forceMkdir(storeDir);
-      FileUtils.cleanDirectory(storeDir);
+
+      // FileUtils.cleanDirectory(storeDir);
+      // !!!! this does not work correctly in 2.10 at least on debian
+      // existing files are not deleted - instead they are read only afterwards
+      cleanDirectory(storeDir);
     } catch (final IOException e) {
       LOG.error("IO exception for dir: " + FilenameUtils.normalize(storeDir.getAbsolutePath()), e);
+    }
+  }
+
+  private static void cleanDirectory(final File aDirectory) {
+    for (File tmpFile : aDirectory.listFiles()) {
+      if (tmpFile.isDirectory()) {
+        cleanDirectory(tmpFile);
+      }
+
+      tmpFile.delete();
     }
   }
 
