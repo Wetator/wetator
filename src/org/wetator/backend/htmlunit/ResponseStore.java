@@ -126,12 +126,17 @@ public final class ResponseStore {
   }
 
   private static void cleanDirectory(final File aDirectory) {
-    for (File tmpFile : aDirectory.listFiles()) {
-      if (tmpFile.isDirectory()) {
-        cleanDirectory(tmpFile);
-      }
+    final File[] tmpFiles = aDirectory.listFiles();
+    if (tmpFiles != null) {
+      for (File tmpFile : tmpFiles) {
+        if (tmpFile.isDirectory()) {
+          cleanDirectory(tmpFile);
+        }
 
-      tmpFile.delete();
+        if (!tmpFile.delete()) {
+          LOG.error("Can't delete file '" + FilenameUtils.normalize(tmpFile.getAbsolutePath()) + "'");
+        }
+      }
     }
   }
 
