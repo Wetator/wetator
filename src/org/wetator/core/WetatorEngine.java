@@ -48,8 +48,11 @@ public class WetatorEngine {
 
   private static final String PROPERTY_TEST_CONFIG = "wetator.config";
   private static final String CONFIG_FILE_DEFAULT_NAME = "wetator.config";
+  private static final String PROPERTY_TEST_VARIABLES = "wetator.variables";
+  private static final String VARIABLES_FILE_DEFAULT_NAME = "wetator.variables";
 
   private String configFileName;
+  private String variablesFileName;
   private Map<String, String> externalProperties;
   private List<TestCase> testCases;
 
@@ -90,6 +93,9 @@ public class WetatorEngine {
     if (configFileName == null) {
       configFileName = "";
     }
+    if (variablesFileName == null) {
+      variablesFileName = "";
+    }
 
     // setup the scripter
     scripter = getConfiguration().getScripters();
@@ -100,7 +106,8 @@ public class WetatorEngine {
 
   private WetatorConfiguration readConfiguration() {
     final File tmpConfigFile = getConfigFile();
-    return new WetatorConfiguration(tmpConfigFile, getExternalProperties());
+    final File tmpVariablesFile = getVariablesFile();
+    return new WetatorConfiguration(tmpConfigFile, tmpVariablesFile, getExternalProperties());
   }
 
   /**
@@ -335,6 +342,38 @@ public class WetatorEngine {
   }
 
   /**
+   * Returns the additional variables configuration file.
+   * The configuration file name is searched in:
+   * <ol>
+   * <li>{@link #getVariablesFileName()}</li>
+   * <li>the system property <code>wetator.variables</code></li>
+   * <li>the default configuration file name 'wetator.variables'</li>
+   * </ol>
+   *
+   * @return the configuration file
+   */
+  public File getVariablesFile() {
+    String tmpVariablesName = getVariablesFileName();
+
+    if (null == tmpVariablesName) {
+      tmpVariablesName = System.getProperty(PROPERTY_TEST_VARIABLES);
+    }
+
+    if (null != tmpVariablesName) {
+      return new File(tmpVariablesName);
+    }
+
+    // not specified, lets see if there is a default
+    final File tmpVarFile = new File(VARIABLES_FILE_DEFAULT_NAME);
+    if (tmpVarFile.exists()) {
+      return tmpVarFile;
+    }
+
+    // not set and default not found, return null
+    return null;
+  }
+
+  /**
    * @return the {@link IBrowser}
    */
   public IBrowser getBrowser() {
@@ -367,6 +406,20 @@ public class WetatorEngine {
    */
   public void setConfigFileName(final String aConfigFileName) {
     configFileName = aConfigFileName;
+  }
+
+  /**
+   * @return the variablesFileName
+   */
+  public String getVariablesFileName() {
+    return variablesFileName;
+  }
+
+  /**
+   * @param aVariablesFileName the variablesFileName to set
+   */
+  public void setVariablesFileName(final String aVariablesFileName) {
+    variablesFileName = aVariablesFileName;
   }
 
   /**

@@ -50,6 +50,7 @@ public final class Wetator {
    */
   public static void main(final String[] anArgsArray) {
     String tmpConfigFileName = null;
+    String tmpVariablesFileName = null;
     File tmpDebugLogFile = null;
     final List<String> tmpFileNames = new LinkedList<>();
     // parse the command line
@@ -60,6 +61,9 @@ public final class Wetator {
         Log4jUtil.configureDebugLogging(tmpDebugLogFile);
       } else if ("-p".equals(tmpArg) && i < (anArgsArray.length - 1)) {
         tmpConfigFileName = anArgsArray[i + 1];
+        i++;
+      } else if ("-var".equals(tmpArg) && i < (anArgsArray.length - 1)) {
+        tmpVariablesFileName = anArgsArray[i + 1];
         i++;
       } else {
         tmpFileNames.add(tmpArg);
@@ -82,6 +86,9 @@ public final class Wetator {
 
         if (null != tmpConfigFileName) {
           tmpWetatorEngine.setConfigFileName(tmpConfigFileName);
+        }
+        if (null != tmpVariablesFileName) {
+          tmpWetatorEngine.setVariablesFileName(tmpVariablesFileName);
         }
         tmpWetatorEngine.init();
         if (null != tmpDebugLogFile) {

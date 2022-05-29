@@ -247,6 +247,10 @@ public class XMLResultWriter implements IProgressListener {
       if (null != tmpSrc) {
         printConfigurationProperty("configuration file", FilenameUtils.normalize(tmpSrc.getAbsolutePath()));
       }
+      final File tmpVar = tmpConfiguration.getVariablesFile();
+      if (null != tmpVar) {
+        printConfigurationProperty("variables file", FilenameUtils.normalize(tmpVar.getAbsolutePath()));
+      }
 
       printConfigurationProperty(WetatorConfiguration.PROPERTY_BASE_URL, tmpConfiguration.getBaseUrl());
       for (final BrowserType tmpBrowserType : tmpConfiguration.getBrowserTypes()) {

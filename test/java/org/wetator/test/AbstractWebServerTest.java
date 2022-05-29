@@ -184,7 +184,8 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
     tmpProperties.setProperty("$wet", "Wetator");
     tmpProperties.setProperty("$$wet-secret", "Wetator");
 
-    final WetatorConfiguration tmpConfiguration = new WetatorConfiguration(new File("."), tmpProperties, null);
+    final WetatorConfiguration tmpConfiguration = new WetatorConfiguration(new File("."), tmpProperties,
+        new Properties(), null);
 
     listener = new JUnitProgressListener();
 

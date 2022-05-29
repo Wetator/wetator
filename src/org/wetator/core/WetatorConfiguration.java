@@ -233,6 +233,7 @@ public class WetatorConfiguration {
   public static final String SECRET_PREFIX = "$";
 
   private File sourceFile;
+  private File variablesFile;
 
   private List<IScripter> scripters;
   private List<ICommandSet> commandSets;
@@ -286,10 +287,11 @@ public class WetatorConfiguration {
    * If a property is set by multiple sources, the last source wins.
    *
    * @param aConfigurationPropertyFile the configuration property file
+   * @param aVariablesPropertyFile the variables property file
    * @param anExternalPropertiesMap the external properties
    * @throws ConfigurationException in case of problems with the configuration
    */
-  public WetatorConfiguration(final File aConfigurationPropertyFile,
+  public WetatorConfiguration(final File aConfigurationPropertyFile, final File aVariablesPropertyFile,
       final Map<String, String> anExternalPropertiesMap) {
     LOG.info("Configuration: Configuration file is '"
         + FilenameUtils.normalize(aConfigurationPropertyFile.getAbsolutePath()) + "'");
@@ -320,8 +322,30 @@ public class WetatorConfiguration {
           + aConfigurationPropertyFile.getAbsolutePath() + "'.", e);
     }
 
+    final Properties tmpVariablesProperties = new Properties();
+    // read the variables properties if provided
+    if (aVariablesPropertyFile != null) {
+      if (!aVariablesPropertyFile.exists()) {
+        throw new ConfigurationException("The variables configuration file '"
+            + FilenameUtils.normalize(aVariablesPropertyFile.getAbsolutePath()) + "' does not exist.");
+      }
+      if (!aVariablesPropertyFile.canRead()) {
+        throw new ConfigurationException("The variables file '"
+            + FilenameUtils.normalize(aVariablesPropertyFile.getAbsolutePath()) + "' is not readable.");
+      }
+
+      try (InputStream tmpFileInputStream = Files.newInputStream(aVariablesPropertyFile.toPath())) {
+        tmpVariablesProperties.load(tmpFileInputStream);
+      } catch (final IOException e) {
+        throw new ConfigurationException(
+            "An error occured during read of the variables file '" + aVariablesPropertyFile.getAbsolutePath() + "'.",
+            e);
+      }
+    }
+
     sourceFile = aConfigurationPropertyFile;
-    initialize(tmpBaseDirectory, tmpProperties, anExternalPropertiesMap);
+    variablesFile = aVariablesPropertyFile;
+    initialize(tmpBaseDirectory, tmpProperties, tmpVariablesProperties, anExternalPropertiesMap);
   }
 
   /**
@@ -335,17 +359,18 @@ public class WetatorConfiguration {
    *
    * @param aBaseDirectory the base directory for all file I/O
    * @param aConfigurationProperties the configuration properties
+   * @param aVariablesProperties the variables properties
    * @param anExternalPropertiesMap the external properties
    */
   public WetatorConfiguration(final File aBaseDirectory, final Properties aConfigurationProperties,
-      final Map<String, String> anExternalPropertiesMap) {
+      final Properties aVariablesProperties, final Map<String, String> anExternalPropertiesMap) {
     super();
 
-    initialize(aBaseDirectory, aConfigurationProperties, anExternalPropertiesMap);
+    initialize(aBaseDirectory, aConfigurationProperties, aVariablesProperties, anExternalPropertiesMap);
   }
 
   private void initialize(final File aBaseDirectory, final Properties aConfigurationProperties,
-      final Map<String, String> anExternalPropertiesMap) {
+      final Properties aVariablesProperties, final Map<String, String> anExternalPropertiesMap) {
     // lets do some validations first
     if (!aBaseDirectory.exists()) {
       throw new ConfigurationException(
@@ -367,6 +392,20 @@ public class WetatorConfiguration {
 
     // we start with the given configuration properties
     final Properties tmpProperties = aConfigurationProperties;
+
+    // overwrite with variables if defined....
+    final Set<Object> tmpVariablesPropertyNames = aVariablesProperties.keySet();
+    for (final Object tmpKey : tmpVariablesPropertyNames) {
+      final String tmpKeyName = (String) tmpKey;
+      if (tmpKeyName.startsWith(VARIABLE_PREFIX)) {
+        final Object tmpPropertyValue = aVariablesProperties.get(tmpKeyName);
+        if (null != tmpPropertyValue) {
+          tmpProperties.put(tmpKeyName, tmpPropertyValue);
+        }
+      } else {
+        LOG.info("Variable property file entry '" + tmpKeyName + "' is not a variable name - entry ignored.");
+      }
+    }
 
     // overwrite with system properties if defined....
     final Set<Object> tmpSystemPropertyNames = System.getProperties().keySet();
@@ -897,6 +936,13 @@ public class WetatorConfiguration {
    */
   public File getSourceFile() {
     return sourceFile;
+  }
+
+  /**
+   * @return the source file of this config
+   */
+  public File getVariablesFile() {
+    return variablesFile;
   }
 
   /**

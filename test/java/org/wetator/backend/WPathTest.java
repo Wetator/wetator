@@ -44,7 +44,7 @@ public class WPathTest {
   public void createWetatorConfiguration() {
     final Properties tmpProperties = new Properties();
     tmpProperties.setProperty(WetatorConfiguration.PROPERTY_BASE_URL, "http://localhost/");
-    config = new WetatorConfiguration(new File("."), tmpProperties, null);
+    config = new WetatorConfiguration(new File("."), tmpProperties, new Properties(), null);
   }
 
   @Test(expected = InvalidInputException.class)

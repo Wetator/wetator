@@ -1375,7 +1375,8 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
       final String... anHtmlElementIds) throws IOException, InvalidInputException {
     final Properties tmpProperties = new Properties();
     tmpProperties.setProperty(WetatorConfiguration.PROPERTY_BASE_URL, "http://localhost/");
-    final WetatorConfiguration tmpConfig = new WetatorConfiguration(new File("."), tmpProperties, null);
+    final WetatorConfiguration tmpConfig = new WetatorConfiguration(new File("."), tmpProperties, new Properties(),
+        null);
 
     final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(aHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);

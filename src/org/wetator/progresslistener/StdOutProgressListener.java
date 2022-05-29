@@ -88,6 +88,11 @@ public class StdOutProgressListener implements IProgressListener {
     if (null != tmpConfigFile) {
       println("Config:     '" + FilenameUtils.normalize(tmpConfigFile.getAbsolutePath()) + "'");
     }
+
+    final File tmpVariablesFile = aWetatorEngine.getVariablesFile();
+    if (null != tmpVariablesFile) {
+      println("Variables   '" + FilenameUtils.normalize(tmpVariablesFile.getAbsolutePath()) + "'");
+    }
   }
 
   @Override
