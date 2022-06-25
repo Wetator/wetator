@@ -168,8 +168,7 @@ public final class HtmlUnitBrowser implements IBrowser {
         tmpBrowserVersion.registerUploadMimeType(tmpMapping.getKey(), tmpMapping.getValue());
       }
 
-      final ResponseStore tmpStore = new ResponseStore(tmpConfiguration.getOutputDir(), tmpBrowserType.getLabel(),
-          true);
+      final ResponseStore tmpStore = new ResponseStore(tmpConfiguration.getOutputDir(), tmpBrowserType.getLabel());
       responseStores.put(tmpBrowserVersion, tmpStore);
     }
 

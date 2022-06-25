@@ -26,8 +26,6 @@ import java.net.URLDecoder;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
@@ -69,7 +67,6 @@ public final class ResponseStore {
   private Map<String, String> fileNames;
 
   private File outputDir;
-  private boolean overwrite;
   private WebClient webClient;
 
   private File storeDir;
@@ -84,12 +81,10 @@ public final class ResponseStore {
    *
    * @param anOutputDir the outputDir to set
    * @param aBrowserSubdir the subdir for the specific browser this store is for
-   * @param anOverwriteFlag the overwrite to set
    */
-  public ResponseStore(final File anOutputDir, final String aBrowserSubdir, final boolean anOverwriteFlag) {
+  public ResponseStore(final File anOutputDir, final String aBrowserSubdir) {
     super();
     outputDir = anOutputDir;
-    overwrite = anOverwriteFlag;
 
     initOutputDir(aBrowserSubdir);
     fileNames = new HashMap<>();
@@ -101,15 +96,7 @@ public final class ResponseStore {
    * @param aBrowserSubdir the subdir for the specific browser this store is for
    */
   private void initOutputDir(final String aBrowserSubdir) {
-    final String tmpDirectoryName;
-    if (overwrite) {
-      tmpDirectoryName = "responses_current";
-    } else {
-      final SimpleDateFormat tmpFormater = new SimpleDateFormat("yyyy.MM.dd_HH.mm.ss", Locale.ROOT);
-      tmpDirectoryName = "responses_" + tmpFormater.format(new Date());
-    }
-
-    storeDir = new File(new File(outputDir, aBrowserSubdir.toLowerCase(Locale.ROOT)), tmpDirectoryName);
+    storeDir = new File(new File(outputDir, aBrowserSubdir.toLowerCase(Locale.ROOT)), "responses_current");
     relStoreDir = outputDir.toPath().relativize(storeDir.toPath()).toString();
     relStoreDir = relStoreDir.replaceAll("\\\\", "/");
 
