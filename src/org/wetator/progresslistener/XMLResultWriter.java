@@ -204,17 +204,22 @@ public class XMLResultWriter implements IProgressListener {
         final LineIterator tmpLines = FileUtils.lineIterator(tmpBackup.getAbsoluteFile(), "UTF-8");
         try {
           boolean tmpInsideTestCase = false;
+          boolean tmpTestFilesWritten = false;
           while (tmpLines.hasNext()) {
             final String tmpLine = tmpLines.next();
 
             Matcher tmpMatcher = MERGE_TESTCASE_START_PATTERN.matcher(tmpLine);
             if (tmpMatcher.matches()) {
               tmpInsideTestCase = true;
-              output.indent();
-              for (final TestCase tmpTestCase : aWetatorEngine.getTestCases()) {
-                printlnNode(TAG_TEST_FILE, FilenameUtils.normalize(tmpTestCase.getFile().getAbsolutePath()));
+
+              if (!tmpTestFilesWritten) {
+                output.indent();
+                for (final TestCase tmpTestCase : aWetatorEngine.getTestCases()) {
+                  printlnNode(TAG_TEST_FILE, FilenameUtils.normalize(tmpTestCase.getFile().getAbsolutePath()));
+                }
+                output.unindent();
+                tmpTestFilesWritten = true;
               }
-              output.unindent();
             } else {
               tmpMatcher = MERGE_TESTCASE_END_PATTERN.matcher(tmpLine);
               if (tmpMatcher.matches()) {
@@ -226,6 +231,7 @@ public class XMLResultWriter implements IProgressListener {
                     final int tmpExecutionTime = Integer.parseInt(tmpMatcher.group(2));
                     executionStartTime = System.currentTimeMillis() - tmpExecutionTime;
 
+                    output.indent();
                     return;
                   }
                 }
