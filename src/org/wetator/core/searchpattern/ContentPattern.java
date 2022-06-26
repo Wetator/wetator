@@ -16,6 +16,7 @@
 
 package org.wetator.core.searchpattern;
 
+import java.io.Serializable;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -33,7 +34,7 @@ import org.wetator.util.SecretString;
  * @author rbri
  * @author frank.danek
  */
-public class ContentPattern {
+public class ContentPattern implements Serializable {
 
   /** The delimiter used for content parts. */
   public static final String DELIMITER = ",";
@@ -237,7 +238,7 @@ public class ContentPattern {
   /**
    * Internal helper class representing one node of a {@link ContentPattern}.
    */
-  static final class PatternNode implements Cloneable {
+  static final class PatternNode implements Cloneable, Serializable {
 
     private SecretString value;
     private boolean negated;

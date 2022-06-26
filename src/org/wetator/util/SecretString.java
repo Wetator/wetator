@@ -16,6 +16,7 @@
 
 package org.wetator.util;
 
+import java.io.Serializable;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -34,7 +35,7 @@ import org.wetator.core.searchpattern.SearchPattern;
  * @author rbri
  * @author frank.danek
  */
-public final class SecretString {
+public final class SecretString implements Serializable {
 
   /** The replacement for printing the secret parts. */
   public static final String SECRET_PRINT = "****";

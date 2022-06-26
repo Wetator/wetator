@@ -16,6 +16,8 @@
 
 package org.wetator.util;
 
+import java.io.Serializable;
+
 import org.wetator.exception.ImplementationException;
 
 /**
@@ -26,7 +28,7 @@ import org.wetator.exception.ImplementationException;
  * @author rbri
  * @author frank.danek
  */
-public class FindSpot {
+public class FindSpot implements Serializable {
 
   /**
    * Static object to reduce the number of objects in use.
