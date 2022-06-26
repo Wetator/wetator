@@ -75,6 +75,8 @@ public abstract class AbstractProgressListenerTest {
   @Before
   public void setupEnvironment() {
     when(configuration.getOutputDir()).thenReturn(new File(LOGS_FOLDER));
+    when(configuration.getWetResultFile()).thenReturn(new File(LOGS_FOLDER, "wetresult.xml"));
+    when(configuration.getWetResultBackupFile()).thenReturn(new File(LOGS_FOLDER, "wetresult_back.xml"));
     when(engine.getConfiguration()).thenReturn(configuration);
     when(context.replaceVariables(any())).thenCallRealMethod();
 

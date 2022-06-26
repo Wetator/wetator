@@ -110,8 +110,6 @@ public class XMLResultWriter implements IProgressListener {
   private static final String TAG_MIME_TYPE = "mimetype";
   private static final String TAG_IGNORED = "ignored";
 
-  private static final String WETRESULT_BACKUP_FILE_NAME = "wetresult_back.xml";
-
   private static final Pattern MERGE_EXECUTION_TIME_PATTERN = Pattern
       .compile("^\\s*<executionTime id=\"([0-9]+)\">([0-9]+)<\\/executionTime>");
   private static final Pattern MERGE_TESTCASE_START_PATTERN = Pattern.compile("^\\s*<testcase id=\"[0-9]+\".*>");
@@ -119,9 +117,6 @@ public class XMLResultWriter implements IProgressListener {
 
   private Output output;
   private XMLUtil xmlUtil;
-  private File resultFile;
-  private File outputDir;
-  private List<String> xslTemplates;
 
   private long tagId;
   private long executionStartTime;
@@ -140,22 +135,18 @@ public class XMLResultWriter implements IProgressListener {
     try {
       final WetatorConfiguration tmpConfiguration = aWetatorEngine.getConfiguration();
 
-      outputDir = tmpConfiguration.getOutputDir();
-      xslTemplates = tmpConfiguration.getXslTemplates();
-      resultFile = new File(outputDir, "wetresult.xml");
-
       File tmpBackup = null;
 
-      if (tmpConfiguration.isAppendResultsEnabled() && resultFile.exists() && resultFile.isFile()) {
-        tmpBackup = new File(outputDir, WETRESULT_BACKUP_FILE_NAME);
-        if (!resultFile.renameTo(tmpBackup)) {
+      final File tmpResultFile = tmpConfiguration.getWetResultFile();
+      if (tmpConfiguration.isAppendResultsEnabled() && tmpResultFile.exists() && tmpResultFile.isFile()) {
+        tmpBackup = tmpConfiguration.getWetResultBackupFile();
+        if (!tmpResultFile.renameTo(tmpBackup)) {
           LOG.error(
-              "Can't rename file '" + resultFile.getAbsoluteFile() + "' to '" + tmpBackup.getAbsoluteFile() + "'");
+              "Can't rename file '" + tmpResultFile.getAbsoluteFile() + "' to '" + tmpBackup.getAbsoluteFile() + "'");
         }
-        resultFile = new File(outputDir, "wetresult.xml");
 
         // poor mens approach for now
-        // <executionTime id="1692">40342</executionTime>
+        // read last used id to adjust our tagId
         try (LineIterator tmpLines = FileUtils.lineIterator(tmpBackup.getAbsoluteFile(), "UTF-8")) {
           while (tmpLines.hasNext()) {
             final String tmpLine = tmpLines.next();
@@ -176,7 +167,7 @@ public class XMLResultWriter implements IProgressListener {
         tagId++;
       }
 
-      final Writer tmpWriter = new FileWriterWithEncoding(resultFile, "UTF-8"); // NOPMD
+      final Writer tmpWriter = new FileWriterWithEncoding(tmpConfiguration.getWetResultFile(), "UTF-8"); // NOPMD
       output = new Output(tmpWriter, "  ");
       xmlUtil = new XMLUtil();
 
@@ -200,56 +191,60 @@ public class XMLResultWriter implements IProgressListener {
     try {
       final WetatorConfiguration tmpConfiguration = aWetatorEngine.getConfiguration();
 
-      final File tmpBackup = new File(outputDir, WETRESULT_BACKUP_FILE_NAME);
-      if (tmpConfiguration.isAppendResultsEnabled() && tmpBackup.exists() && tmpBackup.isFile()) {
+      if (tmpConfiguration.isAppendResultsEnabled()) {
+        final File tmpBackup = tmpConfiguration.getWetResultBackupFile();
+        if (tmpBackup.exists() && tmpBackup.isFile()) {
 
-        // TODO: check and report configuration changes
+          // TODO: check and report configuration changes
 
-        // poor mens approach for now
-        try (LineIterator tmpLines = FileUtils.lineIterator(tmpBackup.getAbsoluteFile(), "UTF-8")) {
-          boolean tmpInsideTestCase = false;
-          boolean tmpTestFilesWritten = false;
-          while (tmpLines.hasNext()) {
-            final String tmpLine = tmpLines.next();
+          // poor mens approach for now
+          // copy everything needed from the existing result (backup)
+          try (LineIterator tmpLines = FileUtils.lineIterator(tmpBackup.getAbsoluteFile(), "UTF-8")) {
+            boolean tmpInsideTestCase = false;
+            boolean tmpTestFilesWritten = false;
+            while (tmpLines.hasNext()) {
+              final String tmpLine = tmpLines.next();
 
-            Matcher tmpMatcher = MERGE_TESTCASE_START_PATTERN.matcher(tmpLine);
-            if (tmpMatcher.matches()) {
-              tmpInsideTestCase = true;
-
-              if (!tmpTestFilesWritten) {
-                output.indent();
-                for (final TestCase tmpTestCase : aWetatorEngine.getTestCases()) {
-                  printlnNode(TAG_TEST_FILE, FilenameUtils.normalize(tmpTestCase.getFile().getAbsolutePath()));
-                }
-                output.unindent();
-                tmpTestFilesWritten = true;
-              }
-            } else {
-              tmpMatcher = MERGE_TESTCASE_END_PATTERN.matcher(tmpLine);
+              Matcher tmpMatcher = MERGE_TESTCASE_START_PATTERN.matcher(tmpLine);
               if (tmpMatcher.matches()) {
-                tmpInsideTestCase = false;
-              } else {
-                if (!tmpInsideTestCase) {
-                  tmpMatcher = MERGE_EXECUTION_TIME_PATTERN.matcher(tmpLine);
-                  if (tmpMatcher.matches()) {
-                    final int tmpExecutionTime = Integer.parseInt(tmpMatcher.group(2));
-                    executionStartTime = System.currentTimeMillis() - tmpExecutionTime;
+                tmpInsideTestCase = true;
 
-                    output.indent();
-                    return;
+                if (!tmpTestFilesWritten) {
+                  output.indent();
+                  for (final TestCase tmpTestCase : aWetatorEngine.getTestCases()) {
+                    printlnNode(TAG_TEST_FILE, FilenameUtils.normalize(tmpTestCase.getFile().getAbsolutePath()));
+                  }
+                  output.unindent();
+                  tmpTestFilesWritten = true;
+                }
+              } else {
+                tmpMatcher = MERGE_TESTCASE_END_PATTERN.matcher(tmpLine);
+                if (tmpMatcher.matches()) {
+                  tmpInsideTestCase = false;
+                } else {
+                  if (!tmpInsideTestCase) {
+                    tmpMatcher = MERGE_EXECUTION_TIME_PATTERN.matcher(tmpLine);
+                    if (tmpMatcher.matches()) {
+                      final int tmpExecutionTime = Integer.parseInt(tmpMatcher.group(2));
+                      executionStartTime = System.currentTimeMillis() - tmpExecutionTime;
+
+                      // everything copied, the result file is now ready for further writing
+                      output.indent();
+                      return;
+                    }
                   }
                 }
               }
-            }
 
-            output.println(tmpLine);
+              output.println(tmpLine);
+            }
+          } catch (final FileNotFoundException e) {
+            throw new ResourceException(
+                "Could not find file '" + FilenameUtils.normalize(tmpBackup.getAbsolutePath()) + "'.", e);
+          } catch (final IOException e) {
+            throw new ResourceException(
+                "Could not read file '" + FilenameUtils.normalize(tmpBackup.getAbsolutePath()) + "'.", e);
           }
-        } catch (final FileNotFoundException e) {
-          throw new ResourceException(
-              "Could not find file '" + FilenameUtils.normalize(tmpBackup.getAbsolutePath()) + "'.", e);
-        } catch (final IOException e) {
-          throw new ResourceException(
-              "Could not read file '" + FilenameUtils.normalize(tmpBackup.getAbsolutePath()) + "'.", e);
         }
       }
 
@@ -449,6 +444,8 @@ public class XMLResultWriter implements IProgressListener {
 
   @Override
   public void end(final WetatorEngine aWetatorEngine) {
+    final WetatorConfiguration tmpConfiguration = aWetatorEngine.getConfiguration();
+
     try {
       printlnNode(TAG_EXECUTION_TIME, Long.toString(System.currentTimeMillis() - executionStartTime));
 
@@ -463,15 +460,16 @@ public class XMLResultWriter implements IProgressListener {
       printlnEndTag(TAG_WET);
       output.close();
 
-      if (!xslTemplates.isEmpty()) {
-        final XSLTransformer tmpXSLTransformer = new XSLTransformer(resultFile);
-        tmpXSLTransformer.transform(xslTemplates, outputDir);
+      final List<String> tmpXslTemplates = tmpConfiguration.getXslTemplates();
+      if (!tmpXslTemplates.isEmpty()) {
+        final XSLTransformer tmpXSLTransformer = new XSLTransformer(tmpConfiguration.getWetResultFile());
+        tmpXSLTransformer.transform(tmpXslTemplates, tmpConfiguration.getOutputDir());
       }
     } catch (final IOException e) {
       LOG.error(e.getMessage(), e);
     }
 
-    final File tmpBackup = new File(outputDir, WETRESULT_BACKUP_FILE_NAME);
+    final File tmpBackup = tmpConfiguration.getWetResultBackupFile();
     if (aWetatorEngine.getConfiguration().isAppendResultsEnabled() && tmpBackup.exists() && tmpBackup.isFile()) {
       if (tmpBackup.delete()) { // NOPMD
         LOG.error("Can't delete file '" + tmpBackup.getAbsoluteFile() + "'");

@@ -128,7 +128,11 @@ public class StdOutProgressListener implements IProgressListener {
         println(tmpProxies.toString());
       }
 
-      println("OutputDir:  '" + FilenameUtils.normalize(tmpConfiguration.getOutputDir().getAbsolutePath()) + "'");
+      print("OutputDir:  '" + FilenameUtils.normalize(tmpConfiguration.getOutputDir().getAbsolutePath()) + "'");
+      if (tmpConfiguration.isAppendResultsEnabled()) {
+        print(" (appending)");
+      }
+      println("");
 
       boolean tmpFirst = true;
       for (final String tmpTemplate : tmpConfiguration.getXslTemplates()) {

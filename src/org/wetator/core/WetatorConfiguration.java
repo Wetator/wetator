@@ -232,6 +232,15 @@ public class WetatorConfiguration {
    */
   public static final String SECRET_PREFIX = "$";
 
+  /**
+   * The name of the file results.
+   */
+  private static final String WETRESULT_FILE_NAME = "wetresult.xml";
+  /**
+   * The name of the file used to store the existing results in append mode.
+   */
+  private static final String WETRESULT_BACKUP_FILE_NAME = "wetresult_back.xml";
+
   private File sourceFile;
   private File variablesFile;
 
@@ -1128,6 +1137,20 @@ public class WetatorConfiguration {
    */
   public SecretString getClientCertificateKeyStorePassword() {
     return clientCertificateKeyStorePassword;
+  }
+
+  /**
+   * @return the wet result file
+   */
+  public File getWetResultFile() {
+    return new File(getOutputDir(), WETRESULT_FILE_NAME);
+  }
+
+  /**
+   * @return the wet result backup file used in append mode
+   */
+  public File getWetResultBackupFile() {
+    return new File(getOutputDir(), WETRESULT_BACKUP_FILE_NAME);
   }
 
   /**

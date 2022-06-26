@@ -76,6 +76,8 @@ public class ManualXMLResultWriterTest {
     final WetatorConfiguration tmpConfiguration = mock(WetatorConfiguration.class);
     when(engine.getConfiguration()).thenReturn(tmpConfiguration);
     when(tmpConfiguration.getOutputDir()).thenReturn(new File(LOGS_FOLDER));
+    when(tmpConfiguration.getWetResultFile()).thenReturn(new File(LOGS_FOLDER, "wetresult.xml"));
+    when(tmpConfiguration.getWetResultBackupFile()).thenReturn(new File(LOGS_FOLDER, "wetresult_back.xml"));
     when(tmpConfiguration.getXslTemplates()).thenReturn(Arrays.asList("xsl/run_report.xsl"));
 
     when(context.replaceVariables(any())).thenCallRealMethod();
