@@ -63,6 +63,9 @@ public final class ResponseStore {
   private static final Pattern CSS_IMPORT_URL_PATTERN = Pattern.compile("@import\\s+([\"'])(.*?)([\"'])");
   private static final int MAX_FILE_NAME_LENGTH = 200;
 
+  private static final Pattern LAST_RUN_FILE_NAMES_PATTERN = Pattern
+      .compile("^(resource_|response_|content_)([0-9]{6}[0-9]*)");
+
   private static long counter = 99999;
   private Map<String, String> fileNames;
 
@@ -76,17 +79,37 @@ public final class ResponseStore {
     return ++counter;
   }
 
+  public static void updateCounter(final File anOutputDir) {
+    final File[] tmpFiles = anOutputDir.listFiles();
+    if (tmpFiles != null) {
+      for (File tmpFile : tmpFiles) {
+        if (tmpFile.isDirectory()) {
+          updateCounter(tmpFile);
+        } else {
+          final Matcher tmpMatcher = LAST_RUN_FILE_NAMES_PATTERN.matcher(tmpFile.getName());
+          if (tmpMatcher.find()) {
+            final int tmpCounter = Integer.parseInt(tmpMatcher.group(2));
+            if (tmpCounter > counter) {
+              counter = tmpCounter;
+            }
+          }
+        }
+      }
+    }
+  }
+
   /**
    * The constructor.
    *
    * @param anOutputDir the outputDir to set
    * @param aBrowserSubdir the subdir for the specific browser this store is for
+   * @param aCleanDirFlag if true clear the output directory
    */
-  public ResponseStore(final File anOutputDir, final String aBrowserSubdir) {
+  public ResponseStore(final File anOutputDir, final String aBrowserSubdir, final boolean aCleanDirFlag) {
     super();
     outputDir = anOutputDir;
 
-    initOutputDir(aBrowserSubdir);
+    initOutputDir(aBrowserSubdir, aCleanDirFlag);
     fileNames = new HashMap<>();
   }
 
@@ -94,8 +117,9 @@ public final class ResponseStore {
    * This method has to be called before any page is logged, because it creates the logdir.
    *
    * @param aBrowserSubdir the subdir for the specific browser this store is for
+   * @param aCleanDirFlag if true clear the output directory
    */
-  private void initOutputDir(final String aBrowserSubdir) {
+  private void initOutputDir(final String aBrowserSubdir, final boolean aCleanDirFlag) {
     storeDir = new File(new File(outputDir, aBrowserSubdir.toLowerCase(Locale.ROOT)), "responses_current");
     relStoreDir = outputDir.toPath().relativize(storeDir.toPath()).toString();
     relStoreDir = relStoreDir.replaceAll("\\\\", "/");
@@ -103,10 +127,12 @@ public final class ResponseStore {
     try {
       FileUtils.forceMkdir(storeDir);
 
-      // FileUtils.cleanDirectory(storeDir);
-      // !!!! this does not work correctly in 2.10 at least on debian
-      // existing files are not deleted - instead they are read only afterwards
-      cleanDirectory(storeDir);
+      if (aCleanDirFlag) {
+        // FileUtils.cleanDirectory(storeDir);
+        // !!!! this does not work correctly in 2.10 at least on debian
+        // existing files are not deleted - instead they are read only afterwards
+        cleanDirectory(storeDir);
+      }
     } catch (final IOException e) {
       LOG.error("IO exception for dir: " + FilenameUtils.normalize(storeDir.getAbsolutePath()), e);
     }

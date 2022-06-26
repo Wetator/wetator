@@ -274,6 +274,9 @@ public class WetatorConfiguration {
   private Map<String, String> mimeTypes;
   private List<Variable> variables; // store them in defined order
 
+  private boolean distinctOutput;
+  private boolean appendResults;
+
   private boolean debugLogging;
   private int retrospect;
 
@@ -1167,6 +1170,27 @@ public class WetatorConfiguration {
    */
   public int getRetrospect() {
     return retrospect;
+  }
+
+  /**
+   * @return <code>true</code> if distinct output is switched on
+   */
+  public boolean isDistinctOutputEnabled() {
+    return distinctOutput;
+  }
+
+  /**
+   * @return <code>true</code> if the append results mode is switched on
+   */
+  public boolean isAppendResultsEnabled() {
+    return appendResults;
+  }
+
+  /**
+   * Append the results to the existing ones if any.
+   */
+  public void enableAppendResults() {
+    appendResults = true;
   }
 
   /**

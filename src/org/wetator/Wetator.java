@@ -52,13 +52,17 @@ public final class Wetator {
     String tmpConfigFileName = null;
     String tmpVariablesFileName = null;
     File tmpDebugLogFile = null;
+    boolean tmpAppendResults = false;
     final List<String> tmpFileNames = new LinkedList<>();
+
     // parse the command line
     for (int i = 0; i < anArgsArray.length; i++) {
       final String tmpArg = anArgsArray[i].trim();
       if ("-log".equals(tmpArg)) {
         tmpDebugLogFile = new File("wetator.log");
         Log4jUtil.configureDebugLogging(tmpDebugLogFile);
+      } else if ("-append".equals(tmpArg)) {
+        tmpAppendResults = true;
       } else if ("-p".equals(tmpArg) && i < (anArgsArray.length - 1)) {
         tmpConfigFileName = anArgsArray[i + 1];
         i++;
@@ -91,6 +95,19 @@ public final class Wetator {
           tmpWetatorEngine.setVariablesFileName(tmpVariablesFileName);
         }
         tmpWetatorEngine.init();
+
+        // adjust config from cmd parameters
+        if (tmpAppendResults) {
+          if (tmpWetatorEngine.getConfiguration().isDistinctOutputEnabled()) {
+            System.out.println(
+                "Wetator execution failed because the 'append' command line flag can't be used togethere with the 'distinctOutput' setting.");
+            LOG.fatal(
+                "Wetator execution failed because the 'append' command line flag can't be used togethere with the 'distinctOutput' setting.");
+            System.exit(1);
+          }
+
+          tmpWetatorEngine.getConfiguration().enableAppendResults();
+        }
         if (null != tmpDebugLogFile) {
           tmpWetatorEngine.getConfiguration().enableDebugLogging();
         }

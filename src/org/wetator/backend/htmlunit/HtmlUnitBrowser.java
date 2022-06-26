@@ -168,8 +168,13 @@ public final class HtmlUnitBrowser implements IBrowser {
         tmpBrowserVersion.registerUploadMimeType(tmpMapping.getKey(), tmpMapping.getValue());
       }
 
-      final ResponseStore tmpStore = new ResponseStore(tmpConfiguration.getOutputDir(), tmpBrowserType.getLabel());
+      final ResponseStore tmpStore = new ResponseStore(tmpConfiguration.getOutputDir(), tmpBrowserType.getLabel(),
+          !tmpConfiguration.isAppendResultsEnabled());
       responseStores.put(tmpBrowserVersion, tmpStore);
+    }
+
+    if (tmpConfiguration.isAppendResultsEnabled()) {
+      ResponseStore.updateCounter(tmpConfiguration.getOutputDir());
     }
 
     // add the default controls
