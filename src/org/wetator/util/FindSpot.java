@@ -30,6 +30,8 @@ import org.wetator.exception.ImplementationException;
  */
 public class FindSpot implements Serializable {
 
+  private static final long serialVersionUID = 1127155566231904256L;
+
   /**
    * Static object to reduce the number of objects in use.
    */

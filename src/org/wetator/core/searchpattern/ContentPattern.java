@@ -36,6 +36,8 @@ import org.wetator.util.SecretString;
  */
 public class ContentPattern implements Serializable {
 
+  private static final long serialVersionUID = 5899557205235216632L;
+
   /** The delimiter used for content parts. */
   public static final String DELIMITER = ",";
   private static final String NOT_OPERTOR = "~";
@@ -239,6 +241,8 @@ public class ContentPattern implements Serializable {
    * Internal helper class representing one node of a {@link ContentPattern}.
    */
   static final class PatternNode implements Cloneable, Serializable {
+
+    private static final long serialVersionUID = 1208708219806742182L;
 
     private SecretString value;
     private boolean negated;

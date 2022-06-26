@@ -37,6 +37,8 @@ import org.wetator.core.searchpattern.SearchPattern;
  */
 public final class SecretString implements Serializable {
 
+  private static final long serialVersionUID = -6227050411190121071L;
+
   /** The replacement for printing the secret parts. */
   public static final String SECRET_PRINT = "****";
 
