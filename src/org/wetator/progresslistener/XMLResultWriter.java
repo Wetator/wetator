@@ -200,7 +200,7 @@ public class XMLResultWriter implements IProgressListener {
     try {
       final WetatorConfiguration tmpConfiguration = aWetatorEngine.getConfiguration();
 
-      final File tmpBackup = new File(outputDir, WETRESULT_BACK_XML);
+      final File tmpBackup = new File(outputDir, WETRESULT_BACKUP_FILE_NAME);
       if (tmpConfiguration.isAppendResultsEnabled() && tmpBackup.exists() && tmpBackup.isFile()) {
 
         // TODO: check and report configuration changes
