@@ -100,7 +100,7 @@ public final class Wetator {
         if (tmpAppendResults) {
           if (tmpWetatorEngine.getConfiguration().isDistinctOutputEnabled()) {
             System.out.println(
-                "Wetator execution failed because the 'append' command line flag can't be used togethere with the 'distinctOutput' setting.");
+                "Wetator execution failed because the 'append' command line flag can't be used togethere with the 'distinctOutput' setting."); // NOPMD
             LOG.fatal(
                 "Wetator execution failed because the 'append' command line flag can't be used togethere with the 'distinctOutput' setting.");
             System.exit(1);

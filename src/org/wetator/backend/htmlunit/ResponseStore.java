@@ -82,7 +82,7 @@ public final class ResponseStore {
   public static void updateCounter(final File anOutputDir) {
     final File[] tmpFiles = anOutputDir.listFiles();
     if (tmpFiles != null) {
-      for (File tmpFile : tmpFiles) {
+      for (final File tmpFile : tmpFiles) {
         if (tmpFile.isDirectory()) {
           updateCounter(tmpFile);
         } else {
@@ -141,7 +141,7 @@ public final class ResponseStore {
   private static void cleanDirectory(final File aDirectory) {
     final File[] tmpFiles = aDirectory.listFiles();
     if (tmpFiles != null) {
-      for (File tmpFile : tmpFiles) {
+      for (final File tmpFile : tmpFiles) {
         if (tmpFile.isDirectory()) {
           cleanDirectory(tmpFile);
         }

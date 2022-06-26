@@ -112,6 +112,11 @@ public class XMLResultWriter implements IProgressListener {
 
   private static final String WETRESULT_BACKUP_FILE_NAME = "wetresult_back.xml";
 
+  private static final Pattern MERGE_EXECUTION_TIME_PATTERN = Pattern
+      .compile("^\\s*<executionTime id=\"([0-9]+)\">([0-9]+)<\\/executionTime>");
+  private static final Pattern MERGE_TESTCASE_START_PATTERN = Pattern.compile("^\\s*<testcase id=\"[0-9]+\".*>");
+  private static final Pattern MERGE_TESTCASE_END_PATTERN = Pattern.compile("^\\s*<\\/testcase>");
+
   private Output output;
   private XMLUtil xmlUtil;
   private File resultFile;
@@ -129,11 +134,6 @@ public class XMLResultWriter implements IProgressListener {
     tagId = 0;
     commandExecutionStartTimes = new ArrayDeque<>();
   }
-
-  private static final Pattern MERGE_EXECUTION_TIME_PATTERN = Pattern
-      .compile("^\\s*<executionTime id=\"([0-9]+)\">([0-9]+)<\\/executionTime>");
-  private static final Pattern MERGE_TESTCASE_START_PATTERN = Pattern.compile("^\\s*<testcase id=\"[0-9]+\".*>");
-  private static final Pattern MERGE_TESTCASE_END_PATTERN = Pattern.compile("^\\s*<\\/testcase>");
 
   @Override
   public void init(final WetatorEngine aWetatorEngine) {
@@ -206,8 +206,7 @@ public class XMLResultWriter implements IProgressListener {
         // TODO: check and report configuration changes
 
         // poor mens approach for now
-        final LineIterator tmpLines = FileUtils.lineIterator(tmpBackup.getAbsoluteFile(), "UTF-8");
-        try {
+        try (LineIterator tmpLines = FileUtils.lineIterator(tmpBackup.getAbsoluteFile(), "UTF-8")) {
           boolean tmpInsideTestCase = false;
           boolean tmpTestFilesWritten = false;
           while (tmpLines.hasNext()) {
@@ -474,7 +473,7 @@ public class XMLResultWriter implements IProgressListener {
 
     final File tmpBackup = new File(outputDir, WETRESULT_BACKUP_FILE_NAME);
     if (aWetatorEngine.getConfiguration().isAppendResultsEnabled() && tmpBackup.exists() && tmpBackup.isFile()) {
-      if (tmpBackup.delete()) {
+      if (tmpBackup.delete()) { // NOPMD
         LOG.error("Can't delete file '" + tmpBackup.getAbsoluteFile() + "'");
       }
     }
