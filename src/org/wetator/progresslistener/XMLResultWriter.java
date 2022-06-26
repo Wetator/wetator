@@ -448,9 +448,13 @@ public class XMLResultWriter implements IProgressListener {
     try {
       printlnNode(TAG_EXECUTION_TIME, Long.toString(System.currentTimeMillis() - executionStartTime));
 
-      output.println("<!--");
-      output.println(SearchPattern.getStatistics());
-      output.println("-->");
+      // for the moment we do not merge the statistics;
+      // skip because this is incorrect in append case
+      if (!aWetatorEngine.getConfiguration().isAppendResultsEnabled()) {
+        output.println("<!--");
+        output.println(SearchPattern.getStatistics());
+        output.println("-->");
+      }
 
       printlnEndTag(TAG_WET);
       output.close();
