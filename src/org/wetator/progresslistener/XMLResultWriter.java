@@ -110,6 +110,8 @@ public class XMLResultWriter implements IProgressListener {
   private static final String TAG_MIME_TYPE = "mimetype";
   private static final String TAG_IGNORED = "ignored";
 
+  private static final String WETRESULT_BACKUP_FILE_NAME = "wetresult_back.xml";
+
   private Output output;
   private XMLUtil xmlUtil;
   private File resultFile;
@@ -145,8 +147,11 @@ public class XMLResultWriter implements IProgressListener {
       File tmpBackup = null;
 
       if (tmpConfiguration.isAppendResultsEnabled() && resultFile.exists() && resultFile.isFile()) {
-        tmpBackup = new File(outputDir, "wetresult_back.xml");
-        resultFile.renameTo(tmpBackup);
+        tmpBackup = new File(outputDir, WETRESULT_BACKUP_FILE_NAME);
+        if (!resultFile.renameTo(tmpBackup)) {
+          LOG.error(
+              "Can't rename file '" + resultFile.getAbsoluteFile() + "' to '" + tmpBackup.getAbsoluteFile() + "'");
+        }
         resultFile = new File(outputDir, "wetresult.xml");
 
         // poor mens approach for now
@@ -195,7 +200,7 @@ public class XMLResultWriter implements IProgressListener {
     try {
       final WetatorConfiguration tmpConfiguration = aWetatorEngine.getConfiguration();
 
-      final File tmpBackup = new File(outputDir, "wetresult_back.xml");
+      final File tmpBackup = new File(outputDir, WETRESULT_BACK_XML);
       if (tmpConfiguration.isAppendResultsEnabled() && tmpBackup.exists() && tmpBackup.isFile()) {
 
         // TODO: check and report configuration changes
@@ -467,9 +472,11 @@ public class XMLResultWriter implements IProgressListener {
       LOG.error(e.getMessage(), e);
     }
 
-    final File tmpBackup = new File(outputDir, "wetresult_back.xml");
+    final File tmpBackup = new File(outputDir, WETRESULT_BACKUP_FILE_NAME);
     if (aWetatorEngine.getConfiguration().isAppendResultsEnabled() && tmpBackup.exists() && tmpBackup.isFile()) {
-      tmpBackup.delete();
+      if (tmpBackup.delete()) {
+        LOG.error("Can't delete file '" + tmpBackup.getAbsoluteFile() + "'");
+      }
     }
   }
 
