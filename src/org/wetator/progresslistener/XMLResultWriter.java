@@ -471,7 +471,7 @@ public class XMLResultWriter implements IProgressListener {
 
     final File tmpBackup = tmpConfiguration.getWetResultBackupFile();
     if (aWetatorEngine.getConfiguration().isAppendResultsEnabled() && tmpBackup.exists() && tmpBackup.isFile()) {
-      if (tmpBackup.delete()) { // NOPMD
+      if (!tmpBackup.delete()) { // NOPMD
         LOG.error("Can't delete file '" + tmpBackup.getAbsoluteFile() + "'");
       }
     }
