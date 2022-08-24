@@ -35,12 +35,15 @@ import org.wetator.backend.control.KeySequence;
 import org.wetator.backend.htmlunit.HtmlUnitBrowser;
 import org.wetator.core.Command;
 import org.wetator.core.ICommandImplementation;
+import org.wetator.core.Variable;
+import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.WetatorContext;
 import org.wetator.exception.ActionException;
 import org.wetator.exception.AssertionException;
 import org.wetator.exception.BackendException;
 import org.wetator.exception.CommandException;
 import org.wetator.exception.InvalidInputException;
+import org.wetator.gui.InputDialog;
 import org.wetator.i18n.Messages;
 import org.wetator.util.Assert;
 import org.wetator.util.SecretString;
@@ -73,6 +76,9 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
 
     // still there to solve some strange situations
     registerCommand("wait", new CommandWait());
+
+    // for the moment only a strange hack
+    registerCommand("enter-variable", new CommandEnterVariable());
   }
 
   /**
@@ -170,6 +176,47 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
         final String tmpMessage = Messages.getMessage("waitError");
         throw new ActionException(tmpMessage, e);
       }
+    }
+  }
+
+  /**
+   * Command 'enter-variable'.
+   * For the moment only a hack - see https://github.com/Wetator/wetator/issues/19
+   */
+  public final class CommandEnterVariable implements ICommandImplementation {
+    @Override
+    public void execute(final WetatorContext aContext, final Command aCommand)
+        throws CommandException, InvalidInputException {
+      final SecretString tmpVariable = aCommand.getRequiredFirstParameterValue(aContext);
+      final SecretString tmpHint = aCommand.getSecondParameterValue(aContext);
+      aCommand.checkNoUnusedThirdParameter(aContext);
+
+      String tmpVariableName = tmpVariable.getValue();
+      if (!tmpVariableName.startsWith(WetatorConfiguration.VARIABLE_PREFIX)) {
+        // todo
+      }
+
+      String tmpHintText = tmpHint.getValue();
+      if (StringUtils.isBlank(tmpHintText)) {
+        tmpHintText = "Please enter a value for " + tmpVariableName;
+      }
+
+      // ok it is a variable
+      tmpVariableName = tmpVariableName.substring(1);
+      final boolean tmpIsSecret = tmpVariableName.startsWith(WetatorConfiguration.SECRET_PREFIX);
+
+      try {
+        final String tmpVariableValue = InputDialog.captureInput(tmpHintText);
+        if (tmpIsSecret) {
+          aContext.addVariable(new Variable(tmpVariableName, new SecretString(tmpVariableValue)));
+        } else {
+          aContext.addVariable(new Variable(tmpVariableName, tmpVariableValue));
+        }
+      } catch (BackendException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+      }
+
     }
   }
 
@@ -308,6 +355,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
         throw new ActionException(tmpMessage, e);
       }
     }
+
   }
 
   @Override
