@@ -193,7 +193,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
 
       String tmpVariableName = tmpVariable.getValue();
       if (!tmpVariableName.startsWith(WetatorConfiguration.VARIABLE_PREFIX)) {
-        // todo
+        throw new InvalidInputException("Variable name has to start with " + WetatorConfiguration.VARIABLE_PREFIX);
       }
 
       String tmpHintText = tmpHint.getValue();
@@ -206,7 +206,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
       final boolean tmpIsSecret = tmpVariableName.startsWith(WetatorConfiguration.SECRET_PREFIX);
 
       try {
-        final String tmpVariableValue = InputDialog.captureInput(tmpHintText);
+        final String tmpVariableValue = InputDialog.captureInput(tmpHintText, tmpIsSecret);
         if (tmpIsSecret) {
           aContext.addVariable(new Variable(tmpVariableName, new SecretString(tmpVariableValue)));
         } else {

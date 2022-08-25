@@ -30,6 +30,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import org.wetator.exception.BackendException;
@@ -53,14 +54,6 @@ public class InputDialog {
     if (GraphicsEnvironment.isHeadless()) {
       throw new BackendException("Using the input dialog is not possible in java headless mode.");
     }
-
-    dlgInput = new JDialog();
-    dlgInput.setModal(true);
-    dlgInput.setAlwaysOnTop(true);
-    layout = new GridBagLayout();
-    lblInput = new JLabel();
-    fldInput = new JTextField();
-    btnSubmit = new JButton();
   }
 
   /**
@@ -71,7 +64,7 @@ public class InputDialog {
    */
   public static void main(final String[] anArgs) {
     try {
-      System.out.println(captureInput("Please enter a value"));
+      System.out.println(captureInput("Please enter a value", false));
     } catch (final Exception e) {
       e.printStackTrace();
     }
@@ -81,11 +74,25 @@ public class InputDialog {
    * Shows the dialog and returns the input.
    *
    * @param aHint the label for the input field
+   * @param aSecretInputFlag true if the input is secret
    * @return the value or null if cancelled
    * @throws BackendException in case of errors
    */
-  public static String captureInput(final String aHint) throws BackendException {
+  public static String captureInput(final String aHint, final boolean aSecretInputFlag) throws BackendException {
     final InputDialog tmpHandler = new InputDialog();
+
+    tmpHandler.dlgInput = new JDialog();
+    tmpHandler.dlgInput.setModal(true);
+    tmpHandler.dlgInput.setAlwaysOnTop(true);
+    tmpHandler.layout = new GridBagLayout();
+    tmpHandler.lblInput = new JLabel();
+    if (aSecretInputFlag) {
+      tmpHandler.fldInput = new JPasswordField();
+    } else {
+      tmpHandler.fldInput = new JTextField();
+    }
+    tmpHandler.btnSubmit = new JButton();
+
     tmpHandler.addWidgets();
     tmpHandler.handleInput(aHint);
     return tmpHandler.result;
