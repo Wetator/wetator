@@ -57,16 +57,6 @@ public class InputDialog {
   }
 
   /**
-   * Test main method
-   *
-   * @param anArgs
-   *        nothing expected
-   */
-  public static void main(final String[] anArgs) throws Exception {
-    captureInput("Please enter a value", false);
-  }
-
-  /**
    * Shows the dialog and returns the input.
    *
    * @param aHint the label for the input field
