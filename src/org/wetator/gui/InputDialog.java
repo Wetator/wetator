@@ -62,12 +62,8 @@ public class InputDialog {
    * @param anArgs
    *        nothing expected
    */
-  public static void main(final String[] anArgs) {
-    try {
-      System.out.println(captureInput("Please enter a value", false));
-    } catch (final Exception e) {
-      e.printStackTrace();
-    }
+  public static void main(final String[] anArgs) throws Exception {
+    captureInput("Please enter a value", false);
   }
 
   /**
