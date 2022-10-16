@@ -25,7 +25,6 @@
       <library id="##ID##">Apache FontBox </library>
       <library id="##ID##">XmlCommonsExternal </library>
       <library id="##ID##">Xerces-J </library>
-      <library id="##ID##">Xalan Java </library>
     </libraries>
     <java id="26">
       <property id="27" key="awt.toolkit" value="sun.awt.windows.WToolkit" />

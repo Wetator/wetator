@@ -679,7 +679,6 @@ public class XMLResultWriter implements IProgressListener {
 
     printlnNode(TAG_LIB, org.apache.xmlcommons.Version.getVersion());
     printlnNode(TAG_LIB, org.apache.xerces.impl.Version.getVersion());
-    printlnNode(TAG_LIB, org.apache.xalan.Version.getVersion());
 
     printlnEndTag(TAG_LIBS);
 
