@@ -2,7 +2,7 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="test/java"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk-11.0.2">
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/java-1.8.0-openjdk-1.8.0.332-1">
 		<attributes>
 			<attribute name="module" value="true"/>
 		</attributes>
@@ -54,7 +54,7 @@
 	<classpathentry kind="lib" path="lib/log4j-slf4j-impl-2.19.0.jar"/>
 	<classpathentry kind="lib" path="lib/mockito-core-3.11.2.jar"/>
 	<classpathentry kind="lib" path="lib/neko-htmlunit-2.65.0.jar"/>
-  <classpathentry kind="lib" path="lib/htmlunit-xpath-2.66.0-SNAPSHOT.jar"/>
+	<classpathentry kind="lib" path="lib/htmlunit-xpath-2.66.0-SNAPSHOT.jar"/>
 	<classpathentry kind="lib" path="lib/objenesis-3.2.jar"/>
 	<classpathentry kind="lib" path="lib/pdfbox-2.0.27.jar"/>
 	<classpathentry kind="lib" path="lib/poi-5.2.3.jar"/>
