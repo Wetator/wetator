@@ -187,15 +187,15 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand)
         throws CommandException, InvalidInputException {
-      final SecretString tmpVariable = aCommand.getRequiredFirstParameterValue(aContext);
-      final SecretString tmpHint = aCommand.getSecondParameterValue(aContext);
       aCommand.checkNoUnusedThirdParameter(aContext);
 
+      final SecretString tmpVariable = aCommand.getRequiredFirstParameterValue(aContext);
       String tmpVariableName = tmpVariable.getValue();
       if (!tmpVariableName.startsWith(WetatorConfiguration.VARIABLE_PREFIX)) {
         throw new InvalidInputException("Variable name has to start with " + WetatorConfiguration.VARIABLE_PREFIX);
       }
 
+      final SecretString tmpHint = aCommand.getSecondParameterValue(aContext);
       String tmpHintText = tmpHint.getValue();
       if (StringUtils.isBlank(tmpHintText)) {
         tmpHintText = "Please enter a value for " + tmpVariableName;
@@ -212,9 +212,9 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
         } else {
           aContext.addVariable(new Variable(tmpVariableName, tmpVariableValue));
         }
-      } catch (BackendException e) {
-        // TODO Auto-generated catch block
-        e.printStackTrace();
+      } catch (final BackendException e) {
+        final String tmpMessage = Messages.getMessage("commandBackendError", e.getMessage());
+        throw new AssertionException(tmpMessage, e);
       }
 
     }
