@@ -445,10 +445,10 @@
         <echo level="info">Running PMD (output: ${dir.deploy}/pmd)</echo>
         <mkdir dir="${dir.deploy}/pmd" />
         <pmd shortFilenames="true" encoding="UTF-8" cacheLocation="${dir.build}/pmd">
-        	<sourceLanguage name="java" version="${javac.target}"/>
+            <sourceLanguage name="java" version="${javac.target}"/>
             <ruleset>${dir.test}/pmd/wet-bestpractices.xml,${dir.test}/pmd/wet-codestyle.xml,${dir.test}/pmd/wet-design.xml,${dir.test}/pmd/wet-errorprone.xml,${dir.test}/pmd/wet-multithreading.xml,${dir.test}/pmd/wet-performance.xml</ruleset>
             <formatter type="xml" toFile="${dir.deploy}/pmd/pmd-report.xml">
-            	<param name="encoding" value="UTF-8" />
+                <param name="encoding" value="UTF-8" />
             </formatter>
             <fileset dir="${dir.src}">
                 <patternset refid="pmdPattern" />
@@ -578,7 +578,7 @@
             <fileset dir="${dir.build}/jdoc" >
             </fileset>
         </zip>
-    	<copy file="${dir.build}/${application.jar-basename}-javadoc.jar" tofile="${dir.deploy}/${application.jar-basename}-${application.version}-javadoc.jar"/>
+        <copy file="${dir.build}/${application.jar-basename}-javadoc.jar" tofile="${dir.deploy}/${application.jar-basename}-${application.version}-javadoc.jar"/>
 
         <!-- generate sources jar -->
         <zip destfile="${dir.build}/${application.jar-basename}-sources.jar">
@@ -690,7 +690,7 @@
                 <include name="empty.wet" />
             </zipfileset>
 
-        	<zipfileset dir="${dir.src}" prefix="templates">
+            <zipfileset dir="${dir.src}" prefix="templates">
                 <include name="wetator.config" />
                 <include name="js_filter.cfg" />
             </zipfileset>
@@ -700,7 +700,7 @@
                 <include name="wetator.config" />
             </zipfileset>
 
-        	<zipfileset dir="${dir.src}">
+            <zipfileset dir="${dir.src}">
                 <include name="js_filter.cfg" />
             </zipfileset>
         </zip>
