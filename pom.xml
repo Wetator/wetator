@@ -298,11 +298,19 @@
                         <configuration>
                             <shadedArtifactAttached>true</shadedArtifactAttached>
                             <shadedClassifierName>all</shadedClassifierName>
+
                             <transformers>
                                 <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                                     <mainClass>org.wetator.Wetator</mainClass>
                                 </transformer>
                             </transformers>
+
+                            <artifactSet>
+                                <excludes>
+                                    <exclude>org.apache.poi:*</exclude>
+                                </excludes>
+                            </artifactSet>
+
                             <filters>
                                 <filter>
                                     <artifact>*:*</artifact>
@@ -320,8 +328,10 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.4.2</version>
                 <executions>
                     <execution>
+                        <id>package-distribution</id>
                         <phase>package</phase>
                         <goals>
                             <goal>single</goal>
@@ -333,13 +343,9 @@
                             </descriptors>
                         </configuration>
                     </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <executions>
+
                     <execution>
+                        <id>package-source</id>
                         <phase>package</phase>
                         <goals>
                             <goal>single</goal>
@@ -354,6 +360,7 @@
                     </execution>
                 </executions>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
@@ -439,6 +446,80 @@
                 </configuration>
             </plugin>
 
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>truezip-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>unzip-package</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>copy</goal>
+                        </goals>
+                        <configuration>
+                            <verbose>true</verbose>
+                            <fileset>
+                                <directory>${project.build.directory}/${project.artifactId}-${project.version}.zip</directory>
+                                <includes>
+                                    <include>**</include>
+                                </includes>
+                                <outputDirectory>${project.build.directory}/test-release/app</outputDirectory>
+                            </fileset>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>3.3.0</version>
+                <executions>
+                    <execution>
+                        <id>generate-integration-test</id>
+                        <phase>pre-integration-test</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/test-release/app</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${project.build.directory}/test-release/app/samples/wetator_testform</directory>
+                                    <includes>
+                                        <include>wetator.config</include>
+                                        <include>wetator_testform.wet</include>
+                                        <include>wetator_testform.wett</include>
+                                        <include>wetator_testform.xls</include>
+                                    </includes>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>integration-test</id>
+                        <phase>integration-test</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <executable>cmd</executable>
+                    <workingDirectory>${project.build.directory}/test-release/app</workingDirectory>
+                    <arguments>
+                        <argument>/c</argument>
+                        <argument>wetator.bat</argument>
+                        <argument>wetator_testform.wet</argument>
+                        <argument>wetator_testform.wett</argument>
+                        <argument>wetator_testform.xls</argument>
+                    </arguments>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 </project>
