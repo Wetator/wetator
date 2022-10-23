@@ -53,14 +53,4 @@
             <destName>sample.wett</destName>
         </file>
     </files>
-<!--
-    <dependencySets>
-        <dependencySet>
-            <outputDirectory>lib</outputDirectory>
-            <excludes>
-                <exclude>${project.groupId}:${project.artifactId}:jar:*</exclude>
-            </excludes>
-        </dependencySet>
-    </dependencySets>
--->
 </assembly>
