@@ -489,6 +489,7 @@
                                         <include>wetator_testform.wet</include>
                                         <include>wetator_testform.wett</include>
                                         <include>wetator_testform.xls</include>
+                                        <include>wetator_testform.xlsx</include>
                                     </includes>
                                 </resource>
                             </resources>
@@ -517,6 +518,7 @@
                         <argument>wetator_testform.wet</argument>
                         <argument>wetator_testform.wett</argument>
                         <argument>wetator_testform.xls</argument>
+                        <argument>wetator_testform.xlsx</argument>
                     </arguments>
                 </configuration>
             </plugin>
