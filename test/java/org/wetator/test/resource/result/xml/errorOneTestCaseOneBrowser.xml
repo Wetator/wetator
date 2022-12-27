@@ -23,8 +23,6 @@
       <library id="##ID##">POI </library>
       <library id="##ID##">Apache PDFBox </library>
       <library id="##ID##">Apache FontBox </library>
-      <library id="##ID##">XmlCommonsExternal </library>
-      <library id="##ID##">Xerces-J </library>
     </libraries>
     <java id="##ID##">
 ##JAVA_PROPERTIES##

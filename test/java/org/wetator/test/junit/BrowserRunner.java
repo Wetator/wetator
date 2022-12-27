@@ -105,7 +105,7 @@ public class BrowserRunner extends BlockJUnit4ClassRunner {
    */
   @Retention(RetentionPolicy.RUNTIME)
   @Target(ElementType.METHOD)
-  public static @interface Browsers {
+  public @interface Browsers {
 
     /**
      * The browsers the test should be run with.
