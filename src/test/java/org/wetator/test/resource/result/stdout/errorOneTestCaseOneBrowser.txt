@@ -1,0 +1,13 @@
+Wetator local build
+  using HtmlUnit
+  OutputDir:  '##OUTPUT_DIR##'
+  TestFiles: none
+  TestCase: 'test1.wet' (1/0)
+    FirefoxESR
+java.lang.ClassNotFoundException: test error
+
+  Failure
+    1 unsuccessful Test
+
+    Tests: 1,  Errors: 1,  Failures: 0,  Ignored: 0
+    Steps: 0,  Errors: 0,  Failures: 0,  Ignored: 0

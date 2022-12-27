@@ -1,0 +1,8 @@
+assert-content || !"#$%&'()*+,-./0123456789:;<=>?@
+assert-content || abcdefghijklmnopqrstuvwxyzäöüß
+
+# U+00EC U+00ED U+00EE U+00EF  
+assert-content || ìíîï
+
+# U+0430 U+0431 U+0432 U+0433
+assert-content || абвг

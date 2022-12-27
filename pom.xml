@@ -218,25 +218,6 @@
     </dependencies>
 
     <build>
-        <sourceDirectory>${basedir}/src</sourceDirectory>
-        <testSourceDirectory>${basedir}/test/java</testSourceDirectory>
-        <resources>
-            <resource>
-                <directory>${basedir}/src</directory>
-                <excludes>
-                    <exclude>**/*.java</exclude>
-                    <exclude>wetator.config</exclude>
-                    <exclude>js_filter.cfg</exclude>
-                </excludes>
-            </resource>
-            <resource>
-                <directory>${basedir}/test/java</directory>
-                <excludes>
-                    <exclude>**/*.java</exclude>
-                </excludes>
-            </resource>
-        </resources>
-
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

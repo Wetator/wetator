@@ -1,4 +1,0 @@
-assert-content || test, ~\?\?\?
-#
-assert-content || test,wetator
-assert-content || test\,wetator
