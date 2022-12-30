@@ -49,8 +49,8 @@ public class ModelBuilderTest {
   @Test(expected = ParseException.class)
   public void invalidSchema() throws IOException, SAXException, ParseException {
     final List<XMLSchema> tmpSchemas = new ArrayList<>();
-    tmpSchemas.add(new XMLSchema("http://www.wetator.org/xsd/invalid-command-set",
-        "src/test/java/org/wetator/test/resource/invalid-command-set.xsd"));
+    tmpSchemas.add(
+        new XMLSchema("http://www.wetator.org/xsd/invalid-command-set", "src/test/resources/invalid-command-set.xsd"));
     new ModelBuilder(tmpSchemas, null);
   }
 
@@ -73,7 +73,7 @@ public class ModelBuilderTest {
     final List<XMLSchema> tmpSchemas = new ArrayList<>();
     tmpSchemas.add(new XMLSchema("http://www.wetator.org/xsd/test-case", "test-case-1.0.0.xsd"));
     tmpSchemas.add(new XMLSchema("http://www.wetator.org/xsd/junit-test-command-set",
-        "src/test/java/org/wetator/test/resource/junit-test-command-set.xsd"));
+        "src/test/resources/junit-test-command-set.xsd"));
 
     final List<CommandType> tmpCommandTypes = new ModelBuilder(tmpSchemas, null).getCommandTypes();
 

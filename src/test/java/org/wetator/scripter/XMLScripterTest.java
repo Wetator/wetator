@@ -273,7 +273,7 @@ public class XMLScripterTest {
   @Test
   public void emptyContent() throws FileNotFoundException, IOException {
     final XMLScripter tmpXMLScripter = new XMLScripter();
-    final String tmpContent = IOUtils.toString(new FileInputStream("src/src/test/resources/empty.xml"),
+    final String tmpContent = IOUtils.toString(new FileInputStream("src/test/resources/empty.xml"),
         StandardCharsets.UTF_8);
     Assert.assertFalse(tmpXMLScripter.isSupported(tmpContent));
   }
@@ -281,7 +281,7 @@ public class XMLScripterTest {
   @Test
   public void unsupportedContent() throws FileNotFoundException, IOException {
     final XMLScripter tmpXMLScripter = new XMLScripter();
-    final String tmpContent = IOUtils.toString(new FileInputStream("src/src/test/resources/legacyXML.wet"),
+    final String tmpContent = IOUtils.toString(new FileInputStream("src/test/resources/legacyXML.wet"),
         StandardCharsets.UTF_8);
     Assert.assertFalse(tmpXMLScripter.isSupported(tmpContent));
   }
@@ -289,7 +289,7 @@ public class XMLScripterTest {
   @Test
   public void supportedContent() throws FileNotFoundException, IOException {
     final XMLScripter tmpXMLScripter = new XMLScripter();
-    final String tmpContent = IOUtils.toString(new FileInputStream("src/src/test/resources/xml.xml"),
+    final String tmpContent = IOUtils.toString(new FileInputStream("src/test/resources/xml.xml"),
         StandardCharsets.UTF_8);
     Assert.assertTrue(tmpXMLScripter.isSupported(tmpContent));
   }
@@ -297,7 +297,7 @@ public class XMLScripterTest {
   @Test
   public void schemasNoDefaultFromContent() throws FileNotFoundException, IOException, InvalidInputException {
     final XMLScripter tmpXMLScripter = new XMLScripter();
-    final String tmpContent = IOUtils.toString(new FileInputStream("src/src/test/resources/emptyNoDefault.xml"),
+    final String tmpContent = IOUtils.toString(new FileInputStream("src/test/resources/emptyNoDefault.xml"),
         StandardCharsets.UTF_8);
 
     tmpXMLScripter.script(tmpContent, null);
@@ -318,7 +318,7 @@ public class XMLScripterTest {
   @Test
   public void schemasWrongDefaultFromContent() throws FileNotFoundException, IOException, InvalidInputException {
     final XMLScripter tmpXMLScripter = new XMLScripter();
-    final String tmpContent = IOUtils.toString(new FileInputStream("src/src/test/resources/emptyWrongDefault.xml"),
+    final String tmpContent = IOUtils.toString(new FileInputStream("src/test/resources/emptyWrongDefault.xml"),
         StandardCharsets.UTF_8);
 
     tmpXMLScripter.script(tmpContent, null);
@@ -339,7 +339,7 @@ public class XMLScripterTest {
   @Test
   public void schemasFromContent() throws FileNotFoundException, IOException, InvalidInputException {
     final XMLScripter tmpXMLScripter = new XMLScripter();
-    final String tmpContent = IOUtils.toString(new FileInputStream("src/src/test/resources/emptyMultipleSchemas.xml"),
+    final String tmpContent = IOUtils.toString(new FileInputStream("src/test/resources/emptyMultipleSchemas.xml"),
         StandardCharsets.UTF_8);
 
     tmpXMLScripter.script(tmpContent, null);
@@ -370,7 +370,7 @@ public class XMLScripterTest {
   @Test
   public void scriptContent() throws FileNotFoundException, IOException, InvalidInputException {
     final XMLScripter tmpXMLScripter = new XMLScripter();
-    final String tmpContent = IOUtils.toString(new FileInputStream("src/src/test/resources/xml.xml"),
+    final String tmpContent = IOUtils.toString(new FileInputStream("src/test/resources/xml.xml"),
         StandardCharsets.UTF_8);
     tmpXMLScripter.script(tmpContent, null);
 

@@ -52,7 +52,7 @@ public class StdOutProgressListenerTest extends AbstractProgressListenerTest {
 
   @Override
   protected String getExpectedFilename() {
-    return "org/wetator/test/resource/result/stdout/" + testName.getMethodName() + ".txt";
+    return "result/stdout/" + testName.getMethodName() + ".txt";
   }
 
   @Override

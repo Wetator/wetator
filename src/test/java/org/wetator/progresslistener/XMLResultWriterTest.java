@@ -64,7 +64,7 @@ public class XMLResultWriterTest extends AbstractProgressListenerTest {
 
   @Override
   protected String getExpectedFilename() {
-    return "org/wetator/test/resource/result/xml/" + testName.getMethodName() + ".xml";
+    return "result/xml/" + testName.getMethodName() + ".xml";
   }
 
   @Override
