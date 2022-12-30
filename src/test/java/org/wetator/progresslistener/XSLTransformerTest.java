@@ -48,7 +48,7 @@ public class XSLTransformerTest extends AbstractProgressListenerTest {
 
   @Override
   protected String getExpectedFilename() {
-    return "org/wetator/test/resource/result/report/" + testName.getMethodName() + ".html";
+    return "result/report/" + testName.getMethodName() + ".html";
   }
 
   @Override
