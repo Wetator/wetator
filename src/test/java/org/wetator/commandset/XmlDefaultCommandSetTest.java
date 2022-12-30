@@ -30,7 +30,7 @@ import org.wetator.test.junit.BrowserRunner.Browsers;
  */
 public class XmlDefaultCommandSetTest extends AbstractWebServerTest {
 
-  private static final String BASE_FOLDER = "test/xml/";
+  private static final String BASE_FOLDER = "src/test/resources/xml/";
 
   @Test
   public void assertContent() throws InvalidInputException {

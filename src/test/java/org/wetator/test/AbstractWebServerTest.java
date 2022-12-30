@@ -112,7 +112,7 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
     tmpConstraintMapping.setPathSpec("/snoopyAuth.php");
 
     final LoginService tmpLoginService = new HashLoginService("wetator",
-        "test/java/org/wetator/test/jetty/realm.properties");
+        "src/test/java/org/wetator/test/jetty/realm.properties");
 
     final ConstraintSecurityHandler tmpSecurityHandler = new ConstraintSecurityHandler();
     tmpSecurityHandler.setLoginService(tmpLoginService);

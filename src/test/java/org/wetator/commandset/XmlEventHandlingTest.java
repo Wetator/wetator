@@ -34,7 +34,7 @@ import org.wetator.test.junit.BrowserRunner.Browsers;
 @RunWith(BrowserRunner.class)
 public class XmlEventHandlingTest extends AbstractWebServerTest {
 
-  private static final String BASE_FOLDER = "test/xml/";
+  private static final String BASE_FOLDER = "src/test/resources/xml/";
 
   @Test
   @Browsers({ BrowserType.FIREFOX_ESR })
