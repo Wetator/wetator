@@ -33,7 +33,7 @@ import org.wetator.test.junit.BrowserRunner.Browsers;
 @RunWith(BrowserRunner.class)
 public class XmlSqlCommandSetTest extends AbstractWebServerTest {
 
-  private static final String BASE_FOLDER = "test/xml/sql/";
+  private static final String BASE_FOLDER = "src/test/resources/xml/sql/";
 
   @Test
   @Browsers({ BrowserType.FIREFOX_ESR, BrowserType.INTERNET_EXPLORER })
