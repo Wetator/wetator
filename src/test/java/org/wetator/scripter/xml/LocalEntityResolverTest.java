@@ -78,7 +78,7 @@ public class LocalEntityResolverTest {
     final InputSource tmpInputSource = new LocalEntityResolver().resolveEntity(
         "http://www.wetator.org/xsd/junit-test-command-set", "src/test/resources/junit-test-command-set.xsd");
     Assert.assertEquals("http://www.wetator.org/xsd/junit-test-command-set", tmpInputSource.getPublicId());
-    Assert.assertTrue(tmpInputSource.getSystemId().endsWith("test/resource/junit-test-command-set.xsd"));
+    Assert.assertTrue(tmpInputSource.getSystemId().endsWith("test/resources/junit-test-command-set.xsd"));
   }
 
   @Test
