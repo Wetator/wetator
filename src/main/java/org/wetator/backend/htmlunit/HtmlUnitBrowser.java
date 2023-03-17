@@ -36,6 +36,32 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
+import org.htmlunit.BrowserVersion;
+import org.htmlunit.DefaultCredentialsProvider;
+import org.htmlunit.DialogWindow;
+import org.htmlunit.FailingHttpStatusCodeException;
+import org.htmlunit.History;
+import org.htmlunit.Page;
+import org.htmlunit.ScriptException;
+import org.htmlunit.TextPage;
+import org.htmlunit.TopLevelWindow;
+import org.htmlunit.WaitingRefreshHandler;
+import org.htmlunit.WebClient;
+import org.htmlunit.WebResponse;
+import org.htmlunit.WebWindow;
+import org.htmlunit.WebWindowEvent;
+import org.htmlunit.html.DomElement;
+import org.htmlunit.html.FrameWindow;
+import org.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlPage;
+import org.htmlunit.javascript.DebuggerImpl;
+import org.htmlunit.javascript.HtmlUnitContextFactory;
+import org.htmlunit.javascript.JavaScriptEngine;
+import org.htmlunit.javascript.background.JavaScriptJob;
+import org.htmlunit.javascript.background.JavaScriptJobManager;
+import org.htmlunit.javascript.host.Window;
+import org.htmlunit.util.WebClientUtils;
+import org.htmlunit.xml.XmlPage;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.IControlFinder;
 import org.wetator.backend.control.IControl;
@@ -76,33 +102,6 @@ import org.wetator.util.Assert;
 import org.wetator.util.ContentUtil;
 import org.wetator.util.NormalizedString;
 import org.wetator.util.SecretString;
-
-import com.gargoylesoftware.htmlunit.BrowserVersion;
-import com.gargoylesoftware.htmlunit.DefaultCredentialsProvider;
-import com.gargoylesoftware.htmlunit.DialogWindow;
-import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
-import com.gargoylesoftware.htmlunit.History;
-import com.gargoylesoftware.htmlunit.Page;
-import com.gargoylesoftware.htmlunit.ScriptException;
-import com.gargoylesoftware.htmlunit.TextPage;
-import com.gargoylesoftware.htmlunit.TopLevelWindow;
-import com.gargoylesoftware.htmlunit.WaitingRefreshHandler;
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.WebResponse;
-import com.gargoylesoftware.htmlunit.WebWindow;
-import com.gargoylesoftware.htmlunit.WebWindowEvent;
-import com.gargoylesoftware.htmlunit.html.DomElement;
-import com.gargoylesoftware.htmlunit.html.FrameWindow;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.javascript.DebuggerImpl;
-import com.gargoylesoftware.htmlunit.javascript.HtmlUnitContextFactory;
-import com.gargoylesoftware.htmlunit.javascript.JavaScriptEngine;
-import com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJob;
-import com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJobManager;
-import com.gargoylesoftware.htmlunit.javascript.host.Window;
-import com.gargoylesoftware.htmlunit.util.WebClientUtils;
-import com.gargoylesoftware.htmlunit.xml.XmlPage;
 
 import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
@@ -311,6 +310,8 @@ public final class HtmlUnitBrowser implements IBrowser {
     webClient.getOptions().setThrowExceptionOnScriptError(false);
     webClient.setJavaScriptErrorListener(new JavaScriptErrorListener(this));
 
+    webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
+
     final Set<SearchPattern> tmpFilters = tmpConfiguration.getJsJobFilterPatterns();
     if (tmpFilters.isEmpty()) {
       jobFilter = null;
@@ -416,7 +417,7 @@ public final class HtmlUnitBrowser implements IBrowser {
   /**
    * Our own alert handler.
    */
-  public static final class AlertHandler implements com.gargoylesoftware.htmlunit.AlertHandler {
+  public static final class AlertHandler implements org.htmlunit.AlertHandler {
 
     private WetatorEngine wetatorEngine;
 
@@ -452,7 +453,7 @@ public final class HtmlUnitBrowser implements IBrowser {
   /**
    * Our own alert handler.
    */
-  public static final class AttachmentHandler implements com.gargoylesoftware.htmlunit.attachment.AttachmentHandler {
+  public static final class AttachmentHandler implements org.htmlunit.attachment.AttachmentHandler {
 
     @Override
     public void handleAttachment(final Page aPage) {
@@ -466,7 +467,7 @@ public final class HtmlUnitBrowser implements IBrowser {
   /**
    * Our own confirm handler.
    */
-  public static final class ConfirmHandler implements com.gargoylesoftware.htmlunit.ConfirmHandler {
+  public static final class ConfirmHandler implements org.htmlunit.ConfirmHandler {
 
     private WetatorEngine wetatorEngine;
     private ContentPattern message;
@@ -546,7 +547,7 @@ public final class HtmlUnitBrowser implements IBrowser {
   /**
    * Our own WebConsole logger.
    */
-  public static class WebConsoleLogger implements com.gargoylesoftware.htmlunit.WebConsole.Logger {
+  public static class WebConsoleLogger implements org.htmlunit.WebConsole.Logger {
     private WetatorEngine wetatorEngine;
 
     /**
@@ -632,7 +633,7 @@ public final class HtmlUnitBrowser implements IBrowser {
   /**
    * Our own IncorrectnessListener.
    */
-  public static class IncorrectnessListener implements com.gargoylesoftware.htmlunit.IncorrectnessListener {
+  public static class IncorrectnessListener implements org.htmlunit.IncorrectnessListener {
     private WetatorEngine wetatorEngine;
 
     /**
@@ -842,7 +843,7 @@ public final class HtmlUnitBrowser implements IBrowser {
   /**
    * Our own listener for window content changes.
    */
-  public static final class WebWindowListener implements com.gargoylesoftware.htmlunit.WebWindowListener {
+  public static final class WebWindowListener implements org.htmlunit.WebWindowListener {
     private HtmlUnitBrowser htmlUnitBrowser;
 
     /**
@@ -887,7 +888,7 @@ public final class HtmlUnitBrowser implements IBrowser {
    * Ignore some jobs (like heartbeat).
    */
   public static final class JavaScriptJobFilter
-      implements com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJobManager.JavaScriptJobFilter {
+      implements org.htmlunit.javascript.background.JavaScriptJobManager.JavaScriptJobFilter {
 
     @SuppressWarnings("hiding")
     private static final Logger LOG = LogManager.getLogger(JavaScriptJobFilter.class);

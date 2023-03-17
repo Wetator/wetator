@@ -33,9 +33,9 @@ import org.wetator.backend.htmlunit.matcher.ByTableCoordinatesMatcher;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.FindSpot;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlLabel;
-import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
+import org.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlLabel;
+import org.htmlunit.html.HtmlTextInput;
 
 /**
  * The identifier for a {@link HtmlUnitInputText}.<br>

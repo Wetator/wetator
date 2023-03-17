@@ -41,15 +41,15 @@ import org.apache.logging.log4j.Logger;
 import org.wetator.backend.htmlunit.util.ContentTypeUtil;
 import org.wetator.exception.ResourceException;
 
-import com.gargoylesoftware.htmlunit.FailingHttpStatusCodeException;
-import com.gargoylesoftware.htmlunit.Page;
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.WebRequest;
-import com.gargoylesoftware.htmlunit.WebResponse;
-import com.gargoylesoftware.htmlunit.html.HtmlImage;
-import com.gargoylesoftware.htmlunit.html.HtmlLink;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.util.UrlUtils;
+import org.htmlunit.FailingHttpStatusCodeException;
+import org.htmlunit.Page;
+import org.htmlunit.WebClient;
+import org.htmlunit.WebRequest;
+import org.htmlunit.WebResponse;
+import org.htmlunit.html.HtmlImage;
+import org.htmlunit.html.HtmlLink;
+import org.htmlunit.html.HtmlPage;
+import org.htmlunit.util.UrlUtils;
 
 /**
  * Simple store that manages the storage of the different responses.

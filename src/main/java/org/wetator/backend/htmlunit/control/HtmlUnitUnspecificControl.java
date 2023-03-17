@@ -21,12 +21,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
 
-import com.gargoylesoftware.htmlunit.html.HtmlBody;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlHiddenInput;
-import com.gargoylesoftware.htmlunit.html.HtmlLabel;
-import com.gargoylesoftware.htmlunit.html.HtmlParagraph;
-import com.gargoylesoftware.htmlunit.html.HtmlSpan;
+import org.htmlunit.html.HtmlBody;
+import org.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlHiddenInput;
+import org.htmlunit.html.HtmlLabel;
+import org.htmlunit.html.HtmlParagraph;
+import org.htmlunit.html.HtmlSpan;
 
 /**
  * This is the implementation of a {@link HtmlUnitBaseControl} for so far not supported elements.

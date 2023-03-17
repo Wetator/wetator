@@ -75,8 +75,8 @@ public final class Wetator {
     }
 
     LOG.info(Version.getFullProductName());
-    LOG.info("    " + com.gargoylesoftware.htmlunit.Version.getProductName() + " "
-        + com.gargoylesoftware.htmlunit.Version.getProductVersion());
+    LOG.info("    " + org.htmlunit.Version.getProductName() + " "
+        + org.htmlunit.Version.getProductVersion());
     if (null != tmpDebugLogFile) {
       LOG.info("    Debug log file: " + FilenameUtils.normalize(tmpDebugLogFile.getAbsolutePath()));
     }

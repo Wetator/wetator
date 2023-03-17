@@ -37,93 +37,93 @@ import org.wetator.backend.htmlunit.util.HtmlElementUtil;
 import org.wetator.util.Output;
 import org.wetator.util.XMLUtil;
 
-import com.gargoylesoftware.htmlunit.Page;
-import com.gargoylesoftware.htmlunit.WebWindow;
-import com.gargoylesoftware.htmlunit.html.BaseFrameElement;
-import com.gargoylesoftware.htmlunit.html.DomAttr;
-import com.gargoylesoftware.htmlunit.html.DomComment;
-import com.gargoylesoftware.htmlunit.html.DomDocumentType;
-import com.gargoylesoftware.htmlunit.html.DomElement;
-import com.gargoylesoftware.htmlunit.html.DomNamespaceNode;
-import com.gargoylesoftware.htmlunit.html.DomNode;
-import com.gargoylesoftware.htmlunit.html.DomText;
-import com.gargoylesoftware.htmlunit.html.HtmlAbbreviated;
-import com.gargoylesoftware.htmlunit.html.HtmlAcronym;
-import com.gargoylesoftware.htmlunit.html.HtmlArea;
-import com.gargoylesoftware.htmlunit.html.HtmlBase;
-import com.gargoylesoftware.htmlunit.html.HtmlBig;
-import com.gargoylesoftware.htmlunit.html.HtmlBody;
-import com.gargoylesoftware.htmlunit.html.HtmlBold;
-import com.gargoylesoftware.htmlunit.html.HtmlBreak;
-import com.gargoylesoftware.htmlunit.html.HtmlButtonInput;
-import com.gargoylesoftware.htmlunit.html.HtmlCanvas;
-import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
-import com.gargoylesoftware.htmlunit.html.HtmlCitation;
-import com.gargoylesoftware.htmlunit.html.HtmlCode;
-import com.gargoylesoftware.htmlunit.html.HtmlDefinition;
-import com.gargoylesoftware.htmlunit.html.HtmlDeletedText;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlElement.DisplayStyle;
-import com.gargoylesoftware.htmlunit.html.HtmlEmbed;
-import com.gargoylesoftware.htmlunit.html.HtmlEmphasis;
-import com.gargoylesoftware.htmlunit.html.HtmlFileInput;
-import com.gargoylesoftware.htmlunit.html.HtmlFont;
-import com.gargoylesoftware.htmlunit.html.HtmlForm;
-import com.gargoylesoftware.htmlunit.html.HtmlFrame;
-import com.gargoylesoftware.htmlunit.html.HtmlHead;
-import com.gargoylesoftware.htmlunit.html.HtmlHeading1;
-import com.gargoylesoftware.htmlunit.html.HtmlHeading2;
-import com.gargoylesoftware.htmlunit.html.HtmlHeading3;
-import com.gargoylesoftware.htmlunit.html.HtmlHeading4;
-import com.gargoylesoftware.htmlunit.html.HtmlHeading5;
-import com.gargoylesoftware.htmlunit.html.HtmlHeading6;
-import com.gargoylesoftware.htmlunit.html.HtmlHiddenInput;
-import com.gargoylesoftware.htmlunit.html.HtmlHorizontalRule;
-import com.gargoylesoftware.htmlunit.html.HtmlHtml;
-import com.gargoylesoftware.htmlunit.html.HtmlImage;
-import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
-import com.gargoylesoftware.htmlunit.html.HtmlInlineQuotation;
-import com.gargoylesoftware.htmlunit.html.HtmlInput;
-import com.gargoylesoftware.htmlunit.html.HtmlInsertedText;
-import com.gargoylesoftware.htmlunit.html.HtmlItalic;
-import com.gargoylesoftware.htmlunit.html.HtmlKeyboard;
-import com.gargoylesoftware.htmlunit.html.HtmlLink;
-import com.gargoylesoftware.htmlunit.html.HtmlMeta;
-import com.gargoylesoftware.htmlunit.html.HtmlOption;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlParagraph;
-import com.gargoylesoftware.htmlunit.html.HtmlParameter;
-import com.gargoylesoftware.htmlunit.html.HtmlPasswordInput;
-import com.gargoylesoftware.htmlunit.html.HtmlPreformattedText;
-import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
-import com.gargoylesoftware.htmlunit.html.HtmlSample;
-import com.gargoylesoftware.htmlunit.html.HtmlScript;
-import com.gargoylesoftware.htmlunit.html.HtmlSmall;
-import com.gargoylesoftware.htmlunit.html.HtmlStrong;
-import com.gargoylesoftware.htmlunit.html.HtmlStyle;
-import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
-import com.gargoylesoftware.htmlunit.html.HtmlSubscript;
-import com.gargoylesoftware.htmlunit.html.HtmlSuperscript;
-import com.gargoylesoftware.htmlunit.html.HtmlTable;
-import com.gargoylesoftware.htmlunit.html.HtmlTableDataCell;
-import com.gargoylesoftware.htmlunit.html.HtmlTableHeader;
-import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
-import com.gargoylesoftware.htmlunit.html.HtmlTeletype;
-import com.gargoylesoftware.htmlunit.html.HtmlTextArea;
-import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
-import com.gargoylesoftware.htmlunit.html.HtmlTitle;
-import com.gargoylesoftware.htmlunit.html.HtmlUnknownElement;
-import com.gargoylesoftware.htmlunit.html.HtmlVariable;
-import com.gargoylesoftware.htmlunit.javascript.host.Element;
-import com.gargoylesoftware.htmlunit.javascript.host.css.CSSStyleDeclaration;
-import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLCanvasElement;
-import com.gargoylesoftware.htmlunit.svg.SvgCircle;
-import com.gargoylesoftware.htmlunit.svg.SvgEllipse;
-import com.gargoylesoftware.htmlunit.svg.SvgLine;
-import com.gargoylesoftware.htmlunit.svg.SvgPath;
-import com.gargoylesoftware.htmlunit.svg.SvgPolygon;
-import com.gargoylesoftware.htmlunit.svg.SvgPolyline;
-import com.gargoylesoftware.htmlunit.svg.SvgRect;
+import org.htmlunit.Page;
+import org.htmlunit.WebWindow;
+import org.htmlunit.html.BaseFrameElement;
+import org.htmlunit.html.DomAttr;
+import org.htmlunit.html.DomComment;
+import org.htmlunit.html.DomDocumentType;
+import org.htmlunit.html.DomElement;
+import org.htmlunit.html.DomNamespaceNode;
+import org.htmlunit.html.DomNode;
+import org.htmlunit.html.DomText;
+import org.htmlunit.html.HtmlAbbreviated;
+import org.htmlunit.html.HtmlAcronym;
+import org.htmlunit.html.HtmlArea;
+import org.htmlunit.html.HtmlBase;
+import org.htmlunit.html.HtmlBig;
+import org.htmlunit.html.HtmlBody;
+import org.htmlunit.html.HtmlBold;
+import org.htmlunit.html.HtmlBreak;
+import org.htmlunit.html.HtmlButtonInput;
+import org.htmlunit.html.HtmlCanvas;
+import org.htmlunit.html.HtmlCheckBoxInput;
+import org.htmlunit.html.HtmlCitation;
+import org.htmlunit.html.HtmlCode;
+import org.htmlunit.html.HtmlDefinition;
+import org.htmlunit.html.HtmlDeletedText;
+import org.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlElement.DisplayStyle;
+import org.htmlunit.html.HtmlEmbed;
+import org.htmlunit.html.HtmlEmphasis;
+import org.htmlunit.html.HtmlFileInput;
+import org.htmlunit.html.HtmlFont;
+import org.htmlunit.html.HtmlForm;
+import org.htmlunit.html.HtmlFrame;
+import org.htmlunit.html.HtmlHead;
+import org.htmlunit.html.HtmlHeading1;
+import org.htmlunit.html.HtmlHeading2;
+import org.htmlunit.html.HtmlHeading3;
+import org.htmlunit.html.HtmlHeading4;
+import org.htmlunit.html.HtmlHeading5;
+import org.htmlunit.html.HtmlHeading6;
+import org.htmlunit.html.HtmlHiddenInput;
+import org.htmlunit.html.HtmlHorizontalRule;
+import org.htmlunit.html.HtmlHtml;
+import org.htmlunit.html.HtmlImage;
+import org.htmlunit.html.HtmlImageInput;
+import org.htmlunit.html.HtmlInlineQuotation;
+import org.htmlunit.html.HtmlInput;
+import org.htmlunit.html.HtmlInsertedText;
+import org.htmlunit.html.HtmlItalic;
+import org.htmlunit.html.HtmlKeyboard;
+import org.htmlunit.html.HtmlLink;
+import org.htmlunit.html.HtmlMeta;
+import org.htmlunit.html.HtmlOption;
+import org.htmlunit.html.HtmlPage;
+import org.htmlunit.html.HtmlParagraph;
+import org.htmlunit.html.HtmlParameter;
+import org.htmlunit.html.HtmlPasswordInput;
+import org.htmlunit.html.HtmlPreformattedText;
+import org.htmlunit.html.HtmlRadioButtonInput;
+import org.htmlunit.html.HtmlSample;
+import org.htmlunit.html.HtmlScript;
+import org.htmlunit.html.HtmlSmall;
+import org.htmlunit.html.HtmlStrong;
+import org.htmlunit.html.HtmlStyle;
+import org.htmlunit.html.HtmlSubmitInput;
+import org.htmlunit.html.HtmlSubscript;
+import org.htmlunit.html.HtmlSuperscript;
+import org.htmlunit.html.HtmlTable;
+import org.htmlunit.html.HtmlTableDataCell;
+import org.htmlunit.html.HtmlTableHeader;
+import org.htmlunit.html.HtmlTableRow;
+import org.htmlunit.html.HtmlTeletype;
+import org.htmlunit.html.HtmlTextArea;
+import org.htmlunit.html.HtmlTextInput;
+import org.htmlunit.html.HtmlTitle;
+import org.htmlunit.html.HtmlUnknownElement;
+import org.htmlunit.html.HtmlVariable;
+import org.htmlunit.javascript.host.Element;
+import org.htmlunit.javascript.host.css.CSSStyleDeclaration;
+import org.htmlunit.javascript.host.html.HTMLCanvasElement;
+import org.htmlunit.svg.SvgCircle;
+import org.htmlunit.svg.SvgEllipse;
+import org.htmlunit.svg.SvgLine;
+import org.htmlunit.svg.SvgPath;
+import org.htmlunit.svg.SvgPolygon;
+import org.htmlunit.svg.SvgPolyline;
+import org.htmlunit.svg.SvgRect;
 
 /**
  * Helper methods to write the HtmlUnit page as XHtml to a file.
@@ -478,6 +478,14 @@ public final class XHtmlOutputter {
       // fixed order for readability and testability
       final List<String> tmpSortedAttributeNames = tmpAttributes.keySet().stream().map(k -> k.toLowerCase(Locale.ROOT))
           .sorted().collect(Collectors.toList());
+
+      if (tmpDomElement instanceof HtmlInput) {
+        tmpSortedAttributeNames.remove("value");
+        tmpSortedAttributeNames.add(0, "value");
+        if (tmpSortedAttributeNames.remove("type")) {
+          tmpSortedAttributeNames.add(0, "type");
+        }
+      }
       if (tmpSortedAttributeNames.remove("name")) {
         tmpSortedAttributeNames.add(0, "name");
       }
@@ -496,7 +504,13 @@ public final class XHtmlOutputter {
             continue;
           }
 
-          String tmpAttributeValue = tmpAttribute.getNodeValue();
+          String tmpAttributeValue;
+          if (tmpDomElement instanceof HtmlInput && "value".equals(tmpAttributeName)) {
+            tmpAttributeValue = ((HtmlInput) tmpDomElement).getValue();
+          } else {
+            tmpAttributeValue = tmpAttribute.getNodeValue();
+          }
+
           // no output of javascript actions
           if (StringUtils.startsWithIgnoreCase(tmpAttributeValue, "javascript:")) {
             continue;
@@ -586,7 +600,7 @@ public final class XHtmlOutputter {
           }
 
           // Don't print if value="Submit Query"
-          // see com.gargoylesoftware.htmlunit.html.HtmlSubmitInput
+          // see org.htmlunit.html.HtmlSubmitInput
           if (tmpDomElement instanceof HtmlSubmitInput && "value".equals(tmpAttributeName)
               && "Submit Query".equals(tmpAttributeValue)) {
             continue;

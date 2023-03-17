@@ -29,9 +29,9 @@ import org.wetator.exception.ActionException;
 import org.wetator.exception.BackendException;
 import org.wetator.i18n.Messages;
 
-import com.gargoylesoftware.htmlunit.ScriptException;
-import com.gargoylesoftware.htmlunit.html.HtmlLabel;
-import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
+import org.htmlunit.ScriptException;
+import org.htmlunit.html.HtmlLabel;
+import org.htmlunit.html.HtmlRadioButtonInput;
 
 import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 

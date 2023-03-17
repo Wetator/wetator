@@ -31,7 +31,7 @@ import org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlId
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
 import org.wetator.exception.ImplementationException;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlElement;
 
 /**
  * This finder uses {@link AbstractHtmlUnitControlIdentifier}s to identify if a {@link HtmlElement} matches a given

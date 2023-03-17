@@ -16,7 +16,7 @@
 
 package org.wetator.backend.htmlunit.util;
 
-import com.gargoylesoftware.htmlunit.ScriptException;
+import org.htmlunit.ScriptException;
 
 import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 

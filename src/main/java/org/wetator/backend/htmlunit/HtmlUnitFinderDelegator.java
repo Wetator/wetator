@@ -23,6 +23,7 @@ import java.util.concurrent.ThreadFactory;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+import org.htmlunit.html.HtmlPage;
 import org.wetator.backend.ControlFeature;
 import org.wetator.backend.IControlFinder;
 import org.wetator.backend.WPath;
@@ -32,8 +33,6 @@ import org.wetator.backend.htmlunit.finder.IdentifierBasedHtmlUnitControlsFinder
 import org.wetator.backend.htmlunit.finder.MouseActionListeningHtmlUnitControlsFinder;
 import org.wetator.backend.htmlunit.finder.SettableHtmlUnitControlsFinder;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
-
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 /**
  * This is the HtmlUnit specific implementation of a {@link IControlFinder}. All requests for

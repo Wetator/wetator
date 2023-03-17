@@ -21,7 +21,7 @@ import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitImageIdentifier;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
 
-import com.gargoylesoftware.htmlunit.html.HtmlImage;
+import org.htmlunit.html.HtmlImage;
 
 /**
  * This is the implementation of the HTML element 'image' (&lt;img&gt;) using HtmlUnit as backend.

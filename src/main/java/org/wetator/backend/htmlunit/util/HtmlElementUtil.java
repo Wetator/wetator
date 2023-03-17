@@ -18,38 +18,38 @@ package org.wetator.backend.htmlunit.util;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.gargoylesoftware.htmlunit.Page;
-import com.gargoylesoftware.htmlunit.html.DomNode;
-import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
-import com.gargoylesoftware.htmlunit.html.HtmlBody;
-import com.gargoylesoftware.htmlunit.html.HtmlButton;
-import com.gargoylesoftware.htmlunit.html.HtmlButtonInput;
-import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
-import com.gargoylesoftware.htmlunit.html.HtmlEmailInput;
-import com.gargoylesoftware.htmlunit.html.HtmlFileInput;
-import com.gargoylesoftware.htmlunit.html.HtmlHiddenInput;
-import com.gargoylesoftware.htmlunit.html.HtmlImage;
-import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
-import com.gargoylesoftware.htmlunit.html.HtmlLabel;
-import com.gargoylesoftware.htmlunit.html.HtmlNumberInput;
-import com.gargoylesoftware.htmlunit.html.HtmlOption;
-import com.gargoylesoftware.htmlunit.html.HtmlOptionGroup;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlParagraph;
-import com.gargoylesoftware.htmlunit.html.HtmlPasswordInput;
-import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
-import com.gargoylesoftware.htmlunit.html.HtmlResetInput;
-import com.gargoylesoftware.htmlunit.html.HtmlSelect;
-import com.gargoylesoftware.htmlunit.html.HtmlSpan;
-import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
-import com.gargoylesoftware.htmlunit.html.HtmlTelInput;
-import com.gargoylesoftware.htmlunit.html.HtmlTextArea;
-import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
-import com.gargoylesoftware.htmlunit.html.HtmlUrlInput;
-import com.gargoylesoftware.htmlunit.javascript.host.css.CSSStyleDeclaration;
-import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLElement;
-import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLLinkElement;
-import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLOptionElement;
+import org.htmlunit.Page;
+import org.htmlunit.html.DomNode;
+import org.htmlunit.html.HtmlAnchor;
+import org.htmlunit.html.HtmlBody;
+import org.htmlunit.html.HtmlButton;
+import org.htmlunit.html.HtmlButtonInput;
+import org.htmlunit.html.HtmlCheckBoxInput;
+import org.htmlunit.html.HtmlEmailInput;
+import org.htmlunit.html.HtmlFileInput;
+import org.htmlunit.html.HtmlHiddenInput;
+import org.htmlunit.html.HtmlImage;
+import org.htmlunit.html.HtmlImageInput;
+import org.htmlunit.html.HtmlLabel;
+import org.htmlunit.html.HtmlNumberInput;
+import org.htmlunit.html.HtmlOption;
+import org.htmlunit.html.HtmlOptionGroup;
+import org.htmlunit.html.HtmlPage;
+import org.htmlunit.html.HtmlParagraph;
+import org.htmlunit.html.HtmlPasswordInput;
+import org.htmlunit.html.HtmlRadioButtonInput;
+import org.htmlunit.html.HtmlResetInput;
+import org.htmlunit.html.HtmlSelect;
+import org.htmlunit.html.HtmlSpan;
+import org.htmlunit.html.HtmlSubmitInput;
+import org.htmlunit.html.HtmlTelInput;
+import org.htmlunit.html.HtmlTextArea;
+import org.htmlunit.html.HtmlTextInput;
+import org.htmlunit.html.HtmlUrlInput;
+import org.htmlunit.javascript.host.css.CSSStyleDeclaration;
+import org.htmlunit.javascript.host.html.HTMLElement;
+import org.htmlunit.javascript.host.html.HTMLLinkElement;
+import org.htmlunit.javascript.host.html.HTMLOptionElement;
 
 import net.sourceforge.htmlunit.corejs.javascript.ScriptableObject;
 
@@ -133,7 +133,7 @@ public final class HtmlElementUtil {
   public static String getDescribingTextForHtmlButtonInput(final HtmlButtonInput anHtmlButtonInput) {
     // @formatter:off
     return DescribingTextBuilder.createCustom(anHtmlButtonInput)
-        .addText(anHtmlButtonInput.getValueAttribute())
+        .addText(anHtmlButtonInput.getValue())
         .addId().addName()
         .build();
     // @formatter:on
@@ -193,7 +193,7 @@ public final class HtmlElementUtil {
   public static String getDescribingTextForHtmlImageInput(final HtmlImageInput anHtmlImageInput) {
     // @formatter:off
     return DescribingTextBuilder.createCustom(anHtmlImageInput)
-        .addText(anHtmlImageInput.getValueAttribute())
+        .addText(anHtmlImageInput.getValue())
         .addAttribute("src", anHtmlImageInput.getSrcAttribute())
         .addId().addName()
         .build();
@@ -260,7 +260,7 @@ public final class HtmlElementUtil {
   public static String getDescribingTextForHtmlRadioButtonInput(final HtmlRadioButtonInput anHtmlRadioButtonInput) {
     // @formatter:off
     return DescribingTextBuilder.createCustom(anHtmlRadioButtonInput)
-        .addText(anHtmlRadioButtonInput.getValueAttribute())
+        .addText(anHtmlRadioButtonInput.getValue())
         .addId().addName()
         .build();
     // @formatter:on
@@ -275,7 +275,7 @@ public final class HtmlElementUtil {
   public static String getDescribingTextForHtmlResetInput(final HtmlResetInput anHtmlResetInput) {
     // @formatter:off
     return DescribingTextBuilder.createCustom(anHtmlResetInput)
-        .addText(anHtmlResetInput.getValueAttribute())
+        .addText(anHtmlResetInput.getValue())
         .addId().addName()
         .build();
     // @formatter:on
@@ -315,7 +315,7 @@ public final class HtmlElementUtil {
   public static String getDescribingTextForHtmlSubmitInput(final HtmlSubmitInput anHtmlSubmitInput) {
     // @formatter:off
     return DescribingTextBuilder.createCustom(anHtmlSubmitInput)
-        .addText(anHtmlSubmitInput.getValueAttribute())
+        .addText(anHtmlSubmitInput.getValue())
         .addId().addName()
         .build();
     // @formatter:on

@@ -22,7 +22,7 @@ import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitAnchorIdentifier;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
 
-import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
+import org.htmlunit.html.HtmlAnchor;
 
 /**
  * This is the implementation of the HTML element 'anchor' (&lt;a&gt;) using HtmlUnit as backend.

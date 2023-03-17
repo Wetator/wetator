@@ -33,8 +33,8 @@ import org.wetator.backend.htmlunit.matcher.ByTitleAttributeMatcher;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.FindSpot;
 
-import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlAnchor;
+import org.htmlunit.html.HtmlElement;
 
 /**
  * The identifier for a {@link HtmlUnitAnchor}.<br>

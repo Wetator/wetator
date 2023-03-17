@@ -30,8 +30,8 @@ import org.wetator.backend.htmlunit.matcher.ByValueAttributeMatcher;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.FindSpot;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlResetInput;
+import org.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlResetInput;
 
 /**
  * The identifier for a {@link HtmlUnitInputReset}.<br>

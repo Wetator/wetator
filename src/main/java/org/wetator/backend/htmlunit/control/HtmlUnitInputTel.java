@@ -33,12 +33,12 @@ import org.wetator.i18n.Messages;
 import org.wetator.util.Assert;
 import org.wetator.util.SecretString;
 
-import com.gargoylesoftware.htmlunit.ScriptException;
-import com.gargoylesoftware.htmlunit.html.DomElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlTelInput;
-import com.gargoylesoftware.htmlunit.html.Keyboard;
-import com.gargoylesoftware.htmlunit.javascript.host.event.KeyboardEvent;
+import org.htmlunit.ScriptException;
+import org.htmlunit.html.DomElement;
+import org.htmlunit.html.HtmlPage;
+import org.htmlunit.html.HtmlTelInput;
+import org.htmlunit.html.Keyboard;
+import org.htmlunit.javascript.host.event.KeyboardEvent;
 
 import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
@@ -171,7 +171,7 @@ public class HtmlUnitInputTel extends HtmlUnitBaseControl<HtmlTelInput>
   @Override
   public void assertValue(final WetatorContext aWetatorContext, final SecretString anExpectedValue)
       throws AssertionException {
-    Assert.assertEquals(anExpectedValue, getHtmlElement().getValueAttribute(), "expectedValueNotFound");
+    Assert.assertEquals(anExpectedValue, getHtmlElement().getValue(), "expectedValueNotFound");
   }
 
   @Override

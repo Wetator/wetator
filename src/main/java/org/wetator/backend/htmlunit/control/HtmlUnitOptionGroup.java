@@ -22,8 +22,8 @@ import org.wetator.backend.htmlunit.control.identifier.HtmlUnitOptionGroupIdenti
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
 import org.wetator.core.WetatorContext;
 
-import com.gargoylesoftware.htmlunit.html.HtmlOptionGroup;
-import com.gargoylesoftware.htmlunit.html.HtmlSelect;
+import org.htmlunit.html.HtmlOptionGroup;
+import org.htmlunit.html.HtmlSelect;
 
 /**
  * This is the implementation of the HTML element 'option group' (&lt;optgroup&gt;) using HtmlUnit as backend.

@@ -19,8 +19,8 @@ package org.wetator.backend.htmlunit.control;
 import org.wetator.backend.control.IDisableable;
 import org.wetator.core.WetatorContext;
 
-import com.gargoylesoftware.htmlunit.html.DisabledElement;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import org.htmlunit.html.DisabledElement;
+import org.htmlunit.html.HtmlElement;
 
 /**
  * This interface marks a {@link IDisableable} {@link IHtmlUnitControl}.<br>

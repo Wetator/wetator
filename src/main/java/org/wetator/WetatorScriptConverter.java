@@ -62,8 +62,8 @@ public final class WetatorScriptConverter {
    */
   public static void main(final String[] anArgsArray) {
     System.out.println(Version.getFullProductName()); // NOPMD
-    System.out.println("    " + com.gargoylesoftware.htmlunit.Version.getProductName() + " " // NOPMD
-        + com.gargoylesoftware.htmlunit.Version.getProductVersion());
+    System.out.println("    " + org.htmlunit.Version.getProductName() + " " // NOPMD
+        + org.htmlunit.Version.getProductVersion());
 
     if (null == anArgsArray || anArgsArray.length < 3) {
       System.err.println("Parameters: <scripter> <script creator> <outputDir> (<dtd type> <dtd>)"); // NOPMD

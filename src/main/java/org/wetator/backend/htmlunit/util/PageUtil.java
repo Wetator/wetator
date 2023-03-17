@@ -19,13 +19,13 @@ package org.wetator.backend.htmlunit.util;
 import java.io.IOException;
 import java.net.URL;
 
-import com.gargoylesoftware.htmlunit.BrowserVersion;
-import com.gargoylesoftware.htmlunit.StringWebResponse;
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.WebWindow;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.XHtmlPage;
-import com.gargoylesoftware.htmlunit.html.parser.HTMLParser;
+import org.htmlunit.BrowserVersion;
+import org.htmlunit.StringWebResponse;
+import org.htmlunit.WebClient;
+import org.htmlunit.WebWindow;
+import org.htmlunit.html.HtmlPage;
+import org.htmlunit.html.XHtmlPage;
+import org.htmlunit.html.parser.HTMLParser;
 
 /**
  * Util class for page handling.

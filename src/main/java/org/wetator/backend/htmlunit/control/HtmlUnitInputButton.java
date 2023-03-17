@@ -22,7 +22,7 @@ import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputButtonIdentifier;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
 
-import com.gargoylesoftware.htmlunit.html.HtmlButtonInput;
+import org.htmlunit.html.HtmlButtonInput;
 
 /**
  * This is the implementation of the HTML element 'input button' (&lt;input type="button"&gt;) using HtmlUnit as

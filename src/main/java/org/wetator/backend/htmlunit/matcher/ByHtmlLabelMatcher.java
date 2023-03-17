@@ -25,8 +25,8 @@ import org.wetator.backend.htmlunit.util.HtmlPageIndex;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.FindSpot;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlLabel;
+import org.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlLabel;
 
 /**
  * This matcher checks if the given {@link HtmlLabel} matches the criteria and labels the needed type of element.

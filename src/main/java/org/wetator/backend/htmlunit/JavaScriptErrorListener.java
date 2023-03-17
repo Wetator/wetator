@@ -19,8 +19,8 @@ package org.wetator.backend.htmlunit;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import com.gargoylesoftware.htmlunit.ScriptException;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import org.htmlunit.ScriptException;
+import org.htmlunit.html.HtmlPage;
 
 /**
  * Our own listener. We like to inform about javascript errors without
@@ -29,7 +29,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
  * @author rbri
  * @author frank.danek
  */
-public final class JavaScriptErrorListener implements com.gargoylesoftware.htmlunit.javascript.JavaScriptErrorListener {
+public final class JavaScriptErrorListener implements org.htmlunit.javascript.JavaScriptErrorListener {
   private HtmlUnitBrowser htmlUnitBrowser;
 
   /**

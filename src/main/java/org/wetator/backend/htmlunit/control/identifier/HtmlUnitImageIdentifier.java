@@ -34,8 +34,8 @@ import org.wetator.backend.htmlunit.matcher.ByTitleAttributeMatcher;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.FindSpot;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlImage;
+import org.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlImage;
 
 /**
  * The identifier for a {@link HtmlUnitImage}.<br>

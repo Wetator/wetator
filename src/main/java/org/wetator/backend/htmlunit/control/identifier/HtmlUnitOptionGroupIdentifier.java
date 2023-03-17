@@ -28,8 +28,8 @@ import org.wetator.backend.htmlunit.matcher.ByLabelAttributeMatcher;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.FindSpot;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlOptionGroup;
+import org.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlOptionGroup;
 
 /**
  * The identifier for a {@link HtmlUnitOptionGroup}.<br>

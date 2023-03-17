@@ -18,7 +18,7 @@ package org.wetator.backend.htmlunit.control;
 
 import org.wetator.backend.control.IControl;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlElement;
 
 /**
  * The common interface for a control using HtmlUnit as backend.

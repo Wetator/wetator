@@ -25,8 +25,8 @@ import org.wetator.backend.htmlunit.util.HtmlPageIndex;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.FindSpot;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlImage;
+import org.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlImage;
 
 /**
  * This matcher checks if the given element contains an {@link HtmlImage} and this

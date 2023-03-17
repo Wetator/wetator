@@ -22,7 +22,7 @@ import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputResetIdentifier;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
 
-import com.gargoylesoftware.htmlunit.html.HtmlResetInput;
+import org.htmlunit.html.HtmlResetInput;
 
 /**
  * This is the implementation of the HTML element 'input reset' (&lt;input type="reset"&gt;) using HtmlUnit as

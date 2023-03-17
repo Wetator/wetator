@@ -58,8 +58,8 @@ public final class Log4jUtil {
 
     tmpConfig.getRootLogger().addAppender(tmpFileAppender, null, null);
 
-    for (final String tmpLog : new String[] { "org.wetator", "com.gargoylesoftware.htmlunit.javascript.DebugFrameImpl",
-        "com.gargoylesoftware.htmlunit.javascript.JavaScriptEngine", "org.apache.http.wire" }) {
+    for (final String tmpLog : new String[] { "org.wetator", "org.htmlunit.javascript.DebugFrameImpl",
+        "org.htmlunit.javascript.JavaScriptEngine", "org.apache.http.wire" }) {
       tmpConfig.getLoggerConfig(tmpLog).setLevel(Level.TRACE);
     }
     tmpContext.updateLoggers();

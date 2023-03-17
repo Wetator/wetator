@@ -30,12 +30,12 @@ import org.wetator.exception.ActionException;
 import org.wetator.exception.BackendException;
 import org.wetator.i18n.Messages;
 
-import com.gargoylesoftware.htmlunit.ScriptException;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlOption;
-import com.gargoylesoftware.htmlunit.html.HtmlOptionGroup;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlSelect;
+import org.htmlunit.ScriptException;
+import org.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlOption;
+import org.htmlunit.html.HtmlOptionGroup;
+import org.htmlunit.html.HtmlPage;
+import org.htmlunit.html.HtmlSelect;
 
 import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 

@@ -40,10 +40,10 @@ import org.wetator.util.Assert;
 import org.wetator.util.SecretString;
 import org.wetator.util.StringUtil;
 
-import com.gargoylesoftware.htmlunit.ScriptException;
-import com.gargoylesoftware.htmlunit.html.DomElement;
-import com.gargoylesoftware.htmlunit.html.HtmlFileInput;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import org.htmlunit.ScriptException;
+import org.htmlunit.html.DomElement;
+import org.htmlunit.html.HtmlFileInput;
+import org.htmlunit.html.HtmlPage;
 
 import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
@@ -136,7 +136,7 @@ public class HtmlUnitInputFile extends HtmlUnitBaseControl<HtmlFileInput>
       final String tmpValue = aValue.getValue();
 
       if (StringUtils.isBlank(tmpValue)) {
-        tmpHtmlFileInput.setValueAttribute("");
+        tmpHtmlFileInput.setValue("");
       } else {
         final List<String> tmpFilenames = StringUtil.extractStrings(tmpValue, ",", '\\');
         final List<File> tmpFiles = new ArrayList<>();

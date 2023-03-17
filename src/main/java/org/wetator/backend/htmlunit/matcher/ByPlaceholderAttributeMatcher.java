@@ -22,9 +22,9 @@ import org.wetator.backend.htmlunit.util.HtmlPageIndex;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.FindSpot;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlInput;
-import com.gargoylesoftware.htmlunit.html.HtmlTextArea;
+import org.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlInput;
+import org.htmlunit.html.HtmlTextArea;
 
 /**
  * This matcher checks if the attribute 'placeholder' of the given element matches the criteria.
@@ -52,7 +52,7 @@ public class ByPlaceholderAttributeMatcher extends AbstractByAttributeMatcher {
   @Override
   protected String getAttributeValue(final HtmlElement anHtmlElement) {
     if (anHtmlElement instanceof HtmlInput) {
-      final String tmpValue = ((HtmlInput) anHtmlElement).getValueAttribute();
+      final String tmpValue = ((HtmlInput) anHtmlElement).getValue();
       if (StringUtils.isEmpty(tmpValue)) {
         return anHtmlElement.getAttribute("placeholder");
       }

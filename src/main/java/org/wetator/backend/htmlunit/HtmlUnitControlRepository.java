@@ -24,6 +24,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import org.apache.commons.lang3.StringUtils;
+import org.htmlunit.html.HtmlElement;
 import org.wetator.backend.ControlFeature;
 import org.wetator.backend.control.IClickable;
 import org.wetator.backend.control.IControl;
@@ -36,8 +37,6 @@ import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier;
-
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
 
 /**
  * Central repository for all supported {@link HtmlUnitBaseControl}s.

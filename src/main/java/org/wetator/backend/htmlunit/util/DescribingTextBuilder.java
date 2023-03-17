@@ -18,7 +18,7 @@ package org.wetator.backend.htmlunit.util;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlElement;
 
 /**
  * A builder for describing texts of {@link HtmlElement}s.

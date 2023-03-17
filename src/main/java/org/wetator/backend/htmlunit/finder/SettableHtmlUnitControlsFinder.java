@@ -26,11 +26,11 @@ import org.wetator.backend.htmlunit.control.HtmlUnitInputText;
 import org.wetator.backend.htmlunit.control.HtmlUnitTextArea;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlFileInput;
-import com.gargoylesoftware.htmlunit.html.HtmlPasswordInput;
-import com.gargoylesoftware.htmlunit.html.HtmlTextArea;
-import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
+import org.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlFileInput;
+import org.htmlunit.html.HtmlPasswordInput;
+import org.htmlunit.html.HtmlTextArea;
+import org.htmlunit.html.HtmlTextInput;
 
 /**
  * In addition to the {@link IdentifierBasedHtmlUnitControlsFinder} this finder has a special support for empty

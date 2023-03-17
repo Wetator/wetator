@@ -36,53 +36,53 @@ import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.FindSpot;
 import org.wetator.util.NormalizedString;
 
-import com.gargoylesoftware.htmlunit.ElementNotFoundException;
-import com.gargoylesoftware.htmlunit.Page;
-import com.gargoylesoftware.htmlunit.css.StyleAttributes.Definition;
-import com.gargoylesoftware.htmlunit.html.DomComment;
-import com.gargoylesoftware.htmlunit.html.DomElement;
-import com.gargoylesoftware.htmlunit.html.DomNode;
-import com.gargoylesoftware.htmlunit.html.DomText;
-import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
-import com.gargoylesoftware.htmlunit.html.HtmlApplet;
-import com.gargoylesoftware.htmlunit.html.HtmlBody;
-import com.gargoylesoftware.htmlunit.html.HtmlBreak;
-import com.gargoylesoftware.htmlunit.html.HtmlButton;
-import com.gargoylesoftware.htmlunit.html.HtmlButtonInput;
-import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlFileInput;
-import com.gargoylesoftware.htmlunit.html.HtmlForm;
-import com.gargoylesoftware.htmlunit.html.HtmlFrame;
-import com.gargoylesoftware.htmlunit.html.HtmlHead;
-import com.gargoylesoftware.htmlunit.html.HtmlHiddenInput;
-import com.gargoylesoftware.htmlunit.html.HtmlHtml;
-import com.gargoylesoftware.htmlunit.html.HtmlImage;
-import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
-import com.gargoylesoftware.htmlunit.html.HtmlInlineFrame;
-import com.gargoylesoftware.htmlunit.html.HtmlInlineQuotation;
-import com.gargoylesoftware.htmlunit.html.HtmlInput;
-import com.gargoylesoftware.htmlunit.html.HtmlLabel;
-import com.gargoylesoftware.htmlunit.html.HtmlLegend;
-import com.gargoylesoftware.htmlunit.html.HtmlListItem;
-import com.gargoylesoftware.htmlunit.html.HtmlObject;
-import com.gargoylesoftware.htmlunit.html.HtmlOption;
-import com.gargoylesoftware.htmlunit.html.HtmlOptionGroup;
-import com.gargoylesoftware.htmlunit.html.HtmlOrderedList;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
-import com.gargoylesoftware.htmlunit.html.HtmlResetInput;
-import com.gargoylesoftware.htmlunit.html.HtmlScript;
-import com.gargoylesoftware.htmlunit.html.HtmlSelect;
-import com.gargoylesoftware.htmlunit.html.HtmlStyle;
-import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
-import com.gargoylesoftware.htmlunit.html.HtmlTextArea;
-import com.gargoylesoftware.htmlunit.html.HtmlTitle;
-import com.gargoylesoftware.htmlunit.html.SubmittableElement;
-import com.gargoylesoftware.htmlunit.javascript.host.css.CSSStyleDeclaration;
-import com.gargoylesoftware.htmlunit.javascript.host.event.MouseEvent;
-import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLElement;
-import com.gargoylesoftware.htmlunit.javascript.host.html.HTMLObjectElement;
+import org.htmlunit.ElementNotFoundException;
+import org.htmlunit.Page;
+import org.htmlunit.css.StyleAttributes.Definition;
+import org.htmlunit.html.DomComment;
+import org.htmlunit.html.DomElement;
+import org.htmlunit.html.DomNode;
+import org.htmlunit.html.DomText;
+import org.htmlunit.html.HtmlAnchor;
+import org.htmlunit.html.HtmlApplet;
+import org.htmlunit.html.HtmlBody;
+import org.htmlunit.html.HtmlBreak;
+import org.htmlunit.html.HtmlButton;
+import org.htmlunit.html.HtmlButtonInput;
+import org.htmlunit.html.HtmlCheckBoxInput;
+import org.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlFileInput;
+import org.htmlunit.html.HtmlForm;
+import org.htmlunit.html.HtmlFrame;
+import org.htmlunit.html.HtmlHead;
+import org.htmlunit.html.HtmlHiddenInput;
+import org.htmlunit.html.HtmlHtml;
+import org.htmlunit.html.HtmlImage;
+import org.htmlunit.html.HtmlImageInput;
+import org.htmlunit.html.HtmlInlineFrame;
+import org.htmlunit.html.HtmlInlineQuotation;
+import org.htmlunit.html.HtmlInput;
+import org.htmlunit.html.HtmlLabel;
+import org.htmlunit.html.HtmlLegend;
+import org.htmlunit.html.HtmlListItem;
+import org.htmlunit.html.HtmlObject;
+import org.htmlunit.html.HtmlOption;
+import org.htmlunit.html.HtmlOptionGroup;
+import org.htmlunit.html.HtmlOrderedList;
+import org.htmlunit.html.HtmlPage;
+import org.htmlunit.html.HtmlRadioButtonInput;
+import org.htmlunit.html.HtmlResetInput;
+import org.htmlunit.html.HtmlScript;
+import org.htmlunit.html.HtmlSelect;
+import org.htmlunit.html.HtmlStyle;
+import org.htmlunit.html.HtmlSubmitInput;
+import org.htmlunit.html.HtmlTextArea;
+import org.htmlunit.html.HtmlTitle;
+import org.htmlunit.html.SubmittableElement;
+import org.htmlunit.javascript.host.css.CSSStyleDeclaration;
+import org.htmlunit.javascript.host.event.MouseEvent;
+import org.htmlunit.javascript.host.html.HTMLElement;
+import org.htmlunit.javascript.host.html.HTMLObjectElement;
 
 import net.sourceforge.htmlunit.corejs.javascript.ScriptableObject;
 
@@ -155,7 +155,7 @@ public class HtmlPageIndex {
    * @param aId the id
    * @return the {@link HtmlElement} for the id
    * @throws ElementNotFoundException if no element was found for the given id
-   * @see com.gargoylesoftware.htmlunit.html.HtmlPage#getHtmlElementById(java.lang.String)
+   * @see org.htmlunit.html.HtmlPage#getHtmlElementById(java.lang.String)
    */
   public <E extends HtmlElement> E getHtmlElementById(final String aId) throws ElementNotFoundException {
     return htmlPage.getHtmlElementById(aId);
@@ -667,7 +667,7 @@ public class HtmlPageIndex {
   private void appendHtmlButtonInput(final HtmlButtonInput anHtmlButtonInput) {
     text.appendBlank();
     textWithoutFormControls.appendBlank();
-    text.append(anHtmlButtonInput.getValueAttribute());
+    text.append(anHtmlButtonInput.getValue());
     text.appendBlank();
   }
 
@@ -722,7 +722,7 @@ public class HtmlPageIndex {
   }
 
   private void appendHtmlInput(final HtmlInput anHtmlInput) {
-    String tmpValue = anHtmlInput.getValueAttribute();
+    String tmpValue = anHtmlInput.getValue();
     if (StringUtils.isEmpty(tmpValue)) {
       tmpValue = anHtmlInput.getPlaceholder();
     }
@@ -813,7 +813,7 @@ public class HtmlPageIndex {
   private void appendHtmlResetInput(final HtmlResetInput anHtmlResetInput) {
     text.appendBlank();
     textWithoutFormControls.appendBlank();
-    text.append(anHtmlResetInput.getValueAttribute());
+    text.append(anHtmlResetInput.getValue());
     text.appendBlank();
   }
 
@@ -835,7 +835,7 @@ public class HtmlPageIndex {
   private void appendHtmlSubmitInput(final HtmlSubmitInput anHtmlSubmitInput) {
     text.appendBlank();
     textWithoutFormControls.appendBlank();
-    text.append(anHtmlSubmitInput.getValueAttribute());
+    text.append(anHtmlSubmitInput.getValue());
     text.appendBlank();
   }
 

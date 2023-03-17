@@ -29,7 +29,7 @@ import org.wetator.backend.htmlunit.matcher.ByTableCoordinatesMatcher;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.FindSpot;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlElement;
 
 /**
  * The base class for all identifiers using {@link AbstractHtmlUnitElementMatcher} to identify a {@link IControl}.<br>
