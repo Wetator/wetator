@@ -49,7 +49,7 @@ import org.wetator.backend.htmlunit.control.identifier.HtmlUnitTextAreaIdentifie
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.ExpectedControl;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.SortedEntryExpectation;
 
-import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
+import org.htmlunit.html.HtmlCheckBoxInput;
 
 /**
  * Tests for {@link IdentifierBasedHtmlUnitControlsFinder#find(WPath)} respecting CSS styles defining element

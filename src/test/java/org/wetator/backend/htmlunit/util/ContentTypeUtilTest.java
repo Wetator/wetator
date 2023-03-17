@@ -25,11 +25,11 @@ import static org.mockito.Mockito.when;
 import org.junit.Test;
 import org.wetator.backend.IBrowser.ContentType;
 
-import com.gargoylesoftware.htmlunit.Page;
-import com.gargoylesoftware.htmlunit.TextPage;
-import com.gargoylesoftware.htmlunit.WebResponse;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.XHtmlPage;
+import org.htmlunit.Page;
+import org.htmlunit.TextPage;
+import org.htmlunit.WebResponse;
+import org.htmlunit.html.HtmlPage;
+import org.htmlunit.html.XHtmlPage;
 
 /**
  * @author rbri

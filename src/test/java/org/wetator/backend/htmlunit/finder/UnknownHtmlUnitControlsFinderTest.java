@@ -37,7 +37,7 @@ import org.wetator.core.WetatorConfiguration;
 import org.wetator.exception.InvalidInputException;
 import org.wetator.util.SecretString;
 
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import org.htmlunit.html.HtmlPage;
 
 /**
  * @author rbri
@@ -1047,7 +1047,7 @@ public class UnknownHtmlUnitControlsFinderTest {
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlTableDataCell' (id='cell_2_1')] found by: BY_TEXT deviation: 5 distance: 50 start: 50 hierarchy: 0>1>3>5>22>39>41 index: 41",
+        "[Unknown HtmlElement 'class org.htmlunit.html.HtmlTableDataCell' (id='cell_2_1')] found by: BY_TEXT deviation: 5 distance: 50 start: 50 hierarchy: 0>1>3>5>22>39>41 index: 41",
         tmpEntriesSorted.get(0).toString());
 
     tmpEntriesSorted = find(tmpHtmlCode, "[; row_1]");
@@ -1130,14 +1130,14 @@ public class UnknownHtmlUnitControlsFinderTest {
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlTableHeaderCell' (id='header_1')] found by: BY_TEXT deviation: 8 distance: 0 start: 0 hierarchy: 0>1>3>5>7>9>11 index: 11",
+        "[Unknown HtmlElement 'class org.htmlunit.html.HtmlTableHeaderCell' (id='header_1')] found by: BY_TEXT deviation: 8 distance: 0 start: 0 hierarchy: 0>1>3>5>7>9>11 index: 11",
         tmpEntriesSorted.get(0).toString());
 
     tmpEntriesSorted = find(tmpHtmlCode, "[header_3;]");
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlTableHeaderCell' (id='header_3')] found by: BY_TEXT deviation: 8 distance: 17 start: 17 hierarchy: 0>1>3>5>7>9>17 index: 17",
+        "[Unknown HtmlElement 'class org.htmlunit.html.HtmlTableHeaderCell' (id='header_3')] found by: BY_TEXT deviation: 8 distance: 17 start: 17 hierarchy: 0>1>3>5>7>9>17 index: 17",
         tmpEntriesSorted.get(0).toString());
   }
 

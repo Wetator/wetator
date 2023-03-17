@@ -37,29 +37,29 @@ import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputSubmitIdenti
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.ExpectedControl;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.SortedEntryExpectation;
 
-import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
-import com.gargoylesoftware.htmlunit.html.HtmlBody;
-import com.gargoylesoftware.htmlunit.html.HtmlButton;
-import com.gargoylesoftware.htmlunit.html.HtmlButtonInput;
-import com.gargoylesoftware.htmlunit.html.HtmlCheckBoxInput;
-import com.gargoylesoftware.htmlunit.html.HtmlDivision;
-import com.gargoylesoftware.htmlunit.html.HtmlFileInput;
-import com.gargoylesoftware.htmlunit.html.HtmlImage;
-import com.gargoylesoftware.htmlunit.html.HtmlImageInput;
-import com.gargoylesoftware.htmlunit.html.HtmlLabel;
-import com.gargoylesoftware.htmlunit.html.HtmlOption;
-import com.gargoylesoftware.htmlunit.html.HtmlPasswordInput;
-import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
-import com.gargoylesoftware.htmlunit.html.HtmlResetInput;
-import com.gargoylesoftware.htmlunit.html.HtmlSelect;
-import com.gargoylesoftware.htmlunit.html.HtmlSpan;
-import com.gargoylesoftware.htmlunit.html.HtmlSubmitInput;
-import com.gargoylesoftware.htmlunit.html.HtmlTable;
-import com.gargoylesoftware.htmlunit.html.HtmlTableBody;
-import com.gargoylesoftware.htmlunit.html.HtmlTableDataCell;
-import com.gargoylesoftware.htmlunit.html.HtmlTableRow;
-import com.gargoylesoftware.htmlunit.html.HtmlTextArea;
-import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
+import org.htmlunit.html.HtmlAnchor;
+import org.htmlunit.html.HtmlBody;
+import org.htmlunit.html.HtmlButton;
+import org.htmlunit.html.HtmlButtonInput;
+import org.htmlunit.html.HtmlCheckBoxInput;
+import org.htmlunit.html.HtmlDivision;
+import org.htmlunit.html.HtmlFileInput;
+import org.htmlunit.html.HtmlImage;
+import org.htmlunit.html.HtmlImageInput;
+import org.htmlunit.html.HtmlLabel;
+import org.htmlunit.html.HtmlOption;
+import org.htmlunit.html.HtmlPasswordInput;
+import org.htmlunit.html.HtmlRadioButtonInput;
+import org.htmlunit.html.HtmlResetInput;
+import org.htmlunit.html.HtmlSelect;
+import org.htmlunit.html.HtmlSpan;
+import org.htmlunit.html.HtmlSubmitInput;
+import org.htmlunit.html.HtmlTable;
+import org.htmlunit.html.HtmlTableBody;
+import org.htmlunit.html.HtmlTableDataCell;
+import org.htmlunit.html.HtmlTableRow;
+import org.htmlunit.html.HtmlTextArea;
+import org.htmlunit.html.HtmlTextInput;
 
 /**
  * Basic tests for element weighting during {@link MouseActionListeningHtmlUnitControlsFinder#find(WPath)}.

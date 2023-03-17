@@ -29,14 +29,14 @@ import org.junit.Test;
 import org.wetator.backend.htmlunit.MouseAction;
 import org.wetator.util.FindSpot;
 
-import com.gargoylesoftware.htmlunit.BrowserVersion;
-import com.gargoylesoftware.htmlunit.ElementNotFoundException;
-import com.gargoylesoftware.htmlunit.StringWebResponse;
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.WebWindow;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.html.parser.HTMLParser;
+import org.htmlunit.BrowserVersion;
+import org.htmlunit.ElementNotFoundException;
+import org.htmlunit.StringWebResponse;
+import org.htmlunit.WebClient;
+import org.htmlunit.WebWindow;
+import org.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlPage;
+import org.htmlunit.html.parser.HTMLParser;
 
 /**
  * @author rbri

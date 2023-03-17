@@ -35,8 +35,8 @@ import org.wetator.exception.InvalidInputException;
 import org.wetator.util.FindSpot;
 import org.wetator.util.SecretString;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import org.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlPage;
 
 /**
  * @author frank.danek

@@ -25,10 +25,10 @@ import org.junit.Test;
 import org.wetator.backend.htmlunit.util.PageUtil;
 import org.wetator.util.NormalizedString;
 
-import com.gargoylesoftware.htmlunit.BrowserVersion;
-import com.gargoylesoftware.htmlunit.html.HtmlOption;
-import com.gargoylesoftware.htmlunit.html.HtmlRadioButtonInput;
-import com.gargoylesoftware.htmlunit.html.XHtmlPage;
+import org.htmlunit.BrowserVersion;
+import org.htmlunit.html.HtmlOption;
+import org.htmlunit.html.HtmlRadioButtonInput;
+import org.htmlunit.html.XHtmlPage;
 
 /**
  * @author rbri

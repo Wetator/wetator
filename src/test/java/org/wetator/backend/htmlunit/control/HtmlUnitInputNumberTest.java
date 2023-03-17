@@ -24,8 +24,8 @@ import java.io.IOException;
 import org.junit.Test;
 import org.wetator.backend.htmlunit.util.PageUtil;
 
-import com.gargoylesoftware.htmlunit.html.HtmlNumberInput;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import org.htmlunit.html.HtmlNumberInput;
+import org.htmlunit.html.HtmlPage;
 
 /**
  * @author rbri

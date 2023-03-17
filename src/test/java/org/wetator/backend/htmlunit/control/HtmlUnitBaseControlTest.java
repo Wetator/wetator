@@ -23,8 +23,8 @@ import java.io.IOException;
 import org.junit.Test;
 import org.wetator.backend.htmlunit.util.PageUtil;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import org.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlPage;
 
 /**
  * @author rbri

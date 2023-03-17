@@ -35,7 +35,7 @@ import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.exception.InvalidInputException;
 import org.wetator.util.FindSpot;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlElement;
 
 /**
  * @author rbri
@@ -81,7 +81,7 @@ public class MatcherBasedIdentifierTest extends AbstractHtmlUnitControlIdentifie
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlButtonInput' (id='myId_2_3')] found by: BY_LABEL deviation: 0 distance: 62 start: 62 hierarchy: 0>1>3>5>22>36>44>45 index: 45",
+        "[Unknown HtmlElement 'class org.htmlunit.html.HtmlButtonInput' (id='myId_2_3')] found by: BY_LABEL deviation: 0 distance: 62 start: 62 hierarchy: 0>1>3>5>22>36>44>45 index: 45",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -201,7 +201,7 @@ public class MatcherBasedIdentifierTest extends AbstractHtmlUnitControlIdentifie
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlButtonInput' (id='myId_2_2_3')] found by: BY_LABEL deviation: 0 distance: 68 start: 148 hierarchy: 0>1>3>53>70>84>92>93 index: 93",
+        "[Unknown HtmlElement 'class org.htmlunit.html.HtmlButtonInput' (id='myId_2_2_3')] found by: BY_LABEL deviation: 0 distance: 68 start: 148 hierarchy: 0>1>3>53>70>84>92>93 index: 93",
         tmpEntriesSorted.get(0).toString());
 
     // as table cells are handled separately this wpath is equivalent to the wpath above
@@ -210,7 +210,7 @@ public class MatcherBasedIdentifierTest extends AbstractHtmlUnitControlIdentifie
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlButtonInput' (id='myId_2_2_3')] found by: BY_LABEL deviation: 0 distance: 68 start: 148 hierarchy: 0>1>3>53>70>84>92>93 index: 93",
+        "[Unknown HtmlElement 'class org.htmlunit.html.HtmlButtonInput' (id='myId_2_2_3')] found by: BY_LABEL deviation: 0 distance: 68 start: 148 hierarchy: 0>1>3>53>70>84>92>93 index: 93",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -365,7 +365,7 @@ public class MatcherBasedIdentifierTest extends AbstractHtmlUnitControlIdentifie
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlButtonInput' (id='myId_2_2_3')] found by: BY_LABEL deviation: 0 distance: 177 start: 177 hierarchy: 0>1>3>5>7>21>74>76>93>107>115>116 index: 116",
+        "[Unknown HtmlElement 'class org.htmlunit.html.HtmlButtonInput' (id='myId_2_2_3')] found by: BY_LABEL deviation: 0 distance: 177 start: 177 hierarchy: 0>1>3>5>7>21>74>76>93>107>115>116 index: 116",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -597,7 +597,7 @@ public class MatcherBasedIdentifierTest extends AbstractHtmlUnitControlIdentifie
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlButtonInput' (id='myId_2_2_3')] found by: BY_LABEL deviation: 0 distance: 183 start: 192 hierarchy: 0>1>3>8>10>24>77>79>96>110>118>119 index: 119",
+        "[Unknown HtmlElement 'class org.htmlunit.html.HtmlButtonInput' (id='myId_2_2_3')] found by: BY_LABEL deviation: 0 distance: 183 start: 192 hierarchy: 0>1>3>8>10>24>77>79>96>110>118>119 index: 119",
         tmpEntriesSorted.get(0).toString());
 
     // as table cells are handled separately this wpath is equivalent to the wpath above
@@ -606,7 +606,7 @@ public class MatcherBasedIdentifierTest extends AbstractHtmlUnitControlIdentifie
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[Unknown HtmlElement 'class com.gargoylesoftware.htmlunit.html.HtmlButtonInput' (id='myId_2_2_3')] found by: BY_LABEL deviation: 0 distance: 183 start: 192 hierarchy: 0>1>3>8>10>24>77>79>96>110>118>119 index: 119",
+        "[Unknown HtmlElement 'class org.htmlunit.html.HtmlButtonInput' (id='myId_2_2_3')] found by: BY_LABEL deviation: 0 distance: 183 start: 192 hierarchy: 0>1>3>8>10>24>77>79>96>110>118>119 index: 119",
         tmpEntriesSorted.get(0).toString());
   }
 

@@ -32,7 +32,7 @@ import org.wetator.exception.InvalidInputException;
 import org.wetator.util.FindSpot;
 import org.wetator.util.SecretString;
 
-import com.gargoylesoftware.htmlunit.html.HtmlTextInput;
+import org.htmlunit.html.HtmlTextInput;
 
 /**
  * @author frank.danek

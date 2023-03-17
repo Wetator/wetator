@@ -26,10 +26,10 @@ import org.wetator.backend.WPath;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.ExpectedControl;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.SortedEntryExpectation;
 
-import com.gargoylesoftware.htmlunit.html.HtmlBody;
-import com.gargoylesoftware.htmlunit.html.HtmlLabel;
-import com.gargoylesoftware.htmlunit.html.HtmlOption;
-import com.gargoylesoftware.htmlunit.html.HtmlSelect;
+import org.htmlunit.html.HtmlBody;
+import org.htmlunit.html.HtmlLabel;
+import org.htmlunit.html.HtmlOption;
+import org.htmlunit.html.HtmlSelect;
 
 /**
  * Tests for element weighting during {@link MouseActionListeningHtmlUnitControlsFinder#find(WPath)} on pages with

@@ -24,7 +24,7 @@ import java.util.regex.Pattern;
 import org.junit.Assert;
 import org.wetator.backend.WeightedControlList;
 
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlElement;
 
 /**
  * Assertion helper for testing with {@link org.wetator.backend.WeightedControlList.Entry}s.

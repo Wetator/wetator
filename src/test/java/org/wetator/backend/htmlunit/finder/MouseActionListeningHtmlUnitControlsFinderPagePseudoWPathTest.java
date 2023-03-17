@@ -22,7 +22,7 @@ import org.wetator.backend.htmlunit.MouseAction;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.ExpectedControl;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.SortedEntryExpectation;
 
-import com.gargoylesoftware.htmlunit.html.HtmlBody;
+import org.htmlunit.html.HtmlBody;
 
 /**
  * Tests for the '$PAGE' pseudo WPath.

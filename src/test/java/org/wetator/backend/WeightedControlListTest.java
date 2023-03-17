@@ -31,9 +31,9 @@ import org.wetator.backend.htmlunit.control.HtmlUnitAnchor;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl;
 import org.wetator.backend.htmlunit.util.PageUtil;
 
-import com.gargoylesoftware.htmlunit.html.HtmlAnchor;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
+import org.htmlunit.html.HtmlAnchor;
+import org.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlPage;
 
 /**
  * @author rbri
