@@ -12,7 +12,7 @@ pipeline {
     }
     tools {
         jdk 'openjdk-1.8'
-        ant 'apache-ant-1.10.7'
+        maven 'apache-maven-3.8.6'
     }
     stages {
         stage('checkout') {
@@ -26,7 +26,7 @@ pipeline {
         stage('build') {
             steps {
                 wrap([$class: 'Xvfb']) {
-                    sh "ant publish-local"
+                    sh "mvn integration-test"
                 }
             }
         }
