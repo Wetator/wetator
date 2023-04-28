@@ -17,8 +17,8 @@
 package org.wetator.backend.htmlunit.util;
 
 import org.apache.commons.lang3.StringUtils;
-
 import org.htmlunit.Page;
+import org.htmlunit.corejs.javascript.ScriptableObject;
 import org.htmlunit.html.DomNode;
 import org.htmlunit.html.HtmlAnchor;
 import org.htmlunit.html.HtmlBody;
@@ -50,8 +50,6 @@ import org.htmlunit.javascript.host.css.CSSStyleDeclaration;
 import org.htmlunit.javascript.host.html.HTMLElement;
 import org.htmlunit.javascript.host.html.HTMLLinkElement;
 import org.htmlunit.javascript.host.html.HTMLOptionElement;
-
-import net.sourceforge.htmlunit.corejs.javascript.ScriptableObject;
 
 /**
  * Helper methods to work with the HtmlElements page.

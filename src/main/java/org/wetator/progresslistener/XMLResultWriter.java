@@ -623,9 +623,8 @@ public class XMLResultWriter implements IProgressListener {
     printlnStartTag(TAG_LIBS);
 
     StringBuilder tmpInfo = new StringBuilder();
-    final String[] tmpClassNames = { "org.htmlunit.WebClient",
-        "net.sourceforge.htmlunit.corejs.javascript.Function", "net.sourceforge.htmlunit.cyberneko.HTMLElements",
-        "com.gargoylesoftware.css.parser.CSSOMParser" };
+    final String[] tmpClassNames = { "org.htmlunit.WebClient", "org.htmlunit.corejs.javascript.Function",
+        "org.htmlunit.cyberneko.HTMLElements", "org.htmlunit.cssparser.parser.CSSOMParser" };
     for (final String tmpClassName : tmpClassNames) {
       tmpInfo.setLength(0);
       try {

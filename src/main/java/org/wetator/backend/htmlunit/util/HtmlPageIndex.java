@@ -31,13 +31,9 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.text.WordUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.wetator.backend.htmlunit.MouseAction;
-import org.wetator.core.searchpattern.SearchPattern;
-import org.wetator.util.FindSpot;
-import org.wetator.util.NormalizedString;
-
 import org.htmlunit.ElementNotFoundException;
 import org.htmlunit.Page;
+import org.htmlunit.corejs.javascript.ScriptableObject;
 import org.htmlunit.css.StyleAttributes.Definition;
 import org.htmlunit.html.DomComment;
 import org.htmlunit.html.DomElement;
@@ -83,8 +79,10 @@ import org.htmlunit.javascript.host.css.CSSStyleDeclaration;
 import org.htmlunit.javascript.host.event.MouseEvent;
 import org.htmlunit.javascript.host.html.HTMLElement;
 import org.htmlunit.javascript.host.html.HTMLObjectElement;
-
-import net.sourceforge.htmlunit.corejs.javascript.ScriptableObject;
+import org.wetator.backend.htmlunit.MouseAction;
+import org.wetator.core.searchpattern.SearchPattern;
+import org.wetator.util.FindSpot;
+import org.wetator.util.NormalizedString;
 
 /**
  * The text representation of a page text. Indexed by form controls to speed up the calculation of text before and

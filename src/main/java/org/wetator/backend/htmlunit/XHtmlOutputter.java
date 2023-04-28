@@ -33,10 +33,6 @@ import org.apache.commons.io.output.FileWriterWithEncoding;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.wetator.backend.htmlunit.util.HtmlElementUtil;
-import org.wetator.util.Output;
-import org.wetator.util.XMLUtil;
-
 import org.htmlunit.Page;
 import org.htmlunit.WebWindow;
 import org.htmlunit.html.BaseFrameElement;
@@ -124,6 +120,9 @@ import org.htmlunit.svg.SvgPath;
 import org.htmlunit.svg.SvgPolygon;
 import org.htmlunit.svg.SvgPolyline;
 import org.htmlunit.svg.SvgRect;
+import org.wetator.backend.htmlunit.util.HtmlElementUtil;
+import org.wetator.util.Output;
+import org.wetator.util.XMLUtil;
 
 /**
  * Helper methods to write the HtmlUnit page as XHtml to a file.
@@ -532,8 +531,10 @@ public final class XHtmlOutputter {
                 final Element tmpElemScript = aDomNode.getScriptableObject();
                 final CSSStyleDeclaration tmpStyle = tmpElemScript.getWindow().getComputedStyle(tmpElemScript, null);
                 // for the moment i have no better idea than always hard wire the display info
-                tmpAttributeValue = new StringBuilder().append(tmpAttributeValue).append("; display: ")
-                    .append(tmpStyle.getDisplay()).toString();
+                // but place display in front just in case HtmlUnit calculates a wrong display
+                // the real value overwrites then
+                tmpAttributeValue = new StringBuilder().append("display: ").append(tmpStyle.getDisplay()).append("; ")
+                    .append(tmpAttributeValue).toString();
               }
             }
           }

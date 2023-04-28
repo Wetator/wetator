@@ -24,6 +24,11 @@ import java.util.stream.Collectors;
 
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.htmlunit.ScriptException;
+import org.htmlunit.corejs.javascript.WrappedException;
+import org.htmlunit.html.DomElement;
+import org.htmlunit.html.HtmlFileInput;
+import org.htmlunit.html.HtmlPage;
 import org.wetator.backend.control.IControl;
 import org.wetator.backend.control.ISettable;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
@@ -39,13 +44,6 @@ import org.wetator.i18n.Messages;
 import org.wetator.util.Assert;
 import org.wetator.util.SecretString;
 import org.wetator.util.StringUtil;
-
-import org.htmlunit.ScriptException;
-import org.htmlunit.html.DomElement;
-import org.htmlunit.html.HtmlFileInput;
-import org.htmlunit.html.HtmlPage;
-
-import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
 /**
  * This is the implementation of the HTML element 'input file' (&lt;input type="file"&gt;) using HtmlUnit as

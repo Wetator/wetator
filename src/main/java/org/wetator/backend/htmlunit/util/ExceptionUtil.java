@@ -17,8 +17,7 @@
 package org.wetator.backend.htmlunit.util;
 
 import org.htmlunit.ScriptException;
-
-import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
+import org.htmlunit.corejs.javascript.WrappedException;
 
 /**
  * Utility class for exception handling.
