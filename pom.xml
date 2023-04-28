@@ -523,23 +523,38 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <executions>
                     <execution>
+                        <id>integration-test-prep</id>
+                        <phase>integration-test</phase>
+                        <goals>
+                            <goal>exec</goal>
+                        </goals>
+                        <configuration>
+                            <executable>${wetator.prepscript}</executable>
+                            <workingDirectory>${project.build.directory}/test-release/app</workingDirectory>
+                            <arguments>
+                                <argument>+x</argument>
+                                <argument>wetator.sh</argument>
+                            </arguments>
+                        </configuration>
+                    </execution>
+                    <execution>
                         <id>integration-test</id>
                         <phase>integration-test</phase>
                         <goals>
                             <goal>exec</goal>
                         </goals>
+                        <configuration>
+                            <executable>${wetator.script}</executable>
+                            <workingDirectory>${project.build.directory}/test-release/app</workingDirectory>
+                            <arguments>
+                                <argument>wetator_testform.wet</argument>
+                                <argument>wetator_testform.wett</argument>
+                                <argument>wetator_testform.xls</argument>
+                                <argument>wetator_testform.xlsx</argument>
+                            </arguments>
+                        </configuration>
                     </execution>
                 </executions>
-                <configuration>
-                    <executable>${wetator.script}</executable>
-                    <workingDirectory>${project.build.directory}/test-release/app</workingDirectory>
-                    <arguments>
-                        <argument>wetator_testform.wet</argument>
-                        <argument>wetator_testform.wett</argument>
-                        <argument>wetator_testform.xls</argument>
-                        <argument>wetator_testform.xlsx</argument>
-                    </arguments>
-                </configuration>
             </plugin>
         </plugins>
     </build>
@@ -552,6 +567,7 @@
                 </os>
             </activation>
             <properties>
+                <wetator.prepscript>echo</wetator.prepscript>
                 <wetator.script>wetator.bat</wetator.script>
             </properties>
         </profile>
@@ -563,6 +579,7 @@
                 </os>
             </activation>
             <properties>
+                <wetator.prepscript>chmod</wetator.prepscript>
                 <wetator.script>./wetator.sh</wetator.script>
             </properties>
         </profile>
