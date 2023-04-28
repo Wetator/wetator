@@ -50,6 +50,7 @@ import org.htmlunit.WebClient;
 import org.htmlunit.WebResponse;
 import org.htmlunit.WebWindow;
 import org.htmlunit.WebWindowEvent;
+import org.htmlunit.corejs.javascript.WrappedException;
 import org.htmlunit.html.DomElement;
 import org.htmlunit.html.FrameWindow;
 import org.htmlunit.html.HtmlElement;
@@ -102,8 +103,6 @@ import org.wetator.util.Assert;
 import org.wetator.util.ContentUtil;
 import org.wetator.util.NormalizedString;
 import org.wetator.util.SecretString;
-
-import net.sourceforge.htmlunit.corejs.javascript.WrappedException;
 
 /**
  * The HtmlUnit backend.
@@ -310,7 +309,8 @@ public final class HtmlUnitBrowser implements IBrowser {
     webClient.getOptions().setThrowExceptionOnScriptError(false);
     webClient.setJavaScriptErrorListener(new JavaScriptErrorListener(this));
 
-    webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
+    // webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
+    // webClient.getOptions().setUseInsecureSSL(true);
 
     final Set<SearchPattern> tmpFilters = tmpConfiguration.getJsJobFilterPatterns();
     if (tmpFilters.isEmpty()) {
@@ -335,7 +335,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
     // use client certificate key store
     final String tmpClientCertKeyStoreUrl = tmpConfiguration.getClientCertificateKeyStoreUrl();
-    if (StringUtils.isNotEmpty(tmpHost)) {
+    if (StringUtils.isNotEmpty(tmpClientCertKeyStoreUrl)) {
       final String tmpClientCertKeyStoreType = tmpConfiguration.getClientCertificateKeyStoreType();
       final SecretString tmpClientCertKeyStorePassword = tmpConfiguration.getClientCertificateKeyStorePassword();
 
