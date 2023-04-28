@@ -26,7 +26,7 @@ pipeline {
         stage('build') {
             steps {
                 wrap([$class: 'Xvfb']) {
-                    sh "mvn verify"
+                    sh "mvn verify -Dgpg.skip"
                 }
             }
         }
