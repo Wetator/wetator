@@ -57,8 +57,7 @@ public final class PageUtil {
    */
   public static HtmlPage constructHtmlPage(final BrowserVersion aBrowserVersion, final String anHtmlCode)
       throws IOException {
-    final WebClient tmpWebClient = new WebClient(aBrowserVersion);
-    try {
+    try (WebClient tmpWebClient = new WebClient(aBrowserVersion)) {
       final HTMLParser tmpHtmlParser = tmpWebClient.getPageCreator().getHtmlParser();
       final WebWindow tmpWebWindow = tmpWebClient.getCurrentWindow();
 
@@ -69,8 +68,6 @@ public final class PageUtil {
 
       tmpHtmlParser.parse(tmpWebResponse, tmpPage, true, false);
       return tmpPage;
-    } finally {
-      tmpWebClient.close();
     }
   }
 
@@ -95,8 +92,7 @@ public final class PageUtil {
    */
   public static XHtmlPage constructXHtmlPage(final BrowserVersion aBrowserVersion, final String anXHtmlCode)
       throws IOException {
-    final WebClient tmpWebClient = new WebClient(aBrowserVersion);
-    try {
+    try (WebClient tmpWebClient = new WebClient(aBrowserVersion)) {
       final HTMLParser tmpHtmlParser = tmpWebClient.getPageCreator().getHtmlParser();
       final WebWindow tmpWebWindow = tmpWebClient.getCurrentWindow();
 
@@ -107,8 +103,6 @@ public final class PageUtil {
 
       tmpHtmlParser.parse(tmpWebResponse, tmpPage, true, false);
       return tmpPage;
-    } finally {
-      tmpWebClient.close();
     }
   }
 
