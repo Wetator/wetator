@@ -376,10 +376,20 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>3.1.2</version>
+                <executions>
+                    <execution>
+                        <id>checkstyle</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>checkstyle</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <configuration>
-                    <configLocation>checkstyle.xml</configLocation>
-                    <suppressionsLocation>checkstyle_suppressions.xml</suppressionsLocation>
-                    <includeTestSourceDirectory>true</includeTestSourceDirectory>
+                    <configLocation>test/checkstyle/checkstyle.xml</configLocation>
+                    <suppressionsLocation>test/checkstyle/checkstyle_suppressions.xml</suppressionsLocation>
+                    <includeTestSourceDirectory>false</includeTestSourceDirectory>
+                    <includeResources>false</includeResources>
                 </configuration>
                 <dependencies>
                     <dependency>
@@ -392,7 +402,16 @@
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
-                <version>4.7.3.0</version>
+                <version>4.7.3.4</version>
+                <executions>
+                    <execution>
+                        <id>spotbugs</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>spotbugs</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <dependencies>
                     <dependency>
                         <groupId>com.github.spotbugs</groupId>
@@ -401,13 +420,29 @@
                     </dependency>
                 </dependencies>
                 <configuration>
-                    <excludeFilterFile>spotbugs-exclude.xml</excludeFilterFile>
+                    <excludeFilterFile>test/spotbugs/exclude-filter.xml</excludeFilterFile>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
                 <version>3.16.0</version>
+                <executions>
+                    <execution>
+                        <id>pmd</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>pmd</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>cpd</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>cpd</goal>
+                        </goals>
+                    </execution>
+                </executions>
                 <dependencies>
                     <dependency>
                         <groupId>net.sourceforge.pmd</groupId>
@@ -422,7 +457,12 @@
                 </dependencies>
                 <configuration>
                     <rulesets>
-                        <ruleset>${basedir}/pmd-ruleset.xml</ruleset>
+                        <ruleset>test/pmd/wet-bestpractices.xml</ruleset>
+                        <ruleset>test/pmd/wet-codestyle.xml</ruleset>
+                        <ruleset>test/pmd/wet-design.xml</ruleset>
+                        <ruleset>test/pmd/wet-errorprone.xml</ruleset>
+                        <ruleset>test/pmd/wet-multithreading.xml</ruleset>
+                        <ruleset>test/pmd/wet-performance.xml</ruleset>
                     </rulesets>
                 </configuration>
             </plugin>

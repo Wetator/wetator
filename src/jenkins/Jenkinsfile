@@ -26,19 +26,19 @@ pipeline {
         stage('build') {
             steps {
                 wrap([$class: 'Xvfb']) {
-                    sh "mvn integration-test"
+                    sh "mvn verify"
                 }
             }
         }
     }
     post {
         always {
-            junit allowEmptyResults: true, testResults: 'deploy/junit/*.xml'
+            junit allowEmptyResults: true, testResults: 'target/surefire-reports/*.xml'
             recordIssues enabledForFailure: true, sourceCodeEncoding: 'UTF-8', sourceDirectory: 'src', tools: [
-                checkStyle(pattern: 'deploy/checkstyle/checkstyle-report.xml', reportEncoding: 'UTF-8'),
-                spotBugs(pattern: 'deploy/spotbugs/spotbugs-report.xml', reportEncoding: 'UTF-8', useRankAsPriority: true),
-                pmdParser(pattern: 'deploy/pmd/pmd-report.xml', reportEncoding: 'UTF-8'),
-                cpd(pattern: 'deploy/pmd/cpd-report.xml', reportEncoding: 'UTF-8'),
+                checkStyle(),
+                spotBugs(),
+                pmdParser(),
+                cpd(),
                 java(),
                 javaDoc(),
                 taskScanner(highTags: 'FIXME, XXX', normalTags: 'TODO', includePattern: '**/*.java, **/*.xhtml, **/*.jsp, **/*.html, **/*.js, **/*.css, **/*.xml, **/*.wet, **/*.properties', excludePattern: 'test/webpage/js/**/*')]
