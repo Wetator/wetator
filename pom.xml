@@ -379,7 +379,7 @@
                 <executions>
                     <execution>
                         <id>checkstyle</id>
-                        <phase>validate</phase>
+                        <phase>verify</phase>
                         <goals>
                             <goal>checkstyle</goal>
                         </goals>
@@ -406,7 +406,7 @@
                 <executions>
                     <execution>
                         <id>spotbugs</id>
-                        <phase>validate</phase>
+                        <phase>verify</phase>
                         <goals>
                             <goal>spotbugs</goal>
                         </goals>
@@ -430,14 +430,14 @@
                 <executions>
                     <execution>
                         <id>pmd</id>
-                        <phase>validate</phase>
+                        <phase>verify</phase>
                         <goals>
                             <goal>pmd</goal>
                         </goals>
                     </execution>
                     <execution>
                         <id>cpd</id>
-                        <phase>validate</phase>
+                        <phase>verify</phase>
                         <goals>
                             <goal>cpd</goal>
                         </goals>
@@ -531,11 +531,9 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <executable>cmd</executable>
+                    <executable>${wetator.script}</executable>
                     <workingDirectory>${project.build.directory}/test-release/app</workingDirectory>
                     <arguments>
-                        <argument>/c</argument>
-                        <argument>wetator.bat</argument>
                         <argument>wetator_testform.wet</argument>
                         <argument>wetator_testform.wett</argument>
                         <argument>wetator_testform.xls</argument>
@@ -545,6 +543,31 @@
             </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>Windows</id>
+            <activation>
+                <os>
+                    <family>Windows</family>
+                </os>
+            </activation>
+            <properties>
+                <wetator.script>wetator.bat</wetator.script>
+            </properties>
+        </profile>
+        <profile>
+            <id>unix</id>
+            <activation>
+                <os>
+                    <family>unix</family>
+                </os>
+            </activation>
+            <properties>
+                <wetator.script>wetator.sh</wetator.script>
+            </properties>
+        </profile>
+    </profiles>
+
     <repositories>
         <repository>
             <snapshots>
