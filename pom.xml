@@ -563,7 +563,7 @@
                 </os>
             </activation>
             <properties>
-                <wetator.script>chmod +x wetator.sh; ./wetator.sh</wetator.script>
+                <wetator.script>./wetator.sh</wetator.script>
             </properties>
         </profile>
     </profiles>
