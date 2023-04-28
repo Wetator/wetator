@@ -21,11 +21,10 @@ import static org.junit.Assert.assertEquals;
 import java.io.IOException;
 import java.util.Iterator;
 
-import org.junit.Before;
-import org.junit.Test;
-
 import org.htmlunit.html.HtmlElement;
 import org.htmlunit.html.HtmlPage;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * @author frank.danek

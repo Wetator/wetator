@@ -16,13 +16,12 @@
 
 package org.wetator.backend.htmlunit.control;
 
+import org.htmlunit.html.HtmlImageInput;
 import org.wetator.backend.control.IClickable;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputImageIdentifier;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
-
-import org.htmlunit.html.HtmlImageInput;
 
 /**
  * This is the implementation of the HTML element 'input image' (&lt;input type="image"&gt;) using HtmlUnit as

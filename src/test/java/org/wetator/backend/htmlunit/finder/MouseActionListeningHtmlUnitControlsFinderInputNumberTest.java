@@ -19,14 +19,13 @@ package org.wetator.backend.htmlunit.finder;
 import java.util.Arrays;
 import java.util.Collection;
 
+import org.htmlunit.html.HtmlBody;
+import org.htmlunit.html.HtmlLabel;
+import org.htmlunit.html.HtmlNumberInput;
 import org.junit.runners.Parameterized.Parameters;
 import org.wetator.backend.WPath;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.ExpectedControl;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.SortedEntryExpectation;
-
-import org.htmlunit.html.HtmlBody;
-import org.htmlunit.html.HtmlLabel;
-import org.htmlunit.html.HtmlNumberInput;
 
 /**
  * Tests for element weighting during {@link MouseActionListeningHtmlUnitControlsFinder#find(WPath)} on pages with

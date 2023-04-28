@@ -18,13 +18,12 @@ package org.wetator.backend.htmlunit.matcher;
 
 import java.util.Arrays;
 
+import org.htmlunit.html.HtmlElement;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList.FoundType;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.FindSpot;
-
-import org.htmlunit.html.HtmlElement;
 
 /**
  * This matcher checks if the labeling text before the given element matches the criteria and reports it as

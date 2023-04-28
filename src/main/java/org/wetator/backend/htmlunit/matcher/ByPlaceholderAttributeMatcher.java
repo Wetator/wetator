@@ -17,14 +17,13 @@
 package org.wetator.backend.htmlunit.matcher;
 
 import org.apache.commons.lang3.StringUtils;
+import org.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlInput;
+import org.htmlunit.html.HtmlTextArea;
 import org.wetator.backend.WeightedControlList.FoundType;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.FindSpot;
-
-import org.htmlunit.html.HtmlElement;
-import org.htmlunit.html.HtmlInput;
-import org.htmlunit.html.HtmlTextArea;
 
 /**
  * This matcher checks if the attribute 'placeholder' of the given element matches the criteria.

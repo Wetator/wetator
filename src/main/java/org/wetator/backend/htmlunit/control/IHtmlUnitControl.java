@@ -16,9 +16,8 @@
 
 package org.wetator.backend.htmlunit.control;
 
-import org.wetator.backend.control.IControl;
-
 import org.htmlunit.html.HtmlElement;
+import org.wetator.backend.control.IControl;
 
 /**
  * The common interface for a control using HtmlUnit as backend.

@@ -21,15 +21,14 @@ import static org.wetator.backend.htmlunit.finder.HtmlCodeCreator.CONTENT;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.junit.runners.Parameterized.Parameters;
-import org.wetator.backend.WPath;
-import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.ExpectedControl;
-import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.SortedEntryExpectation;
-
 import org.htmlunit.html.HtmlBody;
 import org.htmlunit.html.HtmlLabel;
 import org.htmlunit.html.HtmlOption;
 import org.htmlunit.html.HtmlSelect;
+import org.junit.runners.Parameterized.Parameters;
+import org.wetator.backend.WPath;
+import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.ExpectedControl;
+import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.SortedEntryExpectation;
 
 /**
  * Tests for element weighting during {@link MouseActionListeningHtmlUnitControlsFinder#find(WPath)} on pages with

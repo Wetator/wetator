@@ -21,15 +21,14 @@ import static org.junit.Assert.assertNull;
 
 import java.io.IOException;
 
+import org.htmlunit.html.HtmlAnchor;
+import org.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlPage;
 import org.junit.Test;
 import org.wetator.backend.htmlunit.control.HtmlUnitAnchor;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.util.PageUtil;
-
-import org.htmlunit.html.HtmlAnchor;
-import org.htmlunit.html.HtmlElement;
-import org.htmlunit.html.HtmlPage;
 
 /**
  * @author frank.danek

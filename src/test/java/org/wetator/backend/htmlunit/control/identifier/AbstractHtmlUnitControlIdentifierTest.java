@@ -21,6 +21,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Properties;
 
+import org.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlPage;
 import org.junit.Before;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
@@ -30,9 +32,6 @@ import org.wetator.backend.htmlunit.util.PageUtil;
 import org.wetator.core.WetatorConfiguration;
 import org.wetator.exception.InvalidInputException;
 import org.wetator.util.SecretString;
-
-import org.htmlunit.html.HtmlElement;
-import org.htmlunit.html.HtmlPage;
 
 /**
  * @author frank.danek

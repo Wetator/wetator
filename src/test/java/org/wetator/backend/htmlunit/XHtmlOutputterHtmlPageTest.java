@@ -22,16 +22,15 @@ import static org.junit.Assert.assertTrue;
 import java.io.IOException;
 import java.io.StringWriter;
 
-import org.junit.Test;
-import org.wetator.backend.htmlunit.util.PageUtil;
-import org.wetator.util.NormalizedString;
-
 import org.htmlunit.BrowserVersion;
 import org.htmlunit.html.HtmlOption;
 import org.htmlunit.html.HtmlPage;
 import org.htmlunit.html.HtmlPasswordInput;
 import org.htmlunit.html.HtmlRadioButtonInput;
 import org.htmlunit.html.HtmlTextInput;
+import org.junit.Test;
+import org.wetator.backend.htmlunit.util.PageUtil;
+import org.wetator.util.NormalizedString;
 
 /**
  * @author rbri

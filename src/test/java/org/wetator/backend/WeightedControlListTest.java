@@ -24,16 +24,15 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.List;
 
+import org.htmlunit.html.HtmlAnchor;
+import org.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlPage;
 import org.junit.Test;
 import org.wetator.backend.WeightedControlList.Entry;
 import org.wetator.backend.WeightedControlList.FoundType;
 import org.wetator.backend.htmlunit.control.HtmlUnitAnchor;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl;
 import org.wetator.backend.htmlunit.util.PageUtil;
-
-import org.htmlunit.html.HtmlAnchor;
-import org.htmlunit.html.HtmlElement;
-import org.htmlunit.html.HtmlPage;
 
 /**
  * @author rbri

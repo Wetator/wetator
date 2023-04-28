@@ -21,11 +21,10 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 
-import org.junit.Test;
-import org.wetator.backend.htmlunit.util.PageUtil;
-
 import org.htmlunit.html.HtmlPage;
 import org.htmlunit.html.HtmlSubmitInput;
+import org.junit.Test;
+import org.wetator.backend.htmlunit.util.PageUtil;
 
 /**
  * @author rbri

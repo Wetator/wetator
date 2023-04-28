@@ -17,7 +17,6 @@
 package org.wetator.backend.htmlunit.util;
 
 import org.apache.commons.lang3.StringUtils;
-
 import org.htmlunit.html.HtmlElement;
 
 /**

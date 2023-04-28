@@ -16,13 +16,12 @@
 
 package org.wetator.backend.htmlunit.finder;
 
+import org.htmlunit.html.HtmlBody;
 import org.junit.AfterClass;
 import org.junit.Test;
 import org.wetator.backend.htmlunit.MouseAction;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.ExpectedControl;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.SortedEntryExpectation;
-
-import org.htmlunit.html.HtmlBody;
 
 /**
  * Tests for the '$PAGE' pseudo WPath.

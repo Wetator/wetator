@@ -21,10 +21,9 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.htmlunit.html.HtmlElement;
 import org.junit.Assert;
 import org.wetator.backend.WeightedControlList;
-
-import org.htmlunit.html.HtmlElement;
 
 /**
  * Assertion helper for testing with {@link org.wetator.backend.WeightedControlList.Entry}s.

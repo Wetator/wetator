@@ -16,13 +16,12 @@
 
 package org.wetator.backend.htmlunit.control;
 
+import org.htmlunit.html.HtmlSubmitInput;
 import org.wetator.backend.control.IClickable;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputSubmitIdentifier;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
-
-import org.htmlunit.html.HtmlSubmitInput;
 
 /**
  * This is the implementation of the HTML element 'input submit' (&lt;input type="submit"&gt;) using HtmlUnit as

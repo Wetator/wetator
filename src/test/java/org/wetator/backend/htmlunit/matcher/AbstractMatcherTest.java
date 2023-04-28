@@ -24,6 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import org.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlPage;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList.FoundType;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
@@ -34,9 +36,6 @@ import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.exception.InvalidInputException;
 import org.wetator.util.FindSpot;
 import org.wetator.util.SecretString;
-
-import org.htmlunit.html.HtmlElement;
-import org.htmlunit.html.HtmlPage;
 
 /**
  * @author frank.danek

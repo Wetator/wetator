@@ -16,14 +16,13 @@
 
 package org.wetator.backend.htmlunit.control;
 
+import org.htmlunit.html.HtmlOptionGroup;
+import org.htmlunit.html.HtmlSelect;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitOptionGroupIdentifier;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
 import org.wetator.core.WetatorContext;
-
-import org.htmlunit.html.HtmlOptionGroup;
-import org.htmlunit.html.HtmlSelect;
 
 /**
  * This is the implementation of the HTML element 'option group' (&lt;optgroup&gt;) using HtmlUnit as backend.

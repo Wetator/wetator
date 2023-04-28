@@ -18,6 +18,8 @@ package org.wetator.backend.htmlunit.control.identifier;
 
 import java.util.List;
 
+import org.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlOptionGroup;
 import org.wetator.backend.WPath;
 import org.wetator.backend.control.IControl;
 import org.wetator.backend.htmlunit.control.HtmlUnitOptionGroup;
@@ -27,9 +29,6 @@ import org.wetator.backend.htmlunit.matcher.ByIdMatcher;
 import org.wetator.backend.htmlunit.matcher.ByLabelAttributeMatcher;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.FindSpot;
-
-import org.htmlunit.html.HtmlElement;
-import org.htmlunit.html.HtmlOptionGroup;
 
 /**
  * The identifier for a {@link HtmlUnitOptionGroup}.<br>

@@ -18,6 +18,9 @@ package org.wetator.backend.htmlunit.control.identifier;
 
 import java.util.List;
 
+import org.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlLabel;
+import org.htmlunit.html.HtmlSelect;
 import org.wetator.backend.WPath;
 import org.wetator.backend.control.IControl;
 import org.wetator.backend.htmlunit.control.HtmlUnitSelect;
@@ -31,10 +34,6 @@ import org.wetator.backend.htmlunit.matcher.ByNameAttributeMatcher;
 import org.wetator.backend.htmlunit.matcher.ByTableCoordinatesMatcher;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.FindSpot;
-
-import org.htmlunit.html.HtmlElement;
-import org.htmlunit.html.HtmlLabel;
-import org.htmlunit.html.HtmlSelect;
 
 /**
  * The identifier for a {@link HtmlUnitSelect}.<br>

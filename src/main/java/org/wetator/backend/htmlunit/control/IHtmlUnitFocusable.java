@@ -16,11 +16,10 @@
 
 package org.wetator.backend.htmlunit.control;
 
-import org.wetator.backend.control.IFocusable;
-import org.wetator.core.WetatorContext;
-
 import org.htmlunit.html.HtmlElement;
 import org.htmlunit.html.HtmlPage;
+import org.wetator.backend.control.IFocusable;
+import org.wetator.core.WetatorContext;
 
 /**
  * This interface marks a {@link IFocusable} {@link IHtmlUnitControl}.<br>

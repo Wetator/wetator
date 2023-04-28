@@ -23,6 +23,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import org.htmlunit.html.HtmlCheckBoxInput;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -48,8 +49,6 @@ import org.wetator.backend.htmlunit.control.identifier.HtmlUnitSelectIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitTextAreaIdentifier;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.ExpectedControl;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.SortedEntryExpectation;
-
-import org.htmlunit.html.HtmlCheckBoxInput;
 
 /**
  * Tests for {@link IdentifierBasedHtmlUnitControlsFinder#find(WPath)} respecting CSS styles defining element

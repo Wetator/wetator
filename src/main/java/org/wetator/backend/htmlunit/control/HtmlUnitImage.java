@@ -16,12 +16,11 @@
 
 package org.wetator.backend.htmlunit.control;
 
+import org.htmlunit.html.HtmlImage;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitImageIdentifier;
 import org.wetator.backend.htmlunit.util.HtmlElementUtil;
-
-import org.htmlunit.html.HtmlImage;
 
 /**
  * This is the implementation of the HTML element 'image' (&lt;img&gt;) using HtmlUnit as backend.

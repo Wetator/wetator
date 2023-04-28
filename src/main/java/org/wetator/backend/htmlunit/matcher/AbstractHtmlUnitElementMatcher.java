@@ -18,12 +18,11 @@ package org.wetator.backend.htmlunit.matcher;
 
 import java.util.List;
 
+import org.htmlunit.html.HtmlElement;
 import org.wetator.backend.WeightedControlList.FoundType;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.FindSpot;
-
-import org.htmlunit.html.HtmlElement;
 
 /**
  * The base class for all matchers.<br>

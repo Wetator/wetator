@@ -16,14 +16,13 @@
 
 package org.wetator.backend.htmlunit.matcher;
 
+import org.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlImage;
+import org.htmlunit.html.HtmlImageInput;
 import org.wetator.backend.WeightedControlList.FoundType;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.FindSpot;
-
-import org.htmlunit.html.HtmlElement;
-import org.htmlunit.html.HtmlImage;
-import org.htmlunit.html.HtmlImageInput;
 
 /**
  * This matcher checks if the attribute 'alt' of the given image ({@link HtmlImage} or {@link HtmlImageInput}) matches

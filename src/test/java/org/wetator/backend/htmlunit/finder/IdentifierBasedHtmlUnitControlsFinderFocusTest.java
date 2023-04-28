@@ -23,6 +23,22 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import org.htmlunit.html.HtmlAnchor;
+import org.htmlunit.html.HtmlButton;
+import org.htmlunit.html.HtmlButtonInput;
+import org.htmlunit.html.HtmlCheckBoxInput;
+import org.htmlunit.html.HtmlEmailInput;
+import org.htmlunit.html.HtmlFileInput;
+import org.htmlunit.html.HtmlImageInput;
+import org.htmlunit.html.HtmlNumberInput;
+import org.htmlunit.html.HtmlOption;
+import org.htmlunit.html.HtmlPasswordInput;
+import org.htmlunit.html.HtmlRadioButtonInput;
+import org.htmlunit.html.HtmlResetInput;
+import org.htmlunit.html.HtmlSelect;
+import org.htmlunit.html.HtmlSubmitInput;
+import org.htmlunit.html.HtmlTextArea;
+import org.htmlunit.html.HtmlTextInput;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -50,23 +66,6 @@ import org.wetator.backend.htmlunit.control.identifier.HtmlUnitSelectIdentifier;
 import org.wetator.backend.htmlunit.control.identifier.HtmlUnitTextAreaIdentifier;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.ExpectedControl;
 import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.SortedEntryExpectation;
-
-import org.htmlunit.html.HtmlAnchor;
-import org.htmlunit.html.HtmlButton;
-import org.htmlunit.html.HtmlButtonInput;
-import org.htmlunit.html.HtmlCheckBoxInput;
-import org.htmlunit.html.HtmlEmailInput;
-import org.htmlunit.html.HtmlFileInput;
-import org.htmlunit.html.HtmlImageInput;
-import org.htmlunit.html.HtmlNumberInput;
-import org.htmlunit.html.HtmlOption;
-import org.htmlunit.html.HtmlPasswordInput;
-import org.htmlunit.html.HtmlRadioButtonInput;
-import org.htmlunit.html.HtmlResetInput;
-import org.htmlunit.html.HtmlSelect;
-import org.htmlunit.html.HtmlSubmitInput;
-import org.htmlunit.html.HtmlTextArea;
-import org.htmlunit.html.HtmlTextInput;
 
 /**
  * Tests for element weighting during {@link IdentifierBasedHtmlUnitControlsFinder#find(WPath)} concerning

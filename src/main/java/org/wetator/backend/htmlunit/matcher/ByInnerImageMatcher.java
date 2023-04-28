@@ -20,13 +20,12 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlImage;
 import org.wetator.backend.WeightedControlList.FoundType;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.FindSpot;
-
-import org.htmlunit.html.HtmlElement;
-import org.htmlunit.html.HtmlImage;
 
 /**
  * This matcher checks if the given element contains an {@link HtmlImage} and this

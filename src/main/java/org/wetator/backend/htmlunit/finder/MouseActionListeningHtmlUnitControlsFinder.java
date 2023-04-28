@@ -19,6 +19,9 @@ package org.wetator.backend.htmlunit.finder;
 import java.util.List;
 import java.util.concurrent.ThreadPoolExecutor;
 
+import org.htmlunit.html.HtmlBody;
+import org.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlLabel;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.WeightedControlList.FoundType;
@@ -41,10 +44,6 @@ import org.wetator.backend.htmlunit.matcher.ByTitleAttributeMatcher;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.FindSpot;
-
-import org.htmlunit.html.HtmlBody;
-import org.htmlunit.html.HtmlElement;
-import org.htmlunit.html.HtmlLabel;
 
 /**
  * In addition to the {@link IdentifierBasedHtmlUnitControlsFinder} this finder has a support for elements not marked as

@@ -25,13 +25,12 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ThreadPoolExecutor;
 
+import org.htmlunit.html.HtmlElement;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlIdentifier;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
 import org.wetator.exception.ImplementationException;
-
-import org.htmlunit.html.HtmlElement;
 
 /**
  * This finder uses {@link AbstractHtmlUnitControlIdentifier}s to identify if a {@link HtmlElement} matches a given

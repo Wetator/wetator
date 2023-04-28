@@ -22,21 +22,6 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
 
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runners.Parameterized.Parameter;
-import org.junit.runners.Parameterized.Parameters;
-import org.wetator.backend.WPath;
-import org.wetator.backend.htmlunit.MouseAction;
-import org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier;
-import org.wetator.backend.htmlunit.control.identifier.HtmlUnitAnchorIdentifier;
-import org.wetator.backend.htmlunit.control.identifier.HtmlUnitButtonIdentifier;
-import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputButtonIdentifier;
-import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputResetIdentifier;
-import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputSubmitIdentifier;
-import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.ExpectedControl;
-import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.SortedEntryExpectation;
-
 import org.htmlunit.html.HtmlAnchor;
 import org.htmlunit.html.HtmlBody;
 import org.htmlunit.html.HtmlButton;
@@ -60,6 +45,20 @@ import org.htmlunit.html.HtmlTableDataCell;
 import org.htmlunit.html.HtmlTableRow;
 import org.htmlunit.html.HtmlTextArea;
 import org.htmlunit.html.HtmlTextInput;
+import org.junit.BeforeClass;
+import org.junit.Test;
+import org.junit.runners.Parameterized.Parameter;
+import org.junit.runners.Parameterized.Parameters;
+import org.wetator.backend.WPath;
+import org.wetator.backend.htmlunit.MouseAction;
+import org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdentifier;
+import org.wetator.backend.htmlunit.control.identifier.HtmlUnitAnchorIdentifier;
+import org.wetator.backend.htmlunit.control.identifier.HtmlUnitButtonIdentifier;
+import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputButtonIdentifier;
+import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputResetIdentifier;
+import org.wetator.backend.htmlunit.control.identifier.HtmlUnitInputSubmitIdentifier;
+import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.ExpectedControl;
+import org.wetator.backend.htmlunit.finder.WeightedControlListEntryAssert.SortedEntryExpectation;
 
 /**
  * Basic tests for element weighting during {@link MouseActionListeningHtmlUnitControlsFinder#find(WPath)}.

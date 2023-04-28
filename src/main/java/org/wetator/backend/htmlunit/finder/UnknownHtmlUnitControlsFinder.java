@@ -18,6 +18,7 @@ package org.wetator.backend.htmlunit.finder;
 
 import java.util.List;
 
+import org.htmlunit.html.HtmlElement;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.WeightedControlList.FoundType;
@@ -30,8 +31,6 @@ import org.wetator.backend.htmlunit.matcher.ByTitleAttributeMatcher;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.FindSpot;
-
-import org.htmlunit.html.HtmlElement;
 
 /**
  * This finder is a generic finder for all {@link HtmlElement}s not known by the {@link HtmlUnitControlRepository}. Only

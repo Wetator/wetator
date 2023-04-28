@@ -18,6 +18,8 @@ package org.wetator.backend.htmlunit.control.identifier;
 
 import java.util.List;
 
+import org.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlResetInput;
 import org.wetator.backend.WPath;
 import org.wetator.backend.control.IControl;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputReset;
@@ -29,9 +31,6 @@ import org.wetator.backend.htmlunit.matcher.ByTableCoordinatesMatcher;
 import org.wetator.backend.htmlunit.matcher.ByValueAttributeMatcher;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.FindSpot;
-
-import org.htmlunit.html.HtmlElement;
-import org.htmlunit.html.HtmlResetInput;
 
 /**
  * The identifier for a {@link HtmlUnitInputReset}.<br>

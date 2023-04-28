@@ -22,12 +22,11 @@ import java.util.Locale;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
-import org.wetator.backend.IBrowser.ContentType;
-
 import org.htmlunit.Page;
 import org.htmlunit.TextPage;
 import org.htmlunit.WebResponse;
 import org.htmlunit.html.HtmlPage;
+import org.wetator.backend.IBrowser.ContentType;
 
 /**
  * Utility class for content type handling.

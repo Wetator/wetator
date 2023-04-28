@@ -16,12 +16,11 @@
 
 package org.wetator.backend.htmlunit.control.identifier;
 
+import org.htmlunit.html.HtmlElement;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
 import org.wetator.exception.ImplementationException;
-
-import org.htmlunit.html.HtmlElement;
 
 /**
  * The base class for all identifiers.<br>

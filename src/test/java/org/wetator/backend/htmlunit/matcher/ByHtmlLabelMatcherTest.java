@@ -22,6 +22,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.IOException;
 import java.util.List;
 
+import org.htmlunit.html.HtmlTextInput;
 import org.junit.Test;
 import org.wetator.backend.WeightedControlList.FoundType;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
@@ -31,8 +32,6 @@ import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.exception.InvalidInputException;
 import org.wetator.util.FindSpot;
 import org.wetator.util.SecretString;
-
-import org.htmlunit.html.HtmlTextInput;
 
 /**
  * @author frank.danek

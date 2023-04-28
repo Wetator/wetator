@@ -38,9 +38,6 @@ import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.wetator.backend.htmlunit.util.ContentTypeUtil;
-import org.wetator.exception.ResourceException;
-
 import org.htmlunit.FailingHttpStatusCodeException;
 import org.htmlunit.Page;
 import org.htmlunit.WebClient;
@@ -50,6 +47,8 @@ import org.htmlunit.html.HtmlImage;
 import org.htmlunit.html.HtmlLink;
 import org.htmlunit.html.HtmlPage;
 import org.htmlunit.util.UrlUtils;
+import org.wetator.backend.htmlunit.util.ContentTypeUtil;
+import org.wetator.exception.ResourceException;
 
 /**
  * Simple store that manages the storage of the different responses.

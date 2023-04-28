@@ -21,6 +21,7 @@ import static org.junit.Assert.assertEquals;
 import java.io.IOException;
 import java.util.List;
 
+import org.htmlunit.html.HtmlElement;
 import org.junit.Before;
 import org.junit.Test;
 import org.wetator.backend.WPath;
@@ -34,8 +35,6 @@ import org.wetator.backend.htmlunit.matcher.ByValueAttributeMatcher;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.exception.InvalidInputException;
 import org.wetator.util.FindSpot;
-
-import org.htmlunit.html.HtmlElement;
 
 /**
  * @author rbri

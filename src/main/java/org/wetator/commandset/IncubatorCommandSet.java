@@ -24,6 +24,10 @@ import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.exception.ExceptionUtils;
+import org.htmlunit.html.DomElement;
+import org.htmlunit.html.DomNodeList;
+import org.htmlunit.html.HtmlApplet;
+import org.htmlunit.html.HtmlPage;
 import org.wetator.backend.ControlFeature;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.IControlFinder;
@@ -47,11 +51,6 @@ import org.wetator.gui.InputDialog;
 import org.wetator.i18n.Messages;
 import org.wetator.util.Assert;
 import org.wetator.util.SecretString;
-
-import org.htmlunit.html.DomElement;
-import org.htmlunit.html.DomNodeList;
-import org.htmlunit.html.HtmlApplet;
-import org.htmlunit.html.HtmlPage;
 
 /**
  * The implementation of all experimental commands that Wetator
@@ -183,7 +182,7 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
    * Command 'enter-variable'.
    * For the moment only a hack - see https://github.com/Wetator/wetator/issues/19
    */
-  public final class CommandEnterVariable implements ICommandImplementation {
+  public static final class CommandEnterVariable implements ICommandImplementation {
     @Override
     public void execute(final WetatorContext aContext, final Command aCommand)
         throws CommandException, InvalidInputException {

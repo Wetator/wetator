@@ -20,11 +20,10 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 
-import org.junit.Test;
-import org.wetator.backend.htmlunit.util.PageUtil;
-
 import org.htmlunit.html.HtmlElement;
 import org.htmlunit.html.HtmlPage;
+import org.junit.Test;
+import org.wetator.backend.htmlunit.util.PageUtil;
 
 /**
  * @author rbri

@@ -20,13 +20,12 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import org.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlLabel;
 import org.wetator.backend.WeightedControlList.FoundType;
 import org.wetator.backend.htmlunit.util.HtmlPageIndex;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.FindSpot;
-
-import org.htmlunit.html.HtmlElement;
-import org.htmlunit.html.HtmlLabel;
 
 /**
  * This matcher checks if the given {@link HtmlLabel} matches the criteria and labels the needed type of element.

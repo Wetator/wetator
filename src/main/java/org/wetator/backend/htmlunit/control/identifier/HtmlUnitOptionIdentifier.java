@@ -19,6 +19,11 @@ package org.wetator.backend.htmlunit.control.identifier;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.htmlunit.html.DomElement;
+import org.htmlunit.html.HtmlElement;
+import org.htmlunit.html.HtmlLabel;
+import org.htmlunit.html.HtmlOption;
+import org.htmlunit.html.HtmlSelect;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WPath.TableCoordinate;
 import org.wetator.backend.WeightedControlList;
@@ -26,12 +31,6 @@ import org.wetator.backend.htmlunit.control.HtmlUnitOption;
 import org.wetator.backend.htmlunit.matcher.ByTableCoordinatesMatcher;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.FindSpot;
-
-import org.htmlunit.html.DomElement;
-import org.htmlunit.html.HtmlElement;
-import org.htmlunit.html.HtmlLabel;
-import org.htmlunit.html.HtmlOption;
-import org.htmlunit.html.HtmlSelect;
 
 /**
  * The identifier for a {@link HtmlUnitOption} nested inside a select.<br>

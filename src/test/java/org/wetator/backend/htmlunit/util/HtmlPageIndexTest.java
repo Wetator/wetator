@@ -25,10 +25,6 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.junit.Test;
-import org.wetator.backend.htmlunit.MouseAction;
-import org.wetator.util.FindSpot;
-
 import org.htmlunit.BrowserVersion;
 import org.htmlunit.ElementNotFoundException;
 import org.htmlunit.StringWebResponse;
@@ -37,6 +33,9 @@ import org.htmlunit.WebWindow;
 import org.htmlunit.html.HtmlElement;
 import org.htmlunit.html.HtmlPage;
 import org.htmlunit.html.parser.HTMLParser;
+import org.junit.Test;
+import org.wetator.backend.htmlunit.MouseAction;
+import org.wetator.util.FindSpot;
 
 /**
  * @author rbri

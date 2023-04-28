@@ -23,17 +23,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.wetator.backend.WPath.TableCoordinate;
-import org.wetator.backend.WeightedControlList.FoundType;
-import org.wetator.backend.htmlunit.util.HtmlPageIndex;
-import org.wetator.core.searchpattern.SearchPattern;
-import org.wetator.util.FindSpot;
-
 import org.htmlunit.html.DomNode;
 import org.htmlunit.html.HtmlElement;
 import org.htmlunit.html.HtmlTable;
 import org.htmlunit.html.HtmlTableCell;
 import org.htmlunit.html.HtmlTableRow;
+import org.wetator.backend.WPath.TableCoordinate;
+import org.wetator.backend.WeightedControlList.FoundType;
+import org.wetator.backend.htmlunit.util.HtmlPageIndex;
+import org.wetator.core.searchpattern.SearchPattern;
+import org.wetator.util.FindSpot;
 
 /**
  * This matcher checks if the given element matches the given table coordinates.

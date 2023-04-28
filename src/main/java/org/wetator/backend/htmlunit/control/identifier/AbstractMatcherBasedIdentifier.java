@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.htmlunit.html.HtmlElement;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.control.IControl;
@@ -28,8 +29,6 @@ import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.Match
 import org.wetator.backend.htmlunit.matcher.ByTableCoordinatesMatcher;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.FindSpot;
-
-import org.htmlunit.html.HtmlElement;
 
 /**
  * The base class for all identifiers using {@link AbstractHtmlUnitElementMatcher} to identify a {@link IControl}.<br>
