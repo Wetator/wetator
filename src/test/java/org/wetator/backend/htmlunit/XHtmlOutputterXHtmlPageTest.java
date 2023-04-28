@@ -21,14 +21,13 @@ import static org.junit.Assert.assertEquals;
 import java.io.IOException;
 import java.io.StringWriter;
 
-import org.junit.Test;
-import org.wetator.backend.htmlunit.util.PageUtil;
-import org.wetator.util.NormalizedString;
-
 import org.htmlunit.BrowserVersion;
 import org.htmlunit.html.HtmlOption;
 import org.htmlunit.html.HtmlRadioButtonInput;
 import org.htmlunit.html.XHtmlPage;
+import org.junit.Test;
+import org.wetator.backend.htmlunit.util.PageUtil;
+import org.wetator.util.NormalizedString;
 
 /**
  * @author rbri
@@ -198,5 +197,15 @@ public class XHtmlOutputterXHtmlPageTest {
         + EXPECTED_TRAILING;
     // @formatter:on
     assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
+  }
+
+  @Test
+  public void displayNone() throws IOException {
+    final String tmpXHtmlCode = LEADING + "<div id='errorMessage' style=' display:none; width:290px;'>Wetator</div>"
+        + TRAILING;
+    final String tmpExpected = EXPECTED_LEADING
+        + "<body style=\"display: block\"> <div id=\"errorMessage\" style=\"display: block; display:none; width:290px;\"> Wetator </div> <script> highlight(); </script> </body>"
+        + EXPECTED_TRAILING;
+    testXHtmlOutput(tmpExpected, tmpXHtmlCode);
   }
 }

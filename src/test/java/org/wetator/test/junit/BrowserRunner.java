@@ -108,7 +108,7 @@ public class BrowserRunner extends BlockJUnit4ClassRunner {
   public @interface Browsers {
 
     /**
-     * The browsers the test should be run with.
+     * @return the browsers the test should be run with.
      */
     BrowserType[] value() default { };
   }
