@@ -567,7 +567,7 @@
                 </os>
             </activation>
             <properties>
-                <wetator.prepscript>echo</wetator.prepscript>
+                <wetator.prepscript>doskey.exe</wetator.prepscript>
                 <wetator.script>wetator.bat</wetator.script>
             </properties>
         </profile>
