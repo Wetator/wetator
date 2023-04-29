@@ -24,8 +24,15 @@ import org.wetator.util.VersionUtil;
  * @author rbri
  */
 public final class Version {
+
+  /**
+   * We use an uber-jar for the deployment, we can't access the manifest.
+   * There is an unit test to make sure we have the correct value here.
+   **/
+  public static final String HTMLUNIT_VERSION = "3.1.0";
+
   /** Pattern to check for the correct jar file. **/
-  static final String WETATOR_JAR_PATTERN = "wetator(-[0-9\\.]*)?(-SNAPSHOT)?.jar";
+  static final String WETATOR_JAR_PATTERN = "wetator(-[0-9\\.]*)?(-snapshot)?(-all)?.jar";
 
   /**
    * A simple main function to be able to ask for the version from a command line.
@@ -47,14 +54,14 @@ public final class Version {
    * @return the product name.
    */
   public static String getProductName() {
-    return readFromManifest("Application-Name", "Wetator");
+    return readFromManifest("Implementation-Title", "Wetator");
   }
 
   /**
    * @return the version.
    */
   public static String getVersion() {
-    final String tmpVersion = readFromManifest("Version", "local build");
+    final String tmpVersion = readFromManifest("Implementation-Version", "local build");
     return tmpVersion.replaceAll("_", ".");
   }
 
@@ -73,6 +80,6 @@ public final class Version {
   }
 
   private static String readFromManifest(final String anAttributeName, final String aDefault) {
-    return VersionUtil.readAttributeFromJarManifest(WETATOR_JAR_PATTERN, "Application", anAttributeName, aDefault);
+    return VersionUtil.readAttributeFromJarManifest(WETATOR_JAR_PATTERN, null, anAttributeName, aDefault);
   }
 }

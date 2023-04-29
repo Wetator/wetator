@@ -41,4 +41,10 @@
         <filePath regex="true">.*xml-apis-1\.4\.01\.jar</filePath>
         <cve>CVE-2021-37533</cve>
     </suppress>
+
+    <suppress>
+        <filePath regex="true">.*plexus-utils-3\.5\.1\.jar</filePath>
+        <cve>CVE-2021-4277</cve>
+    </suppress>
+
 </suppressions>

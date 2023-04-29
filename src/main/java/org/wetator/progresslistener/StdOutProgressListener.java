@@ -81,8 +81,7 @@ public class StdOutProgressListener implements IProgressListener {
   public void init(final WetatorEngine aWetatorEngine) {
     println(Version.getProductName() + " " + Version.getVersion());
     output.indent();
-    println("using " + org.htmlunit.Version.getProductName() + " version "
-        + org.htmlunit.Version.getProductVersion());
+    println("using " + org.htmlunit.Version.getProductName() + " version " + Version.HTMLUNIT_VERSION);
 
     final File tmpConfigFile = aWetatorEngine.getConfigFile();
     if (null != tmpConfigFile) {

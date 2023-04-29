@@ -16,6 +16,12 @@
 
 package org.wetator;
 
+import java.io.FileReader;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import org.apache.maven.model.Model;
+import org.apache.maven.model.io.xpp3.MavenXpp3Reader;
 import org.junit.Test;
 
 /**
@@ -27,16 +33,37 @@ public class VersionTest {
 
   @Test
   public void versionPattern() {
-    org.junit.Assert.assertTrue("wetator.jar".matches(Version.WETATOR_JAR_PATTERN));
-    org.junit.Assert.assertTrue("wetator-0.11.jar".matches(Version.WETATOR_JAR_PATTERN));
-    org.junit.Assert.assertTrue("wetator-0.1.1.jar".matches(Version.WETATOR_JAR_PATTERN));
-    org.junit.Assert.assertTrue("wetator-1.7.3.jar".matches(Version.WETATOR_JAR_PATTERN));
+    matches("wetator.jar");
+    matches("wetator-0.11.jar");
+    matches("wetator-0.1.1.jar");
+    matches("wetator-1.7.3.jar");
 
-    org.junit.Assert.assertTrue("wetator-0.11-SNAPSHOT.jar".matches(Version.WETATOR_JAR_PATTERN));
-    org.junit.Assert.assertTrue("wetator-0.1.1-SNAPSHOT.jar".matches(Version.WETATOR_JAR_PATTERN));
-    org.junit.Assert.assertTrue("wetator-1.7.3-SNAPSHOT.jar".matches(Version.WETATOR_JAR_PATTERN));
+    matches("wetator-0.11-snapshot.jar");
+    matches("wetator-0.1.1-snapshot.jar");
+    matches("wetator-1.7.3-snapshot.jar");
+
+    matches("wetator-3.0.0-snapshot-all.jar");
+    matches("wetator-3.0.0-all.jar");
+
+    matches(
+        "jar:file:/c:/rbri/git_repo/wetator/target/test-release/app/lib/wetator-3.0.0-snapshot-all.jar!/meta-inf/manifest.mf");
 
     org.junit.Assert.assertFalse("wetator-ant.jar".matches(Version.WETATOR_JAR_PATTERN));
     org.junit.Assert.assertFalse("wetator-ext.jar".matches(Version.WETATOR_JAR_PATTERN));
+  }
+
+  private void matches(final String aJarName) {
+    final Pattern tmpPattern = Pattern.compile(Version.WETATOR_JAR_PATTERN);
+    final Matcher tmpMatcher = tmpPattern.matcher(aJarName);
+    org.junit.Assert.assertTrue(tmpMatcher.find());
+  }
+
+  @Test
+  public void htmlunitVersion() throws Exception {
+    final MavenXpp3Reader tmpReader = new MavenXpp3Reader();
+    final Model tmpModel = tmpReader.read(new FileReader("pom.xml"));
+    final String tmpHtmlunitVersion = tmpModel.getProperties().get("htmlunit.version").toString();
+
+    org.junit.Assert.assertEquals(tmpHtmlunitVersion, Version.HTMLUNIT_VERSION);
   }
 }

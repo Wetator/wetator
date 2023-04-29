@@ -71,4 +71,6 @@
   <classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/jetty-util-ajax/9.4.51.v20230217/jetty-util-ajax-9.4.51.v20230217.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/websocket/websocket-server/9.4.51.v20230217/websocket-server-9.4.51.v20230217.jar"/>
   <classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/websocket/websocket-servlet/9.4.51.v20230217/websocket-servlet-9.4.51.v20230217.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/apache/maven/maven-model/3.9.1/maven-model-3.9.1.jar"/>
+  <classpathentry kind="var" path="M2_REPO/org/codehaus/plexus/plexus-utils/3.5.1/plexus-utils-3.5.1.jar"/>
 </classpath>
