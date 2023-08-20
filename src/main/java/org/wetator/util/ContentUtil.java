@@ -34,6 +34,8 @@ import javax.swing.text.rtf.RTFEditorKit;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.apache.pdfbox.Loader;
+import org.apache.pdfbox.io.RandomAccessReadBuffer;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDDocumentInformation;
 import org.apache.pdfbox.pdmodel.encryption.AccessPermission;
@@ -126,7 +128,7 @@ public final class ContentUtil {
       return "";
     }
 
-    try (PDDocument tmpDocument = PDDocument.load(anInputStream)) {
+    try (PDDocument tmpDocument = Loader.loadPDF(new RandomAccessReadBuffer(anInputStream))) {
       final AccessPermission tmpPermissions = tmpDocument.getCurrentAccessPermission();
       if (!tmpPermissions.canExtractContent()) {
         throw new IOException("Content extraction forbidden for the given PDF document.");
@@ -154,7 +156,7 @@ public final class ContentUtil {
       return "";
     }
 
-    try (PDDocument tmpDocument = PDDocument.load(anInputStream)) {
+    try (PDDocument tmpDocument = Loader.loadPDF(new RandomAccessReadBuffer(anInputStream))) {
       final PDDocumentInformation tmpInfo = tmpDocument.getDocumentInformation();
       if (null != tmpInfo) {
         final NormalizedString tmpResult = new NormalizedString(tmpInfo.getTitle());
