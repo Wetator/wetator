@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-  Copyright (c) 2008-2022 wetator.org
+  Copyright (c) 2008-2023 wetator.org
 
   Licensed under the Apache License, Version 2.0 (the "License");
   you may not use this file except in compliance with the License.
@@ -18,7 +18,7 @@
 
     <groupId>org.wetator</groupId>
     <artifactId>wetator</artifactId>
-    <version>3.1.0-SNAPSHOT</version>
+    <version>3.5.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Wetator</name>
@@ -88,9 +88,9 @@
         <log4j.version>2.20.0</log4j.version>
 
         <checkstyle.version>9.3</checkstyle.version>
-        <spotbugs.version>4.6.0</spotbugs.version>
-        <pmd.version>6.44.0</pmd.version>
-        <dependencycheck.version>7.1.2</dependencycheck.version>
+        <spotbugs.version>4.7.3</spotbugs.version>
+        <pmd.version>6.50.0</pmd.version>
+        <dependencycheck.version>8.4.0</dependencycheck.version>
     </properties>
 
     <dependencies>
