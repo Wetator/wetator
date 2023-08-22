@@ -12,14 +12,14 @@
         <Logger name="org.wetator.core.WetConfiguration" level="warn" />
 
         <!-- suppress stack trace for javascript errors -->
-        <Logger name="com.gargoylesoftware.htmlunit.javascript.background.JavaScriptJobManagerImpl" level="fatal" />
+        <Logger name="org.htmlunit.javascript.background.JavaScriptJobManagerImpl" level="fatal" />
         <!-- no output for every javascript exception thrown but catched -->
-        <Logger name="com.gargoylesoftware.htmlunit.javascript.StrictErrorReporter" level="fatal" />
+        <Logger name="org.htmlunit.javascript.StrictErrorReporter" level="fatal" />
         <!-- in case we have activated the javascript debugger -->
-        <!-- <Logger name="com.gargoylesoftware.htmlunit.javascript.DebugFrameImpl" level="trace" /> -->
+        <!-- <Logger name="org.htmlunit.javascript.DebugFrameImpl" level="trace" /> -->
 
         <!-- all the rest from HtmlUnit -->
-        <Logger name="com.gargoylesoftware.htmlunit" level="warn" />
+        <Logger name="org.htmlunit" level="warn" />
 
         <!-- sometimes jetty likes to talk -->
         <Logger name="org.eclipse.jetty" level="warn">
@@ -30,7 +30,7 @@
         <Logger name="org.wetator" level="error">
             <AppenderRef ref="w_stdout" />
         </Logger>
-        <Logger name="com.gargoylesoftware.htmlunit" level="error">
+        <Logger name="org.htmlunit" level="error">
             <AppenderRef ref="w_stdout" />
         </Logger>
         <Logger name="org.apache.http" level="error">
