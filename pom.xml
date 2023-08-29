@@ -18,7 +18,7 @@
 
     <groupId>org.wetator</groupId>
     <artifactId>wetator</artifactId>
-    <version>3.5.0-SNAPSHOT</version>
+    <version>3.5.0</version>
     <packaging>jar</packaging>
 
     <name>Wetator</name>
