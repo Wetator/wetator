@@ -212,7 +212,7 @@ public class ContentUtilTest {
       ContentUtil.getPdfContentAsString(new FileInputStream("test/webpage/download/wet_test.xls"), 4000);
       fail("IOException expected");
     } catch (final IOException e) {
-      assertEquals("java.io.IOException: Error: Header doesn't contain versioninfo", e.toString());
+      assertEquals("java.io.IOException: Missing root object specification in trailer.", e.toString());
     }
   }
 
@@ -698,7 +698,7 @@ public class ContentUtilTest {
       fail("IOException expected");
     } catch (final IOException e) {
       assertEquals("java.io.IOException: Can't convert the zipped pdf 'wet_test.pdf' into text "
-          + "(reason: java.io.IOException: Error: Header doesn't contain versioninfo).", e.toString());
+          + "(reason: java.io.IOException: Missing root object specification in trailer.).", e.toString());
     }
   }
 

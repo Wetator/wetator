@@ -21,12 +21,12 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import org.htmlunit.html.HtmlAnchor;
 import org.htmlunit.html.HtmlElement;
-import org.htmlunit.html.HtmlPage;
 import org.junit.Test;
 import org.wetator.backend.WeightedControlList.Entry;
 import org.wetator.backend.WeightedControlList.FoundType;
@@ -256,14 +256,20 @@ public class WeightedControlListTest {
 
   private HtmlAnchor constructHtmlAnchor() throws IOException {
     final String tmpHtmlCode = "<html><body><a href='wet.html'>AnchorText</a></body></html>";
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
 
-    final Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
+    final List<HtmlAnchor> tmpAnchors = new ArrayList<>();
 
-    tmpHtmlElements.next();
-    tmpHtmlElements.next();
-    tmpHtmlElements.next();
+    PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-    return (HtmlAnchor) tmpHtmlElements.next();
+      final Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
+
+      tmpHtmlElements.next();
+      tmpHtmlElements.next();
+      tmpHtmlElements.next();
+
+      tmpAnchors.add((HtmlAnchor) tmpHtmlElements.next());
+    });
+
+    return tmpAnchors.get(0);
   }
 }

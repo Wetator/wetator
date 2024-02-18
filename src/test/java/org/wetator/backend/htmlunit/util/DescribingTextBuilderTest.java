@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.util.Iterator;
 
 import org.htmlunit.html.HtmlElement;
-import org.htmlunit.html.HtmlPage;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -46,16 +45,17 @@ public class DescribingTextBuilderTest {
         + "<div id='testId' name='testName'></div>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-    final Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
-    tmpHtmlElements.next();
-    tmpHtmlElements.next();
-    tmpHtmlElements.next();
-    element = tmpHtmlElements.next();
-    elementWithId = tmpHtmlElements.next();
-    elementWithName = tmpHtmlElements.next();
-    elementWithIdAndName = tmpHtmlElements.next();
+      final Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
+      tmpHtmlElements.next();
+      tmpHtmlElements.next();
+      tmpHtmlElements.next();
+      element = tmpHtmlElements.next();
+      elementWithId = tmpHtmlElements.next();
+      elementWithName = tmpHtmlElements.next();
+      elementWithIdAndName = tmpHtmlElements.next();
+    });
   }
 
   @Test

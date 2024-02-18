@@ -33,6 +33,8 @@ import org.htmlunit.WebWindow;
 import org.htmlunit.html.HtmlElement;
 import org.htmlunit.html.HtmlPage;
 import org.htmlunit.html.parser.HTMLParser;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.wetator.backend.htmlunit.MouseAction;
 import org.wetator.util.FindSpot;
@@ -42,11 +44,28 @@ import org.wetator.util.FindSpot;
  * @author frank.danek
  */
 public class HtmlPageIndexTest {
+  protected WebClient webClient;
+
+  /**
+   * Creates a Wetator configuration.
+   */
+  @Before
+  public void createWebClient() {
+    webClient = new WebClient(BrowserVersion.FIREFOX_ESR);
+  }
+
+  /**
+   * Closes the WebClient.
+   */
+  @After
+  public void closeWebClient() {
+    webClient.close();
+  }
 
   @Test
   public void getHtmlElementById() throws IOException {
     final String tmpHtmlCode = "<html><body><h1 id='myH1'>Heading1</h1></body></html>";
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
     assertEquals("myH1", tmpResult.getHtmlElementById("myH1").getId());
@@ -55,7 +74,7 @@ public class HtmlPageIndexTest {
   @Test(expected = ElementNotFoundException.class)
   public void getHtmlElementById_NotFound() throws IOException {
     final String tmpHtmlCode = "<html><body><h1 id='myH1'>Heading1</h1></body></html>";
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
     tmpResult.getHtmlElementById("myH2");
@@ -64,7 +83,7 @@ public class HtmlPageIndexTest {
   @Test
   public void getHtmlElementById_Duplicate() throws IOException {
     final String tmpHtmlCode = "<html><body><h1 id='myH1'>Heading1</h1><h1 id='myH1'>Heading2</h1></body></html>";
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
     assertEquals("myH1", tmpResult.getHtmlElementById("myH1").getId());
@@ -82,25 +101,29 @@ public class HtmlPageIndexTest {
 
   private void getText(final String anExpectedIE, final String anExpectedFF, final String anExpectedWithoutFC,
       final String anHtmlCode) throws IOException {
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.INTERNET_EXPLORER, anHtmlCode);
-    HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
-    assertEquals("getText[IE]", anExpectedIE, tmpResult.getText());
-    assertEquals("getTextWithoutFormControls[IE]", anExpectedWithoutFC, tmpResult.getTextWithoutFormControls());
+    PageUtil.consumeHtmlPage(BrowserVersion.INTERNET_EXPLORER, anHtmlCode, tmpHtmlPage -> {
+      HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+      assertEquals("getText[IE]", anExpectedIE, tmpResult.getText());
+      assertEquals("getTextWithoutFormControls[IE]", anExpectedWithoutFC, tmpResult.getTextWithoutFormControls());
+    });
 
-    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.FIREFOX, anHtmlCode);
-    tmpResult = new HtmlPageIndex(tmpHtmlPage);
-    assertEquals("getText[FF]", anExpectedFF, tmpResult.getText());
-    assertEquals("getTextWithoutFormControls[FF]", anExpectedWithoutFC, tmpResult.getTextWithoutFormControls());
+    PageUtil.consumeHtmlPage(BrowserVersion.FIREFOX, anHtmlCode, tmpHtmlPage -> {
+      HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+      assertEquals("getText[FF]", anExpectedFF, tmpResult.getText());
+      assertEquals("getTextWithoutFormControls[FF]", anExpectedWithoutFC, tmpResult.getTextWithoutFormControls());
+    });
 
-    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.FIREFOX_ESR, anHtmlCode);
-    tmpResult = new HtmlPageIndex(tmpHtmlPage);
-    assertEquals("getText[FF]", anExpectedFF, tmpResult.getText());
-    assertEquals("getTextWithoutFormControls[FF]", anExpectedWithoutFC, tmpResult.getTextWithoutFormControls());
+    PageUtil.consumeHtmlPage(BrowserVersion.FIREFOX_ESR, anHtmlCode, tmpHtmlPage -> {
+      HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+      assertEquals("getText[FF]", anExpectedFF, tmpResult.getText());
+      assertEquals("getTextWithoutFormControls[FF]", anExpectedWithoutFC, tmpResult.getTextWithoutFormControls());
+    });
 
-    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.CHROME, anHtmlCode);
-    tmpResult = new HtmlPageIndex(tmpHtmlPage);
-    assertEquals("getText[FF]", anExpectedFF, tmpResult.getText());
-    assertEquals("getTextWithoutFormControls[FF]", anExpectedWithoutFC, tmpResult.getTextWithoutFormControls());
+    PageUtil.consumeHtmlPage(BrowserVersion.CHROME, anHtmlCode, tmpHtmlPage -> {
+      HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+      assertEquals("getText[FF]", anExpectedFF, tmpResult.getText());
+      assertEquals("getTextWithoutFormControls[FF]", anExpectedWithoutFC, tmpResult.getTextWithoutFormControls());
+    });
   }
 
   @Test
@@ -709,18 +732,20 @@ public class HtmlPageIndexTest {
     // @formatter:on
 
     // FF
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.FIREFOX_ESR, tmpHtmlCode);
-    HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+    PageUtil.consumeHtmlPage(BrowserVersion.FIREFOX_ESR, tmpHtmlCode, tmpHtmlPage -> {
+      HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
-    assertEquals("before Object tag not supported after", tmpResult.getText());
-    assertEquals("before Object tag not supported after", tmpResult.getTextWithoutFormControls());
+      assertEquals("before Object tag not supported after", tmpResult.getText());
+      assertEquals("before Object tag not supported after", tmpResult.getTextWithoutFormControls());
+    });
 
     // IE without support
-    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode);
-    tmpResult = new HtmlPageIndex(tmpHtmlPage);
+    PageUtil.consumeHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode, tmpHtmlPage -> {
+      HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
-    assertEquals("before Object tag not supported after", tmpResult.getText());
-    assertEquals("before Object tag not supported after", tmpResult.getTextWithoutFormControls());
+      assertEquals("before Object tag not supported after", tmpResult.getText());
+      assertEquals("before Object tag not supported after", tmpResult.getTextWithoutFormControls());
+    });
 
     // IE with support
     final WebClient tmpWebClient = new WebClient(BrowserVersion.INTERNET_EXPLORER);
@@ -734,12 +759,12 @@ public class HtmlPageIndexTest {
 
       final StringWebResponse tmpWebResponse = new StringWebResponse(tmpHtmlCode,
           new URL("http://www.wetator.org/test.html"));
-      tmpHtmlPage = new HtmlPage(tmpWebResponse, tmpWebWindow);
+      HtmlPage tmpHtmlPage = new HtmlPage(tmpWebResponse, tmpWebWindow);
       tmpWebWindow.setEnclosedPage(tmpHtmlPage);
 
       tmpHtmlParser.parse(tmpWebResponse, tmpHtmlPage, true, false);
 
-      tmpResult = new HtmlPageIndex(tmpHtmlPage);
+      HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
       assertEquals("before after", tmpResult.getText());
       assertEquals("before after", tmpResult.getTextWithoutFormControls());
@@ -894,7 +919,7 @@ public class HtmlPageIndexTest {
         + "<div style='text-transform: uppercase'><p>insideDiv</p></div>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
     final String tmpExpected = "lowercase UPPERCASE CapiTalize nOne INSIDEDIV";
@@ -1087,7 +1112,7 @@ public class HtmlPageIndexTest {
 
     getText(tmpExpected, tmpExpected2, tmpHtmlCode);
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
     assertEquals("PageStart", tmpResult.getTextBefore(tmpHtmlPage.getHtmlElementById("idLegend")));
@@ -1099,10 +1124,11 @@ public class HtmlPageIndexTest {
   }
 
   private void getIndex(final int anExpected, final String anHtmlCode) throws Exception {
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(anHtmlCode);
-    final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+    PageUtil.consumeHtmlPage(anHtmlCode, tmpHtmlPage -> {
+      final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
-    assertEquals(anExpected, tmpResult.getIndex((HtmlElement) tmpHtmlPage.getElementById("myID")));
+      assertEquals(anExpected, tmpResult.getIndex((HtmlElement) tmpHtmlPage.getElementById("myID")));
+    });
   }
 
   @Test
@@ -1112,7 +1138,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
     assertEquals(1, tmpResult.getIndex((HtmlElement) tmpHtmlPage.getElementsByTagName("html").get(0)));
@@ -1127,7 +1153,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
     assertEquals(1, tmpResult.getIndex((HtmlElement) tmpHtmlPage.getElementsByTagName("html").get(0)));
@@ -1309,10 +1335,11 @@ public class HtmlPageIndexTest {
   }
 
   private void getPosition(final int aStartPos, final int anEndPos, final String anHtmlCode) throws Exception {
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(anHtmlCode);
-    final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+    PageUtil.consumeHtmlPage(anHtmlCode, tmpHtmlPage -> {
+      final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
-    assertFindSpot(aStartPos, anEndPos, tmpResult.getPosition((HtmlElement) tmpHtmlPage.getElementById("myID")));
+      assertFindSpot(aStartPos, anEndPos, tmpResult.getPosition((HtmlElement) tmpHtmlPage.getElementById("myID")));
+    });
   }
 
   private void assertFindSpot(final int aStartPos, final int anEndPos, final FindSpot aFindSpot) {
@@ -1326,7 +1353,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
     assertFindSpot(0, 0, tmpResult.getPosition((HtmlElement) tmpHtmlPage.getElementsByTagName("html").get(0)));
@@ -1341,7 +1368,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
     assertFindSpot(0, 0, tmpResult.getPosition((HtmlElement) tmpHtmlPage.getElementsByTagName("html").get(0)));
@@ -1632,10 +1659,11 @@ public class HtmlPageIndexTest {
   }
 
   private void getHierarchy(final String anExpected, final String anHtmlCode) throws Exception {
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(anHtmlCode);
-    final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+    PageUtil.consumeHtmlPage(anHtmlCode, tmpHtmlPage -> {
+      final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
-    assertEquals(anExpected, tmpResult.getHierarchy((HtmlElement) tmpHtmlPage.getElementById("myID")));
+      assertEquals(anExpected, tmpResult.getHierarchy((HtmlElement) tmpHtmlPage.getElementById("myID")));
+    });
   }
 
   @Test
@@ -1645,7 +1673,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
     assertEquals("0>1", tmpResult.getHierarchy((HtmlElement) tmpHtmlPage.getElementsByTagName("html").get(0)));
@@ -1660,7 +1688,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
     assertEquals("0>1", tmpResult.getHierarchy((HtmlElement) tmpHtmlPage.getElementsByTagName("html").get(0)));
@@ -1851,7 +1879,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     assertEquals("", tmpHtmlPageIndex.getLabelingTextBefore(tmpHtmlPage.getHtmlElementById("MyInputId"), 0));
@@ -1867,7 +1895,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     assertEquals("MyLabel", tmpHtmlPageIndex.getLabelingTextBefore(tmpHtmlPage.getHtmlElementById("MyInputId"), 0));
@@ -1884,7 +1912,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     assertEquals("MyLabel", tmpHtmlPageIndex.getLabelingTextBefore(tmpHtmlPage.getHtmlElementById("MyInputId"), 0));
@@ -1901,7 +1929,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     assertEquals("MoreText MyLabel",
@@ -1919,7 +1947,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     assertEquals("MyLabel", tmpHtmlPageIndex.getLabelingTextBefore(tmpHtmlPage.getHtmlElementById("MyInputId"), 0));
@@ -1936,7 +1964,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     assertEquals("MyLabel", tmpHtmlPageIndex.getLabelingTextBefore(tmpHtmlPage.getHtmlElementById("MyInputId"), 0));
@@ -1953,7 +1981,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     assertEquals("MyLabel value2",
@@ -1970,7 +1998,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     assertEquals("before some button text",
@@ -1987,7 +2015,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     assertEquals("before some button text",
@@ -2004,7 +2032,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     assertEquals("", tmpHtmlPageIndex.getLabelingTextAfter(tmpHtmlPage.getHtmlElementById("MyCheckboxId")));
@@ -2020,7 +2048,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     assertEquals("CheckBox", tmpHtmlPageIndex.getLabelingTextAfter(tmpHtmlPage.getHtmlElementById("MyCheckboxId")));
@@ -2037,7 +2065,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     assertEquals("CheckBoxpart2",
@@ -2055,7 +2083,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     assertEquals("CheckBox", tmpHtmlPageIndex.getLabelingTextAfter(tmpHtmlPage.getHtmlElementById("MyCheckboxId")));
@@ -2073,7 +2101,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     assertEquals("CheckBox", tmpHtmlPageIndex.getLabelingTextAfter(tmpHtmlPage.getHtmlElementById("MyCheckboxId")));
@@ -2089,7 +2117,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     assertEquals("some button text after",
@@ -2106,7 +2134,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     assertEquals("", tmpHtmlPageIndex.getLabelingTextAfter(tmpHtmlPage.getHtmlElementById("myImg")));
@@ -2132,7 +2160,7 @@ public class HtmlPageIndexTest {
         + "</table>"
         + "</body></html>";
     // @formatter:off
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
@@ -2189,7 +2217,7 @@ public class HtmlPageIndexTest {
         + "after"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
@@ -2215,7 +2243,7 @@ public class HtmlPageIndexTest {
         + "after"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
@@ -2242,18 +2270,20 @@ public class HtmlPageIndexTest {
     // @formatter:on
 
     // FF
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.FIREFOX_ESR, tmpHtmlCode);
-    HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+    PageUtil.consumeHtmlPage(BrowserVersion.FIREFOX_ESR, tmpHtmlCode, tmpHtmlPage -> {
+      HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
-    assertEquals("Object tag not supported", tmpResult.getAsText(tmpHtmlPage.getHtmlElementById("idObj")));
-    assertEquals("before", tmpResult.getTextBefore(tmpHtmlPage.getHtmlElementById("idObj")));
+      assertEquals("Object tag not supported", tmpResult.getAsText(tmpHtmlPage.getHtmlElementById("idObj")));
+      assertEquals("before", tmpResult.getTextBefore(tmpHtmlPage.getHtmlElementById("idObj")));
+    });
 
     // IE without support
-    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode);
-    tmpResult = new HtmlPageIndex(tmpHtmlPage);
+    PageUtil.consumeHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode, tmpHtmlPage -> {
+      HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
-    assertEquals("Object tag not supported", tmpResult.getAsText(tmpHtmlPage.getHtmlElementById("idObj")));
-    assertEquals("before", tmpResult.getTextBefore(tmpHtmlPage.getHtmlElementById("idObj")));
+      assertEquals("Object tag not supported", tmpResult.getAsText(tmpHtmlPage.getHtmlElementById("idObj")));
+      assertEquals("before", tmpResult.getTextBefore(tmpHtmlPage.getHtmlElementById("idObj")));
+    });
 
     // IE with support
     final WebClient tmpWebClient = new WebClient(BrowserVersion.INTERNET_EXPLORER);
@@ -2267,12 +2297,12 @@ public class HtmlPageIndexTest {
 
       final StringWebResponse tmpWebResponse = new StringWebResponse(tmpHtmlCode,
           new URL("http://www.wetator.org/test.html"));
-      tmpHtmlPage = new HtmlPage(tmpWebResponse, tmpWebWindow);
+      HtmlPage tmpHtmlPage = new HtmlPage(tmpWebResponse, tmpWebWindow);
       tmpWebWindow.setEnclosedPage(tmpHtmlPage);
 
       tmpHtmlParser.parse(tmpWebResponse, tmpHtmlPage, true, false);
 
-      tmpResult = new HtmlPageIndex(tmpHtmlPage);
+      HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
 
       assertEquals("", tmpResult.getAsText(tmpHtmlPage.getHtmlElementById("idObj")));
       assertEquals("before", tmpResult.getTextBefore(tmpHtmlPage.getHtmlElementById("idObj")));
@@ -2289,7 +2319,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     assertFalse(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK, tmpHtmlPage.getHtmlElementById("myId")));
@@ -2303,7 +2333,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     assertTrue(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK, tmpHtmlPage.getHtmlElementById("myId")));
@@ -2320,7 +2350,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     assertTrue(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK, tmpHtmlPage.getHtmlElementById("myId")));
@@ -2337,7 +2367,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     assertTrue(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK, tmpHtmlPage.getHtmlElementById("myId")));
@@ -2351,7 +2381,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     assertTrue(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK, tmpHtmlPage.getHtmlElementById("myId")));
@@ -2365,7 +2395,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     assertTrue(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK, tmpHtmlPage.getHtmlElementById("myId")));
@@ -2380,7 +2410,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     assertTrue(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK, tmpHtmlPage.getHtmlElementById("myId")));
@@ -2395,7 +2425,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     assertFalse(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK, tmpHtmlPage.getHtmlElementById("myId")));
@@ -2409,7 +2439,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     assertFalse(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK, tmpHtmlPage.getHtmlElementById("myId")));
@@ -2423,7 +2453,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     assertTrue(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK, tmpHtmlPage.getHtmlElementById("myId")));
@@ -2437,7 +2467,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     assertTrue(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK, tmpHtmlPage.getHtmlElementById("myId")));
@@ -2451,7 +2481,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     assertTrue(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK, tmpHtmlPage.getHtmlElementById("myId")));
@@ -2465,7 +2495,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     assertFalse(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK, tmpHtmlPage.getHtmlElementById("myId")));
@@ -2479,7 +2509,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     assertTrue(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK, tmpHtmlPage.getHtmlElementById("myId")));
@@ -2493,7 +2523,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     assertFalse(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK, tmpHtmlPage.getHtmlElementById("myId")));
@@ -2507,7 +2537,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     assertFalse(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK, tmpHtmlPage.getHtmlElementById("myId")));
@@ -2521,7 +2551,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     assertFalse(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK, tmpHtmlPage.getHtmlElementById("myId")));
@@ -2535,7 +2565,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     assertTrue(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.CLICK, tmpHtmlPage.getHtmlElementById("myId")));
@@ -2549,7 +2579,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     assertTrue(
@@ -2564,7 +2594,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     assertTrue(
@@ -2579,7 +2609,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     assertTrue(
@@ -2594,7 +2624,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     assertTrue(
@@ -2609,7 +2639,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     assertTrue(
@@ -2624,7 +2654,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     assertTrue(
@@ -2639,7 +2669,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     assertTrue(
@@ -2654,7 +2684,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     assertTrue(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.MOUSE_OVER, tmpHtmlPage.getHtmlElementById("myId")));
@@ -2668,7 +2698,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     assertTrue(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.MOUSE_OVER, tmpHtmlPage.getHtmlElementById("myId")));
@@ -2682,7 +2712,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
     final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
     assertTrue(tmpHtmlPageIndex.hasMouseActionListener(MouseAction.MOUSE_OVER, tmpHtmlPage.getHtmlElementById("myId")));

@@ -20,11 +20,11 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
-import org.htmlunit.html.HtmlPage;
 import org.junit.Before;
 import org.junit.Test;
 import org.wetator.backend.WPath;
@@ -330,15 +330,20 @@ public class SettableHtmlUnitControlsFinderTest {
   private final List<Entry> find(final String aHtmlCode, final String aWPath,
       final Class<? extends AbstractHtmlUnitControlIdentifier>... aKnownIdentifiers)
       throws IOException, InvalidInputException {
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(aHtmlCode);
-    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    final List<Entry> tmpResult = new ArrayList<>();
 
-    final SettableHtmlUnitControlsFinder tmpFinder = new SettableHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
-    if (aKnownIdentifiers != null) {
-      tmpFinder.addIdentifiers(Arrays.asList(aKnownIdentifiers));
-    }
-    final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString(aWPath), config));
+    PageUtil.consumeHtmlPage(aHtmlCode, tmpHtmlPage -> {
+      final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    return tmpFound.getEntriesSorted();
+      final SettableHtmlUnitControlsFinder tmpFinder = new SettableHtmlUnitControlsFinder(tmpHtmlPageIndex, null);
+      if (aKnownIdentifiers != null) {
+        tmpFinder.addIdentifiers(Arrays.asList(aKnownIdentifiers));
+      }
+      final WeightedControlList tmpFound = tmpFinder.find(new WPath(new SecretString(aWPath), config));
+
+      tmpResult.addAll(tmpFound.getEntriesSorted());
+    });
+
+    return tmpResult;
   }
 }

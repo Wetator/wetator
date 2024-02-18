@@ -21,7 +21,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 
-import org.htmlunit.html.HtmlPage;
 import org.htmlunit.html.HtmlUrlInput;
 import org.junit.Test;
 import org.wetator.backend.htmlunit.util.PageUtil;
@@ -39,12 +38,13 @@ public class HtmlUnitInputUrlTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-    final HtmlUrlInput tmpUrl = (HtmlUrlInput) tmpHtmlPage.getHtmlElementById("myId");
-    final HtmlUnitInputUrl tmpControl = new HtmlUnitInputUrl(tmpUrl);
+      final HtmlUrlInput tmpUrl = (HtmlUrlInput) tmpHtmlPage.getHtmlElementById("myId");
+      final HtmlUnitInputUrl tmpControl = new HtmlUnitInputUrl(tmpUrl);
 
-    assertTrue(tmpControl.isDisabled(null));
+      assertTrue(tmpControl.isDisabled(null));
+    });
   }
 
   @Test
@@ -56,12 +56,13 @@ public class HtmlUnitInputUrlTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-    final HtmlUrlInput tmpUrl = (HtmlUrlInput) tmpHtmlPage.getHtmlElementById("myId");
-    final HtmlUnitInputUrl tmpControl = new HtmlUnitInputUrl(tmpUrl);
+      final HtmlUrlInput tmpUrl = (HtmlUrlInput) tmpHtmlPage.getHtmlElementById("myId");
+      final HtmlUnitInputUrl tmpControl = new HtmlUnitInputUrl(tmpUrl);
 
-    assertFalse(tmpControl.isDisabled(null));
+      assertFalse(tmpControl.isDisabled(null));
+    });
   }
 
   @Test
@@ -73,12 +74,13 @@ public class HtmlUnitInputUrlTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-    final HtmlUrlInput tmpUrl = (HtmlUrlInput) tmpHtmlPage.getHtmlElementById("myId");
-    final HtmlUnitInputUrl tmpControl = new HtmlUnitInputUrl(tmpUrl);
+      final HtmlUrlInput tmpUrl = (HtmlUrlInput) tmpHtmlPage.getHtmlElementById("myId");
+      final HtmlUnitInputUrl tmpControl = new HtmlUnitInputUrl(tmpUrl);
 
-    assertTrue(tmpControl.isDisabled(null));
+      assertTrue(tmpControl.isDisabled(null));
+    });
   }
 
   @Test
@@ -90,12 +92,13 @@ public class HtmlUnitInputUrlTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-    final HtmlUrlInput tmpUrl = (HtmlUrlInput) tmpHtmlPage.getHtmlElementById("myId");
-    final HtmlUnitInputUrl tmpControl = new HtmlUnitInputUrl(tmpUrl);
+      final HtmlUrlInput tmpUrl = (HtmlUrlInput) tmpHtmlPage.getHtmlElementById("myId");
+      final HtmlUnitInputUrl tmpControl = new HtmlUnitInputUrl(tmpUrl);
 
-    assertTrue(tmpControl.isDisabled(null));
+      assertTrue(tmpControl.isDisabled(null));
+    });
   }
 
   @Test
@@ -107,11 +110,12 @@ public class HtmlUnitInputUrlTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-    final HtmlUrlInput tmpUrl = (HtmlUrlInput) tmpHtmlPage.getHtmlElementById("myId");
-    final HtmlUnitInputUrl tmpControl = new HtmlUnitInputUrl(tmpUrl);
+      final HtmlUrlInput tmpUrl = (HtmlUrlInput) tmpHtmlPage.getHtmlElementById("myId");
+      final HtmlUnitInputUrl tmpControl = new HtmlUnitInputUrl(tmpUrl);
 
-    assertTrue(tmpControl.isDisabled(null));
+      assertTrue(tmpControl.isDisabled(null));
+    });
   }
 }

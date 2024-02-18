@@ -21,7 +21,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
 
-import org.htmlunit.html.HtmlPage;
 import org.htmlunit.html.HtmlResetInput;
 import org.junit.Test;
 import org.wetator.backend.htmlunit.util.PageUtil;
@@ -39,12 +38,13 @@ public class HtmlUnitInputResetTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-    final HtmlResetInput tmpText = (HtmlResetInput) tmpHtmlPage.getHtmlElementById("myId");
-    final HtmlUnitInputReset tmpControl = new HtmlUnitInputReset(tmpText);
+      final HtmlResetInput tmpText = (HtmlResetInput) tmpHtmlPage.getHtmlElementById("myId");
+      final HtmlUnitInputReset tmpControl = new HtmlUnitInputReset(tmpText);
 
-    assertTrue(tmpControl.isDisabled(null));
+      assertTrue(tmpControl.isDisabled(null));
+    });
   }
 
   @Test
@@ -56,12 +56,13 @@ public class HtmlUnitInputResetTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-    final HtmlResetInput tmpText = (HtmlResetInput) tmpHtmlPage.getHtmlElementById("myId");
-    final HtmlUnitInputReset tmpControl = new HtmlUnitInputReset(tmpText);
+      final HtmlResetInput tmpText = (HtmlResetInput) tmpHtmlPage.getHtmlElementById("myId");
+      final HtmlUnitInputReset tmpControl = new HtmlUnitInputReset(tmpText);
 
-    assertFalse(tmpControl.isDisabled(null));
+      assertFalse(tmpControl.isDisabled(null));
+    });
   }
 
   @Test
@@ -73,11 +74,12 @@ public class HtmlUnitInputResetTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-    final HtmlResetInput tmpText = (HtmlResetInput) tmpHtmlPage.getHtmlElementById("myId");
-    final HtmlUnitInputReset tmpControl = new HtmlUnitInputReset(tmpText);
+      final HtmlResetInput tmpText = (HtmlResetInput) tmpHtmlPage.getHtmlElementById("myId");
+      final HtmlUnitInputReset tmpControl = new HtmlUnitInputReset(tmpText);
 
-    assertTrue(tmpControl.isDisabled(null));
+      assertTrue(tmpControl.isDisabled(null));
+    });
   }
 }

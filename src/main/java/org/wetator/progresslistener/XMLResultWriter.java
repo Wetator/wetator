@@ -642,8 +642,7 @@ public class XMLResultWriter implements IProgressListener {
     }
 
     final String[] tmpJars = { "commons-lang3-\\S+jar", "commons-text-\\S+jar", "commons-codec-\\S+jar",
-        "commons-io-\\S+jar", "httpcore-\\S+jar", "httpclient-\\S+jar", "httpmime-\\S+jar", "log4j-api-\\S+jar",
-        "log4j-core-\\S+jar" };
+        "commons-io-\\S+jar", "httpcore-\\S+jar", "httpclient-\\S+jar", "httpmime-\\S+jar" };
     for (final String tmpJar : tmpJars) {
       tmpInfo.setLength(0);
       // @formatter:off
@@ -653,6 +652,20 @@ public class XMLResultWriter implements IProgressListener {
       // @formatter:on
       printlnNode(TAG_LIB, tmpInfo.toString());
     }
+
+    // @formatter:off
+    tmpInfo = new StringBuilder(VersionUtil.determineBundleNameFromJarManifest("log4j-api-\\S+jar", null))
+        .append(' ')
+        .append(VersionUtil.determineBundleVersionFromJarManifest("log4j-api-\\S+jar", null));
+    // @formatter:on
+    printlnNode(TAG_LIB, tmpInfo.toString());
+
+    // @formatter:off
+    tmpInfo = new StringBuilder(VersionUtil.determineBundleNameFromJarManifest("log4j-core-\\S+jar", null))
+        .append(' ')
+        .append(VersionUtil.determineBundleVersionFromJarManifest("log4j-core-\\S+jar", null));
+    // @formatter:on
+    printlnNode(TAG_LIB, tmpInfo.toString());
 
     printlnNode(TAG_LIB, VersionUtil.determineVersionFromJarFileName(Automaton.class));
 

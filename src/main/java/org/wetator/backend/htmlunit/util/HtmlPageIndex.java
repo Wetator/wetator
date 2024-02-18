@@ -33,7 +33,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.htmlunit.ElementNotFoundException;
 import org.htmlunit.Page;
-import org.htmlunit.corejs.javascript.ScriptableObject;
+import org.htmlunit.css.ComputedCssStyleDeclaration;
 import org.htmlunit.css.StyleAttributes.Definition;
 import org.htmlunit.html.DomComment;
 import org.htmlunit.html.DomElement;
@@ -75,9 +75,7 @@ import org.htmlunit.html.HtmlSubmitInput;
 import org.htmlunit.html.HtmlTextArea;
 import org.htmlunit.html.HtmlTitle;
 import org.htmlunit.html.SubmittableElement;
-import org.htmlunit.javascript.host.css.CSSStyleDeclaration;
 import org.htmlunit.javascript.host.event.MouseEvent;
-import org.htmlunit.javascript.host.html.HTMLElement;
 import org.htmlunit.javascript.host.html.HTMLObjectElement;
 import org.wetator.backend.htmlunit.MouseAction;
 import org.wetator.core.searchpattern.SearchPattern;
@@ -623,20 +621,19 @@ public class HtmlPageIndex {
 
     if (tmpParent != null) {
       final HtmlElement tmpParentHtmlElement = (HtmlElement) tmpParent;
-      final ScriptableObject tmpScriptableObject = tmpParentHtmlElement.getScriptableObject();
-      if (tmpScriptableObject instanceof HTMLElement) {
-        final CSSStyleDeclaration tmpStyle = ((HTMLElement) tmpScriptableObject).getCurrentStyle();
-        if (tmpStyle != null) {
-          final String tmpTransform = tmpStyle.getStyleAttribute(Definition.TEXT_TRANSFORM);
+      final ComputedCssStyleDeclaration tmpStyle = tmpParentHtmlElement.getPage().getEnclosingWindow()
+          .getComputedStyle(tmpParentHtmlElement, null);
 
-          // for the moment we do not depend on the html lang attribute
-          if ("uppercase".equalsIgnoreCase(tmpTransform)) {
-            tmpTxt = tmpTxt.toUpperCase(Locale.ROOT);
-          } else if ("lowercase".equalsIgnoreCase(tmpTransform)) {
-            tmpTxt = tmpTxt.toLowerCase(Locale.ROOT);
-          } else if ("capitalize".equalsIgnoreCase(tmpTransform)) {
-            tmpTxt = WordUtils.capitalize(tmpTxt);
-          }
+      if (tmpStyle != null) {
+        final String tmpTransform = tmpStyle.getStyleAttribute(Definition.TEXT_TRANSFORM, true);
+
+        // for the moment we do not depend on the html lang attribute
+        if ("uppercase".equalsIgnoreCase(tmpTransform)) {
+          tmpTxt = tmpTxt.toUpperCase(Locale.ROOT);
+        } else if ("lowercase".equalsIgnoreCase(tmpTransform)) {
+          tmpTxt = tmpTxt.toLowerCase(Locale.ROOT);
+        } else if ("capitalize".equalsIgnoreCase(tmpTransform)) {
+          tmpTxt = WordUtils.capitalize(tmpTxt);
         }
       }
     }

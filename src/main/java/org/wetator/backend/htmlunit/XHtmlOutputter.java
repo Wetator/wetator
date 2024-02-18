@@ -35,6 +35,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.htmlunit.Page;
 import org.htmlunit.WebWindow;
+import org.htmlunit.css.ComputedCssStyleDeclaration;
 import org.htmlunit.html.BaseFrameElement;
 import org.htmlunit.html.DomAttr;
 import org.htmlunit.html.DomComment;
@@ -110,8 +111,6 @@ import org.htmlunit.html.HtmlTextInput;
 import org.htmlunit.html.HtmlTitle;
 import org.htmlunit.html.HtmlUnknownElement;
 import org.htmlunit.html.HtmlVariable;
-import org.htmlunit.javascript.host.Element;
-import org.htmlunit.javascript.host.css.CSSStyleDeclaration;
 import org.htmlunit.javascript.host.html.HTMLCanvasElement;
 import org.htmlunit.svg.SvgCircle;
 import org.htmlunit.svg.SvgEllipse;
@@ -528,8 +527,8 @@ public final class XHtmlOutputter {
               final HtmlElement tmpElement = (HtmlElement) aDomNode;
               // hopefully no one will ever made tags like head visible
               if (!DisplayStyle.NONE.value().equals(tmpElement.getDefaultStyleDisplay().value())) {
-                final Element tmpElemScript = aDomNode.getScriptableObject();
-                final CSSStyleDeclaration tmpStyle = tmpElemScript.getWindow().getComputedStyle(tmpElemScript, null);
+                final ComputedCssStyleDeclaration tmpStyle = tmpElement.getPage().getEnclosingWindow()
+                    .getComputedStyle(tmpElement, null);
                 // for the moment i have no better idea than always hard wire the display info
                 // but place display in front just in case HtmlUnit calculates a wrong display
                 // the real value overwrites then
@@ -635,8 +634,8 @@ public final class XHtmlOutputter {
         final HtmlElement tmpElem = (HtmlElement) aDomNode;
         // hopefully no one will ever made tags like head visible
         if (!DisplayStyle.NONE.value().equals(tmpElem.getDefaultStyleDisplay().value())) {
-          final Element tmpElemScript = aDomNode.getScriptableObject();
-          final CSSStyleDeclaration tmpStyle = tmpElemScript.getWindow().getComputedStyle(tmpElemScript, null);
+          final ComputedCssStyleDeclaration tmpStyle = tmpElem.getPage().getEnclosingWindow().getComputedStyle(tmpElem,
+              null);
           // for the moment i have no better idea than always hard wire the display info
           output.print(" style=\"display: ");
           output.print(tmpStyle.getDisplay());

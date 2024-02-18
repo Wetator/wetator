@@ -21,7 +21,6 @@ import static org.junit.Assert.assertEquals;
 import java.io.IOException;
 
 import org.htmlunit.html.HtmlElement;
-import org.htmlunit.html.HtmlPage;
 import org.junit.Test;
 import org.wetator.backend.htmlunit.util.PageUtil;
 
@@ -40,11 +39,12 @@ public class HtmlUnitBaseControlTest {
         + "</div>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-    final HtmlUnitBaseControl<?> tmpControl = new HtmlUnitUnspecificControl<>(tmpHtmlPage.getHtmlElementById("myId"));
+      final HtmlUnitBaseControl<?> tmpControl = new HtmlUnitUnspecificControl<>(tmpHtmlPage.getHtmlElementById("myId"));
 
-    assertEquals("#myId", tmpControl.getUniqueSelector());
+      assertEquals("#myId", tmpControl.getUniqueSelector());
+    });
   }
 
   @Test
@@ -56,11 +56,13 @@ public class HtmlUnitBaseControlTest {
         + "</div>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-    final HtmlUnitBaseControl<?> tmpControl = new HtmlUnitUnspecificControl<>(tmpHtmlPage.getHtmlElementById("f:myId"));
+      final HtmlUnitBaseControl<?> tmpControl = new HtmlUnitUnspecificControl<>(
+          tmpHtmlPage.getHtmlElementById("f:myId"));
 
-    assertEquals("#f\\3amyId", tmpControl.getUniqueSelector());
+      assertEquals("#f\\3amyId", tmpControl.getUniqueSelector());
+    });
   }
 
   @Test
@@ -72,12 +74,13 @@ public class HtmlUnitBaseControlTest {
         + "</div>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-    final HtmlUnitBaseControl<?> tmpControl = new HtmlUnitUnspecificControl<HtmlElement>(
-        tmpHtmlPage.getAnchorByName("myAnchor"));
+      final HtmlUnitBaseControl<?> tmpControl = new HtmlUnitUnspecificControl<HtmlElement>(
+          tmpHtmlPage.getAnchorByName("myAnchor"));
 
-    assertEquals("body>div:nth-of-type(1)>a:nth-of-type(1)", tmpControl.getUniqueSelector());
+      assertEquals("body>div:nth-of-type(1)>a:nth-of-type(1)", tmpControl.getUniqueSelector());
+    });
   }
 
   @Test
@@ -89,12 +92,13 @@ public class HtmlUnitBaseControlTest {
         + "</div>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-    final HtmlUnitBaseControl<?> tmpControl = new HtmlUnitUnspecificControl<HtmlElement>(
-        tmpHtmlPage.getAnchorByName("myAnchor"));
+      final HtmlUnitBaseControl<?> tmpControl = new HtmlUnitUnspecificControl<HtmlElement>(
+          tmpHtmlPage.getAnchorByName("myAnchor"));
 
-    assertEquals("#parent>a:nth-of-type(1)", tmpControl.getUniqueSelector());
+      assertEquals("#parent>a:nth-of-type(1)", tmpControl.getUniqueSelector());
+    });
   }
 
   @Test
@@ -108,11 +112,12 @@ public class HtmlUnitBaseControlTest {
         + "</div>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-    final HtmlUnitBaseControl<?> tmpControl = new HtmlUnitUnspecificControl<HtmlElement>(
-        tmpHtmlPage.getAnchorByName("myAnchor"));
+      final HtmlUnitBaseControl<?> tmpControl = new HtmlUnitUnspecificControl<HtmlElement>(
+          tmpHtmlPage.getAnchorByName("myAnchor"));
 
-    assertEquals("#parent>div:nth-of-type(1)>a:nth-of-type(1)", tmpControl.getUniqueSelector());
+      assertEquals("#parent>div:nth-of-type(1)>a:nth-of-type(1)", tmpControl.getUniqueSelector());
+    });
   }
 }

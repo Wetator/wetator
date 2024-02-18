@@ -18,19 +18,21 @@ package org.wetator.backend.htmlunit.util;
 
 import org.apache.commons.lang3.StringUtils;
 import org.htmlunit.Page;
-import org.htmlunit.corejs.javascript.ScriptableObject;
+import org.htmlunit.css.ComputedCssStyleDeclaration;
 import org.htmlunit.html.DomNode;
 import org.htmlunit.html.HtmlAnchor;
 import org.htmlunit.html.HtmlBody;
 import org.htmlunit.html.HtmlButton;
 import org.htmlunit.html.HtmlButtonInput;
 import org.htmlunit.html.HtmlCheckBoxInput;
+import org.htmlunit.html.HtmlElement;
 import org.htmlunit.html.HtmlEmailInput;
 import org.htmlunit.html.HtmlFileInput;
 import org.htmlunit.html.HtmlHiddenInput;
 import org.htmlunit.html.HtmlImage;
 import org.htmlunit.html.HtmlImageInput;
 import org.htmlunit.html.HtmlLabel;
+import org.htmlunit.html.HtmlLink;
 import org.htmlunit.html.HtmlNumberInput;
 import org.htmlunit.html.HtmlOption;
 import org.htmlunit.html.HtmlOptionGroup;
@@ -46,10 +48,6 @@ import org.htmlunit.html.HtmlTelInput;
 import org.htmlunit.html.HtmlTextArea;
 import org.htmlunit.html.HtmlTextInput;
 import org.htmlunit.html.HtmlUrlInput;
-import org.htmlunit.javascript.host.css.CSSStyleDeclaration;
-import org.htmlunit.javascript.host.html.HTMLElement;
-import org.htmlunit.javascript.host.html.HTMLLinkElement;
-import org.htmlunit.javascript.host.html.HTMLOptionElement;
 
 /**
  * Helper methods to work with the HtmlElements page.
@@ -432,32 +430,21 @@ public final class HtmlElementUtil {
   public static boolean isBlock(final DomNode aDomNode) {
     final Page tmpPage = aDomNode.getPage();
     if (tmpPage instanceof HtmlPage && tmpPage.getEnclosingWindow().getWebClient().getOptions().isCssEnabled()) {
-      ScriptableObject tmpScriptableObject = null;
+      if (aDomNode instanceof HtmlElement) {
+        final HtmlElement tmpElement = (HtmlElement) aDomNode;
 
-      int i = 0;
-      while (tmpScriptableObject == null) {
-        try {
-          tmpScriptableObject = aDomNode.getScriptableObject();
-        } catch (final IllegalStateException e) {
-          // it is possible, that we address some object under construction
-          // in this case this might happen, so we will do a second attempt
-          if (i > 1) {
-            throw e;
-          }
-
-          try {
-            Thread.sleep(42);
-          } catch (final InterruptedException eX) {
-            // ignore
-          }
+        // we like to write this in separate lines
+        if (tmpElement instanceof HtmlLink) {
+          return true;
         }
 
-        i++;
-      }
+        // ie fix; ie marks option elements as inline
+        // let's hope no browser will ever support inline rendering of options in a select
+        if (tmpElement instanceof HtmlOption) {
+          return true;
+        }
 
-      if (tmpScriptableObject instanceof HTMLElement) {
-        final HTMLElement tmpElement = (HTMLElement) tmpScriptableObject;
-        final CSSStyleDeclaration tmpStyle = tmpElement.getCurrentStyle();
+        final ComputedCssStyleDeclaration tmpStyle = tmpPage.getEnclosingWindow().getComputedStyle(tmpElement, null);
         if (tmpStyle != null) {
           final String tmpDisplay = tmpStyle.getDisplay();
           if ("block".equals(tmpDisplay) || "inline-block".equals(tmpDisplay) || "list-item".equals(tmpDisplay)
@@ -467,17 +454,6 @@ public final class HtmlElementUtil {
           if (tmpDisplay != null && (tmpDisplay.startsWith("table") || "inline-table".equals(tmpDisplay))) {
             return true;
           }
-        }
-
-        // we like to write this in separate lines
-        if (tmpElement instanceof HTMLLinkElement) {
-          return true;
-        }
-
-        // ie fix; ie marks option elements as inline
-        // let's hope no browser will ever support inline rendering of options in a select
-        if (tmpElement instanceof HTMLOptionElement) {
-          return true;
         }
       }
     }

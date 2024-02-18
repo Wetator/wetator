@@ -17,15 +17,11 @@
 package org.wetator.backend.htmlunit.util;
 
 import java.io.IOException;
-import java.net.URL;
 
 import org.htmlunit.BrowserVersion;
-import org.htmlunit.StringWebResponse;
 import org.htmlunit.WebClient;
-import org.htmlunit.WebWindow;
 import org.htmlunit.html.HtmlPage;
 import org.htmlunit.html.XHtmlPage;
-import org.htmlunit.html.parser.HTMLParser;
 
 /**
  * Util class for page handling.
@@ -39,12 +35,13 @@ public final class PageUtil {
    * Helper for tests.
    *
    * @param anHtmlCode the html source of the page
-   * @return the HtmlPage result of parsing the source
+   * @param aPageConsumer the consumer that uses the page
    * @throws IOException in case of problems
    */
-  public static HtmlPage constructHtmlPage(final String anHtmlCode) throws IOException {
+  public static void consumeHtmlPage(final String anHtmlCode, final ThrowingConsumer<HtmlPage> aPageConsumer)
+      throws IOException {
     // Take care: this has to be in sync with our default browser
-    return constructHtmlPage(BrowserVersion.FIREFOX_ESR, anHtmlCode);
+    consumeHtmlPage(BrowserVersion.FIREFOX_ESR, anHtmlCode, aPageConsumer);
   }
 
   /**
@@ -52,22 +49,14 @@ public final class PageUtil {
    *
    * @param aBrowserVersion the browser to simulate
    * @param anHtmlCode the html source of the page
-   * @return the HtmlPage result of parsing the source
+   * @param aPageConsumer the consumer that uses the page
    * @throws IOException in case of problems
    */
-  public static HtmlPage constructHtmlPage(final BrowserVersion aBrowserVersion, final String anHtmlCode)
-      throws IOException {
+  public static void consumeHtmlPage(final BrowserVersion aBrowserVersion, final String anHtmlCode,
+      final ThrowingConsumer<HtmlPage> aPageConsumer) throws IOException {
     try (WebClient tmpWebClient = new WebClient(aBrowserVersion)) {
-      final HTMLParser tmpHtmlParser = tmpWebClient.getPageCreator().getHtmlParser();
-      final WebWindow tmpWebWindow = tmpWebClient.getCurrentWindow();
-
-      final StringWebResponse tmpWebResponse = new StringWebResponse(anHtmlCode,
-          new URL("http://www.wetator.org/test.html"));
-      final HtmlPage tmpPage = new HtmlPage(tmpWebResponse, tmpWebWindow);
-      tmpWebWindow.setEnclosedPage(tmpPage);
-
-      tmpHtmlParser.parse(tmpWebResponse, tmpPage, true, false);
-      return tmpPage;
+      final HtmlPage tmpPage = tmpWebClient.loadHtmlCodeIntoCurrentWindow(anHtmlCode);
+      aPageConsumer.accept(tmpPage);
     }
   }
 
@@ -75,11 +64,12 @@ public final class PageUtil {
    * Helper for tests.
    *
    * @param anXHtmlCode the XHtml source of the page
-   * @return the XHtmlPage result of parsing the source
+   * @param aPageConsumer the consumer that uses the page
    * @throws IOException in case of problems
    */
-  public static XHtmlPage constructXHtmlPage(final String anXHtmlCode) throws IOException {
-    return constructXHtmlPage(BrowserVersion.getDefault(), anXHtmlCode);
+  public static void consumeXHtmlPage(final String anXHtmlCode, final ThrowingConsumer<XHtmlPage> aPageConsumer)
+      throws IOException {
+    consumeXHtmlPage(BrowserVersion.getDefault(), anXHtmlCode, aPageConsumer);
   }
 
   /**
@@ -87,22 +77,14 @@ public final class PageUtil {
    *
    * @param aBrowserVersion the browser to simulate
    * @param anXHtmlCode the XHtml source of the page
-   * @return the XHtmlPage result of parsing the source
+   * @param aPageConsumer the consumer that uses the page
    * @throws IOException in case of problems
    */
-  public static XHtmlPage constructXHtmlPage(final BrowserVersion aBrowserVersion, final String anXHtmlCode)
-      throws IOException {
+  public static void consumeXHtmlPage(final BrowserVersion aBrowserVersion, final String anXHtmlCode,
+      final ThrowingConsumer<XHtmlPage> aPageConsumer) throws IOException {
     try (WebClient tmpWebClient = new WebClient(aBrowserVersion)) {
-      final HTMLParser tmpHtmlParser = tmpWebClient.getPageCreator().getHtmlParser();
-      final WebWindow tmpWebWindow = tmpWebClient.getCurrentWindow();
-
-      final StringWebResponse tmpWebResponse = new StringWebResponse(anXHtmlCode,
-          new URL("http://www.wetator.org/test.xhtml"));
-      final XHtmlPage tmpPage = new XHtmlPage(tmpWebResponse, tmpWebWindow);
-      tmpWebWindow.setEnclosedPage(tmpPage);
-
-      tmpHtmlParser.parse(tmpWebResponse, tmpPage, true, false);
-      return tmpPage;
+      final XHtmlPage tmpPage = tmpWebClient.loadXHtmlCodeIntoCurrentWindow(anXHtmlCode);
+      aPageConsumer.accept(tmpPage);
     }
   }
 

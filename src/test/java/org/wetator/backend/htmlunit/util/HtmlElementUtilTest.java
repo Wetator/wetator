@@ -19,6 +19,8 @@ package org.wetator.backend.htmlunit.util;
 import java.io.IOException;
 import java.util.Iterator;
 
+import org.htmlunit.BrowserVersion;
+import org.htmlunit.WebClient;
 import org.htmlunit.html.DomElement;
 import org.htmlunit.html.HtmlAnchor;
 import org.htmlunit.html.HtmlBody;
@@ -48,7 +50,9 @@ import org.htmlunit.html.HtmlTelInput;
 import org.htmlunit.html.HtmlTextArea;
 import org.htmlunit.html.HtmlTextInput;
 import org.htmlunit.html.HtmlUrlInput;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.wetator.backend.htmlunit.control.HtmlUnitAnchor;
 import org.wetator.backend.htmlunit.control.HtmlUnitButton;
@@ -76,6 +80,23 @@ import org.wetator.backend.htmlunit.control.HtmlUnitUnspecificControl;
  * @author rbri
  */
 public class HtmlElementUtilTest {
+  protected WebClient webClient;
+
+  /**
+   * Creates a Wetator configuration.
+   */
+  @Before
+  public void createWebClient() {
+    webClient = new WebClient(BrowserVersion.FIREFOX_ESR);
+  }
+
+  /**
+   * Closes the WebClient.
+   */
+  @After
+  public void closeWebClient() {
+    webClient.close();
+  }
 
   @Test
   public void getDescribingTextFor_HtmlAnchor() throws IOException {
@@ -84,7 +105,7 @@ public class HtmlElementUtilTest {
         + "<a href='wet.html'>AnchorText</a>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
@@ -109,7 +130,7 @@ public class HtmlElementUtilTest {
         + "<a href='wet.html'>A<font>n</font>chor<b>Text</a>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
@@ -134,7 +155,7 @@ public class HtmlElementUtilTest {
         + "<a href='wet.html' name='AnchorName'>AnchorText</a>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
@@ -159,7 +180,7 @@ public class HtmlElementUtilTest {
         + "<a href='wet.html'><img src='wet.src'></a>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
@@ -184,7 +205,7 @@ public class HtmlElementUtilTest {
         + "<a href='wet.html'><img src='wet.src'>AnchorText</a>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
@@ -209,7 +230,7 @@ public class HtmlElementUtilTest {
         + "<a href='wet.html' id='AnchorId'>AnchorText</a>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
@@ -234,7 +255,7 @@ public class HtmlElementUtilTest {
         + "<a href='wet.html' name='AnchorName' id='AnchorId'>AnchorText</a>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
@@ -259,7 +280,7 @@ public class HtmlElementUtilTest {
         + "some text"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlBody tmpBody = (HtmlBody) tmpHtmlPage.getBody();
 
@@ -278,7 +299,7 @@ public class HtmlElementUtilTest {
         + "some text"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlBody tmpBody = (HtmlBody) tmpHtmlPage.getBody();
 
@@ -299,7 +320,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -322,7 +343,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -345,7 +366,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -368,7 +389,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -391,7 +412,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -414,7 +435,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -437,7 +458,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -460,7 +481,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -483,7 +504,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -506,7 +527,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -529,7 +550,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -552,7 +573,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -575,7 +596,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -598,7 +619,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -621,7 +642,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -644,7 +665,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -667,7 +688,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -692,7 +713,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -714,7 +735,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -737,7 +758,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -760,7 +781,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -783,7 +804,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -806,7 +827,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -829,7 +850,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -852,7 +873,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -875,7 +896,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -898,7 +919,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -921,7 +942,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -944,7 +965,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -967,7 +988,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -990,7 +1011,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1013,7 +1034,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1036,7 +1057,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1059,7 +1080,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1082,7 +1103,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1105,7 +1126,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1128,7 +1149,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1151,7 +1172,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1174,7 +1195,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1197,7 +1218,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1220,7 +1241,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1243,7 +1264,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1264,7 +1285,7 @@ public class HtmlElementUtilTest {
         + "<img src='wet.png'>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
@@ -1289,7 +1310,7 @@ public class HtmlElementUtilTest {
         + "<img src='wet.png' name='ImageName'>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
@@ -1314,7 +1335,7 @@ public class HtmlElementUtilTest {
         + "<img src='wet.png' id='ImageId'>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
@@ -1339,7 +1360,7 @@ public class HtmlElementUtilTest {
         + "<img src='wet.png' name='ImageName' id='ImageId'>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
@@ -1366,7 +1387,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1389,7 +1410,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1412,7 +1433,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1435,7 +1456,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1461,7 +1482,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1485,7 +1506,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1509,7 +1530,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1533,7 +1554,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1558,7 +1579,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1583,7 +1604,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1608,7 +1629,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1633,7 +1654,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1658,7 +1679,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1684,7 +1705,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1710,7 +1731,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1736,7 +1757,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1764,7 +1785,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1792,7 +1813,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1820,7 +1841,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1848,7 +1869,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1872,7 +1893,7 @@ public class HtmlElementUtilTest {
         + "<p>paragraph text</p>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
@@ -1897,7 +1918,7 @@ public class HtmlElementUtilTest {
         + "<p name='ParagraphName'>paragraph text</p>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
@@ -1922,7 +1943,7 @@ public class HtmlElementUtilTest {
         + "<p id='para'>paragraph text</p>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
@@ -1947,7 +1968,7 @@ public class HtmlElementUtilTest {
         + "<p id='para' name='ParagraphName'>paragraph text</p>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
@@ -1974,7 +1995,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -1997,7 +2018,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -2020,7 +2041,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -2043,7 +2064,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -2066,7 +2087,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -2089,7 +2110,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -2112,7 +2133,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -2135,7 +2156,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -2162,7 +2183,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -2184,7 +2205,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -2207,7 +2228,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -2230,7 +2251,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -2253,7 +2274,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -2278,7 +2299,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -2303,7 +2324,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -2328,7 +2349,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -2353,7 +2374,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -2374,7 +2395,7 @@ public class HtmlElementUtilTest {
         + "<span class='abc'>some text</span>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
@@ -2399,7 +2420,7 @@ public class HtmlElementUtilTest {
         + "<span style='abc'></span>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
@@ -2424,7 +2445,7 @@ public class HtmlElementUtilTest {
         + "<span name='Spanname'>some text</span>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
@@ -2449,7 +2470,7 @@ public class HtmlElementUtilTest {
         + "<span id='SpanId'>some text</span>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
@@ -2474,7 +2495,7 @@ public class HtmlElementUtilTest {
         + "<span id='SpanId' name='Spanname'>some text</span>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final Iterator<HtmlElement> tmpHtmlElements = tmpHtmlPage.getHtmlElementDescendants().iterator();
 
@@ -2501,7 +2522,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -2524,7 +2545,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -2547,7 +2568,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -2570,7 +2591,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -2593,7 +2614,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -2616,7 +2637,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -2639,7 +2660,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -2662,7 +2683,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -2685,7 +2706,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -2708,7 +2729,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -2731,7 +2752,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -2754,7 +2775,7 @@ public class HtmlElementUtilTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     final HtmlForm tmpForm = tmpHtmlPage.getForms().get(0);
 
@@ -2792,7 +2813,7 @@ public class HtmlElementUtilTest {
         + "<img id='img1' src='smiley.gif'>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    final HtmlPage tmpHtmlPage = webClient.loadHtmlCodeIntoCurrentWindow(tmpHtmlCode);
 
     DomElement tmpElement = tmpHtmlPage.getElementById("div1");
     Assert.assertTrue(HtmlElementUtil.isBlock(tmpElement));

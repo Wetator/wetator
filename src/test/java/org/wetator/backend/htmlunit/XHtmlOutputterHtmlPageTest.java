@@ -24,7 +24,6 @@ import java.io.StringWriter;
 
 import org.htmlunit.BrowserVersion;
 import org.htmlunit.html.HtmlOption;
-import org.htmlunit.html.HtmlPage;
 import org.htmlunit.html.HtmlPasswordInput;
 import org.htmlunit.html.HtmlRadioButtonInput;
 import org.htmlunit.html.HtmlTextInput;
@@ -44,7 +43,7 @@ public class XHtmlOutputterHtmlPageTest {
   // @formatter:off
   private static final String EXPECTED_LEADING = "<?xml version=\"1.0\" encoding=\"UTF-8\"?> "
       + "<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\"> "
-      + "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\"> <!-- Browser URL: http://www.wetator.org/test.html --> "
+      + "<html xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"en\" lang=\"en\"> <!-- Browser URL: https://www.htmlunit.org/dummy.html --> "
       + "<head> "
       + "<script src='../../resources/jquery-1.10.2.min.js'></script> "
       + "<script src='../../resources/jquery.color-2.1.2.min.js'></script> "
@@ -57,33 +56,37 @@ public class XHtmlOutputterHtmlPageTest {
   private static final String EXPECTED_TRAILING = "<script> highlight(); </script> </body> </html>";
 
   private void testXHtmlOutput(final String anExpected, final String anHtmlCode) throws IOException {
-    BrowserVersion tmpBrowser = BrowserVersion.INTERNET_EXPLORER;
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpBrowser, anHtmlCode);
-    XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
-    StringWriter tmpWriter = new StringWriter();
-    tmpXHtmlOutputter.writeTo(tmpWriter);
-    assertEquals(tmpBrowser.getApplicationName(), anExpected, new NormalizedString(tmpWriter.toString()).toString());
+    PageUtil.consumeHtmlPage(BrowserVersion.INTERNET_EXPLORER, anHtmlCode, tmpHtmlPage -> {
+      final XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
+      final StringWriter tmpWriter = new StringWriter();
+      tmpXHtmlOutputter.writeTo(tmpWriter);
+      assertEquals(BrowserVersion.INTERNET_EXPLORER.getApplicationName(), anExpected,
+          new NormalizedString(tmpWriter.toString()).toString());
+    });
 
-    tmpBrowser = BrowserVersion.FIREFOX;
-    tmpHtmlPage = PageUtil.constructHtmlPage(tmpBrowser, anHtmlCode);
-    tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
-    tmpWriter = new StringWriter();
-    tmpXHtmlOutputter.writeTo(tmpWriter);
-    assertEquals(tmpBrowser.getApplicationName(), anExpected, new NormalizedString(tmpWriter.toString()).toString());
+    PageUtil.consumeHtmlPage(BrowserVersion.FIREFOX, anHtmlCode, tmpHtmlPage -> {
+      final XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
+      final StringWriter tmpWriter = new StringWriter();
+      tmpXHtmlOutputter.writeTo(tmpWriter);
+      assertEquals(BrowserVersion.FIREFOX.getApplicationName(), anExpected,
+          new NormalizedString(tmpWriter.toString()).toString());
+    });
 
-    tmpBrowser = BrowserVersion.FIREFOX_ESR;
-    tmpHtmlPage = PageUtil.constructHtmlPage(tmpBrowser, anHtmlCode);
-    tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
-    tmpWriter = new StringWriter();
-    tmpXHtmlOutputter.writeTo(tmpWriter);
-    assertEquals(tmpBrowser.getApplicationName(), anExpected, new NormalizedString(tmpWriter.toString()).toString());
+    PageUtil.consumeHtmlPage(BrowserVersion.FIREFOX_ESR, anHtmlCode, tmpHtmlPage -> {
+      final XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
+      final StringWriter tmpWriter = new StringWriter();
+      tmpXHtmlOutputter.writeTo(tmpWriter);
+      assertEquals(BrowserVersion.FIREFOX_ESR.getApplicationName(), anExpected,
+          new NormalizedString(tmpWriter.toString()).toString());
+    });
 
-    tmpBrowser = BrowserVersion.CHROME;
-    tmpHtmlPage = PageUtil.constructHtmlPage(tmpBrowser, anHtmlCode);
-    tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
-    tmpWriter = new StringWriter();
-    tmpXHtmlOutputter.writeTo(tmpWriter);
-    assertEquals(tmpBrowser.getApplicationName(), anExpected, new NormalizedString(tmpWriter.toString()).toString());
+    PageUtil.consumeHtmlPage(BrowserVersion.CHROME, anHtmlCode, tmpHtmlPage -> {
+      final XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
+      final StringWriter tmpWriter = new StringWriter();
+      tmpXHtmlOutputter.writeTo(tmpWriter);
+      assertEquals(BrowserVersion.CHROME.getApplicationName(), anExpected,
+          new NormalizedString(tmpWriter.toString()).toString());
+    });
   }
 
   @Test
@@ -240,10 +243,10 @@ public class XHtmlOutputterHtmlPageTest {
             + TRAILING;
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode);
-    XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
-    StringWriter tmpWriter = new StringWriter();
-    tmpXHtmlOutputter.writeTo(tmpWriter);
+    PageUtil.consumeHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode, tmpHtmlPage -> {
+      XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
+      StringWriter tmpWriter = new StringWriter();
+      tmpXHtmlOutputter.writeTo(tmpWriter);
 
     // @formatter:off
     String tmpExpected =
@@ -254,14 +257,14 @@ public class XHtmlOutputterHtmlPageTest {
             + "</select> "
             + EXPECTED_TRAILING;
     // @formatter:on
-    assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
+      assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
 
-    final HtmlOption tmpOption = (HtmlOption) tmpHtmlPage.getElementById("tst");
-    tmpOption.setSelected(true);
+      final HtmlOption tmpOption = (HtmlOption) tmpHtmlPage.getElementById("tst");
+      tmpOption.setSelected(true);
 
-    tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
-    tmpWriter = new StringWriter();
-    tmpXHtmlOutputter.writeTo(tmpWriter);
+      tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
+      tmpWriter = new StringWriter();
+      tmpXHtmlOutputter.writeTo(tmpWriter);
 
     // @formatter:off
     tmpExpected =
@@ -272,7 +275,8 @@ public class XHtmlOutputterHtmlPageTest {
             + "</select> "
             + EXPECTED_TRAILING;
     // @formatter:on
-    assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
+      assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
+    });
   }
 
   @Test
@@ -287,10 +291,10 @@ public class XHtmlOutputterHtmlPageTest {
             + TRAILING;
     // @formatter:on
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode);
-    XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
-    StringWriter tmpWriter = new StringWriter();
-    tmpXHtmlOutputter.writeTo(tmpWriter);
+    PageUtil.consumeHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode, tmpHtmlPage -> {
+      XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
+      StringWriter tmpWriter = new StringWriter();
+      tmpXHtmlOutputter.writeTo(tmpWriter);
 
     // @formatter:off
     String tmpExpected =
@@ -301,14 +305,14 @@ public class XHtmlOutputterHtmlPageTest {
           + "</form> "
         + EXPECTED_TRAILING;
     // @formatter:on
-    assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
+      assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
 
-    final HtmlRadioButtonInput tmpRadio = (HtmlRadioButtonInput) tmpHtmlPage.getElementById("tst");
-    tmpRadio.setChecked(true);
+      final HtmlRadioButtonInput tmpRadio = (HtmlRadioButtonInput) tmpHtmlPage.getElementById("tst");
+      tmpRadio.setChecked(true);
 
-    tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
-    tmpWriter = new StringWriter();
-    tmpXHtmlOutputter.writeTo(tmpWriter);
+      tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
+      tmpWriter = new StringWriter();
+      tmpXHtmlOutputter.writeTo(tmpWriter);
 
     // @formatter:off
     tmpExpected =
@@ -319,7 +323,8 @@ public class XHtmlOutputterHtmlPageTest {
           + "</form> "
         + EXPECTED_TRAILING;
     // @formatter:on
-    assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
+      assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
+    });
   }
 
   @Test
@@ -333,47 +338,49 @@ public class XHtmlOutputterHtmlPageTest {
             + TRAILING;
     // @formatter:on
 
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode);
-    XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
-    StringWriter tmpWriter = new StringWriter();
-    tmpXHtmlOutputter.writeTo(tmpWriter);
+    PageUtil.consumeHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode, tmpHtmlPage -> {
+      final XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
+      final StringWriter tmpWriter = new StringWriter();
+      tmpXHtmlOutputter.writeTo(tmpWriter);
 
-    // @formatter:off
-    String tmpExpected =
+      // @formatter:off
+      final String tmpExpected =
         EXPECTED_LEADING
           + " <form style=\"display: block\" onsubmit=\"return false;\"> "
             + "<input name=\"input\" type=\"text\" value=\"1234\" style=\"display: inline-block\"/> "
           + "</form> "
         + EXPECTED_TRAILING;
-    // @formatter:on
-    assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
+      // @formatter:on
+      assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
+    });
 
     // @formatter:off
     tmpHtmlCode =
-            LEADING
-              + " <form>"
-                + "<input id=\"tst\" type=\"text\" name=\"input\" >"
-              + "</form>"
-            + TRAILING;
+        LEADING
+        + " <form>"
+        + "<input id=\"tst\" type=\"text\" name=\"input\" >"
+        + "</form>"
+        + TRAILING;
     // @formatter:on
 
-    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode);
-    final HtmlTextInput tmpText = (HtmlTextInput) tmpHtmlPage.getElementById("tst");
-    tmpText.type("1234");
+    PageUtil.consumeHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode, tmpHtmlPage -> {
+      final HtmlTextInput tmpText = (HtmlTextInput) tmpHtmlPage.getElementById("tst");
+      tmpText.type("1234");
 
-    tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
-    tmpWriter = new StringWriter();
-    tmpXHtmlOutputter.writeTo(tmpWriter);
+      final XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
+      final StringWriter tmpWriter = new StringWriter();
+      tmpXHtmlOutputter.writeTo(tmpWriter);
 
-    // @formatter:off
-    tmpExpected =
+      // @formatter:off
+      final String tmpExpected =
         EXPECTED_LEADING
           + " <form style=\"display: block\" onsubmit=\"return false;\"> "
             + "<input id=\"tst\" name=\"input\" type=\"text\" value=\"1234\" style=\"display: inline-block\"/> "
           + "</form> "
         + EXPECTED_TRAILING;
-    // @formatter:on
-    assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
+      // @formatter:on
+      assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
+    });
   }
 
   @Test
@@ -387,47 +394,49 @@ public class XHtmlOutputterHtmlPageTest {
             + TRAILING;
     // @formatter:on
 
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode);
-    XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
-    StringWriter tmpWriter = new StringWriter();
-    tmpXHtmlOutputter.writeTo(tmpWriter);
+    PageUtil.consumeHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode, tmpHtmlPage -> {
+      final XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
+      final StringWriter tmpWriter = new StringWriter();
+      tmpXHtmlOutputter.writeTo(tmpWriter);
 
-    // @formatter:off
-    String tmpExpected =
+      // @formatter:off
+      final String tmpExpected =
         EXPECTED_LEADING
           + " <form style=\"display: block\" onsubmit=\"return false;\"> "
             + "<input name=\"secret\" type=\"password\" value=\"****\" style=\"display: inline-block\"/> "
           + "</form> "
         + EXPECTED_TRAILING;
-    // @formatter:on
-    assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
+      // @formatter:on
+      assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
+    });
 
     // @formatter:off
     tmpHtmlCode =
-            LEADING
-              + " <form>"
-                + "<input id=\"tst\" type=\"password\" name=\"secret\" value=\"\" >"
-              + "</form>"
-            + TRAILING;
+        LEADING
+        + " <form>"
+        + "<input id=\"tst\" type=\"password\" name=\"secret\" value=\"\" >"
+        + "</form>"
+        + TRAILING;
     // @formatter:on
 
-    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode);
-    final HtmlPasswordInput tmpPassword = (HtmlPasswordInput) tmpHtmlPage.getElementById("tst");
-    tmpPassword.type("1234");
+    PageUtil.consumeHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode, tmpHtmlPage -> {
+      final HtmlPasswordInput tmpPassword = (HtmlPasswordInput) tmpHtmlPage.getElementById("tst");
+      tmpPassword.type("1234");
 
-    tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
-    tmpWriter = new StringWriter();
-    tmpXHtmlOutputter.writeTo(tmpWriter);
+      final XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
+      final StringWriter tmpWriter = new StringWriter();
+      tmpXHtmlOutputter.writeTo(tmpWriter);
 
-    // @formatter:off
-    tmpExpected =
+      // @formatter:off
+      final String tmpExpected =
         EXPECTED_LEADING
           + " <form style=\"display: block\" onsubmit=\"return false;\"> "
             + "<input id=\"tst\" name=\"secret\" type=\"password\" value=\"****\" style=\"display: inline-block\"/> "
           + "</form> "
         + EXPECTED_TRAILING;
-    // @formatter:on
-    assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
+      // @formatter:on
+      assertEquals(tmpExpected, new NormalizedString(tmpWriter.toString()).toString());
+    });
   }
 
   @Test
@@ -439,32 +448,34 @@ public class XHtmlOutputterHtmlPageTest {
             + TRAILING;
     // @formatter:on
 
-    HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode);
-    XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
-    StringWriter tmpWriter = new StringWriter();
-    tmpXHtmlOutputter.writeTo(tmpWriter);
+    PageUtil.consumeHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode, tmpHtmlPage -> {
+      final XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
+      final StringWriter tmpWriter = new StringWriter();
+      tmpXHtmlOutputter.writeTo(tmpWriter);
 
-    String tmpExpected = "    <pre style=\"display: block\">some text</pre>";
-    assertTrue(tmpWriter.toString().contains(tmpExpected));
+      final String tmpExpected = "    <pre style=\"display: block\">some text</pre>";
+      assertTrue(tmpWriter.toString().contains(tmpExpected));
+    });
 
     // @formatter:off
     tmpHtmlCode =
         LEADING
-          + " <pre><span>some</span> tex<b>t</b></pre>"
+        + " <pre><span>some</span> tex<b>t</b></pre>"
         + TRAILING;
     // @formatter:on
 
-    tmpHtmlPage = PageUtil.constructHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode);
-    tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
-    tmpWriter = new StringWriter();
-    tmpXHtmlOutputter.writeTo(tmpWriter);
+    PageUtil.consumeHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode, tmpHtmlPage -> {
+      final XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
+      final StringWriter tmpWriter = new StringWriter();
+      tmpXHtmlOutputter.writeTo(tmpWriter);
 
-    // @formatter:off
-    tmpExpected = "    <pre style=\"display: block\">"
+      // @formatter:off
+      final String tmpExpected = "    <pre style=\"display: block\">"
           + "<span style=\"display: inline\">some</span>"
           + " tex<b style=\"display: inline\">t</b>"
           + "</pre>";
-    // @formatter:on
-    assertTrue(tmpWriter.toString().contains(tmpExpected));
+      // @formatter:on
+      assertTrue(tmpWriter.toString().contains(tmpExpected));
+    });
   }
 }

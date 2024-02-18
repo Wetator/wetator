@@ -29,7 +29,7 @@ public final class Version {
    * We use an uber-jar for the deployment, we can't access the manifest.
    * There is an unit test to make sure we have the correct value here.
    **/
-  public static final String HTMLUNIT_VERSION = "3.5.0";
+  public static final String HTMLUNIT_VERSION = "3.11.0";
 
   /** Pattern to check for the correct jar file. **/
   static final String WETATOR_JAR_PATTERN = "wetator(-[0-9\\.]*)?(-snapshot)?(-all)?.jar";

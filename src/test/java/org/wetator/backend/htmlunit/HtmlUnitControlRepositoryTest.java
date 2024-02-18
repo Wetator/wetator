@@ -23,7 +23,6 @@ import java.io.IOException;
 
 import org.htmlunit.html.HtmlAnchor;
 import org.htmlunit.html.HtmlElement;
-import org.htmlunit.html.HtmlPage;
 import org.junit.Test;
 import org.wetator.backend.htmlunit.control.HtmlUnitAnchor;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl;
@@ -40,13 +39,14 @@ public class HtmlUnitControlRepositoryTest {
     final String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<a id='myId' href='snoopy.php'>TestAnchor</a>"
         + "</form>" + "</body></html>";
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-    final HtmlElement tmpHtmlElement = tmpHtmlPage.getHtmlElementById("myId");
+      final HtmlElement tmpHtmlElement = tmpHtmlPage.getHtmlElementById("myId");
 
-    final HtmlUnitControlRepository tmpRepository = new HtmlUnitControlRepository();
+      final HtmlUnitControlRepository tmpRepository = new HtmlUnitControlRepository();
 
-    assertNull(tmpRepository.getForHtmlElement(tmpHtmlElement));
+      assertNull(tmpRepository.getForHtmlElement(tmpHtmlElement));
+    });
   }
 
   @Test
@@ -54,14 +54,15 @@ public class HtmlUnitControlRepositoryTest {
     final String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<a id='myId' href='snoopy.php'>TestAnchor</a>"
         + "</form>" + "</body></html>";
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-    final HtmlElement tmpHtmlElement = tmpHtmlPage.getHtmlElementById("myId");
+      final HtmlElement tmpHtmlElement = tmpHtmlPage.getHtmlElementById("myId");
 
-    final HtmlUnitControlRepository tmpRepository = new HtmlUnitControlRepository();
-    tmpRepository.add(HtmlUnitAnchor.class);
+      final HtmlUnitControlRepository tmpRepository = new HtmlUnitControlRepository();
+      tmpRepository.add(HtmlUnitAnchor.class);
 
-    assertEquals(HtmlUnitAnchor.class, tmpRepository.getForHtmlElement(tmpHtmlElement));
+      assertEquals(HtmlUnitAnchor.class, tmpRepository.getForHtmlElement(tmpHtmlElement));
+    });
   }
 
   @Test
@@ -69,15 +70,16 @@ public class HtmlUnitControlRepositoryTest {
     final String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<a id='myId' href='snoopy.php'>TestAnchor</a>"
         + "<a id='myId2' href='snoopy.php'>TestAnchor</a>" + "</form>" + "</body></html>";
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-    final HtmlElement tmpHtmlElement = tmpHtmlPage.getHtmlElementById("myId2");
+      final HtmlElement tmpHtmlElement = tmpHtmlPage.getHtmlElementById("myId2");
 
-    final HtmlUnitControlRepository tmpRepository = new HtmlUnitControlRepository();
-    tmpRepository.add(HtmlUnitAnchor.class);
-    tmpRepository.add(TestControl.class);
+      final HtmlUnitControlRepository tmpRepository = new HtmlUnitControlRepository();
+      tmpRepository.add(HtmlUnitAnchor.class);
+      tmpRepository.add(TestControl.class);
 
-    assertEquals(TestControl.class, tmpRepository.getForHtmlElement(tmpHtmlElement));
+      assertEquals(TestControl.class, tmpRepository.getForHtmlElement(tmpHtmlElement));
+    });
   }
 
   @Test
@@ -85,15 +87,16 @@ public class HtmlUnitControlRepositoryTest {
     final String tmpHtmlCode = "<html><body>" + "<form action='test'>" + "<a id='myId' href='snoopy.php'>TestAnchor</a>"
         + "<a id='myId2' href='snoopy.php'>TestAnchor</a>" + "</form>" + "</body></html>";
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-    final HtmlElement tmpHtmlElement = tmpHtmlPage.getHtmlElementById("myId");
+      final HtmlElement tmpHtmlElement = tmpHtmlPage.getHtmlElementById("myId");
 
-    final HtmlUnitControlRepository tmpRepository = new HtmlUnitControlRepository();
-    tmpRepository.add(HtmlUnitAnchor.class);
-    tmpRepository.add(TestControl.class);
+      final HtmlUnitControlRepository tmpRepository = new HtmlUnitControlRepository();
+      tmpRepository.add(HtmlUnitAnchor.class);
+      tmpRepository.add(TestControl.class);
 
-    assertEquals(HtmlUnitAnchor.class, tmpRepository.getForHtmlElement(tmpHtmlElement));
+      assertEquals(HtmlUnitAnchor.class, tmpRepository.getForHtmlElement(tmpHtmlElement));
+    });
   }
 
   /**

@@ -25,7 +25,6 @@ import java.util.List;
 import java.util.Properties;
 
 import org.htmlunit.html.HtmlElement;
-import org.htmlunit.html.HtmlPage;
 import org.htmlunit.html.HtmlTextInput;
 import org.junit.Test;
 import org.wetator.backend.WPath;
@@ -1377,25 +1376,27 @@ public class ByTableCoordinatesMatcherTest extends AbstractMatcherTest {
     final WetatorConfiguration tmpConfig = new WetatorConfiguration(new File("."), tmpProperties, new Properties(),
         null);
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(aHtmlCode);
-    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
-
     final List<MatchResult> tmpMatches = new ArrayList<>();
-    for (String tmpHtmlElementId : anHtmlElementIds) {
-      final HtmlElement tmpHtmlElement = tmpHtmlPage.getHtmlElementById(tmpHtmlElementId);
 
-      final WPath tmpPath = new WPath(aSearch, tmpConfig);
+    PageUtil.consumeHtmlPage(aHtmlCode, tmpHtmlPage -> {
+      final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-      SearchPattern tmpPathSearchPattern = null;
-      FindSpot tmpPathSpot = null;
-      if (!tmpPath.getPathNodes().isEmpty()) {
-        tmpPathSearchPattern = SearchPattern.createFromList(tmpPath.getPathNodes());
-        tmpPathSpot = tmpHtmlPageIndex.firstOccurence(tmpPathSearchPattern);
+      for (String tmpHtmlElementId : anHtmlElementIds) {
+        final HtmlElement tmpHtmlElement = tmpHtmlPage.getHtmlElementById(tmpHtmlElementId);
+
+        final WPath tmpPath = new WPath(aSearch, tmpConfig);
+
+        SearchPattern tmpPathSearchPattern = null;
+        FindSpot tmpPathSpot = null;
+        if (!tmpPath.getPathNodes().isEmpty()) {
+          tmpPathSearchPattern = SearchPattern.createFromList(tmpPath.getPathNodes());
+          tmpPathSpot = tmpHtmlPageIndex.firstOccurence(tmpPathSearchPattern);
+        }
+
+        tmpMatches.addAll(new ByTableCoordinatesMatcher(tmpHtmlPageIndex, tmpPathSearchPattern, tmpPathSpot,
+            tmpPath.getTableCoordinatesReversed(), HtmlTextInput.class).matches(tmpHtmlElement));
       }
-
-      tmpMatches.addAll(new ByTableCoordinatesMatcher(tmpHtmlPageIndex, tmpPathSearchPattern, tmpPathSpot,
-          tmpPath.getTableCoordinatesReversed(), HtmlTextInput.class).matches(tmpHtmlElement));
-    }
+    });
     return tmpMatches;
   }
 

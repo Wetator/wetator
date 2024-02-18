@@ -25,7 +25,6 @@ import java.util.List;
 import java.util.Properties;
 
 import org.htmlunit.html.HtmlElement;
-import org.htmlunit.html.HtmlPage;
 import org.junit.Test;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList.FoundType;
@@ -436,26 +435,28 @@ public class ByLabelingTextBeforeAsTextMatcherTest extends AbstractMatcherTest {
     final WetatorConfiguration tmpConfig = new WetatorConfiguration(new File("."), tmpProperties, new Properties(),
         null);
 
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(aHtmlCode);
-    final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
-
     final List<MatchResult> tmpMatches = new ArrayList<>();
-    for (String tmpHtmlElementId : anHtmlElementIds) {
-      final HtmlElement tmpHtmlElement = tmpHtmlPage.getHtmlElementById(tmpHtmlElementId);
 
-      final WPath tmpPath = new WPath(aSearch, tmpConfig);
+    PageUtil.consumeHtmlPage(aHtmlCode, tmpHtmlPage -> {
+      final HtmlPageIndex tmpHtmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-      final SearchPattern tmpSearchPattern = tmpPath.getLastNode().getSearchPattern();
-      SearchPattern tmpPathSearchPattern = null;
-      FindSpot tmpPathSpot = null;
-      if (!tmpPath.getPathNodes().isEmpty()) {
-        tmpPathSearchPattern = SearchPattern.createFromList(tmpPath.getPathNodes());
-        tmpPathSpot = tmpHtmlPageIndex.firstOccurence(tmpPathSearchPattern);
+      for (String tmpHtmlElementId : anHtmlElementIds) {
+        final HtmlElement tmpHtmlElement = tmpHtmlPage.getHtmlElementById(tmpHtmlElementId);
+
+        final WPath tmpPath = new WPath(aSearch, tmpConfig);
+
+        final SearchPattern tmpSearchPattern = tmpPath.getLastNode().getSearchPattern();
+        SearchPattern tmpPathSearchPattern = null;
+        FindSpot tmpPathSpot = null;
+        if (!tmpPath.getPathNodes().isEmpty()) {
+          tmpPathSearchPattern = SearchPattern.createFromList(tmpPath.getPathNodes());
+          tmpPathSpot = tmpHtmlPageIndex.firstOccurence(tmpPathSearchPattern);
+        }
+
+        tmpMatches.addAll(new ByLabelingTextBeforeAsTextMatcher(tmpHtmlPageIndex, tmpPathSearchPattern, tmpPathSpot,
+            tmpSearchPattern, tmpPath).matches(tmpHtmlElement));
       }
-
-      tmpMatches.addAll(new ByLabelingTextBeforeAsTextMatcher(tmpHtmlPageIndex, tmpPathSearchPattern, tmpPathSpot,
-          tmpSearchPattern, tmpPath).matches(tmpHtmlElement));
-    }
+    });
     return tmpMatches;
   }
 

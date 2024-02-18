@@ -22,7 +22,6 @@ import static org.junit.Assert.assertTrue;
 import java.io.IOException;
 
 import org.htmlunit.html.HtmlButton;
-import org.htmlunit.html.HtmlPage;
 import org.junit.Test;
 import org.wetator.backend.htmlunit.util.PageUtil;
 
@@ -39,12 +38,13 @@ public class HtmlUnitButtonTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-    final HtmlButton tmpText = (HtmlButton) tmpHtmlPage.getHtmlElementById("myId");
-    final HtmlUnitButton tmpControl = new HtmlUnitButton(tmpText);
+      final HtmlButton tmpText = (HtmlButton) tmpHtmlPage.getHtmlElementById("myId");
+      final HtmlUnitButton tmpControl = new HtmlUnitButton(tmpText);
 
-    assertTrue(tmpControl.isDisabled(null));
+      assertTrue(tmpControl.isDisabled(null));
+    });
   }
 
   @Test
@@ -56,12 +56,13 @@ public class HtmlUnitButtonTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-    final HtmlButton tmpText = (HtmlButton) tmpHtmlPage.getHtmlElementById("myId");
-    final HtmlUnitButton tmpControl = new HtmlUnitButton(tmpText);
+      final HtmlButton tmpText = (HtmlButton) tmpHtmlPage.getHtmlElementById("myId");
+      final HtmlUnitButton tmpControl = new HtmlUnitButton(tmpText);
 
-    assertFalse(tmpControl.isDisabled(null));
+      assertFalse(tmpControl.isDisabled(null));
+    });
   }
 
   @Test
@@ -73,11 +74,12 @@ public class HtmlUnitButtonTest {
         + "</form>"
         + "</body></html>";
     // @formatter:on
-    final HtmlPage tmpHtmlPage = PageUtil.constructHtmlPage(tmpHtmlCode);
+    PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-    final HtmlButton tmpText = (HtmlButton) tmpHtmlPage.getHtmlElementById("myId");
-    final HtmlUnitButton tmpControl = new HtmlUnitButton(tmpText);
+      final HtmlButton tmpText = (HtmlButton) tmpHtmlPage.getHtmlElementById("myId");
+      final HtmlUnitButton tmpControl = new HtmlUnitButton(tmpText);
 
-    assertTrue(tmpControl.isDisabled(null));
+      assertTrue(tmpControl.isDisabled(null));
+    });
   }
 }

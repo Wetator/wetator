@@ -24,7 +24,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Properties;
 
-import org.htmlunit.html.HtmlPage;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.wetator.backend.WPath;
@@ -123,11 +122,11 @@ public abstract class AbstractIdentifierBasedHtmlUnitControlsFinderTest {
   }
 
   protected void setup(final String anHtmlCode) throws IOException {
-    final HtmlPage tmpHtmlPage = PageUtil
-        .constructHtmlPage(HtmlCodeCreator.pageStart() + anHtmlCode + HtmlCodeCreator.pageEnd());
-    htmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
+    PageUtil.consumeHtmlPage(HtmlCodeCreator.pageStart() + anHtmlCode + HtmlCodeCreator.pageEnd(), tmpHtmlPage -> {
+      htmlPageIndex = new HtmlPageIndex(tmpHtmlPage);
 
-    finder = createFinder();
+      finder = createFinder();
+    });
   }
 
   protected abstract IdentifierBasedHtmlUnitControlsFinder createFinder();
