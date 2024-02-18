@@ -5,11 +5,7 @@
 	<classpathentry including="**/*.java" kind="src" path="src/main/java"/>
 	<classpathentry excluding="**/*.java" kind="src" path="src/main/resources"/>
 	<classpathentry kind="var" path="M2_REPO/javax/servlet/javax.servlet-api/3.1.0/javax.servlet-api-3.1.0.jar" sourcepath="M2_REPO/javax/servlet/javax.servlet-api/3.1.0/javax.servlet-api-3.1.0-sources.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/java-1.8.0-openjdk-1.8.0.332-1">
-		<attributes>
-			<attribute name="module" value="true"/>
-		</attributes>
-	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/java-1.8.0-openjdk-1.8.0.332-1"/>
 	<classpathentry kind="var" path="M2_REPO/dk/brics/automaton/1.12-4/automaton-1.12-4.jar" sourcepath="M2_REPO/dk/brics/automaton/1.12-4/automaton-1.12-4-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/com/github/rjeschke/txtmark/0.13/txtmark-0.13.jar" sourcepath="M2_REPO/com/github/rjeschke/txtmark/0.13/txtmark-0.13-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/commons-io/commons-io/2.15.1/commons-io-2.15.1.jar" sourcepath="M2_REPO/commons-io/commons-io/2.15.1/commons-io-2.15.1-sources.jar"/>
@@ -70,7 +66,7 @@
 	<classpathentry kind="var" path="M2_REPO/org/objenesis/objenesis/3.2/objenesis-3.2.jar" sourcepath="M2_REPO/org/objenesis/objenesis/3.2/objenesis-3.2-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/apache/logging/log4j/log4j-slf4j-impl/2.21.1/log4j-slf4j-impl-2.21.1.jar" sourcepath="M2_REPO/org/apache/logging/log4j/log4j-slf4j-impl/2.21.1/log4j-slf4j-impl-2.21.1-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25.jar" sourcepath="M2_REPO/org/slf4j/slf4j-api/1.7.25/slf4j-api-1.7.25-sources.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/hsqldb/hsqldb/2.5.2/hsqldb-2.5.2.jar" sourcepath="M2_REPO/org/hsqldb/hsqldb/2.5.2/hsqldb-2.5.2-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/hsqldb/hsqldb/2.7.2/hsqldb-2.7.2-jdk8.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/jetty-webapp/9.4.53.v20231009/jetty-webapp-9.4.53.v20231009.jar" sourcepath="M2_REPO/org/eclipse/jetty/jetty-webapp/9.4.53.v20231009/jetty-webapp-9.4.53.v20231009-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/jetty-xml/9.4.53.v20231009/jetty-xml-9.4.53.v20231009.jar" sourcepath="M2_REPO/org/eclipse/jetty/jetty-xml/9.4.53.v20231009/jetty-xml-9.4.53.v20231009-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/jetty-servlet/9.4.53.v20231009/jetty-servlet-9.4.53.v20231009.jar" sourcepath="M2_REPO/org/eclipse/jetty/jetty-servlet/9.4.53.v20231009/jetty-servlet-9.4.53.v20231009-sources.jar"/>
@@ -79,7 +75,7 @@
 	<classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/jetty-util-ajax/9.4.53.v20231009/jetty-util-ajax-9.4.53.v20231009.jar" sourcepath="M2_REPO/org/eclipse/jetty/jetty-util-ajax/9.4.53.v20231009/jetty-util-ajax-9.4.53.v20231009-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/websocket/websocket-server/9.4.53.v20231009/websocket-server-9.4.53.v20231009.jar" sourcepath="M2_REPO/org/eclipse/jetty/websocket/websocket-server/9.4.53.v20231009/websocket-server-9.4.53.v20231009-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/eclipse/jetty/websocket/websocket-servlet/9.4.53.v20231009/websocket-servlet-9.4.53.v20231009.jar" sourcepath="M2_REPO/org/eclipse/jetty/websocket/websocket-servlet/9.4.53.v20231009/websocket-servlet-9.4.53.v20231009-sources.jar"/>
-	<classpathentry kind="var" path="M2_REPO/org/apache/maven/maven-model/3.9.4/maven-model-3.9.4.jar" sourcepath="M2_REPO/org/apache/maven/maven-model/3.9.4/maven-model-3.9.4-sources.jar"/>
+	<classpathentry kind="var" path="M2_REPO/org/apache/maven/maven-model/3.9.5/maven-model-3.9.5.jar" sourcepath="M2_REPO/org/apache/maven/maven-model/3.9.5/maven-model-3.9.5-sources.jar"/>
 	<classpathentry kind="var" path="M2_REPO/org/codehaus/plexus/plexus-utils/3.5.1/plexus-utils-3.5.1.jar" sourcepath="M2_REPO/org/codehaus/plexus/plexus-utils/3.5.1/plexus-utils-3.5.1-sources.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
