@@ -38,7 +38,7 @@ public final class PageUtil {
    * @param aPageConsumer the consumer that uses the page
    * @throws IOException in case of problems
    */
-  public static void consumeHtmlPage(final String anHtmlCode, final ThrowingConsumer<HtmlPage> aPageConsumer)
+  public static void consumeHtmlPage(final String anHtmlCode, final IThrowingConsumer<HtmlPage> aPageConsumer)
       throws IOException {
     // Take care: this has to be in sync with our default browser
     consumeHtmlPage(BrowserVersion.FIREFOX_ESR, anHtmlCode, aPageConsumer);
@@ -53,7 +53,7 @@ public final class PageUtil {
    * @throws IOException in case of problems
    */
   public static void consumeHtmlPage(final BrowserVersion aBrowserVersion, final String anHtmlCode,
-      final ThrowingConsumer<HtmlPage> aPageConsumer) throws IOException {
+      final IThrowingConsumer<HtmlPage> aPageConsumer) throws IOException {
     try (WebClient tmpWebClient = new WebClient(aBrowserVersion)) {
       final HtmlPage tmpPage = tmpWebClient.loadHtmlCodeIntoCurrentWindow(anHtmlCode);
       aPageConsumer.accept(tmpPage);
@@ -67,7 +67,7 @@ public final class PageUtil {
    * @param aPageConsumer the consumer that uses the page
    * @throws IOException in case of problems
    */
-  public static void consumeXHtmlPage(final String anXHtmlCode, final ThrowingConsumer<XHtmlPage> aPageConsumer)
+  public static void consumeXHtmlPage(final String anXHtmlCode, final IThrowingConsumer<XHtmlPage> aPageConsumer)
       throws IOException {
     consumeXHtmlPage(BrowserVersion.getDefault(), anXHtmlCode, aPageConsumer);
   }
@@ -81,7 +81,7 @@ public final class PageUtil {
    * @throws IOException in case of problems
    */
   public static void consumeXHtmlPage(final BrowserVersion aBrowserVersion, final String anXHtmlCode,
-      final ThrowingConsumer<XHtmlPage> aPageConsumer) throws IOException {
+      final IThrowingConsumer<XHtmlPage> aPageConsumer) throws IOException {
     try (WebClient tmpWebClient = new WebClient(aBrowserVersion)) {
       final XHtmlPage tmpPage = tmpWebClient.loadXHtmlCodeIntoCurrentWindow(anXHtmlCode);
       aPageConsumer.accept(tmpPage);

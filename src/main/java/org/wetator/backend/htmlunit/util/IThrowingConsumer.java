@@ -21,10 +21,11 @@ import java.util.function.Consumer;
 /**
  * Util interface to support throwing from {@link Consumer}.
  *
+ * @param <T> the generic type
  * @author rbri
  */
 @FunctionalInterface
-public interface ThrowingConsumer<T> extends Consumer<T> {
+public interface IThrowingConsumer<T> extends Consumer<T> {
 
   @Override
   default void accept(final T anElement) {
