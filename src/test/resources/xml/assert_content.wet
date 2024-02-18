@@ -58,11 +58,11 @@
     <comment></comment>
     <command><d:open-url><d:url>assert_content.html</d:url></d:open-url></command>
     <command><d:click-on><d:wpath>wet_test_error.pdf</d:wpath></d:click-on></command>
-    <command><tst:assert-fail><tst:command-and-message>Assert Content, Can't convert the response pdf into text (Error: Header doesn't contain versioninfo).</tst:command-and-message><tst:parameter1>text</tst:parameter1></tst:assert-fail></command>
+    <command><tst:assert-fail><tst:command-and-message>Assert Content, Can't convert the response pdf into text (Missing root object specification in trailer.).</tst:command-and-message><tst:parameter1>text</tst:parameter1></tst:assert-fail></command>
     <comment></comment>
     <command><d:open-url><d:url>assert_content.html</d:url></d:open-url></command>
     <command><d:click-on><d:wpath>wet_test_pdf_error.zip</d:wpath></d:click-on></command>
-    <command><tst:assert-fail><tst:command-and-message>Assert Content, Can't convert the response zip into text (Can't convert the zipped pdf 'wet_test.pdf' into text (reason: java.io.IOException: Error: Header doesn't contain versioninfo).).</tst:command-and-message><tst:parameter1>text</tst:parameter1></tst:assert-fail></command>
+    <command><tst:assert-fail><tst:command-and-message>Assert Content, Can't convert the response zip into text (Can't convert the zipped pdf 'wet_test.pdf' into text (reason: java.io.IOException: Missing root object specification in trailer.).).</tst:command-and-message><tst:parameter1>text</tst:parameter1></tst:assert-fail></command>
     <comment></comment>
     <comment>content type rtf</comment>
     <command><d:open-url><d:url>assert_content.html</d:url></d:open-url></command>
