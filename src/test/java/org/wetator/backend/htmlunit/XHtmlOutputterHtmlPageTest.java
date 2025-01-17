@@ -56,14 +56,6 @@ public class XHtmlOutputterHtmlPageTest {
   private static final String EXPECTED_TRAILING = "<script> highlight(); </script> </body> </html>";
 
   private void testXHtmlOutput(final String anExpected, final String anHtmlCode) throws IOException {
-    PageUtil.consumeHtmlPage(BrowserVersion.INTERNET_EXPLORER, anHtmlCode, tmpHtmlPage -> {
-      final XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
-      final StringWriter tmpWriter = new StringWriter();
-      tmpXHtmlOutputter.writeTo(tmpWriter);
-      assertEquals(BrowserVersion.INTERNET_EXPLORER.getApplicationName(), anExpected,
-          new NormalizedString(tmpWriter.toString()).toString());
-    });
-
     PageUtil.consumeHtmlPage(BrowserVersion.FIREFOX, anHtmlCode, tmpHtmlPage -> {
       final XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
       final StringWriter tmpWriter = new StringWriter();
@@ -85,6 +77,14 @@ public class XHtmlOutputterHtmlPageTest {
       final StringWriter tmpWriter = new StringWriter();
       tmpXHtmlOutputter.writeTo(tmpWriter);
       assertEquals(BrowserVersion.CHROME.getApplicationName(), anExpected,
+          new NormalizedString(tmpWriter.toString()).toString());
+    });
+
+    PageUtil.consumeHtmlPage(BrowserVersion.EDGE, anHtmlCode, tmpHtmlPage -> {
+      final XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
+      final StringWriter tmpWriter = new StringWriter();
+      tmpXHtmlOutputter.writeTo(tmpWriter);
+      assertEquals(BrowserVersion.EDGE.getApplicationName(), anExpected,
           new NormalizedString(tmpWriter.toString()).toString());
     });
   }
@@ -243,7 +243,7 @@ public class XHtmlOutputterHtmlPageTest {
             + TRAILING;
     // @formatter:on
 
-    PageUtil.consumeHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode, tmpHtmlPage -> {
+    PageUtil.consumeHtmlPage(BrowserVersion.CHROME, tmpHtmlCode, tmpHtmlPage -> {
       XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
       StringWriter tmpWriter = new StringWriter();
       tmpXHtmlOutputter.writeTo(tmpWriter);
@@ -291,7 +291,7 @@ public class XHtmlOutputterHtmlPageTest {
             + TRAILING;
     // @formatter:on
 
-    PageUtil.consumeHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode, tmpHtmlPage -> {
+    PageUtil.consumeHtmlPage(BrowserVersion.CHROME, tmpHtmlCode, tmpHtmlPage -> {
       XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
       StringWriter tmpWriter = new StringWriter();
       tmpXHtmlOutputter.writeTo(tmpWriter);
@@ -338,7 +338,7 @@ public class XHtmlOutputterHtmlPageTest {
             + TRAILING;
     // @formatter:on
 
-    PageUtil.consumeHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode, tmpHtmlPage -> {
+    PageUtil.consumeHtmlPage(BrowserVersion.CHROME, tmpHtmlCode, tmpHtmlPage -> {
       final XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
       final StringWriter tmpWriter = new StringWriter();
       tmpXHtmlOutputter.writeTo(tmpWriter);
@@ -363,7 +363,7 @@ public class XHtmlOutputterHtmlPageTest {
         + TRAILING;
     // @formatter:on
 
-    PageUtil.consumeHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode, tmpHtmlPage -> {
+    PageUtil.consumeHtmlPage(BrowserVersion.CHROME, tmpHtmlCode, tmpHtmlPage -> {
       final HtmlTextInput tmpText = (HtmlTextInput) tmpHtmlPage.getElementById("tst");
       tmpText.type("1234");
 
@@ -394,7 +394,7 @@ public class XHtmlOutputterHtmlPageTest {
             + TRAILING;
     // @formatter:on
 
-    PageUtil.consumeHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode, tmpHtmlPage -> {
+    PageUtil.consumeHtmlPage(BrowserVersion.CHROME, tmpHtmlCode, tmpHtmlPage -> {
       final XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
       final StringWriter tmpWriter = new StringWriter();
       tmpXHtmlOutputter.writeTo(tmpWriter);
@@ -419,7 +419,7 @@ public class XHtmlOutputterHtmlPageTest {
         + TRAILING;
     // @formatter:on
 
-    PageUtil.consumeHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode, tmpHtmlPage -> {
+    PageUtil.consumeHtmlPage(BrowserVersion.CHROME, tmpHtmlCode, tmpHtmlPage -> {
       final HtmlPasswordInput tmpPassword = (HtmlPasswordInput) tmpHtmlPage.getElementById("tst");
       tmpPassword.type("1234");
 
@@ -448,7 +448,7 @@ public class XHtmlOutputterHtmlPageTest {
             + TRAILING;
     // @formatter:on
 
-    PageUtil.consumeHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode, tmpHtmlPage -> {
+    PageUtil.consumeHtmlPage(BrowserVersion.CHROME, tmpHtmlCode, tmpHtmlPage -> {
       final XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
       final StringWriter tmpWriter = new StringWriter();
       tmpXHtmlOutputter.writeTo(tmpWriter);
@@ -464,7 +464,7 @@ public class XHtmlOutputterHtmlPageTest {
         + TRAILING;
     // @formatter:on
 
-    PageUtil.consumeHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode, tmpHtmlPage -> {
+    PageUtil.consumeHtmlPage(BrowserVersion.CHROME, tmpHtmlCode, tmpHtmlPage -> {
       final XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpHtmlPage, null);
       final StringWriter tmpWriter = new StringWriter();
       tmpXHtmlOutputter.writeTo(tmpWriter);

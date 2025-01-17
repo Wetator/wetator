@@ -52,7 +52,7 @@ public class XHtmlOutputterXHtmlPageTest {
       private static final String EXPECTED_TRAILING = " </html>";
 
   private void testXHtmlOutput(final String anExpected, final String anXHtmlCode) throws IOException {
-    PageUtil.consumeXHtmlPage(BrowserVersion.INTERNET_EXPLORER, anXHtmlCode, tmpXHtmlPage -> {
+    PageUtil.consumeXHtmlPage(BrowserVersion.CHROME, anXHtmlCode, tmpXHtmlPage -> {
       final XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpXHtmlPage, null);
       final StringWriter tmpWriter = new StringWriter();
       tmpXHtmlOutputter.writeTo(tmpWriter);
@@ -106,7 +106,7 @@ public class XHtmlOutputterXHtmlPageTest {
             + TRAILING;
     // @formatter:on
 
-    PageUtil.consumeXHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode, tmpXHtmlPage -> {
+    PageUtil.consumeXHtmlPage(BrowserVersion.CHROME, tmpHtmlCode, tmpXHtmlPage -> {
       XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpXHtmlPage, null);
       StringWriter tmpWriter = new StringWriter();
       tmpXHtmlOutputter.writeTo(tmpWriter);
@@ -160,7 +160,7 @@ public class XHtmlOutputterXHtmlPageTest {
             + TRAILING;
     // @formatter:on
 
-    PageUtil.consumeXHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode, tmpXHtmlPage -> {
+    PageUtil.consumeXHtmlPage(BrowserVersion.CHROME, tmpHtmlCode, tmpXHtmlPage -> {
       XHtmlOutputter tmpXHtmlOutputter = new XHtmlOutputter(tmpXHtmlPage, null);
       StringWriter tmpWriter = new StringWriter();
       tmpXHtmlOutputter.writeTo(tmpWriter);
