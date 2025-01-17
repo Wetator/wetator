@@ -3,29 +3,29 @@ Wetator local build
   OutputDir:  'E:\Java\workspaces\wetator\wetator\logs'
   TestFiles: none
   TestCase: 'test1.wet' (1/0)
-    IE11
-    ..
     FirefoxESR
+    ..
+    CHROME
     ..
   TestCase: 'test2.wet' (2/0)
-    IE11
-    ..F.
     FirefoxESR
+    ..F.
+    CHROME
     ..F.
   TestCase: 'test3.wet' (3/0)
-    IE11
-    ..Ei.
     FirefoxESR
+    ..Ei.
+    CHROME
     ..Ei.
   TestCase: 'test4.wet' (4/0)
-    IE11
-    ..F.Ei
     FirefoxESR
+    ..F.Ei
+    CHROME
     ..F.Ei
   TestCase: 'test5.wet' (5/0)
-    IE11
-    ..F.
     FirefoxESR
+    ..F.
+    CHROME
     ..Ei.
 
   Failure

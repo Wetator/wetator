@@ -6,9 +6,9 @@ Wetator local build
     FirefoxESR
 java.lang.ClassNotFoundException: test error
 
-    IE11
-
     CHROME
+
+    EDGE
 
   Failure
     3 unsuccessful Tests

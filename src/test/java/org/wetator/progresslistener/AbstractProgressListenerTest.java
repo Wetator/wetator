@@ -288,7 +288,7 @@ public abstract class AbstractProgressListenerTest {
 
     tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
-    writeErrorTestRun(tmpTestCase, FF_ESR);
+    writeFailureTestRun(tmpTestCase, FF_ESR);
     writeErrorTestRun(tmpTestCase, CHROME);
     progressListener.testCaseEnd();
 
@@ -688,7 +688,7 @@ public abstract class AbstractProgressListenerTest {
     // unify path delimiter
     tmpResult = tmpResult.replace('\\', '/');
     // unify htmlunit version
-    tmpResult = tmpResult.replaceAll("HtmlUnit version 3.\\d+(.\\d+)?(-SNAPSHOT)?", "HtmlUnit");
+    tmpResult = tmpResult.replaceAll("HtmlUnit version \\d\\.\\d+(\\.\\d+)?(-SNAPSHOT)?", "HtmlUnit");
     // comments
     tmpResult = tmpResult.replaceAll("(?s)<!--.*?-->", "<!-- ... -->");
     // paths
