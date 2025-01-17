@@ -746,7 +746,7 @@ public class HtmlPageIndex {
 
     // process childs only if the control is not supported
     final HTMLObjectElement tmpJsObject = anHtmlObject.getScriptableObject();
-    if (null == tmpJsObject || null == tmpJsObject.unwrap()) {
+    if (null == tmpJsObject) {
       parseChildren(anHtmlObject, aHierarchy, aMouseActions);
     }
 

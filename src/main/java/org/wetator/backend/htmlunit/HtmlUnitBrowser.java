@@ -451,7 +451,7 @@ public final class HtmlUnitBrowser implements IBrowser {
   public static final class AttachmentHandler implements org.htmlunit.attachment.AttachmentHandler {
 
     @Override
-    public void handleAttachment(final Page aPage) {
+    public void handleAttachment(final Page aPage, final String anAttachmentFilename) {
       // Wetator likes to switch to the new window;
       // if we are finished with asserts against the attachment
       // we have to close the window.
