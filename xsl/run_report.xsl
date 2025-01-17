@@ -2,9 +2,9 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform" xmlns:fn="http://www.w3.org/2005/xpath-functions" version="1.0">
     <xsl:output method="html" encoding="UTF-8" doctype-public="-//Wf3C//Dtd HTML 4.01 Transitional//EN" omit-xml-declaration="yes"/>
 
-    <xsl:variable name="browserPicture.IE">resources/browser-ie.png</xsl:variable>
     <xsl:variable name="browserPicture.Firefox">resources/browser-firefox.png</xsl:variable>
     <xsl:variable name="browserPicture.Chrome">resources/browser-chrome.png</xsl:variable>
+    <xsl:variable name="browserPicture.Edge">resources/browser-edge.png</xsl:variable>
 
     <xsl:variable name="greenColor">#ACC952</xsl:variable>
     <xsl:variable name="orangeColor">#E75013</xsl:variable>
@@ -559,21 +559,14 @@
                                     <img src="resources/expand-square.png" alt="show/hide all browser overviews" class="expandCollapse">
                                         <xsl:attribute name="onclick">
                                             <xsl:text>showOrHideAll(this</xsl:text>
-                                            <xsl:if test="/wet/testcase/testrun/@browser='IE11'">, 'ie11','ie11overview'</xsl:if>
                                             <xsl:if test="/wet/testcase/testrun/@browser='Firefox'">, 'ff','ffoverview'</xsl:if>
                                             <xsl:if test="/wet/testcase/testrun/@browser='FirefoxESR'">, 'ffesr','ffesroverview'</xsl:if>
                                             <xsl:if test="/wet/testcase/testrun/@browser='Chrome'">, 'chrome','chromeoverview'</xsl:if>
+                                            <xsl:if test="/wet/testcase/testrun/@browser='Edge'">, 'edge','edgeoverview'</xsl:if>
                                             <xsl:text>)</xsl:text>
                                         </xsl:attribute>
                                     </img>
                                 </td>
-                            <xsl:if test="/wet/testcase/testrun/@browser='IE11'">
-                                <td>
-                                    <span class="bold">IE11</span>
-                                    <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
-                                    <img id="ie11" src="resources/expand-square.png" onclick="showOrHide(this, 'ie11overview')" alt="show/hide IE11 overview" class="expandCollapse"/>
-                                </td>
-                            </xsl:if>
                             <xsl:if test="/wet/testcase/testrun/@browser='Firefox'">
                                 <td>
                                     <span class="bold">FF</span>
@@ -595,31 +588,16 @@
                                     <img id="chrome" src="resources/expand-square.png" onclick="showOrHide(this, 'chromeoverview')" alt="show/hide Chrome overview" class="expandCollapse"/>
                                 </td>
                             </xsl:if>
+                            <xsl:if test="/wet/testcase/testrun/@browser='EDGE'">
+                                <td>
+                                    <span class="bold">Edge</span>
+                                    <xsl:text disable-output-escaping="yes">&amp;nbsp;</xsl:text>
+                                    <img id="edge" src="resources/expand-square.png" onclick="showOrHide(this, 'edgeoverview')" alt="show/hide Edge overview" class="expandCollapse"/>
+                                </td>
+                            </xsl:if>
                         </tr>
                     </table>
 
-                    <xsl:if test="/wet/testcase/testrun/@browser='IE11'">
-                        <table id="ie11overview" class="overview" align="center" style="display: none; text-align: center;">
-                            <xsl:variable name="failedIE11" select="count(/wet/testcase/testrun[@browser='IE11'][boolean(descendant::failure and not(error) and not(descendant::command/error) and not(descendant::testfile/error))])"/>
-                            <xsl:variable name="errorsIE11" select="count(/wet/testcase/testrun[@browser='IE11'][boolean(error or descendant-or-self::command/error or descendant::testfile/error)])"/>
-                            <xsl:variable name="ignoredIE11" select="count(/wet/testcase/testrun[@browser='IE11']/ignored)"/>
-                            <xsl:variable name="stepsOkIE11" select="count(/wet/testcase/testrun[@browser='IE11']/testfile/command[not(@isComment) and not(descendant-or-self::failure) and not(descendant-or-self::error) and not(descendant-or-self::ignored)])"/>
-                            <xsl:variable name="stepsFailureIE11" select="count(/wet/testcase/testrun[@browser='IE11']/testfile/command[(descendant-or-self::failure) and not(descendant::command/error)])"/>
-                            <xsl:variable name="stepsErrorIE11" select="count(/wet/testcase/testrun[@browser='IE11']/testfile[boolean(descendant-or-self::command/error or descendant::testfile/error)])"/>
-                            <xsl:variable name="stepsIgnoredIE11" select="count(/wet/testcase/testrun[@browser='IE11']/testfile/command[(descendant-or-self::ignored) and not(descendant::failure) and not(descendant::command/error)])"/>
-                            <xsl:call-template name="testBrowserOverview">
-                                <xsl:with-param name="browserPicture" select="$browserPicture.IE"/>
-                                <xsl:with-param name="browserName">IE11</xsl:with-param>
-                                <xsl:with-param name="browserTestFailureCount" select="$failedIE11"/>
-                                <xsl:with-param name="browserTestErrorCount" select="$errorsIE11"/>
-                                <xsl:with-param name="browserTestIgnoredCount" select="$ignoredIE11"/>
-                                <xsl:with-param name="browserStepsOkCount" select="$stepsOkIE11"/>
-                                <xsl:with-param name="browserStepsFailureCount" select="$stepsFailureIE11"/>
-                                <xsl:with-param name="browserStepsErrorCount" select="$stepsErrorIE11"/>
-                                <xsl:with-param name="browserStepsIgnoredCount" select="$stepsIgnoredIE11"/>
-                            </xsl:call-template>
-                        </table>
-                    </xsl:if>
                     <xsl:if test="/wet/testcase/testrun/@browser='Firefox'">
                         <table id="ffoverview" class="overview" align="center" style="display: none; text-align: center;">
                             <xsl:variable name="failedFirefox" select="count(/wet/testcase/testrun[@browser='Firefox'][boolean(descendant::failure and not(error) and not(error) and not(descendant::command/error) and not(descendant::testfile/error))])"/>
@@ -683,6 +661,28 @@
                                 <xsl:with-param name="browserStepsFailureCount" select="$stepsFailureChrome"/>
                                 <xsl:with-param name="browserStepsErrorCount" select="$stepsErrorChrome"/>
                                 <xsl:with-param name="browserStepsIgnoredCount" select="$stepsIgnoredChrome"/>
+                            </xsl:call-template>
+                        </table>
+                    </xsl:if>
+                    <xsl:if test="/wet/testcase/testrun/@browser='Edge'">
+                        <table id="edgeoverview" class="overview" align="center" style="display: none; text-align: center;">
+                            <xsl:variable name="failedEdge" select="count(/wet/testcase/testrun[@browser='Edge'][boolean(descendant::failure and not(error) and not(descendant::command/error) and not(descendant::testfile/error))])"/>
+                            <xsl:variable name="errorsEdge" select="count(/wet/testcase/testrun[@browser='Edge'][boolean(error or descendant-or-self::command/error or descendant::testfile/error)])"/>
+                            <xsl:variable name="ignoredEdge" select="count(/wet/testcase/testrun[@browser='Edge']/ignored)"/>
+                            <xsl:variable name="stepsOkEdge" select="count(/wet/testcase/testrun[@browser='Edge']/testfile/command[not(@isComment) and not(descendant-or-self::failure) and not(descendant-or-self::error) and not(descendant-or-self::ignored)])"/>
+                            <xsl:variable name="stepsFailureEdge" select="count(/wet/testcase/testrun[@browser='Edge']/testfile/command[(descendant-or-self::failure) and not(descendant::command/error)])"/>
+                            <xsl:variable name="stepsErrorEdge" select="count(/wet/testcase/testrun[@browser='Edge']/testfile[boolean(descendant-or-self::command/error or descendant::testfile/error)])"/>
+                            <xsl:variable name="stepsIgnoredEdge" select="count(/wet/testcase/testrun[@browser='Edge']/testfile/command[(descendant-or-self::ignored) and not(descendant::failure) and not(descendant::command/error)])"/>
+                            <xsl:call-template name="testBrowserOverview">
+                                <xsl:with-param name="browserPicture" select="$browserPicture.Edge"/>
+                                <xsl:with-param name="browserName">Edge</xsl:with-param>
+                                <xsl:with-param name="browserTestFailureCount" select="$failedEdge"/>
+                                <xsl:with-param name="browserTestErrorCount" select="$errorsEdge"/>
+                                <xsl:with-param name="browserTestIgnoredCount" select="$ignoredEdge"/>
+                                <xsl:with-param name="browserStepsOkCount" select="$stepsOkEdge"/>
+                                <xsl:with-param name="browserStepsFailureCount" select="$stepsFailureEdge"/>
+                                <xsl:with-param name="browserStepsErrorCount" select="$stepsErrorEdge"/>
+                                <xsl:with-param name="browserStepsIgnoredCount" select="$stepsIgnoredEdge"/>
                             </xsl:call-template>
                         </table>
                     </xsl:if>
@@ -1125,9 +1125,6 @@
                         <td>
                             <img class="browser">
                                 <xsl:attribute name="src">
-                                    <xsl:if test="@browser='IE11'">
-                                        <xsl:value-of select="$browserPicture.IE"/>
-                                    </xsl:if>
                                     <xsl:if test="@browser='Firefox'">
                                         <xsl:value-of select="$browserPicture.Firefox"/>
                                     </xsl:if>
@@ -1136,6 +1133,9 @@
                                     </xsl:if>
                                     <xsl:if test="@browser='Chrome'">
                                         <xsl:value-of select="$browserPicture.Chrome"/>
+                                    </xsl:if>
+                                    <xsl:if test="@browser='Edge'">
+                                        <xsl:value-of select="$browserPicture.Edge"/>
                                     </xsl:if>
                                 </xsl:attribute>
                                 <xsl:attribute name="alt">
@@ -1171,9 +1171,6 @@
                             <td>
                                 <img class="browser">
                                     <xsl:attribute name="src">
-                                        <xsl:if test="../@browser='IE11'">
-                                            <xsl:value-of select="$browserPicture.IE"/>
-                                        </xsl:if>
                                         <xsl:if test="../@browser='Firefox'">
                                             <xsl:value-of select="$browserPicture.Firefox"/>
                                         </xsl:if>
@@ -1182,6 +1179,9 @@
                                         </xsl:if>
                                         <xsl:if test="../@browser='Chrome'">
                                             <xsl:value-of select="$browserPicture.Chrome"/>
+                                        </xsl:if>
+                                        <xsl:if test="../@browser='Edge'">
+                                            <xsl:value-of select="$browserPicture.Edge"/>
                                         </xsl:if>
                                     </xsl:attribute>
                                     <xsl:attribute name="alt">
