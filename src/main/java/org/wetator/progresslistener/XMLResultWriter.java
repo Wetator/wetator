@@ -20,6 +20,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -167,7 +168,8 @@ public class XMLResultWriter implements IProgressListener {
         tagId++;
       }
 
-      final Writer tmpWriter = new FileWriterWithEncoding(tmpConfiguration.getWetResultFile(), "UTF-8"); // NOPMD
+      final Writer tmpWriter = FileWriterWithEncoding.builder().setFile(tmpConfiguration.getWetResultFile())
+          .setCharset(StandardCharsets.UTF_8).setAppend(false).get();
       output = new Output(tmpWriter, "  ");
       xmlUtil = new XMLUtil();
 

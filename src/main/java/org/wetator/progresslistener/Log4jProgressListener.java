@@ -250,7 +250,8 @@ public class Log4jProgressListener extends AbstractAppender implements IProgress
       tmpSuffix = "_" + tmpCount++;
     } while (tmpResultFile.exists());
 
-    try (Writer tmpWriter = new FileWriterWithEncoding(tmpResultFile, StandardCharsets.UTF_8)) {
+    try (Writer tmpWriter = FileWriterWithEncoding.builder().setFile(tmpResultFile).setCharset(StandardCharsets.UTF_8)
+        .setAppend(false).get()) {
       final Output tmpOutput = new Output(tmpWriter, "    ");
       final Layout<? extends Serializable> tmpLayout = getLayout();
       for (final CommandEvents tmpEvents : commandEvents) {
@@ -281,7 +282,9 @@ public class Log4jProgressListener extends AbstractAppender implements IProgress
         tmpOutput.unindent();
       }
       tmpOutput.flush();
-    } catch (final IOException e) {
+    } catch (
+
+    final IOException e) {
       LOG.error(e.getMessage(), e);
     } finally {
       commandEvents.clear();

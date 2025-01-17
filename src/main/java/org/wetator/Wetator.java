@@ -24,6 +24,7 @@ import java.util.List;
 import javax.swing.JWindow;
 
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.io.IOCase;
 import org.apache.commons.io.filefilter.WildcardFileFilter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -143,7 +144,8 @@ public final class Wetator {
               } else {
                 final File tmpDir = tmpSearchFile.getParentFile();
                 if (tmpDir != null && tmpDir.exists()) {
-                  final FileFilter tmpFilter = new WildcardFileFilter(tmpSearchFile.getName());
+                  final FileFilter tmpFilter = WildcardFileFilter.builder().setIoCase(IOCase.SENSITIVE)
+                      .setWildcards(tmpSearchFile.getName()).get();
                   final File[] tmpFiles = tmpDir.listFiles(tmpFilter);
                   if (tmpFiles != null) {
                     for (final File tmpFile : tmpFiles) {
