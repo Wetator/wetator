@@ -30,6 +30,7 @@ import org.wetator.test.junit.BrowserRunner.IBrowserTest;
 public class BrowserRunnerTest implements IBrowserTest {
 
   private static boolean firstFound;
+  private static boolean firstFound2;
 
   private BrowserType browserType;
 
@@ -45,19 +46,48 @@ public class BrowserRunnerTest implements IBrowserTest {
   }
 
   @Test
-  @Browsers(BrowserType.INTERNET_EXPLORER)
-  public void testSingle() {
-    Assert.assertEquals(BrowserType.INTERNET_EXPLORER, browserType);
+  @Browsers(BrowserType.FIREFOX_ESR)
+  public void testSingleFirefoxEsr() {
+    Assert.assertEquals(BrowserType.FIREFOX_ESR, browserType);
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_ESR, BrowserType.INTERNET_EXPLORER })
+  @Browsers(BrowserType.FIREFOX)
+  public void testSingleFirefox() {
+    Assert.assertEquals(BrowserType.FIREFOX, browserType);
+  }
+
+  @Test
+  @Browsers(BrowserType.CHROME)
+  public void testSingleChrome() {
+    Assert.assertEquals(BrowserType.CHROME, browserType);
+  }
+
+  @Test
+  @Browsers(BrowserType.EDGE)
+  public void testSingleEdge() {
+    Assert.assertEquals(BrowserType.EDGE, browserType);
+  }
+
+  @Test
+  @Browsers({ BrowserType.FIREFOX_ESR, BrowserType.CHROME })
   public void testMultiple() {
     if (!firstFound) {
       Assert.assertEquals(BrowserType.FIREFOX_ESR, browserType);
       firstFound = true;
     } else {
-      Assert.assertEquals(BrowserType.INTERNET_EXPLORER, browserType);
+      Assert.assertEquals(BrowserType.CHROME, browserType);
+    }
+  }
+
+  @Test
+  @Browsers({ BrowserType.FIREFOX, BrowserType.EDGE })
+  public void testMultiple2() {
+    if (!firstFound2) {
+      Assert.assertEquals(BrowserType.FIREFOX, browserType);
+      firstFound2 = true;
+    } else {
+      Assert.assertEquals(BrowserType.EDGE, browserType);
     }
   }
 
