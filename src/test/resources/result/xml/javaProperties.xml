@@ -108,7 +108,7 @@
   </configuration>
   <startTime id="95">01.03.2013 23:27:33</startTime>
   <testcase id="96" name="test1.wet" file="E:\Test\test1.wet">
-    <testrun id="97" browser="IE11">
+    <testrun id="97" browser="FirefoxESR">
       <testfile id="98" file="E:\Test\test1.wet">
         <command id="99" name="" line="1" isComment="true">
           <param0 id="100">comment value</param0>
@@ -124,7 +124,7 @@
         </command>
       </testfile>
     </testrun>
-    <testrun id="109" browser="FirefoxESR">
+    <testrun id="109" browser="CHROME">
       <testfile id="110" file="E:\Test\test1.wet">
         <command id="111" name="" line="1" isComment="true">
           <param0 id="112">comment value</param0>

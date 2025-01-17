@@ -54,9 +54,9 @@ public abstract class AbstractProgressListenerTest {
 
   protected static final String LOGS_FOLDER = "logs";
 
-  protected static final String IE11 = "IE11";
   protected static final String FF_ESR = "FirefoxESR";
   protected static final String CHROME = "CHROME";
+  protected static final String EDGE = "EDGE";
 
   private static final String COMMAND_NAME = "command";
 
@@ -99,7 +99,7 @@ public abstract class AbstractProgressListenerTest {
     final TestCase tmpTestCase = createTestCase("wetator_google.wet");
     progressListener.testCaseStart(tmpTestCase);
 
-    progressListener.testRunStart(IE11);
+    progressListener.testRunStart(FF_ESR);
     progressListener.testFileStart(tmpTestCase.getFile().getAbsolutePath());
     writeCommand(createCommand("open-url", "http://www.google.com"));
     writeCommand(createCommand("set", "search", "Wetator"));
@@ -124,8 +124,8 @@ public abstract class AbstractProgressListenerTest {
 
     final TestCase tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
-    writeGreenTestRun(tmpTestCase, IE11);
     writeGreenTestRun(tmpTestCase, FF_ESR);
+    writeGreenTestRun(tmpTestCase, CHROME);
     progressListener.testCaseEnd();
 
     progressListener.end(engine);
@@ -164,8 +164,8 @@ public abstract class AbstractProgressListenerTest {
 
     final TestCase tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
-    writeErrorTestRun(tmpTestCase, IE11);
     writeErrorTestRun(tmpTestCase, FF_ESR);
+    writeErrorTestRun(tmpTestCase, CHROME);
     progressListener.testCaseEnd();
 
     progressListener.end(engine);
@@ -233,8 +233,8 @@ public abstract class AbstractProgressListenerTest {
 
     final TestCase tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
-    writeFailureTestRun(tmpTestCase, IE11);
     writeFailureTestRun(tmpTestCase, FF_ESR);
+    writeFailureTestRun(tmpTestCase, CHROME);
     progressListener.testCaseEnd();
 
     progressListener.end(engine);
@@ -264,32 +264,32 @@ public abstract class AbstractProgressListenerTest {
 
     TestCase tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
-    writeGreenTestRun(tmpTestCase, IE11);
     writeGreenTestRun(tmpTestCase, FF_ESR);
+    writeGreenTestRun(tmpTestCase, CHROME);
     progressListener.testCaseEnd();
 
     tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
-    writeFailureTestRun(tmpTestCase, IE11);
     writeFailureTestRun(tmpTestCase, FF_ESR);
+    writeFailureTestRun(tmpTestCase, CHROME);
     progressListener.testCaseEnd();
 
     tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
-    writeErrorTestRun(tmpTestCase, IE11);
     writeErrorTestRun(tmpTestCase, FF_ESR);
+    writeErrorTestRun(tmpTestCase, CHROME);
     progressListener.testCaseEnd();
 
     tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
-    writeFailureAndErrorTestRun(tmpTestCase, IE11);
     writeFailureAndErrorTestRun(tmpTestCase, FF_ESR);
+    writeFailureAndErrorTestRun(tmpTestCase, CHROME);
     progressListener.testCaseEnd();
 
     tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
-    writeFailureTestRun(tmpTestCase, IE11);
     writeErrorTestRun(tmpTestCase, FF_ESR);
+    writeErrorTestRun(tmpTestCase, CHROME);
     progressListener.testCaseEnd();
 
     progressListener.end(engine);
@@ -305,7 +305,7 @@ public abstract class AbstractProgressListenerTest {
     final TestCase tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
 
-    progressListener.testRunStart(IE11);
+    progressListener.testRunStart(CHROME);
     progressListener.testFileStart(tmpTestCase.getFile().getAbsolutePath());
     writeCommand();
     writeCommandWithError(createCommand("invalid-command", null),
@@ -333,7 +333,7 @@ public abstract class AbstractProgressListenerTest {
     final TestCase tmpTestCase = createTestCase();
     progressListener.testCaseStart(tmpTestCase);
 
-    progressListener.testRunStart(IE11);
+    progressListener.testRunStart(CHROME);
     progressListener.testFileStart(tmpTestCase.getFile().getAbsolutePath());
     progressListener.error(new InvalidInputException("TestCase " + tmpTestCase.getName() + " is very invalid."));
     progressListener.testFileEnd();
@@ -392,10 +392,10 @@ public abstract class AbstractProgressListenerTest {
     progressListener.testRunStart(FF_ESR);
     progressListener.error(new ClassNotFoundException("test error"));
     progressListener.testRunEnd();
-    progressListener.testRunStart(IE11);
+    progressListener.testRunStart(CHROME);
     progressListener.testRunIgnored();
     progressListener.testRunEnd();
-    progressListener.testRunStart(CHROME);
+    progressListener.testRunStart(EDGE);
     progressListener.testRunIgnored();
     progressListener.testRunEnd();
     progressListener.testCaseEnd();
@@ -439,10 +439,10 @@ public abstract class AbstractProgressListenerTest {
     progressListener.testRunStart(FF_ESR);
     progressListener.error(new ClassNotFoundException("test error"));
     progressListener.testRunEnd();
-    progressListener.testRunStart(IE11);
+    progressListener.testRunStart(CHROME);
     progressListener.testRunIgnored();
     progressListener.testRunEnd();
-    progressListener.testRunStart(CHROME);
+    progressListener.testRunStart(EDGE);
     progressListener.testRunIgnored();
     progressListener.testRunEnd();
     progressListener.testCaseEnd();
@@ -452,10 +452,10 @@ public abstract class AbstractProgressListenerTest {
     progressListener.testRunStart(FF_ESR);
     progressListener.testRunIgnored();
     progressListener.testRunEnd();
-    progressListener.testRunStart(IE11);
+    progressListener.testRunStart(CHROME);
     progressListener.testRunIgnored();
     progressListener.testRunEnd();
-    progressListener.testRunStart(CHROME);
+    progressListener.testRunStart(EDGE);
     progressListener.testRunIgnored();
     progressListener.testRunEnd();
     progressListener.testCaseEnd();

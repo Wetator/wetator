@@ -62,10 +62,10 @@
 </details>
       </error>
     </testrun>
-    <testrun id="##ID##" browser="IE11">
+    <testrun id="##ID##" browser="CHROME">
       <ignored id="##ID##"/>
     </testrun>
-    <testrun id="##ID##" browser="CHROME">
+    <testrun id="##ID##" browser="EDGE">
       <ignored id="##ID##"/>
     </testrun>
   </testcase>
@@ -73,10 +73,10 @@
     <testrun id="##ID##" browser="FirefoxESR">
       <ignored id="##ID##"/>
     </testrun>
-    <testrun id="##ID##" browser="IE11">
+    <testrun id="##ID##" browser="CHROME">
       <ignored id="##ID##"/>
     </testrun>
-    <testrun id="##ID##" browser="CHROME">
+    <testrun id="##ID##" browser="EDGE">
       <ignored id="##ID##"/>
     </testrun>
   </testcase>
