@@ -37,7 +37,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   private static final String BASE_FOLDER = "src/test/resources/xml/";
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_ESR, BrowserType.CHROME })
+  @Browsers({ BrowserType.FIREFOX_ESR, BrowserType.FIREFOX, BrowserType.CHROME, BrowserType.EDGE })
   public void eventClickOn() throws InvalidInputException {
     executeTestFile("event_clickOn.wet");
 
@@ -47,7 +47,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_ESR, BrowserType.CHROME })
+  @Browsers({ BrowserType.FIREFOX_ESR, BrowserType.FIREFOX, BrowserType.CHROME, BrowserType.EDGE })
   public void eventDeselect() throws InvalidInputException {
     executeTestFile("event_deselect.wet");
 
@@ -57,7 +57,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_ESR, BrowserType.CHROME })
+  @Browsers({ BrowserType.FIREFOX_ESR, BrowserType.FIREFOX, BrowserType.CHROME, BrowserType.EDGE })
   public void eventMouseOver() throws InvalidInputException {
     executeTestFile("event_mouseOver.wet");
 
@@ -67,7 +67,7 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_ESR, BrowserType.CHROME })
+  @Browsers({ BrowserType.FIREFOX_ESR, BrowserType.FIREFOX, BrowserType.CHROME, BrowserType.EDGE })
   public void eventSelect() throws InvalidInputException {
     executeTestFile("event_select.wet");
 
@@ -77,9 +77,19 @@ public class XmlEventHandlingTest extends AbstractWebServerTest {
   }
 
   @Test
-  @Browsers({ BrowserType.FIREFOX_ESR, BrowserType.CHROME })
+  @Browsers({ BrowserType.CHROME, BrowserType.EDGE })
   public void eventSet() throws InvalidInputException {
     executeTestFile("event_set.wet");
+
+    Assert.assertEquals(27, getSteps());
+    Assert.assertEquals(0, getFailures());
+    Assert.assertEquals(0, getErrors());
+  }
+
+  @Test
+  @Browsers({ BrowserType.FIREFOX_ESR, BrowserType.FIREFOX })
+  public void eventSetFF() throws InvalidInputException {
+    executeTestFile("ff/event_set.wet");
 
     Assert.assertEquals(27, getSteps());
     Assert.assertEquals(0, getFailures());

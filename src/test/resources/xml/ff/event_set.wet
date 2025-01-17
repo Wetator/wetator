@@ -28,15 +28,15 @@
     <comment></comment>
     <comment>Reset input text</comment>
     <command><d:set><d:wpath>InputText</d:wpath><d:value></d:value></d:set></command>
-    <command><d:assert-content><d:content>Handler mousedown [inputText] [1] focus [inputText] [-] mouseup [inputText] [1] click [inputText] [1] keydown [inputText] [46] keyup [inputText] [46] OK</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>Handler mousedown [inputText] [1] focus [inputText] [-] mouseup [inputText] [1] click [inputText] [1] keydown [inputText] [46] keypress [inputText] [46] keyup [inputText] [46] OK</d:content></d:assert-content></command>
     <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
     <comment>Reset input password</comment>
     <command><d:set><d:wpath>InputPassword</d:wpath><d:value></d:value></d:set></command>
-    <command><d:assert-content><d:content>Handler mousedown [inputPassword] [1] focus [inputPassword] [-] mouseup [inputPassword] [1] click [inputPassword] [1] keydown [inputPassword] [46] keyup [inputPassword] [46] OK</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>Handler mousedown [inputPassword] [1] focus [inputPassword] [-] mouseup [inputPassword] [1] click [inputPassword] [1] keydown [inputPassword] [46] keypress [inputPassword] [46] keyup [inputPassword] [46] OK</d:content></d:assert-content></command>
     <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
     <comment>Reset text area</comment>
     <command><d:set><d:wpath>Textarea</d:wpath><d:value></d:value></d:set></command>
-    <command><d:assert-content><d:content>Handler mousedown [textarea] [1] focus [textarea] [-] mouseup [textarea] [1] click [textarea] [1] keydown [textarea] [46] keyup [textarea] [46] OK</d:content></d:assert-content></command>
+    <command><d:assert-content><d:content>Handler mousedown [textarea] [1] focus [textarea] [-] mouseup [textarea] [1] click [textarea] [1] keydown [textarea] [46] keypress [textarea] [46] keyup [textarea] [46] OK</d:content></d:assert-content></command>
     <command><d:click-on><d:wpath>Clear</d:wpath></d:click-on></command>
     <comment>Set file input</comment>
     <command><d:set><d:wpath>Upload</d:wpath><d:value></d:value></d:set></command>
