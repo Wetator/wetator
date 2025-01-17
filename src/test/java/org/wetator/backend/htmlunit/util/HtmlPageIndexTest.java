@@ -90,33 +90,28 @@ public class HtmlPageIndexTest {
 
   private void getText(final String anExpected, final String anExpectedWithoutFC, final String anHtmlCode)
       throws IOException {
-    getText(anExpected, anExpected, anExpectedWithoutFC, anHtmlCode);
-  }
-
-  private void getText(final String anExpectedIE, final String anExpectedFF, final String anExpectedWithoutFC,
-      final String anHtmlCode) throws IOException {
-    PageUtil.consumeHtmlPage(BrowserVersion.INTERNET_EXPLORER, anHtmlCode, tmpHtmlPage -> {
-      HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
-      assertEquals("getText[IE]", anExpectedIE, tmpResult.getText());
-      assertEquals("getTextWithoutFormControls[IE]", anExpectedWithoutFC, tmpResult.getTextWithoutFormControls());
-    });
-
     PageUtil.consumeHtmlPage(BrowserVersion.FIREFOX, anHtmlCode, tmpHtmlPage -> {
       HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
-      assertEquals("getText[FF]", anExpectedFF, tmpResult.getText());
+      assertEquals("getText[FF]", anExpected, tmpResult.getText());
       assertEquals("getTextWithoutFormControls[FF]", anExpectedWithoutFC, tmpResult.getTextWithoutFormControls());
     });
 
     PageUtil.consumeHtmlPage(BrowserVersion.FIREFOX_ESR, anHtmlCode, tmpHtmlPage -> {
       HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
-      assertEquals("getText[FF]", anExpectedFF, tmpResult.getText());
-      assertEquals("getTextWithoutFormControls[FF]", anExpectedWithoutFC, tmpResult.getTextWithoutFormControls());
+      assertEquals("getText[FF ESR]", anExpected, tmpResult.getText());
+      assertEquals("getTextWithoutFormControls[FF ESR]", anExpectedWithoutFC, tmpResult.getTextWithoutFormControls());
     });
 
     PageUtil.consumeHtmlPage(BrowserVersion.CHROME, anHtmlCode, tmpHtmlPage -> {
       HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
-      assertEquals("getText[FF]", anExpectedFF, tmpResult.getText());
-      assertEquals("getTextWithoutFormControls[FF]", anExpectedWithoutFC, tmpResult.getTextWithoutFormControls());
+      assertEquals("getText[CHROME]", anExpected, tmpResult.getText());
+      assertEquals("getTextWithoutFormControls[CHROME]", anExpectedWithoutFC, tmpResult.getTextWithoutFormControls());
+    });
+
+    PageUtil.consumeHtmlPage(BrowserVersion.EDGE, anHtmlCode, tmpHtmlPage -> {
+      HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
+      assertEquals("getText[EDGE]", anExpected, tmpResult.getText());
+      assertEquals("getTextWithoutFormControls[EDGE]", anExpectedWithoutFC, tmpResult.getTextWithoutFormControls());
     });
   }
 
@@ -603,7 +598,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    getText("before Submit Query Click Me after", "before Click Me after", "before after", tmpHtmlCode);
+    getText("before Click Me after", "before after", tmpHtmlCode);
   }
 
   @Test
@@ -617,7 +612,7 @@ public class HtmlPageIndexTest {
         + "</body></html>";
     // @formatter:on
 
-    getText("before Reset Click Me after", "before Click Me after", "before after", tmpHtmlCode);
+    getText("before Click Me after", "before after", tmpHtmlCode);
   }
 
   @Test
