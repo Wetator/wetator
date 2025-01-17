@@ -341,7 +341,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
       try {
         final URL tmpKeyStoreURL = new URL(tmpClientCertKeyStoreUrl);
-        webClient.getOptions().setSSLClientCertificate(tmpKeyStoreURL, tmpClientCertKeyStorePassword.getValue(),
+        webClient.getOptions().setSSLClientCertificateKeyStore(tmpKeyStoreURL, tmpClientCertKeyStorePassword.getValue(),
             tmpClientCertKeyStoreType);
       } catch (final Exception e) {
         LOG.error("Failed to use configured ClientCertificateKeyStore.", e.getCause());
@@ -950,12 +950,13 @@ public final class HtmlUnitBrowser implements IBrowser {
     if (IBrowser.BrowserType.FIREFOX == aBrowserType) {
       return BrowserVersion.FIREFOX;
     }
-    if (IBrowser.BrowserType.INTERNET_EXPLORER == aBrowserType) {
-      return BrowserVersion.INTERNET_EXPLORER;
-    }
     if (IBrowser.BrowserType.CHROME == aBrowserType) {
       return BrowserVersion.CHROME;
     }
+    if (IBrowser.BrowserType.EDGE == aBrowserType) {
+      return BrowserVersion.EDGE;
+    }
+
     return BrowserVersion.FIREFOX_ESR;
   }
 

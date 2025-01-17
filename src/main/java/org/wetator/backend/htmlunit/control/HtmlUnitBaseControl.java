@@ -34,7 +34,6 @@ import org.htmlunit.html.HtmlElement;
 import org.htmlunit.html.HtmlPage;
 import org.htmlunit.html.Keyboard;
 import org.htmlunit.javascript.host.event.KeyboardEvent;
-import org.wetator.backend.IBrowser;
 import org.wetator.backend.control.IControl;
 import org.wetator.backend.control.KeySequence;
 import org.wetator.backend.control.KeySequence.Key;
@@ -240,12 +239,6 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements IHtm
         aWetatorContext.getBrowser().addFailure("javascriptError", new String[] { tmpScriptException.getMessage() },
             tmpScriptException);
       }
-    }
-
-    final boolean tmpIsIE = aWetatorContext.getBrowserType() == IBrowser.BrowserType.INTERNET_EXPLORER;
-    if (tmpIsIE) {
-      // additional mouseMove event
-      tmpHtmlElement.mouseMove();
     }
 
     try {

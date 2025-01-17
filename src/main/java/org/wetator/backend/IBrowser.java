@@ -83,10 +83,10 @@ public interface IBrowser {
     FIREFOX_ESR("FirefoxESR", "Firefox_ESR"),
     /** Firefox. */
     FIREFOX("Firefox", "Firefox"),
-    /** Internet Explorer 11. */
-    INTERNET_EXPLORER("IE11", "IE_11"),
     /** Chrome. */
-    CHROME("Chrome", "Chrome");
+    CHROME("Chrome", "Chrome"),
+    /** Edge. */
+    EDGE("Edge", "Edge");
 
     private String label;
     private String symbol;

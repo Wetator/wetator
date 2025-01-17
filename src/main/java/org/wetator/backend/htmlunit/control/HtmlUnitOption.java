@@ -25,7 +25,6 @@ import org.htmlunit.html.HtmlOption;
 import org.htmlunit.html.HtmlOptionGroup;
 import org.htmlunit.html.HtmlPage;
 import org.htmlunit.html.HtmlSelect;
-import org.wetator.backend.IBrowser;
 import org.wetator.backend.control.IDeselectable;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.ForHtmlElement;
 import org.wetator.backend.htmlunit.control.HtmlUnitBaseControl.IdentifiedBy;
@@ -176,26 +175,16 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption>
     try {
       final HtmlSelect tmpSelect = ((HtmlOption) tmpHtmlElement).getEnclosingSelect();
 
-      final boolean tmpIsIE = aWetatorContext.getBrowserType() == IBrowser.BrowserType.INTERNET_EXPLORER;
-      if (tmpIsIE) {
-        // additional mouseMove event
-        tmpSelect.mouseMove();
-        tmpSelect.mouseOver();
+      // ff does this before reaching the option
+      tmpSelect.mouseMove();
+      tmpSelect.mouseOver();
+      tmpSelect.mouseOut();
 
-        // simulate mouse move on the element
-        tmpSelect.mouseMove();
-      } else {
-        // ff does this before reaching the option
-        tmpSelect.mouseMove();
-        tmpSelect.mouseOver();
-        tmpSelect.mouseOut();
+      // simulate mouse over on the element
+      tmpHtmlElement.mouseOver();
 
-        // simulate mouse over on the element
-        tmpHtmlElement.mouseOver();
-
-        // simulate mouse move on the element
-        tmpHtmlElement.mouseMove();
-      }
+      // simulate mouse move on the element
+      tmpHtmlElement.mouseMove();
 
       waitForImmediateJobs(aWetatorContext);
     } catch (final ScriptException e) {
