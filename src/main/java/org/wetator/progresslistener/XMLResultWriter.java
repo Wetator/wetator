@@ -169,7 +169,7 @@ public class XMLResultWriter implements IProgressListener {
       }
 
       final Writer tmpWriter = FileWriterWithEncoding.builder().setFile(tmpConfiguration.getWetResultFile())
-          .setCharset(StandardCharsets.UTF_8).setAppend(false).get();
+          .setCharset(StandardCharsets.UTF_8).setCharsetEncoder(null).setAppend(false).get();
       output = new Output(tmpWriter, "  ");
       xmlUtil = new XMLUtil();
 

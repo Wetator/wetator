@@ -251,7 +251,7 @@ public class Log4jProgressListener extends AbstractAppender implements IProgress
     } while (tmpResultFile.exists());
 
     try (Writer tmpWriter = FileWriterWithEncoding.builder().setFile(tmpResultFile).setCharset(StandardCharsets.UTF_8)
-        .setAppend(false).get()) {
+        .setCharsetEncoder(null).setAppend(false).get()) {
       final Output tmpOutput = new Output(tmpWriter, "    ");
       final Layout<? extends Serializable> tmpLayout = getLayout();
       for (final CommandEvents tmpEvents : commandEvents) {

@@ -256,7 +256,7 @@ public final class XHtmlOutputter {
    */
   public void writeTo(final File aFile) throws IOException {
     final FileWriterWithEncoding tmpFileWriter = FileWriterWithEncoding.builder().setFile(aFile)
-        .setCharset(htmlPage.getCharset()).setAppend(false).get();
+        .setCharset(htmlPage.getCharset()).setCharsetEncoder(null).setAppend(false).get();
     writeTo(tmpFileWriter);
   }
 
