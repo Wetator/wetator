@@ -40,7 +40,6 @@ import org.htmlunit.html.DomElement;
 import org.htmlunit.html.DomNode;
 import org.htmlunit.html.DomText;
 import org.htmlunit.html.HtmlAnchor;
-import org.htmlunit.html.HtmlApplet;
 import org.htmlunit.html.HtmlBody;
 import org.htmlunit.html.HtmlBreak;
 import org.htmlunit.html.HtmlButton;
@@ -471,9 +470,9 @@ public class HtmlPageIndex {
         }
       }
 
-      if (aDomNode instanceof HtmlHiddenInput || aDomNode instanceof HtmlApplet || aDomNode instanceof HtmlScript
-          || aDomNode instanceof HtmlStyle || aDomNode instanceof HtmlFileInput || aDomNode instanceof DomComment
-          || aDomNode instanceof HtmlHead || aDomNode instanceof HtmlTitle) { // NOPMD
+      if (aDomNode instanceof HtmlHiddenInput || aDomNode instanceof HtmlScript || aDomNode instanceof HtmlStyle
+          || aDomNode instanceof HtmlFileInput || aDomNode instanceof DomComment || aDomNode instanceof HtmlHead
+          || aDomNode instanceof HtmlTitle) { // NOPMD
         // nothing
       } else if (aDomNode instanceof DomText) {
         appendDomText((DomText) aDomNode);

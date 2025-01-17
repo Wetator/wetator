@@ -16,17 +16,11 @@
 
 package org.wetator.commandset;
 
-import java.io.InputStream;
 import java.math.BigDecimal;
 import java.net.URL;
-import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.exception.ExceptionUtils;
-import org.htmlunit.html.DomElement;
-import org.htmlunit.html.DomNodeList;
-import org.htmlunit.html.HtmlApplet;
 import org.htmlunit.html.HtmlPage;
 import org.wetator.backend.ControlFeature;
 import org.wetator.backend.IBrowser;
@@ -68,7 +62,6 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
     registerCommand("assert-focus", new CommandAssertFocus());
     registerCommand("save-bookmark", new CommandSaveBookmark());
     registerCommand("open-bookmark", new CommandOpenBookmark());
-    registerCommand("assert-applet", new CommandAssertApplet());
     registerCommand("exec-js", new CommandExecJs());
 
     registerCommand("type", new CommandType());
@@ -244,87 +237,6 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
       } catch (final BackendException e) {
         final String tmpMessage = Messages.getMessage("commandBackendError", e.getMessage());
         throw new AssertionException(tmpMessage, e);
-      }
-    }
-  }
-
-  /**
-   * Command 'assert-applet'.<br>
-   * Checks that an applet is runnable.
-   */
-  public final class CommandAssertApplet implements ICommandImplementation {
-    @Override
-    public void execute(final WetatorContext aContext, final Command aCommand)
-        throws CommandException, InvalidInputException {
-      final SecretString tmpAppletName = aCommand.getFirstParameterValue(aContext);
-      aCommand.checkNoUnusedSecondParameter(aContext);
-      aCommand.checkNoUnusedThirdParameter(aContext);
-
-      boolean tmpAppletTested = false;
-      String tmpAppletNameValue = "";
-      if (null != tmpAppletName) {
-        tmpAppletNameValue = tmpAppletName.getValue();
-      }
-      try {
-        final IBrowser tmpBrowser = getBrowser(aContext);
-        if (tmpBrowser instanceof HtmlUnitBrowser) {
-          final HtmlUnitBrowser tmpHtmlUnitBrowser = (HtmlUnitBrowser) tmpBrowser;
-
-          final HtmlPage tmpHtmlPage = tmpHtmlUnitBrowser.getCurrentHtmlPage();
-          final DomNodeList<DomElement> tmpAppletElements = tmpHtmlPage.getElementsByTagName("applet");
-          for (final DomElement tmpAppletElement : tmpAppletElements) {
-            final HtmlApplet tmpHtmlApplet = (HtmlApplet) tmpAppletElement;
-            if (StringUtils.isEmpty(tmpAppletNameValue)
-                || tmpAppletNameValue.equals(tmpHtmlApplet.getNameAttribute())) {
-              aContext.informListenersInfo("assertApplet", tmpAppletNameValue);
-              tmpAppletTested = true;
-              try {
-                final java.applet.Applet tmpApplet = tmpHtmlApplet.getApplet();
-                tmpApplet.stop();
-                tmpApplet.destroy();
-              } catch (final Exception e) {
-                // do a bit more and verify if all the jars are available
-                aContext.informListenersWarn("stacktrace", ExceptionUtils.getStackTrace(e));
-                checkArchiveAvailability(aContext, tmpHtmlApplet);
-
-                final String tmpMessage = Messages.getMessage("assertAppletFailed", tmpHtmlApplet.getNameAttribute(),
-                    e.getMessage());
-                throw new AssertionException(tmpMessage, e);
-              }
-            }
-          }
-          if (!tmpAppletTested) {
-            final String tmpMessage = Messages.getMessage("assertAppletNotFound", tmpAppletNameValue);
-            throw new AssertionException(tmpMessage);
-          }
-        }
-      } catch (final BackendException e) {
-        final String tmpMessage = Messages.getMessage("commandBackendError", e.getMessage());
-        throw new AssertionException(tmpMessage, e);
-      }
-    }
-
-    /**
-     * Check, if the defined applet archives are available for download.
-     * This is only done in case of an applet start error; this may create
-     * a hint, why the applet start call failed.
-     *
-     * @param aContext the current {@link WetatorContext}
-     * @param aHtmlApplet the {@link HtmlApplet} to check
-     */
-    private void checkArchiveAvailability(final WetatorContext aContext, final HtmlApplet aHtmlApplet) {
-      aContext.informListenersWarn("assertAppletArchives", aHtmlApplet.getArchiveAttribute());
-      final List<URL> tmpJarUrls = aHtmlApplet.getArchiveUrls();
-      if (null != tmpJarUrls) {
-        for (final URL tmpJarUrl : tmpJarUrls) {
-          try {
-            try (InputStream tmpIs = tmpJarUrl.openStream()) {
-              // just opening the stream is enough
-            }
-          } catch (final Exception eUrl) {
-            aContext.informListenersWarn("assertAppletUnreachableJar", tmpJarUrl.toString(), eUrl.toString());
-          }
-        }
       }
     }
   }
