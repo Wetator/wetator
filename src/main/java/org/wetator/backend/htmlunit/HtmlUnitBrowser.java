@@ -322,11 +322,6 @@ public final class HtmlUnitBrowser implements IBrowser {
       }
     }
 
-    // register activeX control mocker
-    // should we do something like this?
-    // webClient.getOptions().setActiveXNative(false);
-    webClient.setActiveXObjectMap(tmpConfiguration.getBrowserActiveXObjects());
-
     // set Accept-Language header
     webClient.addRequestHeader("Accept-Language", tmpConfiguration.getAcceptLanaguage());
 

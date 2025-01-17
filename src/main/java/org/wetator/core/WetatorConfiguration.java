@@ -24,7 +24,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -149,10 +148,6 @@ public class WetatorConfiguration {
   public static final String PROPERTY_BROWSER_TYPE = PROPERTY_PREFIX + "browser";
   private static final BrowserType DEFAULT_BROWSER_TYPE = BrowserType.FIREFOX_ESR;
   /**
-   * The property name to define the supported ActiveX mocker.
-   */
-  public static final String PROPERTY_BROWSER_ACTIVEXOBJECTS = PROPERTY_BROWSER_TYPE + ".activeXObjects";
-  /**
    * The property name to set the 'Accept-Language' header of the browser.
    */
   public static final String PROPERTY_ACCEPT_LANGUAGE = PROPERTY_PREFIX + "acceptLanguage";
@@ -257,7 +252,6 @@ public class WetatorConfiguration {
   private List<String> xslTemplates;
 
   private List<BrowserType> browserTypes;
-  private Map<String, String> browserActiveXObjects;
   private String acceptLanaguage;
 
   private SecretString basicAuthUser;
@@ -552,40 +546,6 @@ public class WetatorConfiguration {
     if (browserTypes.isEmpty()) {
       browserTypes.add(DEFAULT_BROWSER_TYPE);
     }
-
-    // activeXObjects
-    tmpValue = tmpProperties.getProperty(PROPERTY_BROWSER_ACTIVEXOBJECTS, "");
-    tmpProperties.remove(PROPERTY_BROWSER_ACTIVEXOBJECTS);
-
-    browserActiveXObjects = new HashMap<>();
-
-    tmpParts = StringUtil.extractStrings(tmpValue, ",", '\\');
-    for (final String tmpString : tmpParts) {
-      if (StringUtils.isNotBlank(tmpString)) {
-        final List<String> tmpPices = StringUtil.extractStrings(tmpValue, "|", '\\');
-        if (tmpPices.size() != 2) {
-          throw new ConfigurationException(
-              "The configured activeX object '" + tmpValue + "' does not have two parts (separated by '|').");
-        }
-
-        final String tmpClsId = tmpPices.get(0);
-        if (StringUtils.isBlank(tmpClsId)) {
-          throw new ConfigurationException(
-              "The configured class id of the activeX object '" + tmpValue + "' is blank.");
-        }
-
-        final String tmpMockClass = tmpPices.get(1).trim();
-        try {
-          Class.forName(tmpMockClass);
-        } catch (final Exception e) {
-          throw new ConfigurationException("The configured activeX java class '" + tmpValue
-              + "' is not available/loadable (details: " + e.toString() + ".");
-        }
-
-        browserActiveXObjects.put(tmpClsId.trim(), tmpMockClass);
-      }
-    }
-    browserActiveXObjects = Collections.unmodifiableMap(browserActiveXObjects);
 
     // accept language
     tmpValue = tmpProperties.getProperty(PROPERTY_ACCEPT_LANGUAGE, DEFAULT_ACCEPT_LANGUAGE);
@@ -1025,13 +985,6 @@ public class WetatorConfiguration {
    */
   public boolean startJsDebugger() {
     return jsDebugger;
-  }
-
-  /**
-   * @return the configured active x object mocker
-   */
-  public Map<String, String> getBrowserActiveXObjects() {
-    return browserActiveXObjects;
   }
 
   /**

@@ -21,18 +21,12 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
 
 import org.htmlunit.BrowserVersion;
 import org.htmlunit.ElementNotFoundException;
-import org.htmlunit.StringWebResponse;
 import org.htmlunit.WebClient;
-import org.htmlunit.WebWindow;
 import org.htmlunit.html.HtmlElement;
 import org.htmlunit.html.HtmlPage;
-import org.htmlunit.html.parser.HTMLParser;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -716,61 +710,6 @@ public class HtmlPageIndexTest {
 
     getText("before LabelBefore Option1Value Option2Value LabelAfter after", "before LabelBefore LabelAfter after",
         tmpHtmlCode);
-  }
-
-  @Test
-  public void getText_Object() throws IOException {
-    final String tmpClsid = "clsid:TESTING-CLASS-ID";
-    // @formatter:off
-    final String tmpHtmlCode = "<html><body>"
-        + "before"
-        + "<object id='idObj' classid='" + tmpClsid + "'>"
-        + "Object tag not supported"
-        + "</object>"
-        + "after"
-        + "</body></html>";
-    // @formatter:on
-
-    // FF
-    PageUtil.consumeHtmlPage(BrowserVersion.FIREFOX_ESR, tmpHtmlCode, tmpHtmlPage -> {
-      HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
-
-      assertEquals("before Object tag not supported after", tmpResult.getText());
-      assertEquals("before Object tag not supported after", tmpResult.getTextWithoutFormControls());
-    });
-
-    // IE without support
-    PageUtil.consumeHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode, tmpHtmlPage -> {
-      HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
-
-      assertEquals("before Object tag not supported after", tmpResult.getText());
-      assertEquals("before Object tag not supported after", tmpResult.getTextWithoutFormControls());
-    });
-
-    // IE with support
-    final WebClient tmpWebClient = new WebClient(BrowserVersion.INTERNET_EXPLORER);
-    final Map<String, String> tmpActiveXObjectMap = new HashMap<>();
-    tmpActiveXObjectMap.put(tmpClsid, "org.wetator.backend.htmlunit.util.HtmlPageIndexTest");
-    tmpWebClient.setActiveXObjectMap(tmpActiveXObjectMap);
-
-    try {
-      final HTMLParser tmpHtmlParser = tmpWebClient.getPageCreator().getHtmlParser();
-      final WebWindow tmpWebWindow = tmpWebClient.getCurrentWindow();
-
-      final StringWebResponse tmpWebResponse = new StringWebResponse(tmpHtmlCode,
-          new URL("http://www.wetator.org/test.html"));
-      HtmlPage tmpHtmlPage = new HtmlPage(tmpWebResponse, tmpWebWindow);
-      tmpWebWindow.setEnclosedPage(tmpHtmlPage);
-
-      tmpHtmlParser.parse(tmpWebResponse, tmpHtmlPage, true, false);
-
-      HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
-
-      assertEquals("before after", tmpResult.getText());
-      assertEquals("before after", tmpResult.getTextWithoutFormControls());
-    } finally {
-      tmpWebClient.close();
-    }
   }
 
   @Test
@@ -2255,60 +2194,6 @@ public class HtmlPageIndexTest {
 
     assertEquals("Line2", tmpResult.getAsText(tmpHtmlPage.getHtmlElementById("idLi2")));
     assertEquals("before Line1", tmpResult.getTextBefore(tmpHtmlPage.getHtmlElementById("idLi2")));
-  }
-
-  @Test
-  public void getAsText_Object() throws IOException {
-    final String tmpClsid = "clsid:TESTING-CLASS-ID";
-    // @formatter:off
-    final String tmpHtmlCode = "<html><body>"
-        + "before"
-        + "<object id='idObj' classid='" + tmpClsid + "'>"
-        + "Object tag not supported"
-        + "</object>"
-        + "</body></html>";
-    // @formatter:on
-
-    // FF
-    PageUtil.consumeHtmlPage(BrowserVersion.FIREFOX_ESR, tmpHtmlCode, tmpHtmlPage -> {
-      HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
-
-      assertEquals("Object tag not supported", tmpResult.getAsText(tmpHtmlPage.getHtmlElementById("idObj")));
-      assertEquals("before", tmpResult.getTextBefore(tmpHtmlPage.getHtmlElementById("idObj")));
-    });
-
-    // IE without support
-    PageUtil.consumeHtmlPage(BrowserVersion.INTERNET_EXPLORER, tmpHtmlCode, tmpHtmlPage -> {
-      HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
-
-      assertEquals("Object tag not supported", tmpResult.getAsText(tmpHtmlPage.getHtmlElementById("idObj")));
-      assertEquals("before", tmpResult.getTextBefore(tmpHtmlPage.getHtmlElementById("idObj")));
-    });
-
-    // IE with support
-    final WebClient tmpWebClient = new WebClient(BrowserVersion.INTERNET_EXPLORER);
-    final Map<String, String> tmpActiveXObjectMap = new HashMap<>();
-    tmpActiveXObjectMap.put(tmpClsid, "org.wetator.backend.htmlunit.util.HtmlPageIndexTest");
-    tmpWebClient.setActiveXObjectMap(tmpActiveXObjectMap);
-
-    try {
-      final HTMLParser tmpHtmlParser = tmpWebClient.getPageCreator().getHtmlParser();
-      final WebWindow tmpWebWindow = tmpWebClient.getCurrentWindow();
-
-      final StringWebResponse tmpWebResponse = new StringWebResponse(tmpHtmlCode,
-          new URL("http://www.wetator.org/test.html"));
-      HtmlPage tmpHtmlPage = new HtmlPage(tmpWebResponse, tmpWebWindow);
-      tmpWebWindow.setEnclosedPage(tmpHtmlPage);
-
-      tmpHtmlParser.parse(tmpWebResponse, tmpHtmlPage, true, false);
-
-      HtmlPageIndex tmpResult = new HtmlPageIndex(tmpHtmlPage);
-
-      assertEquals("", tmpResult.getAsText(tmpHtmlPage.getHtmlElementById("idObj")));
-      assertEquals("before", tmpResult.getTextBefore(tmpHtmlPage.getHtmlElementById("idObj")));
-    } finally {
-      tmpWebClient.close();
-    }
   }
 
   @Test
