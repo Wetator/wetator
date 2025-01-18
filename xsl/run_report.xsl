@@ -1131,10 +1131,10 @@
                                     <xsl:if test="@browser='FirefoxESR'">
                                         <xsl:value-of select="$browserPicture.Firefox"/>
                                     </xsl:if>
-                                    <xsl:if test="@browser='Chrome'">
+                                    <xsl:if test="@browser='CHROME'">
                                         <xsl:value-of select="$browserPicture.Chrome"/>
                                     </xsl:if>
-                                    <xsl:if test="@browser='Edge'">
+                                    <xsl:if test="@browser='EDGE'">
                                         <xsl:value-of select="$browserPicture.Edge"/>
                                     </xsl:if>
                                 </xsl:attribute>
@@ -1177,10 +1177,10 @@
                                         <xsl:if test="../@browser='FirefoxESR'">
                                             <xsl:value-of select="$browserPicture.Firefox"/>
                                         </xsl:if>
-                                        <xsl:if test="../@browser='Chrome'">
+                                        <xsl:if test="../@browser='CHROME'">
                                             <xsl:value-of select="$browserPicture.Chrome"/>
                                         </xsl:if>
-                                        <xsl:if test="../@browser='Edge'">
+                                        <xsl:if test="../@browser='EDGE'">
                                             <xsl:value-of select="$browserPicture.Edge"/>
                                         </xsl:if>
                                     </xsl:attribute>
