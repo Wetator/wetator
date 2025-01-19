@@ -60,7 +60,7 @@
                 <META http-equiv="content-style-type" content="text/css"/>
                 <title>Wetator - Test Result</title>
 
-                <script src="resources/jquery-1.10.2.min.js"></script>
+                <script src="resources/jquery-1.12.4.min.js"></script>
                 <script src="resources/wetator_report.js"></script>
 
                 <style type="text/css">

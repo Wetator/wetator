@@ -132,6 +132,9 @@ import org.wetator.util.XMLUtil;
 public final class XHtmlOutputter {
   private static final Logger LOG = LogManager.getLogger(XHtmlOutputter.class);
 
+  public static final String JQUERY = "jquery-1.12.4.min.js";
+  public static final String JQUERY_COLOR = "jquery.color-3.0.0.min.js";
+
   private static final Set<String> EMPTY_TAGS;
   private static final Set<String> SINGLE_LINE_TAGS;
   private static final Set<String> IGNORED_ATTRIBUTES;
@@ -359,8 +362,8 @@ public final class XHtmlOutputter {
       if (aDomNode instanceof HtmlHead) {
         // inject some js libs for highlighting
         output.indent();
-        output.println("<script src='../../resources/jquery-1.10.2.min.js'></script>");
-        output.println("<script src='../../resources/jquery.color-2.1.2.min.js'></script>");
+        output.println("<script src='../../resources/" + JQUERY + "'></script>");
+        output.println("<script src='../../resources/" + JQUERY_COLOR + "'></script>");
         output.println("<script src='../../resources/wetator_report.js'></script>");
         output.unindent();
       }
