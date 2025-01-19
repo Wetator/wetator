@@ -132,7 +132,9 @@ import org.wetator.util.XMLUtil;
 public final class XHtmlOutputter {
   private static final Logger LOG = LogManager.getLogger(XHtmlOutputter.class);
 
+  /** "jquery-1.12.4.min.js" */
   public static final String JQUERY = "jquery-1.12.4.min.js";
+  /** "jquery.color-3.0.0.min.js" */
   public static final String JQUERY_COLOR = "jquery.color-3.0.0.min.js";
 
   private static final Set<String> EMPTY_TAGS;
