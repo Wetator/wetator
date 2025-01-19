@@ -45,7 +45,7 @@ pipeline {
             archiveArtifacts artifacts: 'deploy/wetator-*.zip, deploy/wetator-*.jar', allowEmptyArchive: true, fingerprint: true
             step([$class: 'Mailer',
                 notifyEveryUnstableBuild: true,
-                recipients: "rbri@rbri.de, frank.danek@gmail.com, tobias.woerenkaemper@gmx.com"])
+                recipients: "rbri@rbri.de, frank.danek@gmail.com"])
         }
     }
 }
