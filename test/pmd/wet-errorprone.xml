@@ -3,7 +3,7 @@
 <ruleset name="Error Prone (Wetator adjusted)"
     xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
+    xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
 
     <description>
 Rules to detect constructs that are either broken, extremely confusing or prone to runtime errors.
@@ -29,7 +29,6 @@ This is a subset of PMD's 'Error Prone' ruleset.
     <rule ref="category/java/errorprone.xml/AvoidLosingExceptionInformation" />
     <rule ref="category/java/errorprone.xml/AvoidMultipleUnaryOperators" />
     <rule ref="category/java/errorprone.xml/AvoidUsingOctalValues" />
-    <rule ref="category/java/errorprone.xml/BadComparison" />
     <!-- not wanted <rule ref="category/java/errorprone.xml/BeanMembersShouldSerialize" /> -->
     <rule ref="category/java/errorprone.xml/BrokenNullCheck" />
     <!-- not wanted <rule ref="category/java/errorprone.xml/CallSuperFirst" /> -->
@@ -53,15 +52,6 @@ This is a subset of PMD's 'Error Prone' ruleset.
     <rule ref="category/java/errorprone.xml/DontUseFloatTypeForLoopIndices" />
     <rule ref="category/java/errorprone.xml/EmptyCatchBlock" />
     <rule ref="category/java/errorprone.xml/EmptyFinalizer" />
-    <rule ref="category/java/errorprone.xml/EmptyFinallyBlock" />
-    <rule ref="category/java/errorprone.xml/EmptyIfStmt" />
-    <rule ref="category/java/errorprone.xml/EmptyInitializer" />
-    <rule ref="category/java/errorprone.xml/EmptyStatementBlock" />
-    <rule ref="category/java/errorprone.xml/EmptyStatementNotInLoop" />
-    <rule ref="category/java/errorprone.xml/EmptySwitchStatements" />
-    <rule ref="category/java/errorprone.xml/EmptySynchronizedBlock" />
-    <rule ref="category/java/errorprone.xml/EmptyTryBlock" />
-    <rule ref="category/java/errorprone.xml/EmptyWhileStmt" />
     <rule ref="category/java/errorprone.xml/EqualsNull" />
     <rule ref="category/java/errorprone.xml/FinalizeDoesNotCallSuperFinalize" />
     <rule ref="category/java/errorprone.xml/FinalizeOnlyCallsSuperFinalize" />
@@ -79,7 +69,6 @@ This is a subset of PMD's 'Error Prone' ruleset.
     <rule ref="category/java/errorprone.xml/MissingSerialVersionUID" />
     <rule ref="category/java/errorprone.xml/MissingStaticMethodInNonInstantiatableClass" />
     <!-- we do not use JUL <rule ref="category/java/errorprone.xml/MoreThanOneLogger" /> -->
-    <rule ref="category/java/errorprone.xml/NonCaseLabelInSwitchStatement" />
     <rule ref="category/java/errorprone.xml/NonStaticInitializer" />
     <!-- not wanted <rule ref="category/java/errorprone.xml/NullAssignment" /> -->
     <rule ref="category/java/errorprone.xml/OverrideBothEqualsAndHashcode" />
