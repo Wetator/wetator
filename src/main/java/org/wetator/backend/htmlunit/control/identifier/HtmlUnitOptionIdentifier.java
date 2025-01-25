@@ -174,8 +174,7 @@ public class HtmlUnitOptionIdentifier extends AbstractHtmlUnitControlIdentifier 
         final int tmpDeviation = tmpSearchPatternSelect.noOfCharsAfterLastOccurenceIn(tmpText);
         if (tmpDeviation > -1) {
           final HtmlElement tmpLabeledElement = tmpLabel.getLabeledElement();
-          if (tmpLabeledElement != null && tmpLabeledElement instanceof HtmlSelect
-              && htmlPageIndex.isVisible(tmpLabeledElement)) {
+          if (tmpLabeledElement instanceof HtmlSelect && htmlPageIndex.isVisible(tmpLabeledElement)) {
             final String tmpTextBefore = htmlPageIndex.getTextBefore(tmpLabeledElement);
             final int tmpDistance;
             if (aWPath.getPathNodes().isEmpty()) {

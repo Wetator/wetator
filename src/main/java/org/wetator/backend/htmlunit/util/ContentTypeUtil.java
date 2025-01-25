@@ -36,7 +36,7 @@ import org.wetator.backend.IBrowser.ContentType;
  */
 public final class ContentTypeUtil {
   private static final Map<String, ContentType> CONTENT_TYPES = new HashMap<>();
-  private static final EnumMap<ContentType, String> FILE_EXTENSIONS = new EnumMap<>(ContentType.class);
+  private static final Map<ContentType, String> FILE_EXTENSIONS = new EnumMap<>(ContentType.class);
 
   static {
     define(ContentType.HTML, "html", "text/html");
