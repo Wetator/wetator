@@ -361,7 +361,8 @@ public final class ContentUtil {
           tmpResult.append(getPdfContentAsString(new CloseIgnoringInputStream(tmpZipInput), aMaxLength));
         } catch (final IOException e) {
           throw new IOException(
-              "Can't convert the zipped pdf '" + tmpZipEntry.getName() + "' into text (reason: " + e.toString() + ").");
+              "Can't convert the zipped pdf '" + tmpZipEntry.getName() + "' into text (reason: " + e.toString() + ").",
+              e);
         }
       } else if (ContentType.XLS == tmpType || ContentType.XLSX == tmpType) {
         try {
@@ -369,28 +370,31 @@ public final class ContentUtil {
               .append(getExcelContentAsString(new CloseIgnoringInputStream(tmpZipInput), anExcelLocale, aMaxLength));
         } catch (final IOException | InvalidFormatException e) {
           throw new IOException(
-              "Can't convert the zipped xls '" + tmpZipEntry.getName() + "' into text (reason: " + e.toString() + ").");
+              "Can't convert the zipped xls '" + tmpZipEntry.getName() + "' into text (reason: " + e.toString() + ").",
+              e);
         }
       } else if (ContentType.DOC == tmpType || ContentType.DOCX == tmpType) {
         try {
           tmpResult.append(getWordContentAsString(new CloseIgnoringInputStream(tmpZipInput), aMaxLength));
         } catch (final IOException | InvalidFormatException e) {
           throw new IOException(
-              "Can't convert the zipped doc '" + tmpZipEntry.getName() + "' into text (reason: " + e.toString() + ").");
+              "Can't convert the zipped doc '" + tmpZipEntry.getName() + "' into text (reason: " + e.toString() + ").",
+              e);
         }
       } else if (ContentType.RTF == tmpType) {
         try {
           tmpResult.append(getRtfContentAsString(new CloseIgnoringInputStream(tmpZipInput), aMaxLength));
         } catch (final IOException | BadLocationException e) {
           throw new IOException(
-              "Can't convert the zipped rtf '" + tmpZipEntry.getName() + "' into text (reason: " + e.toString() + ").");
+              "Can't convert the zipped rtf '" + tmpZipEntry.getName() + "' into text (reason: " + e.toString() + ").",
+              e);
         }
       } else {
         try {
           tmpResult.append(getTxtContentAsString(new CloseIgnoringInputStream(tmpZipInput), aCharset, aMaxLength));
         } catch (final IOException e) {
           throw new IOException("Can't convert the zipped content '" + tmpZipEntry.getName() + "' into text (reason: "
-              + e.toString() + ").");
+              + e.toString() + ").", e);
         }
       }
 
