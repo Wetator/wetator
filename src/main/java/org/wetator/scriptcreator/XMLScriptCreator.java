@@ -210,7 +210,7 @@ public class XMLScriptCreator implements IScriptCreator {
         }
       } catch (final FileNotFoundException e) {
         final FileNotFoundException tmpException = new FileNotFoundException(
-            "Can't create output file '" + (tmpFile.getAbsolutePath()) + "'.");
+            "Can't create output file '" + tmpFile.getAbsolutePath() + "'.");
         tmpException.initCause(e);
         throw tmpException;
       }

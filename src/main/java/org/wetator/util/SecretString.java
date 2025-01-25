@@ -433,8 +433,7 @@ public final class SecretString implements Serializable {
 
     int tmpStart = 0;
     for (final FindSpot tmpSpot : secrets) {
-      tmpResult.append(value.substring(tmpStart, tmpSpot.getStartPos()));
-      tmpResult.append(SECRET_PRINT);
+      tmpResult.append(value.substring(tmpStart, tmpSpot.getStartPos())).append(SECRET_PRINT);
       tmpStart = tmpSpot.getEndPos();
     }
 

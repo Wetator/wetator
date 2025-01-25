@@ -101,8 +101,7 @@ public final class StringUtil {
             } else if (anEscapeChar == aReceiver.charAt(tmpIndex)) {
               tmpCurrentToken.append((char) anEscapeChar);
             } else {
-              tmpCurrentToken.append((char) anEscapeChar);
-              tmpCurrentToken.append(aReceiver.charAt(tmpIndex));
+              tmpCurrentToken.append((char) anEscapeChar).append(aReceiver.charAt(tmpIndex));
             }
           } else {
             tmpCurrentToken.append((char) anEscapeChar);

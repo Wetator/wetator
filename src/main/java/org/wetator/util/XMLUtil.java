@@ -59,25 +59,19 @@ public class XMLUtil {
         i++;
         break;
       } else if (tmpChar == '<') {
-        tmpResult.append(aString.substring(0, i));
-        tmpResult.append("&lt;");
+        tmpResult.append(aString.substring(0, i)).append("&lt;");
         i++;
         break;
       } else if (tmpChar == '>') {
-        tmpResult.append(aString.substring(0, i));
-        tmpResult.append("&gt;");
+        tmpResult.append(aString.substring(0, i)).append("&gt;");
         i++;
         break;
       } else if (tmpChar == '&') {
-        tmpResult.append(aString.substring(0, i));
-        tmpResult.append("&amp;");
+        tmpResult.append(aString.substring(0, i)).append("&amp;");
         i++;
         break;
       } else if (!canEncode(tmpChar)) {
-        tmpResult.append(aString.substring(0, i));
-        tmpResult.append("&#");
-        tmpResult.append(Integer.toString(tmpChar));
-        tmpResult.append(';');
+        tmpResult.append(aString.substring(0, i)).append("&#").append(Integer.toString(tmpChar)).append(';');
         i++;
         break;
       }
@@ -105,9 +99,7 @@ public class XMLUtil {
             if (canEncode(tmpChar)) {
               tmpResult.append(tmpChar);
             } else {
-              tmpResult.append("&#");
-              tmpResult.append(Integer.toString(tmpChar));
-              tmpResult.append(';');
+              tmpResult.append("&#").append(Integer.toString(tmpChar)).append(';');
             }
         }
       }
@@ -154,35 +146,27 @@ public class XMLUtil {
         i++;
         break;
       } else if (tmpChar == '<') {
-        tmpResult.append(aString.substring(0, i));
-        tmpResult.append("&lt;");
+        tmpResult.append(aString.substring(0, i)).append("&lt;");
         i++;
         break;
       } else if (tmpChar == '>') {
-        tmpResult.append(aString.substring(0, i));
-        tmpResult.append("&gt;");
+        tmpResult.append(aString.substring(0, i)).append("&gt;");
         i++;
         break;
       } else if (tmpChar == '&') {
-        tmpResult.append(aString.substring(0, i));
-        tmpResult.append("&amp;");
+        tmpResult.append(aString.substring(0, i)).append("&amp;");
         i++;
         break;
       } else if (tmpChar == '\'') {
-        tmpResult.append(aString.substring(0, i));
-        tmpResult.append("&apos;");
+        tmpResult.append(aString.substring(0, i)).append("&apos;");
         i++;
         break;
       } else if (tmpChar == '"') {
-        tmpResult.append(aString.substring(0, i));
-        tmpResult.append("&quot;");
+        tmpResult.append(aString.substring(0, i)).append("&quot;");
         i++;
         break;
       } else if (!canEncode(tmpChar)) {
-        tmpResult.append(aString.substring(0, i));
-        tmpResult.append("&#");
-        tmpResult.append(Integer.toString(tmpChar));
-        tmpResult.append(';');
+        tmpResult.append(aString.substring(0, i)).append("&#").append(Integer.toString(tmpChar)).append(';');
         i++;
         break;
       }
@@ -215,9 +199,7 @@ public class XMLUtil {
             if (canEncode(tmpChar)) {
               tmpResult.append(tmpChar);
             } else {
-              tmpResult.append("&#");
-              tmpResult.append(Integer.toString(tmpChar));
-              tmpResult.append(';');
+              tmpResult.append("&#").append(Integer.toString(tmpChar)).append(';');
             }
         }
       }

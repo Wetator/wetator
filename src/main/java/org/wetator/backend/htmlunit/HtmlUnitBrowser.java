@@ -886,8 +886,7 @@ public final class HtmlUnitBrowser implements IBrowser {
   /**
    * Ignore some jobs (like heartbeat).
    */
-  public static final class JavaScriptJobFilter
-      implements org.htmlunit.javascript.background.JavaScriptJobManager.JavaScriptJobFilter {
+  public static final class JavaScriptJobFilter implements JavaScriptJobManager.JavaScriptJobFilter {
 
     @SuppressWarnings("hiding")
     private static final Logger LOG = LogManager.getLogger(JavaScriptJobFilter.class);
