@@ -134,15 +134,12 @@ public abstract class SearchPattern {
         } else if (SPECIAL_CHARS.indexOf(tmpChar) > -1) {
           tmpIsStarPattern = false;
           if (tmpSlash) {
-            tmpPattern.append("\\\\\\");
-            tmpPattern.append(tmpChar);
-            tmpTextPattern.append('\\');
-            tmpTextPattern.append(tmpChar);
+            tmpPattern.append("\\\\\\").append(tmpChar);
+            tmpTextPattern.append('\\').append(tmpChar);
             tmpSlash = false;
             continue;
           }
-          tmpPattern.append('\\');
-          tmpPattern.append(tmpChar);
+          tmpPattern.append('\\').append(tmpChar);
           tmpTextPattern.append(tmpChar);
           continue;
         } else if ('\\' == tmpChar) {

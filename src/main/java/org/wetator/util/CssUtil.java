@@ -58,19 +58,15 @@ public final class CssUtil {
         // If the character is NULL (U+0000), then throw an InvalidCharacterError exception and terminate these steps
         // TODO ignore for the moment
       } else if (tmpChar < 0x001F || tmpChar == 0x007F) {
-        // If the character is in the range [\1-\1f] (U+0001 to U+001F) or is U+007F, then the character escaped as code
-        // point.
-        tmpResult.append(aString.substring(0, i));
-        tmpResult.append('\\');
-        tmpResult.append(Integer.toString(tmpChar, 16));
+        // If the character is in the range [\1-\1f] (U+0001 to U+001F) or is U+007F,
+        // then the character escaped as code point.
+        tmpResult.append(aString.substring(0, i)).append('\\').append(Integer.toString(tmpChar, 16));
         i++;
         break;
       } else if (i == 0 && tmpChar >= 0x0030 && tmpChar <= 0x0039) {
         // If the character is the first character and is in the range [0-9] (U+0030 to U+0039), then the character
         // escaped as code point.
-        tmpResult.append(aString.substring(0, i));
-        tmpResult.append('\\');
-        tmpResult.append(Integer.toString(tmpChar, 16));
+        tmpResult.append(aString.substring(0, i)).append('\\').append(Integer.toString(tmpChar, 16));
         i++;
         break;
       } else if (tmpChar >= 0x0080 || tmpChar == 0x002D || tmpChar == 0x005F || tmpChar >= 0x0030 && tmpChar <= 0x0039
@@ -80,9 +76,7 @@ public final class CssUtil {
         // [A-Z] (U+0041 to U+005A), or \[a-z] (U+0061 to U+007A), then the character itself.
       } else {
         // Otherwise, the escaped character.
-        tmpResult.append(aString.substring(0, i));
-        tmpResult.append('\\');
-        tmpResult.append(Integer.toString(tmpChar, 16));
+        tmpResult.append(aString.substring(0, i)).append('\\').append(Integer.toString(tmpChar, 16));
         i++;
         break;
       }
@@ -99,8 +93,7 @@ public final class CssUtil {
       } else if (tmpChar < 0x001F || tmpChar == 0x007F) {
         // If the character is in the range [\1-\1f] (U+0001 to U+001F) or is U+007F, then the character escaped as code
         // point.
-        tmpResult.append('\\');
-        tmpResult.append(Integer.toString(tmpChar, 16));
+        tmpResult.append('\\').append(Integer.toString(tmpChar, 16));
         tmpEscaped = true;
       } else if (tmpChar >= 0x0080 || tmpChar == 0x002D || tmpChar == 0x005F || tmpChar >= 0x0030 && tmpChar <= 0x0039
           || tmpChar >= 0x0041 && tmpChar <= 0x005A || tmpChar >= 0x0061 && tmpChar <= 0x007a) {
@@ -115,8 +108,7 @@ public final class CssUtil {
         tmpEscaped = false;
       } else {
         // Otherwise, the escaped character.
-        tmpResult.append('\\');
-        tmpResult.append(Integer.toString(tmpChar, 16));
+        tmpResult.append('\\').append(Integer.toString(tmpChar, 16));
         tmpEscaped = true;
       }
       i++;

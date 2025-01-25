@@ -281,8 +281,7 @@ public final class DialogUtil {
 
     final StringBuilder tmpFiles = new StringBuilder();
     for (final File tmpFile : aFiles) {
-      tmpFiles.append(tmpFile.getAbsolutePath());
-      tmpFiles.append(FILE_SEPARATOR);
+      tmpFiles.append(tmpFile.getAbsolutePath()).append(FILE_SEPARATOR);
     }
 
     final List<String> tmpParts = StringUtil.split(tmpFiles.toString(), Preferences.MAX_VALUE_LENGTH);

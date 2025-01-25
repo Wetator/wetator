@@ -111,10 +111,12 @@ public class XMLScriptCreator implements IScriptCreator {
           final StringBuilder tmpLocations = new StringBuilder(
               "http://www.wetator.org/xsd/test-case test-case-" + TEST_CASE_XSD_VERSION + ".xsd\n");
           for (final NamespaceBean tmpNamespaceBean : tmpNamespaces) {
-            tmpLocations.append(tmpNamespaceBean.getNamespace());
-            tmpLocations.append(' ');
-            tmpLocations.append(tmpNamespaceBean.getLocation());
-            tmpLocations.append('\n');
+            // @formatter:off
+            tmpLocations.append(tmpNamespaceBean.getNamespace())
+                        .append(' ')
+                        .append(tmpNamespaceBean.getLocation())
+                        .append('\n');
+            // @formatter:on
           }
           tmpWriter.writeAttribute("xsi", "http://www.w3.org/2001/XMLSchema-instance", "schemaLocation",
               tmpLocations.substring(0, tmpLocations.length() - 1));
