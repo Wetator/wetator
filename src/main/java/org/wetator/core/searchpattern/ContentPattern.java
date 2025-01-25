@@ -154,15 +154,18 @@ public class ContentPattern implements Serializable {
         final FindSpot tmpWholeContentFoundSpot = tmpPattern.firstOccurenceIn(aContent);
         if (null == tmpWholeContentFoundSpot || FindSpot.NOT_FOUND == tmpWholeContentFoundSpot) {
           // pattern is not in whole content too
-          tmpResultMessage.append('{');
-          tmpResultMessage.append(tmpExpectedString);
-          tmpResultMessage.append('}');
+          // @formatter:off
+          tmpResultMessage.append('{')
+                          .append(tmpExpectedString)
+                          .append('}');
+          // @formatter:on
         } else {
-          // pattern is somewhere before one of the previous tokens =>
-          // wrong order
-          tmpResultMessage.append('[');
-          tmpResultMessage.append(tmpExpectedString);
-          tmpResultMessage.append(']');
+          // pattern is somewhere before one of the previous tokens => wrong order
+          // @formatter:off
+          tmpResultMessage.append('[')
+                          .append(tmpExpectedString)
+                          .append(']');
+          // @formatter:on
         }
         tmpStartPos = 0;
       } else {
@@ -216,9 +219,11 @@ public class ContentPattern implements Serializable {
 
       // pattern found
       if (tmpNode.isNegated()) {
-        tmpResultMessage.append('{');
-        tmpResultMessage.append(tmpExpectedString);
-        tmpResultMessage.append('}');
+        // @formatter:off
+        tmpResultMessage.append('{')
+                        .append(tmpExpectedString)
+                        .append('}');
+        // @formatter:off
       } else {
         tmpResultMessage.append(tmpExpectedString);
       }

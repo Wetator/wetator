@@ -770,10 +770,12 @@ public final class HtmlUnitBrowser implements IBrowser {
               if (tmpHtmlUnitControl.isPartOf(tmpPage)) {
                 final String tmpSelector = tmpControl.getUniqueSelector();
                 if (null != tmpSelector) {
-                  tmpParam.append("highlight=");
-                  tmpParam.append(URLEncoder.encode(tmpControl.getUniqueSelector(), "ASCII"));
-                  tmpParam.append(tmpDelim);
+                  // @formatter:off
+                  tmpParam.append("highlight=")
+                          .append(URLEncoder.encode(tmpControl.getUniqueSelector(), "ASCII"))
+                          .append(tmpDelim);
                   tmpDelim = "&";
+                  // @formatter:on
                 }
               }
             }
@@ -810,10 +812,12 @@ public final class HtmlUnitBrowser implements IBrowser {
               String tmpDelim = "";
               for (final IControl tmpControl : aControls) {
                 // TODO do we have to make sure the control is related to the page?
-                tmpParam.append("highlight=");
-                tmpParam.append(tmpDelim);
-                tmpParam.append(URLEncoder.encode(tmpControl.getUniqueSelector(), "ASCII"));
+                // @formatter:off
+                tmpParam.append("highlight=")
+                        .append(tmpDelim)
+                        .append(URLEncoder.encode(tmpControl.getUniqueSelector(), "ASCII"));
                 tmpDelim = "&";
+                // @formatter:on
               }
             }
 

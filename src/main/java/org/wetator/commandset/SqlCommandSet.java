@@ -196,8 +196,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
               aContext.informListenersWarn("ignoringNullValue", tmpMetaData.getColumnName(i));
             } else {
               if (tmpExpected.length() > 0) {
-                tmpExpected.append(ContentPattern.DELIMITER);
-                tmpExpected.append(' ');
+                tmpExpected.append(ContentPattern.DELIMITER).append(' ');
               }
               tmpExpected.append(tmpValue);
             }

@@ -88,18 +88,14 @@ public class HtmlUnitUnspecificControl<T extends HtmlElement> extends HtmlUnitBa
   private static void addId(final StringBuilder aStringBuilder, final HtmlElement anHtmlElement) {
     final String tmpId = anHtmlElement.getAttribute("id");
     if (StringUtils.isNotEmpty(tmpId)) {
-      aStringBuilder.append(" (id='");
-      aStringBuilder.append(tmpId);
-      aStringBuilder.append("')");
+      aStringBuilder.append(" (id='").append(tmpId).append("')");
     }
   }
 
   private static void addName(final StringBuilder aStringBuilder, final HtmlElement anHtmlElement) {
     final String tmpName = anHtmlElement.getAttribute("name");
     if (StringUtils.isNotEmpty(tmpName)) {
-      aStringBuilder.append(" (name='");
-      aStringBuilder.append(tmpName);
-      aStringBuilder.append("')");
+      aStringBuilder.append(" (name='").append(tmpName).append("')");
     }
   }
 }
