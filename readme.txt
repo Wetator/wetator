@@ -36,19 +36,31 @@ HOW TO RELEASE
 
 WETATOR
   * force jenkins build and check for success
-  * adjust version info in file build-properties.xml and commit
   * build the release
-    - provide your credential as ant call parameters -Dsonatype.username=???? -Dsonatype.passwd=???? -Dpgp.passphrase=???? -v
-    - ant clean
-    - ant publish-sonatype-releases
-  * test the release
-    - ant test-release
+    * Check all your files are checked in
+    * Execute these mvn commands to be sure all tests are passing and everything is up to data
+        mvn versions:display-plugin-updates
+        mvn versions:display-dependency-updates
+        mvn -U clean test
+
+    * Update the version number in pom.xml and org.wetator.Version.java
+    * Commit the changes
+
+    * Execute the tests including integration tests
+        mvn verify
+    * Check target/test-release/app/logs/run_report.xsl.html for success
+
+    * Build and deploy the artifacts 
+        mvn -up clean deploy
+
   * go to https://oss.sonatype.org/index.html#stagingRepositories
       close the repository
       release the repository
+
   * create github tag
     - go to https://github.com/Wetator/wetator/releases
     - create new release
+
 
 WETATOR-ANT
   * change ivy.xml to point to the latest wetator release
