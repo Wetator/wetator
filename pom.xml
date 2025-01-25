@@ -18,7 +18,7 @@
 
     <groupId>org.wetator</groupId>
     <artifactId>wetator</artifactId>
-    <version>4.8.0-SNAPSHOT</version>
+    <version>4.9.0</version>
     <packaging>jar</packaging>
 
     <name>Wetator</name>
@@ -29,50 +29,6 @@
         <name>wetator.org</name>
         <url>http://www.wetator.org</url>
     </organization>
-    <licenses>
-        <license>
-            <name>The Apache Software License, Version 2.0</name>
-            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
-            <distribution>repo</distribution>
-        </license>
-    </licenses>
-    <developers>
-        <developer>
-            <name>Ronald Brill</name>
-            <id>rbri</id>
-            <email>rbri@rbri.de</email>
-            <url>http://www.wetator.org/</url>
-            <timezone>+1</timezone>
-        </developer>
-        <developer>
-            <name>Frank Danek</name>
-            <id>frank.danek</id>
-            <email>frank.danek@gmail.com</email>
-            <url>http://www.wetator.org/</url>
-            <timezone>+1</timezone>
-        </developer>
-        <developer>
-            <name>Tobias Wörenkämper</name>
-            <id>tobwoerk</id>
-            <email>tobias.woerenkaemper@gmx.com</email>
-            <url>http://www.wetator.org/</url>
-            <timezone>+1</timezone>
-        </developer>
-    </developers>
-
-    <scm>
-        <connection>scm:git:https://github.com/Wetator/wetator</connection>
-        <developerConnection>scm:git:https://github.com/Wetator/wetator</developerConnection>
-        <url>https://github.com/Wetator/wetator</url>
-    </scm>
-    <issueManagement>
-        <system>GitHub</system>
-        <url>https://github.com/Wetator/wetator/issues/</url>
-    </issueManagement>
-    <ciManagement>
-        <system>jenkins</system>
-        <url>https://jenkins.wetator.org/job/wetator/</url>
-    </ciManagement>
 
     <properties>
         <maven.build.timestamp.format>yyyy-MM-dd HH-mm-ss z</maven.build.timestamp.format>
@@ -671,16 +627,6 @@
         </profile>
     </profiles>
 
-    <distributionManagement>
-        <snapshotRepository>
-            <id>sonatype-nexus-snapshots</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
-        </snapshotRepository>
-        <repository>
-            <id>sonatype-nexus-staging</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
-        </repository>
-    </distributionManagement>
     <repositories>
         <repository>
             <snapshots>
@@ -705,4 +651,64 @@
             <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
         </repository>
     </repositories>
+
+    <scm>
+        <connection>scm:git:https://github.com/Wetator/wetator</connection>
+        <developerConnection>scm:git:https://github.com/Wetator/wetator</developerConnection>
+        <url>https://github.com/Wetator/wetator</url>
+    </scm>
+
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/Wetator/wetator/issues/</url>
+    </issueManagement>
+
+    <ciManagement>
+        <system>jenkins</system>
+        <url>https://jenkins.wetator.org/job/wetator/</url>
+    </ciManagement>
+
+    <distributionManagement>
+        <snapshotRepository>
+            <id>sonatype-nexus-snapshots</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+        </snapshotRepository>
+        <repository>
+            <id>sonatype-nexus-staging</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+        </repository>
+    </distributionManagement>
+
+    <licenses>
+        <license>
+            <name>The Apache Software License, Version 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <name>Ronald Brill</name>
+            <id>rbri</id>
+            <email>rbri@rbri.de</email>
+            <url>http://www.wetator.org/</url>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <name>Frank Danek</name>
+            <id>frank.danek</id>
+            <email>frank.danek@gmail.com</email>
+            <url>http://www.wetator.org/</url>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <name>Tobias Wörenkämper</name>
+            <id>tobwoerk</id>
+            <email>tobias.woerenkaemper@gmx.com</email>
+            <url>http://www.wetator.org/</url>
+            <timezone>+1</timezone>
+        </developer>
+    </developers>
+
 </project>
