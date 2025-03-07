@@ -91,6 +91,27 @@ public class HtmlUnitOptionGroupIdentifierTest extends AbstractHtmlUnitControlId
   }
 
   @Test
+  public void byDataTestid() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<select id='selectId'>"
+        + "<optgroup id='myId' label='group' data-testid='myDataTestId'>"
+        + "<option id='optionId'>option</option>"
+        + "</select>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "myDataTestId", "myId");
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlOptionGroup 'group' (id='myId') part of [HtmlSelect (id='selectId')]] found by: BY_DATE_TESTID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5>6 index: 6",
+        tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
   public void byLabel() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"

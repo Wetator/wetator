@@ -26,6 +26,7 @@ import org.wetator.backend.htmlunit.control.HtmlUnitAnchor;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
 import org.wetator.backend.htmlunit.matcher.ByAriaLabelAttributeMatcher;
+import org.wetator.backend.htmlunit.matcher.ByDataTestidMatcher;
 import org.wetator.backend.htmlunit.matcher.ByIdMatcher;
 import org.wetator.backend.htmlunit.matcher.ByInnerImageMatcher;
 import org.wetator.backend.htmlunit.matcher.ByNameAttributeMatcher;
@@ -49,6 +50,7 @@ import org.wetator.util.FindSpot;
  * </ul>
  *
  * @author frank.danek
+ * @author rbri
  */
 public class HtmlUnitAnchorIdentifier extends AbstractMatcherBasedIdentifier {
 
@@ -85,6 +87,7 @@ public class HtmlUnitAnchorIdentifier extends AbstractMatcherBasedIdentifier {
           .add(new ByAriaLabelAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
 
       aMatchers.add(new ByNameAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
+      aMatchers.add(new ByDataTestidMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
       aMatchers.add(new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
     } else if (!aWPath.getTableCoordinates().isEmpty()) {
       // table matcher

@@ -18,11 +18,13 @@ package org.wetator.backend.htmlunit.util;
 
 import org.apache.commons.lang3.StringUtils;
 import org.htmlunit.html.HtmlElement;
+import org.wetator.backend.htmlunit.matcher.ByDataTestidMatcher;
 
 /**
  * A builder for describing texts of {@link HtmlElement}s.
  *
  * @author frank.danek
+ * @author rbri
  */
 public final class DescribingTextBuilder {
 
@@ -36,7 +38,7 @@ public final class DescribingTextBuilder {
    * @return a {@link DescribingTextBuilder}
    */
   public static DescribingTextBuilder createDefault(final HtmlElement anHtmlElement) {
-    return new DescribingTextBuilder(anHtmlElement).addId().addName();
+    return new DescribingTextBuilder(anHtmlElement).addId().addName().addDataTestid();
   }
 
   /**
@@ -62,6 +64,15 @@ public final class DescribingTextBuilder {
    */
   public DescribingTextBuilder addId() {
     return addAttribute("id", htmlElement.getAttribute("id"));
+  }
+
+  /**
+   * Adds the {@link HtmlElement}'s id to the describing text.
+   *
+   * @return this builder
+   */
+  public DescribingTextBuilder addDataTestid() {
+    return addAttribute("data-testid", htmlElement.getAttribute(ByDataTestidMatcher.ATTRIBUTE_DATA_TESTID));
   }
 
   /**

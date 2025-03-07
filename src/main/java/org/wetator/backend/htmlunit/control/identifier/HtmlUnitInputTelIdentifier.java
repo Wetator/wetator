@@ -26,6 +26,7 @@ import org.wetator.backend.control.IControl;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputTel;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
+import org.wetator.backend.htmlunit.matcher.ByDataTestidMatcher;
 import org.wetator.backend.htmlunit.matcher.ByHtmlLabelMatcher;
 import org.wetator.backend.htmlunit.matcher.ByIdMatcher;
 import org.wetator.backend.htmlunit.matcher.ByLabelingTextBeforeAsTextMatcher;
@@ -86,6 +87,7 @@ public class HtmlUnitInputTelIdentifier extends AbstractMatcherBasedIdentifier {
 
         // default
         aMatchers.add(new ByNameAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
+        aMatchers.add(new ByDataTestidMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
         aMatchers.add(new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
       } else if (aHtmlElement instanceof HtmlLabel) {
         // label

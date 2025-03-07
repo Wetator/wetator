@@ -28,6 +28,7 @@ import org.wetator.backend.WPath;
 import org.wetator.backend.WPath.TableCoordinate;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.htmlunit.control.HtmlUnitOption;
+import org.wetator.backend.htmlunit.matcher.ByDataTestidMatcher;
 import org.wetator.backend.htmlunit.matcher.ByTableCoordinatesMatcher;
 import org.wetator.core.searchpattern.SearchPattern;
 import org.wetator.util.FindSpot;
@@ -49,6 +50,7 @@ import org.wetator.util.FindSpot;
  * </ul>
  *
  * @author frank.danek
+ * @author rbri
  */
 public class HtmlUnitOptionIdentifier extends AbstractHtmlUnitControlIdentifier {
 
@@ -141,6 +143,27 @@ public class HtmlUnitOptionIdentifier extends AbstractHtmlUnitControlIdentifier 
           }
         }
 
+        // data-testid
+        final String tmpDataTestid = tmpEnclosingSelect.getAttribute(ByDataTestidMatcher.ATTRIBUTE_DATA_TESTID);
+        if (StringUtils.isNotEmpty(tmpDataTestid) && tmpSearchPatternSelect.matches(tmpDataTestid)) {
+          final int tmpDeviation = tmpSearchPatternSelect.noOfSurroundingCharsIn(tmpDataTestid);
+          if (tmpDeviation > -1) {
+            final int tmpDistance;
+            if (aWPath.getPathNodes().isEmpty()) {
+              // no select part -> distance from page start to select
+              final String tmpTextBefore = htmlPageIndex.getTextBefore(tmpEnclosingSelect);
+              tmpDistance = tmpTextBefore.length();
+            } else {
+              // "data-testid" matched select directly -> distance from select to option -> distance 0
+              tmpDistance = 0;
+            }
+            // we have to use the reversed table coordinates to work from the inner most (last) to the outer most
+            // (first)
+            identifyOption(tmpEnclosingSelect, (HtmlOption) aHtmlElement, tmpSearchPattern,
+                aWPath.getTableCoordinatesReversed(), tmpDistance, tmpResult);
+          }
+        }
+
         // id
         final String tmpId = tmpEnclosingSelect.getId();
         if (StringUtils.isNotEmpty(tmpId) && tmpSearchPatternSelect.matches(tmpId)) {
@@ -202,6 +225,23 @@ public class HtmlUnitOptionIdentifier extends AbstractHtmlUnitControlIdentifier 
       final List<TableCoordinate> aTableCoordinates, final int aDistance,
       final WeightedControlList aWeightedControlList) {
     final int tmpStart = htmlPageIndex.getPosition(anOption).getStartPos();
+
+    // does the data-testid match?
+    final String tmpDataTestid = anOption.getAttribute(ByDataTestidMatcher.ATTRIBUTE_DATA_TESTID);
+    if (StringUtils.isNotEmpty(tmpDataTestid) && aSearchPattern.getMinLength() > 0
+        && aSearchPattern.matches(tmpDataTestid)) {
+      final int tmpDeviation = aSearchPattern.noOfSurroundingCharsIn(tmpDataTestid);
+      if (tmpDeviation > -1) {
+        final boolean tmpIsInTable = aTableCoordinates.isEmpty() || ByTableCoordinatesMatcher
+            .isHtmlElementInTableCoordinates(aSelect, aTableCoordinates, htmlPageIndex, null);
+
+        if (tmpIsInTable) {
+          aWeightedControlList.add(new HtmlUnitOption(anOption), WeightedControlList.FoundType.BY_DATA_TESTID,
+              tmpDeviation, aDistance, tmpStart, htmlPageIndex.getHierarchy(anOption),
+              htmlPageIndex.getIndex(anOption));
+        }
+      }
+    }
 
     // does the id match?
     final String tmpId = anOption.getId();

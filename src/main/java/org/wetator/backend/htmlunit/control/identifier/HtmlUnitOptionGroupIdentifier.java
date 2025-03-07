@@ -25,6 +25,7 @@ import org.wetator.backend.control.IControl;
 import org.wetator.backend.htmlunit.control.HtmlUnitOptionGroup;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
+import org.wetator.backend.htmlunit.matcher.ByDataTestidMatcher;
 import org.wetator.backend.htmlunit.matcher.ByIdMatcher;
 import org.wetator.backend.htmlunit.matcher.ByLabelAttributeMatcher;
 import org.wetator.core.searchpattern.SearchPattern;
@@ -39,6 +40,7 @@ import org.wetator.util.FindSpot;
  * </ul>
  *
  * @author frank.danek
+ * @author rbri
  */
 public class HtmlUnitOptionGroupIdentifier extends AbstractMatcherBasedIdentifier {
 
@@ -72,6 +74,8 @@ public class HtmlUnitOptionGroupIdentifier extends AbstractMatcherBasedIdentifie
       aMatchers
           .add(new ByLabelAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpotSelect, tmpSearchPattern));
 
+      // default
+      aMatchers.add(new ByDataTestidMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpotSelect, tmpSearchPattern));
       aMatchers.add(new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpotSelect, tmpSearchPattern));
     }
   }

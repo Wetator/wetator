@@ -83,7 +83,7 @@ public final class HtmlElementUtil {
       tmpBuilder.addText(tmpText);
     }
 
-    return tmpBuilder.addId().addName().build();
+    return tmpBuilder.addId().addName().addDataTestid().build();
   }
 
   /**
@@ -117,7 +117,7 @@ public final class HtmlElementUtil {
       tmpBuilder.addText(anHtmlButton.getValueAttribute());
     }
 
-    return tmpBuilder.addId().addName().build();
+    return tmpBuilder.addId().addName().addDataTestid().build();
   }
 
   /**
@@ -130,7 +130,7 @@ public final class HtmlElementUtil {
     // @formatter:off
     return DescribingTextBuilder.createCustom(anHtmlButtonInput)
         .addText(anHtmlButtonInput.getValue())
-        .addId().addName()
+        .addId().addName().addDataTestid()
         .build();
     // @formatter:on
   }
@@ -175,7 +175,7 @@ public final class HtmlElementUtil {
     // @formatter:off
     return DescribingTextBuilder.createCustom(anHtmlImage)
         .addText(anHtmlImage.getSrcAttribute())
-        .addId().addName()
+        .addId().addName().addDataTestid()
         .build();
     // @formatter:on
   }
@@ -191,7 +191,7 @@ public final class HtmlElementUtil {
     return DescribingTextBuilder.createCustom(anHtmlImageInput)
         .addText(anHtmlImageInput.getValue())
         .addAttribute("src", anHtmlImageInput.getSrcAttribute())
-        .addId().addName()
+        .addId().addName().addDataTestid()
         .build();
     // @formatter:on
   }
@@ -210,7 +210,7 @@ public final class HtmlElementUtil {
       tmpBuilder.addText(tmpText);
     }
 
-    tmpBuilder.addId().addName();
+    tmpBuilder.addId().addName().addDataTestid();
 
     final String tmpFor = anHtmlLabel.getForAttribute();
     if (StringUtils.isNotEmpty(tmpFor)) {
@@ -234,7 +234,7 @@ public final class HtmlElementUtil {
       tmpBuilder.addText(tmpText);
     }
 
-    return tmpBuilder.addId().addName().build();
+    return tmpBuilder.addId().addName().addDataTestid().build();
   }
 
   /**
@@ -257,7 +257,7 @@ public final class HtmlElementUtil {
     // @formatter:off
     return DescribingTextBuilder.createCustom(anHtmlRadioButtonInput)
         .addText(anHtmlRadioButtonInput.getValue())
-        .addId().addName()
+        .addId().addName().addDataTestid()
         .build();
     // @formatter:on
   }
@@ -272,7 +272,7 @@ public final class HtmlElementUtil {
     // @formatter:off
     return DescribingTextBuilder.createCustom(anHtmlResetInput)
         .addText(anHtmlResetInput.getValue())
-        .addId().addName()
+        .addId().addName().addDataTestid()
         .build();
     // @formatter:on
   }
@@ -297,7 +297,7 @@ public final class HtmlElementUtil {
     // @formatter:off
     return DescribingTextBuilder.createCustom(anHtmlSpan)
         .addText(anHtmlSpan.asNormalizedText())
-        .addId().addName()
+        .addId().addName().addDataTestid()
         .build();
     // @formatter:on
   }
@@ -312,7 +312,7 @@ public final class HtmlElementUtil {
     // @formatter:off
     return DescribingTextBuilder.createCustom(anHtmlSubmitInput)
         .addText(anHtmlSubmitInput.getValue())
-        .addId().addName()
+        .addId().addName().addDataTestid()
         .build();
     // @formatter:on
   }
@@ -387,7 +387,7 @@ public final class HtmlElementUtil {
     // @formatter:off
     final DescribingTextBuilder tmpBuilder = DescribingTextBuilder.createCustom(anHtmlOption)
         .addText(anHtmlOption.asNormalizedText())
-        .addId().addName();
+        .addId().addName().addDataTestid();
     // @formatter:on
 
     final HtmlSelect tmpSelect = anHtmlOption.getEnclosingSelect();
@@ -408,7 +408,7 @@ public final class HtmlElementUtil {
     // @formatter:off
     final DescribingTextBuilder tmpBuilder = DescribingTextBuilder.createCustom(anHtmlOptionGroup)
         .addText(anHtmlOptionGroup.getLabelAttribute())
-        .addId().addName();
+        .addId().addName().addDataTestid();
     // @formatter:on
 
     final HtmlSelect tmpSelect = anHtmlOptionGroup.getEnclosingSelect();

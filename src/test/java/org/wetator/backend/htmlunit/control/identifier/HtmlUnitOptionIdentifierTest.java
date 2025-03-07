@@ -165,6 +165,36 @@ public class HtmlUnitOptionIdentifierTest extends AbstractHtmlUnitControlIdentif
   }
 
   @Test
+  public void select_byDataTestid_full() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' data-testid='myOtherDataTestId' size='2'>"
+        + "<option id='myOptionId1_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' value='myValue3'>myText3</option>"
+        + "</select>"
+        + "mySelectLabelingText"
+        + "<select id='mySelectId' data-testid='myDataTestId' size='2'>"
+        + "<option id='myOptionId2_1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' value='myValue3'>myText3</option>"
+        + "</select>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "myDataTestId > myText3", "myOptionId1_1",
+        "myOptionId1_2", "myOptionId1_3", "myOptionId2_1", "myOptionId2_2", "myOptionId2_3");
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 hierarchy: 0>1>3>4>14>19 index: 19",
+        tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
   public void select_byId_wildcardRight() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
@@ -1794,6 +1824,36 @@ public class HtmlUnitOptionIdentifierTest extends AbstractHtmlUnitControlIdentif
   }
 
   @Test
+  public void option_byDataTestid_full() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "otherSelectLabelingText"
+        + "<select id='otherSelectId' name='otherSelectName' size='2'>"
+        + "<option id='myOptionId1_1' data-testid='myDataTestId1_1' label='myLabel1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' data-testid='myDataTestId1_2' label='myLabel2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' data-testid='myDataTestId1_3' label='myLabel3' value='myValue3'>myText3</option>"
+        + "</select>"
+        + "mySelectLabelingText"
+        + "<select id='mySelectId' name='mySelectName' size='2'>"
+        + "<option id='myOptionId2_1' data-testid='myDataTestId2_1' label='myLabel1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId2_2' data-testid='myDataTestId2_2' label='myLabel2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId2_3' data-testid='myDataTestId2_3' label='myLabel3' value='myValue3'>myText3</option>"
+        + "</select>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "mySelectId > myDataTestId2_2", "myOptionId1_1",
+        "myOptionId1_2", "myOptionId1_3", "myOptionId2_1", "myOptionId2_2", "myOptionId2_3");
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlOption 'myText2' (id='myOptionId2_2') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_DATE_TESTID deviation: 0 distance: 0 start: 76 hierarchy: 0>1>3>4>14>17 index: 17",
+        tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
   public void option_byId_wildcardRight() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"
@@ -2243,6 +2303,30 @@ public class HtmlUnitOptionIdentifierTest extends AbstractHtmlUnitControlIdentif
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
         "[HtmlOption 'myText1' (id='myOptionId1_1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_ID deviation: 0 distance: 14 start: 14 hierarchy: 0>1>3>4>7>8 index: 8",
+        tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
+  public void noSelectPart_byDataTestid_full() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<p>Some text .... </p>"
+        + "<select id='mySelectId' name='mySelectName' size='2'>"
+        + "<option id='myOptionId1_1' data-testid='myDataTestId1' label='myLabel1' value='myValue1'>myText1</option>"
+        + "<option id='myOptionId1_2' data-testid='myDataTestId2' label='myLabel2' value='myValue2'>myText2</option>"
+        + "<option id='myOptionId1_3' data-testid='myDataTestId3' label='myLabel3' value='myValue3'>myText3</option>"
+        + "</select>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "myDataTestId1", "myOptionId1_1", "myOptionId1_2",
+        "myOptionId1_3");
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlOption 'myText1' (id='myOptionId1_1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_DATE_TESTID deviation: 0 distance: 14 start: 14 hierarchy: 0>1>3>4>7>8 index: 8",
         tmpEntriesSorted.get(0).toString());
   }
 

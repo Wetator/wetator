@@ -37,6 +37,7 @@ import org.wetator.backend.htmlunit.control.identifier.AbstractMatcherBasedIdent
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
 import org.wetator.backend.htmlunit.matcher.ByAriaLabelAttributeMatcher;
+import org.wetator.backend.htmlunit.matcher.ByDataTestidMatcher;
 import org.wetator.backend.htmlunit.matcher.ByIdMatcher;
 import org.wetator.backend.htmlunit.matcher.ByTableCoordinatesMatcher;
 import org.wetator.backend.htmlunit.matcher.ByTextMatcher;
@@ -50,6 +51,7 @@ import org.wetator.util.FindSpot;
  * {@link IClickable clickable} but having an event listener for a {@link MouseAction}.
  *
  * @author frank.danek
+ * @author rbri
  */
 public class MouseActionListeningHtmlUnitControlsFinder extends IdentifierBasedHtmlUnitControlsFinder {
 
@@ -358,6 +360,7 @@ public class MouseActionListeningHtmlUnitControlsFinder extends IdentifierBasedH
             .add(new ByAriaLabelAttributeMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
 
         // default
+        aMatchers.add(new ByDataTestidMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
         aMatchers.add(new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
       } else if (!aWPath.getTableCoordinates().isEmpty()) {
         // table matcher

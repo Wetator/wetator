@@ -113,6 +113,24 @@ public class HtmlUnitTextAreaIdentifierTest extends AbstractHtmlUnitControlIdent
   }
 
   @Test
+  public void byDataTestid() throws IOException, InvalidInputException {
+    // @formatter:off
+    final String tmpHtmlCode = "<html><body>"
+        + "<form action='test'>"
+        + "<textarea id='myId' name='myName' data-testid='myDataTestId' cols='50' rows='1'></textarea>"
+        + "</form>"
+        + "</body></html>";
+    // @formatter:on
+
+    final List<Entry> tmpEntriesSorted = identify(tmpHtmlCode, "myDataTestId", "myId");
+
+    assertEquals(1, tmpEntriesSorted.size());
+    assertEquals(
+        "[HtmlTextArea (id='myId') (name='myName')] found by: BY_DATE_TESTID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
+        tmpEntriesSorted.get(0).toString());
+  }
+
+  @Test
   public void byName() throws IOException, InvalidInputException {
     // @formatter:off
     final String tmpHtmlCode = "<html><body>"

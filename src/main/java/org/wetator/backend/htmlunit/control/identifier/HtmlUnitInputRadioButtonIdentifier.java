@@ -26,6 +26,7 @@ import org.wetator.backend.control.IControl;
 import org.wetator.backend.htmlunit.control.HtmlUnitInputRadioButton;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher;
 import org.wetator.backend.htmlunit.matcher.AbstractHtmlUnitElementMatcher.MatchResult;
+import org.wetator.backend.htmlunit.matcher.ByDataTestidMatcher;
 import org.wetator.backend.htmlunit.matcher.ByHtmlLabelMatcher;
 import org.wetator.backend.htmlunit.matcher.ByHtmlLabelMatcher.ByHtmlLabelMatchResult;
 import org.wetator.backend.htmlunit.matcher.ByIdMatcher;
@@ -47,6 +48,7 @@ import org.wetator.util.FindSpot;
  * </ul>
  *
  * @author frank.danek
+ * @author rbri
  */
 public class HtmlUnitInputRadioButtonIdentifier extends AbstractMatcherBasedIdentifier {
 
@@ -81,6 +83,7 @@ public class HtmlUnitInputRadioButtonIdentifier extends AbstractMatcherBasedIden
             .add(new ByLabelingTextAfterMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
 
         // default
+        aMatchers.add(new ByDataTestidMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
         aMatchers.add(new ByIdMatcher(htmlPageIndex, tmpPathSearchPattern, tmpPathSpot, tmpSearchPattern));
       } else if (aHtmlElement instanceof HtmlLabel) {
         // label

@@ -175,6 +175,9 @@ public final class WeightedControlList {
     /** Found by name match. */
     public static final FoundType BY_NAME = new FoundType("BY_NAME", 1000);
 
+    /** Found by data-testid match. */
+    public static final FoundType BY_DATA_TESTID = new FoundType("BY_DATE_TESTID", 700);
+
     /** Found by id match. */
     public static final FoundType BY_ID = new FoundType("BY_ID", 400);
 
