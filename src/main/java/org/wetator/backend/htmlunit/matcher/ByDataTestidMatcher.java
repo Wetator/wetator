@@ -29,6 +29,9 @@ import org.wetator.util.FindSpot;
  */
 public class ByDataTestidMatcher extends AbstractByAttributeMatcher {
 
+  /**
+   * "data-testid".
+   */
   public static final String ATTRIBUTE_DATA_TESTID = "data-testid";
 
   /**
