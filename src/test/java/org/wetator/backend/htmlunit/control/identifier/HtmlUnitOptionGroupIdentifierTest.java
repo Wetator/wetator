@@ -107,7 +107,7 @@ public class HtmlUnitOptionGroupIdentifierTest extends AbstractHtmlUnitControlId
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlOptionGroup 'group' (id='myId') part of [HtmlSelect (id='selectId')]] found by: BY_DATE_TESTID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5>6 index: 6",
+        "[HtmlOptionGroup 'group' (id='myId') (data-testid='myDataTestId') part of [HtmlSelect (id='selectId')]] found by: BY_DATE_TESTID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5>6 index: 6",
         tmpEntriesSorted.get(0).toString());
   }
 

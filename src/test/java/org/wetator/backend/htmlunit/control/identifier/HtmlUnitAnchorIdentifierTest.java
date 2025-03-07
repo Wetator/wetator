@@ -101,7 +101,7 @@ public class HtmlUnitAnchorIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlAnchor 'AnchorWithText' (id='myId') (name='myName')] found by: BY_DATE_TESTID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
+        "[HtmlAnchor 'AnchorWithText' (id='myId') (name='myName') (data-testid='myDataTestId')] found by: BY_DATE_TESTID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
   }
 

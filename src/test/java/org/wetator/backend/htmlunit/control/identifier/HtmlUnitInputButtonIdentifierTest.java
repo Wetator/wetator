@@ -97,7 +97,7 @@ public class HtmlUnitInputButtonIdentifierTest extends AbstractHtmlUnitControlId
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlButtonInput 'ClickMe' (id='myId')] found by: BY_DATE_TESTID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
+        "[HtmlButtonInput 'ClickMe' (id='myId') (data-testid='myDataTestId')] found by: BY_DATE_TESTID deviation: 0 distance: 0 start: 0 hierarchy: 0>1>3>4>5 index: 5",
         tmpEntriesSorted.get(0).toString());
   }
 

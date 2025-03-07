@@ -190,7 +190,7 @@ public class HtmlUnitOptionIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 hierarchy: 0>1>3>4>14>19 index: 19",
+        "[HtmlOption 'myText3' (id='myOptionId2_3') part of [HtmlSelect (id='mySelectId') (data-testid='myDataTestId')]] found by: BY_LABEL deviation: 0 distance: 0 start: 84 hierarchy: 0>1>3>4>14>19 index: 19",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -1849,7 +1849,7 @@ public class HtmlUnitOptionIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlOption 'myText2' (id='myOptionId2_2') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_DATE_TESTID deviation: 0 distance: 0 start: 76 hierarchy: 0>1>3>4>14>17 index: 17",
+        "[HtmlOption 'myText2' (id='myOptionId2_2') (data-testid='myDataTestId2_2') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_DATE_TESTID deviation: 0 distance: 0 start: 76 hierarchy: 0>1>3>4>14>17 index: 17",
         tmpEntriesSorted.get(0).toString());
   }
 
@@ -2326,7 +2326,7 @@ public class HtmlUnitOptionIdentifierTest extends AbstractHtmlUnitControlIdentif
 
     assertEquals(1, tmpEntriesSorted.size());
     assertEquals(
-        "[HtmlOption 'myText1' (id='myOptionId1_1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_DATE_TESTID deviation: 0 distance: 14 start: 14 hierarchy: 0>1>3>4>7>8 index: 8",
+        "[HtmlOption 'myText1' (id='myOptionId1_1') (data-testid='myDataTestId1') part of [HtmlSelect (id='mySelectId') (name='mySelectName')]] found by: BY_DATE_TESTID deviation: 0 distance: 14 start: 14 hierarchy: 0>1>3>4>7>8 index: 8",
         tmpEntriesSorted.get(0).toString());
   }
 
