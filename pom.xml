@@ -18,7 +18,7 @@
 
     <groupId>org.wetator</groupId>
     <artifactId>wetator</artifactId>
-    <version>4.11.0-SNAPSHOT</version>
+    <version>4.21.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Wetator</name>
@@ -37,47 +37,77 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
 
-        <htmlunit.version>4.11.0</htmlunit.version>
-        <pdfbox.version>3.0.4</pdfbox.version>
-        <poi.version>5.4.0</poi.version>
-        <jetty.version>9.4.57.v20241219</jetty.version>
-        <log4j.version>2.24.3</log4j.version>
-
-        <checkstyle.version>9.3</checkstyle.version>
-        <spotbugs.version>4.8.6</spotbugs.version><!-- latest jdk 8 version -->
-        <pmd.version>7.9.0</pmd.version>
+        <htmlunit.version>4.21.0-SNAPSHOT</htmlunit.version>
+        <automaton.version>1.12-4</automaton.version>
+        <commons-io.version>2.21.0</commons-io.version>
+        <commons-lang3.version>3.20.0</commons-lang3.version>
+        <commons-text.version>1.15.0</commons-text.version>
+        <txtmark.version>0.13</txtmark.version>
+        <pdfbox.version>3.0.6</pdfbox.version>
+        <poi.version>5.5.1</poi.version>
+        <log4j.version>2.25.3</log4j.version>
+        <xsom.version>20140925</xsom.version>
+        
+           <!-- test dependencies -->
+        <junit.version>4.13.2</junit.version>
+        <mockito.version>4.11.0</mockito.version><!-- latest jdk 8 version -->
+        <hsqldb.version>2.7.4</hsqldb.version>
+        <jetty.version>9.4.58.v20250814</jetty.version>
+        
+        <!-- quality -->
+        <checkstyle.version>12.3.0</checkstyle.version>
+        <spotbugs.version>4.9.8</spotbugs.version><!-- latest jdk 8 version -->
+        <pmd.version>7.19.0</pmd.version>
         <dependencycheck.version>10.0.4</dependencycheck.version><!-- latest jdk 8 version -->
+
+        <!-- plugins -->
+        <central-publishing-plugin.version>0.9.0</central-publishing-plugin.version>
+        <checkstyle-plugin.version>3.6.0</checkstyle-plugin.version>
+        <pmd-plugin.version>3.28.0</pmd-plugin.version>
+        <spotbugs-plugin.version>4.9.8.2</spotbugs-plugin.version>
+
+        <gpg-plugin.version>3.2.8</gpg-plugin.version>
+        <enforcer-plugin.version>3.6.2</enforcer-plugin.version>
+        <jar-plugin.version>3.5.0</jar-plugin.version>
+        <assembly-plugin.version>3.8.0</assembly-plugin.version>
+        <source-plugin.version>3.4.0</source-plugin.version>
+        <javadoc-plugin.version>3.12.0</javadoc-plugin.version>
+        <shade-plugin.version>3.6.1</shade-plugin.version>
+        <truezip-plugin.version>1.2</truezip-plugin.version>
+        <resources-plugin.version>3.4.0</resources-plugin.version>
+        <exec-plugin.version>3.6.2</exec-plugin.version>
+        <cyclonedx-plugin.version>2.9.1</cyclonedx-plugin.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>dk.brics</groupId>
             <artifactId>automaton</artifactId>
-            <version>1.12-4</version>
+            <version>${automaton.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.github.rjeschke</groupId>
             <artifactId>txtmark</artifactId>
-            <version>0.13</version>
+            <version>${txtmark.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.18.0</version>
+            <version>${commons-io.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
-            <version>3.17.0</version>
+            <version>${commons-lang3.version}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-text</artifactId>
-            <version>1.13.0</version>
+            <version>${commons-text.version}</version>
             <scope>compile</scope>
             <exclusions>
                 <exclusion>
@@ -171,19 +201,20 @@
         <dependency>
             <groupId>com.sun.xsom</groupId>
             <artifactId>xsom</artifactId>
-            <version>20140925</version>
+            <version>${xsom.version}</version>
             <scope>compile</scope>
         </dependency>
+
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.13.2</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
-            <version>3.11.2</version>
+            <version>${mockito.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -195,7 +226,7 @@
         <dependency>
             <groupId>org.hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
-            <version>2.7.4</version>
+            <version>${hsqldb.version}</version>
             <classifier>jdk8</classifier>
             <scope>test</scope>
         </dependency>
@@ -223,7 +254,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.4.2</version>
+                <version>${jar-plugin.version}</version>
                 <configuration>
                     <excludes>
                         <exclude>org/wetator/test/**</exclude>
@@ -252,7 +283,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.3.1</version>
+                <version>${source-plugin.version}</version>
                 <executions>
                     <execution>
                         <goals>
@@ -265,7 +296,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.11.2</version>
+                <version>${javadoc-plugin.version}</version>
                 <configuration>
                     <quiet>true</quiet>
                     <detectLinks>true</detectLinks>
@@ -283,7 +314,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.6.0</version>
+                <version>${shade-plugin.version}</version>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -317,7 +348,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
-                <version>3.7.1</version>
+                <version>${assembly-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>package-distribution</id>
@@ -353,7 +384,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
-                <version>3.2.7</version>
+                <version>${gpg-plugin.version}</version>
                 <executions>
                     <execution>
                         <phase>verify</phase>
@@ -363,6 +394,16 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>${central-publishing-plugin.version}</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <publishingServerId>central</publishingServerId>
+                </configuration>
+            </plugin>
+<!--
             <plugin>
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
@@ -381,11 +422,12 @@
                     </execution>
                 </executions>
             </plugin>
+-->
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.6.0</version>
+                <version>${checkstyle-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>checkstyle</id>
@@ -412,7 +454,7 @@
             <plugin>
                 <groupId>com.github.spotbugs</groupId>
                 <artifactId>spotbugs-maven-plugin</artifactId>
-                <version>4.8.6.6</version>
+                <version>${spotbugs-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>spotbugs</id>
@@ -436,7 +478,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-pmd-plugin</artifactId>
-                <version>3.26.0</version>
+                <version>${pmd-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>pmd</id>
@@ -480,7 +522,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-enforcer-plugin</artifactId>
-                <version>3.5.0</version>
+                <version>${enforcer-plugin.version}</version>
                 <executions>
                     <execution>
                         <configuration>
@@ -500,11 +542,30 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.cyclonedx</groupId>
+                <artifactId>cyclonedx-maven-plugin</artifactId>
+                <version>${cyclonedx-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>makeAggregateBom</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <projectType>library</projectType>
+                    <outputFormat>json</outputFormat>
+                    <!-- strange but it helps -->
+                    <skipNotDeployed>false</skipNotDeployed>
+                </configuration>
+            </plugin>
 
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>truezip-maven-plugin</artifactId>
-                <version>1.2</version>
+                <version>${truezip-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>unzip-package</id>
@@ -527,7 +588,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-resources-plugin</artifactId>
-                <version>3.3.1</version>
+                <version>${resources-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>generate-integration-test</id>
@@ -556,7 +617,7 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
-                <version>3.5.0</version>
+                <version>${exec-plugin.version}</version>
                 <executions>
                     <execution>
                         <id>integration-test-prep</id>
