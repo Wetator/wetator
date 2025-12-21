@@ -11,7 +11,7 @@ pipeline {
         skipDefaultCheckout true
     }
     tools {
-        jdk 'openjdk-1.8'
+        jdk 'openjdk-11+28'
         maven 'apache-maven-3.8.6'
     }
     stages {
