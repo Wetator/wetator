@@ -78,6 +78,12 @@ public final class ResponseStore {
     return ++counter;
   }
 
+  /**
+   * We manage a counter to give the file unique names.
+   * This parses the output dir and updates our counter to last used one.
+   *
+   * @param anOutputDir the directory to check
+   */
   public static void updateCounter(final File anOutputDir) {
     final File[] tmpFiles = anOutputDir.listFiles();
     if (tmpFiles != null) {

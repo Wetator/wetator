@@ -34,14 +34,14 @@ public abstract class SearchPattern {
 
   private static final String SPECIAL_CHARS = "(){}[]|&~+^-.#@\"<>";
 
-  private static final SearchPatternCache searchPatternCache = new SearchPatternCache(500);
+  private static final SearchPatternCache SEARCH_PATTERN_CACHE = new SearchPatternCache(500);
   private final String originalString;
 
   /**
    * @return a string with some statistic info
    */
   public static String getStatistics() {
-    return searchPatternCache.getStatistics();
+    return SEARCH_PATTERN_CACHE.getStatistics();
   }
 
   /**
@@ -89,12 +89,12 @@ public abstract class SearchPattern {
       tmpDosStyleWildcardString = aDosStyleWildcardString;
     }
 
-    SearchPattern tmpSearchPattern = searchPatternCache.get(tmpDosStyleWildcardString);
+    SearchPattern tmpSearchPattern = SEARCH_PATTERN_CACHE.get(tmpDosStyleWildcardString);
     if (tmpSearchPattern != null) {
       return tmpSearchPattern;
     }
-    synchronized (searchPatternCache) {
-      tmpSearchPattern = searchPatternCache.get(tmpDosStyleWildcardString);
+    synchronized (SEARCH_PATTERN_CACHE) {
+      tmpSearchPattern = SEARCH_PATTERN_CACHE.get(tmpDosStyleWildcardString);
       if (tmpSearchPattern != null) {
         return tmpSearchPattern;
       }
@@ -170,7 +170,7 @@ public abstract class SearchPattern {
       } else {
         tmpSearchPattern = new RegExpSearchPattern(tmpOriginalString, tmpPattern.toString());
       }
-      searchPatternCache.put(aDosStyleWildcardString, tmpSearchPattern);
+      SEARCH_PATTERN_CACHE.put(aDosStyleWildcardString, tmpSearchPattern);
     }
     return tmpSearchPattern;
   }

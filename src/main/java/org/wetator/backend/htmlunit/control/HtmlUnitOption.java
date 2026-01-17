@@ -20,7 +20,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.htmlunit.ScriptException;
 import org.htmlunit.corejs.javascript.WrappedException;
-import org.htmlunit.html.HtmlElement;
 import org.htmlunit.html.HtmlOption;
 import org.htmlunit.html.HtmlOptionGroup;
 import org.htmlunit.html.HtmlPage;

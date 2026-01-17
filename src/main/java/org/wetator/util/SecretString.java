@@ -45,7 +45,9 @@ public final class SecretString implements Serializable {
   private static final String VAR_START_SEQ = "${";
   private static final String VAR_END_SEQ = "}";
 
+  /** the value */
   private String value;
+  /** the secrets */
   private List<FindSpot> secrets;
 
   /**

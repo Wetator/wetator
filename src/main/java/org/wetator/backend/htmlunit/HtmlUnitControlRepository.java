@@ -88,9 +88,9 @@ public class HtmlUnitControlRepository {
         if (StringUtils.isEmpty(tmpAttributeName) || tmpAttributeValues == null || tmpAttributeValues.length == 0) {
           forElementMap.put(tmpHtmlElementClass.getName(), (Class<HtmlUnitBaseControl<?>>) aControlClass);
         } else {
-            Map<String, Class<HtmlUnitBaseControl<?>>> tmpAttributeMap = forElementAndAttributeMap
-                    .computeIfAbsent(tmpHtmlElementClass.getName(), k -> new HashMap<>());
-            for (final String tmpValue : tmpAttributeValues) {
+          final Map<String, Class<HtmlUnitBaseControl<?>>> tmpAttributeMap = forElementAndAttributeMap
+              .computeIfAbsent(tmpHtmlElementClass.getName(), k -> new HashMap<>());
+          for (final String tmpValue : tmpAttributeValues) {
             tmpAttributeMap.put(tmpAttributeName + "||" + tmpValue, (Class<HtmlUnitBaseControl<?>>) aControlClass);
           }
         }

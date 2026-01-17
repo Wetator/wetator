@@ -25,6 +25,8 @@ package org.wetator.exception;
 public class AssertionException extends CommandException {
 
   private static final long serialVersionUID = -1587032805061848761L;
+
+  /** detail Html */
   private String detailHtml;
 
   /**

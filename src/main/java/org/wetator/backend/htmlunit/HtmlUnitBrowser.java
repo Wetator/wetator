@@ -57,7 +57,6 @@ import org.htmlunit.html.HtmlElement;
 import org.htmlunit.html.HtmlPage;
 import org.htmlunit.javascript.DebuggerImpl;
 import org.htmlunit.javascript.HtmlUnitContextFactory;
-import org.htmlunit.javascript.JavaScriptEngine;
 import org.htmlunit.javascript.background.JavaScriptJob;
 import org.htmlunit.javascript.background.JavaScriptJobManager;
 import org.htmlunit.javascript.host.Window;
@@ -353,8 +352,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
     // debug stuff
     if (tmpConfiguration.isDebugLoggingEnabled()) {
-      final HtmlUnitContextFactory tmpContextFactory = webClient.getJavaScriptEngine()
-          .getContextFactory();
+      final HtmlUnitContextFactory tmpContextFactory = webClient.getJavaScriptEngine().getContextFactory();
       tmpContextFactory.setDebugger(new DebuggerImpl());
     }
     // webClient.setAjaxController(new NicelyResynchronizingAjaxController());
@@ -414,6 +412,7 @@ public final class HtmlUnitBrowser implements IBrowser {
    */
   public static final class AlertHandler implements org.htmlunit.AlertHandler {
 
+    /** the {@link WetatorEngine} */
     private final WetatorEngine wetatorEngine;
 
     /**
@@ -464,8 +463,13 @@ public final class HtmlUnitBrowser implements IBrowser {
    */
   public static final class ConfirmHandler implements org.htmlunit.ConfirmHandler {
 
+    /** the {@link WetatorEngine} */
     private final WetatorEngine wetatorEngine;
+
+    /** the message */
     private ContentPattern message;
+
+    /** the result */
     private boolean result;
 
     /**

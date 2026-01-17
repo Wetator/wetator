@@ -33,6 +33,11 @@ import javax.swing.JTextField;
 
 import org.wetator.exception.BackendException;
 
+/**
+ * Simple dialog to provide a way to ask for passwords interactive.
+ *
+ * @author Ronald Brill
+ */
 public class InputDialog {
   private JDialog dlgInput;
   private LayoutManager layout;
