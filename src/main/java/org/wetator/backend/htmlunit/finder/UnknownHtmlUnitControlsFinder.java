@@ -47,7 +47,7 @@ import org.wetator.util.FindSpot;
 // FIXME [UNKNOWN] remove me when done
 public class UnknownHtmlUnitControlsFinder extends AbstractHtmlUnitControlsFinder {
 
-  private HtmlUnitControlRepository controlRepository;
+  private final HtmlUnitControlRepository controlRepository;
 
   /**
    * The constructor.

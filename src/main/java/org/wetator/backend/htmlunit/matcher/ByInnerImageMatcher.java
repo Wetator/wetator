@@ -96,7 +96,7 @@ public class ByInnerImageMatcher extends AbstractHtmlUnitElementMatcher {
    */
   protected static class ByInnerImageAltAttributeMatcher extends AbstractByAttributeMatcher {
 
-    private HtmlImage innerHtmlImage;
+    private final HtmlImage innerHtmlImage;
 
     /**
      * The constructor.<br>
@@ -128,7 +128,7 @@ public class ByInnerImageMatcher extends AbstractHtmlUnitElementMatcher {
    */
   protected static class ByInnerImageSrcAttributeMatcher extends AbstractByAttributeMatcher {
 
-    private HtmlImage innerHtmlImage;
+    private final HtmlImage innerHtmlImage;
 
     /**
      * The constructor.<br>
@@ -161,7 +161,7 @@ public class ByInnerImageMatcher extends AbstractHtmlUnitElementMatcher {
    */
   protected static class ByInnerImageTitleAttributeMatcher extends AbstractByAttributeMatcher {
 
-    private HtmlImage innerHtmlImage;
+    private final HtmlImage innerHtmlImage;
 
     /**
      * The constructor.<br>
@@ -193,7 +193,7 @@ public class ByInnerImageMatcher extends AbstractHtmlUnitElementMatcher {
    */
   protected static class ByInnerImageNameMatcher extends AbstractByAttributeMatcher {
 
-    private HtmlImage innerHtmlImage;
+    private final HtmlImage innerHtmlImage;
 
     /**
      * The constructor.<br>

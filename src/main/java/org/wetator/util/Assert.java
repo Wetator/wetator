@@ -254,8 +254,8 @@ public final class Assert {
     }
 
     if (j + 5 < tmpEnd && k + 5 < tmpEnd) {
-      tmpExpected.append(anExpectedString.substring(tmpFrom, j + 1));
-      tmpCurrent.append(aCurrentString.substring(tmpFrom, k + 1));
+      tmpExpected.append(anExpectedString, tmpFrom, j + 1);
+      tmpCurrent.append(aCurrentString, tmpFrom, k + 1);
 
       tmpExpected.append(MORE_MARKER);
       tmpCurrent.append(MORE_MARKER);

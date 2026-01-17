@@ -40,7 +40,7 @@ public class HtmlUnitInputEmailTest {
     // @formatter:on
     PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-      final HtmlEmailInput tmpEmail = (HtmlEmailInput) tmpHtmlPage.getHtmlElementById("myId");
+      final HtmlEmailInput tmpEmail = tmpHtmlPage.getHtmlElementById("myId");
       final HtmlUnitInputEmail tmpControl = new HtmlUnitInputEmail(tmpEmail);
 
       assertTrue(tmpControl.isDisabled(null));
@@ -58,7 +58,7 @@ public class HtmlUnitInputEmailTest {
     // @formatter:on
     PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-      final HtmlEmailInput tmpEmail = (HtmlEmailInput) tmpHtmlPage.getHtmlElementById("myId");
+      final HtmlEmailInput tmpEmail = tmpHtmlPage.getHtmlElementById("myId");
       final HtmlUnitInputEmail tmpControl = new HtmlUnitInputEmail(tmpEmail);
 
       assertFalse(tmpControl.isDisabled(null));
@@ -76,7 +76,7 @@ public class HtmlUnitInputEmailTest {
     // @formatter:on
     PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-      final HtmlEmailInput tmpEmail = (HtmlEmailInput) tmpHtmlPage.getHtmlElementById("myId");
+      final HtmlEmailInput tmpEmail = tmpHtmlPage.getHtmlElementById("myId");
       final HtmlUnitInputEmail tmpControl = new HtmlUnitInputEmail(tmpEmail);
 
       assertTrue(tmpControl.isDisabled(null));
@@ -94,7 +94,7 @@ public class HtmlUnitInputEmailTest {
     // @formatter:on
     PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-      final HtmlEmailInput tmpEmail = (HtmlEmailInput) tmpHtmlPage.getHtmlElementById("myId");
+      final HtmlEmailInput tmpEmail = tmpHtmlPage.getHtmlElementById("myId");
       final HtmlUnitInputEmail tmpControl = new HtmlUnitInputEmail(tmpEmail);
 
       assertTrue(tmpControl.isDisabled(null));
@@ -112,7 +112,7 @@ public class HtmlUnitInputEmailTest {
     // @formatter:on
     PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-      final HtmlEmailInput tmpEmail = (HtmlEmailInput) tmpHtmlPage.getHtmlElementById("myId");
+      final HtmlEmailInput tmpEmail = tmpHtmlPage.getHtmlElementById("myId");
       final HtmlUnitInputEmail tmpControl = new HtmlUnitInputEmail(tmpEmail);
 
       assertTrue(tmpControl.isDisabled(null));

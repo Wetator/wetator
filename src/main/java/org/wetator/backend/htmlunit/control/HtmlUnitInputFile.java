@@ -189,7 +189,7 @@ public class HtmlUnitInputFile extends HtmlUnitBaseControl<HtmlFileInput>
     String tmpValue = "";
 
     if (getHtmlElement().getFiles() != null && getHtmlElement().getFiles().length > 0) {
-      tmpValue = Arrays.stream(getHtmlElement().getFiles()).map(f -> f.getName()).collect(Collectors.joining(", "));
+      tmpValue = Arrays.stream(getHtmlElement().getFiles()).map(File::getName).collect(Collectors.joining(", "));
     }
 
     Assert.assertEquals(anExpectedValue, tmpValue, "expectedValueNotFound");

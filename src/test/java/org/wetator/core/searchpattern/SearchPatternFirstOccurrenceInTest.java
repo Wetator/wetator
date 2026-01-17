@@ -30,7 +30,7 @@ public class SearchPatternFirstOccurrenceInTest {
     final String tmpString = null;
 
     // match all
-    SearchPattern tmpPattern = SearchPattern.compile((String) null);
+    SearchPattern tmpPattern = SearchPattern.compile(null);
     Assert.assertEquals(FindSpot.NOT_FOUND, tmpPattern.firstOccurenceIn(tmpString));
     tmpPattern = SearchPattern.compile("");
     Assert.assertEquals(FindSpot.NOT_FOUND, tmpPattern.firstOccurenceIn(tmpString));
@@ -53,7 +53,7 @@ public class SearchPatternFirstOccurrenceInTest {
     final String tmpString = "";
 
     // match all
-    SearchPattern tmpPattern = SearchPattern.compile((String) null);
+    SearchPattern tmpPattern = SearchPattern.compile(null);
     Assert.assertEquals(FindSpot.NOT_FOUND, tmpPattern.firstOccurenceIn(tmpString));
     tmpPattern = SearchPattern.compile("");
     Assert.assertEquals(FindSpot.NOT_FOUND, tmpPattern.firstOccurenceIn(tmpString));
@@ -76,7 +76,7 @@ public class SearchPatternFirstOccurrenceInTest {
     final String tmpString = "X";
 
     // match all
-    SearchPattern tmpPattern = SearchPattern.compile((String) null);
+    SearchPattern tmpPattern = SearchPattern.compile(null);
     Assert.assertEquals(FindSpot.NOT_FOUND, tmpPattern.firstOccurenceIn(tmpString));
     tmpPattern = SearchPattern.compile("");
     Assert.assertEquals(FindSpot.NOT_FOUND, tmpPattern.firstOccurenceIn(tmpString));
@@ -120,7 +120,7 @@ public class SearchPatternFirstOccurrenceInTest {
     final String tmpString = "Wetator";
 
     // match all
-    SearchPattern tmpPattern = SearchPattern.compile((String) null);
+    SearchPattern tmpPattern = SearchPattern.compile(null);
     Assert.assertEquals(FindSpot.NOT_FOUND, tmpPattern.firstOccurenceIn(tmpString));
     tmpPattern = SearchPattern.compile("");
     Assert.assertEquals(FindSpot.NOT_FOUND, tmpPattern.firstOccurenceIn(tmpString));
@@ -201,7 +201,7 @@ public class SearchPatternFirstOccurrenceInTest {
     final String tmpString = null;
 
     // match all
-    SearchPattern tmpPattern = SearchPattern.compile((String) null);
+    SearchPattern tmpPattern = SearchPattern.compile(null);
     Assert.assertEquals(FindSpot.NOT_FOUND, tmpPattern.firstOccurenceIn(tmpString, 17));
     tmpPattern = SearchPattern.compile("");
     Assert.assertEquals(FindSpot.NOT_FOUND, tmpPattern.firstOccurenceIn(tmpString, 17));
@@ -220,7 +220,7 @@ public class SearchPatternFirstOccurrenceInTest {
     final String tmpString = "";
 
     // match all
-    SearchPattern tmpPattern = SearchPattern.compile((String) null);
+    SearchPattern tmpPattern = SearchPattern.compile(null);
     Assert.assertEquals(FindSpot.NOT_FOUND, tmpPattern.firstOccurenceIn(tmpString, 17));
     tmpPattern = SearchPattern.compile("");
     Assert.assertEquals(FindSpot.NOT_FOUND, tmpPattern.firstOccurenceIn(tmpString, 17));
@@ -239,7 +239,7 @@ public class SearchPatternFirstOccurrenceInTest {
     final String tmpString = "X";
 
     // match all
-    SearchPattern tmpPattern = SearchPattern.compile((String) null);
+    SearchPattern tmpPattern = SearchPattern.compile(null);
     Assert.assertEquals(FindSpot.NOT_FOUND, tmpPattern.firstOccurenceIn(tmpString, 0));
     tmpPattern = SearchPattern.compile("");
     Assert.assertEquals(FindSpot.NOT_FOUND, tmpPattern.firstOccurenceIn(tmpString, 0));
@@ -266,7 +266,7 @@ public class SearchPatternFirstOccurrenceInTest {
     final String tmpString = "myWetator";
 
     // match all
-    SearchPattern tmpPattern = SearchPattern.compile((String) null);
+    SearchPattern tmpPattern = SearchPattern.compile(null);
     Assert.assertEquals(FindSpot.NOT_FOUND, tmpPattern.firstOccurenceIn(tmpString, 2));
     tmpPattern = SearchPattern.compile("");
     Assert.assertEquals(FindSpot.NOT_FOUND, tmpPattern.firstOccurenceIn(tmpString, 2));

@@ -20,7 +20,7 @@ import static org.mockito.Mockito.when;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
+import java.util.Collections;
 
 import org.apache.commons.io.FileUtils;
 import org.wetator.core.IProgressListener;
@@ -36,7 +36,7 @@ public class XSLTransformerTest extends AbstractProgressListenerTest {
 
   @Override
   public void setupEnvironment() {
-    when(configuration.getXslTemplates()).thenReturn(Arrays.asList("xsl/" + XSLT));
+    when(configuration.getXslTemplates()).thenReturn(Collections.singletonList("xsl/" + XSLT));
 
     super.setupEnvironment();
   }

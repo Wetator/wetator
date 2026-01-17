@@ -16,6 +16,7 @@
 
 package org.wetator.backend.htmlunit.util;
 
+import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -102,20 +103,20 @@ public class HtmlPageIndex {
   private static final String EVENT_NAME_MOUSE_MOVE = "on" + MouseEvent.TYPE_MOUSE_MOVE;
   private static final String EVENT_NAME_MOUSE_OUT = "on" + MouseEvent.TYPE_MOUSE_OUT;
 
-  private HtmlPage htmlPage;
+  private final HtmlPage htmlPage;
 
-  private NormalizedString text;
-  private Map<DomNode, FindSpot> positions;
-  private NormalizedString textWithoutFormControls;
-  private Map<DomNode, FindSpot> positionsWithoutFormControls;
+  private final NormalizedString text;
+  private final Map<DomNode, FindSpot> positions;
+  private final NormalizedString textWithoutFormControls;
+  private final Map<DomNode, FindSpot> positionsWithoutFormControls;
 
-  private List<DomNode> nodes;
-  private Set<HtmlElement> visibleHtmlElementsBottomUp;
-  private Set<HtmlElement> visibleHtmlElements;
+  private final List<DomNode> nodes;
+  private final Set<HtmlElement> visibleHtmlElementsBottomUp;
+  private final Set<HtmlElement> visibleHtmlElements;
 
-  private Map<DomNode, String> hierarchies;
+  private final Map<DomNode, String> hierarchies;
 
-  private Map<MouseAction, Set<HtmlElement>> htmlElementsWithMouseActionListener;
+  private final Map<MouseAction, Set<HtmlElement>> htmlElementsWithMouseActionListener;
 
   /**
    * The constructor.
@@ -139,7 +140,7 @@ public class HtmlPageIndex {
 
     htmlElementsWithMouseActionListener = new HashMap<>();
     for (final MouseAction tmpMouseAction : MouseAction.values()) {
-      htmlElementsWithMouseActionListener.put(tmpMouseAction, new HashSet<HtmlElement>());
+      htmlElementsWithMouseActionListener.put(tmpMouseAction, new HashSet<>());
     }
 
     parseDomNode(aHtmlPage, null, EnumSet.noneOf(MouseAction.class));
@@ -597,9 +598,7 @@ public class HtmlPageIndex {
   private Set<MouseAction> copyAndAdd(final Set<MouseAction> aCurrentMouseActions,
       final MouseAction... aNewMouseActions) {
     final Set<MouseAction> tmpMouseActions = EnumSet.copyOf(aCurrentMouseActions);
-    for (final MouseAction tmpNewMouseAction : aNewMouseActions) {
-      tmpMouseActions.add(tmpNewMouseAction);
-    }
+      tmpMouseActions.addAll(Arrays.asList(aNewMouseActions));
     return tmpMouseActions;
   }
 

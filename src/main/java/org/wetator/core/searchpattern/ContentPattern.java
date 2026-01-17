@@ -43,7 +43,7 @@ public class ContentPattern implements Serializable {
   private static final String NOT_OPERTOR = "~";
   private static final String ESCAPE_CHAR = "\\";
 
-  private SecretString rawNode;
+  private final SecretString rawNode;
   private List<PatternNode> nodes;
   private List<List<PatternNode>> checks;
 
@@ -66,7 +66,7 @@ public class ContentPattern implements Serializable {
 
     // create checks
     checks = new LinkedList<>();
-    constructChecks(0, new LinkedList<PatternNode>());
+    constructChecks(0, new LinkedList<>());
 
     // validation
     // at least one positive node is required
@@ -93,8 +93,7 @@ public class ContentPattern implements Serializable {
 
     final PatternNode tmpNode = nodes.get(aPos);
     if (tmpNode.isNegated()) {
-      final List<PatternNode> tmpNodes = new LinkedList<>();
-      tmpNodes.addAll(aNodes);
+        final List<PatternNode> tmpNodes = new LinkedList<>(aNodes);
       constructChecks(aPos + 1, tmpNodes);
     }
 
@@ -249,7 +248,7 @@ public class ContentPattern implements Serializable {
 
     private static final long serialVersionUID = 1208708219806742182L;
 
-    private SecretString value;
+    private final SecretString value;
     private boolean negated;
     private boolean negatedEscaped;
 

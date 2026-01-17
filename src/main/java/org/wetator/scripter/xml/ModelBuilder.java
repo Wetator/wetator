@@ -19,8 +19,6 @@ package org.wetator.scripter.xml;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -66,7 +64,7 @@ public class ModelBuilder {
 
   private XSSimpleType baseParameterType;
 
-  private Map<String, CommandType> commandTypes = new LinkedHashMap<>();
+  private final Map<String, CommandType> commandTypes = new LinkedHashMap<>();
 
   /**
    * @param aSchemas the list containing the schemas to use
@@ -94,12 +92,7 @@ public class ModelBuilder {
    */
   public List<CommandType> getCommandTypes() {
     final List<CommandType> tmpCommandTypes = new ArrayList<>(commandTypes.values());
-    Collections.sort(tmpCommandTypes, new Comparator<CommandType>() {
-      @Override
-      public int compare(final CommandType aType1, final CommandType aType2) {
-        return aType1.getName().compareToIgnoreCase(aType2.getName());
-      }
-    });
+    tmpCommandTypes.sort((aType1, aType2) -> aType1.getName().compareToIgnoreCase(aType2.getName()));
     return tmpCommandTypes;
   }
 

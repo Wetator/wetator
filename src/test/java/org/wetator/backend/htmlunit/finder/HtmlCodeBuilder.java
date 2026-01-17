@@ -32,13 +32,13 @@ import java.util.List;
  */
 public class HtmlCodeBuilder {
 
-  private List<Element> elements = new ArrayList<>();
+  private final List<Element> elements = new ArrayList<>();
   private Element currentElement;
 
-  private class Element {
-    private ElementType elementType;
+  private static class Element {
+    private final ElementType elementType;
 
-    private String id;
+    private final String id;
     private String alt;
     private String name;
     private String value;

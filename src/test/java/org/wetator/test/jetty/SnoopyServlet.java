@@ -22,6 +22,7 @@ import java.io.Reader;
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -141,7 +142,7 @@ public class SnoopyServlet extends HttpServlet {
 
       final Collection<Part> tmpParts = aRequest.getParts().stream()
           .filter(p -> tmpFileParameterNames.contains(p.getName()))
-          .sorted((p1, p2) -> p1.getName().compareTo(p2.getName())).collect(Collectors.toList());
+          .sorted(Comparator.comparing(Part::getName)).collect(Collectors.toList());
       for (Part tmpPart : tmpParts) {
         aResponse.getWriter().println("<tr>");
         aResponse.getWriter().println("<td>");
@@ -254,7 +255,7 @@ public class SnoopyServlet extends HttpServlet {
 
       final Collection<Part> tmpParts = aRequest.getParts();
       if (tmpParts != null) {
-        tmpParts.stream().filter(p -> !tmpParameterNames.contains(p.getName())).map(p -> p.getName())
+        tmpParts.stream().filter(p -> !tmpParameterNames.contains(p.getName())).map(Part::getName)
             .forEach(tmpFileParameterNames::add);
       }
     }

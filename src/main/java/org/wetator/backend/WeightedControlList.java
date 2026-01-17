@@ -42,7 +42,7 @@ public final class WeightedControlList {
    * The constructor.
    */
   public WeightedControlList() {
-    entries = Collections.synchronizedList(new LinkedList<Entry>());
+    entries = Collections.synchronizedList(new LinkedList<>());
   }
 
   /**
@@ -74,7 +74,7 @@ public final class WeightedControlList {
    * @return a new list of Entries sorted by weight
    */
   public List<Entry> getEntriesSorted() {
-    Collections.sort(entries, new EntryComperator());
+    entries.sort(new EntryComperator());
 
     final List<Entry> tmpResult = new LinkedList<>();
     for (final Entry tmpEntry : entries) {

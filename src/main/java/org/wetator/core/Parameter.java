@@ -40,7 +40,7 @@ public final class Parameter {
    */
   public static final char PARAMETER_ESCAPE_CHAR = '\\';
 
-  private String value;
+  private final String value;
   private List<Part> parts;
 
   /**
@@ -119,7 +119,7 @@ public final class Parameter {
    */
   public static final class Part {
 
-    private String value;
+    private final String value;
 
     /**
      * Constructor.

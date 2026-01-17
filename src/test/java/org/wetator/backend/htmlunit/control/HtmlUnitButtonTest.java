@@ -40,7 +40,7 @@ public class HtmlUnitButtonTest {
     // @formatter:on
     PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-      final HtmlButton tmpText = (HtmlButton) tmpHtmlPage.getHtmlElementById("myId");
+      final HtmlButton tmpText = tmpHtmlPage.getHtmlElementById("myId");
       final HtmlUnitButton tmpControl = new HtmlUnitButton(tmpText);
 
       assertTrue(tmpControl.isDisabled(null));
@@ -58,7 +58,7 @@ public class HtmlUnitButtonTest {
     // @formatter:on
     PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-      final HtmlButton tmpText = (HtmlButton) tmpHtmlPage.getHtmlElementById("myId");
+      final HtmlButton tmpText = tmpHtmlPage.getHtmlElementById("myId");
       final HtmlUnitButton tmpControl = new HtmlUnitButton(tmpText);
 
       assertFalse(tmpControl.isDisabled(null));
@@ -76,7 +76,7 @@ public class HtmlUnitButtonTest {
     // @formatter:on
     PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-      final HtmlButton tmpText = (HtmlButton) tmpHtmlPage.getHtmlElementById("myId");
+      final HtmlButton tmpText = tmpHtmlPage.getHtmlElementById("myId");
       final HtmlUnitButton tmpControl = new HtmlUnitButton(tmpText);
 
       assertTrue(tmpControl.isDisabled(null));

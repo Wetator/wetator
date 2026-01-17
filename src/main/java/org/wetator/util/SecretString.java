@@ -17,7 +17,7 @@
 package org.wetator.util;
 
 import java.io.Serializable;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -345,7 +345,7 @@ public final class SecretString implements Serializable {
     if (tmpLoops >= 4444) {
       throw new IllegalArgumentException("Recursion during variable replacement (" + toString() + ").");
     }
-    Collections.sort(secrets, (aFindSpot1, aFindSpot2) -> aFindSpot1.getStartPos() - aFindSpot2.getStartPos());
+    secrets.sort(Comparator.comparingInt(FindSpot::getStartPos));
 
     return this;
   }
@@ -433,14 +433,14 @@ public final class SecretString implements Serializable {
 
     int tmpStart = 0;
     for (final FindSpot tmpSpot : secrets) {
-      tmpResult.append(value.substring(tmpStart, tmpSpot.getStartPos())).append(SECRET_PRINT);
+      tmpResult.append(value, tmpStart, tmpSpot.getStartPos()).append(SECRET_PRINT);
       tmpStart = tmpSpot.getEndPos();
     }
 
     if (tmpStart == 0) {
       tmpResult.append(value);
     } else {
-      tmpResult.append(value.substring(tmpStart, value.length()));
+      tmpResult.append(value, tmpStart, value.length());
     }
     return tmpResult.toString();
   }

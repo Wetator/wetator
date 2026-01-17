@@ -54,14 +54,14 @@ public class WetatorEngine {
   private String configFileName;
   private String variablesFileName;
   private Map<String, String> externalProperties;
-  private List<TestCase> testCases;
+  private final List<TestCase> testCases;
 
   private WetatorConfiguration configuration;
   private IBrowser browser;
   private List<ICommandSet> commandSets;
   private List<IScripter> scripter;
   // access to the progressListeners must be synchronized to prevent interference in multithreading situations
-  private List<IProgressListener> progressListener;
+  private final List<IProgressListener> progressListener;
 
   /**
    * The constructor.

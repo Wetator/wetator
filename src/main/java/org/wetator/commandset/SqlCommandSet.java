@@ -66,7 +66,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
   private static final String PROPERTY_PART_USER = ".user";
   private static final String PROPERTY_PART_PASSWORD = ".password";
 
-  private Map<String, Connection> connections;
+  private final Map<String, Connection> connections;
   private String defaultConnectionName;
 
   /**
@@ -319,7 +319,7 @@ public final class SqlCommandSet extends AbstractCommandSet {
   protected String removeConnectionName(final String aSql, final String aConnectionName) {
     final String tmpConnectionName = DB_NAME_PREFIX + aConnectionName;
     if (aSql.startsWith(tmpConnectionName)) {
-      String tmpResult = aSql.substring(tmpConnectionName.length(), aSql.length());
+      String tmpResult = aSql.substring(tmpConnectionName.length());
       tmpResult = tmpResult.trim();
       return tmpResult;
     }

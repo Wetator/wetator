@@ -67,8 +67,8 @@ public class Log4jProgressListener extends AbstractAppender implements IProgress
 
   private static final Logger LOG = LogManager.getLogger(Log4jProgressListener.class);
 
-  private int commandCount;
-  private List<CommandEvents> commandEvents = new LinkedList<>();
+  private final int commandCount;
+  private final List<CommandEvents> commandEvents = new LinkedList<>();
   private CommandEvents currentEvents;
 
   private File outputDir;
@@ -295,8 +295,8 @@ public class Log4jProgressListener extends AbstractAppender implements IProgress
    * Container to store all {@link LogEvent}s that were logged while executing the given {@link Command}.
    */
   private static final class CommandEvents {
-    private Command command;
-    private List<LogEvent> events = new LinkedList<>();
+    private final Command command;
+    private final List<LogEvent> events = new LinkedList<>();
 
     private CommandEvents(final Command aCommand) {
       command = aCommand;

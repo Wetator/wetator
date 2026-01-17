@@ -609,7 +609,7 @@ public class MatcherBasedIdentifierTest extends AbstractHtmlUnitControlIdentifie
         tmpEntriesSorted.get(0).toString());
   }
 
-  private final class TestIdentifier extends AbstractMatcherBasedIdentifier {
+  private static final class TestIdentifier extends AbstractMatcherBasedIdentifier {
 
     @Override
     protected void addMatchers(final WPath aWPath, final HtmlElement aHtmlElement,
@@ -633,7 +633,7 @@ public class MatcherBasedIdentifierTest extends AbstractHtmlUnitControlIdentifie
 
     @Override
     protected IControl createControl(final MatchResult aMatch) {
-      return new HtmlUnitUnspecificControl<HtmlElement>(aMatch.getHtmlElement());
+      return new HtmlUnitUnspecificControl<>(aMatch.getHtmlElement());
     }
 
     @Override

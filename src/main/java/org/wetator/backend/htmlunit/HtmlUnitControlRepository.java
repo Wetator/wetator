@@ -45,10 +45,10 @@ import org.wetator.backend.htmlunit.control.identifier.AbstractHtmlUnitControlId
  */
 public class HtmlUnitControlRepository {
 
-  private Map<String, Class<HtmlUnitBaseControl<?>>> forElementMap = new HashMap<>();
-  private Map<String, Map<String, Class<HtmlUnitBaseControl<?>>>> forElementAndAttributeMap = new HashMap<>();
+  private final Map<String, Class<HtmlUnitBaseControl<?>>> forElementMap = new HashMap<>();
+  private final Map<String, Map<String, Class<HtmlUnitBaseControl<?>>>> forElementAndAttributeMap = new HashMap<>();
 
-  private Map<ControlFeature, List<Class<? extends AbstractHtmlUnitControlIdentifier>>> identifiers = new HashMap<>();
+  private final Map<ControlFeature, List<Class<? extends AbstractHtmlUnitControlIdentifier>>> identifiers = new HashMap<>();
 
   /**
    * Initializes the repository.
@@ -88,13 +88,9 @@ public class HtmlUnitControlRepository {
         if (StringUtils.isEmpty(tmpAttributeName) || tmpAttributeValues == null || tmpAttributeValues.length == 0) {
           forElementMap.put(tmpHtmlElementClass.getName(), (Class<HtmlUnitBaseControl<?>>) aControlClass);
         } else {
-          Map<String, Class<HtmlUnitBaseControl<?>>> tmpAttributeMap = forElementAndAttributeMap
-              .get(tmpHtmlElementClass.getName());
-          if (tmpAttributeMap == null) {
-            tmpAttributeMap = new HashMap<>();
-            forElementAndAttributeMap.put(tmpHtmlElementClass.getName(), tmpAttributeMap);
-          }
-          for (final String tmpValue : tmpAttributeValues) {
+            Map<String, Class<HtmlUnitBaseControl<?>>> tmpAttributeMap = forElementAndAttributeMap
+                    .computeIfAbsent(tmpHtmlElementClass.getName(), k -> new HashMap<>());
+            for (final String tmpValue : tmpAttributeValues) {
             tmpAttributeMap.put(tmpAttributeName + "||" + tmpValue, (Class<HtmlUnitBaseControl<?>>) aControlClass);
           }
         }

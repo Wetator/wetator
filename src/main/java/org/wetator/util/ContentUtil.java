@@ -22,7 +22,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.charset.Charset;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.zip.ZipEntry;
@@ -235,9 +234,8 @@ public final class ContentUtil {
       if (e.getCause() instanceof InvalidFormatException) {
         throw (InvalidFormatException) e.getCause();
       }
-      final InvalidFormatException tmpEx = new InvalidFormatException(e.getMessage());
-      tmpEx.initCause(e);
-      throw tmpEx;
+      final InvalidFormatException tmpEx = new InvalidFormatException(e.getMessage(), e);
+        throw tmpEx;
     }
   }
 
@@ -297,9 +295,8 @@ public final class ContentUtil {
       if (e.getCause() instanceof InvalidFormatException) {
         throw (InvalidFormatException) e.getCause();
       }
-      final InvalidFormatException tmpEx = new InvalidFormatException(e.getMessage());
-      tmpEx.initCause(e);
-      throw tmpEx;
+      final InvalidFormatException tmpEx = new InvalidFormatException(e.getMessage(), e);
+        throw tmpEx;
     }
     return tmpResult.toString();
   }
@@ -437,40 +434,39 @@ public final class ContentUtil {
       return null;
     }
 
-    final Iterator<String> tmpLanguages = StringUtil.extractStrings(anAcceptLanguageHeader, ",", -1).iterator();
-    while (tmpLanguages.hasNext()) {
-      final List<String> tmpLanguageDescriptor = StringUtil.extractStrings(tmpLanguages.next(), ";", -1);
-      if (tmpLanguageDescriptor.isEmpty()) {
-        return null;
-      }
-
-      final String tmpLocaleString = tmpLanguageDescriptor.get(0);
-
-      final List<String> tmpLocaleDescriptor = StringUtil.extractStrings(tmpLocaleString, "-", -1);
-      if (tmpLocaleDescriptor.isEmpty()) {
-        break;
-      }
-
-      final String[] tmpISO639 = Locale.getISOLanguages();
-      final String tmpLanguage = tmpLocaleDescriptor.get(0).toLowerCase(Locale.ENGLISH);
-      for (final String tmpISO639Language : tmpISO639) {
-        if (tmpISO639Language.equals(tmpLanguage)) {
-          // found a valid language
-          // check the country
-          String tmpCountry3166 = "";
-          if (tmpLocaleDescriptor.size() > 1) {
-            final String tmpCountry = tmpLocaleDescriptor.get(1).toUpperCase(Locale.ENGLISH);
-            final String[] tmpISO3166 = Locale.getISOCountries();
-            for (final String tmpISO3166Country : tmpISO3166) {
-              if (tmpISO3166Country.equals(tmpCountry)) {
-                tmpCountry3166 = tmpCountry;
-              }
-            }
+      for (String s : StringUtil.extractStrings(anAcceptLanguageHeader, ",", -1)) {
+          final List<String> tmpLanguageDescriptor = StringUtil.extractStrings(s, ";", -1);
+          if (tmpLanguageDescriptor.isEmpty()) {
+              return null;
           }
-          return new Locale(tmpLanguage, tmpCountry3166);
-        }
+
+          final String tmpLocaleString = tmpLanguageDescriptor.get(0);
+
+          final List<String> tmpLocaleDescriptor = StringUtil.extractStrings(tmpLocaleString, "-", -1);
+          if (tmpLocaleDescriptor.isEmpty()) {
+              break;
+          }
+
+          final String[] tmpISO639 = Locale.getISOLanguages();
+          final String tmpLanguage = tmpLocaleDescriptor.get(0).toLowerCase(Locale.ENGLISH);
+          for (final String tmpISO639Language : tmpISO639) {
+              if (tmpISO639Language.equals(tmpLanguage)) {
+                  // found a valid language
+                  // check the country
+                  String tmpCountry3166 = "";
+                  if (tmpLocaleDescriptor.size() > 1) {
+                      final String tmpCountry = tmpLocaleDescriptor.get(1).toUpperCase(Locale.ENGLISH);
+                      final String[] tmpISO3166 = Locale.getISOCountries();
+                      for (final String tmpISO3166Country : tmpISO3166) {
+                          if (tmpISO3166Country.equals(tmpCountry)) {
+                              tmpCountry3166 = tmpCountry;
+                          }
+                      }
+                  }
+                  return new Locale(tmpLanguage, tmpCountry3166);
+              }
+          }
       }
-    }
     return null;
   }
 

@@ -40,7 +40,7 @@ public class HtmlUnitInputTextTest {
     // @formatter:on
     PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-      final HtmlTextInput tmpText = (HtmlTextInput) tmpHtmlPage.getHtmlElementById("myId");
+      final HtmlTextInput tmpText = tmpHtmlPage.getHtmlElementById("myId");
       final HtmlUnitInputText tmpControl = new HtmlUnitInputText(tmpText);
 
       assertTrue(tmpControl.isDisabled(null));
@@ -58,7 +58,7 @@ public class HtmlUnitInputTextTest {
     // @formatter:on
     PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-      final HtmlTextInput tmpText = (HtmlTextInput) tmpHtmlPage.getHtmlElementById("myId");
+      final HtmlTextInput tmpText = tmpHtmlPage.getHtmlElementById("myId");
       final HtmlUnitInputText tmpControl = new HtmlUnitInputText(tmpText);
 
       assertFalse(tmpControl.isDisabled(null));
@@ -76,7 +76,7 @@ public class HtmlUnitInputTextTest {
     // @formatter:on
     PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-      final HtmlTextInput tmpText = (HtmlTextInput) tmpHtmlPage.getHtmlElementById("myId");
+      final HtmlTextInput tmpText = tmpHtmlPage.getHtmlElementById("myId");
       final HtmlUnitInputText tmpControl = new HtmlUnitInputText(tmpText);
 
       assertTrue(tmpControl.isDisabled(null));
@@ -94,7 +94,7 @@ public class HtmlUnitInputTextTest {
     // @formatter:on
     PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-      final HtmlTextInput tmpText = (HtmlTextInput) tmpHtmlPage.getHtmlElementById("myId");
+      final HtmlTextInput tmpText = tmpHtmlPage.getHtmlElementById("myId");
       final HtmlUnitInputText tmpControl = new HtmlUnitInputText(tmpText);
 
       assertTrue(tmpControl.isDisabled(null));
@@ -112,7 +112,7 @@ public class HtmlUnitInputTextTest {
     // @formatter:on
     PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-      final HtmlTextInput tmpText = (HtmlTextInput) tmpHtmlPage.getHtmlElementById("myId");
+      final HtmlTextInput tmpText = tmpHtmlPage.getHtmlElementById("myId");
       final HtmlUnitInputText tmpControl = new HtmlUnitInputText(tmpText);
 
       assertTrue(tmpControl.isDisabled(null));

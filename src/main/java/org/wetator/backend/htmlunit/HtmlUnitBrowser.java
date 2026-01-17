@@ -120,22 +120,22 @@ public final class HtmlUnitBrowser implements IBrowser {
   /** Sometimes we like to ignore some jobs. */
   private JavaScriptJobFilter jobFilter;
   /** ResponseStore. */
-  private Map<BrowserVersion, ResponseStore> responseStores;
+  private final Map<BrowserVersion, ResponseStore> responseStores;
   /** WetatorEngine. */
-  private WetatorEngine wetatorEngine;
+  private final WetatorEngine wetatorEngine;
   /** The list of failures ({@link AssertionException}s). */
-  private List<AssertionException> failures;
+  private final List<AssertionException> failures;
   /** The JavaScript timeout. */
-  private long jsTimeoutInMillis;
+  private final long jsTimeoutInMillis;
   /** The map containing the bookmarks. */
   private Map<String, URL> bookmarks;
   /** Cache of saved pages. */
-  private WeakHashMap<Page, String> savedPages;
+  private final WeakHashMap<Page, String> savedPages;
 
   /**
    * This repository contains all additional controls supported by the backend (e.g. added by a command set).
    */
-  private HtmlUnitControlRepository controlRepository = new HtmlUnitControlRepository();
+  private final HtmlUnitControlRepository controlRepository = new HtmlUnitControlRepository();
 
   /**
    * Constructor.
@@ -353,7 +353,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
     // debug stuff
     if (tmpConfiguration.isDebugLoggingEnabled()) {
-      final HtmlUnitContextFactory tmpContextFactory = ((JavaScriptEngine) webClient.getJavaScriptEngine())
+      final HtmlUnitContextFactory tmpContextFactory = webClient.getJavaScriptEngine()
           .getContextFactory();
       tmpContextFactory.setDebugger(new DebuggerImpl());
     }
@@ -414,7 +414,7 @@ public final class HtmlUnitBrowser implements IBrowser {
    */
   public static final class AlertHandler implements org.htmlunit.AlertHandler {
 
-    private WetatorEngine wetatorEngine;
+    private final WetatorEngine wetatorEngine;
 
     /**
      * Constructor.
@@ -464,7 +464,7 @@ public final class HtmlUnitBrowser implements IBrowser {
    */
   public static final class ConfirmHandler implements org.htmlunit.ConfirmHandler {
 
-    private WetatorEngine wetatorEngine;
+    private final WetatorEngine wetatorEngine;
     private ContentPattern message;
     private boolean result;
 
@@ -543,7 +543,7 @@ public final class HtmlUnitBrowser implements IBrowser {
    * Our own WebConsole logger.
    */
   public static class WebConsoleLogger implements org.htmlunit.WebConsole.Logger {
-    private WetatorEngine wetatorEngine;
+    private final WetatorEngine wetatorEngine;
 
     /**
      * Constructor.
@@ -629,7 +629,7 @@ public final class HtmlUnitBrowser implements IBrowser {
    * Our own IncorrectnessListener.
    */
   public static class IncorrectnessListener implements org.htmlunit.IncorrectnessListener {
-    private WetatorEngine wetatorEngine;
+    private final WetatorEngine wetatorEngine;
 
     /**
      * Constructor.
@@ -843,7 +843,7 @@ public final class HtmlUnitBrowser implements IBrowser {
    * Our own listener for window content changes.
    */
   public static final class WebWindowListener implements org.htmlunit.WebWindowListener {
-    private HtmlUnitBrowser htmlUnitBrowser;
+    private final HtmlUnitBrowser htmlUnitBrowser;
 
     /**
      * The constructor.
@@ -891,7 +891,7 @@ public final class HtmlUnitBrowser implements IBrowser {
     @SuppressWarnings("hiding")
     private static final Logger LOG = LogManager.getLogger(JavaScriptJobFilter.class);
 
-    private List<SearchPattern> patterns;
+    private final List<SearchPattern> patterns;
     private boolean isDebugEnabled;
 
     /**
@@ -1059,7 +1059,7 @@ public final class HtmlUnitBrowser implements IBrowser {
 
     if (tmpPendingJobs && tmpPage.isHtmlPage()) {
       wetatorEngine.informListenersWarn("stillJobsPending", new Object[] { aTimeoutInMillis / 1000d },
-          ((HtmlPage) tmpPage).getEnclosingWindow().getJobManager().jobStatusDump(jobFilter));
+          tmpPage.getEnclosingWindow().getJobManager().jobStatusDump(jobFilter));
       return true;
     }
     return false;
@@ -1132,7 +1132,7 @@ public final class HtmlUnitBrowser implements IBrowser {
           if (tmpJobCount > 0) {
             wetatorEngine.informListenersWarn("stillJobsActive",
                 new Object[] { jsTimeoutInMillis / 1000d, tmpJobCount },
-                ((HtmlPage) tmpPage).getEnclosingWindow().getJobManager().jobStatusDump(jobFilter));
+                tmpPage.getEnclosingWindow().getJobManager().jobStatusDump(jobFilter));
           }
           return tmpPageChanged;
         } catch (final AssertionException e) { // NOPMD
@@ -1168,7 +1168,7 @@ public final class HtmlUnitBrowser implements IBrowser {
         final int tmpJobCount = areJobsActive(tmpHtmlPage);
         if (tmpJobCount > 0) {
           wetatorEngine.informListenersWarn("stillJobsActive", new Object[] { jsTimeoutInMillis / 1000d, tmpJobCount },
-              ((HtmlPage) tmpPage).getEnclosingWindow().getJobManager().jobStatusDump(jobFilter));
+              tmpPage.getEnclosingWindow().getJobManager().jobStatusDump(jobFilter));
         }
 
         final String tmpCurrentTitle = tmpHtmlPage.getTitleText();
@@ -1232,7 +1232,7 @@ public final class HtmlUnitBrowser implements IBrowser {
             if (tmpJobCount > 0) {
               wetatorEngine.informListenersWarn("stillJobsActive",
                   new Object[] { jsTimeoutInMillis / 1000d, tmpJobCount },
-                  ((HtmlPage) tmpPage).getEnclosingWindow().getJobManager().jobStatusDump(jobFilter));
+                  tmpPage.getEnclosingWindow().getJobManager().jobStatusDump(jobFilter));
             }
             return tmpPageChanged;
           } catch (final AssertionException e) { // NOPMD
@@ -1280,7 +1280,7 @@ public final class HtmlUnitBrowser implements IBrowser {
         final int tmpJobCount = areJobsActive(tmpHtmlPage);
         if (tmpJobCount > 0) {
           wetatorEngine.informListenersWarn("stillJobsActive", new Object[] { jsTimeoutInMillis / 1000d, tmpJobCount },
-              ((HtmlPage) tmpPage).getEnclosingWindow().getJobManager().jobStatusDump(jobFilter));
+              tmpPage.getEnclosingWindow().getJobManager().jobStatusDump(jobFilter));
         }
 
         final String tmpNormalizedContent = new HtmlPageIndex(tmpHtmlPage).getText();

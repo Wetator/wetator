@@ -30,7 +30,7 @@ import org.wetator.backend.htmlunit.util.HtmlPageIndex;
 public abstract class AbstractHtmlUnitControlsFinder {
 
   /** The index of the page. */
-  protected HtmlPageIndex htmlPageIndex;
+  protected final HtmlPageIndex htmlPageIndex;
 
   /**
    * The constructor.

@@ -28,7 +28,7 @@ import org.wetator.backend.IBrowser.BrowserType;
  */
 public class BrowserFrameworkMethod extends FrameworkMethod {
 
-  private BrowserType browserType;
+  private final BrowserType browserType;
 
   /**
    * @param aMethod the method to wrap

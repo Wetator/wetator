@@ -52,11 +52,11 @@ public class WetatorContext {
   /** The name of the {@link Variable} containing the configured base URL. */
   public static final String VARIABLE_BASEURL = "wetator.baseurl";
 
-  private WetatorEngine engine;
-  private String testCaseName;
-  private File file;
-  private BrowserType browserType;
-  private List<Variable> variables; // store them in defined order
+  private final WetatorEngine engine;
+  private final String testCaseName;
+  private final File file;
+  private final BrowserType browserType;
+  private final List<Variable> variables; // store them in defined order
 
   private WetatorContext parentContext;
 
@@ -151,13 +151,12 @@ public class WetatorContext {
    * @return the list of known {@link Variable}s
    */
   public List<Variable> getVariables() {
-    final List<Variable> tmpResult = new LinkedList<>();
 
-    // we just add all variables to one combined list; as the replace algorithm always takes the first occurrence of a
+      // we just add all variables to one combined list; as the replace algorithm always takes the first occurrence of a
     // variable we do not need to implement a shadowing or filter mechanism but 'just' ensure the correct order
 
     // first our own
-    tmpResult.addAll(variables);
+      final List<Variable> tmpResult = new LinkedList<>(variables);
 
     // then the stuff from the parent or from the configuration in case of the root context
     if (null == parentContext) {

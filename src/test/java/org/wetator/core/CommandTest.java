@@ -18,6 +18,7 @@ package org.wetator.core;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
@@ -43,9 +44,7 @@ public class CommandTest {
   @Before
   public void setupMocks() {
     context = mock(WetatorContext.class);
-    when(context.replaceVariables(anyString())).thenAnswer(anInvocation -> {
-      return new SecretString((String) anInvocation.getArguments()[0]);
-    });
+    when(context.replaceVariables(anyString())).thenAnswer(anInvocation -> new SecretString((String) anInvocation.getArguments()[0]));
   }
 
   @Test
@@ -174,7 +173,7 @@ public class CommandTest {
   public void getSecondParameterLongValue_null() throws Exception {
     final Command tmpCommand = new Command("command", false);
 
-    assertEquals(null, tmpCommand.getSecondParameterLongValue(context));
+      assertNull(tmpCommand.getSecondParameterLongValue(context));
   }
 
   @Test
@@ -182,7 +181,7 @@ public class CommandTest {
     final Command tmpCommand = new Command("command", false);
     tmpCommand.setSecondParameter(new Parameter(""));
 
-    assertEquals(null, tmpCommand.getSecondParameterLongValue(context));
+      assertNull(tmpCommand.getSecondParameterLongValue(context));
   }
 
   @Test

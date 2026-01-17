@@ -52,7 +52,7 @@ public final class WetatorScriptConverter {
   private IScripter scripter;
   private IScriptCreator creator;
 
-  private List<File> inputFiles;
+  private final List<File> inputFiles;
 
   /**
    * The start point for the command line call.
@@ -205,7 +205,7 @@ public final class WetatorScriptConverter {
      */
     WETT(new WikiTextScripter());
 
-    private IScripter scripter;
+    private final IScripter scripter;
 
     /**
      * @param aIScripter the {@link IScripter} to use
@@ -241,7 +241,7 @@ public final class WetatorScriptConverter {
      */
     WETT(new WikiTextScriptCreator());
 
-    private IScriptCreator scriptCreator;
+    private final IScriptCreator scriptCreator;
 
     /**
      * @param aIScriptCreator the {@link IScriptCreator} to use

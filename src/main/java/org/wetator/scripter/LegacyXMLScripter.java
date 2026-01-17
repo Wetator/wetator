@@ -183,7 +183,7 @@ public final class LegacyXMLScripter implements IScripter {
               tmpCommand.setLineNo(tmpResult.size() + 1);
 
               // go to CHARACTER event (parameter) if there
-              final StringBuilder tmpParameters = new StringBuilder("");
+              final StringBuilder tmpParameters = new StringBuilder();
               while (tmpReader.next() == XMLStreamConstants.CHARACTERS) {
                 tmpParameters.append(tmpReader.getText());
               }

@@ -46,9 +46,9 @@ final class RegExpSearchPattern extends SearchPattern {
   private static long firstOccurenceIn;
   private static long lastOccurenceIn;
 
-  private String patternString;
-  private RunAutomaton runAutomaton;
-  private int minLength;
+  private final String patternString;
+  private final RunAutomaton runAutomaton;
+  private final int minLength;
 
   /**
    * The constructor.

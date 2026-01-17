@@ -23,11 +23,12 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Locale;
 
 import javax.swing.text.BadLocationException;
@@ -130,12 +131,12 @@ public class ContentUtilTest {
 
   @Test
   public void getTxtContentAsStringFromStream_notText() throws IOException {
-    InputStream tmpInput = new FileInputStream("test/webpage/download/wet_test.pdf");
+    InputStream tmpInput = Files.newInputStream(Paths.get("test/webpage/download/wet_test.pdf"));
     String tmpContent = ContentUtil.getTxtContentAsString(tmpInput, StandardCharsets.UTF_8, 4000);
     assertEquals(4004, tmpContent.length());
     assertTrue(tmpContent, tmpContent.startsWith("%PDF-1.4"));
 
-    tmpInput = new FileInputStream("test/webpage/download/wet_test.xls");
+    tmpInput = Files.newInputStream(Paths.get("test/webpage/download/wet_test.xls"));
     tmpContent = ContentUtil.getTxtContentAsString(tmpInput, StandardCharsets.UTF_8, 4000);
     assertEquals(4004, tmpContent.length());
   }
@@ -156,7 +157,7 @@ public class ContentUtilTest {
     // @formatter:on
 
     final String tmpContent = ContentUtil
-        .getPdfContentAsString(new FileInputStream("test/webpage/download/wet_test.pdf"), 73);
+        .getPdfContentAsString(Files.newInputStream(Paths.get("test/webpage/download/wet_test.pdf")), 73);
     assertEquals(tmpExpected.toString(), tmpContent);
   }
 
@@ -170,7 +171,7 @@ public class ContentUtilTest {
     // @formatter:on
 
     final String tmpContent = ContentUtil
-        .getPdfContentAsString(new FileInputStream("test/webpage/download/wet_test.pdf"), 72);
+        .getPdfContentAsString(Files.newInputStream(Paths.get("test/webpage/download/wet_test.pdf")), 72);
     assertEquals(tmpExpected.toString(), tmpContent);
   }
 
@@ -184,14 +185,14 @@ public class ContentUtilTest {
     // @formatter:on
 
     final String tmpContent = ContentUtil
-        .getPdfContentAsString(new FileInputStream("test/webpage/download/wet_test.pdf"), 71);
+        .getPdfContentAsString(Files.newInputStream(Paths.get("test/webpage/download/wet_test.pdf")), 71);
     assertEquals(tmpExpected.toString(), tmpContent);
   }
 
   @Test
   public void getPdfContentAsString_encryptedReadable() throws FileNotFoundException, IOException {
     final String tmpContent = ContentUtil
-        .getPdfContentAsString(new FileInputStream("test/webpage/download/not_editable.pdf"), 40);
+        .getPdfContentAsString(Files.newInputStream(Paths.get("test/webpage/download/not_editable.pdf")), 40);
     assertEquals("WETATOR", tmpContent);
   }
 
@@ -199,7 +200,7 @@ public class ContentUtilTest {
   public void getPdfContentAsString_encryptedNotReadable() {
     try {
       System.out.println(ContentUtil
-          .getPdfContentAsString(new FileInputStream("test/webpage/download/can_not_extract_content.pdf"), 40));
+          .getPdfContentAsString(Files.newInputStream(Paths.get("test/webpage/download/can_not_extract_content.pdf")), 40));
       fail("IOException expected");
     } catch (final IOException e) {
       assertEquals("Content extraction forbidden for the given PDF document.", e.getMessage());
@@ -209,7 +210,7 @@ public class ContentUtilTest {
   @Test
   public void getPdfContentAsString_error() {
     try {
-      ContentUtil.getPdfContentAsString(new FileInputStream("test/webpage/download/wet_test.xls"), 4000);
+      ContentUtil.getPdfContentAsString(Files.newInputStream(Paths.get("test/webpage/download/wet_test.xls")), 4000);
       fail("IOException expected");
     } catch (final IOException e) {
       assertEquals("java.io.IOException: Missing root object specification in trailer.", e.toString());
@@ -224,28 +225,28 @@ public class ContentUtilTest {
 
   @Test
   public void getPdfTitleAsString_empty() throws IOException {
-    final String tmpTitle = ContentUtil.getPdfTitleAsString(new FileInputStream("test/webpage/download/wet_test.pdf"));
+    final String tmpTitle = ContentUtil.getPdfTitleAsString(Files.newInputStream(Paths.get("test/webpage/download/wet_test.pdf")));
     assertEquals("", tmpTitle);
   }
 
   @Test
   public void getPdfTitleAsString() throws IOException {
     final String tmpTitle = ContentUtil
-        .getPdfTitleAsString(new FileInputStream("test/webpage/download/wet_test_title.pdf"));
+        .getPdfTitleAsString(Files.newInputStream(Paths.get("test/webpage/download/wet_test_title.pdf")));
     assertEquals("WETATOR Titel Test", tmpTitle);
   }
 
   @Test
   public void getPdfTitleAsString_encryptedReadable() throws IOException {
     final String tmpTitle = ContentUtil
-        .getPdfTitleAsString(new FileInputStream("test/webpage/download/not_editable.pdf"));
+        .getPdfTitleAsString(Files.newInputStream(Paths.get("test/webpage/download/not_editable.pdf")));
     assertEquals("WETATOR PDF Test", tmpTitle);
   }
 
   @Test
   public void getPdfTitleAsString_encryptedNotReadable() throws IOException {
     final String tmpTitle = ContentUtil
-        .getPdfTitleAsString(new FileInputStream("test/webpage/download/can_not_extract_content.pdf"));
+        .getPdfTitleAsString(Files.newInputStream(Paths.get("test/webpage/download/can_not_extract_content.pdf")));
     assertEquals("WETATOR PDF Test", tmpTitle);
   }
 
@@ -257,7 +258,7 @@ public class ContentUtilTest {
 
   @Test
   public void getRtfContentAsString_empty() throws IOException, BadLocationException {
-    final String tmpContent = ContentUtil.getRtfContentAsString(new FileInputStream("test/webpage/download/empty.rtf"),
+    final String tmpContent = ContentUtil.getRtfContentAsString(Files.newInputStream(Paths.get("test/webpage/download/empty.rtf")),
         4000);
     assertEquals("", tmpContent);
   }
@@ -265,28 +266,28 @@ public class ContentUtilTest {
   @Test
   public void getRtfContentAsString() throws IOException, BadLocationException {
     final String tmpContent = ContentUtil
-        .getRtfContentAsString(new FileInputStream("test/webpage/download/wet_test.rtf"), 18);
+        .getRtfContentAsString(Files.newInputStream(Paths.get("test/webpage/download/wet_test.rtf")), 18);
     assertEquals("Wetator is great.", tmpContent);
   }
 
   @Test
   public void getRtfContentAsString_equalToMaxLength() throws IOException, BadLocationException {
     final String tmpContent = ContentUtil
-        .getRtfContentAsString(new FileInputStream("test/webpage/download/wet_test.rtf"), 17);
+        .getRtfContentAsString(Files.newInputStream(Paths.get("test/webpage/download/wet_test.rtf")), 17);
     assertEquals("Wetator is great.", tmpContent);
   }
 
   @Test
   public void getRtfContentAsString_greaterThanMaxLength() throws IOException, BadLocationException {
     final String tmpContent = ContentUtil
-        .getRtfContentAsString(new FileInputStream("test/webpage/download/wet_test.rtf"), 16);
+        .getRtfContentAsString(Files.newInputStream(Paths.get("test/webpage/download/wet_test.rtf")), 16);
     assertEquals("Wetator is great ...", tmpContent);
   }
 
   @Test
   public void getRtfContentAsString_error() throws IOException, BadLocationException {
     final String tmpContent = ContentUtil
-        .getRtfContentAsString(new FileInputStream("test/webpage/download/wet_test.xls"), 4000);
+        .getRtfContentAsString(Files.newInputStream(Paths.get("test/webpage/download/wet_test.xls")), 4000);
     assertEquals("", tmpContent);
   }
 
@@ -299,34 +300,34 @@ public class ContentUtilTest {
   @Test
   public void getWordContentAsString_docx_empty() throws IOException, InvalidFormatException {
     final String tmpContent = ContentUtil
-        .getWordContentAsString(new FileInputStream("test/webpage/download/empty.docx"), 4000);
+        .getWordContentAsString(Files.newInputStream(Paths.get("test/webpage/download/empty.docx")), 4000);
     assertEquals("", tmpContent);
   }
 
   @Test
   public void getWordContentAsString_docx() throws IOException, InvalidFormatException {
     final String tmpContent = ContentUtil
-        .getWordContentAsString(new FileInputStream("test/webpage/download/wet_test.docx"), 18);
+        .getWordContentAsString(Files.newInputStream(Paths.get("test/webpage/download/wet_test.docx")), 18);
     assertEquals("Wetator is great.", tmpContent);
   }
 
   @Test
   public void getWordContentAsString_docx_equalToMaxLength() throws IOException, InvalidFormatException {
     final String tmpContent = ContentUtil
-        .getWordContentAsString(new FileInputStream("test/webpage/download/wet_test.docx"), 17);
+        .getWordContentAsString(Files.newInputStream(Paths.get("test/webpage/download/wet_test.docx")), 17);
     assertEquals("Wetator is great.", tmpContent);
   }
 
   @Test
   public void getWordContentAsString_docx_greaterThanMaxLength() throws IOException, InvalidFormatException {
     final String tmpContent = ContentUtil
-        .getWordContentAsString(new FileInputStream("test/webpage/download/wet_test.docx"), 16);
+        .getWordContentAsString(Files.newInputStream(Paths.get("test/webpage/download/wet_test.docx")), 16);
     assertEquals("Wetator is great ...", tmpContent);
   }
 
   @Test
   public void getWordContentAsString_doc_empty() throws IOException, InvalidFormatException {
-    final String tmpContent = ContentUtil.getWordContentAsString(new FileInputStream("test/webpage/download/empty.doc"),
+    final String tmpContent = ContentUtil.getWordContentAsString(Files.newInputStream(Paths.get("test/webpage/download/empty.doc")),
         4000);
     assertEquals("", tmpContent);
   }
@@ -334,28 +335,28 @@ public class ContentUtilTest {
   @Test
   public void getWordContentAsString_doc() throws IOException, InvalidFormatException {
     final String tmpContent = ContentUtil
-        .getWordContentAsString(new FileInputStream("test/webpage/download/wet_test.doc"), 18);
+        .getWordContentAsString(Files.newInputStream(Paths.get("test/webpage/download/wet_test.doc")), 18);
     assertEquals("Wetator is great.", tmpContent);
   }
 
   @Test
   public void getWordContentAsString_doc_equalToMaxLength() throws IOException, InvalidFormatException {
     final String tmpContent = ContentUtil
-        .getWordContentAsString(new FileInputStream("test/webpage/download/wet_test.doc"), 17);
+        .getWordContentAsString(Files.newInputStream(Paths.get("test/webpage/download/wet_test.doc")), 17);
     assertEquals("Wetator is great.", tmpContent);
   }
 
   @Test
   public void getWordContentAsString_doc_greaterThanMaxLength() throws IOException, InvalidFormatException {
     final String tmpContent = ContentUtil
-        .getWordContentAsString(new FileInputStream("test/webpage/download/wet_test.doc"), 16);
+        .getWordContentAsString(Files.newInputStream(Paths.get("test/webpage/download/wet_test.doc")), 16);
     assertEquals("Wetator is great ...", tmpContent);
   }
 
   @Test
   public void getWordContentAsString_error() throws IOException {
     try {
-      ContentUtil.getWordContentAsString(new FileInputStream("test/webpage/download/wet_test.rtf"), 4000);
+      ContentUtil.getWordContentAsString(Files.newInputStream(Paths.get("test/webpage/download/wet_test.rtf")), 4000);
       fail("IOException expected");
     } catch (final IOException e) {
       assertEquals("java.io.IOException: Can't create extractor - unsupported file type: RTF", e.toString());
@@ -364,7 +365,7 @@ public class ContentUtilTest {
     }
 
     try {
-      ContentUtil.getWordContentAsString(new FileInputStream("test/webpage/download/wet_test.xls"), 4000);
+      ContentUtil.getWordContentAsString(Files.newInputStream(Paths.get("test/webpage/download/wet_test.xls")), 4000);
       fail("InvalidFormatException expected");
     } catch (final InvalidFormatException e) {
       assertEquals(
@@ -373,7 +374,7 @@ public class ContentUtilTest {
     }
 
     try {
-      ContentUtil.getWordContentAsString(new FileInputStream("test/webpage/download/wet_test.xlsx"), 4000);
+      ContentUtil.getWordContentAsString(Files.newInputStream(Paths.get("test/webpage/download/wet_test.xlsx")), 4000);
       fail("InvalidFormatException expected");
     } catch (final InvalidFormatException e) {
       assertEquals(
@@ -382,7 +383,7 @@ public class ContentUtilTest {
     }
 
     try {
-      ContentUtil.getWordContentAsString(new FileInputStream("test/webpage/download/wet_test.pdf"), 4000);
+      ContentUtil.getWordContentAsString(Files.newInputStream(Paths.get("test/webpage/download/wet_test.pdf")), 4000);
       fail("InvalidFormatException expected");
     } catch (final IOException e) {
       assertEquals("java.io.IOException: Can't create extractor - unsupported file type: PDF", e.toString());
@@ -400,7 +401,7 @@ public class ContentUtilTest {
   @Test
   public void getExcelContentAsString_xlsx_empty() throws IOException, InvalidFormatException {
     final String tmpContent = ContentUtil
-        .getExcelContentAsString(new FileInputStream("test/webpage/download/empty.xlsx"), Locale.ENGLISH, 4000);
+        .getExcelContentAsString(Files.newInputStream(Paths.get("test/webpage/download/empty.xlsx")), Locale.ENGLISH, 4000);
     assertEquals("[Tab1]", tmpContent);
   }
 
@@ -426,7 +427,7 @@ public class ContentUtilTest {
     // @formatter:on
 
     final String tmpContent = ContentUtil
-        .getExcelContentAsString(new FileInputStream("test/webpage/download/wet_test.xlsx"), Locale.GERMAN, 247);
+        .getExcelContentAsString(Files.newInputStream(Paths.get("test/webpage/download/wet_test.xlsx")), Locale.GERMAN, 247);
 
     // different JDK's
     final String tmpExpectedVariant1 = tmpExpected.toString();
@@ -457,7 +458,7 @@ public class ContentUtilTest {
     // @formatter:on
 
     final String tmpContent = ContentUtil
-        .getExcelContentAsString(new FileInputStream("test/webpage/download/wet_test.xlsx"), Locale.ENGLISH, 247);
+        .getExcelContentAsString(Files.newInputStream(Paths.get("test/webpage/download/wet_test.xlsx")), Locale.ENGLISH, 247);
     assertEquals(tmpExpected.toString(), tmpContent);
   }
 
@@ -483,7 +484,7 @@ public class ContentUtilTest {
     // @formatter:on
 
     final String tmpContent = ContentUtil
-        .getExcelContentAsString(new FileInputStream("test/webpage/download/wet_test.xlsx"), Locale.ENGLISH, 246);
+        .getExcelContentAsString(Files.newInputStream(Paths.get("test/webpage/download/wet_test.xlsx")), Locale.ENGLISH, 246);
     assertEquals(tmpExpected.toString(), tmpContent);
   }
 
@@ -509,14 +510,14 @@ public class ContentUtilTest {
     // @formatter:on
 
     final String tmpContent = ContentUtil
-        .getExcelContentAsString(new FileInputStream("test/webpage/download/wet_test.xlsx"), Locale.ENGLISH, 245);
+        .getExcelContentAsString(Files.newInputStream(Paths.get("test/webpage/download/wet_test.xlsx")), Locale.ENGLISH, 245);
     assertEquals(tmpExpected.toString(), tmpContent);
   }
 
   @Test
   public void getExcelContentAsString_xls_empty() throws IOException, InvalidFormatException {
     final String tmpContent = ContentUtil
-        .getExcelContentAsString(new FileInputStream("test/webpage/download/empty.xls"), Locale.ENGLISH, 4000);
+        .getExcelContentAsString(Files.newInputStream(Paths.get("test/webpage/download/empty.xls")), Locale.ENGLISH, 4000);
     assertEquals("[Tab1]", tmpContent);
   }
 
@@ -542,7 +543,7 @@ public class ContentUtilTest {
     // @formatter:on
 
     final String tmpContent = ContentUtil
-        .getExcelContentAsString(new FileInputStream("test/webpage/download/wet_test.xls"), Locale.GERMAN, 247);
+        .getExcelContentAsString(Files.newInputStream(Paths.get("test/webpage/download/wet_test.xls")), Locale.GERMAN, 247);
 
     // different JDK's
     final String tmpExpectedVariant1 = tmpExpected.toString();
@@ -573,7 +574,7 @@ public class ContentUtilTest {
     // @formatter:on
 
     final String tmpContent = ContentUtil
-        .getExcelContentAsString(new FileInputStream("test/webpage/download/wet_test.xls"), Locale.ENGLISH, 247);
+        .getExcelContentAsString(Files.newInputStream(Paths.get("test/webpage/download/wet_test.xls")), Locale.ENGLISH, 247);
     assertEquals(tmpExpected.toString(), tmpContent);
   }
 
@@ -599,7 +600,7 @@ public class ContentUtilTest {
     // @formatter:on
 
     final String tmpContent = ContentUtil
-        .getExcelContentAsString(new FileInputStream("test/webpage/download/wet_test.xls"), Locale.ENGLISH, 246);
+        .getExcelContentAsString(Files.newInputStream(Paths.get("test/webpage/download/wet_test.xls")), Locale.ENGLISH, 246);
     assertEquals(tmpExpected.toString(), tmpContent);
   }
 
@@ -625,14 +626,14 @@ public class ContentUtilTest {
     // @formatter:on
 
     final String tmpContent = ContentUtil
-        .getExcelContentAsString(new FileInputStream("test/webpage/download/wet_test.xls"), Locale.ENGLISH, 245);
+        .getExcelContentAsString(Files.newInputStream(Paths.get("test/webpage/download/wet_test.xls")), Locale.ENGLISH, 245);
     assertEquals(tmpExpected.toString(), tmpContent);
   }
 
   @Test
   public void getExcelContentAsString_error() {
     try {
-      ContentUtil.getExcelContentAsString(new FileInputStream("test/webpage/download/wet_test.doc"), Locale.ENGLISH,
+      ContentUtil.getExcelContentAsString(Files.newInputStream(Paths.get("test/webpage/download/wet_test.doc")), Locale.ENGLISH,
           4000);
       fail("InvalidFormatException expected");
     } catch (final InvalidFormatException | IOException e) {
@@ -641,7 +642,7 @@ public class ContentUtilTest {
     }
 
     try {
-      ContentUtil.getExcelContentAsString(new FileInputStream("test/webpage/download/wet_test.docx"), Locale.ENGLISH,
+      ContentUtil.getExcelContentAsString(Files.newInputStream(Paths.get("test/webpage/download/wet_test.docx")), Locale.ENGLISH,
           4000);
       fail("InvalidFormatException expected");
     } catch (final InvalidFormatException | IOException e) {
@@ -651,7 +652,7 @@ public class ContentUtilTest {
     }
 
     try {
-      ContentUtil.getExcelContentAsString(new FileInputStream("test/webpage/download/wet_test.pdf"), Locale.ENGLISH,
+      ContentUtil.getExcelContentAsString(Files.newInputStream(Paths.get("test/webpage/download/wet_test.pdf")), Locale.ENGLISH,
           4000);
       fail("InvalidFormatException expected");
     } catch (final InvalidFormatException | IOException e) {
@@ -670,7 +671,7 @@ public class ContentUtilTest {
     // @formatter:on
 
     final String tmpContent = ContentUtil.getZipContentAsString(
-        new FileInputStream("test/webpage/download/wet_test_txt.zip"), StandardCharsets.UTF_8, Locale.ENGLISH, 4000);
+            Files.newInputStream(Paths.get("test/webpage/download/wet_test_txt.zip")), StandardCharsets.UTF_8, Locale.ENGLISH, 4000);
     assertEquals(tmpExpected.toString(), tmpContent);
   }
 
@@ -686,14 +687,14 @@ public class ContentUtilTest {
     // @formatter:on
 
     final String tmpContent = ContentUtil.getZipContentAsString(
-        new FileInputStream("test/webpage/download/wet_test_pdf.zip"), StandardCharsets.UTF_8, Locale.ENGLISH, 4000);
+            Files.newInputStream(Paths.get("test/webpage/download/wet_test_pdf.zip")), StandardCharsets.UTF_8, Locale.ENGLISH, 4000);
     assertEquals(tmpExpected.toString(), tmpContent);
   }
 
   @Test
   public void getZipContentAsString_pdf_error() {
     try {
-      ContentUtil.getZipContentAsString(new FileInputStream("test/webpage/download/wet_test_pdf_error.zip"),
+      ContentUtil.getZipContentAsString(Files.newInputStream(Paths.get("test/webpage/download/wet_test_pdf_error.zip")),
           StandardCharsets.UTF_8, Locale.ENGLISH, 4000);
       fail("IOException expected");
     } catch (final IOException e) {
@@ -712,7 +713,7 @@ public class ContentUtilTest {
     // @formatter:on
 
     final String tmpContent = ContentUtil.getZipContentAsString(
-        new FileInputStream("test/webpage/download/wet_test_rtf.zip"), StandardCharsets.UTF_8, Locale.ENGLISH, 4000);
+            Files.newInputStream(Paths.get("test/webpage/download/wet_test_rtf.zip")), StandardCharsets.UTF_8, Locale.ENGLISH, 4000);
     assertEquals(tmpExpected.toString(), tmpContent);
   }
 
@@ -726,14 +727,14 @@ public class ContentUtilTest {
     // @formatter:on
 
     final String tmpContent = ContentUtil.getZipContentAsString(
-        new FileInputStream("test/webpage/download/wet_test_doc.zip"), StandardCharsets.UTF_8, Locale.ENGLISH, 4000);
+            Files.newInputStream(Paths.get("test/webpage/download/wet_test_doc.zip")), StandardCharsets.UTF_8, Locale.ENGLISH, 4000);
     assertEquals(tmpExpected.toString(), tmpContent);
   }
 
   @Test
   public void getZipContentAsString_doc_error() {
     try {
-      ContentUtil.getZipContentAsString(new FileInputStream("test/webpage/download/wet_test_doc_error.zip"),
+      ContentUtil.getZipContentAsString(Files.newInputStream(Paths.get("test/webpage/download/wet_test_doc_error.zip")),
           StandardCharsets.UTF_8, Locale.ENGLISH, 4000);
       fail("IOException expected");
     } catch (final IOException e) {
@@ -752,14 +753,14 @@ public class ContentUtilTest {
     // @formatter:on
 
     final String tmpContent = ContentUtil.getZipContentAsString(
-        new FileInputStream("test/webpage/download/wet_test_docx.zip"), StandardCharsets.UTF_8, Locale.ENGLISH, 4000);
+            Files.newInputStream(Paths.get("test/webpage/download/wet_test_docx.zip")), StandardCharsets.UTF_8, Locale.ENGLISH, 4000);
     assertEquals(tmpExpected.toString(), tmpContent);
   }
 
   @Test
   public void getZipContentAsString_docx_error() {
     try {
-      ContentUtil.getZipContentAsString(new FileInputStream("test/webpage/download/wet_test_docx_error.zip"),
+      ContentUtil.getZipContentAsString(Files.newInputStream(Paths.get("test/webpage/download/wet_test_docx_error.zip")),
           StandardCharsets.UTF_8, Locale.ENGLISH, 4000);
       fail("IOException expected");
     } catch (final IOException e) {
@@ -792,7 +793,7 @@ public class ContentUtilTest {
     // @formatter:on
 
     final String tmpContent = ContentUtil.getZipContentAsString(
-        new FileInputStream("test/webpage/download/wet_test_xls.zip"), StandardCharsets.UTF_8, Locale.ENGLISH, 4000);
+            Files.newInputStream(Paths.get("test/webpage/download/wet_test_xls.zip")), StandardCharsets.UTF_8, Locale.ENGLISH, 4000);
 
     // different JDK's
     final String tmpExpectedVariant1 = tmpExpected.toString();
@@ -825,7 +826,7 @@ public class ContentUtilTest {
     // @formatter:on
 
     final String tmpContent = ContentUtil.getZipContentAsString(
-        new FileInputStream("test/webpage/download/wet_test_xls.zip"), StandardCharsets.UTF_8, Locale.GERMANY, 4000);
+            Files.newInputStream(Paths.get("test/webpage/download/wet_test_xls.zip")), StandardCharsets.UTF_8, Locale.GERMANY, 4000);
 
     // different JDK's
     final String tmpExpectedVariant1 = tmpExpected.toString();
@@ -837,7 +838,7 @@ public class ContentUtilTest {
   @Test
   public void getZipContentAsString_xls_error() {
     try {
-      ContentUtil.getZipContentAsString(new FileInputStream("test/webpage/download/wet_test_xls_error.zip"),
+      ContentUtil.getZipContentAsString(Files.newInputStream(Paths.get("test/webpage/download/wet_test_xls_error.zip")),
           StandardCharsets.UTF_8, Locale.ENGLISH, 4000);
       fail("IOException expected");
     } catch (final IOException e) {
@@ -870,7 +871,7 @@ public class ContentUtilTest {
     // @formatter:on
 
     final String tmpContent = ContentUtil.getZipContentAsString(
-        new FileInputStream("test/webpage/download/wet_test_xlsx.zip"), StandardCharsets.UTF_8, Locale.ENGLISH, 4000);
+            Files.newInputStream(Paths.get("test/webpage/download/wet_test_xlsx.zip")), StandardCharsets.UTF_8, Locale.ENGLISH, 4000);
 
     // different JDK's
     final String tmpExpectedVariant1 = tmpExpected.toString();
@@ -903,7 +904,7 @@ public class ContentUtilTest {
     // @formatter:on
 
     final String tmpContent = ContentUtil.getZipContentAsString(
-        new FileInputStream("test/webpage/download/wet_test_xlsx.zip"), StandardCharsets.UTF_8, Locale.GERMANY, 4000);
+            Files.newInputStream(Paths.get("test/webpage/download/wet_test_xlsx.zip")), StandardCharsets.UTF_8, Locale.GERMANY, 4000);
 
     // different JDK's
     final String tmpExpectedVariant1 = tmpExpected.toString();
@@ -915,7 +916,7 @@ public class ContentUtilTest {
   @Test
   public void getZipContentAsString_xlsx_error() {
     try {
-      ContentUtil.getZipContentAsString(new FileInputStream("test/webpage/download/wet_test_xlsx_error.zip"),
+      ContentUtil.getZipContentAsString(Files.newInputStream(Paths.get("test/webpage/download/wet_test_xlsx_error.zip")),
           StandardCharsets.UTF_8, Locale.ENGLISH, 4000);
       fail("IOException expected");
     } catch (final IOException e) {
@@ -965,7 +966,7 @@ public class ContentUtilTest {
     // @formatter:on
 
     final String tmpContent = ContentUtil.getZipContentAsString(
-        new FileInputStream("test/webpage/download/wet_test_mix.zip"), StandardCharsets.UTF_8, Locale.ENGLISH, 4000);
+            Files.newInputStream(Paths.get("test/webpage/download/wet_test_mix.zip")), StandardCharsets.UTF_8, Locale.ENGLISH, 4000);
 
     // different JDK's
     final String tmpExpectedVariant1 = tmpExpected.toString();
@@ -1015,7 +1016,7 @@ public class ContentUtilTest {
     // @formatter:on
 
     final String tmpContent = ContentUtil.getZipContentAsString(
-        new FileInputStream("test/webpage/download/wet_test_mix.zip"), StandardCharsets.UTF_8, Locale.GERMANY, 4000);
+            Files.newInputStream(Paths.get("test/webpage/download/wet_test_mix.zip")), StandardCharsets.UTF_8, Locale.GERMANY, 4000);
 
     // different JDK's
     final String tmpExpectedVariant1 = tmpExpected.toString();
@@ -1051,7 +1052,7 @@ public class ContentUtilTest {
     // @formatter:on
 
     final String tmpContent = ContentUtil.getZipContentAsString(
-        new FileInputStream("test/webpage/download/wet_test_mix.zip"), StandardCharsets.UTF_8, Locale.ENGLISH, 23);
+            Files.newInputStream(Paths.get("test/webpage/download/wet_test_mix.zip")), StandardCharsets.UTF_8, Locale.ENGLISH, 23);
     assertEquals(tmpExpected.toString(), tmpContent);
   }
 
@@ -1080,7 +1081,7 @@ public class ContentUtilTest {
     // @formatter:on
 
     final String tmpContent = ContentUtil.getZipContentAsString(
-        new FileInputStream("test/webpage/download/wet_test_mix.zip"), StandardCharsets.UTF_8, Locale.ENGLISH, 10);
+            Files.newInputStream(Paths.get("test/webpage/download/wet_test_mix.zip")), StandardCharsets.UTF_8, Locale.ENGLISH, 10);
     assertEquals(tmpExpected.toString(), tmpContent);
   }
 
@@ -1089,10 +1090,10 @@ public class ContentUtilTest {
     String tmpText = "Some readable text for testing WETATOR.";
     assertTrue(ContentUtil.isTxt(tmpText));
 
-    tmpText = IOUtils.toString(new FileInputStream("test/webpage/download/wet_test.pdf"), StandardCharsets.UTF_8);
+    tmpText = IOUtils.toString(Files.newInputStream(Paths.get("test/webpage/download/wet_test.pdf")), StandardCharsets.UTF_8);
     assertFalse(ContentUtil.isTxt(tmpText));
 
-    tmpText = IOUtils.toString(new FileInputStream("test/webpage/download/wet_test.xls"), StandardCharsets.UTF_8);
+    tmpText = IOUtils.toString(Files.newInputStream(Paths.get("test/webpage/download/wet_test.xls")), StandardCharsets.UTF_8);
     assertFalse(ContentUtil.isTxt(tmpText));
   }
 

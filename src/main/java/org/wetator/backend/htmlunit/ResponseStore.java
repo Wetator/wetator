@@ -66,9 +66,9 @@ public final class ResponseStore {
       .compile("^(resource_|response_|content_)([0-9]{6}[0-9]*)");
 
   private static long counter = 99999;
-  private Map<String, String> fileNames;
+  private final Map<String, String> fileNames;
 
-  private File outputDir;
+  private final File outputDir;
   private WebClient webClient;
 
   private File storeDir;

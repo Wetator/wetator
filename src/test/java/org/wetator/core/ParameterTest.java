@@ -35,9 +35,7 @@ public class ParameterTest {
   @Before
   public void setupMocks() {
     context = mock(WetatorContext.class);
-    when(context.replaceVariables(anyString())).thenAnswer(anInvocation -> {
-      return new SecretString((String) anInvocation.getArguments()[0]);
-    });
+    when(context.replaceVariables(anyString())).thenAnswer(anInvocation -> new SecretString((String) anInvocation.getArguments()[0]));
   }
 
   @Test

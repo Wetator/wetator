@@ -34,8 +34,8 @@ public abstract class SearchPattern {
 
   private static final String SPECIAL_CHARS = "(){}[]|&~+^-.#@\"<>";
 
-  private static SearchPatternCache searchPatternCache = new SearchPatternCache(500);
-  private String originalString;
+  private static final SearchPatternCache searchPatternCache = new SearchPatternCache(500);
+  private final String originalString;
 
   /**
    * @return a string with some statistic info
@@ -321,7 +321,7 @@ public abstract class SearchPattern {
    * Cache.
    */
   private static class SearchPatternCache {
-    private Map<String, SearchPattern> cache;
+    private final Map<String, SearchPattern> cache;
     private int hitsCount;
 
     SearchPatternCache(final int anInitialSize) {

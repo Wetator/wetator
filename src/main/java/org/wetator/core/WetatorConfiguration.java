@@ -1114,7 +1114,7 @@ public class WetatorConfiguration {
   }
 
   /**
-   * @return a list containing the configured XSL templates
+   * @return a set containing the configured XSL templates
    */
   public Set<SearchPattern> getJsJobFilterPatterns() {
     return jsJobFilterPatterns;

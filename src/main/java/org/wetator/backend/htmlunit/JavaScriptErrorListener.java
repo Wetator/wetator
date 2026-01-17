@@ -30,7 +30,7 @@ import org.htmlunit.html.HtmlPage;
  * @author frank.danek
  */
 public final class JavaScriptErrorListener implements org.htmlunit.javascript.JavaScriptErrorListener {
-  private HtmlUnitBrowser htmlUnitBrowser;
+  private final HtmlUnitBrowser htmlUnitBrowser;
 
   /**
    * Constructor.

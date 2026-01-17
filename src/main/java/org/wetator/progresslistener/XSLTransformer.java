@@ -45,7 +45,7 @@ public final class XSLTransformer {
   private static final Logger LOG = LogManager.getLogger(XSLTransformer.class);
 
   private static final String RESOURCES_DIRECTORY = "resources";
-  private File xmlResultFile;
+  private final File xmlResultFile;
 
   /**
    * The constructor.

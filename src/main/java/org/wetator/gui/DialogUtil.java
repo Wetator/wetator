@@ -296,7 +296,7 @@ public final class DialogUtil {
    *
    * @param aPreferences the preferences to write to
    * @param aDir the the directory we are working on
-   * @return the list of remembered files that are still available
+   * @return the array of remembered files that are still available
    */
   public static File[] restoreFiles(final Preferences aPreferences, final File aDir) {
     if (aDir == null) {

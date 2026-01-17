@@ -47,9 +47,9 @@ public class IdentifierBasedHtmlUnitControlsFinder extends AbstractHtmlUnitContr
   /** The thread pool to use for worker threads. */
   protected ThreadPoolExecutor threadPool;
   /** The supported identifiers. */
-  protected List<Class<? extends AbstractHtmlUnitControlIdentifier>> identifiers = new ArrayList<>();
+  protected final List<Class<? extends AbstractHtmlUnitControlIdentifier>> identifiers = new ArrayList<>();
 
-  private List<Future<?>> futures = new LinkedList<>();
+  private final List<Future<?>> futures = new LinkedList<>();
 
   /**
    * The constructor.

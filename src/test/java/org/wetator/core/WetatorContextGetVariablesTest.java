@@ -22,7 +22,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import java.io.File;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.Before;
@@ -36,7 +36,7 @@ import org.wetator.backend.IBrowser.BrowserType;
  */
 public class WetatorContextGetVariablesTest {
 
-  private BrowserType browserType = BrowserType.FIREFOX_ESR;
+  private final BrowserType browserType = BrowserType.FIREFOX_ESR;
 
   private File file1;
   private File file2;
@@ -97,7 +97,7 @@ public class WetatorContextGetVariablesTest {
   @Test
   public void fromConfiguration() throws Exception {
     // setup
-    when(configuration.getVariables()).thenReturn(Arrays.asList(new Variable("conf", "conf value")));
+    when(configuration.getVariables()).thenReturn(Collections.singletonList(new Variable("conf", "conf value")));
 
     final WetatorContext tmpContext = new WetatorContext(engine, file1.getName(), file1, browserType);
 
@@ -116,7 +116,7 @@ public class WetatorContextGetVariablesTest {
   @Test
   public void hierarchy() throws Exception {
     // setup
-    when(configuration.getVariables()).thenReturn(Arrays.asList(new Variable("conf", "conf value")));
+    when(configuration.getVariables()).thenReturn(Collections.singletonList(new Variable("conf", "conf value")));
 
     final WetatorContext tmpContext = new WetatorContext(engine, file1.getName(), file1, browserType);
     tmpContext.addVariable(new Variable("ctx", "ctx value"));
@@ -138,7 +138,7 @@ public class WetatorContextGetVariablesTest {
   public void shadowing() throws Exception {
     // setup
     when(configuration.getVariables())
-        .thenReturn(Arrays.asList(new Variable(WetatorContext.VARIABLE_TESTFILE, "conf value")));
+        .thenReturn(Collections.singletonList(new Variable(WetatorContext.VARIABLE_TESTFILE, "conf value")));
 
     final WetatorContext tmpContext = new WetatorContext(engine, file1.getName(), file1, browserType);
     tmpContext.addVariable(new Variable(WetatorContext.VARIABLE_TESTFILE, "ctx value"));
@@ -226,7 +226,7 @@ public class WetatorContextGetVariablesTest {
   @Test
   public void inSubContextFromConfiguration() throws Exception {
     // setup
-    when(configuration.getVariables()).thenReturn(Arrays.asList(new Variable("conf", "conf value")));
+    when(configuration.getVariables()).thenReturn(Collections.singletonList(new Variable("conf", "conf value")));
 
     final WetatorContext tmpContext = new WetatorContext(engine, file1.getName(), file1, browserType);
     final WetatorContext tmpSubContext = tmpContext.createSubContext(file2);
@@ -250,7 +250,7 @@ public class WetatorContextGetVariablesTest {
   @Test
   public void inSubContextHierarchy() throws Exception {
     // setup
-    when(configuration.getVariables()).thenReturn(Arrays.asList(new Variable("conf", "conf value")));
+    when(configuration.getVariables()).thenReturn(Collections.singletonList(new Variable("conf", "conf value")));
 
     final WetatorContext tmpContext = new WetatorContext(engine, file1.getName(), file1, browserType);
     tmpContext.addVariable(new Variable("ctx", "ctx value"));
@@ -279,7 +279,7 @@ public class WetatorContextGetVariablesTest {
   public void inSubContextShadowing() throws Exception {
     // setup
     when(configuration.getVariables())
-        .thenReturn(Arrays.asList(new Variable(WetatorContext.VARIABLE_TESTFILE, "conf value")));
+        .thenReturn(Collections.singletonList(new Variable(WetatorContext.VARIABLE_TESTFILE, "conf value")));
 
     final WetatorContext tmpContext = new WetatorContext(engine, file1.getName(), file1, browserType);
     tmpContext.addVariable(new Variable(WetatorContext.VARIABLE_TESTFILE, "ctx value"));

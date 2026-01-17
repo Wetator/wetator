@@ -34,7 +34,7 @@ import java.util.stream.Collectors;
  * @author frank.danek
  */
 public class KeySequence {
-  private List<Key> keys = new ArrayList<>();
+  private final List<Key> keys = new ArrayList<>();
 
   /**
    * Supported keys.

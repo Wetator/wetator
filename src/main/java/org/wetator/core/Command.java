@@ -32,8 +32,8 @@ import org.wetator.util.SecretString;
  * @author frank.danek
  */
 public final class Command {
-  private String name;
-  private boolean comment;
+  private final String name;
+  private final boolean comment;
   private Parameter firstParameter;
   private Parameter secondParameter;
   private Parameter thirdParameter;

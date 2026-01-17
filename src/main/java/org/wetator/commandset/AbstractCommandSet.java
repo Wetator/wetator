@@ -47,8 +47,8 @@ public abstract class AbstractCommandSet implements ICommandSet {
 
   private static final Logger LOG = LogManager.getLogger(AbstractCommandSet.class);
 
-  private List<String> initializationMessages;
-  private Map<String, ICommandImplementation> commandImplementations;
+  private final List<String> initializationMessages;
+  private final Map<String, ICommandImplementation> commandImplementations;
   private int noOfCommands;
 
   /**

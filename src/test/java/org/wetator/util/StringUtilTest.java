@@ -20,6 +20,7 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -112,7 +113,7 @@ public class StringUtilTest {
   public void extractStrings16() {
     try {
       StringUtil.extractStrings("1aa2", "a", 'a');
-      org.junit.Assert.assertTrue("IllegalArgumentException expected", false);
+        Assert.fail("IllegalArgumentException expected");
     } catch (final IllegalArgumentException e) {
       org.junit.Assert.assertEquals("Delimiter must be different from escape char.", e.getMessage());
     }

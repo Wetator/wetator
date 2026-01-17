@@ -29,16 +29,16 @@ import java.util.List;
  */
 public final class HtmlCodeSelectBuilder {
 
-  private String id;
+  private final String id;
   private String style;
   private String name;
-  private List<SelectOption> options = new ArrayList<>();
+  private final List<SelectOption> options = new ArrayList<>();
   private SelectOption currentOption;
 
   private boolean listen = true;
 
-  private class SelectOption {
-    private String optionId;
+  private static class SelectOption {
+    private final String optionId;
     private String optionStyle;
     private String content;
 

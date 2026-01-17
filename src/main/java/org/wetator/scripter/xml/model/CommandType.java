@@ -29,7 +29,7 @@ public class CommandType {
   private String namespace;
   private String name;
   private String documentation;
-  private List<ParameterType> parameterTypes = new ArrayList<>();
+  private final List<ParameterType> parameterTypes = new ArrayList<>();
 
   /**
    * @return the namespace

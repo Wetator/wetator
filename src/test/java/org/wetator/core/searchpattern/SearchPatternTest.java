@@ -18,6 +18,7 @@ package org.wetator.core.searchpattern;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
@@ -975,9 +976,9 @@ public class SearchPatternTest {
     final SearchPattern tmpPattern = SearchPattern.compile("te*");
 
     assertTrue(tmpPattern.matches("test"));
-    assertFalse("test".equals(tmpPattern));
-    assertFalse(tmpPattern.equals(SearchPattern.compile("test")));
-    assertTrue(tmpPattern.equals(SearchPattern.compile("te*")));
+      assertNotEquals("test", tmpPattern);
+      assertNotEquals(tmpPattern, SearchPattern.compile("test"));
+      assertEquals(tmpPattern, SearchPattern.compile("te*"));
     assertEquals("te*", tmpPattern.getOriginalString());
   }
 

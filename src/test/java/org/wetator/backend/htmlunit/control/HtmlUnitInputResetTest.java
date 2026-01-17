@@ -40,7 +40,7 @@ public class HtmlUnitInputResetTest {
     // @formatter:on
     PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-      final HtmlResetInput tmpText = (HtmlResetInput) tmpHtmlPage.getHtmlElementById("myId");
+      final HtmlResetInput tmpText = tmpHtmlPage.getHtmlElementById("myId");
       final HtmlUnitInputReset tmpControl = new HtmlUnitInputReset(tmpText);
 
       assertTrue(tmpControl.isDisabled(null));
@@ -58,7 +58,7 @@ public class HtmlUnitInputResetTest {
     // @formatter:on
     PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-      final HtmlResetInput tmpText = (HtmlResetInput) tmpHtmlPage.getHtmlElementById("myId");
+      final HtmlResetInput tmpText = tmpHtmlPage.getHtmlElementById("myId");
       final HtmlUnitInputReset tmpControl = new HtmlUnitInputReset(tmpText);
 
       assertFalse(tmpControl.isDisabled(null));
@@ -76,7 +76,7 @@ public class HtmlUnitInputResetTest {
     // @formatter:on
     PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-      final HtmlResetInput tmpText = (HtmlResetInput) tmpHtmlPage.getHtmlElementById("myId");
+      final HtmlResetInput tmpText = tmpHtmlPage.getHtmlElementById("myId");
       final HtmlUnitInputReset tmpControl = new HtmlUnitInputReset(tmpText);
 
       assertTrue(tmpControl.isDisabled(null));

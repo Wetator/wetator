@@ -78,7 +78,7 @@ public interface IScripter {
    */
   final class IsSupportedResult {
 
-    private String message;
+    private final String message;
 
     /**
      * The constructor.

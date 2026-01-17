@@ -159,7 +159,7 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption>
 
   @Override
   public void mouseOver(final WetatorContext aWetatorContext) throws ActionException {
-    final HtmlElement tmpHtmlElement = getHtmlElement();
+    final HtmlOption tmpHtmlElement = getHtmlElement();
 
     try {
       // simulate mouse move on the document (outside the element)
@@ -173,7 +173,7 @@ public class HtmlUnitOption extends HtmlUnitBaseControl<HtmlOption>
     }
 
     try {
-      final HtmlSelect tmpSelect = ((HtmlOption) tmpHtmlElement).getEnclosingSelect();
+      final HtmlSelect tmpSelect = tmpHtmlElement.getEnclosingSelect();
 
       // ff does this before reaching the option
       tmpSelect.mouseMove();

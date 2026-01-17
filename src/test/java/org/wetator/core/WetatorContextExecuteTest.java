@@ -28,6 +28,7 @@ import static org.mockito.Mockito.when;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Collections;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -49,7 +50,7 @@ import org.wetator.exception.ResourceException;
  */
 public class WetatorContextExecuteTest {
 
-  private BrowserType browserType = BrowserType.FIREFOX_ESR;
+  private final BrowserType browserType = BrowserType.FIREFOX_ESR;
 
   private File file1;
   private File file2;
@@ -310,8 +311,8 @@ public class WetatorContextExecuteTest {
   @Test
   public void okBeforeSubContext() throws CommandException, InvalidInputException {
     // setup
-    when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command1));
-    when(engine.readCommandsFromFile(file2)).thenReturn(Arrays.asList(command2));
+    when(engine.readCommandsFromFile(file1)).thenReturn(Collections.singletonList(command1));
+    when(engine.readCommandsFromFile(file2)).thenReturn(Collections.singletonList(command2));
 
     // run
     final WetatorContext tmpContext = new WetatorContext(engine, file1.getName(), file1, browserType);
@@ -346,8 +347,8 @@ public class WetatorContextExecuteTest {
     final Exception tmpException = new AssertionException("mocker");
     doThrow(tmpException).when(commandImplementation1).execute(isA(WetatorContext.class), isA(Command.class));
 
-    when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command1));
-    when(engine.readCommandsFromFile(file2)).thenReturn(Arrays.asList(command2));
+    when(engine.readCommandsFromFile(file1)).thenReturn(Collections.singletonList(command1));
+    when(engine.readCommandsFromFile(file2)).thenReturn(Collections.singletonList(command2));
 
     // run
     final WetatorContext tmpContext = new WetatorContext(engine, file1.getName(), file1, browserType);
@@ -381,8 +382,8 @@ public class WetatorContextExecuteTest {
     final Exception tmpException = new ActionException("mocker");
     doThrow(tmpException).when(commandImplementation1).execute(isA(WetatorContext.class), isA(Command.class));
 
-    when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command1));
-    when(engine.readCommandsFromFile(file2)).thenReturn(Arrays.asList(command2));
+    when(engine.readCommandsFromFile(file1)).thenReturn(Collections.singletonList(command1));
+    when(engine.readCommandsFromFile(file2)).thenReturn(Collections.singletonList(command2));
 
     // run
     final WetatorContext tmpContext = new WetatorContext(engine, file1.getName(), file1, browserType);
@@ -418,8 +419,8 @@ public class WetatorContextExecuteTest {
     final Exception tmpException = new InvalidInputException("mocker");
     doThrow(tmpException).when(commandImplementation1).execute(isA(WetatorContext.class), isA(Command.class));
 
-    when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command1));
-    when(engine.readCommandsFromFile(file2)).thenReturn(Arrays.asList(command2));
+    when(engine.readCommandsFromFile(file1)).thenReturn(Collections.singletonList(command1));
+    when(engine.readCommandsFromFile(file2)).thenReturn(Collections.singletonList(command2));
 
     // run
     final WetatorContext tmpContext = new WetatorContext(engine, file1.getName(), file1, browserType);
@@ -455,8 +456,8 @@ public class WetatorContextExecuteTest {
     final Exception tmpException = new CommandException("mocker");
     doThrow(tmpException).when(commandImplementation1).execute(isA(WetatorContext.class), isA(Command.class));
 
-    when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command1));
-    when(engine.readCommandsFromFile(file2)).thenReturn(Arrays.asList(command2));
+    when(engine.readCommandsFromFile(file1)).thenReturn(Collections.singletonList(command1));
+    when(engine.readCommandsFromFile(file2)).thenReturn(Collections.singletonList(command2));
 
     // run
     final WetatorContext tmpContext = new WetatorContext(engine, file1.getName(), file1, browserType);
@@ -492,8 +493,8 @@ public class WetatorContextExecuteTest {
     final Exception tmpException = new RuntimeException("mocker");
     doThrow(tmpException).when(commandImplementation1).execute(isA(WetatorContext.class), isA(Command.class));
 
-    when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command1));
-    when(engine.readCommandsFromFile(file2)).thenReturn(Arrays.asList(command2));
+    when(engine.readCommandsFromFile(file1)).thenReturn(Collections.singletonList(command1));
+    when(engine.readCommandsFromFile(file2)).thenReturn(Collections.singletonList(command2));
 
     // run
     final WetatorContext tmpContext = new WetatorContext(engine, file1.getName(), file1, browserType);
@@ -525,8 +526,8 @@ public class WetatorContextExecuteTest {
   @Test
   public void okInSubContext() throws CommandException, InvalidInputException {
     // setup
-    when(engine.readCommandsFromFile(file2)).thenReturn(Arrays.asList(command1));
-    when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command2));
+    when(engine.readCommandsFromFile(file2)).thenReturn(Collections.singletonList(command1));
+    when(engine.readCommandsFromFile(file1)).thenReturn(Collections.singletonList(command2));
 
     // run
     final WetatorContext tmpContext = new WetatorContext(engine, file1.getName(), file1, browserType);
@@ -561,8 +562,8 @@ public class WetatorContextExecuteTest {
     final Exception tmpException = new AssertionException("mocker");
     doThrow(tmpException).when(commandImplementation1).execute(isA(WetatorContext.class), isA(Command.class));
 
-    when(engine.readCommandsFromFile(file2)).thenReturn(Arrays.asList(command1));
-    when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command2));
+    when(engine.readCommandsFromFile(file2)).thenReturn(Collections.singletonList(command1));
+    when(engine.readCommandsFromFile(file1)).thenReturn(Collections.singletonList(command2));
 
     // run
     final WetatorContext tmpContext = new WetatorContext(engine, file1.getName(), file1, browserType);
@@ -596,8 +597,8 @@ public class WetatorContextExecuteTest {
     final Exception tmpException = new ActionException("mocker");
     doThrow(tmpException).when(commandImplementation1).execute(isA(WetatorContext.class), isA(Command.class));
 
-    when(engine.readCommandsFromFile(file2)).thenReturn(Arrays.asList(command1));
-    when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command2));
+    when(engine.readCommandsFromFile(file2)).thenReturn(Collections.singletonList(command1));
+    when(engine.readCommandsFromFile(file1)).thenReturn(Collections.singletonList(command2));
 
     // run
     final WetatorContext tmpContext = new WetatorContext(engine, file1.getName(), file1, browserType);
@@ -633,8 +634,8 @@ public class WetatorContextExecuteTest {
     final Exception tmpException = new InvalidInputException("mocker");
     doThrow(tmpException).when(commandImplementation1).execute(isA(WetatorContext.class), isA(Command.class));
 
-    when(engine.readCommandsFromFile(file2)).thenReturn(Arrays.asList(command1));
-    when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command2));
+    when(engine.readCommandsFromFile(file2)).thenReturn(Collections.singletonList(command1));
+    when(engine.readCommandsFromFile(file1)).thenReturn(Collections.singletonList(command2));
 
     // run
     final WetatorContext tmpContext = new WetatorContext(engine, file1.getName(), file1, browserType);
@@ -670,8 +671,8 @@ public class WetatorContextExecuteTest {
     final Exception tmpException = new CommandException("mocker");
     doThrow(tmpException).when(commandImplementation1).execute(isA(WetatorContext.class), isA(Command.class));
 
-    when(engine.readCommandsFromFile(file2)).thenReturn(Arrays.asList(command1));
-    when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command2));
+    when(engine.readCommandsFromFile(file2)).thenReturn(Collections.singletonList(command1));
+    when(engine.readCommandsFromFile(file1)).thenReturn(Collections.singletonList(command2));
 
     // run
     final WetatorContext tmpContext = new WetatorContext(engine, file1.getName(), file1, browserType);
@@ -707,8 +708,8 @@ public class WetatorContextExecuteTest {
     final Exception tmpException = new RuntimeException("mocker");
     doThrow(tmpException).when(commandImplementation1).execute(isA(WetatorContext.class), isA(Command.class));
 
-    when(engine.readCommandsFromFile(file2)).thenReturn(Arrays.asList(command1));
-    when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(command2));
+    when(engine.readCommandsFromFile(file2)).thenReturn(Collections.singletonList(command1));
+    when(engine.readCommandsFromFile(file1)).thenReturn(Collections.singletonList(command2));
 
     // run
     final WetatorContext tmpContext = new WetatorContext(engine, file1.getName(), file1, browserType);
@@ -835,7 +836,7 @@ public class WetatorContextExecuteTest {
   public void comment() throws InvalidInputException {
     // setup
     final Command tmpComment = new Command("comment", true);
-    when(engine.readCommandsFromFile(file1)).thenReturn(Arrays.asList(tmpComment));
+    when(engine.readCommandsFromFile(file1)).thenReturn(Collections.singletonList(tmpComment));
 
     // run
     final WetatorContext tmpContext = new WetatorContext(engine, file1.getName(), file1, browserType);
@@ -968,7 +969,7 @@ public class WetatorContextExecuteTest {
   @ForceExecution
   private static class ForceExecutionCommand implements ICommandImplementation {
 
-    private ICommandImplementation wrappedImplementation;
+    private final ICommandImplementation wrappedImplementation;
 
     ForceExecutionCommand(final ICommandImplementation aWrappedImplementation) {
       wrappedImplementation = aWrappedImplementation;

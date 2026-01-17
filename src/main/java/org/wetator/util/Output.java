@@ -29,10 +29,10 @@ import org.apache.commons.lang3.StringUtils;
  * @author frank.danek
  */
 public final class Output {
-  private static final String NEW_LINE = System.getProperty("line.separator");
+  private static final String NEW_LINE = System.lineSeparator();
 
-  private Writer writer;
-  private StringBuffer currentIndent;
+  private final Writer writer;
+  private final StringBuffer currentIndent;
   private boolean afterNewLine;
   private final String indent; // NOPMD
 

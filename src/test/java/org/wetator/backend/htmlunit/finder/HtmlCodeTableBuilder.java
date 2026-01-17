@@ -29,15 +29,15 @@ import java.util.List;
  */
 public final class HtmlCodeTableBuilder {
 
-  private String id;
-  private List<TableRow> rows = new ArrayList<>();
+  private final String id;
+  private final List<TableRow> rows = new ArrayList<>();
 
   private String style;
   private boolean listen = true;
 
-  private class TableRow {
-    private String rowId;
-    private int columnCount;
+  private static class TableRow {
+    private final String rowId;
+    private final int columnCount;
 
     private boolean rowListen = true;
 

@@ -50,28 +50,28 @@ public class XMLUtil {
 
       if (tmpChar < 32 && tmpChar != 9 && tmpChar != 10 && tmpChar != 13) {
         // ignore
-        tmpResult.append(aString.substring(0, i));
+        tmpResult.append(aString, 0, i);
         i++;
         break;
       } else if (tmpChar > 0xD7FF && tmpChar < 0xE000 || tmpChar > 0xFFFD) {
         // ignore
-        tmpResult.append(aString.substring(0, i));
+        tmpResult.append(aString, 0, i);
         i++;
         break;
       } else if (tmpChar == '<') {
-        tmpResult.append(aString.substring(0, i)).append("&lt;");
+        tmpResult.append(aString, 0, i).append("&lt;");
         i++;
         break;
       } else if (tmpChar == '>') {
-        tmpResult.append(aString.substring(0, i)).append("&gt;");
+        tmpResult.append(aString, 0, i).append("&gt;");
         i++;
         break;
       } else if (tmpChar == '&') {
-        tmpResult.append(aString.substring(0, i)).append("&amp;");
+        tmpResult.append(aString, 0, i).append("&amp;");
         i++;
         break;
       } else if (!canEncode(tmpChar)) {
-        tmpResult.append(aString.substring(0, i)).append("&#").append(Integer.toString(tmpChar)).append(';');
+        tmpResult.append(aString, 0, i).append("&#").append(Integer.toString(tmpChar)).append(';');
         i++;
         break;
       }
@@ -137,36 +137,36 @@ public class XMLUtil {
 
       if (tmpChar < 32 && tmpChar != 9 && tmpChar != 10 && tmpChar != 13) {
         // ignore
-        tmpResult.append(aString.substring(0, i));
+        tmpResult.append(aString, 0, i);
         i++;
         break;
       } else if (tmpChar > 0xD7FF && tmpChar < 0xE000 || tmpChar > 0xFFFD) {
         // ignore
-        tmpResult.append(aString.substring(0, i));
+        tmpResult.append(aString, 0, i);
         i++;
         break;
       } else if (tmpChar == '<') {
-        tmpResult.append(aString.substring(0, i)).append("&lt;");
+        tmpResult.append(aString, 0, i).append("&lt;");
         i++;
         break;
       } else if (tmpChar == '>') {
-        tmpResult.append(aString.substring(0, i)).append("&gt;");
+        tmpResult.append(aString, 0, i).append("&gt;");
         i++;
         break;
       } else if (tmpChar == '&') {
-        tmpResult.append(aString.substring(0, i)).append("&amp;");
+        tmpResult.append(aString, 0, i).append("&amp;");
         i++;
         break;
       } else if (tmpChar == '\'') {
-        tmpResult.append(aString.substring(0, i)).append("&apos;");
+        tmpResult.append(aString, 0, i).append("&apos;");
         i++;
         break;
       } else if (tmpChar == '"') {
-        tmpResult.append(aString.substring(0, i)).append("&quot;");
+        tmpResult.append(aString, 0, i).append("&quot;");
         i++;
         break;
       } else if (!canEncode(tmpChar)) {
-        tmpResult.append(aString.substring(0, i)).append("&#").append(Integer.toString(tmpChar)).append(';');
+        tmpResult.append(aString, 0, i).append("&#").append(Integer.toString(tmpChar)).append(';');
         i++;
         break;
       }

@@ -40,7 +40,7 @@ public class HtmlUnitInputSubmitTest {
     // @formatter:on
     PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-      final HtmlSubmitInput tmpText = (HtmlSubmitInput) tmpHtmlPage.getHtmlElementById("myId");
+      final HtmlSubmitInput tmpText = tmpHtmlPage.getHtmlElementById("myId");
       final HtmlUnitInputSubmit tmpControl = new HtmlUnitInputSubmit(tmpText);
 
       assertTrue(tmpControl.isDisabled(null));
@@ -58,7 +58,7 @@ public class HtmlUnitInputSubmitTest {
     // @formatter:on
     PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-      final HtmlSubmitInput tmpText = (HtmlSubmitInput) tmpHtmlPage.getHtmlElementById("myId");
+      final HtmlSubmitInput tmpText = tmpHtmlPage.getHtmlElementById("myId");
       final HtmlUnitInputSubmit tmpControl = new HtmlUnitInputSubmit(tmpText);
 
       assertFalse(tmpControl.isDisabled(null));
@@ -76,7 +76,7 @@ public class HtmlUnitInputSubmitTest {
     // @formatter:on
     PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-      final HtmlSubmitInput tmpText = (HtmlSubmitInput) tmpHtmlPage.getHtmlElementById("myId");
+      final HtmlSubmitInput tmpText = tmpHtmlPage.getHtmlElementById("myId");
       final HtmlUnitInputSubmit tmpControl = new HtmlUnitInputSubmit(tmpText);
 
       assertTrue(tmpControl.isDisabled(null));

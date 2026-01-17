@@ -40,7 +40,7 @@ public class WikiTextScripterTest {
     final File tmpFile = new File("src/test/resources/legacyXML.xml");
 
     final IScripter.IsSupportedResult tmpResult = tmpScripter.isSupported(tmpFile);
-    Assert.assertTrue(IScripter.IS_SUPPORTED != tmpResult);
+      Assert.assertNotSame(IScripter.IS_SUPPORTED, tmpResult);
 
     Assert.assertEquals("File 'legacyXML.xml' not supported by WikiTextScripter. Extension is not '.wett'.",
         tmpResult.getMessage());
@@ -52,7 +52,7 @@ public class WikiTextScripterTest {
     final File tmpFile = new File("src/test/resources/doesNotExist.wett");
 
     final IScripter.IsSupportedResult tmpResult = tmpScripter.isSupported(tmpFile);
-    Assert.assertTrue(IScripter.IS_SUPPORTED != tmpResult);
+      Assert.assertNotSame(IScripter.IS_SUPPORTED, tmpResult);
 
     Assert.assertEquals("File 'doesNotExist.wett' not supported by WikiTextScripter. Could not find file.",
         tmpResult.getMessage());
@@ -64,7 +64,7 @@ public class WikiTextScripterTest {
     final File tmpFile = new File("src/test/resources/wikiText.wett");
 
     final IScripter.IsSupportedResult tmpResult = tmpScripter.isSupported(tmpFile);
-    Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
+      Assert.assertSame(IScripter.IS_SUPPORTED, tmpResult);
   }
 
   @Test
@@ -73,7 +73,7 @@ public class WikiTextScripterTest {
     final File tmpFile = new File("src/test/resources/wikiText.wett");
 
     final IScripter.IsSupportedResult tmpResult = tmpScripter.isSupported(tmpFile);
-    Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
+      Assert.assertSame(IScripter.IS_SUPPORTED, tmpResult);
 
     tmpScripter.script(tmpFile);
 
@@ -144,7 +144,7 @@ public class WikiTextScripterTest {
     final File tmpFile = new File("src/test/resources/continuationLines.wett");
 
     final IScripter.IsSupportedResult tmpResult = tmpScripter.isSupported(tmpFile);
-    Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
+      Assert.assertSame(IScripter.IS_SUPPORTED, tmpResult);
 
     tmpScripter.script(tmpFile);
 
@@ -189,7 +189,7 @@ public class WikiTextScripterTest {
     final File tmpFile = new File("src/test/resources/utf8.wett");
 
     final IScripter.IsSupportedResult tmpResult = tmpScripter.isSupported(tmpFile);
-    Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
+      Assert.assertSame(IScripter.IS_SUPPORTED, tmpResult);
 
     tmpScripter.script(tmpFile);
 
@@ -240,7 +240,7 @@ public class WikiTextScripterTest {
     final File tmpFile = new File("src/test/resources/unicode.wett");
 
     final IScripter.IsSupportedResult tmpResult = tmpScripter.isSupported(tmpFile);
-    Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
+      Assert.assertSame(IScripter.IS_SUPPORTED, tmpResult);
 
     tmpScripter.script(tmpFile);
 
@@ -261,7 +261,7 @@ public class WikiTextScripterTest {
     final File tmpFile = new File("src/test/resources/escaping.wett");
 
     final IScripter.IsSupportedResult tmpResult = tmpScripter.isSupported(tmpFile);
-    Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
+      Assert.assertSame(IScripter.IS_SUPPORTED, tmpResult);
 
     tmpScripter.script(tmpFile);
 

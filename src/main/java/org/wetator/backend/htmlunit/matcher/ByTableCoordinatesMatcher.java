@@ -17,7 +17,6 @@
 package org.wetator.backend.htmlunit.matcher;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -41,8 +40,8 @@ import org.wetator.util.FindSpot;
  */
 public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
 
-  private List<TableCoordinate> tableCoordinates;
-  private Class<? extends HtmlElement> clazz;
+  private final List<TableCoordinate> tableCoordinates;
+  private final Class<? extends HtmlElement> clazz;
 
   /**
    * The constructor.<br>
@@ -86,8 +85,8 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
       } else {
         tmpDistance = tmpTextBefore.length();
       }
-      return Arrays.asList(
-          new MatchResult(aHtmlElement, FoundType.BY_TABLE_COORDINATE, 0, tmpDistance, tmpNodeSpot.getStartPos()));
+      return Collections.singletonList(
+              new MatchResult(aHtmlElement, FoundType.BY_TABLE_COORDINATE, 0, tmpDistance, tmpNodeSpot.getStartPos()));
     }
 
     return Collections.emptyList();
@@ -219,7 +218,7 @@ public class ByTableCoordinatesMatcher extends AbstractHtmlUnitElementMatcher {
    */
   private static final class TableMatrix {
 
-    private List<List<HtmlTableCell>> rows = new ArrayList<>();
+    private final List<List<HtmlTableCell>> rows = new ArrayList<>();
     private int anchorColumn;
     private int anchorRow;
 

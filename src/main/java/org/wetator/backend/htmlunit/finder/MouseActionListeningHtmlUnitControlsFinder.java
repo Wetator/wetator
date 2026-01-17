@@ -57,9 +57,9 @@ public class MouseActionListeningHtmlUnitControlsFinder extends IdentifierBasedH
 
   private static final String PAGE_WPATH = "$PAGE";
 
-  private MouseAction mouseAction;
+  private final MouseAction mouseAction;
   private boolean supportUnknownControlsWithoutListener = true;
-  private HtmlUnitControlRepository controlRepository;
+  private final HtmlUnitControlRepository controlRepository;
 
   /**
    * The constructor.

@@ -25,7 +25,7 @@ import java.io.StringReader;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
@@ -69,7 +69,7 @@ public class XMLScripter implements IScripter {
    */
   public static final XMLSchema BASE_SCHEMA = new XMLSchema("http://www.wetator.org/xsd/test-case",
       "test-case-1.0.0.xsd");
-  private static final List<String> SUPPORTED_VERSIONS = Arrays.asList("1.0.0");
+  private static final List<String> SUPPORTED_VERSIONS = Collections.singletonList("1.0.0");
 
   private static final String E_TEST_CASE = "test-case";
   private static final String E_COMMAND = "command";

@@ -16,7 +16,6 @@
 
 package org.wetator.backend.htmlunit.matcher;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -38,7 +37,7 @@ public abstract class AbstractByAttributeMatcher extends AbstractHtmlUnitElement
    * The {@link MatchType} the matcher should use. It influences the way the criteria must be matched.
    */
   protected MatchType matchType = MatchType.CONTAINS;
-  private FoundType foundType;
+  private final FoundType foundType;
 
   /**
    * The constructor.<br>
@@ -94,8 +93,7 @@ public abstract class AbstractByAttributeMatcher extends AbstractHtmlUnitElement
           } else {
             tmpDistance = tmpTextBefore.length();
           }
-          return Arrays
-              .asList(new MatchResult(aHtmlElement, foundType, tmpDeviation, tmpDistance, tmpNodeSpot.getStartPos()));
+          return Collections.singletonList(new MatchResult(aHtmlElement, foundType, tmpDeviation, tmpDistance, tmpNodeSpot.getStartPos()));
         }
       }
     }

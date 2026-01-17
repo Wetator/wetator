@@ -49,7 +49,7 @@ public class HtmlUnitFinderDelegator implements IControlFinder {
 
   private static ThreadPoolExecutor threadPool;
 
-  private Map<ControlFeature, AbstractHtmlUnitControlsFinder> finders = new HashMap<>();
+  private final Map<ControlFeature, AbstractHtmlUnitControlsFinder> finders = new HashMap<>();
 
   /**
    * Our simple impl of a ThreadFactory (decorator) to be able to name
@@ -57,7 +57,7 @@ public class HtmlUnitFinderDelegator implements IControlFinder {
    */
   private static final class ThreadNamingFactory implements ThreadFactory {
     private static int id = 1;
-    private ThreadFactory baseFactory;
+    private final ThreadFactory baseFactory;
 
     private ThreadNamingFactory(final ThreadFactory aBaseFactory) {
       baseFactory = aBaseFactory;

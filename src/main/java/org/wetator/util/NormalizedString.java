@@ -27,7 +27,7 @@ package org.wetator.util;
 public class NormalizedString {
   private static final String BLANK = " ";
 
-  private StringBuilder content;
+  private final StringBuilder content;
   private boolean isAppendDisabled;
 
   /**

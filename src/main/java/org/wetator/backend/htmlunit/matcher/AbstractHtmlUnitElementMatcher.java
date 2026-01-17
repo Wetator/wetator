@@ -36,15 +36,15 @@ public abstract class AbstractHtmlUnitElementMatcher {
   /**
    * The {@link HtmlPageIndex} of the page the match is based on.
    */
-  protected HtmlPageIndex htmlPageIndex;
+  protected final HtmlPageIndex htmlPageIndex;
   /**
    * The {@link SearchPattern} describing the path to the element.
    */
-  protected SearchPattern pathSearchPattern;
+  protected final SearchPattern pathSearchPattern;
   /**
    * The {@link FindSpot} the path was found first.
    */
-  protected FindSpot pathSpot;
+  protected final FindSpot pathSpot;
   /**
    * The {@link SearchPattern} describing the element.
    */
@@ -81,11 +81,11 @@ public abstract class AbstractHtmlUnitElementMatcher {
    */
   public static class MatchResult {
 
-    private HtmlElement htmlElement;
-    private FoundType foundType;
-    private int deviation;
-    private int distance;
-    private int start;
+    private final HtmlElement htmlElement;
+    private final FoundType foundType;
+    private final int deviation;
+    private final int distance;
+    private final int start;
 
     /**
      * @param aHtmlElement the matching {@link HtmlElement}

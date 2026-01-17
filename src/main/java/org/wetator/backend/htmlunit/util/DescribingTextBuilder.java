@@ -28,8 +28,8 @@ import org.wetator.backend.htmlunit.matcher.ByDataTestidMatcher;
  */
 public final class DescribingTextBuilder {
 
-  private HtmlElement htmlElement;
-  private StringBuilder describingText = new StringBuilder();
+  private final HtmlElement htmlElement;
+  private final StringBuilder describingText = new StringBuilder();
 
   /**
    * Creates a {@link DescribingTextBuilder} for the given {@link HtmlElement} adding it's id and name.

@@ -28,8 +28,8 @@ import org.wetator.util.FindSpot;
  */
 public final class TextOnlySearchPattern extends SearchPattern {
 
-  private String patternString;
-  private int patternLength;
+  private final String patternString;
+  private final int patternLength;
 
   /**
    * The constructor.

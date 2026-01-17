@@ -103,7 +103,7 @@ public class HtmlUnitControlRepositoryTest {
    * @author frank.danek
    */
   @ForHtmlElement(value = HtmlAnchor.class, attributeName = "id", attributeValues = { "myId2" })
-  private class TestControl extends HtmlUnitBaseControl<HtmlAnchor> {
+  private static class TestControl extends HtmlUnitBaseControl<HtmlAnchor> {
 
     /**
      * The constructor.

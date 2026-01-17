@@ -57,7 +57,7 @@ public class SchemaFinderTest {
     Assert.assertEquals(1, tmpSchemas.size());
     final XMLSchema tmpSchema = tmpSchemas.get(0);
     Assert.assertEquals("http://www.wetator.org/xsd/default", tmpSchema.getNamespace());
-    Assert.assertEquals(null, tmpSchema.getPrefix());
+      Assert.assertNull(tmpSchema.getPrefix());
     Assert.assertEquals("default.xsd", tmpSchema.getLocation());
   }
 
@@ -87,7 +87,7 @@ public class SchemaFinderTest {
     Assert.assertEquals(3, tmpSchemas.size());
     XMLSchema tmpSchema = tmpSchemas.get(0);
     Assert.assertEquals("http://www.wetator.org/xsd/default", tmpSchema.getNamespace());
-    Assert.assertEquals(null, tmpSchema.getPrefix());
+      Assert.assertNull(tmpSchema.getPrefix());
     Assert.assertEquals("default.xsd", tmpSchema.getLocation());
 
     tmpSchema = tmpSchemas.get(1);

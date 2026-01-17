@@ -40,7 +40,7 @@ public class HtmlUnitInputTelTest {
     // @formatter:on
     PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-      final HtmlTelInput tmpTel = (HtmlTelInput) tmpHtmlPage.getHtmlElementById("myId");
+      final HtmlTelInput tmpTel = tmpHtmlPage.getHtmlElementById("myId");
       final HtmlUnitInputTel tmpControl = new HtmlUnitInputTel(tmpTel);
 
       assertTrue(tmpControl.isDisabled(null));
@@ -58,7 +58,7 @@ public class HtmlUnitInputTelTest {
     // @formatter:on
     PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-      final HtmlTelInput tmpTel = (HtmlTelInput) tmpHtmlPage.getHtmlElementById("myId");
+      final HtmlTelInput tmpTel = tmpHtmlPage.getHtmlElementById("myId");
       final HtmlUnitInputTel tmpControl = new HtmlUnitInputTel(tmpTel);
 
       assertFalse(tmpControl.isDisabled(null));
@@ -76,7 +76,7 @@ public class HtmlUnitInputTelTest {
     // @formatter:on
     PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-      final HtmlTelInput tmpTel = (HtmlTelInput) tmpHtmlPage.getHtmlElementById("myId");
+      final HtmlTelInput tmpTel = tmpHtmlPage.getHtmlElementById("myId");
       final HtmlUnitInputTel tmpControl = new HtmlUnitInputTel(tmpTel);
 
       assertTrue(tmpControl.isDisabled(null));
@@ -94,7 +94,7 @@ public class HtmlUnitInputTelTest {
     // @formatter:on
     PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-      final HtmlTelInput tmpTel = (HtmlTelInput) tmpHtmlPage.getHtmlElementById("myId");
+      final HtmlTelInput tmpTel = tmpHtmlPage.getHtmlElementById("myId");
       final HtmlUnitInputTel tmpControl = new HtmlUnitInputTel(tmpTel);
 
       assertTrue(tmpControl.isDisabled(null));
@@ -112,7 +112,7 @@ public class HtmlUnitInputTelTest {
     // @formatter:on
     PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-      final HtmlTelInput tmpTel = (HtmlTelInput) tmpHtmlPage.getHtmlElementById("myId");
+      final HtmlTelInput tmpTel = tmpHtmlPage.getHtmlElementById("myId");
       final HtmlUnitInputTel tmpControl = new HtmlUnitInputTel(tmpTel);
 
       assertTrue(tmpControl.isDisabled(null));

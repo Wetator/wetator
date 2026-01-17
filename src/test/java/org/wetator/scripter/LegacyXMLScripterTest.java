@@ -39,7 +39,7 @@ public class LegacyXMLScripterTest {
     final File tmpFile = new File("src/test/resources/excel.xls");
 
     final IScripter.IsSupportedResult tmpResult = tmpLegacyXMLScripter.isSupported(tmpFile);
-    Assert.assertTrue(IScripter.IS_SUPPORTED != tmpResult);
+      Assert.assertNotSame(IScripter.IS_SUPPORTED, tmpResult);
 
     Assert.assertEquals("File 'excel.xls' not supported by LegacyXMLScripter. Extension is not '.wet' or '.xml'.",
         tmpResult.getMessage());
@@ -51,7 +51,7 @@ public class LegacyXMLScripterTest {
     final File tmpFile = new File("src/test/resources/doesNotExist.xml");
 
     final IScripter.IsSupportedResult tmpResult = tmpLegacyXMLScripter.isSupported(tmpFile);
-    Assert.assertTrue(IScripter.IS_SUPPORTED != tmpResult);
+      Assert.assertNotSame(IScripter.IS_SUPPORTED, tmpResult);
 
     Assert.assertEquals("File 'doesNotExist.xml' not supported by LegacyXMLScripter. Could not find file.",
         tmpResult.getMessage());
@@ -63,7 +63,7 @@ public class LegacyXMLScripterTest {
     final File tmpFile = new File("src/test/resources/empty.xml");
 
     final IScripter.IsSupportedResult tmpResult = tmpLegacyXMLScripter.isSupported(tmpFile);
-    Assert.assertTrue(IScripter.IS_SUPPORTED != tmpResult);
+      Assert.assertNotSame(IScripter.IS_SUPPORTED, tmpResult);
 
     Assert.assertEquals("File 'empty.xml' not supported by LegacyXMLScripter. Could not parse file.",
         tmpResult.getMessage());
@@ -75,7 +75,7 @@ public class LegacyXMLScripterTest {
     final File tmpFile = new File("src/test/resources/empty.wet");
 
     final IScripter.IsSupportedResult tmpResult = tmpLegacyXMLScripter.isSupported(tmpFile);
-    Assert.assertTrue(IScripter.IS_SUPPORTED != tmpResult);
+      Assert.assertNotSame(IScripter.IS_SUPPORTED, tmpResult);
 
     Assert.assertEquals("File 'empty.wet' not supported by LegacyXMLScripter. Could not parse file.",
         tmpResult.getMessage());
@@ -87,7 +87,7 @@ public class LegacyXMLScripterTest {
     final File tmpFile = new File("src/test/resources/xml.xml");
 
     final IScripter.IsSupportedResult tmpResult = tmpLegacyXMLScripter.isSupported(tmpFile);
-    Assert.assertTrue(IScripter.IS_SUPPORTED != tmpResult);
+      Assert.assertNotSame(IScripter.IS_SUPPORTED, tmpResult);
 
     Assert.assertEquals("File 'xml.xml' not supported by LegacyXMLScripter. Could not parse file.",
         tmpResult.getMessage());
@@ -99,7 +99,7 @@ public class LegacyXMLScripterTest {
     final File tmpFile = new File("src/test/resources/xml.wet");
 
     final IScripter.IsSupportedResult tmpResult = tmpLegacyXMLScripter.isSupported(tmpFile);
-    Assert.assertTrue(IScripter.IS_SUPPORTED != tmpResult);
+      Assert.assertNotSame(IScripter.IS_SUPPORTED, tmpResult);
 
     Assert.assertEquals("File 'xml.wet' not supported by LegacyXMLScripter. Could not parse file.",
         tmpResult.getMessage());
@@ -111,7 +111,7 @@ public class LegacyXMLScripterTest {
     final File tmpFile = new File("src/test/resources/legacyXML.xml");
 
     final IScripter.IsSupportedResult tmpResult = tmpLegacyXMLScripter.isSupported(tmpFile);
-    Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
+      Assert.assertSame(IScripter.IS_SUPPORTED, tmpResult);
   }
 
   @Test
@@ -120,7 +120,7 @@ public class LegacyXMLScripterTest {
     final File tmpFile = new File("src/test/resources/legacyXML.wet");
 
     final IScripter.IsSupportedResult tmpResult = tmpLegacyXMLScripter.isSupported(tmpFile);
-    Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
+      Assert.assertSame(IScripter.IS_SUPPORTED, tmpResult);
   }
 
   @Test(expected = InvalidInputException.class)
@@ -129,7 +129,7 @@ public class LegacyXMLScripterTest {
     final File tmpFile = new File("src/test/resources/legacyXMLMalformed.xml");
 
     final IScripter.IsSupportedResult tmpResult = tmpLegacyXMLScripter.isSupported(tmpFile);
-    Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
+      Assert.assertSame(IScripter.IS_SUPPORTED, tmpResult);
 
     tmpLegacyXMLScripter.script(tmpFile);
   }
@@ -140,7 +140,7 @@ public class LegacyXMLScripterTest {
     final File tmpFile = new File("src/test/resources/legacyXML.xml");
 
     final IScripter.IsSupportedResult tmpResult = tmpLegacyXMLScripter.isSupported(tmpFile);
-    Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
+      Assert.assertSame(IScripter.IS_SUPPORTED, tmpResult);
 
     tmpLegacyXMLScripter.script(tmpFile);
 
@@ -205,7 +205,7 @@ public class LegacyXMLScripterTest {
     final File tmpFile = new File("src/test/resources/legacyXML.wet");
 
     final IScripter.IsSupportedResult tmpResult = tmpLegacyXMLScripter.isSupported(tmpFile);
-    Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
+      Assert.assertSame(IScripter.IS_SUPPORTED, tmpResult);
 
     tmpLegacyXMLScripter.script(tmpFile);
 

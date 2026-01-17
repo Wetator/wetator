@@ -56,7 +56,7 @@ public abstract class HtmlUnitBaseControl<T extends HtmlElement> implements IHtm
 
   private static final Logger LOG = LogManager.getLogger(HtmlUnitBaseControl.class);
 
-  private T htmlElement;
+  private final T htmlElement;
 
   /**
    * The constructor.

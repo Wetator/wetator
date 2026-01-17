@@ -63,9 +63,9 @@ public abstract class AbstractProgressListenerTest {
   @Rule
   public TestName testName = new TestName();
 
-  protected WetatorConfiguration configuration = mock(WetatorConfiguration.class);
-  protected WetatorEngine engine = mock(WetatorEngine.class);
-  protected WetatorContext context = mock(WetatorContext.class);
+  protected final WetatorConfiguration configuration = mock(WetatorConfiguration.class);
+  protected final WetatorEngine engine = mock(WetatorEngine.class);
+  protected final WetatorContext context = mock(WetatorContext.class);
 
   protected IProgressListener progressListener;
 

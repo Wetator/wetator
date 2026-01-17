@@ -88,8 +88,8 @@ public interface IBrowser {
     /** Edge. */
     EDGE("Edge", "Edge");
 
-    private String label;
-    private String symbol;
+    private final String label;
+    private final String symbol;
 
     /**
      * The constructor.

@@ -40,7 +40,7 @@ public class HtmlUnitInputNumberTest {
     // @formatter:on
     PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-      final HtmlNumberInput tmpNumber = (HtmlNumberInput) tmpHtmlPage.getHtmlElementById("myId");
+      final HtmlNumberInput tmpNumber = tmpHtmlPage.getHtmlElementById("myId");
       final HtmlUnitInputNumber tmpControl = new HtmlUnitInputNumber(tmpNumber);
 
       assertTrue(tmpControl.isDisabled(null));
@@ -58,7 +58,7 @@ public class HtmlUnitInputNumberTest {
     // @formatter:on
     PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-      final HtmlNumberInput tmpNumber = (HtmlNumberInput) tmpHtmlPage.getHtmlElementById("myId");
+      final HtmlNumberInput tmpNumber = tmpHtmlPage.getHtmlElementById("myId");
       final HtmlUnitInputNumber tmpControl = new HtmlUnitInputNumber(tmpNumber);
 
       assertFalse(tmpControl.isDisabled(null));
@@ -76,7 +76,7 @@ public class HtmlUnitInputNumberTest {
     // @formatter:on
     PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-      final HtmlNumberInput tmpNumber = (HtmlNumberInput) tmpHtmlPage.getHtmlElementById("myId");
+      final HtmlNumberInput tmpNumber = tmpHtmlPage.getHtmlElementById("myId");
       final HtmlUnitInputNumber tmpControl = new HtmlUnitInputNumber(tmpNumber);
 
       assertTrue(tmpControl.isDisabled(null));
@@ -94,7 +94,7 @@ public class HtmlUnitInputNumberTest {
     // @formatter:on
     PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-      final HtmlNumberInput tmpNumber = (HtmlNumberInput) tmpHtmlPage.getHtmlElementById("myId");
+      final HtmlNumberInput tmpNumber = tmpHtmlPage.getHtmlElementById("myId");
       final HtmlUnitInputNumber tmpControl = new HtmlUnitInputNumber(tmpNumber);
 
       assertTrue(tmpControl.isDisabled(null));
@@ -112,7 +112,7 @@ public class HtmlUnitInputNumberTest {
     // @formatter:on
     PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-      final HtmlNumberInput tmpNumber = (HtmlNumberInput) tmpHtmlPage.getHtmlElementById("myId");
+      final HtmlNumberInput tmpNumber = tmpHtmlPage.getHtmlElementById("myId");
       final HtmlUnitInputNumber tmpControl = new HtmlUnitInputNumber(tmpNumber);
 
       assertTrue(tmpControl.isDisabled(null));

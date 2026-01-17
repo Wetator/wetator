@@ -20,7 +20,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,15 +51,14 @@ public class LocalEntityResolver implements EntityResolver {
   private static Map<String, List<XMLSchema>> getKnownSchemas() {
     final Map<String, List<XMLSchema>> tmpKnownSchemas = new HashMap<>();
     tmpKnownSchemas.put(XMLScripter.BASE_SCHEMA.getNamespace(),
-        Arrays.asList(new XMLSchema(XMLScripter.BASE_SCHEMA.getNamespace(), "test-case-1.0.0.xsd")));
-    tmpKnownSchemas.put(XMLScripter.DEFAULT_COMMAND_SET_SCHEMA.getNamespace(), Arrays.asList(
-        new XMLSchema("d", XMLScripter.DEFAULT_COMMAND_SET_SCHEMA.getNamespace(), "default-command-set-1.0.0.xsd")));
+            Collections.singletonList(new XMLSchema(XMLScripter.BASE_SCHEMA.getNamespace(), "test-case-1.0.0.xsd")));
+    tmpKnownSchemas.put(XMLScripter.DEFAULT_COMMAND_SET_SCHEMA.getNamespace(), Collections.singletonList(
+            new XMLSchema("d", XMLScripter.DEFAULT_COMMAND_SET_SCHEMA.getNamespace(), "default-command-set-1.0.0.xsd")));
     tmpKnownSchemas.put("http://www.wetator.org/xsd/sql-command-set",
-        Arrays.asList(new XMLSchema("sql", "http://www.wetator.org/xsd/sql-command-set", "sql-command-set-1.0.0.xsd")));
-    tmpKnownSchemas.put("http://www.wetator.org/xsd/test-command-set", Arrays
-        .asList(new XMLSchema("tst", "http://www.wetator.org/xsd/test-command-set", "test-command-set-1.0.0.xsd")));
-    tmpKnownSchemas.put("http://www.wetator.org/xsd/incubator-command-set", Arrays.asList(
-        new XMLSchema("inc", "http://www.wetator.org/xsd/incubator-command-set", "incubator-command-set-1.0.0.xsd")));
+            Collections.singletonList(new XMLSchema("sql", "http://www.wetator.org/xsd/sql-command-set", "sql-command-set-1.0.0.xsd")));
+    tmpKnownSchemas.put("http://www.wetator.org/xsd/test-command-set", Collections.singletonList(new XMLSchema("tst", "http://www.wetator.org/xsd/test-command-set", "test-command-set-1.0.0.xsd")));
+    tmpKnownSchemas.put("http://www.wetator.org/xsd/incubator-command-set", Collections.singletonList(
+            new XMLSchema("inc", "http://www.wetator.org/xsd/incubator-command-set", "incubator-command-set-1.0.0.xsd")));
     return tmpKnownSchemas;
   }
 

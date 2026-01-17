@@ -22,6 +22,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -1452,7 +1453,7 @@ public class SecretStringTest {
   public void replaceVariablesStringNull() {
     final SecretString tmpSecret = new SecretString(null);
 
-    tmpSecret.replaceVariables(Arrays.asList(new Variable("var0", "value0", false)));
+    tmpSecret.replaceVariables(Collections.singletonList(new Variable("var0", "value0", false)));
 
     assertEquals("", tmpSecret.getValue());
     assertEquals("", tmpSecret.toString());
@@ -1462,7 +1463,7 @@ public class SecretStringTest {
   public void replaceVariablesStringSecretNull() {
     final SecretString tmpSecret = new SecretString().appendSecret(null);
 
-    tmpSecret.replaceVariables(Arrays.asList(new Variable("var0", "value0", false)));
+    tmpSecret.replaceVariables(Collections.singletonList(new Variable("var0", "value0", false)));
 
     assertEquals("", tmpSecret.getValue());
     assertEquals("", tmpSecret.toString());
@@ -1472,7 +1473,7 @@ public class SecretStringTest {
   public void replaceVariablesStringEmpty() {
     final SecretString tmpSecret = new SecretString("");
 
-    tmpSecret.replaceVariables(Arrays.asList(new Variable("var0", "value0", false)));
+    tmpSecret.replaceVariables(Collections.singletonList(new Variable("var0", "value0", false)));
 
     assertEquals("", tmpSecret.getValue());
     assertEquals("", tmpSecret.toString());
@@ -1482,7 +1483,7 @@ public class SecretStringTest {
   public void replaceVariablesStringSecretEmpty() {
     final SecretString tmpSecret = new SecretString().appendSecret("");
 
-    tmpSecret.replaceVariables(Arrays.asList(new Variable("var0", "value0", false)));
+    tmpSecret.replaceVariables(Collections.singletonList(new Variable("var0", "value0", false)));
 
     assertEquals("", tmpSecret.getValue());
     assertEquals("****", tmpSecret.toString());
@@ -1492,7 +1493,7 @@ public class SecretStringTest {
   public void replaceVariablesStringFix() {
     final SecretString tmpSecret = new SecretString("public");
 
-    tmpSecret.replaceVariables(Arrays.asList(new Variable("var0", "value0", false)));
+    tmpSecret.replaceVariables(Collections.singletonList(new Variable("var0", "value0", false)));
 
     assertEquals("public", tmpSecret.getValue());
     assertEquals("public", tmpSecret.toString());
@@ -1502,7 +1503,7 @@ public class SecretStringTest {
   public void replaceVariablesStringSecretFix() {
     final SecretString tmpSecret = new SecretString().appendSecret("hidden");
 
-    tmpSecret.replaceVariables(Arrays.asList(new Variable("var0", "value0", false)));
+    tmpSecret.replaceVariables(Collections.singletonList(new Variable("var0", "value0", false)));
 
     assertEquals("hidden", tmpSecret.getValue());
     assertEquals("****", tmpSecret.toString());
@@ -1532,7 +1533,7 @@ public class SecretStringTest {
   public void replaceVariablesStringOneVarVarsEmpty() {
     final SecretString tmpSecret = new SecretString("${var0}");
 
-    tmpSecret.replaceVariables(new LinkedList<Variable>());
+    tmpSecret.replaceVariables(new LinkedList<>());
 
     assertEquals("${var0}", tmpSecret.getValue());
     assertEquals("${var0}", tmpSecret.toString());
@@ -1542,7 +1543,7 @@ public class SecretStringTest {
   public void replaceVariablesStringSecretOneVarVarsEmpty() {
     final SecretString tmpSecret = new SecretString().appendSecret("${var0}");
 
-    tmpSecret.replaceVariables(new LinkedList<Variable>());
+    tmpSecret.replaceVariables(new LinkedList<>());
 
     assertEquals("${var0}", tmpSecret.getValue());
     assertEquals("****", tmpSecret.toString());
@@ -1552,7 +1553,7 @@ public class SecretStringTest {
   public void replaceVariablesStringOneVarVarsUnknown() {
     final SecretString tmpSecret = new SecretString("${var0}");
 
-    tmpSecret.replaceVariables(Arrays.asList(new Variable("var1", "value1", false)));
+    tmpSecret.replaceVariables(Collections.singletonList(new Variable("var1", "value1", false)));
 
     assertEquals("${var0}", tmpSecret.getValue());
     assertEquals("${var0}", tmpSecret.toString());
@@ -1562,7 +1563,7 @@ public class SecretStringTest {
   public void replaceVariablesStringSecretOneVarVarsUnknown() {
     final SecretString tmpSecret = new SecretString().appendSecret("${var0}");
 
-    tmpSecret.replaceVariables(Arrays.asList(new Variable("var1", "value1", false)));
+    tmpSecret.replaceVariables(Collections.singletonList(new Variable("var1", "value1", false)));
 
     assertEquals("${var0}", tmpSecret.getValue());
     assertEquals("****", tmpSecret.toString());
@@ -1572,7 +1573,7 @@ public class SecretStringTest {
   public void replaceVariablesStringOneVarVarsMatchEmpty() {
     final SecretString tmpSecret = new SecretString("${var0}");
 
-    tmpSecret.replaceVariables(Arrays.asList(new Variable("var0", "", false)));
+    tmpSecret.replaceVariables(Collections.singletonList(new Variable("var0", "", false)));
 
     assertEquals("", tmpSecret.getValue());
     assertEquals("", tmpSecret.toString());
@@ -1582,7 +1583,7 @@ public class SecretStringTest {
   public void replaceVariablesStringSecretOneVarVarsMatchEmpty() {
     final SecretString tmpSecret = new SecretString().appendSecret("${var0}");
 
-    tmpSecret.replaceVariables(Arrays.asList(new Variable("var0", "", false)));
+    tmpSecret.replaceVariables(Collections.singletonList(new Variable("var0", "", false)));
 
     assertEquals("", tmpSecret.getValue());
     assertEquals("****", tmpSecret.toString());
@@ -1592,7 +1593,7 @@ public class SecretStringTest {
   public void replaceVariablesStringOneVarVarsSecretMatchEmpty() {
     final SecretString tmpSecret = new SecretString("${var0}");
 
-    tmpSecret.replaceVariables(Arrays.asList(new Variable("var0", "", true)));
+    tmpSecret.replaceVariables(Collections.singletonList(new Variable("var0", "", true)));
 
     assertEquals("", tmpSecret.getValue());
     assertEquals("****", tmpSecret.toString());
@@ -1602,7 +1603,7 @@ public class SecretStringTest {
   public void replaceVariablesStringSecretOneVarVarsSecretMatchEmpty() {
     final SecretString tmpSecret = new SecretString().appendSecret("${var0}");
 
-    tmpSecret.replaceVariables(Arrays.asList(new Variable("var0", "", true)));
+    tmpSecret.replaceVariables(Collections.singletonList(new Variable("var0", "", true)));
 
     assertEquals("", tmpSecret.getValue());
     assertEquals("****", tmpSecret.toString());
@@ -1612,7 +1613,7 @@ public class SecretStringTest {
   public void replaceVariablesStringOneVarVarsMatchOnly() {
     final SecretString tmpSecret = new SecretString("${var0}");
 
-    tmpSecret.replaceVariables(Arrays.asList(new Variable("var0", "value0", false)));
+    tmpSecret.replaceVariables(Collections.singletonList(new Variable("var0", "value0", false)));
 
     assertEquals("value0", tmpSecret.getValue());
     assertEquals("value0", tmpSecret.toString());
@@ -1622,7 +1623,7 @@ public class SecretStringTest {
   public void replaceVariablesStringSecretOneVarVarsMatchOnly() {
     final SecretString tmpSecret = new SecretString().appendSecret("${var0}");
 
-    tmpSecret.replaceVariables(Arrays.asList(new Variable("var0", "value0", false)));
+    tmpSecret.replaceVariables(Collections.singletonList(new Variable("var0", "value0", false)));
 
     assertEquals("value0", tmpSecret.getValue());
     assertEquals("****", tmpSecret.toString());
@@ -1632,7 +1633,7 @@ public class SecretStringTest {
   public void replaceVariablesStringOneVarVarsSecretMatchOnly() {
     final SecretString tmpSecret = new SecretString("${var0}");
 
-    tmpSecret.replaceVariables(Arrays.asList(new Variable("var0", "value0", true)));
+    tmpSecret.replaceVariables(Collections.singletonList(new Variable("var0", "value0", true)));
 
     assertEquals("value0", tmpSecret.getValue());
     assertEquals("****", tmpSecret.toString());
@@ -1642,7 +1643,7 @@ public class SecretStringTest {
   public void replaceVariablesStringSecretOneVarVarsSecretMatchOnly() {
     final SecretString tmpSecret = new SecretString().appendSecret("${var0}");
 
-    tmpSecret.replaceVariables(Arrays.asList(new Variable("var0", "value0", true)));
+    tmpSecret.replaceVariables(Collections.singletonList(new Variable("var0", "value0", true)));
 
     assertEquals("value0", tmpSecret.getValue());
     assertEquals("****", tmpSecret.toString());
@@ -1652,7 +1653,7 @@ public class SecretStringTest {
   public void replaceVariablesStringOneVarVarsMatchAtStart() {
     final SecretString tmpSecret = new SecretString("${var0}public");
 
-    tmpSecret.replaceVariables(Arrays.asList(new Variable("var0", "value0", false)));
+    tmpSecret.replaceVariables(Collections.singletonList(new Variable("var0", "value0", false)));
 
     assertEquals("value0public", tmpSecret.getValue());
     assertEquals("value0public", tmpSecret.toString());
@@ -1662,7 +1663,7 @@ public class SecretStringTest {
   public void replaceVariablesStringSecretOneVarVarsMatchAtStart() {
     final SecretString tmpSecret = new SecretString().appendSecret("${var0}hidden");
 
-    tmpSecret.replaceVariables(Arrays.asList(new Variable("var0", "value0", false)));
+    tmpSecret.replaceVariables(Collections.singletonList(new Variable("var0", "value0", false)));
 
     assertEquals("value0hidden", tmpSecret.getValue());
     assertEquals("****", tmpSecret.toString());
@@ -1672,7 +1673,7 @@ public class SecretStringTest {
   public void replaceVariablesStringOneVarVarsSecretMatchAtStart() {
     final SecretString tmpSecret = new SecretString("${var0}public");
 
-    tmpSecret.replaceVariables(Arrays.asList(new Variable("var0", "value0", true)));
+    tmpSecret.replaceVariables(Collections.singletonList(new Variable("var0", "value0", true)));
 
     assertEquals("value0public", tmpSecret.getValue());
     assertEquals("****public", tmpSecret.toString());
@@ -1682,7 +1683,7 @@ public class SecretStringTest {
   public void replaceVariablesStringSecretOneVarVarsSecretMatchAtStart() {
     final SecretString tmpSecret = new SecretString().appendSecret("${var0}hidden");
 
-    tmpSecret.replaceVariables(Arrays.asList(new Variable("var0", "value0", true)));
+    tmpSecret.replaceVariables(Collections.singletonList(new Variable("var0", "value0", true)));
 
     assertEquals("value0hidden", tmpSecret.getValue());
     assertEquals("****", tmpSecret.toString());
@@ -1692,7 +1693,7 @@ public class SecretStringTest {
   public void replaceVariablesStringOneVarVarsMatchInTheMiddle() {
     final SecretString tmpSecret = new SecretString("pub${var0}lic");
 
-    tmpSecret.replaceVariables(Arrays.asList(new Variable("var0", "value0", false)));
+    tmpSecret.replaceVariables(Collections.singletonList(new Variable("var0", "value0", false)));
 
     assertEquals("pubvalue0lic", tmpSecret.getValue());
     assertEquals("pubvalue0lic", tmpSecret.toString());
@@ -1702,7 +1703,7 @@ public class SecretStringTest {
   public void replaceVariablesStringSecretOneVarVarsMatchInTheMiddle() {
     final SecretString tmpSecret = new SecretString().appendSecret("hid${var0}den");
 
-    tmpSecret.replaceVariables(Arrays.asList(new Variable("var0", "value0", false)));
+    tmpSecret.replaceVariables(Collections.singletonList(new Variable("var0", "value0", false)));
 
     assertEquals("hidvalue0den", tmpSecret.getValue());
     assertEquals("****", tmpSecret.toString());
@@ -1712,7 +1713,7 @@ public class SecretStringTest {
   public void replaceVariablesStringOneVarVarsSecretMatchInTheMiddle() {
     final SecretString tmpSecret = new SecretString("pub${var0}lic");
 
-    tmpSecret.replaceVariables(Arrays.asList(new Variable("var0", "value0", true)));
+    tmpSecret.replaceVariables(Collections.singletonList(new Variable("var0", "value0", true)));
 
     assertEquals("pubvalue0lic", tmpSecret.getValue());
     assertEquals("pub****lic", tmpSecret.toString());
@@ -1722,7 +1723,7 @@ public class SecretStringTest {
   public void replaceVariablesStringSecretOneVarVarsSecretMatchInTheMiddle() {
     final SecretString tmpSecret = new SecretString().appendSecret("hid${var0}den");
 
-    tmpSecret.replaceVariables(Arrays.asList(new Variable("var0", "value0", true)));
+    tmpSecret.replaceVariables(Collections.singletonList(new Variable("var0", "value0", true)));
 
     assertEquals("hidvalue0den", tmpSecret.getValue());
     assertEquals("****", tmpSecret.toString());
@@ -1732,7 +1733,7 @@ public class SecretStringTest {
   public void replaceVariablesStringOneVarVarsMatchAtEnd() {
     final SecretString tmpSecret = new SecretString("public${var0}");
 
-    tmpSecret.replaceVariables(Arrays.asList(new Variable("var0", "value0", false)));
+    tmpSecret.replaceVariables(Collections.singletonList(new Variable("var0", "value0", false)));
 
     assertEquals("publicvalue0", tmpSecret.getValue());
     assertEquals("publicvalue0", tmpSecret.toString());
@@ -1742,7 +1743,7 @@ public class SecretStringTest {
   public void replaceVariablesStringSecretOneVarVarsMatchAtEnd() {
     final SecretString tmpSecret = new SecretString().appendSecret("hidden${var0}");
 
-    tmpSecret.replaceVariables(Arrays.asList(new Variable("var0", "value0", false)));
+    tmpSecret.replaceVariables(Collections.singletonList(new Variable("var0", "value0", false)));
 
     assertEquals("hiddenvalue0", tmpSecret.getValue());
     assertEquals("****", tmpSecret.toString());
@@ -1752,7 +1753,7 @@ public class SecretStringTest {
   public void replaceVariablesStringOneVarVarsSecretMatchAtEnd() {
     final SecretString tmpSecret = new SecretString("public${var0}");
 
-    tmpSecret.replaceVariables(Arrays.asList(new Variable("var0", "value0", true)));
+    tmpSecret.replaceVariables(Collections.singletonList(new Variable("var0", "value0", true)));
 
     assertEquals("publicvalue0", tmpSecret.getValue());
     assertEquals("public****", tmpSecret.toString());
@@ -1762,7 +1763,7 @@ public class SecretStringTest {
   public void replaceVariablesStringSecretOneVarVarsSecretMatchAtEnd() {
     final SecretString tmpSecret = new SecretString().appendSecret("hidden${var0}");
 
-    tmpSecret.replaceVariables(Arrays.asList(new Variable("var0", "value0", true)));
+    tmpSecret.replaceVariables(Collections.singletonList(new Variable("var0", "value0", true)));
 
     assertEquals("hiddenvalue0", tmpSecret.getValue());
     assertEquals("****", tmpSecret.toString());
@@ -1772,7 +1773,7 @@ public class SecretStringTest {
   public void replaceVariablesStringOneVarTwiceVarsMatch() {
     final SecretString tmpSecret = new SecretString("${var0} ${var0}");
 
-    tmpSecret.replaceVariables(Arrays.asList(new Variable("var0", "value0", false)));
+    tmpSecret.replaceVariables(Collections.singletonList(new Variable("var0", "value0", false)));
 
     assertEquals("value0 value0", tmpSecret.getValue());
     assertEquals("value0 value0", tmpSecret.toString());
@@ -1782,7 +1783,7 @@ public class SecretStringTest {
   public void replaceVariablesStringSecretOneVarTwiceVarsMatch() {
     final SecretString tmpSecret = new SecretString().appendSecret("${var0} ${var0}");
 
-    tmpSecret.replaceVariables(Arrays.asList(new Variable("var0", "value0", false)));
+    tmpSecret.replaceVariables(Collections.singletonList(new Variable("var0", "value0", false)));
 
     assertEquals("value0 value0", tmpSecret.getValue());
     assertEquals("****", tmpSecret.toString());
@@ -1792,7 +1793,7 @@ public class SecretStringTest {
   public void replaceVariablesStringOneVarTwiceVarsSecretMatch() {
     final SecretString tmpSecret = new SecretString("${var0} ${var0}");
 
-    tmpSecret.replaceVariables(Arrays.asList(new Variable("var0", "value0", true)));
+    tmpSecret.replaceVariables(Collections.singletonList(new Variable("var0", "value0", true)));
 
     assertEquals("value0 value0", tmpSecret.getValue());
     assertEquals("**** ****", tmpSecret.toString());
@@ -1802,7 +1803,7 @@ public class SecretStringTest {
   public void replaceVariablesStringSecretOneVarTwiceVarsSecretMatch() {
     final SecretString tmpSecret = new SecretString().appendSecret("${var0} ${var0}");
 
-    tmpSecret.replaceVariables(Arrays.asList(new Variable("var0", "value0", true)));
+    tmpSecret.replaceVariables(Collections.singletonList(new Variable("var0", "value0", true)));
 
     assertEquals("value0 value0", tmpSecret.getValue());
     assertEquals("****", tmpSecret.toString());
@@ -2277,7 +2278,7 @@ public class SecretStringTest {
   public void replaceVariablesStringBrokenStartSeqOnly() {
     final SecretString tmpSecret = new SecretString("a ${var0bc");
 
-    tmpSecret.replaceVariables(Arrays.asList(new Variable("var0", "value0", false)));
+    tmpSecret.replaceVariables(Collections.singletonList(new Variable("var0", "value0", false)));
 
     assertEquals("a ${var0bc", tmpSecret.getValue());
     assertEquals("a ${var0bc", tmpSecret.toString());
@@ -2287,7 +2288,7 @@ public class SecretStringTest {
   public void replaceVariablesStringSecretBrokenStartSeqOnly() {
     final SecretString tmpSecret = new SecretString().appendSecret("a ${var0bc");
 
-    tmpSecret.replaceVariables(Arrays.asList(new Variable("var0", "value0", false)));
+    tmpSecret.replaceVariables(Collections.singletonList(new Variable("var0", "value0", false)));
 
     assertEquals("a ${var0bc", tmpSecret.getValue());
     assertEquals("****", tmpSecret.toString());
@@ -2297,7 +2298,7 @@ public class SecretStringTest {
   public void replaceVariablesStringBrokenOneVarOneStartSeqOnly() {
     final SecretString tmpSecret = new SecretString("a ${var0 ${var0}bc");
 
-    tmpSecret.replaceVariables(Arrays.asList(new Variable("var0", "value0", false)));
+    tmpSecret.replaceVariables(Collections.singletonList(new Variable("var0", "value0", false)));
 
     assertEquals("a ${var0 value0bc", tmpSecret.getValue());
     assertEquals("a ${var0 value0bc", tmpSecret.toString());
@@ -2307,7 +2308,7 @@ public class SecretStringTest {
   public void replaceVariablesStringSecretBrokenOneVarOneStartSeqOnly() {
     final SecretString tmpSecret = new SecretString().appendSecret("a ${var0 ${var0}bc");
 
-    tmpSecret.replaceVariables(Arrays.asList(new Variable("var0", "value0", false)));
+    tmpSecret.replaceVariables(Collections.singletonList(new Variable("var0", "value0", false)));
 
     assertEquals("a ${var0 value0bc", tmpSecret.getValue());
     assertEquals("****", tmpSecret.toString());
@@ -2317,7 +2318,7 @@ public class SecretStringTest {
   public void replaceVariablesStringBrokenStartSeqTwice() {
     final SecretString tmpSecret = new SecretString("a ${${var0}bc");
 
-    tmpSecret.replaceVariables(Arrays.asList(new Variable("var0", "value0", false)));
+    tmpSecret.replaceVariables(Collections.singletonList(new Variable("var0", "value0", false)));
 
     assertEquals("a ${value0bc", tmpSecret.getValue());
     assertEquals("a ${value0bc", tmpSecret.toString());
@@ -2327,7 +2328,7 @@ public class SecretStringTest {
   public void replaceVariablesStringSecretBrokenStartSeqTwice() {
     final SecretString tmpSecret = new SecretString().appendSecret("a ${${var0}bc");
 
-    tmpSecret.replaceVariables(Arrays.asList(new Variable("var0", "value0", false)));
+    tmpSecret.replaceVariables(Collections.singletonList(new Variable("var0", "value0", false)));
 
     assertEquals("a ${value0bc", tmpSecret.getValue());
     assertEquals("****", tmpSecret.toString());
@@ -2337,7 +2338,7 @@ public class SecretStringTest {
   public void replaceVariablesStringBrokenEndSeqOnly() {
     final SecretString tmpSecret = new SecretString("a var0}bc");
 
-    tmpSecret.replaceVariables(Arrays.asList(new Variable("var0", "value0", false)));
+    tmpSecret.replaceVariables(Collections.singletonList(new Variable("var0", "value0", false)));
 
     assertEquals("a var0}bc", tmpSecret.getValue());
     assertEquals("a var0}bc", tmpSecret.toString());
@@ -2347,7 +2348,7 @@ public class SecretStringTest {
   public void replaceVariablesStringSecretBrokenEndSeqOnly() {
     final SecretString tmpSecret = new SecretString().appendSecret("a var0}bc");
 
-    tmpSecret.replaceVariables(Arrays.asList(new Variable("var0", "value0", false)));
+    tmpSecret.replaceVariables(Collections.singletonList(new Variable("var0", "value0", false)));
 
     assertEquals("a var0}bc", tmpSecret.getValue());
     assertEquals("****", tmpSecret.toString());
@@ -2357,7 +2358,7 @@ public class SecretStringTest {
   public void replaceVariablesStringBrokenOneVarOneEndSeqOnly() {
     final SecretString tmpSecret = new SecretString("a ${var0}var0}bc");
 
-    tmpSecret.replaceVariables(Arrays.asList(new Variable("var0", "value0", false)));
+    tmpSecret.replaceVariables(Collections.singletonList(new Variable("var0", "value0", false)));
 
     assertEquals("a value0var0}bc", tmpSecret.getValue());
     assertEquals("a value0var0}bc", tmpSecret.toString());
@@ -2367,7 +2368,7 @@ public class SecretStringTest {
   public void replaceVariablesStringSecretBrokenOneVarOneEndSeqOnly() {
     final SecretString tmpSecret = new SecretString().appendSecret("a ${var0}var0}bc");
 
-    tmpSecret.replaceVariables(Arrays.asList(new Variable("var0", "value0", false)));
+    tmpSecret.replaceVariables(Collections.singletonList(new Variable("var0", "value0", false)));
 
     assertEquals("a value0var0}bc", tmpSecret.getValue());
     assertEquals("****", tmpSecret.toString());
@@ -2377,7 +2378,7 @@ public class SecretStringTest {
   public void replaceVariablesStringBrokenEndSeqTwice() {
     final SecretString tmpSecret = new SecretString("a ${var0}}bc");
 
-    tmpSecret.replaceVariables(Arrays.asList(new Variable("var0", "value0", false)));
+    tmpSecret.replaceVariables(Collections.singletonList(new Variable("var0", "value0", false)));
 
     assertEquals("a value0}bc", tmpSecret.getValue());
     assertEquals("a value0}bc", tmpSecret.toString());
@@ -2387,7 +2388,7 @@ public class SecretStringTest {
   public void replaceVariablesStringSecretBrokenEndSeqTwice() {
     final SecretString tmpSecret = new SecretString().appendSecret("a ${var0}}bc");
 
-    tmpSecret.replaceVariables(Arrays.asList(new Variable("var0", "value0", false)));
+    tmpSecret.replaceVariables(Collections.singletonList(new Variable("var0", "value0", false)));
 
     assertEquals("a value0}bc", tmpSecret.getValue());
     assertEquals("****", tmpSecret.toString());
@@ -2436,7 +2437,7 @@ public class SecretStringTest {
   public void replaceVariablesRecursionSelf() {
     final SecretString tmpSecret = new SecretString("${var0}");
 
-    tmpSecret.replaceVariables(Arrays.asList(new Variable("var0", "${var0}", false)));
+    tmpSecret.replaceVariables(Collections.singletonList(new Variable("var0", "${var0}", false)));
 
     assertEquals("${var0}", tmpSecret.getValue());
     assertEquals("${var0}", tmpSecret.toString());

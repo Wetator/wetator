@@ -45,7 +45,7 @@ import org.wetator.util.Output;
 public class StdOutProgressListener implements IProgressListener {
 
   /** The output used. */
-  protected Output output;
+  protected final Output output;
 
   private static final int DOTS_PER_LINE = 100;
   private int dotCount;

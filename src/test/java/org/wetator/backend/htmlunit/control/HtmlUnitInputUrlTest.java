@@ -40,7 +40,7 @@ public class HtmlUnitInputUrlTest {
     // @formatter:on
     PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-      final HtmlUrlInput tmpUrl = (HtmlUrlInput) tmpHtmlPage.getHtmlElementById("myId");
+      final HtmlUrlInput tmpUrl = tmpHtmlPage.getHtmlElementById("myId");
       final HtmlUnitInputUrl tmpControl = new HtmlUnitInputUrl(tmpUrl);
 
       assertTrue(tmpControl.isDisabled(null));
@@ -58,7 +58,7 @@ public class HtmlUnitInputUrlTest {
     // @formatter:on
     PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-      final HtmlUrlInput tmpUrl = (HtmlUrlInput) tmpHtmlPage.getHtmlElementById("myId");
+      final HtmlUrlInput tmpUrl = tmpHtmlPage.getHtmlElementById("myId");
       final HtmlUnitInputUrl tmpControl = new HtmlUnitInputUrl(tmpUrl);
 
       assertFalse(tmpControl.isDisabled(null));
@@ -76,7 +76,7 @@ public class HtmlUnitInputUrlTest {
     // @formatter:on
     PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-      final HtmlUrlInput tmpUrl = (HtmlUrlInput) tmpHtmlPage.getHtmlElementById("myId");
+      final HtmlUrlInput tmpUrl = tmpHtmlPage.getHtmlElementById("myId");
       final HtmlUnitInputUrl tmpControl = new HtmlUnitInputUrl(tmpUrl);
 
       assertTrue(tmpControl.isDisabled(null));
@@ -94,7 +94,7 @@ public class HtmlUnitInputUrlTest {
     // @formatter:on
     PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-      final HtmlUrlInput tmpUrl = (HtmlUrlInput) tmpHtmlPage.getHtmlElementById("myId");
+      final HtmlUrlInput tmpUrl = tmpHtmlPage.getHtmlElementById("myId");
       final HtmlUnitInputUrl tmpControl = new HtmlUnitInputUrl(tmpUrl);
 
       assertTrue(tmpControl.isDisabled(null));
@@ -112,7 +112,7 @@ public class HtmlUnitInputUrlTest {
     // @formatter:on
     PageUtil.consumeHtmlPage(tmpHtmlCode, tmpHtmlPage -> {
 
-      final HtmlUrlInput tmpUrl = (HtmlUrlInput) tmpHtmlPage.getHtmlElementById("myId");
+      final HtmlUrlInput tmpUrl = tmpHtmlPage.getHtmlElementById("myId");
       final HtmlUnitInputUrl tmpControl = new HtmlUnitInputUrl(tmpUrl);
 
       assertTrue(tmpControl.isDisabled(null));

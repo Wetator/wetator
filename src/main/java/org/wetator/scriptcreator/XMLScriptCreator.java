@@ -251,9 +251,9 @@ public class XMLScriptCreator implements IScriptCreator {
    */
   private static class NamespaceBean {
 
-    private String symbol;
-    private String namespace;
-    private String location;
+    private final String symbol;
+    private final String namespace;
+    private final String location;
 
     public static NamespaceBean create(final String aNamespace) {
       if ("http://www.wetator.org/xsd/default-command-set".equals(aNamespace)) {

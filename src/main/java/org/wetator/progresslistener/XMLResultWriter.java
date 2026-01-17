@@ -121,7 +121,7 @@ public class XMLResultWriter implements IProgressListener {
 
   private long tagId;
   private long executionStartTime;
-  private Deque<Long> commandExecutionStartTimes;
+  private final Deque<Long> commandExecutionStartTimes;
 
   /**
    * The constructor.

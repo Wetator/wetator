@@ -29,7 +29,7 @@ public class SearchPatternMatchesAtEndTest {
     final String tmpMatcher = null;
 
     // match all
-    SearchPattern tmpPattern = SearchPattern.compile((String) null);
+    SearchPattern tmpPattern = SearchPattern.compile(null);
     Assert.assertFalse(tmpPattern.matchesAtEnd(tmpMatcher));
     tmpPattern = SearchPattern.compile("");
     Assert.assertFalse(tmpPattern.matchesAtEnd(tmpMatcher));
@@ -52,7 +52,7 @@ public class SearchPatternMatchesAtEndTest {
     final String tmpMatcher = "";
 
     // match all
-    SearchPattern tmpPattern = SearchPattern.compile((String) null);
+    SearchPattern tmpPattern = SearchPattern.compile(null);
     Assert.assertFalse(tmpPattern.matchesAtEnd(tmpMatcher));
     tmpPattern = SearchPattern.compile("");
     Assert.assertFalse(tmpPattern.matchesAtEnd(tmpMatcher));
@@ -75,7 +75,7 @@ public class SearchPatternMatchesAtEndTest {
     final String tmpMatcher = "X";
 
     // match all
-    SearchPattern tmpPattern = SearchPattern.compile((String) null);
+    SearchPattern tmpPattern = SearchPattern.compile(null);
     Assert.assertFalse(tmpPattern.matchesAtEnd(tmpMatcher));
     tmpPattern = SearchPattern.compile("");
     Assert.assertFalse(tmpPattern.matchesAtEnd(tmpMatcher));
@@ -119,7 +119,7 @@ public class SearchPatternMatchesAtEndTest {
     final String tmpMatcher = "Wetator";
 
     // match all
-    SearchPattern tmpPattern = SearchPattern.compile((String) null);
+    SearchPattern tmpPattern = SearchPattern.compile(null);
     Assert.assertFalse(tmpPattern.matchesAtEnd(tmpMatcher));
     tmpPattern = SearchPattern.compile("");
     Assert.assertFalse(tmpPattern.matchesAtEnd(tmpMatcher));

@@ -16,6 +16,7 @@
 
 package org.wetator.backend.htmlunit.finder;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -73,9 +74,7 @@ public abstract class WeightedControlListEntryAssert {
     final List<ExpectedControl> entries = new LinkedList<>();
 
     SortedEntryExpectation(final ExpectedControl... aControls) {
-      for (ExpectedControl tmpControl : aControls) {
-        entries.add(tmpControl);
-      }
+        entries.addAll(Arrays.asList(aControls));
     }
 
     @Override

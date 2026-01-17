@@ -30,7 +30,7 @@ public class SearchPatternNoOfCharsAfterLastShortestOccurenceInTest {
     final String tmpText = null;
 
     // match all
-    SearchPattern tmpPattern = SearchPattern.compile((String) null);
+    SearchPattern tmpPattern = SearchPattern.compile(null);
     Assert.assertEquals(-1, tmpPattern.noOfCharsAfterLastShortestOccurenceIn(tmpText));
     tmpPattern = SearchPattern.compile("");
     Assert.assertEquals(-1, tmpPattern.noOfCharsAfterLastShortestOccurenceIn(tmpText));
@@ -68,7 +68,7 @@ public class SearchPatternNoOfCharsAfterLastShortestOccurenceInTest {
     final String tmpText = "";
 
     // match all
-    SearchPattern tmpPattern = SearchPattern.compile((String) null);
+    SearchPattern tmpPattern = SearchPattern.compile(null);
     Assert.assertEquals(0, tmpPattern.noOfCharsAfterLastShortestOccurenceIn(tmpText));
     tmpPattern = SearchPattern.compile("");
     Assert.assertEquals(0, tmpPattern.noOfCharsAfterLastShortestOccurenceIn(tmpText));
@@ -106,7 +106,7 @@ public class SearchPatternNoOfCharsAfterLastShortestOccurenceInTest {
     final String tmpText = "X";
 
     // match all
-    SearchPattern tmpPattern = SearchPattern.compile((String) null);
+    SearchPattern tmpPattern = SearchPattern.compile(null);
     Assert.assertEquals(0, tmpPattern.noOfCharsAfterLastShortestOccurenceIn(tmpText));
     tmpPattern = SearchPattern.compile("");
     Assert.assertEquals(0, tmpPattern.noOfCharsAfterLastShortestOccurenceIn(tmpText));
@@ -158,7 +158,7 @@ public class SearchPatternNoOfCharsAfterLastShortestOccurenceInTest {
     final String tmpText = "Wetator";
 
     // match all
-    SearchPattern tmpPattern = SearchPattern.compile((String) null);
+    SearchPattern tmpPattern = SearchPattern.compile(null);
     Assert.assertEquals(0, tmpPattern.noOfCharsAfterLastShortestOccurenceIn(tmpText));
     tmpPattern = SearchPattern.compile("");
     Assert.assertEquals(0, tmpPattern.noOfCharsAfterLastShortestOccurenceIn(tmpText));

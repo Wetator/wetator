@@ -167,7 +167,7 @@ public final class ContentTypeUtil {
    * Returns the attachment's filename, as suggested by the <tt>Content-Disposition</tt>
    * header, or {@code null} if no filename was suggested.
    *
-   * @param aContentType The content type.
+   * @param aWebResponse the WebResponse.
    * @return the attachment's suggested filename, or {@code null} if none was suggested
    */
   private static String getSuggestedFilename(final WebResponse aWebResponse) {

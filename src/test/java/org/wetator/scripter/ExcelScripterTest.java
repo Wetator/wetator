@@ -41,7 +41,7 @@ public class ExcelScripterTest {
     final File tmpFile = new File("src/test/resources/legacyXML.xml");
 
     final IScripter.IsSupportedResult tmpResult = tmpExcelScripter.isSupported(tmpFile);
-    Assert.assertTrue(IScripter.IS_SUPPORTED != tmpResult);
+      Assert.assertNotSame(IScripter.IS_SUPPORTED, tmpResult);
 
     Assert.assertEquals("File 'legacyXML.xml' not supported by ExcelScripter. Extension is not '.xls' or '.xlsx'.",
         tmpResult.getMessage());
@@ -53,7 +53,7 @@ public class ExcelScripterTest {
     final File tmpFile = new File("src/test/resources/doesNotExist.xls");
 
     final IScripter.IsSupportedResult tmpResult = tmpExcelScripter.isSupported(tmpFile);
-    Assert.assertTrue(IScripter.IS_SUPPORTED != tmpResult);
+      Assert.assertNotSame(IScripter.IS_SUPPORTED, tmpResult);
 
     Assert.assertEquals("File 'doesNotExist.xls' not supported by ExcelScripter. Could not find file.",
         tmpResult.getMessage());
@@ -65,7 +65,7 @@ public class ExcelScripterTest {
     final File tmpFile = new File("src/test/resources/excel.xls");
 
     final IScripter.IsSupportedResult tmpResult = tmpExcelScripter.isSupported(tmpFile);
-    Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
+      Assert.assertSame(IScripter.IS_SUPPORTED, tmpResult);
   }
 
   @Test(expected = InvalidInputException.class)
@@ -74,7 +74,7 @@ public class ExcelScripterTest {
     final File tmpFile = new File("src/test/resources/excelMalformed.xls");
 
     final IScripter.IsSupportedResult tmpResult = tmpExcelScripter.isSupported(tmpFile);
-    Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
+      Assert.assertSame(IScripter.IS_SUPPORTED, tmpResult);
 
     tmpExcelScripter.script(tmpFile);
   }
@@ -85,7 +85,7 @@ public class ExcelScripterTest {
     final File tmpFile = new File("src/test/resources/excelMalformed.xls");
 
     final IScripter.IsSupportedResult tmpResult = tmpExcelScripter.isSupported(tmpFile);
-    Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
+      Assert.assertSame(IScripter.IS_SUPPORTED, tmpResult);
 
     tmpExcelScripter.script(tmpFile);
   }
@@ -101,7 +101,7 @@ public class ExcelScripterTest {
     final File tmpFile = new File("src/test/resources/excel.xls");
 
     final IScripter.IsSupportedResult tmpResult = tmpExcelScripter.isSupported(tmpFile);
-    Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
+      Assert.assertSame(IScripter.IS_SUPPORTED, tmpResult);
 
     tmpExcelScripter.script(tmpFile);
 
@@ -229,7 +229,7 @@ public class ExcelScripterTest {
     final File tmpFile = new File("src/test/resources/excel.xlsx");
 
     final IScripter.IsSupportedResult tmpResult = tmpExcelScripter.isSupported(tmpFile);
-    Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
+      Assert.assertSame(IScripter.IS_SUPPORTED, tmpResult);
 
     tmpExcelScripter.script(tmpFile);
 
@@ -360,7 +360,7 @@ public class ExcelScripterTest {
     final File tmpFile = new File("src/test/resources/excel.xls");
 
     final IScripter.IsSupportedResult tmpResult = tmpExcelScripter.isSupported(tmpFile);
-    Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
+      Assert.assertSame(IScripter.IS_SUPPORTED, tmpResult);
 
     tmpExcelScripter.script(tmpFile);
 
@@ -485,7 +485,7 @@ public class ExcelScripterTest {
     final File tmpFile = new File("src/test/resources/excel.xlsx");
 
     final IScripter.IsSupportedResult tmpResult = tmpExcelScripter.isSupported(tmpFile);
-    Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
+      Assert.assertSame(IScripter.IS_SUPPORTED, tmpResult);
 
     tmpExcelScripter.script(tmpFile);
 

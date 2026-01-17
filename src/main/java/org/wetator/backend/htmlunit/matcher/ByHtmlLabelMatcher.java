@@ -16,7 +16,6 @@
 
 package org.wetator.backend.htmlunit.matcher;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -34,8 +33,8 @@ import org.wetator.util.FindSpot;
  */
 public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
 
-  private Class<? extends HtmlElement> clazz;
-  private boolean matchInvisible;
+  private final Class<? extends HtmlElement> clazz;
+  private final boolean matchInvisible;
 
   /**
    * The constructor.<br>
@@ -109,8 +108,8 @@ public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
           } else {
             tmpDistance = tmpTextBefore.length();
           }
-          return Arrays.asList(new ByHtmlLabelMatchResult(tmpLabeledElement, tmpLabel, FoundType.BY_LABEL_ELEMENT,
-              tmpDeviation, tmpDistance, tmpNodeSpot.getStartPos()));
+          return Collections.singletonList(new ByHtmlLabelMatchResult(tmpLabeledElement, tmpLabel, FoundType.BY_LABEL_ELEMENT,
+                  tmpDeviation, tmpDistance, tmpNodeSpot.getStartPos()));
         }
       }
     }
@@ -126,7 +125,7 @@ public class ByHtmlLabelMatcher extends AbstractHtmlUnitElementMatcher {
    */
   public static class ByHtmlLabelMatchResult extends MatchResult {
 
-    private HtmlLabel label;
+    private final HtmlLabel label;
 
     /**
      * @param aHtmlElement the matching {@link HtmlElement}

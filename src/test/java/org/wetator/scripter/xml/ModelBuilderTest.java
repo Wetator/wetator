@@ -43,7 +43,7 @@ public class ModelBuilderTest {
 
   @Test(expected = ImplementationException.class)
   public void emptySchemaMap() throws IOException, SAXException, ParseException {
-    new ModelBuilder(new ArrayList<XMLSchema>(), null);
+    new ModelBuilder(new ArrayList<>(), null);
   }
 
   @Test(expected = ParseException.class)

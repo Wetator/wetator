@@ -17,10 +17,11 @@
 package org.wetator.scripter;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 import org.apache.commons.io.IOUtils;
@@ -44,7 +45,7 @@ public class XMLScripterTest {
     final File tmpFile = new File("src/test/resources/excel.xls");
 
     final IScripter.IsSupportedResult tmpResult = tmpXMLScripter.isSupported(tmpFile);
-    Assert.assertTrue(IScripter.IS_SUPPORTED != tmpResult);
+      Assert.assertNotSame(IScripter.IS_SUPPORTED, tmpResult);
 
     Assert.assertEquals("File 'excel.xls' not supported by XMLScripter. Extension is not '.wet' or '.xml'.",
         tmpResult.getMessage());
@@ -56,7 +57,7 @@ public class XMLScripterTest {
     final File tmpFile = new File("src/test/resources/doesNotExist.xml");
 
     final IScripter.IsSupportedResult tmpResult = tmpXMLScripter.isSupported(tmpFile);
-    Assert.assertTrue(IScripter.IS_SUPPORTED != tmpResult);
+      Assert.assertNotSame(IScripter.IS_SUPPORTED, tmpResult);
 
     Assert.assertEquals("File 'doesNotExist.xml' not supported by XMLScripter. Could not find file.",
         tmpResult.getMessage());
@@ -68,7 +69,7 @@ public class XMLScripterTest {
     final File tmpFile = new File("src/test/resources/empty.xml");
 
     final IScripter.IsSupportedResult tmpResult = tmpXMLScripter.isSupported(tmpFile);
-    Assert.assertTrue(IScripter.IS_SUPPORTED != tmpResult);
+      Assert.assertNotSame(IScripter.IS_SUPPORTED, tmpResult);
 
     Assert.assertEquals("File 'empty.xml' not supported by XMLScripter. Could not parse file.", tmpResult.getMessage());
   }
@@ -79,7 +80,7 @@ public class XMLScripterTest {
     final File tmpFile = new File("src/test/resources/empty.wet");
 
     final IScripter.IsSupportedResult tmpResult = tmpXMLScripter.isSupported(tmpFile);
-    Assert.assertTrue(IScripter.IS_SUPPORTED != tmpResult);
+      Assert.assertNotSame(IScripter.IS_SUPPORTED, tmpResult);
 
     Assert.assertEquals("File 'empty.wet' not supported by XMLScripter. Could not parse file.", tmpResult.getMessage());
   }
@@ -90,7 +91,7 @@ public class XMLScripterTest {
     final File tmpFile = new File("src/test/resources/legacyXML.xml");
 
     final IScripter.IsSupportedResult tmpResult = tmpXMLScripter.isSupported(tmpFile);
-    Assert.assertTrue(IScripter.IS_SUPPORTED != tmpResult);
+      Assert.assertNotSame(IScripter.IS_SUPPORTED, tmpResult);
 
     Assert.assertEquals("File 'legacyXML.xml' not supported by XMLScripter. Could not parse file.",
         tmpResult.getMessage());
@@ -102,7 +103,7 @@ public class XMLScripterTest {
     final File tmpFile = new File("src/test/resources/legacyXML.wet");
 
     final IScripter.IsSupportedResult tmpResult = tmpXMLScripter.isSupported(tmpFile);
-    Assert.assertTrue(IScripter.IS_SUPPORTED != tmpResult);
+      Assert.assertNotSame(IScripter.IS_SUPPORTED, tmpResult);
 
     Assert.assertEquals("File 'legacyXML.wet' not supported by XMLScripter. Could not parse file.",
         tmpResult.getMessage());
@@ -114,7 +115,7 @@ public class XMLScripterTest {
     final File tmpFile = new File("src/test/resources/xml.xml");
 
     final IScripter.IsSupportedResult tmpResult = tmpXMLScripter.isSupported(tmpFile);
-    Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
+      Assert.assertSame(IScripter.IS_SUPPORTED, tmpResult);
   }
 
   @Test
@@ -123,7 +124,7 @@ public class XMLScripterTest {
     final File tmpFile = new File("src/test/resources/xml.wet");
 
     final IScripter.IsSupportedResult tmpResult = tmpXMLScripter.isSupported(tmpFile);
-    Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
+      Assert.assertSame(IScripter.IS_SUPPORTED, tmpResult);
   }
 
   @Test
@@ -132,7 +133,7 @@ public class XMLScripterTest {
     final File tmpFile = new File("src/test/resources/emptyNoDefault.xml");
 
     final IScripter.IsSupportedResult tmpResult = tmpXMLScripter.isSupported(tmpFile);
-    Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
+      Assert.assertSame(IScripter.IS_SUPPORTED, tmpResult);
 
     tmpXMLScripter.script(tmpFile);
 
@@ -140,7 +141,7 @@ public class XMLScripterTest {
 
     XMLSchema tmpSchema = tmpXMLScripter.getSchemas().get(0);
     Assert.assertEquals("http://www.wetator.org/xsd/test-case", tmpSchema.getNamespace());
-    Assert.assertEquals(null, tmpSchema.getPrefix());
+      Assert.assertNull(tmpSchema.getPrefix());
     Assert.assertEquals("test-case-1.0.0.xsd", tmpSchema.getLocation());
 
     tmpSchema = tmpXMLScripter.getSchemas().get(1);
@@ -155,7 +156,7 @@ public class XMLScripterTest {
     final File tmpFile = new File("src/test/resources/emptyWrongDefault.xml");
 
     final IScripter.IsSupportedResult tmpResult = tmpXMLScripter.isSupported(tmpFile);
-    Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
+      Assert.assertSame(IScripter.IS_SUPPORTED, tmpResult);
 
     tmpXMLScripter.script(tmpFile);
 
@@ -163,7 +164,7 @@ public class XMLScripterTest {
 
     XMLSchema tmpSchema = tmpXMLScripter.getSchemas().get(0);
     Assert.assertEquals("http://www.wetator.org/xsd/test-case", tmpSchema.getNamespace());
-    Assert.assertEquals(null, tmpSchema.getPrefix());
+      Assert.assertNull(tmpSchema.getPrefix());
     Assert.assertEquals("test-case-1.0.0.xsd", tmpSchema.getLocation());
 
     tmpSchema = tmpXMLScripter.getSchemas().get(1);
@@ -178,7 +179,7 @@ public class XMLScripterTest {
     final File tmpFile = new File("src/test/resources/emptyMultipleSchemas.xml");
 
     final IScripter.IsSupportedResult tmpResult = tmpXMLScripter.isSupported(tmpFile);
-    Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
+      Assert.assertSame(IScripter.IS_SUPPORTED, tmpResult);
 
     tmpXMLScripter.script(tmpFile);
 
@@ -186,7 +187,7 @@ public class XMLScripterTest {
 
     XMLSchema tmpSchema = tmpXMLScripter.getSchemas().get(0);
     Assert.assertEquals("http://www.wetator.org/xsd/test-case", tmpSchema.getNamespace());
-    Assert.assertEquals(null, tmpSchema.getPrefix());
+      Assert.assertNull(tmpSchema.getPrefix());
     Assert.assertEquals("test-case-1.0.0.xsd", tmpSchema.getLocation());
 
     tmpSchema = tmpXMLScripter.getSchemas().get(1);
@@ -211,7 +212,7 @@ public class XMLScripterTest {
     final File tmpFile = new File("src/test/resources/xml.xml");
 
     final IScripter.IsSupportedResult tmpResult = tmpXMLScripter.isSupported(tmpFile);
-    Assert.assertTrue(IScripter.IS_SUPPORTED == tmpResult);
+      Assert.assertSame(IScripter.IS_SUPPORTED, tmpResult);
 
     tmpXMLScripter.script(tmpFile);
 
@@ -273,7 +274,7 @@ public class XMLScripterTest {
   @Test
   public void emptyContent() throws FileNotFoundException, IOException {
     final XMLScripter tmpXMLScripter = new XMLScripter();
-    final String tmpContent = IOUtils.toString(new FileInputStream("src/test/resources/empty.xml"),
+    final String tmpContent = IOUtils.toString(Files.newInputStream(Paths.get("src/test/resources/empty.xml")),
         StandardCharsets.UTF_8);
     Assert.assertFalse(tmpXMLScripter.isSupported(tmpContent));
   }
@@ -281,7 +282,7 @@ public class XMLScripterTest {
   @Test
   public void unsupportedContent() throws FileNotFoundException, IOException {
     final XMLScripter tmpXMLScripter = new XMLScripter();
-    final String tmpContent = IOUtils.toString(new FileInputStream("src/test/resources/legacyXML.wet"),
+    final String tmpContent = IOUtils.toString(Files.newInputStream(Paths.get("src/test/resources/legacyXML.wet")),
         StandardCharsets.UTF_8);
     Assert.assertFalse(tmpXMLScripter.isSupported(tmpContent));
   }
@@ -289,7 +290,7 @@ public class XMLScripterTest {
   @Test
   public void supportedContent() throws FileNotFoundException, IOException {
     final XMLScripter tmpXMLScripter = new XMLScripter();
-    final String tmpContent = IOUtils.toString(new FileInputStream("src/test/resources/xml.xml"),
+    final String tmpContent = IOUtils.toString(Files.newInputStream(Paths.get("src/test/resources/xml.xml")),
         StandardCharsets.UTF_8);
     Assert.assertTrue(tmpXMLScripter.isSupported(tmpContent));
   }
@@ -297,7 +298,7 @@ public class XMLScripterTest {
   @Test
   public void schemasNoDefaultFromContent() throws FileNotFoundException, IOException, InvalidInputException {
     final XMLScripter tmpXMLScripter = new XMLScripter();
-    final String tmpContent = IOUtils.toString(new FileInputStream("src/test/resources/emptyNoDefault.xml"),
+    final String tmpContent = IOUtils.toString(Files.newInputStream(Paths.get("src/test/resources/emptyNoDefault.xml")),
         StandardCharsets.UTF_8);
 
     tmpXMLScripter.script(tmpContent, null);
@@ -306,7 +307,7 @@ public class XMLScripterTest {
 
     XMLSchema tmpSchema = tmpXMLScripter.getSchemas().get(0);
     Assert.assertEquals("http://www.wetator.org/xsd/test-case", tmpSchema.getNamespace());
-    Assert.assertEquals(null, tmpSchema.getPrefix());
+      Assert.assertNull(tmpSchema.getPrefix());
     Assert.assertEquals("test-case-1.0.0.xsd", tmpSchema.getLocation());
 
     tmpSchema = tmpXMLScripter.getSchemas().get(1);
@@ -318,7 +319,7 @@ public class XMLScripterTest {
   @Test
   public void schemasWrongDefaultFromContent() throws FileNotFoundException, IOException, InvalidInputException {
     final XMLScripter tmpXMLScripter = new XMLScripter();
-    final String tmpContent = IOUtils.toString(new FileInputStream("src/test/resources/emptyWrongDefault.xml"),
+    final String tmpContent = IOUtils.toString(Files.newInputStream(Paths.get("src/test/resources/emptyWrongDefault.xml")),
         StandardCharsets.UTF_8);
 
     tmpXMLScripter.script(tmpContent, null);
@@ -327,7 +328,7 @@ public class XMLScripterTest {
 
     XMLSchema tmpSchema = tmpXMLScripter.getSchemas().get(0);
     Assert.assertEquals("http://www.wetator.org/xsd/test-case", tmpSchema.getNamespace());
-    Assert.assertEquals(null, tmpSchema.getPrefix());
+      Assert.assertNull(tmpSchema.getPrefix());
     Assert.assertEquals("test-case-1.0.0.xsd", tmpSchema.getLocation());
 
     tmpSchema = tmpXMLScripter.getSchemas().get(1);
@@ -339,7 +340,7 @@ public class XMLScripterTest {
   @Test
   public void schemasFromContent() throws FileNotFoundException, IOException, InvalidInputException {
     final XMLScripter tmpXMLScripter = new XMLScripter();
-    final String tmpContent = IOUtils.toString(new FileInputStream("src/test/resources/emptyMultipleSchemas.xml"),
+    final String tmpContent = IOUtils.toString(Files.newInputStream(Paths.get("src/test/resources/emptyMultipleSchemas.xml")),
         StandardCharsets.UTF_8);
 
     tmpXMLScripter.script(tmpContent, null);
@@ -348,7 +349,7 @@ public class XMLScripterTest {
 
     XMLSchema tmpSchema = tmpXMLScripter.getSchemas().get(0);
     Assert.assertEquals("http://www.wetator.org/xsd/test-case", tmpSchema.getNamespace());
-    Assert.assertEquals(null, tmpSchema.getPrefix());
+      Assert.assertNull(tmpSchema.getPrefix());
     Assert.assertEquals("test-case-1.0.0.xsd", tmpSchema.getLocation());
 
     tmpSchema = tmpXMLScripter.getSchemas().get(1);
@@ -370,7 +371,7 @@ public class XMLScripterTest {
   @Test
   public void scriptContent() throws FileNotFoundException, IOException, InvalidInputException {
     final XMLScripter tmpXMLScripter = new XMLScripter();
-    final String tmpContent = IOUtils.toString(new FileInputStream("src/test/resources/xml.xml"),
+    final String tmpContent = IOUtils.toString(Files.newInputStream(Paths.get("src/test/resources/xml.xml")),
         StandardCharsets.UTF_8);
     tmpXMLScripter.script(tmpContent, null);
 
