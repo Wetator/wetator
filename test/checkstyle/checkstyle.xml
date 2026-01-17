@@ -106,7 +106,7 @@
       <property name="authorFormat" value="\S"/>
     </module>
     <module name="JavadocVariable">
-      <property name="scope" value="package"/>
+      <property name="accessModifiers" value="public, protected, package"/>
     </module>
     <module name="NonEmptyAtclauseDescription"/>
 
