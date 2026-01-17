@@ -36,8 +36,11 @@
 
         <maven.compiler.target>1.8</maven.compiler.target>
         <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.release>1.8</maven.compiler.release>
 
-        <htmlunit.version>4.21.0-SNAPSHOT</htmlunit.version>
+        <maven.version.ignore>(?i).*-(alpha|beta|m|rc)([\.-]?\d+)?</maven.version.ignore>
+
+        <htmlunit.version>4.21.0</htmlunit.version>
         <automaton.version>1.12-4</automaton.version>
         <commons-io.version>2.21.0</commons-io.version>
         <commons-lang3.version>3.20.0</commons-lang3.version>
@@ -47,7 +50,8 @@
         <poi.version>5.5.1</poi.version>
         <log4j.version>2.25.3</log4j.version>
         <xsom.version>20140925</xsom.version>
-        
+        <maven-model.version>3.9.12</maven-model.version>
+
            <!-- test dependencies -->
         <junit.version>4.13.2</junit.version>
         <mockito.version>4.11.0</mockito.version><!-- latest jdk 8 version -->
@@ -61,7 +65,7 @@
         <dependencycheck.version>10.0.4</dependencycheck.version><!-- latest jdk 8 version -->
 
         <!-- plugins -->
-        <central-publishing-plugin.version>0.9.0</central-publishing-plugin.version>
+        <central-publishing-plugin.version>0.10.0</central-publishing-plugin.version>
         <checkstyle-plugin.version>3.6.0</checkstyle-plugin.version>
         <pmd-plugin.version>3.28.0</pmd-plugin.version>
         <spotbugs-plugin.version>4.9.8.2</spotbugs-plugin.version>
@@ -75,7 +79,7 @@
         <shade-plugin.version>3.6.1</shade-plugin.version>
         <truezip-plugin.version>1.2</truezip-plugin.version>
         <resources-plugin.version>3.4.0</resources-plugin.version>
-        <exec-plugin.version>3.6.2</exec-plugin.version>
+        <exec-plugin.version>3.6.3</exec-plugin.version>
         <cyclonedx-plugin.version>2.9.1</cyclonedx-plugin.version>
     </properties>
 
@@ -245,7 +249,8 @@
         <dependency>
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-model</artifactId>
-            <version>3.9.9</version>
+            <version>${maven-model.version}</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
