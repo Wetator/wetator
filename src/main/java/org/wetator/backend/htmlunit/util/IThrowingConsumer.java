@@ -41,6 +41,7 @@ public interface IThrowingConsumer<T> extends Consumer<T> {
    * can throw.
    *
    * @param anElement the input argument
+   * @throws Exception in case of error
    */
   void acceptThrows(T anElement) throws Exception;
 }

@@ -235,7 +235,7 @@ public final class ContentUtil {
         throw (InvalidFormatException) e.getCause();
       }
       final InvalidFormatException tmpEx = new InvalidFormatException(e.getMessage(), e);
-        throw tmpEx;
+      throw tmpEx;
     }
   }
 
@@ -296,7 +296,7 @@ public final class ContentUtil {
         throw (InvalidFormatException) e.getCause();
       }
       final InvalidFormatException tmpEx = new InvalidFormatException(e.getMessage(), e);
-        throw tmpEx;
+      throw tmpEx;
     }
     return tmpResult.toString();
   }
@@ -434,39 +434,39 @@ public final class ContentUtil {
       return null;
     }
 
-      for (String s : StringUtil.extractStrings(anAcceptLanguageHeader, ",", -1)) {
-          final List<String> tmpLanguageDescriptor = StringUtil.extractStrings(s, ";", -1);
-          if (tmpLanguageDescriptor.isEmpty()) {
-              return null;
-          }
-
-          final String tmpLocaleString = tmpLanguageDescriptor.get(0);
-
-          final List<String> tmpLocaleDescriptor = StringUtil.extractStrings(tmpLocaleString, "-", -1);
-          if (tmpLocaleDescriptor.isEmpty()) {
-              break;
-          }
-
-          final String[] tmpISO639 = Locale.getISOLanguages();
-          final String tmpLanguage = tmpLocaleDescriptor.get(0).toLowerCase(Locale.ENGLISH);
-          for (final String tmpISO639Language : tmpISO639) {
-              if (tmpISO639Language.equals(tmpLanguage)) {
-                  // found a valid language
-                  // check the country
-                  String tmpCountry3166 = "";
-                  if (tmpLocaleDescriptor.size() > 1) {
-                      final String tmpCountry = tmpLocaleDescriptor.get(1).toUpperCase(Locale.ENGLISH);
-                      final String[] tmpISO3166 = Locale.getISOCountries();
-                      for (final String tmpISO3166Country : tmpISO3166) {
-                          if (tmpISO3166Country.equals(tmpCountry)) {
-                              tmpCountry3166 = tmpCountry;
-                          }
-                      }
-                  }
-                  return new Locale(tmpLanguage, tmpCountry3166);
-              }
-          }
+    for (final String s : StringUtil.extractStrings(anAcceptLanguageHeader, ",", -1)) {
+      final List<String> tmpLanguageDescriptor = StringUtil.extractStrings(s, ";", -1);
+      if (tmpLanguageDescriptor.isEmpty()) {
+        return null;
       }
+
+      final String tmpLocaleString = tmpLanguageDescriptor.get(0);
+
+      final List<String> tmpLocaleDescriptor = StringUtil.extractStrings(tmpLocaleString, "-", -1);
+      if (tmpLocaleDescriptor.isEmpty()) {
+        break;
+      }
+
+      final String[] tmpISO639 = Locale.getISOLanguages();
+      final String tmpLanguage = tmpLocaleDescriptor.get(0).toLowerCase(Locale.ENGLISH);
+      for (final String tmpISO639Language : tmpISO639) {
+        if (tmpISO639Language.equals(tmpLanguage)) {
+          // found a valid language
+          // check the country
+          String tmpCountry3166 = "";
+          if (tmpLocaleDescriptor.size() > 1) {
+            final String tmpCountry = tmpLocaleDescriptor.get(1).toUpperCase(Locale.ENGLISH);
+            final String[] tmpISO3166 = Locale.getISOCountries();
+            for (final String tmpISO3166Country : tmpISO3166) {
+              if (tmpISO3166Country.equals(tmpCountry)) {
+                tmpCountry3166 = tmpCountry;
+              }
+            }
+          }
+          return new Locale(tmpLanguage, tmpCountry3166);
+        }
+      }
+    }
     return null;
   }
 
