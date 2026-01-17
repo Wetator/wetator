@@ -40,7 +40,7 @@ public interface IThrowingConsumer<T> extends Consumer<T> {
    * The method to implement; different from {@link #accept(Object)} this
    * can throw.
    *
-   * @param t the input argument
+   * @param T the input argument
    */
   void acceptThrows(T anElement) throws Exception;
 }

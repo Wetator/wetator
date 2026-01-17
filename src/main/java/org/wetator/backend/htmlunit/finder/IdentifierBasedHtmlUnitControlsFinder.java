@@ -112,6 +112,17 @@ public class IdentifierBasedHtmlUnitControlsFinder extends AbstractHtmlUnitContr
     return tmpSupported;
   }
 
+  /**
+   * Tries to identify if the given {@link HtmlElement} matches the given {@link WPath} using all added
+   * {@link AbstractHtmlUnitControlIdentifier}s.
+   *
+   * @param anIdentifierClass the {@link AbstractHtmlUnitControlIdentifier} to use
+   * @param aHtmlElement the {@link HtmlElement} to check
+   * @param aWPath the {@link WPath} that must be matched
+   * @param aFoundControls the {@link WeightedControlList} the matches are added to
+   * @return <code>true</code> if at least one {@link AbstractHtmlUnitControlIdentifier} supported the given
+   *         {@link HtmlElement}
+   */
   protected boolean identify(final Class<? extends AbstractHtmlUnitControlIdentifier> anIdentifierClass,
       final HtmlElement aHtmlElement, final WPath aWPath, final WeightedControlList aFoundControls) {
     try {
