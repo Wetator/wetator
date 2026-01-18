@@ -1,6 +1,6 @@
 # ![Wetator Logo](https://www.wetator.org/images/wetator.png)
 
-Version 4.9.0 / January 25, 2025
+Version 4.21.0 / January 18, 2026
 
 :heart: [Sponsor](https://github.com/sponsors/rbri)
 
@@ -50,7 +50,7 @@ The test result is summarized in a well-arranged report containing detailed info
 
 ## Target Audience
  * Wetator tests are written by developers and testers who want to have automated GUI tests for their web applications that are easy to maintain and easy to read.
- * The Wetator language is understandable for project leads and customers – the people with whom you have to discuss if your tests are testing the requirements correctly and sufficiently.
+ * The Wetator language is understandable for project leads and customers ï¿½ the people with whom you have to discuss if your tests are testing the requirements correctly and sufficiently.
  * Manual testers get to know what they do not have to focus on (since it is already tested automatedly), for example they could focus on testing design, usability, and of course things that cannot or only hardly be tested automatedly.
 
 
@@ -66,3 +66,21 @@ Please try to keep your pull requests small (don't bundle unrelated changes) and
 ## License
 
 This project is licensed under the Apache 2.0 License
+
+## Acknowledgments
+
+Many thanks to all of you contributing to HtmlUnit.
+
+### Development Tools
+
+Special thanks to:
+
+<a href="https://www.jetbrains.com/community/opensource/"><img src="https://resources.jetbrains.com/storage/products/company/brand/logos/jb_beam.svg" alt="JetBrains" width="42"></a>
+<a href="https://www.jetbrains.com/idea/"><img src="https://resources.jetbrains.com/storage/products/company/brand/logos/IntelliJ_IDEA_icon.svg" alt="IntelliJ IDEA" width="42"></a>  
+**[JetBrains](https://www.jetbrains.com/)** for providing IntelliJ IDEA under their [open source development license](https://www.jetbrains.com/community/opensource/) and
+
+<a href="https://www.eclipse.org/"><img src="https://www.eclipse.org/eclipse.org-common/themes/solstice/public/images/logo/eclipse-foundation-grey-orange.svg" alt="Eclipse Foundation" width="80"></a>  
+Eclipse Foundation for their Eclipse IDE
+
+<a href="https://www.syntevo.com/smartgit/"><img src="https://www.syntevo.com/assets/images/logos/smartgit-8c1aa1e2.svg" alt="SmartGit" width="54"></a>  
+to **[Syntevo](https://www.syntevo.com/)** for their excellent [SmartGit](https://www.smartgit.dev/)!
