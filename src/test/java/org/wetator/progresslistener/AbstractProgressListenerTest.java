@@ -23,6 +23,7 @@ import static org.mockito.Mockito.when;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -665,7 +666,7 @@ public abstract class AbstractProgressListenerTest {
 
   protected void assertResult() throws Exception {
     final InputStream tmpExpectedStream = getClass().getClassLoader().getResourceAsStream(getExpectedFilename());
-    String tmpExpectedResult = IOUtils.toString(tmpExpectedStream, "UTF-8");
+    String tmpExpectedResult = IOUtils.toString(tmpExpectedStream, StandardCharsets.UTF_8);
 
     String tmpActualResult = getActualResult();
 
