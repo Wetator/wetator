@@ -40,6 +40,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.htmlunit.ScriptPreProcessor;
 import org.wetator.backend.IBrowser;
 import org.wetator.backend.IBrowser.BrowserType;
 import org.wetator.backend.control.IControl;
@@ -218,6 +219,11 @@ public class WetatorConfiguration {
   public static final String PROPERTY_UPLOAD_MIME_TYPE = PROPERTY_PREFIX + "uploadMimeType";
 
   /**
+   * The property name to define the number of retrospect steps.
+   */
+  public static final String PROPERTY_SCRIPT_PRE_PROCESSOR = PROPERTY_PREFIX + "scriptPreProcessor";
+
+  /**
    * The prefix identifying a property a variable.
    */
   public static final String VARIABLE_PREFIX = "$";
@@ -273,6 +279,8 @@ public class WetatorConfiguration {
 
   private Set<SearchPattern> jsJobFilterPatterns;
   private boolean jsDebugger;
+
+  private ScriptPreProcessor scriptPreProcessor;
 
   private Map<String, String> mimeTypes;
   private List<Variable> variables; // store them in defined order
@@ -700,6 +708,51 @@ public class WetatorConfiguration {
       } catch (final IOException e) {
         throw new ConfigurationException("Can't parse jsJob filter file '"
             + FilenameUtils.normalize(tmpFilterFile.getAbsolutePath()) + "' Reason: " + e.getMessage() + ".");
+      }
+    }
+
+    // scriptPreProcessor
+    tmpValue = tmpProperties.getProperty(PROPERTY_SCRIPT_PRE_PROCESSOR, "");
+    tmpProperties.remove(PROPERTY_SCRIPT_PRE_PROCESSOR);
+    if (StringUtils.isNotEmpty(tmpValue)) {
+      String tmpScriptPreProcessorClassName = tmpValue.trim();
+      if (StringUtils.isNotEmpty(tmpScriptPreProcessorClassName)) {
+        Class<?> tmpClass = null;
+        try {
+          tmpClass = Class.forName(tmpScriptPreProcessorClassName);
+
+          @SuppressWarnings("unchecked")
+          final Class<? extends ScriptPreProcessor> tmpScriptPreProzessorClass = (Class<? extends ScriptPreProcessor>) tmpClass;
+          scriptPreProcessor = tmpScriptPreProzessorClass.getDeclaredConstructor().newInstance();
+          LOG.info("Configuration: ScriptPreProzessor '" + tmpScriptPreProcessorClassName + "' registered.");
+        } catch (final ClassNotFoundException | NoSuchMethodException | InstantiationException | IllegalAccessException
+            | InvocationTargetException e) {
+          if (LOG.isDebugEnabled()) {
+            LOG.error("Configuration: Can't load scriptPreProzessor '" + tmpScriptPreProcessorClassName + "'.", e);
+          } else {
+            LOG.error("Configuration: Can't load scripPreProzessor '" + tmpScriptPreProcessorClassName + "' ("
+                + e.toString() + ").");
+          }
+        } catch (final ClassCastException e) {
+          if (LOG.isDebugEnabled()) {
+            LOG.error("Configuration: Can't load scripPreProzessor '" + tmpScriptPreProcessorClassName + "'.", e);
+          } else {
+            LOG.error("Configuration: Can't load scripPreProzessor '" + tmpScriptPreProcessorClassName + "' ("
+                + e.toString() + ").");
+          }
+          if (null != tmpClass) {
+            ClassLoader tmpClassLoader = tmpClass.getClassLoader();
+            LOG.error("         '" + tmpClass.getName() + "' loaded from "
+                + tmpClassLoader.getResource(tmpClass.getName().replace('.', '/') + ".class").toString() + "' ("
+                + tmpClassLoader.toString() + ").");
+
+            tmpClass = ICommandSet.class;
+            tmpClassLoader = tmpClass.getClassLoader();
+            LOG.error("         '" + tmpClass.getName() + "' loaded from "
+                + tmpClassLoader.getResource(tmpClass.getName().replace('.', '/') + ".class").toString() + "' ("
+                + tmpClassLoader.toString() + ").");
+          }
+        }
       }
     }
 
@@ -1146,6 +1199,13 @@ public class WetatorConfiguration {
    */
   public int getRetrospect() {
     return retrospect;
+  }
+
+  /**
+   * @return the configured scriptPreProcessor
+   */
+  public ScriptPreProcessor getScriptPreProcessor() {
+    return scriptPreProcessor;
   }
 
   /**

@@ -34,6 +34,7 @@
     <property id="##ID##" key="wetator.outputDir" value="##OUTPUT_DIR##" />
     <property id="##ID##" key="wetator.jsTimeout" value="0s" />
     <property id="##ID##" key="wetator.httpTimeout" value="0s" />
+    <property id="##ID##" key="wetator.scriptPreProcessor" value="" />
     <property id="##ID##" key="wetator.wpath.separator" />
     <property id="##ID##" key="wetator.xslTemplates" value="" />
     <property id="##ID##" key="wetator.commandSets" value="" />

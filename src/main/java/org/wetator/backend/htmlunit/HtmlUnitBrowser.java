@@ -43,6 +43,7 @@ import org.htmlunit.FailingHttpStatusCodeException;
 import org.htmlunit.History;
 import org.htmlunit.Page;
 import org.htmlunit.ScriptException;
+import org.htmlunit.ScriptPreProcessor;
 import org.htmlunit.TextPage;
 import org.htmlunit.TopLevelWindow;
 import org.htmlunit.WaitingRefreshHandler;
@@ -311,6 +312,13 @@ public final class HtmlUnitBrowser implements IBrowser {
     // webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
     // webClient.getOptions().setUseInsecureSSL(true);
 
+    // ScriptPreProcessor
+    ScriptPreProcessor tmpScriptPreProcessor = tmpConfiguration.getScriptPreProcessor();
+    if (tmpScriptPreProcessor != null) {
+      webClient.setScriptPreProcessor(tmpScriptPreProcessor);
+    }
+
+    // JsJobFilterPatterns
     final Set<SearchPattern> tmpFilters = tmpConfiguration.getJsJobFilterPatterns();
     if (tmpFilters.isEmpty()) {
       jobFilter = null;
