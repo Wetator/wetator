@@ -59,7 +59,7 @@ import org.wetator.util.SecretString;
 import com.github.rjeschke.txtmark.Processor;
 
 /**
- * The implementation of all build in command that Wetator
+ * The implementation of all built-in command that Wetator
  * supports at the moment.
  *
  * @author rbri
