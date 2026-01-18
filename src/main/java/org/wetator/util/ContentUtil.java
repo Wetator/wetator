@@ -434,8 +434,8 @@ public final class ContentUtil {
       return null;
     }
 
-    for (final String s : StringUtil.extractStrings(anAcceptLanguageHeader, ",", -1)) {
-      final List<String> tmpLanguageDescriptor = StringUtil.extractStrings(s, ";", -1);
+    for (final String tmpLanguageHeader : StringUtil.extractStrings(anAcceptLanguageHeader, ",", -1)) {
+      final List<String> tmpLanguageDescriptor = StringUtil.extractStrings(tmpLanguageHeader, ";", -1);
       if (tmpLanguageDescriptor.isEmpty()) {
         return null;
       }
