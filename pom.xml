@@ -58,7 +58,7 @@
         <jetty.version>9.4.58.v20250814</jetty.version>
         
         <!-- quality -->
-        <checkstyle.version>12.3.1</checkstyle.version>
+        <checkstyle.version>13.2.0</checkstyle.version>
         <spotbugs.version>4.9.8</spotbugs.version><!-- latest jdk 8 version -->
         <pmd.version>7.20.0</pmd.version>
         <dependencycheck.version>10.0.4</dependencycheck.version><!-- latest jdk 8 version -->
