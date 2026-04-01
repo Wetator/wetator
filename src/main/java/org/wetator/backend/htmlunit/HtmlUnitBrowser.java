@@ -313,7 +313,7 @@ public final class HtmlUnitBrowser implements IBrowser {
     // webClient.getOptions().setUseInsecureSSL(true);
 
     // ScriptPreProcessor
-    ScriptPreProcessor tmpScriptPreProcessor = tmpConfiguration.getScriptPreProcessor();
+    final ScriptPreProcessor tmpScriptPreProcessor = tmpConfiguration.getScriptPreProcessor();
     if (tmpScriptPreProcessor != null) {
       webClient.setScriptPreProcessor(tmpScriptPreProcessor);
     }

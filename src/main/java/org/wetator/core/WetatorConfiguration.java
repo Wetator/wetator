@@ -718,7 +718,7 @@ public class WetatorConfiguration {
     tmpValue = tmpProperties.getProperty(PROPERTY_SCRIPT_PRE_PROCESSOR, "");
     tmpProperties.remove(PROPERTY_SCRIPT_PRE_PROCESSOR);
     if (StringUtils.isNotEmpty(tmpValue)) {
-      String tmpScriptPreProcessorClassName = tmpValue.trim();
+      final String tmpScriptPreProcessorClassName = tmpValue.trim();
       if (StringUtils.isNotEmpty(tmpScriptPreProcessorClassName)) {
         Class<?> tmpClass = null;
         try {
