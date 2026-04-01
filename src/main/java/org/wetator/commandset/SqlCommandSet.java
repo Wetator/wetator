@@ -16,12 +16,16 @@
 
 package org.wetator.commandset;
 
+import static org.wetator.core.ParameterDescriptor.optional;
+import static org.wetator.core.ParameterDescriptor.required;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,9 +37,6 @@ import org.apache.logging.log4j.Logger;
 import org.wetator.backend.IBrowser;
 import org.wetator.core.Command;
 import org.wetator.core.ICommandImplementation;
-import static org.wetator.core.ParameterDescriptor.optional;
-import static org.wetator.core.ParameterDescriptor.required;
-
 import org.wetator.core.ParameterDescriptor.ParameterType;
 import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.WetatorContext;
@@ -84,19 +85,22 @@ public final class SqlCommandSet extends AbstractCommandSet {
 
   @Override
   protected void registerCommands() {
+    // @formatter:off
     registerCommand("exec-sql", new CommandExecSql(),
-        List.of(required(0, "sql-statement", ParameterType.STRING)),
+        Arrays.asList(
+            required(0, "sql-statement", ParameterType.STRING)),
         "Executes an SQL statement.");
     registerCommand("assert-sql", new CommandAssertSql(),
-        List.of(
+        Arrays.asList(
             required(0, "sql-query", ParameterType.STRING),
             required(1, "expected-result", ParameterType.STRING)),
         "Asserts the SQL query result matches the expected value.");
     registerCommand("assert-sql-in-content", new CommandAssertSqlInContent(),
-        List.of(
+        Arrays.asList(
             required(0, "sql-query", ParameterType.STRING),
             optional(1, "timeout", ParameterType.LONG)),
         "Asserts the SQL query result appears in the page content.");
+    // @formatter:on
   }
 
   /**
