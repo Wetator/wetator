@@ -33,6 +33,10 @@ import org.apache.logging.log4j.Logger;
 import org.wetator.backend.IBrowser;
 import org.wetator.core.Command;
 import org.wetator.core.ICommandImplementation;
+import static org.wetator.core.ParameterDescriptor.optional;
+import static org.wetator.core.ParameterDescriptor.required;
+
+import org.wetator.core.ParameterDescriptor.ParameterType;
 import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.WetatorContext;
 import org.wetator.core.searchpattern.ContentPattern;
@@ -80,9 +84,19 @@ public final class SqlCommandSet extends AbstractCommandSet {
 
   @Override
   protected void registerCommands() {
-    registerCommand("exec-sql", new CommandExecSql());
-    registerCommand("assert-sql", new CommandAssertSql());
-    registerCommand("assert-sql-in-content", new CommandAssertSqlInContent());
+    registerCommand("exec-sql", new CommandExecSql(),
+        List.of(required(0, "sql-statement", ParameterType.STRING)),
+        "Executes an SQL statement.");
+    registerCommand("assert-sql", new CommandAssertSql(),
+        List.of(
+            required(0, "sql-query", ParameterType.STRING),
+            required(1, "expected-result", ParameterType.STRING)),
+        "Asserts the SQL query result matches the expected value.");
+    registerCommand("assert-sql-in-content", new CommandAssertSqlInContent(),
+        List.of(
+            required(0, "sql-query", ParameterType.STRING),
+            optional(1, "timeout", ParameterType.LONG)),
+        "Asserts the SQL query result appears in the page content.");
   }
 
   /**

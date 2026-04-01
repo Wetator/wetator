@@ -18,6 +18,7 @@ package org.wetator.commandset;
 
 import java.math.BigDecimal;
 import java.net.URL;
+import java.util.List;
 import java.util.Properties;
 
 import org.apache.commons.lang3.StringUtils;
@@ -33,6 +34,10 @@ import org.wetator.backend.control.KeySequence;
 import org.wetator.backend.htmlunit.HtmlUnitBrowser;
 import org.wetator.core.Command;
 import org.wetator.core.ICommandImplementation;
+import static org.wetator.core.ParameterDescriptor.optional;
+import static org.wetator.core.ParameterDescriptor.required;
+
+import org.wetator.core.ParameterDescriptor.ParameterType;
 import org.wetator.core.Variable;
 import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.WetatorContext;
@@ -59,18 +64,34 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
 
   @Override
   protected void registerCommands() {
-    registerCommand("assert-focus", new CommandAssertFocus());
-    registerCommand("save-bookmark", new CommandSaveBookmark());
-    registerCommand("open-bookmark", new CommandOpenBookmark());
-    registerCommand("exec-js", new CommandExecJs());
+    registerCommand("assert-focus", new CommandAssertFocus(),
+        List.of(required(0, "wpath", ParameterType.STRING)),
+        "Asserts the focused element matches the WPath.");
+    registerCommand("save-bookmark", new CommandSaveBookmark(),
+        List.of(required(0, "bookmark-name", ParameterType.STRING)),
+        "Saves the current page URL as a bookmark.");
+    registerCommand("open-bookmark", new CommandOpenBookmark(),
+        List.of(required(0, "bookmark-name", ParameterType.STRING)),
+        "Opens a previously saved bookmark.");
+    registerCommand("exec-js", new CommandExecJs(),
+        List.of(required(0, "javascript", ParameterType.STRING)),
+        "Executes JavaScript in the current page.");
 
-    registerCommand("type", new CommandType());
+    registerCommand("type", new CommandType(),
+        List.of(required(0, "keys", ParameterType.STRING)),
+        "Types the given key sequence into the focused control.");
 
     // still there to solve some strange situations
-    registerCommand("wait", new CommandWait());
+    registerCommand("wait", new CommandWait(),
+        List.of(required(0, "seconds", ParameterType.LONG)),
+        "Waits the given number of seconds.");
 
     // for the moment only a strange hack
-    registerCommand("enter-variable", new CommandEnterVariable());
+    registerCommand("enter-variable", new CommandEnterVariable(),
+        List.of(
+            required(0, "variable-name", ParameterType.STRING),
+            optional(1, "hint-text", ParameterType.STRING)),
+        "Prompts the user to enter a value for a variable.");
   }
 
   /**

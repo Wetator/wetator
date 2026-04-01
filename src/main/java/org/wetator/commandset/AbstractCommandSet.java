@@ -16,10 +16,12 @@
 
 package org.wetator.commandset;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.logging.log4j.LogManager;
@@ -29,8 +31,11 @@ import org.wetator.backend.IControlFinder;
 import org.wetator.backend.WPath;
 import org.wetator.backend.WeightedControlList;
 import org.wetator.backend.control.IControl;
+import org.wetator.core.CommandDescriptor;
+import org.wetator.core.ForceExecution;
 import org.wetator.core.ICommandImplementation;
 import org.wetator.core.ICommandSet;
+import org.wetator.core.ParameterDescriptor;
 import org.wetator.core.WetatorContext;
 import org.wetator.exception.ActionException;
 import org.wetator.exception.BackendException;
@@ -49,6 +54,7 @@ public abstract class AbstractCommandSet implements ICommandSet {
 
   private final List<String> initializationMessages;
   private final Map<String, ICommandImplementation> commandImplementations;
+  private final Map<String, CommandDescriptor> commandDescriptors;
   private int noOfCommands;
 
   /**
@@ -63,6 +69,7 @@ public abstract class AbstractCommandSet implements ICommandSet {
       LOG.debug(ClassUtils.getShortClassName(this.getClass()) + " registration started");
     }
     commandImplementations = new HashMap<>();
+    commandDescriptors = new HashMap<>();
 
     // initialize the list of supported commands
     registerCommands();
@@ -75,6 +82,21 @@ public abstract class AbstractCommandSet implements ICommandSet {
   @Override
   public final ICommandImplementation getCommandImplementationFor(final String aCommandName) {
     return commandImplementations.get(aCommandName);
+  }
+
+  @Override
+  public Set<String> getCommandNames() {
+    return Collections.unmodifiableSet(commandImplementations.keySet());
+  }
+
+  @Override
+  public CommandDescriptor getCommandDescriptor(final String aCommandName) {
+    return commandDescriptors.get(aCommandName);
+  }
+
+  @Override
+  public Map<String, CommandDescriptor> getCommandDescriptors() {
+    return Collections.unmodifiableMap(commandDescriptors);
   }
 
   @Override
@@ -103,10 +125,30 @@ public abstract class AbstractCommandSet implements ICommandSet {
    * @param aCommandImplementation the implementation (class) of the command
    */
   protected void registerCommand(final String aCommandName, final ICommandImplementation aCommandImplementation) {
+    registerCommand(aCommandName, aCommandImplementation, Collections.emptyList(), null);
+  }
+
+  /**
+   * Registers a command under the given name with parameter metadata.
+   *
+   * @param aCommandName the name of the command
+   * @param aCommandImplementation the implementation (class) of the command
+   * @param aParameters the parameter descriptors for this command
+   * @param aDescription an optional human-readable description (may be null)
+   */
+  protected void registerCommand(final String aCommandName, final ICommandImplementation aCommandImplementation,
+      final List<ParameterDescriptor> aParameters, final String aDescription) {
     if (LOG.isDebugEnabled()) {
       LOG.debug(ClassUtils.getShortClassName(this.getClass()) + " - register command : '" + aCommandName + "'");
     }
     commandImplementations.put(aCommandName, aCommandImplementation);
+    commandDescriptors.put(aCommandName, new CommandDescriptor(
+        aCommandName,
+        this.getClass().getName(),
+        aParameters,
+        aCommandImplementation.getClass().isAnnotationPresent(ForceExecution.class),
+        aDescription
+    ));
     noOfCommands++;
   }
 

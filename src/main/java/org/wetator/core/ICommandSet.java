@@ -16,8 +16,11 @@
 
 package org.wetator.core;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 /**
  * A collection of available commands.
@@ -55,4 +58,32 @@ public interface ICommandSet {
    * @return The found {@link ICommandImplementation}.
    */
   ICommandImplementation getCommandImplementationFor(String aCommandName);
+
+  /**
+   * Returns the names of all commands provided by this command set.
+   *
+   * @return an unmodifiable set of command names, never null
+   */
+  default Set<String> getCommandNames() {
+    return Collections.emptySet();
+  }
+
+  /**
+   * Returns the {@link CommandDescriptor} for the given command name, or null if not available.
+   *
+   * @param aCommandName the name of the command
+   * @return the descriptor or null
+   */
+  default CommandDescriptor getCommandDescriptor(final String aCommandName) {
+    return null;
+  }
+
+  /**
+   * Returns all {@link CommandDescriptor}s provided by this command set.
+   *
+   * @return an unmodifiable map of command name to descriptor, never null
+   */
+  default Map<String, CommandDescriptor> getCommandDescriptors() {
+    return Collections.emptyMap();
+  }
 }
