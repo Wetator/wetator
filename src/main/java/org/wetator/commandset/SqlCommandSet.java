@@ -33,7 +33,9 @@ import org.apache.logging.log4j.Logger;
 import org.wetator.backend.IBrowser;
 import org.wetator.core.Command;
 import org.wetator.core.ICommandImplementation;
-import org.wetator.core.ParameterDescriptor;
+import static org.wetator.core.ParameterDescriptor.optional;
+import static org.wetator.core.ParameterDescriptor.required;
+
 import org.wetator.core.ParameterDescriptor.ParameterType;
 import org.wetator.core.WetatorConfiguration;
 import org.wetator.core.WetatorContext;
@@ -83,23 +85,18 @@ public final class SqlCommandSet extends AbstractCommandSet {
   @Override
   protected void registerCommands() {
     registerCommand("exec-sql", new CommandExecSql(),
-        List.of(p(0, "sql-statement", true, ParameterType.STRING)),
+        List.of(required(0, "sql-statement", ParameterType.STRING)),
         "Executes an SQL statement.");
     registerCommand("assert-sql", new CommandAssertSql(),
         List.of(
-            p(0, "sql-query", true, ParameterType.STRING),
-            p(1, "expected-result", true, ParameterType.STRING)),
+            required(0, "sql-query", ParameterType.STRING),
+            required(1, "expected-result", ParameterType.STRING)),
         "Asserts the SQL query result matches the expected value.");
     registerCommand("assert-sql-in-content", new CommandAssertSqlInContent(),
         List.of(
-            p(0, "sql-query", true, ParameterType.STRING),
-            p(1, "timeout", false, ParameterType.LONG)),
+            required(0, "sql-query", ParameterType.STRING),
+            optional(1, "timeout", ParameterType.LONG)),
         "Asserts the SQL query result appears in the page content.");
-  }
-
-  private static ParameterDescriptor p(final int aPosition, final String aName, final boolean aRequired,
-      final ParameterType aType) {
-    return new ParameterDescriptor(aPosition, aName, aRequired, aType);
   }
 
   /**

@@ -34,7 +34,9 @@ import org.wetator.backend.control.KeySequence;
 import org.wetator.backend.htmlunit.HtmlUnitBrowser;
 import org.wetator.core.Command;
 import org.wetator.core.ICommandImplementation;
-import org.wetator.core.ParameterDescriptor;
+import static org.wetator.core.ParameterDescriptor.optional;
+import static org.wetator.core.ParameterDescriptor.required;
+
 import org.wetator.core.ParameterDescriptor.ParameterType;
 import org.wetator.core.Variable;
 import org.wetator.core.WetatorConfiguration;
@@ -63,38 +65,33 @@ public final class IncubatorCommandSet extends AbstractCommandSet {
   @Override
   protected void registerCommands() {
     registerCommand("assert-focus", new CommandAssertFocus(),
-        List.of(p(0, "wpath", true, ParameterType.STRING)),
+        List.of(required(0, "wpath", ParameterType.STRING)),
         "Asserts the focused element matches the WPath.");
     registerCommand("save-bookmark", new CommandSaveBookmark(),
-        List.of(p(0, "bookmark-name", true, ParameterType.STRING)),
+        List.of(required(0, "bookmark-name", ParameterType.STRING)),
         "Saves the current page URL as a bookmark.");
     registerCommand("open-bookmark", new CommandOpenBookmark(),
-        List.of(p(0, "bookmark-name", true, ParameterType.STRING)),
+        List.of(required(0, "bookmark-name", ParameterType.STRING)),
         "Opens a previously saved bookmark.");
     registerCommand("exec-js", new CommandExecJs(),
-        List.of(p(0, "javascript", true, ParameterType.STRING)),
+        List.of(required(0, "javascript", ParameterType.STRING)),
         "Executes JavaScript in the current page.");
 
     registerCommand("type", new CommandType(),
-        List.of(p(0, "keys", true, ParameterType.STRING)),
+        List.of(required(0, "keys", ParameterType.STRING)),
         "Types the given key sequence into the focused control.");
 
     // still there to solve some strange situations
     registerCommand("wait", new CommandWait(),
-        List.of(p(0, "seconds", true, ParameterType.LONG)),
+        List.of(required(0, "seconds", ParameterType.LONG)),
         "Waits the given number of seconds.");
 
     // for the moment only a strange hack
     registerCommand("enter-variable", new CommandEnterVariable(),
         List.of(
-            p(0, "variable-name", true, ParameterType.STRING),
-            p(1, "hint-text", false, ParameterType.STRING)),
+            required(0, "variable-name", ParameterType.STRING),
+            optional(1, "hint-text", ParameterType.STRING)),
         "Prompts the user to enter a value for a variable.");
-  }
-
-  private static ParameterDescriptor p(final int aPosition, final String aName, final boolean aRequired,
-      final ParameterType aType) {
-    return new ParameterDescriptor(aPosition, aName, aRequired, aType);
   }
 
   /**

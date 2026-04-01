@@ -44,7 +44,9 @@ import org.wetator.backend.htmlunit.HtmlUnitBrowser;
 import org.wetator.core.Command;
 import org.wetator.core.ForceExecution;
 import org.wetator.core.ICommandImplementation;
-import org.wetator.core.ParameterDescriptor;
+import static org.wetator.core.ParameterDescriptor.optional;
+import static org.wetator.core.ParameterDescriptor.required;
+
 import org.wetator.core.ParameterDescriptor.ParameterType;
 import org.wetator.core.Variable;
 import org.wetator.core.WetatorContext;
@@ -72,16 +74,16 @@ public final class DefaultCommandSet extends AbstractCommandSet {
   @Override
   protected void registerCommands() {
     registerCommand("describe", new CommandDescribe(),
-        List.of(p(0, "text", true, ParameterType.STRING)),
+        List.of(required(0, "text", ParameterType.STRING)),
         "Adds a description/comment to the test output.");
 
     registerCommand("open-url", new CommandOpenUrl(),
-        List.of(p(0, "url", true, ParameterType.STRING)),
+        List.of(required(0, "url", ParameterType.STRING)),
         "Opens the given URL in the browser.");
     registerCommand("use-module", new CommandUseModule(),
         List.of(
-            p(0, "module-file", true, ParameterType.STRING),
-            p(1, "parameters", false, ParameterType.MULTI)),
+            required(0, "module-file", ParameterType.STRING),
+            optional(1, "parameters", ParameterType.MULTI)),
         "Executes the commands from the referenced module file.");
     registerCommand("close-window", new CommandCloseWindow(),
         List.of(),
@@ -91,69 +93,64 @@ public final class DefaultCommandSet extends AbstractCommandSet {
         "Navigates back in browser history.");
 
     registerCommand("click-on", new CommandClickOn(),
-        List.of(p(0, "wpath", true, ParameterType.STRING)),
+        List.of(required(0, "wpath", ParameterType.STRING)),
         "Clicks on the control identified by the WPath.");
     registerCommand("click-double-on", new CommandClickDoubleOn(),
-        List.of(p(0, "wpath", true, ParameterType.STRING)),
+        List.of(required(0, "wpath", ParameterType.STRING)),
         "Double-clicks on the control identified by the WPath.");
     registerCommand("click-right-on", new CommandClickRightOn(),
-        List.of(p(0, "wpath", true, ParameterType.STRING)),
+        List.of(required(0, "wpath", ParameterType.STRING)),
         "Right-clicks on the control identified by the WPath.");
     registerCommand("set", new CommandSet(),
         List.of(
-            p(0, "wpath", true, ParameterType.STRING),
-            p(1, "value", true, ParameterType.STRING)),
+            required(0, "wpath", ParameterType.STRING),
+            required(1, "value", ParameterType.STRING)),
         "Sets the value of the control identified by the WPath.");
     registerCommand("select", new CommandSelect(),
-        List.of(p(0, "wpath", true, ParameterType.STRING)),
+        List.of(required(0, "wpath", ParameterType.STRING)),
         "Selects the option/checkbox identified by the WPath.");
     registerCommand("deselect", new CommandDeselect(),
-        List.of(p(0, "wpath", true, ParameterType.STRING)),
+        List.of(required(0, "wpath", ParameterType.STRING)),
         "Deselects the option/checkbox identified by the WPath.");
 
     registerCommand("mouse-over", new CommandMouseOver(),
-        List.of(p(0, "wpath", true, ParameterType.STRING)),
+        List.of(required(0, "wpath", ParameterType.STRING)),
         "Moves the mouse over the control identified by the WPath.");
     registerCommand("confirm-next", new CommandConfirmNext(),
-        List.of(p(0, "action", true, ParameterType.STRING)),
+        List.of(required(0, "action", ParameterType.STRING)),
         "Defines the action (ok/cancel) for the next browser dialog.");
 
     registerCommand("assert-title", new CommandAssertTitle(),
         List.of(
-            p(0, "pattern", true, ParameterType.STRING),
-            p(1, "timeout", false, ParameterType.LONG)),
+            required(0, "pattern", ParameterType.STRING),
+            optional(1, "timeout", ParameterType.LONG)),
         "Asserts the page title matches the expected pattern.");
     registerCommand("assert-content", new CommandAssertContent(),
         List.of(
-            p(0, "pattern", true, ParameterType.STRING),
-            p(1, "timeout", false, ParameterType.LONG)),
+            required(0, "pattern", ParameterType.STRING),
+            optional(1, "timeout", ParameterType.LONG)),
         "Asserts the page content matches the expected pattern.");
     registerCommand("assert-enabled", new CommandAssertEnabled(),
-        List.of(p(0, "wpath", true, ParameterType.STRING)),
+        List.of(required(0, "wpath", ParameterType.STRING)),
         "Asserts the control is enabled.");
     registerCommand("assert-disabled", new CommandAssertDisabled(),
-        List.of(p(0, "wpath", true, ParameterType.STRING)),
+        List.of(required(0, "wpath", ParameterType.STRING)),
         "Asserts the control is disabled.");
     registerCommand("assert-set", new CommandAssertSet(),
         List.of(
-            p(0, "wpath", true, ParameterType.STRING),
-            p(1, "expected-value", true, ParameterType.STRING)),
+            required(0, "wpath", ParameterType.STRING),
+            required(1, "expected-value", ParameterType.STRING)),
         "Asserts the control's value matches the expected value.");
     registerCommand("assert-selected", new CommandAssertSelected(),
-        List.of(p(0, "wpath", true, ParameterType.STRING)),
+        List.of(required(0, "wpath", ParameterType.STRING)),
         "Asserts the option/checkbox is selected.");
     registerCommand("assert-deselected", new CommandAssertDeselected(),
-        List.of(p(0, "wpath", true, ParameterType.STRING)),
+        List.of(required(0, "wpath", ParameterType.STRING)),
         "Asserts the option/checkbox is not selected.");
 
     registerCommand("exec-java", new CommandExecJava(),
-        List.of(p(0, "class-and-method", true, ParameterType.STRING)),
+        List.of(required(0, "class-and-method", ParameterType.STRING)),
         "Executes a Java method via reflection.");
-  }
-
-  private static ParameterDescriptor p(final int aPosition, final String aName, final boolean aRequired,
-      final ParameterType aType) {
-    return new ParameterDescriptor(aPosition, aName, aRequired, aType);
   }
 
   /**

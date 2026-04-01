@@ -84,6 +84,30 @@ public final class ParameterDescriptor {
     return type;
   }
 
+  /**
+   * Creates a required {@link ParameterDescriptor}.
+   *
+   * @param aPosition the 0-based position of this parameter
+   * @param aName a human-readable name for this parameter
+   * @param aType the type of this parameter
+   * @return a new required ParameterDescriptor
+   */
+  public static ParameterDescriptor required(final int aPosition, final String aName, final ParameterType aType) {
+    return new ParameterDescriptor(aPosition, aName, true, aType);
+  }
+
+  /**
+   * Creates an optional {@link ParameterDescriptor}.
+   *
+   * @param aPosition the 0-based position of this parameter
+   * @param aName a human-readable name for this parameter
+   * @param aType the type of this parameter
+   * @return a new optional ParameterDescriptor
+   */
+  public static ParameterDescriptor optional(final int aPosition, final String aName, final ParameterType aType) {
+    return new ParameterDescriptor(aPosition, aName, false, aType);
+  }
+
   @Override
   public String toString() {
     return name + " (pos=" + position + ", " + (required ? "required" : "optional") + ", " + type + ")";
