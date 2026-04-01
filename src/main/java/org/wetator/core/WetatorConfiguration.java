@@ -24,9 +24,12 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.LinkedHashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -1241,5 +1244,49 @@ public class WetatorConfiguration {
    */
   public void enableDebugLogging() {
     debugLogging = true;
+  }
+
+  /**
+   * Returns all command names from all loaded command sets.
+   *
+   * @return an unmodifiable set of all command names
+   */
+  public Set<String> getAllCommandNames() {
+    final Set<String> tmpResult = new LinkedHashSet<>();
+    for (final ICommandSet tmpCommandSet : commandSets) {
+      tmpResult.addAll(tmpCommandSet.getCommandNames());
+    }
+    return Collections.unmodifiableSet(tmpResult);
+  }
+
+  /**
+   * Returns descriptors for all commands from all loaded command sets.
+   * In case of name collisions, the first command set wins (same as dispatch order).
+   *
+   * @return an unmodifiable map of command name to descriptor
+   */
+  public Map<String, CommandDescriptor> getAllCommandDescriptors() {
+    final Map<String, CommandDescriptor> tmpResult = new LinkedHashMap<>();
+    for (final ICommandSet tmpCommandSet : commandSets) {
+      for (final Map.Entry<String, CommandDescriptor> tmpEntry : tmpCommandSet.getCommandDescriptors().entrySet()) {
+        tmpResult.putIfAbsent(tmpEntry.getKey(), tmpEntry.getValue());
+      }
+    }
+    return Collections.unmodifiableMap(tmpResult);
+  }
+
+  /**
+   * Finds which command set provides a given command.
+   *
+   * @param aCommandName the name of the command
+   * @return the command set that provides this command, or null if not found
+   */
+  public ICommandSet getCommandSetFor(final String aCommandName) {
+    for (final ICommandSet tmpCommandSet : commandSets) {
+      if (tmpCommandSet.getCommandNames().contains(aCommandName)) {
+        return tmpCommandSet;
+      }
+    }
+    return null;
   }
 }
