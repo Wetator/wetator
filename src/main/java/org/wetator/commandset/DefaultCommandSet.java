@@ -16,10 +16,8 @@
 
 package org.wetator.commandset;
 
-//CHECKSTYLE:OFF: AvoidStaticImportCheck
 import static org.wetator.core.ParameterDescriptor.optional;
 import static org.wetator.core.ParameterDescriptor.required;
-//CHECKSTYLE:ON: AvoidStaticImportCheck
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
