@@ -17,22 +17,11 @@
 package org.wetator.test;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Properties;
 
-import javax.servlet.MultipartConfigElement;
-
-import org.eclipse.jetty.security.ConstraintMapping;
-import org.eclipse.jetty.security.ConstraintSecurityHandler;
-import org.eclipse.jetty.security.HashLoginService;
-import org.eclipse.jetty.security.LoginService;
-import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.handler.DefaultHandler;
-import org.eclipse.jetty.server.handler.HandlerList;
-import org.eclipse.jetty.server.handler.ResourceHandler;
-import org.eclipse.jetty.servlet.ServletContextHandler;
-import org.eclipse.jetty.servlet.ServletHolder;
-import org.eclipse.jetty.util.security.Constraint;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -45,8 +34,11 @@ import org.wetator.exception.InvalidInputException;
 import org.wetator.progresslistener.StdOutProgressListener;
 import org.wetator.test.jetty.ContentServlet;
 import org.wetator.test.jetty.HttpHeaderServlet;
+import org.wetator.test.jetty.JettyServerUtils;
 import org.wetator.test.jetty.RedirectServlet;
 import org.wetator.test.jetty.SnoopyServlet;
+
+import jakarta.servlet.Servlet;
 
 /**
  * Base test class for all WetatorEngine tests that need a web server.
@@ -76,70 +68,21 @@ public abstract class AbstractWebServerTest extends AbstractBrowserTest {
     if (server != null) {
       throw new IllegalStateException("startWebServer() can not be called twice");
     }
-    server = new Server(DEFAULT_PORT);
 
-    // resources
-    final ResourceHandler tmpResourceHandler = new ResourceHandler();
-    tmpResourceHandler.setDirectoriesListed(true);
-    tmpResourceHandler.setWelcomeFiles(new String[] { "index.html" });
-    tmpResourceHandler.setResourceBase(DEFAULT_DOCUMENT_ROOT);
-    tmpResourceHandler.setRedirectWelcome(true); // see https://github.com/eclipse/jetty.project/issues/1856
+    final Map<String, Class<? extends Servlet>> servlets = new HashMap<String, Class<? extends Servlet>>();
+    servlets.put("/http_header.php", HttpHeaderServlet.class);
+    servlets.put("/redirect_header.php", RedirectServlet.class);
+    servlets.put("/redirect_js.php", RedirectServlet.class);
+    servlets.put("/redirect_meta.php", RedirectServlet.class);
+    servlets.put("/create_excel", ContentServlet.class);
+    servlets.put("/snoopy.php", SnoopyServlet.class);
+    servlets.put("/snoopyAuth.php", SnoopyServlet.class);
 
-    // servlets
-    final ServletContextHandler tmpContextHandler = new ServletContextHandler();
-    tmpContextHandler.setContextPath("/");
-    tmpContextHandler.setAttribute("javax.servlet.context.tempdir", new File("./tmp"));
-    tmpContextHandler.addServlet(new ServletHolder(new HttpHeaderServlet()), "/http_header.php");
-    tmpContextHandler.addServlet(new ServletHolder(new RedirectServlet()), "/redirect_header.php");
-    tmpContextHandler.addServlet(new ServletHolder(new RedirectServlet()), "/redirect_js.php");
-    tmpContextHandler.addServlet(new ServletHolder(new RedirectServlet()), "/redirect_meta.php");
-    tmpContextHandler.addServlet(new ServletHolder(new ContentServlet()), "/create_excel");
-    tmpContextHandler.addServlet(addMultipartConfig(new ServletHolder(new SnoopyServlet())), "/snoopy.php");
-    tmpContextHandler.addServlet(addMultipartConfig(new ServletHolder(new SnoopyServlet())), "/snoopyAuth.php");
-
-    final HandlerList tmpHandlers = new HandlerList();
-    tmpHandlers.setHandlers(new Handler[] { tmpResourceHandler, tmpContextHandler, new DefaultHandler() });
-    server.setHandler(tmpHandlers);
-
-    // security
-    final Constraint tmpConstraint = new Constraint();
-    tmpConstraint.setName(Constraint.__BASIC_AUTH);
-    tmpConstraint.setRoles(new String[] { "user" });
-    tmpConstraint.setAuthenticate(true);
-
-    final ConstraintMapping tmpConstraintMapping = new ConstraintMapping();
-    tmpConstraintMapping.setConstraint(tmpConstraint);
-    tmpConstraintMapping.setPathSpec("/snoopyAuth.php");
-
-    final LoginService tmpLoginService = new HashLoginService("wetator",
-        "src/test/java/org/wetator/test/jetty/realm.properties");
-
-    final ConstraintSecurityHandler tmpSecurityHandler = new ConstraintSecurityHandler();
-    tmpSecurityHandler.setLoginService(tmpLoginService);
-    tmpSecurityHandler.setAuthMethod(Constraint.__BASIC_AUTH);
-    tmpSecurityHandler.addConstraintMapping(tmpConstraintMapping);
-
-    tmpContextHandler.setSecurityHandler(tmpSecurityHandler);
-
-    // time to start
-    server.start();
-
-    // since jetty 9.3 we have to do this after the start of the server;
-    // seems like the server start overwrites the mime types
-    tmpResourceHandler.getMimeTypes().addMimeMapping("json", "application/json");
-    tmpResourceHandler.getMimeTypes().addMimeMapping("xlsx",
-        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
-    tmpResourceHandler.getMimeTypes().addMimeMapping("docx",
+    Map<String, String> mimeTypes = Map.of("json", "application/json", "xlsx",
+        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "docx",
         "application/vnd.openxmlformats-officedocument.wordprocessingml.document");
-  }
 
-  private static ServletHolder addMultipartConfig(final ServletHolder aServletHolder) {
-    final File tmpTempDir = new File(System.getProperty("java.io.tmpdir"));
-    final MultipartConfigElement tmpMultipartConfig = new MultipartConfigElement(tmpTempDir.getAbsolutePath(),
-        1024 * 1024 * 50, -1L, 1024 * 1024);
-
-    aServletHolder.getRegistration().setMultipartConfig(tmpMultipartConfig);
-    return aServletHolder;
+    server = JettyServerUtils.startWebServer(DEFAULT_PORT, DEFAULT_DOCUMENT_ROOT, servlets, null, mimeTypes, true);
   }
 
   /**

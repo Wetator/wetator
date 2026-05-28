@@ -20,7 +20,7 @@
 
     <groupId>org.wetator</groupId>
     <artifactId>wetator</artifactId>
-    <version>4.22.0-SNAPSHOT</version>
+    <version>5.0.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>Wetator</name>
@@ -36,50 +36,51 @@
         <maven.build.timestamp.format>yyyy-MM-dd HH-mm-ss z</maven.build.timestamp.format>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.release>17</maven.compiler.release>
 
         <maven.version.ignore>(?i).*-(alpha|beta|m|rc)([\.-]?\d+)?</maven.version.ignore>
 
-        <htmlunit.version>4.21.0</htmlunit.version>
+        <htmlunit.version>5.0.0</htmlunit.version>
         <automaton.version>1.12-4</automaton.version>
-        <commons-io.version>2.21.0</commons-io.version>
+        <commons-io.version>2.22.0</commons-io.version>
         <commons-lang3.version>3.20.0</commons-lang3.version>
         <commons-text.version>1.15.0</commons-text.version>
         <txtmark.version>0.13</txtmark.version>
-        <pdfbox.version>3.0.6</pdfbox.version>
+        <pdfbox.version>3.0.7</pdfbox.version>
         <poi.version>5.5.1</poi.version>
-        <log4j.version>2.25.3</log4j.version>
+        <log4j.version>2.26.0</log4j.version>
         <xsom.version>20140925</xsom.version>
-        <maven-model.version>3.9.12</maven-model.version>
+        <maven-model.version>3.9.16</maven-model.version>
 
            <!-- test dependencies -->
         <junit.version>4.13.2</junit.version>
         <mockito.version>4.11.0</mockito.version><!-- latest jdk 8 version -->
         <hsqldb.version>2.7.4</hsqldb.version>
-        <jetty.version>9.4.58.v20250814</jetty.version>
+        <jetty.version>12.1.8</jetty.version>
         
         <!-- quality -->
         <checkstyle.version>12.3.1</checkstyle.version>
         <spotbugs.version>4.9.8</spotbugs.version><!-- latest jdk 8 version -->
-        <pmd.version>7.20.0</pmd.version>
+        <pmd.version>7.24.0</pmd.version>
         <dependencycheck.version>10.0.4</dependencycheck.version><!-- latest jdk 8 version -->
 
         <!-- plugins -->
         <central-publishing-plugin.version>0.10.0</central-publishing-plugin.version>
         <checkstyle-plugin.version>3.6.0</checkstyle-plugin.version>
         <pmd-plugin.version>3.28.0</pmd-plugin.version>
-        <spotbugs-plugin.version>4.9.8.2</spotbugs-plugin.version>
+        <spotbugs-plugin.version>4.9.8.3</spotbugs-plugin.version>
 
         <gpg-plugin.version>3.2.8</gpg-plugin.version>
-        <enforcer-plugin.version>3.6.2</enforcer-plugin.version>
+        <enforcer-plugin.version>3.6.3</enforcer-plugin.version>
         <jar-plugin.version>3.5.0</jar-plugin.version>
         <assembly-plugin.version>3.8.0</assembly-plugin.version>
         <source-plugin.version>3.4.0</source-plugin.version>
         <javadoc-plugin.version>3.12.0</javadoc-plugin.version>
-        <shade-plugin.version>3.6.1</shade-plugin.version>
+        <shade-plugin.version>3.6.2</shade-plugin.version>
         <truezip-plugin.version>1.2</truezip-plugin.version>
-        <resources-plugin.version>3.4.0</resources-plugin.version>
+        <resources-plugin.version>3.5.0</resources-plugin.version>
         <exec-plugin.version>3.6.3</exec-plugin.version>
         <cyclonedx-plugin.version>2.9.1</cyclonedx-plugin.version>
     </properties>
@@ -194,6 +195,10 @@
             <scope>compile</scope>
             <exclusions>
                 <exclusion>
+                    <groupId>commons-io</groupId>
+                    <artifactId>commons-io</artifactId>
+                </exclusion>
+                <exclusion>
                     <groupId>commons-codec</groupId>
                     <artifactId>commons-codec</artifactId>
                 </exclusion>
@@ -236,14 +241,14 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.eclipse.jetty</groupId>
-            <artifactId>jetty-webapp</artifactId>
+            <groupId>org.eclipse.jetty.ee10</groupId>
+            <artifactId>jetty-ee10-webapp</artifactId>
             <version>${jetty.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.eclipse.jetty.websocket</groupId>
-            <artifactId>websocket-server</artifactId>
+            <groupId>org.eclipse.jetty.ee10.websocket</groupId>
+            <artifactId>jetty-ee10-websocket-jetty-server</artifactId>
             <version>${jetty.version}</version>
             <scope>test</scope>
         </dependency>

@@ -29,15 +29,22 @@ import java.util.Set;
 import java.util.StringTokenizer;
 import java.util.stream.Collectors;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.Part;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.MultipartConfig;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
 
 /**
  * @author frank.danek
+ * @author rbri
  */
+@MultipartConfig(location = "", // "" → java.io.tmpdir
+    maxFileSize = 1024 * 1024, // 10 MB per file
+    maxRequestSize = 1024 * 1024, // 20 MB total request
+    fileSizeThreshold = 1024 * 1024 // 1 MB before spooling to disk
+)
 public class SnoopyServlet extends HttpServlet {
 
   private static final long serialVersionUID = -2387076015181680367L;
@@ -141,8 +148,8 @@ public class SnoopyServlet extends HttpServlet {
       aResponse.getWriter().println("</tr>");
 
       final Collection<Part> tmpParts = aRequest.getParts().stream()
-          .filter(p -> tmpFileParameterNames.contains(p.getName()))
-          .sorted(Comparator.comparing(Part::getName)).collect(Collectors.toList());
+          .filter(p -> tmpFileParameterNames.contains(p.getName())).sorted(Comparator.comparing(Part::getName))
+          .collect(Collectors.toList());
       for (Part tmpPart : tmpParts) {
         aResponse.getWriter().println("<tr>");
         aResponse.getWriter().println("<td>");

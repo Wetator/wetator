@@ -18,17 +18,18 @@ package org.wetator.test.jetty;
 
 import java.io.IOException;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.commons.lang3.StringUtils;
 import org.eclipse.jetty.http.HttpStatus.Code;
 import org.wetator.test.AbstractWebServerTest;
 
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
 /**
  * @author frank.danek
+ * @author rbri
  */
 public class RedirectServlet extends HttpServlet {
 
