@@ -1,6 +1,6 @@
 # ![Wetator Logo](https://www.wetator.org/images/wetator.png)
 
-Version 4.21.0 / January 18, 2026
+Version 5.2.0 / June 20, 2026
 
 :heart: [Sponsor](https://github.com/sponsors/rbri)
 
